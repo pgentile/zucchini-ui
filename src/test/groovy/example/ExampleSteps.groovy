@@ -1,6 +1,7 @@
 package example
 
 import cucumber.api.DataTable
+import cucumber.api.PendingException
 import cucumber.api.groovy.FR
 import cucumber.api.groovy.Hooks
 
@@ -9,6 +10,11 @@ import static org.assertj.core.api.Assertions.assertThat
 
 this.metaClass.mixin(Hooks)
 this.metaClass.mixin(FR)
+
+
+Soit(~/un contexte initialisé/) { ->
+
+}
 
 
 Quand(~/j'additionne (-?[0-9]+) et (-?[0-9]+)/) { int a, int b ->
@@ -26,4 +32,8 @@ Alors(~/j'obtiens le tableau suivant:/) { DataTable expectedTable ->
         [1, 2, 3],
         [4, 5, 6]
     ])
+}
+
+Soit(~/une tâche en attente/) { ->
+    throw new PendingException()
 }

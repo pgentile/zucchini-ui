@@ -10,14 +10,11 @@
 
     <build>
 
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-            <resource>
-                <directory>src/main/features</directory>
-            </resource>
-        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/features</directory>
+            </testResource>
+        </testResources>
 
         <plugins>
 
@@ -28,6 +25,8 @@
 
                 <configuration>
                     <compilerId>groovy-eclipse-compiler</compilerId>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
 
                 <dependencies>
@@ -54,14 +53,14 @@
                 <version>1.9.1</version>
                 <executions>
                     <execution>
-                        <id>add-source</id>
+                        <id>add-test-source</id>
                         <phase>validate</phase>
                         <goals>
-                            <goal>add-source</goal>
+                            <goal>add-test-source</goal>
                         </goals>
                         <configuration>
                             <sources>
-                                <source>src/main/groovy</source>
+                                <source>src/test/groovy</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -97,6 +96,7 @@
                                 </goals>
                                 <configuration>
                                     <mainClass>cucumber.api.cli.Main</mainClass>
+                                    <classpathScope>test</classpathScope>
                                     <arguments>
                                         <argument>--plugin</argument>
                                         <argument>pretty</argument>
@@ -107,16 +107,15 @@
                                         <argument>--plugin</argument>
                                         <argument>json:target/cucumber/report.json</argument>
 
-                                        <argument>--tags</argument>
-                                        <argument>~@wip</argument>
-
-                                        <argument>--tags</argument>
+                                        <!--
+                                        <argument>- -tags</argument>
                                         <argument>~@manual</argument>
+                                        -->
 
                                         <argument>--glue</argument>
                                         <argument>classpath:example</argument>
 
-                                        <argument>classpath:example</argument>
+                                        <argument>classpath:example/test2.feature:14:21</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -133,6 +132,8 @@
 
     <dependencies>
 
+        <!-- Tests Cucumber -->
+
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-groovy</artifactId>
@@ -146,6 +147,28 @@
         </dependency>
 
         <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <!-- Génération d'un rapport -->
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.5.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>18.0</version>
+        </dependency>
+
+        <!-- Logs -->
+
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.12</version>
@@ -155,12 +178,6 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.12</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>3.0.0</version>
         </dependency>
 
     </dependencies>
