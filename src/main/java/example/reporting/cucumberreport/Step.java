@@ -3,11 +3,12 @@ package example.reporting.cucumberreport;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Step extends CucumberElement {
 
-    private StepResult result;
+    private Result result;
 
     @JsonProperty("error_message")
     private String errorMessage;
@@ -15,13 +16,13 @@ public class Step extends CucumberElement {
     private Match match;
 
     @JsonProperty("rows")
-    private List<TableRow> tableRows;
+    private List<TableRow> tableRows = new ArrayList<>();
 
-    public StepResult getResult() {
+    public Result getResult() {
         return result;
     }
 
-    public void setResult(StepResult result) {
+    public void setResult(Result result) {
         this.result = result;
     }
 

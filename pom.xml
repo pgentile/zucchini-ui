@@ -107,15 +107,13 @@
                                         <argument>--plugin</argument>
                                         <argument>json:target/cucumber/report.json</argument>
 
-                                        <!--
-                                        <argument>- -tags</argument>
+                                        <argument>--tags</argument>
                                         <argument>~@manual</argument>
-                                        -->
 
                                         <argument>--glue</argument>
                                         <argument>classpath:example</argument>
 
-                                        <argument>classpath:example/test2.feature:14:21</argument>
+                                        <argument>classpath:example</argument>
                                     </arguments>
                                 </configuration>
                             </execution>

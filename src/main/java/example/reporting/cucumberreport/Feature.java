@@ -3,20 +3,21 @@ package example.reporting.cucumberreport;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Feature extends CucumberElement implements HasTags {
+public class Feature extends CucumberElement {
 
     private String id;
 
     @JsonProperty("uri")
     private String filename;
 
-    private List<ScenarioElement> elements;
+    private List<ScenarioElement> elements = new ArrayList<>();
 
     private String description;
 
-    private List<Tag> tags;
+    private List<Tag> tags = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -50,12 +51,10 @@ public class Feature extends CucumberElement implements HasTags {
         this.description = description;
     }
 
-    @Override
     public List<Tag> getTags() {
         return tags;
     }
 
-    @Override
     public void setTags(List<Tag> tags) {
         this.tags = tags;
     }

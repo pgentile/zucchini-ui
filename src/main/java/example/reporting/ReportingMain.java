@@ -3,6 +3,7 @@ package example.reporting;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import example.reporting.cucumberreport.AroundAction;
 import example.reporting.cucumberreport.Feature;
 import example.reporting.cucumberreport.ScenarioElement;
 import example.reporting.cucumberreport.Step;
@@ -40,8 +41,14 @@ public class ReportingMain {
             LOGGER.info("  Found feature: {}", feature);
             for (ScenarioElement element: feature.getElements()) {
                 LOGGER.info("    Found element: {}", element);
+                for (AroundAction action: element.getBeforeActions()) {
+                    LOGGER.info("      Found before: {}", action);
+                }
                 for (Step step: element.getSteps()) {
-                    LOGGER.info("      Found step: {}", step);
+                    LOGGER.info("      Found step  : {}", step);
+                }
+                for (AroundAction action: element.getAfterActions()) {
+                    LOGGER.info("      Found after : {}", action);
                 }
             }
         }

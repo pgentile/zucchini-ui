@@ -1,12 +1,16 @@
 package example.reporting.cucumberreport;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 
-public class StepResult {
+public class Result {
 
     private long duration;
 
     private String status;
+
+    @JsonProperty("error_message")
+    private String errorMessage;
 
     public long getDuration() {
         return duration;
@@ -22,6 +26,14 @@ public class StepResult {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     @Override

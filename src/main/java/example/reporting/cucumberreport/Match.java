@@ -2,13 +2,14 @@ package example.reporting.cucumberreport;
 
 import com.google.common.base.MoreObjects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Match {
 
     private String location;
 
-    private List<Argument> arguments;
+    private List<Argument> arguments = new ArrayList<>();
 
     public String getLocation() {
         return location;

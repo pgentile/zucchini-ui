@@ -2,11 +2,12 @@ package example.reporting.cucumberreport;
 
 import com.google.common.base.MoreObjects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TableRow {
 
-    private List<String> cells;
+    private List<String> cells = new ArrayList<>();
 
     private long line;
 
