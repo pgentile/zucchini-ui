@@ -1,0 +1,30 @@
+package example.reporting.model;
+
+public class Location {
+
+    private String filename;
+
+    private long line;
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public long getLine() {
+        return line;
+    }
+
+    public void setLine(long line) {
+        this.line = line;
+    }
+
+    @Override
+    public String toString() {
+        return filename + ":" + line;
+    }
+
+}

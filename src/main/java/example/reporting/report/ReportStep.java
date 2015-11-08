@@ -1,4 +1,4 @@
-package example.reporting.cucumberreport;
+package example.reporting.report;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
@@ -6,7 +6,7 @@ import com.google.common.base.MoreObjects;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Step extends CucumberElement {
+public class ReportStep extends CucumberElement {
 
     private Result result;
 

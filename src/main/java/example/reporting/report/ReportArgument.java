@@ -1,14 +1,30 @@
-package example.reporting.cucumberreport;
+package example.reporting.report;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 
-public class Argument {
+public class ReportArgument {
 
     @JsonProperty("val")
     private String value;
 
     private int offset;
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
 
     @Override
     public String toString() {

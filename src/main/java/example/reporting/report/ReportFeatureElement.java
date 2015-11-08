@@ -1,4 +1,4 @@
-package example.reporting.cucumberreport;
+package example.reporting.report;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -10,16 +10,14 @@ import java.util.List;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = Scenario.class, name = "scenario"),
-        @JsonSubTypes.Type(value = Background.class, name = "background")
+        @JsonSubTypes.Type(value = ReportScenario.class, name = "scenario"),
+        @JsonSubTypes.Type(value = ReportBackground.class, name = "background")
 })
-public class ScenarioElement extends CucumberElement {
+public class ReportFeatureElement extends CucumberElement {
 
     private String description;
 
-    private List<Step> steps = new ArrayList<>();
-
-    private List<Tag> tags = new ArrayList<>();
+    private List<ReportStep> steps = new ArrayList<>();
 
     @JsonProperty("before")
     private List<AroundAction> beforeActions = new ArrayList<>();
@@ -35,20 +33,12 @@ public class ScenarioElement extends CucumberElement {
         this.description = description;
     }
 
-    public List<Step> getSteps() {
+    public List<ReportStep> getSteps() {
         return steps;
     }
 
-    public void setSteps(List<Step> steps) {
+    public void setSteps(List<ReportStep> steps) {
         this.steps = steps;
-    }
-
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
     }
 
     public List<AroundAction> getBeforeActions() {

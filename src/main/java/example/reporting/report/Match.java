@@ -1,4 +1,4 @@
-package example.reporting.cucumberreport;
+package example.reporting.report;
 
 import com.google.common.base.MoreObjects;
 
@@ -9,7 +9,7 @@ public class Match {
 
     private String location;
 
-    private List<Argument> arguments = new ArrayList<>();
+    private List<ReportArgument> arguments = new ArrayList<>();
 
     public String getLocation() {
         return location;
@@ -19,11 +19,11 @@ public class Match {
         this.location = location;
     }
 
-    public List<Argument> getArguments() {
+    public List<ReportArgument> getArguments() {
         return arguments;
     }
 
-    public void setArguments(List<Argument> arguments) {
+    public void setArguments(List<ReportArgument> arguments) {
         this.arguments = arguments;
     }
 

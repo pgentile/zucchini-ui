@@ -1,4 +1,4 @@
-package example.reporting.cucumberreport;
+package example.reporting.report;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
@@ -6,14 +6,14 @@ import com.google.common.base.MoreObjects;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Feature extends CucumberElement {
+public class ReportFeature extends CucumberElement {
 
     private String id;
 
     @JsonProperty("uri")
     private String filename;
 
-    private List<ScenarioElement> elements = new ArrayList<>();
+    private List<ReportFeatureElement> elements = new ArrayList<>();
 
     private String description;
 
@@ -35,11 +35,11 @@ public class Feature extends CucumberElement {
         this.filename = filename;
     }
 
-    public List<ScenarioElement> getElements() {
+    public List<ReportFeatureElement> getElements() {
         return elements;
     }
 
-    public void setElements(List<ScenarioElement> elements) {
+    public void setElements(List<ReportFeatureElement> elements) {
         this.elements = elements;
     }
 

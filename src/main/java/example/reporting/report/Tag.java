@@ -1,4 +1,4 @@
-package example.reporting.cucumberreport;
+package example.reporting.report;
 
 public class Tag {
 

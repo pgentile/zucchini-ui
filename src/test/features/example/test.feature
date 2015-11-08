@@ -22,6 +22,7 @@ Fonctionnalité: test
   @tata
   Plan du scénario: Second test : additionner <A> et <B>
     Quand j'additionne <A> et <B>
+    # Pourriture
     Alors j'obtiens <Résultat>
 
     Exemples:

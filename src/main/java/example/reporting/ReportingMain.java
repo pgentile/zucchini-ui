@@ -3,10 +3,10 @@ package example.reporting;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import example.reporting.cucumberreport.AroundAction;
-import example.reporting.cucumberreport.Feature;
-import example.reporting.cucumberreport.ScenarioElement;
-import example.reporting.cucumberreport.Step;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import example.reporting.model.Feature;
+import example.reporting.report.ReportFeature;
+import example.reporting.reporttomodel.ReportConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,28 +35,23 @@ public class ReportingMain {
 
     public void parse(String filename) throws Exception {
         LOGGER.info("Parsing de {}...", filename);
-        final JavaType featureListJavaType = objectMapper.getTypeFactory().constructCollectionType(List.class, Feature.class);
-        final List<Feature> features = objectMapper.readValue(new File(filename), featureListJavaType);
-        for (final Feature feature: features) {
-            LOGGER.info("  Found feature: {}", feature);
-            for (ScenarioElement element: feature.getElements()) {
-                LOGGER.info("    Found element: {}", element);
-                for (AroundAction action: element.getBeforeActions()) {
-                    LOGGER.info("      Found before: {}", action);
-                }
-                for (Step step: element.getSteps()) {
-                    LOGGER.info("      Found step  : {}", step);
-                }
-                for (AroundAction action: element.getAfterActions()) {
-                    LOGGER.info("      Found after : {}", action);
-                }
-            }
+        final JavaType featureListJavaType = objectMapper.getTypeFactory().constructCollectionType(List.class, ReportFeature.class);
+        final List<ReportFeature> features = objectMapper.readValue(new File(filename), featureListJavaType);
+
+        final ReportConverter reportConverter = new ReportConverter();
+
+        for (final ReportFeature reportFeature: features) {
+            final Feature feature = reportConverter.convert(reportFeature);
+            objectMapper.writeValue(System.out, feature);
+            System.out.println();
         }
     }
 
     private ObjectMapper createObjectMapper() {
         return new ObjectMapper()
-                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                .disable(SerializationFeature.CLOSE_CLOSEABLE)
+                .enable(SerializationFeature.INDENT_OUTPUT);
     }
 
 }

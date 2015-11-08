@@ -34,6 +34,7 @@ Alors(~/j'obtiens le tableau suivant:/) { DataTable expectedTable ->
     ])
 }
 
+
 Soit(~/une tâche en attente/) { ->
     throw new PendingException()
 }
