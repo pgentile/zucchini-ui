@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import example.reporting.model.Feature;
 import example.reporting.report.ReportFeature;
 import example.reporting.reporttomodel.ReportConverter;
 import org.slf4j.Logger;
@@ -40,11 +39,8 @@ public class ReportingMain {
 
         final ReportConverter reportConverter = new ReportConverter();
 
-        for (final ReportFeature reportFeature: features) {
-            final Feature feature = reportConverter.convert(reportFeature);
-            objectMapper.writeValue(System.out, feature);
-            System.out.println();
-        }
+        System.out.println(objectMapper.writeValueAsString(reportConverter.convertFeatures(features)));
+        System.out.println();
     }
 
     private ObjectMapper createObjectMapper() {

@@ -10,6 +10,8 @@ public class Step {
 
     private StepStatus status;
 
+    private String errorMessage;
+
     public BasicInfo getInfo() {
         return info;
     }
@@ -32,6 +34,14 @@ public class Step {
 
     public void setStatus(StepStatus status) {
         this.status = status;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     @Override

@@ -11,6 +11,8 @@ public class Scenario extends FeatureElement {
 
     private Set<String> tags = new HashSet<>();
 
+    private Background background;
+
     public String getId() {
         return id;
     }
@@ -25,6 +27,14 @@ public class Scenario extends FeatureElement {
 
     public void setTags(Set<String> tags) {
         this.tags = tags;
+    }
+
+    public Background getBackground() {
+        return background;
+    }
+
+    public void setBackground(Background background) {
+        this.background = background;
     }
 
     @Override

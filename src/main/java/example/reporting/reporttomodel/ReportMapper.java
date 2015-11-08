@@ -1,5 +1,6 @@
 package example.reporting.reporttomodel;
 
+import com.google.common.base.CharMatcher;
 import example.reporting.model.Background;
 import example.reporting.model.Feature;
 import example.reporting.model.Scenario;
@@ -17,23 +18,14 @@ import java.util.Locale;
 
 class ReportMapper extends ConfigurableMapper {
 
-    private static class UppercaseStringToEnumConverter extends CustomConverter<String, Enum<?>> {
-
-        @Override
-        public Enum<?> convert(String source, Type<? extends Enum<?>> destinationType) {
-            final String uppercaseValue = source.toUpperCase(Locale.ENGLISH);
-            return Enum.valueOf((Class) destinationType.getRawType(), uppercaseValue);
-        }
-
-    }
-
     @Override
     protected void configure(MapperFactory factory) {
         factory.getConverterFactory().registerConverter("uppercaseToEnum", new UppercaseStringToEnumConverter());
+        factory.getConverterFactory().registerConverter("trimString", new TrimStringConverter());
 
         factory.classMap(ReportFeature.class, Feature.class)
-                .field("keyword", "info.keyword")
-                .field("name", "info.name")
+                .fieldMap("keyword", "info.keyword").converter("trimString").add()
+                .fieldMap("name", "info.name").converter("trimString").add()
                 .field("tags{name}", "tags{}")
                 .field("filename", "location.filename")
                 .field("line", "location.line")
@@ -41,27 +33,57 @@ class ReportMapper extends ConfigurableMapper {
                 .register();
 
         factory.classMap(ReportScenario.class, Scenario.class)
-                .field("keyword", "info.keyword")
-                .field("name", "info.name")
+                .fieldMap("keyword", "info.keyword").converter("trimString").add()
+                .fieldMap("name", "info.name").converter("trimString").add()
                 .field("tags{name}", "tags{}")
                 .field("line", "location.line")
                 .byDefault()
                 .register();
 
         factory.classMap(ReportBackground.class, Background.class)
-                .field("keyword", "info.keyword")
-                .field("name", "info.name")
+                .fieldMap("keyword", "info.keyword").converter("trimString").add()
+                .fieldMap("name", "info.name").converter("trimString").add()
                 .field("line", "location.line")
                 .byDefault()
                 .register();
 
         factory.classMap(ReportStep.class, Step.class)
-                .field("keyword", "info.keyword")
-                .field("name", "info.name")
+                .fieldMap("keyword", "info.keyword").converter("trimString").add()
+                .fieldMap("name", "info.name").converter("trimString").add()
                 .field("line", "location.line")
+                .fieldMap("result.errorMessage", "errorMessage").converter("trimString").add()
                 .fieldMap("result.status", "status").converter("uppercaseToEnum").add()
                 .byDefault()
                 .register();
     }
+
+    private static class UppercaseStringToEnumConverter extends CustomConverter<String, Enum<?>> {
+
+        @Override
+        public Enum<?> convert(String source, Type<? extends Enum<?>> destinationType) {
+            if (source == null) {
+                return null;
+            }
+
+            final String uppercaseValue = source.toUpperCase(Locale.ENGLISH);
+            return Enum.valueOf((Class) destinationType.getRawType(), uppercaseValue);
+        }
+
+    }
+
+    private static class TrimStringConverter extends CustomConverter<String, String> {
+
+        @Override
+        public String convert(String source, Type<? extends String> destinationType) {
+            if (source == null) {
+                return null;
+            }
+
+            return CharMatcher.WHITESPACE.trimFrom(source);
+        }
+
+    }
+
+
 
 }
