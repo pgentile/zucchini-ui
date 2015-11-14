@@ -4,7 +4,7 @@ import example.reporting.scenario.model.Scenario;
 
 import java.util.UUID;
 
-public class ScenarioFactory {
+public class ScenarioRepository {
 
     public Scenario create(final String testRunId, final String featureId) {
         final Scenario scenario = new Scenario();

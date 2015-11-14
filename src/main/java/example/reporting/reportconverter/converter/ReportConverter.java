@@ -4,7 +4,7 @@ import example.reporting.feature.domain.FeatureFactory;
 import example.reporting.feature.model.Feature;
 import example.reporting.reportconverter.report.ReportFeature;
 import example.reporting.reportconverter.report.ReportFeatureElement;
-import example.reporting.scenario.domain.ScenarioFactory;
+import example.reporting.scenario.domain.ScenarioRepository;
 import example.reporting.scenario.model.Background;
 import example.reporting.scenario.model.FeatureElement;
 import example.reporting.scenario.model.Scenario;
@@ -24,8 +24,8 @@ public class ReportConverter {
 
     private final BoundMapperFacade<ReportFeatureElement, FeatureElement> featureElementMapper;
 
-    public ReportConverter(final FeatureFactory featureFactory, final ScenarioFactory scenarioFactory) {
-        final ReportMapper reportMapper = new ReportMapper(featureFactory, scenarioFactory);
+    public ReportConverter(final FeatureFactory featureFactory, final ScenarioRepository scenarioRepository) {
+        final ReportMapper reportMapper = new ReportMapper(featureFactory, scenarioRepository);
         reportMapper.initMapper();
 
         featureMapper = reportMapper.dedicatedMapperFor(ReportFeature.class, Feature.class, false);

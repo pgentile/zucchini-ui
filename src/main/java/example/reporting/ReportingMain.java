@@ -8,7 +8,7 @@ import example.reporting.feature.domain.FeatureFactory;
 import example.reporting.reportconverter.converter.ConversionResult;
 import example.reporting.reportconverter.converter.ReportConverter;
 import example.reporting.reportconverter.report.ReportFeature;
-import example.reporting.scenario.domain.ScenarioFactory;
+import example.reporting.scenario.domain.ScenarioRepository;
 import example.reporting.testrun.domain.TestRunFactory;
 import example.reporting.testrun.model.TestRun;
 import org.slf4j.Logger;
@@ -45,9 +45,9 @@ public class ReportingMain {
 
         final TestRunFactory testRunFactory = new TestRunFactory();
         final FeatureFactory featureFactory = new FeatureFactory();
-        final ScenarioFactory scenarioFactory = new ScenarioFactory();
+        final ScenarioRepository scenarioRepository = new ScenarioRepository();
 
-        final ReportConverter reportConverter = new ReportConverter(featureFactory, scenarioFactory);
+        final ReportConverter reportConverter = new ReportConverter(featureFactory, scenarioRepository);
 
         final TestRun testRun = testRunFactory.create("TEST");
 

@@ -19,6 +19,8 @@ public class TestRun {
 
     private Map<String, String> labels = new HashMap<>();
 
+    private TestRunStatus status;
+
     public String getId() {
         return id;
     }
@@ -49,6 +51,14 @@ public class TestRun {
 
     public void setLabels(final Map<String, String> labels) {
         this.labels = labels;
+    }
+
+    public TestRunStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TestRunStatus status) {
+        this.status = status;
     }
 
 }

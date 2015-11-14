@@ -4,13 +4,13 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import example.reporting.feature.domain.FeatureDAO;
 import example.reporting.feature.domain.FeatureFactory;
-import example.reporting.feature.domain.FeatureService;
+import example.reporting.feature.domain.FeatureRepository;
 import example.reporting.morphia.MorphiaBundle;
 import example.reporting.reportconverter.app.ImportFeatureReportResource;
 import example.reporting.reportconverter.app.ReportConverterAppService;
 import example.reporting.reportconverter.converter.ReportConverter;
 import example.reporting.scenario.domain.ScenarioDAO;
-import example.reporting.scenario.domain.ScenarioFactory;
+import example.reporting.scenario.domain.ScenarioRepository;
 import example.reporting.scenario.domain.ScenarioService;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
@@ -38,20 +38,20 @@ public class CucumberReportApplication extends Application<CucumberReportConfigu
     public void run(final CucumberReportConfiguration cucumberReportConfiguration, final Environment environment) throws Exception {
         final Datastore datastore = cucumberReportConfiguration.getMorphiaDatastoreFactory().build();
         final FeatureDAO featureDAO = new FeatureDAO(datastore);
-        final FeatureService featureService = new FeatureService(featureDAO);
+        final FeatureRepository featureRepository = new FeatureRepository(featureDAO);
 
         final ScenarioDAO scenarioDAO = new ScenarioDAO(datastore);
         final ScenarioService scenarioService = new ScenarioService(scenarioDAO);
 
         final FeatureFactory featureFactory = new FeatureFactory();
-        final ScenarioFactory scenarioFactory = new ScenarioFactory();
-        final ReportConverter reportConverter = new ReportConverter(featureFactory, scenarioFactory);
+        final ScenarioRepository scenarioRepository = new ScenarioRepository();
+        final ReportConverter reportConverter = new ReportConverter(featureFactory, scenarioRepository);
 
         final ObjectMapper reportObjectMapper = environment.getObjectMapper().copy()
                 .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
         final ReportConverterAppService reportConverterService = new ReportConverterAppService(
-                featureService,
+                featureRepository,
                 scenarioService,
                 reportConverter,
                 reportObjectMapper

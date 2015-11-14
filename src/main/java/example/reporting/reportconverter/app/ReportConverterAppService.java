@@ -2,7 +2,7 @@ package example.reporting.reportconverter.app;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import example.reporting.feature.domain.FeatureService;
+import example.reporting.feature.domain.FeatureRepository;
 import example.reporting.reportconverter.converter.ConversionResult;
 import example.reporting.reportconverter.converter.ReportConverter;
 import example.reporting.reportconverter.report.ReportFeature;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ReportConverterAppService {
 
-    private final FeatureService featureService;
+    private final FeatureRepository featureRepository;
 
     private final ScenarioService scenarioService;
 
@@ -23,12 +23,12 @@ public class ReportConverterAppService {
     private final ObjectMapper reportObjectMapper;
 
     public ReportConverterAppService(
-            final FeatureService featureService,
+            final FeatureRepository featureRepository,
             final ScenarioService scenarioService,
             final ReportConverter reportConverter,
             final ObjectMapper reportObjectMapper
     ) {
-        this.featureService = featureService;
+        this.featureRepository = featureRepository;
         this.scenarioService = scenarioService;
         this.reportConverter = reportConverter;
         this.reportObjectMapper = reportObjectMapper;
@@ -48,7 +48,7 @@ public class ReportConverterAppService {
     private void convertAndSaveFeature(final String testRunId, final ReportFeature reportFeature) {
         final ConversionResult conversionResult = reportConverter.convert(testRunId, reportFeature);
 
-        featureService.save(conversionResult.getFeature());
+        featureRepository.save(conversionResult.getFeature());
         conversionResult.getScenarii().forEach(scenarioService::save);
     }
 
