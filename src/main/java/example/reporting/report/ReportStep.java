@@ -22,7 +22,7 @@ public class ReportStep extends CucumberElement {
         return result;
     }
 
-    public void setResult(Result result) {
+    public void setResult(final Result result) {
         this.result = result;
     }
 
@@ -30,7 +30,7 @@ public class ReportStep extends CucumberElement {
         return errorMessage;
     }
 
-    public void setErrorMessage(String errorMessage) {
+    public void setErrorMessage(final String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
@@ -38,7 +38,7 @@ public class ReportStep extends CucumberElement {
         return match;
     }
 
-    public void setMatch(Match match) {
+    public void setMatch(final Match match) {
         this.match = match;
     }
 
@@ -46,7 +46,7 @@ public class ReportStep extends CucumberElement {
         return tableRows;
     }
 
-    public void setTableRows(List<TableRow> tableRows) {
+    public void setTableRows(final List<TableRow> tableRows) {
         this.tableRows = tableRows;
     }
 

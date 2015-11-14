@@ -12,7 +12,7 @@ public class AroundAction {
         return result;
     }
 
-    public void setResult(Result result) {
+    public void setResult(final Result result) {
         this.result = result;
     }
 
@@ -20,7 +20,7 @@ public class AroundAction {
         return match;
     }
 
-    public void setMatch(Match match) {
+    public void setMatch(final Match match) {
         this.match = match;
     }
 

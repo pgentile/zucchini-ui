@@ -13,7 +13,7 @@ public class ReportScenario extends ReportFeatureElement {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -21,7 +21,7 @@ public class ReportScenario extends ReportFeatureElement {
         return tags;
     }
 
-    public void setTags(List<Tag> tags) {
+    public void setTags(final List<Tag> tags) {
         this.tags = tags;
     }
 

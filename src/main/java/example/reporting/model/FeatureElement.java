@@ -2,6 +2,7 @@ package example.reporting.model;
 
 import com.google.common.base.MoreObjects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FeatureElement {
@@ -10,13 +11,13 @@ public class FeatureElement {
 
     private Location location;
 
-    private List<Step> steps;
+    private List<Step> steps = new ArrayList<>();
 
     public BasicInfo getInfo() {
         return info;
     }
 
-    public void setInfo(BasicInfo info) {
+    public void setInfo(final BasicInfo info) {
         this.info = info;
     }
 
@@ -24,7 +25,7 @@ public class FeatureElement {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(final Location location) {
         this.location = location;
     }
 
@@ -32,7 +33,7 @@ public class FeatureElement {
         return steps;
     }
 
-    public void setSteps(List<Step> steps) {
+    public void setSteps(final List<Step> steps) {
         this.steps = steps;
     }
 

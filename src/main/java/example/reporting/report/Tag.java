@@ -10,7 +10,7 @@ public class Tag {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -18,7 +18,7 @@ public class Tag {
         return line;
     }
 
-    public void setLine(long line) {
+    public void setLine(final long line) {
         this.line = line;
     }
 

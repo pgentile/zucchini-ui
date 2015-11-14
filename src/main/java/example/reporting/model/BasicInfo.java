@@ -1,5 +1,6 @@
 package example.reporting.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BasicInfo {
@@ -8,13 +9,13 @@ public class BasicInfo {
 
     private String name;
 
-    private List<Argument> arguments;
+    private List<Argument> arguments = new ArrayList<>();
 
     public String getKeyword() {
         return keyword;
     }
 
-    public void setKeyword(String keyword) {
+    public void setKeyword(final String keyword) {
         this.keyword = keyword;
     }
 
@@ -22,7 +23,7 @@ public class BasicInfo {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -30,7 +31,7 @@ public class BasicInfo {
         return arguments;
     }
 
-    public void setArguments(List<Argument> arguments) {
+    public void setArguments(final List<Argument> arguments) {
         this.arguments = arguments;
     }
 
@@ -38,7 +39,7 @@ public class BasicInfo {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(keyword).append(": ").append(name);
-        if (arguments != null && !arguments.isEmpty()) {
+        if (!arguments.isEmpty()) {
             builder.append("; arguments = ").append(arguments);
         }
         return builder.toString();

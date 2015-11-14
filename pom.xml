@@ -8,6 +8,10 @@
     <artifactId>tests-cucumber</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <dropwizard.version>0.9.1</dropwizard.version>
+    </properties>
+
     <build>
 
         <testResources>
@@ -130,6 +134,14 @@
 
     <dependencies>
 
+        <!-- Dropwizard -->
+
+        <dependency>
+            <groupId>io.dropwizard</groupId>
+            <artifactId>dropwizard-core</artifactId>
+            <version>${dropwizard.version}</version>
+        </dependency>
+
         <!-- Tests Cucumber -->
 
         <dependency>
@@ -170,6 +182,14 @@
             <groupId>ma.glasnost.orika</groupId>
             <artifactId>orika-core</artifactId>
             <version>1.4.5</version>
+        </dependency>
+
+        <!-- Persistence -->
+
+        <dependency>
+            <groupId>org.mongodb.morphia</groupId>
+            <artifactId>morphia</artifactId>
+            <version>1.0.1</version>
         </dependency>
 
         <!-- Logs -->

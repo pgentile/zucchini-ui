@@ -16,7 +16,7 @@ public class Step {
         return info;
     }
 
-    public void setInfo(BasicInfo info) {
+    public void setInfo(final BasicInfo info) {
         this.info = info;
     }
 
@@ -24,7 +24,7 @@ public class Step {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(final Location location) {
         this.location = location;
     }
 
@@ -32,7 +32,7 @@ public class Step {
         return status;
     }
 
-    public void setStatus(StepStatus status) {
+    public void setStatus(final StepStatus status) {
         this.status = status;
     }
 
@@ -40,7 +40,7 @@ public class Step {
         return errorMessage;
     }
 
-    public void setErrorMessage(String errorMessage) {
+    public void setErrorMessage(final String errorMessage) {
         this.errorMessage = errorMessage;
     }
 

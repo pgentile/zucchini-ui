@@ -14,7 +14,7 @@ public class CucumberElement {
         return line;
     }
 
-    public void setLine(long line) {
+    public void setLine(final long line) {
         this.line = line;
     }
 
@@ -22,7 +22,7 @@ public class CucumberElement {
         return keyword;
     }
 
-    public void setKeyword(String keyword) {
+    public void setKeyword(final String keyword) {
         this.keyword = keyword;
     }
 
@@ -30,7 +30,7 @@ public class CucumberElement {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 

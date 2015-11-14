@@ -10,7 +10,7 @@ public class Location {
         return filename;
     }
 
-    public void setFilename(String filename) {
+    public void setFilename(final String filename) {
         this.filename = filename;
     }
 
@@ -18,7 +18,7 @@ public class Location {
         return line;
     }
 
-    public void setLine(long line) {
+    public void setLine(final long line) {
         this.line = line;
     }
 

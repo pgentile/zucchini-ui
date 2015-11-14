@@ -15,7 +15,7 @@ public class TableRow {
         return cells;
     }
 
-    public void setCells(List<String> cells) {
+    public void setCells(final List<String> cells) {
         this.cells = cells;
     }
 
@@ -23,7 +23,7 @@ public class TableRow {
         return line;
     }
 
-    public void setLine(long line) {
+    public void setLine(final long line) {
         this.line = line;
     }
 

@@ -29,7 +29,7 @@ public class ReportFeatureElement extends CucumberElement {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -37,7 +37,7 @@ public class ReportFeatureElement extends CucumberElement {
         return steps;
     }
 
-    public void setSteps(List<ReportStep> steps) {
+    public void setSteps(final List<ReportStep> steps) {
         this.steps = steps;
     }
 
@@ -45,7 +45,7 @@ public class ReportFeatureElement extends CucumberElement {
         return beforeActions;
     }
 
-    public void setBeforeActions(List<AroundAction> beforeActions) {
+    public void setBeforeActions(final List<AroundAction> beforeActions) {
         this.beforeActions = beforeActions;
     }
 
@@ -53,7 +53,7 @@ public class ReportFeatureElement extends CucumberElement {
         return afterActions;
     }
 
-    public void setAfterActions(List<AroundAction> afterActions) {
+    public void setAfterActions(final List<AroundAction> afterActions) {
         this.afterActions = afterActions;
     }
 

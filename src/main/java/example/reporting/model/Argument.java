@@ -10,7 +10,7 @@ public class Argument {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(final String value) {
         this.value = value;
     }
 
@@ -18,7 +18,7 @@ public class Argument {
         return offset;
     }
 
-    public void setOffset(int offset) {
+    public void setOffset(final int offset) {
         this.offset = offset;
     }
 

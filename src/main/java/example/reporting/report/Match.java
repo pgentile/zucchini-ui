@@ -15,7 +15,7 @@ public class Match {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(final String location) {
         this.location = location;
     }
 
@@ -23,7 +23,7 @@ public class Match {
         return arguments;
     }
 
-    public void setArguments(List<ReportArgument> arguments) {
+    public void setArguments(final List<ReportArgument> arguments) {
         this.arguments = arguments;
     }
 

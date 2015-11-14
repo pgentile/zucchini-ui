@@ -4,8 +4,11 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import example.reporting.model.TestRun;
 import example.reporting.report.ReportFeature;
+import example.reporting.reporttomodel.ConversionResult;
 import example.reporting.reporttomodel.ReportConverter;
+import example.reporting.services.TestRunFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +25,7 @@ public class ReportingMain {
         objectMapper = createObjectMapper();
     }
 
-    public static void main(String... args) throws Exception {
+    public static void main(final String... args) throws Exception {
         final String filename = args[0];
         if (filename == null) {
             throw new IllegalArgumentException("Filename to parse not defined");
@@ -32,15 +35,22 @@ public class ReportingMain {
         reportingMain.parse(filename);
     }
 
-    public void parse(String filename) throws Exception {
+    public void parse(final String filename) throws Exception {
         LOGGER.info("Parsing de {}...", filename);
+
         final JavaType featureListJavaType = objectMapper.getTypeFactory().constructCollectionType(List.class, ReportFeature.class);
-        final List<ReportFeature> features = objectMapper.readValue(new File(filename), featureListJavaType);
+        final List<ReportFeature> reportFeatures = objectMapper.readValue(new File(filename), featureListJavaType);
+
+        final TestRunFactory testRunFactory = new TestRunFactory();
+        final TestRun testRun = testRunFactory.create("TEST");
 
         final ReportConverter reportConverter = new ReportConverter();
 
-        System.out.println(objectMapper.writeValueAsString(reportConverter.convertFeatures(features)));
-        System.out.println();
+        for (final ReportFeature reportFeature: reportFeatures) {
+            final ConversionResult conversionResult = reportConverter.convert(testRun.getId(), reportFeature);
+            System.out.println(objectMapper.writeValueAsString(conversionResult));
+            System.out.println();
+        }
     }
 
     private ObjectMapper createObjectMapper() {

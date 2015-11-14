@@ -23,7 +23,7 @@ public class ReportFeature extends CucumberElement {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -31,7 +31,7 @@ public class ReportFeature extends CucumberElement {
         return filename;
     }
 
-    public void setFilename(String filename) {
+    public void setFilename(final String filename) {
         this.filename = filename;
     }
 
@@ -39,7 +39,7 @@ public class ReportFeature extends CucumberElement {
         return elements;
     }
 
-    public void setElements(List<ReportFeatureElement> elements) {
+    public void setElements(final List<ReportFeatureElement> elements) {
         this.elements = elements;
     }
 
@@ -47,7 +47,7 @@ public class ReportFeature extends CucumberElement {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -55,7 +55,7 @@ public class ReportFeature extends CucumberElement {
         return tags;
     }
 
-    public void setTags(List<Tag> tags) {
+    public void setTags(final List<Tag> tags) {
         this.tags = tags;
     }
 
