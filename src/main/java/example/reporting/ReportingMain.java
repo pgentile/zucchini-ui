@@ -4,11 +4,13 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import example.reporting.model.TestRun;
-import example.reporting.report.ReportFeature;
-import example.reporting.reporttomodel.ConversionResult;
-import example.reporting.reporttomodel.ReportConverter;
-import example.reporting.services.TestRunFactory;
+import example.reporting.feature.FeatureFactory;
+import example.reporting.reportconverter.converter.ConversionResult;
+import example.reporting.reportconverter.converter.ReportConverter;
+import example.reporting.reportconverter.report.ReportFeature;
+import example.reporting.scenario.ScenarioFactory;
+import example.reporting.testrun.TestRunFactory;
+import example.reporting.testrun.model.TestRun;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,11 +44,14 @@ public class ReportingMain {
         final List<ReportFeature> reportFeatures = objectMapper.readValue(new File(filename), featureListJavaType);
 
         final TestRunFactory testRunFactory = new TestRunFactory();
+        final FeatureFactory featureFactory = new FeatureFactory();
+        final ScenarioFactory scenarioFactory = new ScenarioFactory();
+
+        final ReportConverter reportConverter = new ReportConverter(featureFactory, scenarioFactory);
+
         final TestRun testRun = testRunFactory.create("TEST");
 
-        final ReportConverter reportConverter = new ReportConverter();
-
-        for (final ReportFeature reportFeature: reportFeatures) {
+        for (final ReportFeature reportFeature : reportFeatures) {
             final ConversionResult conversionResult = reportConverter.convert(testRun.getId(), reportFeature);
             System.out.println(objectMapper.writeValueAsString(conversionResult));
             System.out.println();
