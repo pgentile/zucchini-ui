@@ -8,7 +8,7 @@ public class FeatureFactory {
 
     public Feature create(final String testRunId) {
         final Feature feature = new Feature();
-        feature.setId("FEATURE-" + UUID.randomUUID().toString());
+        feature.setId(UUID.randomUUID().toString());
         feature.setTestRunId(testRunId);
         return feature;
     }
