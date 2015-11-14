@@ -1,4 +1,4 @@
-package example.reporting.testrun.dao;
+package example.reporting.testrun.domain;
 
 import example.reporting.testrun.model.TestRun;
 import org.mongodb.morphia.Datastore;

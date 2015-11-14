@@ -1,4 +1,4 @@
-package example.reporting.feature;
+package example.reporting.feature.domain;
 
 import example.reporting.feature.model.Feature;
 

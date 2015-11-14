@@ -1,4 +1,4 @@
-package example.reporting.testrun;
+package example.reporting.testrun.domain;
 
 import example.reporting.testrun.model.TestRun;
 

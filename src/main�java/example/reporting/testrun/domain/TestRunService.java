@@ -1,6 +1,5 @@
-package example.reporting.testrun;
+package example.reporting.testrun.domain;
 
-import example.reporting.testrun.dao.TestRunDAO;
 import example.reporting.testrun.model.TestRun;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

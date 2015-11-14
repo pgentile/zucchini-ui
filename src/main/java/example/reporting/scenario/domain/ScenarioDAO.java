@@ -1,4 +1,4 @@
-package example.reporting.scenario.dao;
+package example.reporting.scenario.domain;
 
 import example.reporting.scenario.model.Scenario;
 import org.mongodb.morphia.Datastore;

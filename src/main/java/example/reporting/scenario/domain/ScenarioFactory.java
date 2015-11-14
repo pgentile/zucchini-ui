@@ -1,4 +1,4 @@
-package example.reporting.scenario;
+package example.reporting.scenario.domain;
 
 import example.reporting.scenario.model.Scenario;
 

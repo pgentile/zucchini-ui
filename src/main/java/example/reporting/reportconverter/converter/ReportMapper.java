@@ -2,13 +2,13 @@ package example.reporting.reportconverter.converter;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.hash.Hashing;
-import example.reporting.feature.FeatureFactory;
+import example.reporting.feature.domain.FeatureFactory;
 import example.reporting.feature.model.Feature;
 import example.reporting.reportconverter.report.ReportBackground;
 import example.reporting.reportconverter.report.ReportFeature;
 import example.reporting.reportconverter.report.ReportScenario;
 import example.reporting.reportconverter.report.ReportStep;
-import example.reporting.scenario.ScenarioFactory;
+import example.reporting.scenario.domain.ScenarioFactory;
 import example.reporting.scenario.model.Background;
 import example.reporting.scenario.model.Scenario;
 import example.reporting.scenario.model.Step;

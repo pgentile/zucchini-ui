@@ -1,6 +1,6 @@
 package example.reporting.reportconverter.converter;
 
-import example.reporting.feature.FeatureFactory;
+import example.reporting.feature.domain.FeatureFactory;
 import example.reporting.feature.model.Feature;
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.ObjectFactory;

@@ -1,4 +1,4 @@
-package example.reporting.feature.dao;
+package example.reporting.feature.domain;
 
 import example.reporting.feature.model.Feature;
 import org.mongodb.morphia.Datastore;
