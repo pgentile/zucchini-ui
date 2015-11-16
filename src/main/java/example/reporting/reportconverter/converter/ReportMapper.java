@@ -8,7 +8,7 @@ import example.reporting.reportconverter.report.ReportBackground;
 import example.reporting.reportconverter.report.ReportFeature;
 import example.reporting.reportconverter.report.ReportScenario;
 import example.reporting.reportconverter.report.ReportStep;
-import example.reporting.scenario.domain.ScenarioRepository;
+import example.reporting.scenario.domain.ScenarioFactory;
 import example.reporting.scenario.model.Background;
 import example.reporting.scenario.model.Scenario;
 import example.reporting.scenario.model.Step;
@@ -25,12 +25,12 @@ class ReportMapper extends ConfigurableMapper {
 
     private final FeatureFactory featureFactory;
 
-    private final ScenarioRepository scenarioRepository;
+    private final ScenarioFactory scenarioFactory;
 
-    public ReportMapper(final FeatureFactory featureFactory, final ScenarioRepository scenarioRepository) {
+    public ReportMapper(final FeatureFactory featureFactory, final ScenarioFactory scenarioFactory) {
         super(false);
         this.featureFactory = featureFactory;
-        this.scenarioRepository = scenarioRepository;
+        this.scenarioFactory = scenarioFactory;
     }
 
     public void initMapper() {
@@ -40,7 +40,7 @@ class ReportMapper extends ConfigurableMapper {
     @Override
     protected void configure(final MapperFactory factory) {
         factory.registerObjectFactory(new FeatureObjectFactory(featureFactory), TypeFactory.valueOf(Feature.class));
-        factory.registerObjectFactory(new ScenarioObjectFactory(scenarioRepository), TypeFactory.valueOf(Scenario.class));
+        factory.registerObjectFactory(new ScenarioObjectFactory(scenarioFactory), TypeFactory.valueOf(Scenario.class));
 
         factory.getConverterFactory().registerConverter("uppercaseToEnum", new UppercaseStringToEnumConverter());
         factory.getConverterFactory().registerConverter("trimString", new TrimStringConverter());

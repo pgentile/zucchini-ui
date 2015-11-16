@@ -2,11 +2,11 @@ package example.reporting.reportconverter.app;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import example.reporting.feature.domain.FeatureRepository;
+import example.reporting.feature.domain.FeatureDAO;
 import example.reporting.reportconverter.converter.ConversionResult;
 import example.reporting.reportconverter.converter.ReportConverter;
 import example.reporting.reportconverter.report.ReportFeature;
-import example.reporting.scenario.domain.ScenarioService;
+import example.reporting.scenario.domain.ScenarioDAO;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,22 +14,22 @@ import java.util.List;
 
 public class ReportConverterAppService {
 
-    private final FeatureRepository featureRepository;
+    private final FeatureDAO featureDAO;
 
-    private final ScenarioService scenarioService;
+    private final ScenarioDAO scenarioDAO;
 
     private final ReportConverter reportConverter;
 
     private final ObjectMapper reportObjectMapper;
 
     public ReportConverterAppService(
-            final FeatureRepository featureRepository,
-            final ScenarioService scenarioService,
+            final FeatureDAO featureDAO,
+            final ScenarioDAO scenarioDAO,
             final ReportConverter reportConverter,
             final ObjectMapper reportObjectMapper
     ) {
-        this.featureRepository = featureRepository;
-        this.scenarioService = scenarioService;
+        this.featureDAO = featureDAO;
+        this.scenarioDAO = scenarioDAO;
         this.reportConverter = reportConverter;
         this.reportObjectMapper = reportObjectMapper;
     }
@@ -48,8 +48,8 @@ public class ReportConverterAppService {
     private void convertAndSaveFeature(final String testRunId, final ReportFeature reportFeature) {
         final ConversionResult conversionResult = reportConverter.convert(testRunId, reportFeature);
 
-        featureRepository.save(conversionResult.getFeature());
-        conversionResult.getScenarii().forEach(scenarioService::save);
+        featureDAO.save(conversionResult.getFeature());
+        conversionResult.getScenarii().forEach(scenarioDAO::save);
     }
 
 }

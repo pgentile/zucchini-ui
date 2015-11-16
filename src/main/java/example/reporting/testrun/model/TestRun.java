@@ -57,7 +57,7 @@ public class TestRun {
         return status;
     }
 
-    public void setStatus(TestRunStatus status) {
+    public void setStatus(final TestRunStatus status) {
         this.status = status;
     }
 

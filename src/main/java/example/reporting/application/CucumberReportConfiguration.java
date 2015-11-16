@@ -17,7 +17,7 @@ public class CucumberReportConfiguration extends Configuration implements Morphi
     }
 
     @Override
-    public void setMorphiaDatastoreFactory(MorphiaDatastoreFactory morphiaDatastoreFactory) {
+    public void setMorphiaDatastoreFactory(final MorphiaDatastoreFactory morphiaDatastoreFactory) {
         this.morphiaDatastoreFactory = morphiaDatastoreFactory;
     }
 

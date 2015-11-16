@@ -2,16 +2,17 @@ package example.reporting.application;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import example.reporting.feature.domain.FeatureDAO;
 import example.reporting.feature.domain.FeatureFactory;
-import example.reporting.feature.domain.FeatureRepository;
 import example.reporting.morphia.MorphiaBundle;
-import example.reporting.reportconverter.app.ImportFeatureReportResource;
 import example.reporting.reportconverter.app.ReportConverterAppService;
 import example.reporting.reportconverter.converter.ReportConverter;
 import example.reporting.scenario.domain.ScenarioDAO;
-import example.reporting.scenario.domain.ScenarioRepository;
-import example.reporting.scenario.domain.ScenarioService;
+import example.reporting.scenario.domain.ScenarioFactory;
+import example.reporting.testrun.domain.TestRunDAO;
+import example.reporting.testrun.domain.TestRunFactory;
+import example.reporting.testrun.view.TestRunViewAccess;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -32,32 +33,36 @@ public class CucumberReportApplication extends Application<CucumberReportConfigu
     @Override
     public void initialize(final Bootstrap<CucumberReportConfiguration> bootstrap) {
         bootstrap.addBundle(new MorphiaBundle());
+
+        bootstrap.getObjectMapper()
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
     @Override
     public void run(final CucumberReportConfiguration cucumberReportConfiguration, final Environment environment) throws Exception {
         final Datastore datastore = cucumberReportConfiguration.getMorphiaDatastoreFactory().build();
+        final TestRunDAO testRunDAO = new TestRunDAO(datastore);
         final FeatureDAO featureDAO = new FeatureDAO(datastore);
-        final FeatureRepository featureRepository = new FeatureRepository(featureDAO);
-
         final ScenarioDAO scenarioDAO = new ScenarioDAO(datastore);
-        final ScenarioService scenarioService = new ScenarioService(scenarioDAO);
 
+        final TestRunFactory testRunFactory = new TestRunFactory();
         final FeatureFactory featureFactory = new FeatureFactory();
-        final ScenarioRepository scenarioRepository = new ScenarioRepository();
-        final ReportConverter reportConverter = new ReportConverter(featureFactory, scenarioRepository);
+        final ScenarioFactory scenarioFactory = new ScenarioFactory();
+        final ReportConverter reportConverter = new ReportConverter(featureFactory, scenarioFactory);
+
+        final TestRunViewAccess testRunViewAccess = new TestRunViewAccess(testRunDAO, featureDAO);
 
         final ObjectMapper reportObjectMapper = environment.getObjectMapper().copy()
                 .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
         final ReportConverterAppService reportConverterService = new ReportConverterAppService(
-                featureRepository,
-                scenarioService,
+                featureDAO,
+                scenarioDAO,
                 reportConverter,
                 reportObjectMapper
         );
 
-        environment.jersey().register(new ImportFeatureReportResource(reportConverterService));
+        environment.jersey().register(new TestRunResource(testRunFactory, testRunDAO, testRunViewAccess, reportConverterService));
     }
 
     @Override
