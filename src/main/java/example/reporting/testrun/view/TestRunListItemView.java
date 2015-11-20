@@ -1,8 +1,6 @@
 package example.reporting.testrun.view;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class TestRunListItemView {
 
@@ -11,8 +9,6 @@ public class TestRunListItemView {
     private String env;
 
     private Date date;
-
-    private List<FeatureResumeView> features = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -36,14 +32,6 @@ public class TestRunListItemView {
 
     public void setDate(final Date date) {
         this.date = date;
-    }
-
-    public List<FeatureResumeView> getFeatures() {
-        return features;
-    }
-
-    public void setFeatures(List<FeatureResumeView> features) {
-        this.features = features;
     }
 
 }

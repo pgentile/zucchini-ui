@@ -61,4 +61,11 @@ public class TestRun {
         this.status = status;
     }
 
+    public void close() {
+        if (status != TestRunStatus.OPEN) {
+            throw new IllegalStateException("Test run '" + id + "' not in open state");
+        }
+        status = TestRunStatus.CLOSED;
+    }
+
 }

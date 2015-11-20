@@ -1,4 +1,4 @@
 ---
 
 morphiaDatastore:
-  uri: "mongodb://192.168.99.100:27017,192.168.99.100:28017,192.168.99.100:29017/reports?replicaSet=rs&connectTimeoutMS=5000&socketTimeoutMS=90000&w=majority&journal=true&wtimeoutMS=60000"
+  uri: "mongodb://192.168.99.100/reports?connectTimeoutMS=5000&socketTimeoutMS=90000&w=majority&journal=true&wtimeoutMS=60000"

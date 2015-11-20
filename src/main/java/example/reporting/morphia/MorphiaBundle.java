@@ -1,5 +1,6 @@
 package example.reporting.morphia;
 
+import example.reporting.utils.AutoCloseableManaged;
 import io.dropwizard.ConfiguredBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;

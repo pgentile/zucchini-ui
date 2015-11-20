@@ -1,4 +1,4 @@
-package example.reporting.morphia;
+package example.reporting.utils;
 
 import io.dropwizard.lifecycle.Managed;
 

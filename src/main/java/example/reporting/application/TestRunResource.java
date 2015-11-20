@@ -5,17 +5,23 @@ import example.reporting.testrun.domain.TestRunDAO;
 import example.reporting.testrun.domain.TestRunFactory;
 import example.reporting.testrun.model.TestRun;
 import example.reporting.testrun.model.TestRunStatus;
+import example.reporting.testrun.view.CreateTestRunRequest;
 import example.reporting.testrun.view.TestRunListItemView;
 import example.reporting.testrun.view.TestRunViewAccess;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.List;
 
 @Path("/test-runs")
@@ -32,8 +38,8 @@ public class TestRunResource {
     private final ReportConverterAppService reportConverterService;
 
     public TestRunResource(
-            TestRunFactory testRunFactory,
-            TestRunDAO testRunDAO,
+            final TestRunFactory testRunFactory,
+            final TestRunDAO testRunDAO,
             final TestRunViewAccess testRunViewAccess,
             final ReportConverterAppService reportConverterService
     ) {
@@ -49,13 +55,55 @@ public class TestRunResource {
     }
 
     @POST
+    @Path("create")
+    public Response createTestRun(CreateTestRunRequest request) {
+        final TestRun testRun = testRunFactory.create(request.getEnv());
+        testRun.setLabels(request.getLabels());
+        testRunDAO.save(testRun);
+
+        final URI location = UriBuilder.fromMethod(getClass(), "getTestRun")
+                .build(testRun.getId());
+
+        return Response.created(location).build();
+    }
+
+    @GET
+    @Path("{testRunId}")
+    public TestRun getTestRun(@PathParam("testRunId") final String testRunId) {
+        final TestRun testRun = testRunDAO.get(testRunId);
+        if (testRun == null) {
+            throw new NotFoundException("Test run with ID '" + testRunId + "' doesn't exist");
+        }
+        return testRun;
+    }
+
+    @POST
+    @Path("{testRunId}/close")
+    public void close(@PathParam("testRunId") final String testRunId) {
+        final TestRun testRun = testRunDAO.get(testRunId);
+
+        if (testRun == null) {
+            throw new IllegalArgumentException("Test run '"+ testRunId + "' doesn't exist");
+        }
+        if (testRun.getStatus() != TestRunStatus.OPEN) {
+            throw new WebApplicationException("Test run '" + testRunId + "' is not open", Response.Status.CONFLICT);
+        }
+
+        testRun.close();
+        testRunDAO.save(testRun);
+    }
+
+    @POST
     @Path("{testRunId}/import")
     public void importReport(@PathParam("testRunId") final String testRunId, final InputStream inputStream) {
-        // FIXME This must be deleted
-        final TestRun testRun = testRunFactory.create("TEST");
-        testRun.setId(testRunId);
-        testRun.setStatus(TestRunStatus.CLOSED);
-        testRunDAO.save(testRun);
+        final TestRun testRun = testRunDAO.get(testRunId);
+
+        if (testRun == null) {
+            throw new NotFoundException("Test run with ID '" + testRunId + "' doesn't exist");
+        }
+        if (testRun.getStatus() != TestRunStatus.OPEN) {
+            throw new WebApplicationException("Test run '" + testRunId + "' is not open", Response.Status.CONFLICT);
+        }
 
         reportConverterService.convertAndSaveFeatures(testRunId, inputStream);
     }

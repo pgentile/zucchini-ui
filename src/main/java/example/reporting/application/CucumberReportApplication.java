@@ -50,7 +50,7 @@ public class CucumberReportApplication extends Application<CucumberReportConfigu
         final ScenarioFactory scenarioFactory = new ScenarioFactory();
         final ReportConverter reportConverter = new ReportConverter(featureFactory, scenarioFactory);
 
-        final TestRunViewAccess testRunViewAccess = new TestRunViewAccess(testRunDAO, featureDAO);
+        final TestRunViewAccess testRunViewAccess = new TestRunViewAccess(testRunDAO);
 
         final ObjectMapper reportObjectMapper = environment.getObjectMapper().copy()
                 .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
@@ -68,6 +68,10 @@ public class CucumberReportApplication extends Application<CucumberReportConfigu
     @Override
     public void uncaughtException(final Thread thread, final Throwable exception) {
         LOGGER.error("Caught exception on thread {}", thread, exception);
+
+        System.err.println("System halted because of a fatal exception");
+        exception.printStackTrace(System.err);
+        System.exit(1);
     }
 
 }

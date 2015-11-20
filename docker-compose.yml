@@ -1,0 +1,8 @@
+---
+
+mongod:
+  container_name: "mongod-cucumber-report"
+  image: "mongo:3"
+  command: mongod --journal --smallfiles
+  ports:
+    - "27017:27017"
