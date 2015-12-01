@@ -1,0 +1,112 @@
+buildscript {
+
+}
+
+repositories {
+
+    mavenLocal()
+    mavenCentral()
+
+}
+
+
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'jdepend'
+apply plugin: 'groovy'
+apply plugin: 'application'
+
+
+// apply plugin: 'jacoco'
+// apply plugin: 'pmd'
+// apply plugin: 'findbugs'
+
+
+project.sourceCompatibility = '1.8'
+
+
+group = 'org.example.rest-app'
+version = new File("${rootDir}/VERSION.txt").text.trim()
+
+sourceSets {
+
+    cucumber {
+        groovy {
+            srcDirs = ['src/cucumber/groovy']
+        }
+    }
+
+}
+
+
+ext.versions = [
+        dropwizard: '0.9.1',
+        orika: '1.4.5',
+        morphia: '1.0.1',
+        slf4j: '1.7.12',
+        assertj: '3.2.0',
+]
+
+
+dependencies {
+
+    compile "io.dropwizard:dropwizard-core:${versions.dropwizard}"
+    compile "io.dropwizard:dropwizard-client:${versions.dropwizard}"
+    compile "ma.glasnost.orika:orika-core:${versions.orika}"
+    compile "org.mongodb.morphia:morphia:${versions.morphia}"
+    compile "org.slf4j:slf4j-api:${versions.slf4j}"
+
+    testCompile "org.assertj:assertj-core:${versions.assertj}"
+
+    cucumberCompile 'org.codehaus.groovy:groovy-all:2.4.5'
+    cucumberCompile 'info.cukes:cucumber-groovy:1.2.4'
+    cucumberCompile "org.slf4j:slf4j-api:${versions.slf4j}"
+    cucumberCompile "org.assertj:assertj-core:${versions.assertj}"
+
+}
+
+
+compileJava {
+    options.encoding = "UTF-8"
+    options.deprecation = true
+    options.compilerArgs << "-parameters"
+}
+
+
+jdependMain {
+    reports {
+        text {
+        }
+    }
+}
+
+
+idea {
+
+    module {
+
+        scopes.COMPILE.plus += [configurations.cucumberCompile, configurations.cucumberRuntime]
+
+    }
+
+}
+
+
+task runCucumber(type: JavaExec) {
+
+    classpath = sourceSets.cucumber.runtimeClasspath
+
+    main = 'cucumber.api.cli.Main'
+
+    args += [
+            '--plugin',
+            'pretty',
+            '--glue',
+            'classpath:example',
+            '--plugin',
+            'html:build/cucumber/html',
+            '--plugin',
+            'json:build/cucumber/report.json',
+            'src/cucumber/features',
+    ]
+}
