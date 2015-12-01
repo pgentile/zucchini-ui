@@ -52,7 +52,6 @@ public class ReportConverter {
             final String featureId,
             final List<ReportFeatureElement> reportFeatureElements
     ) {
-        Background currentBackground = null;
 
         final List<Scenario> scenarii = new ArrayList<>(reportFeatureElements.size());
 
@@ -62,6 +61,7 @@ public class ReportConverter {
 
         final MappingContextFactory mappingContextFactory = new NonCyclicMappingContext.Factory(globalProperties);
 
+        Background currentBackground = null;
         for (final ReportFeatureElement reportFeatureElement : reportFeatureElements) {
             final FeatureElement featureElement = map(mappingContextFactory, featureElementMapper, reportFeatureElement);
             if (featureElement instanceof Scenario) {

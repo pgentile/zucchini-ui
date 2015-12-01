@@ -1,6 +1,8 @@
 package example.reporting.scenario.model;
 
 import com.google.common.base.MoreObjects;
+import example.reporting.shared.model.BasicInfo;
+import example.reporting.shared.model.Location;
 
 public class Step {
 

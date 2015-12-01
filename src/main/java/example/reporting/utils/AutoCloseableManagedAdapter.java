@@ -2,11 +2,11 @@ package example.reporting.utils;
 
 import io.dropwizard.lifecycle.Managed;
 
-public class AutoCloseableManaged implements Managed {
+public class AutoCloseableManagedAdapter implements Managed {
 
     private final AutoCloseable autoCloseable;
 
-    public AutoCloseableManaged(final AutoCloseable autoCloseable) {
+    public AutoCloseableManagedAdapter(final AutoCloseable autoCloseable) {
         this.autoCloseable = autoCloseable;
     }
 

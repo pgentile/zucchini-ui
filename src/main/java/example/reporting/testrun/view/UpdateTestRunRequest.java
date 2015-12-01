@@ -1,24 +1,11 @@
 package example.reporting.testrun.view;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreateTestRunRequest {
-
-    @NotEmpty
-    private String env;
+public class UpdateTestRunRequest {
 
     private Map<String, String> labels = new HashMap<>();
-
-    public String getEnv() {
-        return env;
-    }
-
-    public void setEnv(final String env) {
-        this.env = env;
-    }
 
     public Map<String, String> getLabels() {
         return labels;

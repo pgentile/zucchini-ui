@@ -1,4 +1,4 @@
-package example.reporting.morphia;
+package example.reporting.support.morphia;
 
 import com.codahale.metrics.health.HealthCheck;
 import com.mongodb.CommandResult;

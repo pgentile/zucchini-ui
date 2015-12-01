@@ -1,4 +1,4 @@
-package example.reporting.scenario.model;
+package example.reporting.shared.model;
 
 public class Location {
 

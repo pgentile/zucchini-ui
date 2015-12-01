@@ -1,4 +1,4 @@
-package example.reporting.reportconverter.app;
+package example.reporting.reportconverter.domain;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class ReportConverterAppService {
+public class ReportConverterService {
 
     private final FeatureDAO featureDAO;
 
@@ -22,7 +22,7 @@ public class ReportConverterAppService {
 
     private final ObjectMapper reportObjectMapper;
 
-    public ReportConverterAppService(
+    public ReportConverterService(
             final FeatureDAO featureDAO,
             final ScenarioDAO scenarioDAO,
             final ReportConverter reportConverter,

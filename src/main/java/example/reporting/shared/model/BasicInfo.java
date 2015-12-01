@@ -1,4 +1,4 @@
-package example.reporting.scenario.model;
+package example.reporting.shared.model;
 
 import java.util.ArrayList;
 import java.util.List;

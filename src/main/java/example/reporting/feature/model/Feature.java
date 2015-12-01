@@ -1,8 +1,8 @@
 package example.reporting.feature.model;
 
 import com.google.common.base.MoreObjects;
-import example.reporting.scenario.model.BasicInfo;
-import example.reporting.scenario.model.Location;
+import example.reporting.shared.model.BasicInfo;
+import example.reporting.shared.model.Location;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
