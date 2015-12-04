@@ -5,20 +5,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import example.reporting.feature.domain.FeatureDAO;
 import example.reporting.feature.domain.FeatureFactory;
-import example.reporting.support.morphia.MorphiaDatastoreBuilder;
-import example.reporting.reportconverter.domain.ReportConverterService;
 import example.reporting.reportconverter.converter.ReportConverter;
+import example.reporting.reportconverter.domain.ReportConverterService;
 import example.reporting.scenario.domain.ScenarioDAO;
 import example.reporting.scenario.domain.ScenarioFactory;
+import example.reporting.support.morphia.MorphiaDatastoreBuilder;
 import example.reporting.testrun.domain.TestRunDAO;
 import example.reporting.testrun.domain.TestRunFactory;
 import example.reporting.testrun.view.TestRunViewAccess;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.mongodb.morphia.Datastore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.servlet.DispatcherType;
+import java.util.EnumSet;
 
 public class CucumberReportApplication extends Application<CucumberReportConfiguration> implements Thread.UncaughtExceptionHandler {
 
@@ -65,7 +69,12 @@ public class CucumberReportApplication extends Application<CucumberReportConfigu
                 reportObjectMapper
         );
 
+        environment.servlets()
+                .addFilter("cors-filter", CrossOriginFilter.class)
+                .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
+
         environment.jersey().register(new AllTestRunsResource(testRunFactory, testRunDAO, testRunViewAccess, reportConverterService));
+        environment.jersey().register(new AllFeaturesResource(featureDAO));
     }
 
     @Override
