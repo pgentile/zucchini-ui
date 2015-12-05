@@ -7,11 +7,16 @@ import example.reporting.reportconverter.converter.ConversionResult;
 import example.reporting.reportconverter.converter.ReportConverter;
 import example.reporting.reportconverter.report.ReportFeature;
 import example.reporting.scenario.domain.ScenarioDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+
+@Component
 public class ReportConverterService {
 
     private final FeatureDAO featureDAO;
@@ -22,11 +27,12 @@ public class ReportConverterService {
 
     private final ObjectMapper reportObjectMapper;
 
+    @Autowired
     public ReportConverterService(
             final FeatureDAO featureDAO,
             final ScenarioDAO scenarioDAO,
             final ReportConverter reportConverter,
-            final ObjectMapper reportObjectMapper
+            @Qualifier("reportObjectMapper") final ObjectMapper reportObjectMapper
     ) {
         this.featureDAO = featureDAO;
         this.scenarioDAO = scenarioDAO;

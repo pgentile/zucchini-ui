@@ -12,18 +12,23 @@ import ma.glasnost.orika.BoundMapperFacade;
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.MappingContextFactory;
 import ma.glasnost.orika.impl.NonCyclicMappingContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+@Component
 public class ReportConverter {
 
     private final BoundMapperFacade<ReportFeature, Feature> featureMapper;
 
     private final BoundMapperFacade<ReportFeatureElement, FeatureElement> featureElementMapper;
 
+    @Autowired
     public ReportConverter(final FeatureFactory featureFactory, final ScenarioFactory scenarioFactory) {
         final ReportMapper reportMapper = new ReportMapper(featureFactory, scenarioFactory);
         reportMapper.initMapper();

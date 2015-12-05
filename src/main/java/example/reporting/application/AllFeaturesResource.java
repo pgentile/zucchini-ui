@@ -3,6 +3,8 @@ package example.reporting.application;
 import example.reporting.feature.domain.FeatureDAO;
 import example.reporting.feature.model.Feature;
 import org.mongodb.morphia.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -12,6 +14,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
+@Component
 @Path("/features")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -19,6 +22,7 @@ public class AllFeaturesResource {
 
     private final FeatureDAO featureDAO;
 
+    @Autowired
     public AllFeaturesResource(FeatureDAO featureDAO) {
         this.featureDAO = featureDAO;
     }

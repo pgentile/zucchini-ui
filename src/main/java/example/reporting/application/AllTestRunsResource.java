@@ -9,6 +9,8 @@ import example.reporting.testrun.view.TestRunListItemView;
 import example.reporting.testrun.view.TestRunViewAccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -25,6 +27,7 @@ import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
 import java.util.List;
 
+@Component
 @Path("/test-runs")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -40,6 +43,7 @@ public class AllTestRunsResource {
 
     private final ReportConverterService reportConverterService;
 
+    @Autowired
     public AllTestRunsResource(
             final TestRunFactory testRunFactory,
             final TestRunDAO testRunDAO,

@@ -4,10 +4,14 @@ import example.reporting.testrun.domain.TestRunDAO;
 import example.reporting.testrun.model.TestRun;
 import example.reporting.testrun.model.TestRunStatus;
 import ma.glasnost.orika.BoundMapperFacade;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+@Component
 public class TestRunViewAccess {
 
     private final TestRunDAO testRunDAO;
@@ -20,6 +24,7 @@ public class TestRunViewAccess {
             false
     );
 
+    @Autowired
     public TestRunViewAccess(final TestRunDAO testRunDAO) {
         this.testRunDAO = testRunDAO;
     }
