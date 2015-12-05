@@ -45,6 +45,7 @@ ext.versions = [
         morphia: '1.0.1',
         slf4j: '1.7.12',
         assertj: '3.2.0',
+        spring: '4.2.3.RELEASE',
 ]
 
 
@@ -55,6 +56,7 @@ dependencies {
     compile "ma.glasnost.orika:orika-core:${versions.orika}"
     compile "org.mongodb.morphia:morphia:${versions.morphia}"
     compile "org.slf4j:slf4j-api:${versions.slf4j}"
+    compile "org.springframework:spring-context:${versions.spring}"
 
     testCompile "org.assertj:assertj-core:${versions.assertj}"
 

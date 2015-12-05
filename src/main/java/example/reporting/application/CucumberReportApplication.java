@@ -9,7 +9,7 @@ import example.reporting.reportconverter.converter.ReportConverter;
 import example.reporting.reportconverter.domain.ReportConverterService;
 import example.reporting.scenario.domain.ScenarioDAO;
 import example.reporting.scenario.domain.ScenarioFactory;
-import example.reporting.support.morphia.MorphiaDatastoreBuilder;
+import example.support.morphia.MorphiaDatastoreBuilder;
 import example.reporting.testrun.domain.TestRunDAO;
 import example.reporting.testrun.domain.TestRunFactory;
 import example.reporting.testrun.view.TestRunViewAccess;

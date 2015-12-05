@@ -1,4 +1,4 @@
-package example.reporting.utils;
+package example.support.autocloseable;
 
 import io.dropwizard.lifecycle.Managed;
 
