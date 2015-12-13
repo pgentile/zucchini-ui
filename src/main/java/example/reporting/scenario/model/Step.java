@@ -14,6 +14,8 @@ public class Step {
 
     private String errorMessage;
 
+    private String[][] table;
+
     public BasicInfo getInfo() {
         return info;
     }
@@ -44,6 +46,14 @@ public class Step {
 
     public void setErrorMessage(final String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public String[][] getTable() {
+        return table;
+    }
+
+    public void setTable(String[][] table) {
+        this.table = table;
     }
 
     @Override

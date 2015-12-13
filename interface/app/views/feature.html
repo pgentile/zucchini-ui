@@ -36,12 +36,26 @@
         </i>
         <tc-status status="step.status"></tc-status>
       </p>
+
+
     </div>
 
-    <p ng-repeat="step in scenario.steps">
-      <tc-element-info info="step.info"></tc-element-info>
-      <tc-status status="step.status"></tc-status>
-    </p>
+    <div ng-repeat="step in scenario.steps">
+
+      <p>
+        <tc-element-info info="step.info"></tc-element-info>
+        <tc-status status="step.status"></tc-status>
+      </p>
+
+      <table ng-if="step.table" class="table table-hover table-condensed" style="table-layout: auto">
+        <tbody>
+        <tr ng-repeat="row in step.table">
+          <td ng-repeat="cell in row"><code>{{ cell }}</code></td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
 
   </div>
 

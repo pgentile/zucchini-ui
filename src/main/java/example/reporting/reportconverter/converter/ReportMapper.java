@@ -46,6 +46,7 @@ class ReportMapper extends ConfigurableMapper {
         factory.getConverterFactory().registerConverter("trimString", new TrimStringConverter());
         factory.getConverterFactory().registerConverter("sha1", new StringToSha1SumConverter());
         factory.getConverterFactory().registerConverter("stripAtSign", new StripAtSignConverter());
+        factory.getConverterFactory().registerConverter("table", new TableConverter());
 
         factory.classMap(ReportFeature.class, Feature.class)
                 .fieldMap("id", "featureKey").converter("sha1").add()
@@ -80,6 +81,7 @@ class ReportMapper extends ConfigurableMapper {
                 .field("line", "location.line")
                 .fieldMap("result.errorMessage", "errorMessage").converter("trimString").add()
                 .fieldMap("result.status", "status").converter("uppercaseToEnum").add()
+                .fieldMap("tableRows", "table").converter("table").add()
                 .byDefault()
                 .register();
     }
