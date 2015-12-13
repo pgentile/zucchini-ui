@@ -10,7 +10,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import javax.ws.rs.Path;
 
-public class SpringBundle<T extends Configuration> implements ConfiguredBundle<T> {
+public class SpringBundle implements ConfiguredBundle<Configuration> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SpringBundle.class);
 
@@ -21,7 +21,11 @@ public class SpringBundle<T extends Configuration> implements ConfiguredBundle<T
     }
 
     @Override
-    public void run(T configuration, Environment environment) throws Exception {
+    public void run(Configuration configuration, Environment environment) throws Exception {
+        if (applicationContext.isActive()) {
+            throw new IllegalStateException("Spring context already started");
+        }
+
         environment.lifecycle().manage(new SpringContextManaged(applicationContext));
 
         applicationContext.getBeanFactory().registerSingleton("dropwizardConfig", configuration);

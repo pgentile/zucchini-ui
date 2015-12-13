@@ -11,12 +11,15 @@ public class TestedObject {
     @Internal
     private boolean internalField;
 
+    private boolean defaultField;
+
     public TestedObject() {
     }
 
-    public TestedObject(boolean publicField, boolean internalField) {
+    public TestedObject(boolean publicField, boolean internalField, boolean defaultField) {
         this.publicField = publicField;
         this.internalField = internalField;
+        this.defaultField = defaultField;
     }
 
     public boolean isPublicField() {
@@ -35,11 +38,20 @@ public class TestedObject {
         this.internalField = internalField;
     }
 
+    public boolean isDefaultField() {
+        return defaultField;
+    }
+
+    public void setDefaultField(boolean defaultField) {
+        this.defaultField = defaultField;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("publicField", publicField)
                 .add("internalField", internalField)
+                .add("defaultField", defaultField)
                 .toString();
     }
 

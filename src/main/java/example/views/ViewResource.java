@@ -24,13 +24,13 @@ public class ViewResource {
 
     @GET
     public TestedObject get(@Context ContainerRequestContext requestContext) {
-        return new TestedObject(true, true);
+        return new TestedObject(true, true, true);
     }
 
     @GET
     @Path("/async")
     public void getAsync(@Suspended AsyncResponse asyncResponse, @Context ContainerRequestContext requestContext) {
-        executor.submit(() -> asyncResponse.resume(new TestedObject(true, true)));
+        executor.submit(() -> asyncResponse.resume(new TestedObject(true, true, true)));
     }
 
 }

@@ -55,6 +55,8 @@ public class ViewKindFilter implements ContainerRequestFilter, ContainerResponse
                         return w.withView(Views.Internal.class);
                     case "PUBLIC":
                         return w.withView(Views.Public.class);
+                    case "NONE":
+                        return w;
                     default:
                         LOGGER.warn("Unkwown view kind '{}', using default writer", viewKind);
                         return w.withView(Views.Public.class);

@@ -1,0 +1,20 @@
+<div class="row marketing">
+
+  <h1>
+    <span class="label label-default">{{ ctrl.testRun.env }}</span>
+    Test run @ {{ ctrl.testRun.date | date:'yyyy-MM-dd HH:mm' }}
+  </h1>
+
+  <div ng-repeat="feature in ctrl.testRun.features">
+    <h2>
+      <a ng-href="#/features/{{ feature.id }}">
+        <b>{{ feature.info.keyword }}</b>
+        {{ feature.info.name }}
+      </a>
+      <span ng-repeat="tag in feature.tags">
+        <span class="label label-info">@{{ tag }}</span>
+      </span>
+    </h2>
+  </div>
+
+</div>

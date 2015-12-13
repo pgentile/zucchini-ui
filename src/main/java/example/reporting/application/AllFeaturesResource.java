@@ -1,5 +1,6 @@
 package example.reporting.application;
 
+import com.google.common.base.Strings;
 import example.reporting.feature.domain.FeatureDAO;
 import example.reporting.feature.model.Feature;
 import org.mongodb.morphia.query.Query;
@@ -8,7 +9,9 @@ import org.springframework.stereotype.Component;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -30,11 +33,20 @@ public class AllFeaturesResource {
     @GET
     public List<Feature> getFeatures(@QueryParam("testRunId") String testRunId) {
         Query<Feature> query = featureDAO.createQuery();
-        if (testRunId != null) {
+        if (!Strings.isNullOrEmpty(testRunId)) {
             query = query.field("testRunId").equal(testRunId);
         }
 
         return query.asList();
+    }
+
+    @Path("{featureId}")
+    public FeatureResource getFeature(@PathParam("featureId") String featureId) {
+        Feature feature = featureDAO.get(featureId);
+        if (feature == null) {
+            throw new NotFoundException("Feature with ID '" + featureId + "' doesn't exist");
+        }
+        return new FeatureResource(feature);
     }
 
 }

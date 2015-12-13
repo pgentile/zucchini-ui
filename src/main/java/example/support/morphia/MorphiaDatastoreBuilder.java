@@ -2,17 +2,26 @@ package example.support.morphia;
 
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import example.support.autocloseable.AutoCloseableManagedAdapter;
 import io.dropwizard.setup.Environment;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
+import java.util.Optional;
+
 public class MorphiaDatastoreBuilder {
 
     private final Environment environment;
 
     private String uri;
+
+    private Optional<MongoClientOptions> options = Optional.empty();
+
+    private Optional<Morphia> morphia = Optional.empty();
+
+    private Optional<String> healthcheckName = Optional.empty();
 
     public MorphiaDatastoreBuilder(final Environment environment) {
         this.environment = environment;
@@ -23,21 +32,50 @@ public class MorphiaDatastoreBuilder {
         return this;
     }
 
+    public MorphiaDatastoreBuilder withOptions(MongoClientOptions.Builder optionsBuilder) {
+        return withOptions(optionsBuilder.build());
+    }
+
+    public MorphiaDatastoreBuilder withOptions(MongoClientOptions options) {
+        this.options = Optional.of(options);
+        return this;
+    }
+
+    public MorphiaDatastoreBuilder withMorphia(Morphia morphia) {
+        this.morphia = Optional.of(morphia);
+        return this;
+    }
+
+    public MorphiaDatastoreBuilder withHealthcheckName(String healthcheckName) {
+        this.healthcheckName = Optional.of(healthcheckName);
+        return this;
+    }
+
     public Datastore build(final String name) {
         if (uri == null) {
             throw new IllegalStateException("URI is undefined");
         }
 
-        final Morphia morphia = new Morphia();
+        // Init client options
+        final MongoClientOptions activeOptions = options.orElseGet(() -> MongoClientOptions.builder().build());
+        MongoClientOptions.Builder optionsBuilder = MongoClientOptions.builder(activeOptions);
+        if (activeOptions.getDescription() == null) {
+            optionsBuilder = optionsBuilder.description(name);
+        }
 
-        final MongoClientURI clientURI = new MongoClientURI(uri);
+        // Create client
+        final MongoClientURI clientURI = new MongoClientURI(uri, optionsBuilder);
         final MongoClient mongoClient = new MongoClient(clientURI);
         environment.lifecycle().manage(new AutoCloseableManagedAdapter(mongoClient));
 
-        final Datastore datastore = morphia.createDatastore(mongoClient, clientURI.getDatabase());
+        // Create datastore
+        final Morphia activeMorphia = morphia.orElseGet(Morphia::new);
+        final Datastore datastore = activeMorphia.createDatastore(mongoClient, clientURI.getDatabase());
 
+        // Add healthcheck
         final DB db = datastore.getDB();
-        environment.healthChecks().register(name, new MongoHealthCheck(db));
+        final String activeHealthcheckName = healthcheckName.orElse(name);
+        environment.healthChecks().register(activeHealthcheckName, new MongoHealthCheck(db));
 
         return datastore;
     }

@@ -28,8 +28,8 @@ public class CucumberReportApplication extends Application<CucumberReportConfigu
         bootstrap.addCommand(new ImportCommand(this));
 
         final AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
-        applicationContext.scan("example.reporting");
-        bootstrap.addBundle(new SpringBundle<>(applicationContext));
+        applicationContext.register(CucumberReportSpringConfig.class);
+        bootstrap.addBundle(new SpringBundle(applicationContext));
 
         bootstrap.getObjectMapper()
                 .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
@@ -40,6 +40,8 @@ public class CucumberReportApplication extends Application<CucumberReportConfigu
         environment.servlets()
                 .addFilter("cors-filter", CrossOriginFilter.class)
                 .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
+
+        configuration.getMetrics().configure(environment.lifecycle(), environment.metrics());
     }
 
     @Override

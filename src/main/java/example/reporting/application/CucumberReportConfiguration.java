@@ -3,6 +3,7 @@ package example.reporting.application;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
 import io.dropwizard.client.JerseyClientConfiguration;
+import io.dropwizard.metrics.MetricsFactory;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.Valid;
@@ -20,6 +21,9 @@ public class CucumberReportConfiguration extends Configuration {
 
     @NotEmpty
     private String selfUrl;
+
+    @Valid
+    private MetricsFactory metrics = new MetricsFactory();
 
     public String getMongoUri() {
         return mongoUri;
@@ -41,4 +45,11 @@ public class CucumberReportConfiguration extends Configuration {
         return selfClientConfig;
     }
 
+    public MetricsFactory getMetrics() {
+        return metrics;
+    }
+
+    public void setMetrics(MetricsFactory metrics) {
+        this.metrics = metrics;
+    }
 }

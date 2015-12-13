@@ -1,6 +1,8 @@
 # language: fr
 
 @toto
+@titi
+@tutu
 Fonctionnalité: test
 
   Afin de tester Cucumber

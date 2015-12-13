@@ -1,17 +1,15 @@
-<div class="jumbotron">
-  <h1>Test runs</h1>
-</div>
-
 <div class="row marketing">
 
+  <h1>Latest test runs</h1>
+
   <div ng-repeat="testRun in ctrl.latestTestRuns">
-    <h4>
+    <h2>
       <span class="label label-default">{{ testRun.env }}</span>
-      <a ng-href="#/test-runs/{{ testRun.id }}">Test run @ {{ testRun.date | date:'yyyy-MM-dd hh:mm' }}</a>
-    </h4>
+      <a ng-href="#/test-runs/{{ testRun.id }}">Test run @ {{ testRun.date | date:'yyyy-MM-dd HH:mm' }}</a>
+    </h2>
 
     <div ng-repeat="feature in testRun.features">
-      <h5><b>{{ feature.info.keyword }}</b> {{ feature.info.name }}</h5>
+      <h3><b>{{ feature.info.keyword }}</b> {{ feature.info.name }}</h3>
     </div>
 
   </div>

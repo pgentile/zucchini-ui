@@ -3,7 +3,7 @@ package example.support.spring;
 import io.dropwizard.lifecycle.Managed;
 import org.springframework.context.ConfigurableApplicationContext;
 
-public class SpringContextManaged implements Managed {
+class SpringContextManaged implements Managed {
 
     private final ConfigurableApplicationContext applicationContext;
 
