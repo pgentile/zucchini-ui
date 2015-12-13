@@ -70,7 +70,7 @@
     })
     .config(function ($routeProvider) {
       $routeProvider
-        .when('/test-runs', {
+        .when('/', {
           templateUrl: 'views/test-runs.html',
           controller: 'AllTestRunsCtrl',
           controllerAs: 'ctrl'
