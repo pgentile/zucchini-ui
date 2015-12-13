@@ -16,14 +16,19 @@
 
 
   angular.module('testsCucumberApp')
-    .controller('FeatureCtrl', function ($routeParams, FeatureLoader, TestRunLoader) {
+    .controller('FeatureCtrl', function ($routeParams, $q, FeatureLoader, TestRunLoader, ScenarioLoader) {
       this.load = function () {
+
         FeatureLoader.getById($routeParams.featureId)
           .then(function (feature) {
 
-            return TestRunLoader.getById(feature.testRunId)
-              .then(function (testRun) {
-                feature.testRun = testRun;
+            var testRunQ = TestRunLoader.getById(feature.testRunId);
+            var scenariiQ = ScenarioLoader.getScenariiByFeatureId(feature.id);
+
+            return $q.all([testRunQ, scenariiQ])
+              .then(function (items) {
+                feature.testRun = items[0];
+                feature.scenarii = items[1];
                 return feature;
               });
 
@@ -31,6 +36,7 @@
           .then(function (feature) {
             this.feature = feature;
           }.bind(this));
+
       };
 
       this.load();
@@ -47,6 +53,15 @@
           controller: 'FeatureCtrl',
           controllerAs: 'ctrl'
         });
+    })
+    .directive('tcStatus', function () {
+      return {
+        restrict: 'E',
+        scope: {
+          status: '=status'
+        },
+        templateUrl: 'views/tc-status.html'
+      };
     });
 
 

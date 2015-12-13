@@ -23,6 +23,8 @@ public class Scenario extends FeatureElement {
 
     private Background background;
 
+    private StepStatus status;
+
     public String getId() {
         return id;
     }
@@ -71,6 +73,14 @@ public class Scenario extends FeatureElement {
         this.background = background;
     }
 
+    public StepStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(StepStatus status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
@@ -79,6 +89,7 @@ public class Scenario extends FeatureElement {
                 .add("info", getInfo())
                 .add("location", getLocation())
                 .add("tags", tags)
+                .add("status", status)
                 .toString();
     }
 

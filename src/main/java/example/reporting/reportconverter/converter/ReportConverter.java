@@ -8,6 +8,8 @@ import example.reporting.scenario.domain.ScenarioFactory;
 import example.reporting.scenario.model.Background;
 import example.reporting.scenario.model.FeatureElement;
 import example.reporting.scenario.model.Scenario;
+import example.reporting.scenario.model.Step;
+import example.reporting.scenario.model.StepStatus;
 import ma.glasnost.orika.BoundMapperFacade;
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.MappingContextFactory;
@@ -39,7 +41,7 @@ public class ReportConverter {
 
     public ConversionResult convert(final String testRunId, final ReportFeature reportFeature) {
         final Feature feature = mapFeature(testRunId, reportFeature);
-        final List<Scenario> scenarii = convertFeatureElementsToScenarii(testRunId, feature.getId(), reportFeature.getElements());
+        final List<Scenario> scenarii = convertFeatureElementsToScenarii(feature, reportFeature.getElements());
         return new ConversionResult(feature, scenarii);
     }
 
@@ -53,16 +55,15 @@ public class ReportConverter {
     }
 
     private List<Scenario> convertFeatureElementsToScenarii(
-            final String testRunId,
-            final String featureId,
+            final Feature feature,
             final List<ReportFeatureElement> reportFeatureElements
     ) {
 
         final List<Scenario> scenarii = new ArrayList<>(reportFeatureElements.size());
 
         final Map<Object, Object> globalProperties = new HashMap<>();
-        globalProperties.put(MappingContextKey.TEST_RUN_ID, testRunId);
-        globalProperties.put(MappingContextKey.FEATURE_ID, featureId);
+        globalProperties.put(MappingContextKey.TEST_RUN_ID, feature.getTestRunId());
+        globalProperties.put(MappingContextKey.FEATURE_ID, feature.getId());
 
         final MappingContextFactory mappingContextFactory = new NonCyclicMappingContext.Factory(globalProperties);
 
@@ -82,7 +83,47 @@ public class ReportConverter {
             }
         }
 
+        // Statut pour tous les scenarii
+        // Suppression des tags qui se répètent entre les scenarii et la feature
+        scenarii.forEach(scenario -> {
+            scenario.setStatus(calculateScenarioStatus(scenario));
+            scenario.getTags().removeAll(feature.getTags());
+        });
+
         return scenarii;
+    }
+
+    private static StepStatus calculateScenarioStatus(Scenario scenario) {
+        final List<StepStatus> innerStatus = new ArrayList<>();
+        if (scenario.getBackground() != null) {
+            scenario.getBackground().getSteps().stream().map(Step::getStatus).forEach(innerStatus::add);
+        }
+        scenario.getSteps().stream().map(Step::getStatus).forEach(innerStatus::add);
+
+        for (final StepStatus oneInnerStatus : innerStatus) {
+            switch (oneInnerStatus) {
+                case FAILED:
+                case UNDEFINED:
+                    return StepStatus.FAILED;
+                case PENDING:
+                    return StepStatus.PENDING;
+                default:
+                    // Rien à faire, on continue
+                    break;
+            }
+        }
+
+        // Tous les steps ont fonctionné : c'est good !
+        if (innerStatus.stream().allMatch(StepStatus.PASSED::equals)) {
+            return StepStatus.PASSED;
+        }
+
+        // Si tous les steps du scénario sont skipped, alors skipped
+        if (scenario.getSteps().stream().map(Step::getStatus).allMatch(StepStatus.SKIPPED::equals)) {
+            return StepStatus.SKIPPED;
+        }
+
+        return StepStatus.FAILED;
     }
 
     private static <A, B> B map(final MappingContextFactory mappingContextFactory, final BoundMapperFacade<A, B> mapperFacade, final A source) {

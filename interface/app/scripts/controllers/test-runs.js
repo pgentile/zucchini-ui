@@ -8,6 +8,7 @@
       return AllTestRunsResource.query().$promise
         .then(function (testRuns) {
 
+          // Loading all features attached to each test run
           return $q.all(testRuns.map(function (testRun) {
 
             return FeatureLoader.getFeaturesByTestRunId(testRun.id)

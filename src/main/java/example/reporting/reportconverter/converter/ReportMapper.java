@@ -76,6 +76,7 @@ class ReportMapper extends ConfigurableMapper {
         factory.classMap(ReportStep.class, Step.class)
                 .fieldMap("keyword", "info.keyword").converter("trimString").add()
                 .fieldMap("name", "info.name").converter("trimString").add()
+                .field("match.arguments", "info.arguments")
                 .field("line", "location.line")
                 .fieldMap("result.errorMessage", "errorMessage").converter("trimString").add()
                 .fieldMap("result.status", "status").converter("uppercaseToEnum").add()

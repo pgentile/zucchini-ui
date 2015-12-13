@@ -11,8 +11,41 @@
   <p>
     Runned in:
     <span class="label label-default">{{ ctrl.feature.testRun.env }}</span>
-    <a ng-href="#/test-runs/{{ ctrl.feature.testRun.id }}">test run @ {{ ctrl.feature.testRun.date | date:'yyyy-MM-dd HH:mm' }}</a>
+    <a ng-href="#/test-runs/{{ ctrl.feature.testRun.id }}">test run @ {{ ctrl.feature.testRun.date | date:'yyyy-MM-dd
+      HH:mm' }}</a>
   </p>
+
+  <hr>
+
+  <div ng-repeat="scenario in ctrl.feature.scenarii">
+
+    <h2>
+      <b>{{ scenario.info.keyword}}</b>
+      {{ scenario.info.name }}
+      <tc-status status="scenario.status"></tc-status>
+      <span ng-repeat="tag in scenario.tags">
+        <span class="label label-info">@{{ tag }}</span>
+      </span>
+    </h2>
+
+    <div ng-if="scenario.background">
+      <p ng-repeat="step in scenario.background.steps">
+        <i>
+          <b>{{ step.info.keyword }}</b>
+          {{ step.info.name }}
+        </i>
+        <tc-status status="step.status"></tc-status>
+      </p>
+    </div>
+
+    <p ng-repeat="step in scenario.steps">
+      <b>{{ step.info.keyword }}</b>
+      {{ step.info.name }}
+      <tc-status status="step.status"></tc-status>
+    </p>
+    <p>Args : {{ step.info.args }}</p>
+
+  </div>
 
 </div>
 

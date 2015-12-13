@@ -1,0 +1,8 @@
+<ng-switch on="status">
+  <span class="label label-success" ng-switch-when="PASSED">Succès</span>
+  <span class="label label-danger" ng-switch-when="FAILED">Échec</span>
+  <span class="label label-danger" ng-switch-when="UNDEFINED">Non défini</span>
+  <span class="label label-default" ng-switch-when="SKIPPED">Zappé</span>
+  <span class="label label-warning" ng-switch-when="PENDING">En attente</span>
+  <span class="label label-warning" ng-switch-default>{{ status }}</span>
+</ng-switch>
