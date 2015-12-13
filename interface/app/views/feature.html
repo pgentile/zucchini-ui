@@ -3,9 +3,7 @@
   <h1>
     <b>{{ ctrl.feature.info.keyword }}</b>
     {{ ctrl.feature.info.name }}
-    <span ng-repeat="tag in ctrl.feature.tags">
-      <span class="label label-info">@{{ tag }}</span>
-    </span>
+    <tc-tags tags="ctrl.feature.tags"></tc-tags>
   </h1>
 
   <p>
@@ -24,9 +22,7 @@
     <h2>
       <tc-element-info info="scenario.info"></tc-element-info>
       <tc-status status="scenario.status"></tc-status>
-      <span ng-repeat="tag in scenario.tags">
-        <span class="label label-info">@{{ tag }}</span>
-      </span>
+      <tc-tags tags="scenario.tags"></tc-tags>
     </h2>
 
     <div ng-if="scenario.background">

@@ -11,9 +11,7 @@
         <b>{{ feature.info.keyword }}</b>
         {{ feature.info.name }}
       </a>
-      <span ng-repeat="tag in feature.tags">
-        <span class="label label-info">@{{ tag }}</span>
-      </span>
+      <tc-tags tags="feature.tags"></tc-tags>
     </h2>
   </div>
 
