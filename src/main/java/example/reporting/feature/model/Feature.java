@@ -25,6 +25,8 @@ public class Feature {
 
     private Location location;
 
+    private String description;
+
     public String getId() {
         return id;
     }
@@ -71,6 +73,14 @@ public class Feature {
 
     public void setLocation(final Location location) {
         this.location = location;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

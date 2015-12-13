@@ -15,13 +15,14 @@
       HH:mm' }}</a>
   </p>
 
+  <p>{{ ctrl.feature.description }}</p>
+
   <hr>
 
   <div ng-repeat="scenario in ctrl.feature.scenarii">
 
     <h2>
-      <b>{{ scenario.info.keyword}}</b>
-      {{ scenario.info.name }}
+      <tc-element-info info="scenario.info"></tc-element-info>
       <tc-status status="scenario.status"></tc-status>
       <span ng-repeat="tag in scenario.tags">
         <span class="label label-info">@{{ tag }}</span>
@@ -31,19 +32,16 @@
     <div ng-if="scenario.background">
       <p ng-repeat="step in scenario.background.steps">
         <i>
-          <b>{{ step.info.keyword }}</b>
-          {{ step.info.name }}
+          <tc-element-info info="step.info"></tc-element-info>
         </i>
         <tc-status status="step.status"></tc-status>
       </p>
     </div>
 
     <p ng-repeat="step in scenario.steps">
-      <b>{{ step.info.keyword }}</b>
-      {{ step.info.name }}
+      <tc-element-info info="step.info"></tc-element-info>
       <tc-status status="step.status"></tc-status>
     </p>
-    <p>Args : {{ step.info.args }}</p>
 
   </div>
 
