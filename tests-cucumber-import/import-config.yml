@@ -1,0 +1,7 @@
+selfUrl: "http://localhost:8080"
+
+logging:
+  level: INFO
+
+  loggers:
+    "example": DEBUG

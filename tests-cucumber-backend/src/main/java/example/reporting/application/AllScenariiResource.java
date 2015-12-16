@@ -1,8 +1,8 @@
 package example.reporting.application;
 
 import com.google.common.base.Strings;
-import example.reporting.scenario.domain.ScenarioDAO;
-import example.reporting.scenario.model.Scenario;
+import example.reporting.scenario.ScenarioDAO;
+import example.reporting.api.scenario.Scenario;
 import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

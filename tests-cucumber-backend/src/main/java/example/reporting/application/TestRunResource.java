@@ -1,11 +1,11 @@
 package example.reporting.application;
 
 
-import example.reporting.reportconverter.domain.ReportConverterService;
-import example.reporting.testrun.domain.TestRunDAO;
-import example.reporting.testrun.model.TestRun;
-import example.reporting.testrun.model.TestRunStatus;
-import example.reporting.testrun.view.UpdateTestRunRequest;
+import example.reporting.reportconverter.ReportConverterService;
+import example.reporting.testrun.TestRunDAO;
+import example.reporting.api.testrun.TestRun;
+import example.reporting.api.testrun.TestRunStatus;
+import example.reporting.api.testrun.UpdateTestRunRequest;
 import io.dropwizard.jersey.PATCH;
 
 import javax.validation.Valid;

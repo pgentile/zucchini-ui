@@ -1,12 +1,12 @@
 package example.reporting.application;
 
-import example.reporting.reportconverter.domain.ReportConverterService;
-import example.reporting.testrun.domain.TestRunDAO;
-import example.reporting.testrun.domain.TestRunFactory;
-import example.reporting.testrun.model.TestRun;
-import example.reporting.testrun.view.CreateTestRunRequest;
-import example.reporting.testrun.view.TestRunListItemView;
-import example.reporting.testrun.view.TestRunViewAccess;
+import example.reporting.reportconverter.ReportConverterService;
+import example.reporting.testrun.TestRunDAO;
+import example.reporting.testrun.TestRunFactory;
+import example.reporting.api.testrun.TestRun;
+import example.reporting.api.testrun.CreateTestRunRequest;
+import example.reporting.api.testrun.TestRunListItemView;
+import example.reporting.testrun.TestRunViewAccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

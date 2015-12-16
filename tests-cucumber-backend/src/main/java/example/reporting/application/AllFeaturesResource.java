@@ -1,8 +1,8 @@
 package example.reporting.application;
 
 import com.google.common.base.Strings;
-import example.reporting.feature.domain.FeatureDAO;
-import example.reporting.feature.model.Feature;
+import example.reporting.feature.FeatureDAO;
+import example.reporting.api.feature.Feature;
 import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

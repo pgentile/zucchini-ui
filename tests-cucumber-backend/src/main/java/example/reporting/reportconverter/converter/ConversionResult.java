@@ -1,7 +1,7 @@
 package example.reporting.reportconverter.converter;
 
-import example.reporting.feature.model.Feature;
-import example.reporting.scenario.model.Scenario;
+import example.reporting.api.feature.Feature;
+import example.reporting.api.scenario.Scenario;
 
 import java.util.List;
 

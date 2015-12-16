@@ -1,114 +1,172 @@
 buildscript {
 
-  repositories {
-    maven {
-      url "https://plugins.gradle.org/m2/"
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
-  }
 
-  dependencies {
-    classpath "com.moowork.gradle:gradle-grunt-plugin:0.11"
-  }
+    dependencies {
+        classpath "com.moowork.gradle:gradle-grunt-plugin:0.11"
+    }
 
 }
 
 
 allprojects {
 
-  group = 'org.example.tests-cucumber'
-  version = new File("${rootDir}/VERSION.txt").text.trim()
+    group = 'org.example.tests-cucumber'
+    version = new File("${rootDir}/VERSION.txt").text.trim()
 
-  apply plugin: 'idea'
+    apply plugin: 'idea'
 
-  repositories {
-    mavenLocal()
-    mavenCentral()
-  }
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
 
-  ext.versions = [
-    dropwizard: '0.9.1',
-    orika     : '1.4.5',
-    morphia   : '1.0.1',
-    slf4j     : '1.7.12',
-    assertj   : '3.2.0',
-    spring    : '4.2.3.RELEASE',
-  ]
+    ext.versions = [
+        dropwizard        : '0.9.1',
+        orika             : '1.4.5',
+        morphia           : '1.0.1',
+        slf4j             : '1.7.12',
+        assertj           : '3.2.0',
+        spring            : '4.2.3.RELEASE',
+        jackson           : '2.6.4',
+        guava             : '19.0',
+        hibernateValidator: '5.2.2.Final',
+    ]
+
+
+    project.afterEvaluate {
+
+        // Replace commons logging by slf4j, if present
+        project.configurations.all {
+
+            resolutionStrategy.dependencySubstitution {
+                substitute module('commons-logging:commons-logging') with module("org.slf4j:jcl-over-slf4j:${project.versions.slf4j}")
+            }
+
+        }
+
+        // Shared Java compiler config
+        project.tasks.withType(JavaCompile) {
+
+            project.sourceCompatibility = '1.8'
+
+            options.encoding = "UTF-8"
+            options.deprecation = true
+            options.compilerArgs << "-parameters"
+
+        }
+
+    }
+
+}
+
+
+project("${rootProject.name}-api") {
+
+    apply plugin: 'java'
+
+    dependencies {
+
+        // Required for validation annotations
+        compile "org.hibernate:hibernate-validator:${versions.hibernateValidator}"
+
+        // Required for Jackson JSON annotations
+        compile "com.fasterxml.jackson.core:jackson-annotations:${versions.jackson}"
+
+        // Required for Morphia annotations
+        compile "org.mongodb.morphia:morphia:${versions.morphia}"
+
+        compile "com.google.guava:guava:${versions.guava}"
+
+    }
 
 }
 
 
 project("${rootProject.name}-backend") {
 
-  apply plugin: 'java'
-  apply plugin: 'groovy'
+    apply plugin: 'java'
 
-  project.sourceCompatibility = '1.8'
+    dependencies {
 
-  dependencies {
+        compile project(":${rootProject.name}-api")
 
-    compile "io.dropwizard:dropwizard-core:${versions.dropwizard}"
-    compile "io.dropwizard:dropwizard-client:${versions.dropwizard}"
-    compile "io.dropwizard:dropwizard-metrics-graphite:${versions.dropwizard}"
-    compile "ma.glasnost.orika:orika-core:${versions.orika}"
-    compile "org.mongodb.morphia:morphia:${versions.morphia}"
-    compile "org.slf4j:slf4j-api:${versions.slf4j}"
-    compile "org.springframework:spring-context:${versions.spring}"
+        compile "io.dropwizard:dropwizard-core:${versions.dropwizard}"
+        compile "io.dropwizard:dropwizard-client:${versions.dropwizard}"
+        compile "io.dropwizard:dropwizard-metrics-graphite:${versions.dropwizard}"
+        compile "ma.glasnost.orika:orika-core:${versions.orika}"
+        compile "org.mongodb.morphia:morphia:${versions.morphia}"
+        compile "org.slf4j:slf4j-api:${versions.slf4j}"
+        compile "org.springframework:spring-context:${versions.spring}"
 
-    testCompile "org.assertj:assertj-core:${versions.assertj}"
+        testCompile "org.assertj:assertj-core:${versions.assertj}"
 
-  }
+    }
 
-  compileJava {
-    options.encoding = "UTF-8"
-    options.deprecation = true
-    options.compilerArgs << "-parameters"
-  }
+}
+
+
+project("${rootProject.name}-import") {
+
+    apply plugin: 'java'
+
+    dependencies {
+
+        compile project(":${rootProject.name}-api")
+
+        compile "io.dropwizard:dropwizard-core:${versions.dropwizard}"
+        compile "io.dropwizard:dropwizard-client:${versions.dropwizard}"
+        compile "org.slf4j:slf4j-api:${versions.slf4j}"
+
+    }
 
 }
 
 
 project("${rootProject.name}-ui") {
 
-  apply plugin: 'com.moowork.grunt'
+    apply plugin: 'com.moowork.grunt'
 
-  task build(dependsOn: 'grunt_build')
-  task assemble(dependsOn: 'grunt_build')
+    task build(dependsOn: 'grunt_build')
+    task assemble(dependsOn: 'grunt_build')
 
 }
 
 
 project("${rootProject.name}-example-features") {
 
-  apply plugin: 'groovy'
+    apply plugin: 'groovy'
 
-  project.sourceCompatibility = '1.8'
+    dependencies {
 
-  dependencies {
+        compile 'org.codehaus.groovy:groovy-all:2.4.5'
+        compile 'info.cukes:cucumber-groovy:1.2.4'
+        compile "org.slf4j:slf4j-api:${versions.slf4j}"
+        compile "org.assertj:assertj-core:${versions.assertj}"
 
-    compile 'org.codehaus.groovy:groovy-all:2.4.5'
-    compile 'info.cukes:cucumber-groovy:1.2.4'
-    compile "org.slf4j:slf4j-api:${versions.slf4j}"
-    compile "org.assertj:assertj-core:${versions.assertj}"
+    }
 
-  }
+    task runCucumber(type: JavaExec) {
 
-  task runCucumber(type: JavaExec) {
+        classpath = sourceSets.main.runtimeClasspath
 
-    classpath = sourceSets.main.runtimeClasspath
+        main = 'cucumber.api.cli.Main'
 
-    main = 'cucumber.api.cli.Main'
-
-    args += [
-      '--plugin',
-      'pretty',
-      '--glue',
-      'classpath:example',
-      '--plugin',
-      'html:build/cucumber/html',
-      '--plugin',
-      'json:build/cucumber/report.json',
-      'src/features',
-    ]
-  }
+        args += [
+            '--plugin',
+            'pretty',
+            '--glue',
+            'classpath:example',
+            '--plugin',
+            'html:build/cucumber/html',
+            '--plugin',
+            'json:build/cucumber/report.json',
+            'src/features',
+        ]
+    }
 
 }

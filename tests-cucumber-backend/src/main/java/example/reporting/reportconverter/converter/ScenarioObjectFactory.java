@@ -1,7 +1,7 @@
 package example.reporting.reportconverter.converter;
 
-import example.reporting.scenario.domain.ScenarioFactory;
-import example.reporting.scenario.model.Scenario;
+import example.reporting.scenario.ScenarioFactory;
+import example.reporting.api.scenario.Scenario;
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.ObjectFactory;
 
