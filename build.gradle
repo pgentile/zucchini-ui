@@ -113,8 +113,7 @@ project("${rootProject.name}-ui") {
 
     apply plugin: 'com.moowork.grunt'
 
-    task build(dependsOn: 'grunt_build') {
-
-    }
+  task build(dependsOn: 'grunt_build')
+  task assemble(dependsOn: 'grunt_build')
 
 }
