@@ -2,8 +2,5 @@ language: java
 
 sudo: false
 
-before_script:
-  - ./gradlew nodeSetup npmInstall
-
 jdk:
   - oraclejdk8
