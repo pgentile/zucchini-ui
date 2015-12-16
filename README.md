@@ -10,16 +10,20 @@ Requirements
 ------------
 
 * JDK 8
-* Node and npm
+* Node
+* Bower
+* Compass
+* Grunt
 * Mongo
 
 
 Build
 -----
 
-First time, init Gradle build for Node component :
+First time, install Bower dependencies and init Gradle build for Node component :
 
 ```
+(cd test-cucumber-ui && bower install)
 ./gradlew npmInstall installGrunt
 ```
 
