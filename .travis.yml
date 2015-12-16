@@ -7,5 +7,5 @@ jdk:
 
 before_install:
   - npm install -g grunt bower
-  - cd tests-cucumber-ui && bower install
+  - "(cd tests-cucumber-ui && bower install)"
   - ./gradlew nodeSetup npmInstall installGrunt
