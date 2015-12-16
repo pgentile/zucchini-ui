@@ -5,6 +5,4 @@ sudo: false
 jdk:
   - oraclejdk8
 
-before_script: ./gradlew nodeSetup npmInstall
-
-script: ./gradlew check
+before_install: ./gradlew nodeSetup npmInstall
