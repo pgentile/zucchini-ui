@@ -107,6 +107,16 @@ project("${rootProject.name}-backend") {
 
     }
 
+    task runBackend(type: JavaExec, description: 'Run backend server') {
+
+        classpath = sourceSets.main.runtimeClasspath
+
+        main = 'example.reporting.application.BackendApplication'
+
+        args += ['serve', "${projectDir}/backend-config.yml"]
+    }
+
+
 }
 
 
@@ -150,7 +160,7 @@ project("${rootProject.name}-example-features") {
 
     }
 
-    task runCucumber(type: JavaExec) {
+    task runCucumber(type: JavaExec, description: 'Run Cucumber features') {
 
         classpath = sourceSets.main.runtimeClasspath
 
