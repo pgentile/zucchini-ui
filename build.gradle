@@ -167,14 +167,11 @@ project("${rootProject.name}-example-features") {
         main = 'cucumber.api.cli.Main'
 
         args += [
-            '--plugin',
-            'pretty',
-            '--glue',
-            'classpath:example',
-            '--plugin',
-            'html:build/cucumber/html',
-            '--plugin',
-            'json:build/cucumber/report.json',
+            '--glue', 'classpath:example',
+            '--plugin', 'pretty',
+            '--plugin', 'html:build/cucumber/html',
+            '--plugin', 'json:build/cucumber/report.json',
+            '--tags', '~@ignored',
             'src/features',
         ]
     }

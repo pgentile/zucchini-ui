@@ -25,3 +25,8 @@ Fonctionnalité: test2
 
   Scénario: En attente
     Soit une tâche en attente
+
+  @ignored
+  Scénario: Test ignoré
+    Quand j'additionne 1 et 2
+    Alors j'obtiens 3

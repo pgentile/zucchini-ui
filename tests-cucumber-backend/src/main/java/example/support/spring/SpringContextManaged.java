@@ -19,6 +19,7 @@ class SpringContextManaged implements Managed {
     @Override
     public void stop() throws Exception {
         applicationContext.stop();
+        applicationContext.close();
     }
 
 }

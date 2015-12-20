@@ -25,26 +25,26 @@ public class ReportConverterService {
 
     private final ReportConverter reportConverter;
 
-    private final ObjectMapper reportObjectMapper;
+    private final ObjectMapper objectMapper;
 
     @Autowired
     public ReportConverterService(
             final FeatureDAO featureDAO,
             final ScenarioDAO scenarioDAO,
             final ReportConverter reportConverter,
-            @Qualifier("reportObjectMapper") final ObjectMapper reportObjectMapper
+            @Qualifier("reportObjectMapper") final ObjectMapper objectMapper
     ) {
         this.featureDAO = featureDAO;
         this.scenarioDAO = scenarioDAO;
         this.reportConverter = reportConverter;
-        this.reportObjectMapper = reportObjectMapper;
+        this.objectMapper = objectMapper;
     }
 
     public void convertAndSaveFeatures(final String testRunId, final InputStream featureStream) {
 
-        final JavaType featureListJavaType = reportObjectMapper.getTypeFactory().constructCollectionType(List.class, ReportFeature.class);
+        final JavaType featureListJavaType = objectMapper.getTypeFactory().constructCollectionType(List.class, ReportFeature.class);
         try {
-            final List<ReportFeature> reportFeatures = reportObjectMapper.readValue(featureStream, featureListJavaType);
+            final List<ReportFeature> reportFeatures = objectMapper.readValue(featureStream, featureListJavaType);
             reportFeatures.forEach(reportFeature -> convertAndSaveFeature(testRunId, reportFeature));
         } catch (final IOException e) {
             throw new IllegalStateException("Can't parse report feature stream", e);
