@@ -1,6 +1,6 @@
 'use strict';
 
-(function (angular, document) {
+(function (angular) {
 
   angular.module('testsCucumberApp')
     .directive('tcStatus', function () {
@@ -21,7 +21,7 @@
         templateUrl: 'views/tc-tags.html'
       };
     })
-    .directive('tcElementInfo', function () {
+    .directive('tcElementInfo', function ($window) {
 
       var cut = function (info) {
         var name = info.name;
@@ -70,7 +70,7 @@
               newElement = angular.element('<code></code>');
               newElement.text(part.value);
             } else {
-              newElement = document.createTextNode(part.value);
+              newElement = $window.document.createTextNode(part.value);
             }
             element.append(newElement);
           });
@@ -90,4 +90,4 @@
     });
 
 
-})(angular, window.document);
+})(angular);
