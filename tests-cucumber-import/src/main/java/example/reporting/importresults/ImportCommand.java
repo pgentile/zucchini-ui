@@ -6,6 +6,7 @@ import io.dropwizard.Application;
 import io.dropwizard.cli.EnvironmentCommand;
 import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.setup.Environment;
+import net.sourceforge.argparse4j.impl.Arguments;
 import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
 import org.slf4j.Logger;
@@ -32,22 +33,26 @@ public class ImportCommand extends EnvironmentCommand<ImportConfiguration> {
     public void configure(final Subparser subparser) {
         super.configure(subparser);
 
+        subparser.addArgument("--dryrun")
+            .action(Arguments.storeTrue())
+            .help("Import dry run");
+
         subparser.addArgument("report")
-                .nargs("?")
-                .required(true)
-                .help("Report filename");
+            .nargs("?")
+            .required(true)
+            .help("Report filename");
     }
 
     @Override
     protected void run(
-            final Environment environment,
-            final Namespace namespace,
-            final ImportConfiguration configuration
+        final Environment environment,
+        final Namespace namespace,
+        final ImportConfiguration configuration
     ) throws Exception {
 
         final Client client = new JerseyClientBuilder(environment)
-                .using(configuration.getSelfClientConfig())
-                .build("import");
+            .using(configuration.getSelfClientConfig())
+            .build("import");
         final WebTarget target = client.target(configuration.getSelfUrl()).path("test-runs");
 
         final CreateTestRunRequest createRequest = new CreateTestRunRequest();
@@ -61,7 +66,13 @@ public class ImportCommand extends EnvironmentCommand<ImportConfiguration> {
 
         final File reportFile = new File(namespace.getString("report"));
         try (InputStream reportStream = Files.asByteSource(reportFile).openBufferedStream()) {
-            final Response importResponse = testRunTarget.path("import").request().post(Entity.entity(reportStream, MediaType.APPLICATION_JSON_TYPE));
+            WebTarget importTarget = testRunTarget.path("import");
+            importTarget = importTarget.queryParam("dry-run", namespace.getBoolean("dryrun"));
+            // importTarget = importTarget.queryParam("dry-run", true);
+
+            LOGGER.info("Import target: {}", importTarget);
+
+            final Response importResponse = importTarget.request().post(Entity.entity(reportStream, MediaType.APPLICATION_JSON_TYPE));
             LOGGER.info("Import response: {}", importResponse);
         }
 

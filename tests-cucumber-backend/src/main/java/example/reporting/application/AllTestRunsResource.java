@@ -1,11 +1,10 @@
 package example.reporting.application;
 
-import example.reporting.reportconverter.ReportConverterService;
+import example.reporting.api.testrun.CreateTestRunRequest;
+import example.reporting.api.testrun.TestRun;
+import example.reporting.api.testrun.TestRunListItemView;
 import example.reporting.testrun.TestRunDAO;
 import example.reporting.testrun.TestRunFactory;
-import example.reporting.api.testrun.TestRun;
-import example.reporting.api.testrun.CreateTestRunRequest;
-import example.reporting.api.testrun.TestRunListItemView;
 import example.reporting.testrun.TestRunViewAccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,19 +40,19 @@ public class AllTestRunsResource {
 
     private final TestRunViewAccess testRunViewAccess;
 
-    private final ReportConverterService reportConverterService;
+    private final TestRunResource.Factory testRunResourceFactory;
 
     @Autowired
     public AllTestRunsResource(
-            final TestRunFactory testRunFactory,
-            final TestRunDAO testRunDAO,
-            final TestRunViewAccess testRunViewAccess,
-            final ReportConverterService reportConverterService
+        final TestRunFactory testRunFactory,
+        final TestRunDAO testRunDAO,
+        final TestRunViewAccess testRunViewAccess,
+        final TestRunResource.Factory testRunResourceFactory
     ) {
         this.testRunFactory = testRunFactory;
         this.testRunDAO = testRunDAO;
         this.testRunViewAccess = testRunViewAccess;
-        this.reportConverterService = reportConverterService;
+        this.testRunResourceFactory = testRunResourceFactory;
     }
 
     @POST
@@ -82,7 +81,8 @@ public class AllTestRunsResource {
         if (testRun == null) {
             throw new NotFoundException("Test run with ID '" + testRunId + "' doesn't exist");
         }
-        return new TestRunResource(testRunDAO, reportConverterService, testRun);
+
+        return testRunResourceFactory.create(testRun);
     }
 
 }

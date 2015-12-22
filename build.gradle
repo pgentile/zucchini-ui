@@ -4,10 +4,12 @@ buildscript {
         maven {
             url "https://plugins.gradle.org/m2/"
         }
+        jcenter()
     }
 
     dependencies {
-        classpath "com.moowork.gradle:gradle-grunt-plugin:0.11"
+        classpath 'com.moowork.gradle:gradle-grunt-plugin:0.11'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
     }
 
 }
@@ -27,11 +29,11 @@ allprojects {
 
     ext.versions = [
         dropwizard        : '0.9.1',
-        orika             : '1.4.5',
+        orika             : '1.4.6',
         morphia           : '1.0.1',
-        slf4j             : '1.7.12',
+        slf4j             : '1.7.13',
         assertj           : '3.2.0',
-        spring            : '4.2.3.RELEASE',
+        spring            : '4.2.4.RELEASE',
         jackson           : '2.6.4',
         guava             : '19.0',
         hibernateValidator: '5.2.2.Final',
@@ -39,6 +41,10 @@ allprojects {
 
 
     project.afterEvaluate {
+
+        if (project.pluginManager.hasPlugin("java")) {
+            project.apply plugin: 'com.github.ben-manes.versions'
+        }
 
         // Replace commons logging by slf4j, if present
         project.configurations.all {
@@ -51,6 +57,7 @@ allprojects {
 
         // Shared Java compiler config
         project.tasks.withType(JavaCompile) {
+
 
             project.sourceCompatibility = '1.8'
 
@@ -143,6 +150,7 @@ project("${rootProject.name}-ui") {
 
     task build(dependsOn: 'grunt_build')
     task assemble(dependsOn: 'grunt_build')
+    task clean(dependsOn: 'grunt_clean')
 
 }
 
@@ -172,6 +180,22 @@ project("${rootProject.name}-example-features") {
             '--plugin', 'html:build/cucumber/html',
             '--plugin', 'json:build/cucumber/report.json',
             '--tags', '~@ignored',
+            'src/features',
+        ]
+    }
+
+    task dryRunCucumber(type: JavaExec, description: 'Dry run Cucumber features') {
+
+        classpath = sourceSets.main.runtimeClasspath
+
+        main = 'cucumber.api.cli.Main'
+
+        args += [
+            '--glue', 'classpath:example',
+            '--plugin', 'pretty',
+            '--plugin', 'html:build/cucumber/html',
+            '--plugin', 'json:build/cucumber/report.json',
+            '--dry-run',
             'src/features',
         ]
     }

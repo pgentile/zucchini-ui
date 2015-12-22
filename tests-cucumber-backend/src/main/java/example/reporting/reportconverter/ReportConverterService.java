@@ -40,19 +40,19 @@ public class ReportConverterService {
         this.objectMapper = objectMapper;
     }
 
-    public void convertAndSaveFeatures(final String testRunId, final InputStream featureStream) {
+    public void convertAndSaveFeatures(final String testRunId, final InputStream featureStream, final boolean dryRun) {
 
         final JavaType featureListJavaType = objectMapper.getTypeFactory().constructCollectionType(List.class, ReportFeature.class);
         try {
             final List<ReportFeature> reportFeatures = objectMapper.readValue(featureStream, featureListJavaType);
-            reportFeatures.forEach(reportFeature -> convertAndSaveFeature(testRunId, reportFeature));
+            reportFeatures.forEach(reportFeature -> convertAndSaveFeature(testRunId, reportFeature, dryRun));
         } catch (final IOException e) {
             throw new IllegalStateException("Can't parse report feature stream", e);
         }
     }
 
-    private void convertAndSaveFeature(final String testRunId, final ReportFeature reportFeature) {
-        final ConversionResult conversionResult = reportConverter.convert(testRunId, reportFeature);
+    private void convertAndSaveFeature(final String testRunId, final ReportFeature reportFeature, final boolean dryRun) {
+        final ConversionResult conversionResult = reportConverter.convert(testRunId, reportFeature, dryRun);
 
         featureDAO.save(conversionResult.getFeature());
         conversionResult.getScenarii().forEach(scenarioDAO::save);

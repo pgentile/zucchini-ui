@@ -6,12 +6,18 @@ import org.mongodb.morphia.dao.BasicDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ScenarioDAO extends BasicDAO<Scenario, String> {
 
     @Autowired
     public ScenarioDAO(final Datastore ds) {
         super(ds);
+    }
+
+    public List<Scenario> findByTestRunId(final String testRunId) {
+        return createQuery().field("testRunId").equal(testRunId).asList();
     }
 
 }
