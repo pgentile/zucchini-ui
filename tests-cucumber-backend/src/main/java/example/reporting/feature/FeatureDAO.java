@@ -14,4 +14,10 @@ public class FeatureDAO extends BasicDAO<Feature, String> {
         super(ds);
     }
 
+    public Feature findOneByTestRunIdAndKey(String testRunId, String featureKey) {
+        return createQuery()
+            .field("testRunId").equal(testRunId)
+            .field("featureKey").equal(featureKey)
+            .get();
+    }
 }

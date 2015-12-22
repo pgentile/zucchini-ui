@@ -5,7 +5,6 @@ import example.reporting.api.testrun.TestRun;
 import example.reporting.api.testrun.TestRunStatus;
 import example.reporting.api.testrun.UpdateTestRunRequest;
 import example.reporting.reportconverter.ReportConverterService;
-import example.reporting.scenario.ScenarioDAO;
 import example.reporting.testrun.TestRunDAO;
 import io.dropwizard.jersey.PATCH;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +30,6 @@ public class TestRunResource {
 
     private final TestRunDAO testRunDAO;
 
-    private final ScenarioDAO scenarioDAO;
-
     private final ReportConverterService reportConverterService;
 
     private final TestRun testRun;
@@ -42,18 +39,14 @@ public class TestRunResource {
 
         private final TestRunDAO testRunDAO;
 
-        private final ScenarioDAO scenarioDAO;
-
         private final ReportConverterService reportConverterService;
 
         @Autowired
         public Factory(
             final TestRunDAO testRunDAO,
-            final ScenarioDAO scenarioDAO,
             final ReportConverterService reportConverterService
         ) {
             this.testRunDAO = testRunDAO;
-            this.scenarioDAO = scenarioDAO;
             this.reportConverterService = reportConverterService;
         }
 
@@ -65,7 +58,6 @@ public class TestRunResource {
 
     private TestRunResource(final Factory factory, final TestRun testRun) {
         this.testRunDAO = factory.testRunDAO;
-        this.scenarioDAO = factory.scenarioDAO;
         this.reportConverterService = factory.reportConverterService;
         this.testRun = testRun;
     }
@@ -85,11 +77,6 @@ public class TestRunResource {
     @Path("close")
     public void close() {
         ensureTestRunIsOpen();
-
-        scenarioDAO.findByTestRunId(testRun.getId()).forEach(scenario -> {
-            scenario.calculateStatusFromSteps();
-            scenarioDAO.save(scenario);
-        });
 
         testRun.close();
         testRunDAO.save(testRun);

@@ -6,7 +6,6 @@ import io.dropwizard.Application;
 import io.dropwizard.cli.EnvironmentCommand;
 import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.setup.Environment;
-import net.sourceforge.argparse4j.impl.Arguments;
 import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
 import org.slf4j.Logger;
@@ -32,10 +31,6 @@ public class ImportCommand extends EnvironmentCommand<ImportConfiguration> {
     @Override
     public void configure(final Subparser subparser) {
         super.configure(subparser);
-
-        subparser.addArgument("--dryrun")
-            .action(Arguments.storeTrue())
-            .help("Import dry run");
 
         subparser.addArgument("report")
             .nargs("?")
@@ -65,10 +60,21 @@ public class ImportCommand extends EnvironmentCommand<ImportConfiguration> {
         final WebTarget testRunTarget = client.target(testRunUrl);
 
         final File reportFile = new File(namespace.getString("report"));
+
+        LOGGER.info("First import: {}", reportFile);
         try (InputStream reportStream = Files.asByteSource(reportFile).openBufferedStream()) {
             WebTarget importTarget = testRunTarget.path("import");
-            importTarget = importTarget.queryParam("dry-run", namespace.getBoolean("dryrun"));
-            // importTarget = importTarget.queryParam("dry-run", true);
+            importTarget = importTarget.queryParam("dry-run", true);
+
+            LOGGER.info("Import target: {}", importTarget);
+
+            final Response importResponse = importTarget.request().post(Entity.entity(reportStream, MediaType.APPLICATION_JSON_TYPE));
+            LOGGER.info("Import response: {}", importResponse);
+        }
+
+        LOGGER.info("Second import: {}", reportFile);
+        try (InputStream reportStream = Files.asByteSource(reportFile).openBufferedStream()) {
+            WebTarget importTarget = testRunTarget.path("import");
 
             LOGGER.info("Import target: {}", importTarget);
 
