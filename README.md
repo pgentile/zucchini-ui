@@ -23,8 +23,7 @@ Build
 First time, install Bower dependencies and init Gradle build for Node component :
 
 ```
-(cd test-cucumber-ui && bower install)
-./gradlew npmInstall installGrunt
+(cd test-cucumber-ui && npm install && bower install)
 ```
 
 Build application with Gradle :
@@ -32,6 +31,15 @@ Build application with Gradle :
 ```
 ./gradlew build
 ```
+
+_Warning_: when Gradle is launched with Intellij, the PATH environment variable doesn't
+always contain path to grunt. If this is the case, relaunch Gradle daemon :
+
+```
+./gradlew --stop
+./gradlew build
+```
+
 
 Develop
 -------

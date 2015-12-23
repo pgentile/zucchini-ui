@@ -8,7 +8,6 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.moowork.gradle:gradle-grunt-plugin:0.11'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
     }
 
@@ -146,11 +145,13 @@ project("${rootProject.name}-import") {
 
 project("${rootProject.name}-ui") {
 
-    apply plugin: 'com.moowork.grunt'
+    task clean(type: Exec) {
+        commandLine 'grunt', 'clean'
+    }
 
-    task build(dependsOn: 'grunt_build')
-    task assemble(dependsOn: 'grunt_build')
-    task clean(dependsOn: 'grunt_clean')
+    task build(type: Exec) {
+        commandLine 'grunt'
+    }
 
 }
 
