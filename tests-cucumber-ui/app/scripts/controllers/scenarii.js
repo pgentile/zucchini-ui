@@ -2,10 +2,24 @@
 
 (function (angular) {
 
-  var ScenarioLoader = function (AllScenariiResource) {
+  var ScenarioLoader = function (AllScenariiResource, $q) {
 
     this.getScenariiByFeatureId = function (featureId) {
-      return AllScenariiResource.query({ featureId: featureId }).$promise;
+      var loader = this;
+
+      return AllScenariiResource.query({ featureId: featureId }).$promise
+        .then(function (scenarii) {
+
+          // Loading all scenarii
+          return $q.all(scenarii.map(function (scenario) {
+            return loader.getScenario(scenario.id);
+          }));
+
+        });
+    };
+
+    this.getScenario = function (scenarioId) {
+      return AllScenariiResource.get({ scenarioId: scenarioId }).$promise;
     };
 
   };
