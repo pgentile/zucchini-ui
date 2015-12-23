@@ -1,5 +1,5 @@
 {
-  "name": "testsCucumber",
+  "name": "tests-cucumber-ui",
   "private": true,
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
