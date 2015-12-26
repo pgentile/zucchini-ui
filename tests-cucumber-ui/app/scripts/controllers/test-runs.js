@@ -2,24 +2,10 @@
 
 (function (angular) {
 
-  var TestRunLoader = function ($q, AllTestRunsResource, FeatureLoader) {
+  var TestRunLoader = function ($q, AllTestRunsResource) {
 
     this.getLatests = function () {
-      return AllTestRunsResource.query().$promise
-        .then(function (testRuns) {
-
-          // Loading all features attached to each test run
-          return $q.all(testRuns.map(function (testRun) {
-
-            return FeatureLoader.getFeaturesByTestRunId(testRun.id)
-              .then(function (features) {
-                testRun.features = features;
-                return testRun;
-              });
-
-          }));
-
-        });
+      return AllTestRunsResource.query().$promise;
     };
 
     this.getById = function (testRunId) {

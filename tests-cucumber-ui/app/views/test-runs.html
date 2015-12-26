@@ -2,16 +2,10 @@
 
   <h1>Derniers tirs de tests</h1>
 
-  <div ng-repeat="testRun in ctrl.latestTestRuns">
-    <h2>
-      <span class="label label-default">{{ testRun.env }}</span>
-      <a ng-href="#/test-runs/{{ testRun.id }}">Test run @ {{ testRun.date | date:'yyyy-MM-dd HH:mm' }}</a>
-    </h2>
-
-    <div ng-repeat="feature in testRun.features">
-      <h3><b>{{ feature.info.keyword }}</b> {{ feature.info.name }}</h3>
-    </div>
-
-  </div>
+  <h2 ng-repeat="testRun in ctrl.latestTestRuns">
+    <a ng-href="#/test-runs/{{ testRun.id }}">Test run @ {{ testRun.date | date:'yyyy-MM-dd HH:mm' }}</a>
+    <span class="label label-default">{{ testRun.env }}</span>
+    <tc-test-run-status status="testRun.status"></tc-test-run-status>
+  </h2>
 
 </div>

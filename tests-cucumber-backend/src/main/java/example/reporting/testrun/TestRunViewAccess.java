@@ -1,8 +1,7 @@
 package example.reporting.testrun;
 
-import example.reporting.api.testrun.TestRunListItemView;
 import example.reporting.api.testrun.TestRun;
-import example.reporting.api.testrun.TestRunStatus;
+import example.reporting.api.testrun.TestRunListItemView;
 import ma.glasnost.orika.BoundMapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,9 +30,8 @@ public class TestRunViewAccess {
 
     public List<TestRunListItemView> getLatests() {
         return testRunDAO.createQuery()
-                .field("status").equal(TestRunStatus.CLOSED)
                 .order("-date")
-                .retrievedFields(true, "id", "env", "date")
+                .retrievedFields(true, "id", "env", "date", "status")
                 .limit(50) // FIXME With params ?!
                 .asList()
                 .stream()

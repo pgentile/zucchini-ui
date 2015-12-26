@@ -12,6 +12,15 @@
         templateUrl: 'views/tc-status.html'
       };
     })
+    .directive('tcTestRunStatus', function () {
+      return {
+        restrict: 'E',
+        scope: {
+          status: '=status'
+        },
+        templateUrl: 'views/tc-test-run-status.html'
+      };
+    })
     .directive('tcTags', function () {
       return {
         restrict: 'E',

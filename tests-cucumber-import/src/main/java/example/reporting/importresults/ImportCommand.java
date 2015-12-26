@@ -64,7 +64,7 @@ public class ImportCommand extends EnvironmentCommand<ImportConfiguration> {
         LOGGER.info("First import: {}", reportFile);
         try (InputStream reportStream = Files.asByteSource(reportFile).openBufferedStream()) {
             WebTarget importTarget = testRunTarget.path("import");
-            importTarget = importTarget.queryParam("dry-run", true);
+            // importTarget = importTarget.queryParam("dry-run", true);
 
             LOGGER.info("Import target: {}", importTarget);
 
@@ -72,6 +72,7 @@ public class ImportCommand extends EnvironmentCommand<ImportConfiguration> {
             LOGGER.info("Import response: {}", importResponse);
         }
 
+        /*
         LOGGER.info("Second import: {}", reportFile);
         try (InputStream reportStream = Files.asByteSource(reportFile).openBufferedStream()) {
             WebTarget importTarget = testRunTarget.path("import");
@@ -81,6 +82,7 @@ public class ImportCommand extends EnvironmentCommand<ImportConfiguration> {
             final Response importResponse = importTarget.request().post(Entity.entity(reportStream, MediaType.APPLICATION_JSON_TYPE));
             LOGGER.info("Import response: {}", importResponse);
         }
+        */
 
         final Response closeResponse = testRunTarget.path("close").request().post(null);
         LOGGER.info("Close response: {}", closeResponse);

@@ -1,8 +1,9 @@
 <div>
 
   <h1>
-    <span class="label label-default">{{ ctrl.testRun.env }}</span>
     Test run @ {{ ctrl.testRun.date | date:'yyyy-MM-dd HH:mm' }}
+    <span class="label label-default">{{ ctrl.testRun.env }}</span>
+    <tc-test-run-status status="ctrl.testRun.status"></tc-test-run-status>
   </h1>
 
   <div ng-repeat="feature in ctrl.testRun.features">

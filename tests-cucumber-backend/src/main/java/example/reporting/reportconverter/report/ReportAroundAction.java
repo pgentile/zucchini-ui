@@ -2,7 +2,7 @@ package example.reporting.reportconverter.report;
 
 import com.google.common.base.MoreObjects;
 
-public class AroundAction {
+public class ReportAroundAction {
 
     private Result result;
 

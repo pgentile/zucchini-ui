@@ -1,6 +1,5 @@
 package example.reporting.reportconverter.report;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.google.common.base.MoreObjects;
@@ -19,12 +18,6 @@ public class ReportFeatureElement extends CucumberElement {
 
     private List<ReportStep> steps = new ArrayList<>();
 
-    @JsonProperty("before")
-    private List<AroundAction> beforeActions = new ArrayList<>();
-
-    @JsonProperty("after")
-    private List<AroundAction> afterActions = new ArrayList<>();
-
     public String getDescription() {
         return description;
     }
@@ -39,22 +32,6 @@ public class ReportFeatureElement extends CucumberElement {
 
     public void setSteps(final List<ReportStep> steps) {
         this.steps = steps;
-    }
-
-    public List<AroundAction> getBeforeActions() {
-        return beforeActions;
-    }
-
-    public void setBeforeActions(final List<AroundAction> beforeActions) {
-        this.beforeActions = beforeActions;
-    }
-
-    public List<AroundAction> getAfterActions() {
-        return afterActions;
-    }
-
-    public void setAfterActions(final List<AroundAction> afterActions) {
-        this.afterActions = afterActions;
     }
 
     @Override

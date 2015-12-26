@@ -25,6 +25,11 @@
       <tc-tags tags="scenario.tags"></tc-tags>
     </h2>
 
+    <p ng-repeat="action in scenario.beforeActions">
+      <i><b>Pré-action</b> #{{ $index + 1 }}</i>
+      <tc-status status="action.status"></tc-status>
+    </p>
+
     <div ng-if="scenario.background">
       <p ng-repeat="step in scenario.background.steps">
         <i>
@@ -52,6 +57,11 @@
       </table>
 
     </div>
+
+    <p ng-repeat="action in scenario.afterActions">
+      <i><b>Post-action</b> #{{ scenario.afterActions.length - $index }}</i>
+      <tc-status status="action.status"></tc-status>
+    </p>
 
   </div>
 

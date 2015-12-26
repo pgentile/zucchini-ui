@@ -27,6 +27,10 @@ public class Scenario extends FeatureElement {
 
     private StepStatus status;
 
+    private List<AroundAction> beforeActions = new ArrayList<>();
+
+    private List<AroundAction> afterActions = new ArrayList<>();
+
     public String getId() {
         return id;
     }
@@ -83,6 +87,22 @@ public class Scenario extends FeatureElement {
         this.status = status;
     }
 
+    public List<AroundAction> getBeforeActions() {
+        return beforeActions;
+    }
+
+    public void setBeforeActions(List<AroundAction> beforeActions) {
+        this.beforeActions = beforeActions;
+    }
+
+    public List<AroundAction> getAfterActions() {
+        return afterActions;
+    }
+
+    public void setAfterActions(List<AroundAction> afterActions) {
+        this.afterActions = afterActions;
+    }
+
     public void calculateStatusFromSteps() {
         status = getStatusFromSteps();
     }
@@ -90,13 +110,13 @@ public class Scenario extends FeatureElement {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("id", id)
-                .add("scenarioKey", scenarioKey)
-                .add("info", getInfo())
-                .add("location", getLocation())
-                .add("tags", tags)
-                .add("status", status)
-                .toString();
+            .add("id", id)
+            .add("scenarioKey", scenarioKey)
+            .add("info", getInfo())
+            .add("location", getLocation())
+            .add("tags", tags)
+            .add("status", status)
+            .toString();
     }
 
     private StepStatus getStatusFromSteps() {
@@ -104,7 +124,9 @@ public class Scenario extends FeatureElement {
         if (background != null) {
             background.getSteps().stream().map(Step::getStatus).forEach(innerStatus::add);
         }
+        getBeforeActions().stream().map(AroundAction::getStatus).forEach(innerStatus::add);
         getSteps().stream().map(Step::getStatus).forEach(innerStatus::add);
+        getAfterActions().stream().map(AroundAction::getStatus).forEach(innerStatus::add);
 
         for (final StepStatus oneInnerStatus : innerStatus) {
             switch (oneInnerStatus) {

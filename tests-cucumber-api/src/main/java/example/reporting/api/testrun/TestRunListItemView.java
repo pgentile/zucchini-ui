@@ -10,6 +10,8 @@ public class TestRunListItemView {
 
     private Date date;
 
+    private TestRunStatus status;
+
     public String getId() {
         return id;
     }
@@ -34,4 +36,11 @@ public class TestRunListItemView {
         this.date = date;
     }
 
+    public TestRunStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TestRunStatus status) {
+        this.status = status;
+    }
 }
