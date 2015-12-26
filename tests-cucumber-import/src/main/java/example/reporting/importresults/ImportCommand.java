@@ -59,30 +59,29 @@ public class ImportCommand extends EnvironmentCommand<ImportConfiguration> {
 
         final WebTarget testRunTarget = client.target(testRunUrl);
 
-        final File reportFile = new File(namespace.getString("report"));
+        final File reportFile1 = new File("tests-cucumber-example-features/build/cucumber-dry/report.json");
 
-        LOGGER.info("First import: {}", reportFile);
-        try (InputStream reportStream = Files.asByteSource(reportFile).openBufferedStream()) {
-            WebTarget importTarget = testRunTarget.path("import");
-            // importTarget = importTarget.queryParam("dry-run", true);
-
-            LOGGER.info("Import target: {}", importTarget);
-
-            final Response importResponse = importTarget.request().post(Entity.entity(reportStream, MediaType.APPLICATION_JSON_TYPE));
-            LOGGER.info("Import response: {}", importResponse);
-        }
-
-        /*
-        LOGGER.info("Second import: {}", reportFile);
-        try (InputStream reportStream = Files.asByteSource(reportFile).openBufferedStream()) {
-            WebTarget importTarget = testRunTarget.path("import");
+        LOGGER.info("First import: {}", reportFile1);
+        try (InputStream reportStream = Files.asByteSource(reportFile1).openBufferedStream()) {
+            WebTarget importTarget = testRunTarget.path("import").queryParam("dry-run", true);
 
             LOGGER.info("Import target: {}", importTarget);
 
             final Response importResponse = importTarget.request().post(Entity.entity(reportStream, MediaType.APPLICATION_JSON_TYPE));
             LOGGER.info("Import response: {}", importResponse);
         }
-        */
+
+        final File reportFile2 = new File("tests-cucumber-example-features/build/cucumber/report.json");
+
+        LOGGER.info("Second import: {}", reportFile2);
+        try (InputStream reportStream = Files.asByteSource(reportFile2).openBufferedStream()) {
+            WebTarget importTarget = testRunTarget.path("import");
+
+            LOGGER.info("Import target: {}", importTarget);
+
+            final Response importResponse = importTarget.request().post(Entity.entity(reportStream, MediaType.APPLICATION_JSON_TYPE));
+            LOGGER.info("Import response: {}", importResponse);
+        }
 
         final Response closeResponse = testRunTarget.path("close").request().post(null);
         LOGGER.info("Close response: {}", closeResponse);
