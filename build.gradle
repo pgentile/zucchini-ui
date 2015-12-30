@@ -38,11 +38,63 @@ allprojects {
         hibernateValidator: '5.2.2.Final',
     ]
 
-
     project.afterEvaluate {
 
         if (project.pluginManager.hasPlugin("java")) {
+
+            // Versions plugin
+
             project.apply plugin: 'com.github.ben-manes.versions'
+
+            // Checkstyle plugin
+
+            project.apply plugin: 'checkstyle'
+
+            project.checkstyle {
+                ignoreFailures = true
+                configFile = project.rootProject.file("config/checkstyle/checkstyle.xml")
+            }
+
+            tasks.withType(Checkstyle) {
+                reports {
+                    xml.enabled = false
+                    html.enabled = true
+                }
+            }
+
+            // PMD plugin
+
+            project.apply plugin: 'pmd'
+
+            project.pmd {
+                ignoreFailures = true
+            }
+
+            tasks.withType(Pmd) {
+                reports {
+                    xml.enabled = false
+                    html.enabled = true
+                }
+            }
+
+            // Findbugs plugin
+
+            project.apply plugin: 'findbugs'
+
+            project.findbugs {
+                effort = "max"
+
+                ignoreFailures = true
+
+            }
+
+            tasks.withType(FindBugs) {
+                reports {
+                    xml.enabled = false
+                    html.enabled = true
+                }
+            }
+
         }
 
         // Replace commons logging by slf4j, if present
@@ -56,7 +108,6 @@ allprojects {
 
         // Shared Java compiler config
         project.tasks.withType(JavaCompile) {
-
 
             project.sourceCompatibility = '1.8'
 
@@ -145,12 +196,40 @@ project("${rootProject.name}-import") {
 
 project("${rootProject.name}-ui") {
 
-    task clean(type: Exec) {
+    apply plugin: 'base'
+
+    task gruntClean(type: Exec) {
+        description = 'Grunt clean'
+
         commandLine 'grunt', 'clean'
     }
 
-    task build(type: Exec) {
+    tasks.clean.dependsOn(gruntClean)
+
+    task dist(type: Exec) {
+        description = 'Build dist'
+
         commandLine 'grunt'
+
+        inputs.dir('app')
+        inputs.dir('test')
+        inputs.file('Gruntfile.js')
+
+        outputs.dir('dist')
+    }
+
+    task distZip(type: Zip) {
+        description = 'Assemble'
+
+        inputs.dir('dist')
+        outputs.file(archivePath)
+
+        from dist
+        into 'ui'
+    }
+
+    artifacts {
+        archives distZip
     }
 
 }

@@ -4,6 +4,9 @@
 
   var ErrorService = function () {
 
+      /**
+       * Ajouter une erreur.
+       */
       this.sendError = function (error) {
         this.listeners.forEach(function (listener) {
           listener(error);
