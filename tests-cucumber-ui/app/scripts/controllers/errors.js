@@ -13,6 +13,9 @@
         });
       };
 
+      /**
+       * Ajouter un listener d'erreurs.
+       */
       this.addListener = function (listener) {
         this.listeners.push(listener);
       };

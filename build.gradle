@@ -38,6 +38,10 @@ allprojects {
         hibernateValidator: '5.2.2.Final',
     ]
 
+    // Maven plugin
+
+    project.apply plugin: 'maven'
+
     project.afterEvaluate {
 
         if (project.pluginManager.hasPlugin("java")) {
@@ -218,14 +222,30 @@ project("${rootProject.name}-ui") {
         outputs.dir('dist')
     }
 
+    task test(type: Exec) {
+        description = 'Test'
+
+        commandLine 'grunt', 'test'
+
+        inputs.file dist
+    }
+
+    tasks.check.dependsOn(test)
+
     task distZip(type: Zip) {
         description = 'Assemble'
 
-        inputs.dir('dist')
+        inputs.file dist
         outputs.file(archivePath)
 
         from dist
         into 'ui'
+    }
+
+    tasks.assemble.dependsOn(distZip)
+
+    configurations {
+        archives
     }
 
     artifacts {
