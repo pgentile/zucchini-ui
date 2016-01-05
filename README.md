@@ -12,7 +12,6 @@ Requirements
 * JDK 8
 * Node
 * Bower
-* Compass
 * Grunt
 * Mongo
 

@@ -6,6 +6,5 @@ jdk:
   - oraclejdk8
 
 before_install:
-  - gem install compass
   - npm install -g grunt bower
   - "(cd tests-cucumber-ui && npm install && bower install)"
