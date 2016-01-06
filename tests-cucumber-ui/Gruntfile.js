@@ -134,7 +134,15 @@ module.exports = function (grunt) {
       dist: {
         options: {
           open: true,
-          base: '<%= yeoman.dist %>'
+          middleware: function (connect) {
+            return [
+              connect().use(
+                '/scripts/config.js',
+                javascriptConfigMiddleware
+              ),
+              connect.static(appConfig.dist)
+            ];
+          }
         }
       }
     },
