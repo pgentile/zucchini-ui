@@ -40,7 +40,13 @@ allprojects {
 
     // Maven plugin
 
-    project.apply plugin: 'maven'
+    project.afterEvaluate {
+
+        project.apply plugin: 'maven'
+
+    }
+
+    // Plugins to use with the java plugin
 
     project.afterEvaluate {
 
@@ -250,6 +256,10 @@ project("${rootProject.name}-ui") {
 
     artifacts {
         archives distZip
+    }
+
+    task install(type: Upload) {
+        configuration = configurations.archives
     }
 
 }
