@@ -2,10 +2,37 @@
 
   <h1>Derniers tirs de tests</h1>
 
+  <!-- Button to create a test run -->
+  <p>
+    <button type="button" class="btn btn-primary btn-lg" ng-click="ctrl.openCreateForm()">
+      Créer un tir de tests
+    </button>
+  </p>
+
   <h2 ng-repeat="testRun in ctrl.latestTestRuns">
     <a ng-href="#/test-runs/{{ testRun.id }}">Test run @ {{ testRun.date | date:'yyyy-MM-dd HH:mm' }}</a>
     <span class="label label-default">{{ testRun.env }}</span>
     <tc-test-run-status status="testRun.status"></tc-test-run-status>
   </h2>
+
+  <!-- Create test run modal window -->
+  <script type="text/ng-template" id="createTestRunForm.html">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="createCtrl.dismiss()" aria-label="Fermer">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h4 class="modal-title">Créer un nouveau tir de tests</h4>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="env">Environnement</label>
+        <input type="text" class="form-control" id="env" ng-model="createCtrl.testRun.env">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" ng-click="createCtrl.dismiss()">Annuler</button>
+      <button type="button" class="btn btn-primary" ng-click="createCtrl.create(user)">Créer</button>
+    </div>
+  </script>
 
 </div>

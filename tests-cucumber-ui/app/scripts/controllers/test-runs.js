@@ -2,7 +2,7 @@
 
 (function (angular) {
 
-  var TestRunLoader = function ($q, AllTestRunsResource) {
+  var TestRunLoader = function (AllTestRunsResource) {
 
     this.getLatests = function () {
       return AllTestRunsResource.query().$promise;
@@ -14,15 +14,34 @@
 
   };
 
+  var TestRunCreator = function (AllTestRunsResource) {
+
+    this.create = function (testRun) {
+      return AllTestRunsResource.create(testRun).$promise;
+    };
+
+  };
 
   angular.module('testsCucumberApp')
-    .controller('AllTestRunsCtrl', function ($log, TestRunLoader) {
+    .controller('AllTestRunsCtrl', function ($log, TestRunLoader, $uibModal, $location) {
 
       this.load = function () {
         TestRunLoader.getLatests()
           .then(function (latestTestRuns) {
             this.latestTestRuns = latestTestRuns;
           }.bind(this));
+      };
+
+      this.openCreateForm = function () {
+        var createdModal = $uibModal.open({
+          templateUrl: 'createTestRunForm.html',
+          controller: 'CreateTestRunCtrl',
+          controllerAs: 'createCtrl'
+        });
+
+        createdModal.result.then(function (result) {
+          $location.path('/test-runs/' + result.id);
+        });
       };
 
       this.load();
@@ -50,9 +69,41 @@
       this.load();
 
     })
+    .controller('CreateTestRunCtrl', function (TestRunCreator, $location, $uibModalInstance) {
+
+      this.testRun = {
+        env: ''
+      };
+
+      this.create = function () {
+
+        TestRunCreator.create(this.testRun)
+          .then(function (response) {
+            $uibModalInstance.close(response);
+          })
+          .catch(function () {
+            $uibModalInstance.dismiss();
+          });
+      };
+
+      this.dismiss = function () {
+        $uibModalInstance.dismiss();
+      };
+
+    })
     .service('TestRunLoader', TestRunLoader)
+    .service('TestRunCreator', TestRunCreator)
     .service('AllTestRunsResource', function ($resource, baseUri) {
-      return $resource(baseUri + '/test-runs/:testRunId', { testRunId: '@id' });
+      return $resource(
+        baseUri + '/test-runs/:testRunId',
+        { testRunId: '@id' },
+        {
+          create: {
+            method: 'POST',
+            url: baseUri + '/test-runs/create'
+          }
+        }
+      );
     })
     .config(function ($routeProvider) {
       $routeProvider

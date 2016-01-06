@@ -1,6 +1,7 @@
 package example.reporting.application;
 
 import example.reporting.api.testrun.CreateTestRunRequest;
+import example.reporting.api.testrun.CreatedTestRunResponse;
 import example.reporting.api.testrun.TestRun;
 import example.reporting.api.testrun.TestRunListItemView;
 import example.reporting.testrun.TestRunDAO;
@@ -65,7 +66,8 @@ public class AllTestRunsResource {
         final URI location = UriBuilder.fromPath("/test-runs/{testRunId}")
                 .build(testRun.getId());
 
-        return Response.created(location).build();
+        final CreatedTestRunResponse response = new CreatedTestRunResponse(testRun.getId());
+        return Response.created(location).entity(response).build();
     }
 
     @GET
