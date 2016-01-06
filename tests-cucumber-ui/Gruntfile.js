@@ -9,6 +9,8 @@
 
 module.exports = function (grunt) {
 
+  var merge = require('merge');
+
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
@@ -22,6 +24,19 @@ module.exports = function (grunt) {
   var appConfig = {
     app: 'app',
     dist: 'dist'
+  };
+
+  var externalAppConfig = require('./config.json');
+  appConfig = merge(appConfig, externalAppConfig);
+
+  // Connect function to serve a Javascript configuration file
+  var javascriptConfigMiddleware = function (req, res) {
+    var config = {
+      apiBaseUri: appConfig.api.baseUri
+    };
+
+    res.writeHead(200, {'Content-Type': 'application/javascript'});
+    res.end('configuration = ' + JSON.stringify(config) + ';');
   };
 
   // Define the configuration for all the tasks
@@ -69,16 +84,19 @@ module.exports = function (grunt) {
     // The actual grunt server settings
     connect: {
       options: {
-        port: 9000,
-        // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
-        livereload: 35729
+        port: '<%= yeoman.serve.port %>',
+        hostname: '<%= yeoman.serve.host %>',
+        livereload: '<%= yeoman.serve.livereload %>'
       },
       livereload: {
         options: {
           open: true,
           middleware: function (connect) {
             return [
+              connect().use(
+                '/scripts/config.js',
+                javascriptConfigMiddleware
+              ),
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
@@ -95,9 +113,13 @@ module.exports = function (grunt) {
       },
       test: {
         options: {
-          port: 9001,
+          port: '<%= yeoman.test.port %>',
           middleware: function (connect) {
             return [
+              connect().use(
+                '/scripts/config.js',
+                javascriptConfigMiddleware
+              ),
               connect.static('.tmp'),
               connect.static('test'),
               connect().use(

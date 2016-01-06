@@ -1,0 +1,13 @@
+{
+  "serve": {
+    "host": "localhost",
+    "port": 9000,
+    "livereload": 35729
+  },
+  "test": {
+    "port": 9001
+  },
+  "api": {
+    "baseUri": "http://localhost:8080"
+  }
+}
