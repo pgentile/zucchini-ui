@@ -22,6 +22,20 @@
 
   };
 
+  var CucumberReportImporter = function (Upload, baseUri) {
+
+    this.import = function (testRunId, file) {
+      return Upload.http({
+         url: baseUri + '/test-runs/' + testRunId + '/import',
+         headers : {
+           'Content-Type': 'application/json'
+         },
+         data: file
+       });
+    };
+
+  };
+
   angular.module('testsCucumberApp')
     .controller('AllTestRunsCtrl', function ($log, TestRunLoader, $uibModal, $location) {
 
@@ -47,7 +61,7 @@
       this.load();
 
     })
-    .controller('TestRunCtrl', function ($routeParams, TestRunLoader, FeatureLoader, $window, Upload, baseUri) {
+    .controller('TestRunCtrl', function ($routeParams, TestRunLoader, FeatureLoader, $window, CucumberReportImporter) {
 
       this.load = function () {
 
@@ -68,20 +82,7 @@
 
       this.import = function (file) {
         if (file !== null) {
-
-          // FIXME Put this in a service
-          Upload.http({
-            url: baseUri + '/test-runs/' + this.testRun.id + '/import',
-            headers : {
-              'Content-Type': 'application/json'
-            },
-            data: file
-          }).then(function () {
-
-            this.load();
-
-          }.bind(this));
-
+          CucumberReportImporter.import(this.testRun.id, file).then(this.load.bind(this));
         }
       };
 
@@ -112,6 +113,7 @@
     })
     .service('TestRunLoader', TestRunLoader)
     .service('TestRunCreator', TestRunCreator)
+    .service('CucumberReportImporter', CucumberReportImporter)
     .service('AllTestRunsResource', function ($resource, baseUri) {
       return $resource(
         baseUri + '/test-runs/:testRunId',
