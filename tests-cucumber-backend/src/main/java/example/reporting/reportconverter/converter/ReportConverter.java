@@ -5,10 +5,8 @@ import example.reporting.api.scenario.Background;
 import example.reporting.api.scenario.FeatureElement;
 import example.reporting.api.scenario.Scenario;
 import example.reporting.api.scenario.StepStatus;
-import example.reporting.feature.FeatureFactory;
 import example.reporting.reportconverter.report.ReportFeature;
 import example.reporting.reportconverter.report.ReportFeatureElement;
-import example.reporting.scenario.ScenarioFactory;
 import ma.glasnost.orika.BoundMapperFacade;
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.MappingContextFactory;
@@ -30,10 +28,7 @@ public class ReportConverter {
     private final BoundMapperFacade<ReportFeatureElement, FeatureElement> featureElementMapper;
 
     @Autowired
-    public ReportConverter(final FeatureFactory featureFactory, final ScenarioFactory scenarioFactory) {
-        final ReportMapper reportMapper = new ReportMapper(featureFactory, scenarioFactory);
-        reportMapper.initMapper();
-
+    public ReportConverter(final ReportMapper reportMapper) {
         featureMapper = reportMapper.dedicatedMapperFor(ReportFeature.class, Feature.class, false);
         featureElementMapper = reportMapper.dedicatedMapperFor(ReportFeatureElement.class, FeatureElement.class, false);
     }

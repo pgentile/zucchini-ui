@@ -1,7 +1,5 @@
 package example.reporting.reportconverter.converter;
 
-import com.google.common.base.CharMatcher;
-import com.google.common.hash.Hashing;
 import example.reporting.api.feature.Feature;
 import example.reporting.api.scenario.AroundAction;
 import example.reporting.api.scenario.Background;
@@ -14,27 +12,29 @@ import example.reporting.reportconverter.report.ReportFeature;
 import example.reporting.reportconverter.report.ReportScenario;
 import example.reporting.reportconverter.report.ReportStep;
 import example.reporting.scenario.ScenarioFactory;
-import ma.glasnost.orika.CustomConverter;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.ConfigurableMapper;
-import ma.glasnost.orika.metadata.Type;
 import ma.glasnost.orika.metadata.TypeFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Locale;
+import javax.annotation.PostConstruct;
 
+@Component
 class ReportMapper extends ConfigurableMapper {
 
     private final FeatureFactory featureFactory;
 
     private final ScenarioFactory scenarioFactory;
 
+    @Autowired
     public ReportMapper(final FeatureFactory featureFactory, final ScenarioFactory scenarioFactory) {
         super(false);
         this.featureFactory = featureFactory;
         this.scenarioFactory = scenarioFactory;
     }
 
+    @PostConstruct
     public void initMapper() {
         init();
     }
@@ -94,57 +94,4 @@ class ReportMapper extends ConfigurableMapper {
             .register();
     }
 
-    private static class StringToSha1SumConverter extends CustomConverter<String, String> {
-
-        @Override
-        public String convert(final String source, final Type<? extends String> destinationType) {
-            if (source == null) {
-                return null;
-            }
-
-            return Hashing.sha1().hashString(source, StandardCharsets.UTF_8).toString();
-        }
-
-    }
-
-    private static class StripAtSignConverter extends CustomConverter<String, String> {
-
-        private static final CharMatcher AT_SIGN_MATCHER = CharMatcher.is('@');
-
-        @Override
-        public String convert(final String source, final Type<? extends String> destinationType) {
-            if (source == null) {
-                return null;
-            }
-            return AT_SIGN_MATCHER.trimLeadingFrom(source);
-        }
-
-    }
-
-    private static class TrimStringConverter extends CustomConverter<String, String> {
-
-        @Override
-        public String convert(final String source, final Type<? extends String> destinationType) {
-            if (source == null) {
-                return null;
-            }
-
-            return CharMatcher.WHITESPACE.trimFrom(source);
-        }
-
-    }
-
-    private static class UppercaseStringToEnumConverter extends CustomConverter<String, Enum<?>> {
-
-        @Override
-        public Enum<?> convert(final String source, final Type<? extends Enum<?>> destinationType) {
-            if (source == null) {
-                return null;
-            }
-
-            final String uppercaseValue = source.toUpperCase(Locale.ENGLISH);
-            return Enum.valueOf((Class) destinationType.getRawType(), uppercaseValue);
-        }
-
-    }
 }
