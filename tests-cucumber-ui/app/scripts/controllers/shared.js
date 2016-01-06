@@ -39,6 +39,11 @@
         var items = [];
 
         info.arguments.forEach(function (arg) {
+          // Ignorer les arguments non définis
+          if (arg.value === null) {
+            return;
+          }
+
           // Ajouter le contenu avant l'argument
           var before = name.substring(previousOffset, arg.offset);
           if (before.length > 0) {
