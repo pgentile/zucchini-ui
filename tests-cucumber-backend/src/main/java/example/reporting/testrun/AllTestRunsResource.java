@@ -1,12 +1,9 @@
-package example.reporting.application;
+package example.reporting.testrun;
 
 import example.reporting.api.testrun.CreateTestRunRequest;
 import example.reporting.api.testrun.CreatedTestRunResponse;
 import example.reporting.api.testrun.TestRun;
 import example.reporting.api.testrun.TestRunListItemView;
-import example.reporting.testrun.TestRunDAO;
-import example.reporting.testrun.TestRunFactory;
-import example.reporting.testrun.TestRunViewAccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

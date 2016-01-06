@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 
 @Component
-public class TestRunViewAccess {
+class TestRunViewAccess {
 
     private final TestRunDAO testRunDAO;
 

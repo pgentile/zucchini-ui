@@ -1,7 +1,6 @@
-package example.reporting.application;
+package example.reporting.feature;
 
 import com.google.common.base.Strings;
-import example.reporting.feature.FeatureDAO;
 import example.reporting.api.feature.Feature;
 import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;

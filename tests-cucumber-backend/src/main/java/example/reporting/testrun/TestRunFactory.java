@@ -9,7 +9,7 @@ import java.util.UUID;
 
 
 @Component
-public class TestRunFactory {
+class TestRunFactory {
 
     public TestRun create(final String env) {
         final TestRun testRun = new TestRun();

@@ -1,9 +1,7 @@
-package example.reporting.application;
+package example.reporting.scenario;
 
 import example.reporting.api.scenario.Scenario;
 import example.reporting.api.scenario.ScenarioListItemView;
-import example.reporting.scenario.ScenarioDAO;
-import example.reporting.scenario.ScenarioViewAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package example.reporting.application;
+package example.reporting.scenario;
 
 import example.reporting.api.scenario.Scenario;
 

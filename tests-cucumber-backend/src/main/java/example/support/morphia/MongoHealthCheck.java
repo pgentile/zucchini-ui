@@ -4,7 +4,7 @@ import com.codahale.metrics.health.HealthCheck;
 import com.mongodb.CommandResult;
 import com.mongodb.DB;
 
-public class MongoHealthCheck extends HealthCheck {
+class MongoHealthCheck extends HealthCheck {
 
     private final DB db;
 

@@ -1,4 +1,4 @@
-package example.reporting.application;
+package example.reporting.feature;
 
 import example.reporting.api.feature.Feature;
 

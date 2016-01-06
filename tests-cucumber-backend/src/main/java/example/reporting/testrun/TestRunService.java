@@ -5,7 +5,7 @@ import example.reporting.api.testrun.TestRunStatus;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TestRunService {
+class TestRunService {
 
     public void close(TestRun testRun) {
         if (testRun.getStatus() != TestRunStatus.OPEN) {

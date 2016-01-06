@@ -1,12 +1,10 @@
-package example.reporting.application;
+package example.reporting.testrun;
 
 
 import example.reporting.api.testrun.TestRun;
 import example.reporting.api.testrun.TestRunStatus;
 import example.reporting.api.testrun.UpdateTestRunRequest;
 import example.reporting.reportconverter.ReportConverterService;
-import example.reporting.testrun.TestRunDAO;
-import example.reporting.testrun.TestRunService;
 import io.dropwizard.jersey.PATCH;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

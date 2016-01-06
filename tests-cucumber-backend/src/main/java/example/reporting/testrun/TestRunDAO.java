@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TestRunDAO extends BasicDAO<TestRun, String> {
+class TestRunDAO extends BasicDAO<TestRun, String> {
 
     @Autowired
     public TestRunDAO(final Datastore ds) {
