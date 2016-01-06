@@ -6,6 +6,7 @@ import example.reporting.api.testrun.TestRunStatus;
 import example.reporting.api.testrun.UpdateTestRunRequest;
 import example.reporting.reportconverter.ReportConverterService;
 import example.reporting.testrun.TestRunDAO;
+import example.reporting.testrun.TestRunService;
 import io.dropwizard.jersey.PATCH;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,6 +33,8 @@ public class TestRunResource {
 
     private final ReportConverterService reportConverterService;
 
+    private final TestRunService testRunService;
+
     private final TestRun testRun;
 
     @Component
@@ -41,13 +44,17 @@ public class TestRunResource {
 
         private final ReportConverterService reportConverterService;
 
+        private final TestRunService testRunService;
+
         @Autowired
         public Factory(
             final TestRunDAO testRunDAO,
-            final ReportConverterService reportConverterService
+            final ReportConverterService reportConverterService,
+            final TestRunService testRunService
         ) {
             this.testRunDAO = testRunDAO;
             this.reportConverterService = reportConverterService;
+            this.testRunService = testRunService;
         }
 
         public TestRunResource create(final TestRun testRun) {
@@ -57,8 +64,10 @@ public class TestRunResource {
     }
 
     private TestRunResource(final Factory factory, final TestRun testRun) {
-        this.testRunDAO = factory.testRunDAO;
-        this.reportConverterService = factory.reportConverterService;
+        testRunDAO = factory.testRunDAO;
+        reportConverterService = factory.reportConverterService;
+        testRunService = factory.testRunService;
+
         this.testRun = testRun;
     }
 
@@ -78,7 +87,7 @@ public class TestRunResource {
     public void close() {
         ensureTestRunIsOpen();
 
-        testRun.close();
+        testRunService.close(testRun);
         testRunDAO.save(testRun);
     }
 

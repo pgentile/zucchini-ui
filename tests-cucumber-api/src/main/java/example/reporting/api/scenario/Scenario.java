@@ -103,10 +103,6 @@ public class Scenario extends FeatureElement {
         this.afterActions = afterActions;
     }
 
-    public void calculateStatusFromSteps() {
-        status = getStatusFromSteps();
-    }
-
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
@@ -117,46 +113,6 @@ public class Scenario extends FeatureElement {
             .add("tags", tags)
             .add("status", status)
             .toString();
-    }
-
-    private StepStatus getStatusFromSteps() {
-        final List<StepStatus> innerStatus = new ArrayList<>();
-        if (background != null) {
-            background.getSteps().stream().map(Step::getStatus).forEach(innerStatus::add);
-        }
-        getBeforeActions().stream().map(AroundAction::getStatus).forEach(innerStatus::add);
-        getSteps().stream().map(Step::getStatus).forEach(innerStatus::add);
-        getAfterActions().stream().map(AroundAction::getStatus).forEach(innerStatus::add);
-
-        for (final StepStatus oneInnerStatus : innerStatus) {
-            switch (oneInnerStatus) {
-                case FAILED:
-                case UNDEFINED:
-                    return StepStatus.FAILED;
-                case PENDING:
-                    return StepStatus.PENDING;
-                default:
-                    // Rien à faire, on continue
-                    break;
-            }
-        }
-
-        // Tous les steps ont fonctionné : c'est good !
-        if (innerStatus.stream().allMatch(StepStatus.PASSED::equals)) {
-            return StepStatus.PASSED;
-        }
-
-        // Si tous les steps du scénario sont skipped, alors skipped
-        if (getSteps().stream().map(Step::getStatus).allMatch(StepStatus.SKIPPED::equals)) {
-            return StepStatus.SKIPPED;
-        }
-
-        // Si tous les steps du scénario sont non joués, alors non joués
-        if (getSteps().stream().map(Step::getStatus).allMatch(StepStatus.NOT_RUN::equals)) {
-            return StepStatus.NOT_RUN;
-        }
-
-        return StepStatus.FAILED;
     }
 
 }

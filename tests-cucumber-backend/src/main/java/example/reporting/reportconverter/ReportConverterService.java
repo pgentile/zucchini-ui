@@ -9,6 +9,7 @@ import example.reporting.reportconverter.converter.ConversionResult;
 import example.reporting.reportconverter.converter.ReportConverter;
 import example.reporting.reportconverter.report.ReportFeature;
 import example.reporting.scenario.ScenarioDAO;
+import example.reporting.scenario.ScenarioService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,21 @@ public class ReportConverterService {
 
     private final ObjectMapper objectMapper;
 
+    private final ScenarioService scenarioService;
+
     @Autowired
     public ReportConverterService(
         final FeatureDAO featureDAO,
         final ScenarioDAO scenarioDAO,
         final ReportConverter reportConverter,
-        @Qualifier("reportObjectMapper") final ObjectMapper objectMapper
+        @Qualifier("reportObjectMapper") final ObjectMapper objectMapper,
+        final ScenarioService scenarioService
     ) {
         this.featureDAO = featureDAO;
         this.scenarioDAO = scenarioDAO;
         this.reportConverter = reportConverter;
         this.objectMapper = objectMapper;
+        this.scenarioService = scenarioService;
     }
 
     public void convertAndSaveFeatures(final String testRunId, final InputStream featureStream, final boolean dryRun) {
@@ -70,7 +75,7 @@ public class ReportConverterService {
             scenario.setFeatureId(featureId);
 
             mergeScenario(featureId, scenario);
-            scenario.calculateStatusFromSteps();
+            scenarioService.calculateStatusFromSteps(scenario);
             scenarioDAO.save(scenario);
         });
     }
