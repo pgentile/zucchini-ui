@@ -10,7 +10,8 @@
       'ngRoute',
       'ngSanitize',
       'ngTouch',
-      'ui.bootstrap'
+      'ui.bootstrap',
+      'ngFileUpload'
     ])
     .constant('baseUri', appConfig.apiBaseUri)
     .config(function ($routeProvider) {

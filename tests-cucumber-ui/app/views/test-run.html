@@ -6,6 +6,10 @@
     <tc-test-run-status status="ctrl.testRun.status"></tc-test-run-status>
   </h1>
 
+  <p>
+    <button ngf-select="ctrl.import($file)" class="btn btn-primary btn-lg">Importer un résultat de tests Cucumber</button>
+  </p>
+
   <div ng-repeat="feature in ctrl.testRun.features">
     <h2>
       <a ng-href="#/features/{{ feature.id }}">

@@ -47,7 +47,7 @@
       this.load();
 
     })
-    .controller('TestRunCtrl', function ($routeParams, TestRunLoader, FeatureLoader) {
+    .controller('TestRunCtrl', function ($routeParams, TestRunLoader, FeatureLoader, $window, Upload, baseUri) {
 
       this.load = function () {
 
@@ -64,6 +64,25 @@
           .then(function (testRun) {
             this.testRun = testRun;
           }.bind(this));
+      };
+
+      this.import = function (file) {
+        if (file !== null) {
+
+          // FIXME Put this in a service
+          Upload.http({
+            url: baseUri + '/test-runs/' + this.testRun.id + '/import',
+            headers : {
+              'Content-Type': 'application/json'
+            },
+            data: file
+          }).then(function () {
+
+            this.load();
+
+          }.bind(this));
+
+        }
       };
 
       this.load();
