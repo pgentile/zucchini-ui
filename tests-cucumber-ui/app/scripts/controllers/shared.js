@@ -101,6 +101,41 @@
         link: link
       };
 
+    })
+    .directive('tcLineBreaks', function ($window) {
+
+      var link = function (scope, element) {
+
+        scope.$watch('content', function (content) {
+          element.empty();
+
+          if (content) {
+            var parts = content.trim().split('\n');
+
+            var textElement = $window.document.createTextNode(parts[0]);
+            element.append(textElement);
+
+            for (var i = 1; i < parts.length; i++) {
+              var brElement = angular.element('<br></br>');
+              element.append(brElement);
+
+              var nextTextElement = $window.document.createTextNode(parts[i]);
+              element.append(nextTextElement);
+            }
+          }
+
+        });
+
+      };
+
+      return {
+        restrict: 'E',
+        scope: {
+          content: '=content'
+        },
+        link: link
+      };
+
     });
 
 

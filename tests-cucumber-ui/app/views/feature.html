@@ -1,20 +1,24 @@
 <div>
 
   <h1>
-    <b>{{ ctrl.feature.info.keyword }}</b>
+    <b>{{ ctrl.feature.info.keyword }} :</b>
     {{ ctrl.feature.info.name }}
-    <tc-tags tags="ctrl.feature.tags"></tc-tags>
   </h1>
 
+  <p ng-if="ctrl.feature.tags">
+    <tc-tags tags="ctrl.feature.tags"></tc-tags>
+  </p>
+
   <p>
-    Runned in:
-    <a ng-href="#/test-runs/{{ ctrl.feature.testRun.id }}">test run @ {{ ctrl.feature.testRun.date | date:'yyyy-MM-dd
-      HH:mm' }}</a>
+    <b>Tir :</b>
+    <a ng-href="#/test-runs/{{ ctrl.feature.testRun.id }}">{{ ctrl.feature.testRun.date | date:'dd/MM/yyyy à HH:mm' }}</a>
     <span class="label label-default">{{ ctrl.feature.testRun.env }}</span>
   </p>
 
-  <p>{{ ctrl.feature.description }}</p>
+  <hr>
 
+  <p>
+    <tc-line-breaks content="ctrl.feature.description"></tc-line-breaks>
   <hr>
 
   <div ng-repeat="scenario in ctrl.feature.scenarii">
@@ -22,8 +26,11 @@
     <h2>
       <tc-element-info info="scenario.info"></tc-element-info>
       <tc-status status="scenario.status"></tc-status>
-      <tc-tags tags="scenario.tags"></tc-tags>
     </h2>
+
+    <p ng-if="scenario.tags">
+      <tc-tags tags="scenario.tags"></tc-tags>
+    </p>
 
     <div ng-repeat="action in scenario.beforeActions">
       <p>
@@ -67,7 +74,7 @@
 
     <div ng-repeat="action in scenario.afterActions">
       <p>
-        <i><b>Post-action</b> #{{ scenario.afterActions.length - $index }}</i>
+        <i><b>Post-action</b> #{{ $index + 1 }}</i>
         <tc-status status="action.status"></tc-status>
       </p>
       <pre ng-if="action.errorMessage">{{ action.errorMessage }}</pre>

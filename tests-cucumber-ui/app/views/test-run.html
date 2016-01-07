@@ -1,23 +1,49 @@
 <div>
 
   <h1>
-    Test run @ {{ ctrl.testRun.date | date:'yyyy-MM-dd HH:mm' }}
+    Tir du {{ ctrl.testRun.date | date:'dd/MM/yyyy à HH:mm' }}
     <span class="label label-default">{{ ctrl.testRun.env }}</span>
     <tc-test-run-status status="ctrl.testRun.status"></tc-test-run-status>
   </h1>
 
-  <p>
-    <button ngf-select="ctrl.import($file)" class="btn btn-primary btn-lg">Importer un résultat de tests Cucumber</button>
-  </p>
+  <hr>
 
-  <div ng-repeat="feature in ctrl.testRun.features">
-    <h2>
-      <a ng-href="#/features/{{ feature.id }}">
-        <b>{{ feature.info.keyword }}</b>
-        {{ feature.info.name }}
-      </a>
-      <tc-tags tags="feature.tags"></tc-tags>
-    </h2>
+  <div class="btn-toolbar" role="toolbar">
+    <div class="btn-group" role="group">
+
+      <button ngf-select="ctrl.import($file)" class="btn btn-primary btn-default">
+        <span class="glyphicon glyphicon-import" aria-hidden="true"></span>
+        Importer un résultat de tests Cucumber
+      </button>
+
+    </div>
   </div>
+
+  <hr>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+      <th>Fonctionnalité</th>
+      <th>Tags</th>
+      <th>Statut</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="feature in ctrl.testRun.features">
+      <td>
+        <a ng-href="#/features/{{ feature.id }}">
+          {{ feature.info.name }}
+        </a>
+      </td>
+      <td>
+        <tc-tags tags="feature.tags"></tc-tags>
+      </td>
+      <td>
+        UNDEFINED
+      </td>
+    </tr>
+    </tbody>
+  </table>
 
 </div>
