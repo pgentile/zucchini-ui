@@ -22,6 +22,7 @@ class ScenarioViewAccess {
     public List<ScenarioListItemView> getScenariiByFeatureId(String featureId) {
         return scenarioDAO.createQuery()
             .field("featureId").equal(featureId)
+            .order("info.name")
             .asList()
             .stream()
             .map(scenario -> mapper.map(scenario, ScenarioListItemView.class))

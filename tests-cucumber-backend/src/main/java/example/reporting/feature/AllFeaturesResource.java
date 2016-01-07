@@ -36,7 +36,7 @@ public class AllFeaturesResource {
             query = query.field("testRunId").equal(testRunId);
         }
 
-        return query.asList();
+        return query.order("info.name").asList();
     }
 
     @Path("{featureId}")
