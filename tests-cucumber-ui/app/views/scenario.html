@@ -1,0 +1,68 @@
+<div>
+
+  <h1>
+    <tc-element-info info="ctrl.scenario.info"></tc-element-info>
+    <tc-status status="ctrl.scenario.status"></tc-status>
+  </h1>
+
+  <p ng-if="ctrl.scenario.tags">
+    <tc-tags tags="ctrl.scenario.tags"></tc-tags>
+  </p>
+
+  <p>
+    <b>Fonctionnalité :</b>
+    <a href="#/features/{{ ctrl.scenario.featureId }}">{{ ctrl.scenario.feature.info.name }}</a>
+  </p>
+
+  <hr>
+
+  <div ng-repeat="action in ctrl.scenario.beforeActions">
+    <p>
+      <i><b>Pré-action</b> #{{ $index + 1 }}</i>
+      <tc-status status="action.status"></tc-status>
+    </p>
+    <pre ng-if="action.errorMessage">{{ action.errorMessage }}</pre>
+  </div>
+
+  <div ng-if="ctrl.scenario.background" ng-repeat="step in ctrl.scenario.background.steps">
+
+    <p>
+      <i>
+        <tc-element-info info="step.info"></tc-element-info>
+      </i>
+      <tc-status status="step.status"></tc-status>
+    </p>
+
+    <pre ng-if="step.errorMessage">{{ step.errorMessage }}</pre>
+
+  </div>
+
+  <div ng-repeat="step in ctrl.scenario.steps">
+
+    <p>
+      <tc-element-info info="step.info"></tc-element-info>
+      <tc-status status="step.status"></tc-status>
+    </p>
+
+    <table ng-if="step.table" class="table table-hover table-condensed" style="table-layout: auto">
+      <tbody>
+      <tr ng-repeat="row in step.table">
+        <td ng-repeat="cell in row"><code>{{ cell }}</code></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <pre ng-if="step.errorMessage">{{ step.errorMessage }}</pre>
+
+  </div>
+
+  <div ng-repeat="action in ctrl.scenario.afterActions">
+    <p>
+      <i><b>Post-action</b> #{{ $index + 1 }}</i>
+      <tc-status status="action.status"></tc-status>
+    </p>
+    <pre ng-if="action.errorMessage">{{ action.errorMessage }}</pre>
+  </div>
+
+
+</div>

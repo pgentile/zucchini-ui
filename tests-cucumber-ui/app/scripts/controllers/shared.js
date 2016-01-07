@@ -70,6 +70,10 @@
         scope.$watch('info', function (info) {
           element.empty();
 
+          if (angular.isUndefined(info)) {
+            return;
+          }
+
           // Keyword
           var keywordElem = angular.element('<b></b>');
           keywordElem.text(info.keyword);

@@ -2,20 +2,10 @@
 
 (function (angular) {
 
-  var ScenarioLoader = function (AllScenariiResource, $q) {
+  var ScenarioLoader = function (AllScenariiResource) {
 
     this.getScenariiByFeatureId = function (featureId) {
-      var loader = this;
-
-      return AllScenariiResource.query({ featureId: featureId }).$promise
-        .then(function (scenarii) {
-
-          // Loading all scenarii
-          return $q.all(scenarii.map(function (scenario) {
-            return loader.getScenario(scenario.id);
-          }));
-
-        });
+      return AllScenariiResource.query({ featureId: featureId }).$promise;
     };
 
     this.getScenario = function (scenarioId) {
@@ -25,9 +15,35 @@
   };
 
   angular.module('testsCucumberApp')
+    .controller('ScenarioCtrl', function ($routeParams, ScenarioLoader, FeatureLoader) {
+      this.load = function () {
+        ScenarioLoader.getScenario($routeParams.scenarioId)
+          .then(function (scenario) {
+            return FeatureLoader.getById(scenario.featureId)
+              .then(function (feature) {
+                scenario.feature = feature;
+                return scenario;
+              });
+          })
+          .then(function (scenario) {
+            this.scenario = scenario;
+          }.bind(this));
+      };
+
+      this.load();
+
+    })
     .service('ScenarioLoader', ScenarioLoader)
     .service('AllScenariiResource', function ($resource, baseUri) {
       return $resource(baseUri + '/scenarii/:scenarioId', { scenarioId: '@id' });
+    })
+    .config(function ($routeProvider) {
+      $routeProvider
+        .when('/scenarii/:scenarioId', {
+          templateUrl: 'views/scenario.html',
+          controller: 'ScenarioCtrl',
+          controllerAs: 'ctrl'
+        });
     });
 
 
