@@ -12,6 +12,10 @@
       return AllTestRunsResource.get({ testRunId: testRunId }).$promise;
     };
 
+    this.getByEnv = function (env) {
+      return AllTestRunsResource.query({ env: env }).$promise;
+    };
+
   };
 
   var TestRunCreator = function (AllTestRunsResource) {
@@ -61,7 +65,7 @@
       this.load();
 
     })
-    .controller('TestRunCtrl', function ($routeParams, TestRunLoader, FeatureLoader, $window, CucumberReportImporter) {
+    .controller('TestRunCtrl', function ($routeParams, TestRunLoader, FeatureLoader, CucumberReportImporter) {
 
       this.load = function () {
 
@@ -78,6 +82,7 @@
           .then(function (testRun) {
             this.testRun = testRun;
           }.bind(this));
+
       };
 
       this.import = function (file) {

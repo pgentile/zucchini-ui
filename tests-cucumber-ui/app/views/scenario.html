@@ -1,5 +1,7 @@
 <div>
 
+  <!-- Header -->
+
   <h1>
     <tc-element-info info="ctrl.scenario.info"></tc-element-info>
     <tc-status status="ctrl.scenario.status"></tc-status>
@@ -14,7 +16,18 @@
     <a href="#/features/{{ ctrl.scenario.featureId }}">{{ ctrl.scenario.feature.info.name }}</a>
   </p>
 
+  <p>
+    <b>Tir :</b>
+    <a ng-href="#/test-runs/{{ ctrl.scenario.testRun.id }}">{{ ctrl.scenario.testRun.date | date:'dd/MM/yyyy à HH:mm'
+      }}</a>
+    <span class="label label-default">{{ ctrl.scenario.testRun.env }}</span>
+  </p>
+
   <hr>
+
+  <!-- Steps -->
+
+  <h2>Etapes</h2>
 
   <div ng-repeat="action in ctrl.scenario.beforeActions">
     <p>
@@ -63,6 +76,33 @@
     </p>
     <pre ng-if="action.errorMessage">{{ action.errorMessage }}</pre>
   </div>
+
+  <hr>
+
+  <!-- Historique -->
+
+  <h2>Historique</h2>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+      <th>Tir</th>
+      <th>Statut</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="item in ctrl.history">
+      <td>
+        <a ng-href="#/test-runs/{{ item.testRun.id }}">
+          {{ item.testRun.date | date:'dd/MM/yyyy à HH:mm' }}
+        </a>
+      </td>
+      <td>
+        TODO
+      </td>
+    </tr>
+    </tbody>
+  </table>
 
 
 </div>

@@ -3,7 +3,6 @@ package example.reporting.testrun;
 import example.reporting.api.testrun.CreateTestRunRequest;
 import example.reporting.api.testrun.CreatedTestRunResponse;
 import example.reporting.api.testrun.TestRun;
-import example.reporting.api.testrun.TestRunListItemView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
@@ -36,20 +36,16 @@ public class AllTestRunsResource {
 
     private final TestRunDAO testRunDAO;
 
-    private final TestRunViewAccess testRunViewAccess;
-
     private final TestRunResource.Factory testRunResourceFactory;
 
     @Autowired
     public AllTestRunsResource(
         final TestRunFactory testRunFactory,
         final TestRunDAO testRunDAO,
-        final TestRunViewAccess testRunViewAccess,
         final TestRunResource.Factory testRunResourceFactory
     ) {
         this.testRunFactory = testRunFactory;
         this.testRunDAO = testRunDAO;
-        this.testRunViewAccess = testRunViewAccess;
         this.testRunResourceFactory = testRunResourceFactory;
     }
 
@@ -68,8 +64,8 @@ public class AllTestRunsResource {
     }
 
     @GET
-    public List<TestRunListItemView> getLatestTestRuns() {
-        return testRunViewAccess.getLatests();
+    public List<TestRun> getLatestTestRuns(@BeanParam final LatestTestRunsParams params) {
+        return testRunDAO.getLatests(params);
     }
 
     @Path("{testRunId}")
