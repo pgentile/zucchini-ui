@@ -36,7 +36,7 @@ module.exports = function (grunt) {
     };
 
     res.writeHead(200, {'Content-Type': 'application/javascript'});
-    res.end('configuration = ' + JSON.stringify(config) + ';');
+    res.end('var configuration = ' + JSON.stringify(config) + ';');
   };
 
   // Define the configuration for all the tasks
