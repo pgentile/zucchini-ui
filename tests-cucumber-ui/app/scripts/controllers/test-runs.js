@@ -41,7 +41,7 @@
   };
 
   angular.module('testsCucumberApp')
-    .controller('AllTestRunsCtrl', function ($log, TestRunLoader, $uibModal, $location) {
+    .controller('AllTestRunsCtrl', function (TestRunLoader, TestRunCreator, $uibModal, $location) {
 
       this.load = function () {
         TestRunLoader.getLatests()
@@ -57,9 +57,17 @@
           controllerAs: 'createCtrl'
         });
 
-        createdModal.result.then(function (result) {
-          $location.path('/test-runs/' + result.id);
-        });
+        createdModal.result
+          .then(function (testRun) {
+            return TestRunCreator.create(testRun);
+          })
+          .then(function (response) {
+            createdModal.close();
+            $location.path('/test-runs/' + response.id);
+          })
+          .catch(function () {
+            createdModal.dismiss();
+          });
       };
 
       this.load();
@@ -94,21 +102,14 @@
       this.load();
 
     })
-    .controller('CreateTestRunCtrl', function (TestRunCreator, $location, $uibModalInstance) {
+    .controller('CreateTestRunCtrl', function ($uibModalInstance) {
 
       this.testRun = {
         env: ''
       };
 
       this.create = function () {
-
-        TestRunCreator.create(this.testRun)
-          .then(function (response) {
-            $uibModalInstance.close(response);
-          })
-          .catch(function () {
-            $uibModalInstance.dismiss();
-          });
+        $uibModalInstance.close(this.testRun);
       };
 
       this.dismiss = function () {
