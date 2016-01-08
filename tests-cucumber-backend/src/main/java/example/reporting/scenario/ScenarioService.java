@@ -24,6 +24,7 @@ public class ScenarioService {
         for (final StepStatus oneInnerStatus : innerStatus) {
             switch (oneInnerStatus) {
                 case FAILED:
+                case UNDEFINED:
                     scenario.setStatus(StepStatus.FAILED);
                     return;
                 case PENDING:
