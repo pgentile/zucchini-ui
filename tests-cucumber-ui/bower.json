@@ -2,6 +2,8 @@
   "name": "tests-cucumber-ui",
   "private": true,
   "dependencies": {
+    "lodash": "~3.10.1",
+    "jquery": "^2.1.4",
     "angular": "^1.4.0",
     "bootstrap": "^3.2.0",
     "angular-animate": "^1.4.0",
@@ -11,7 +13,6 @@
     "angular-sanitize": "^1.4.0",
     "angular-touch": "^1.4.0",
     "angular-bootstrap": "^1.0.0",
-    "jquery": "^2.1.4",
     "ng-file-upload": "^11.0.2"
   },
   "devDependencies": {
@@ -28,6 +29,11 @@
     "jquery": {
       "main": [
         "dist/jquery.js"
+      ]
+    },
+    "lodash": {
+      "main": [
+        "lodash.js"
       ]
     }
   }

@@ -26,11 +26,11 @@
             var scenariiQ = ScenarioLoader.getScenariiByFeatureId(feature.id);
 
             return $q.all([testRunQ, scenariiQ])
-              .then(function (items) {
-                feature.testRun = items[0];
-                feature.scenarii = items[1];
+              .then(_.spread(function (testRun, scenarii) {
+                feature.testRun = testRun;
+                feature.scenarii = scenarii;
                 return feature;
-              });
+              }));
 
           })
           .then(function (feature) {
