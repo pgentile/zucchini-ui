@@ -79,7 +79,8 @@
           keywordElem.text(info.keyword);
           element.append(keywordElem);
 
-          element.append(' ');
+          var spaceElement = $window.document.createTextNode(' ');
+          element.append(spaceElement);
 
           // Name
           cut(info).forEach(function (part) {
