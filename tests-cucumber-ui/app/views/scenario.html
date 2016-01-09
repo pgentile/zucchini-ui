@@ -23,6 +23,21 @@
     <span class="label label-default">{{ ctrl.scenario.testRun.env }}</span>
   </p>
 
+
+  <hr>
+
+  <div class="btn-toolbar" role="toolbar">
+    <div class="btn-group" role="group">
+
+      <button ng-click="ctrl.changeStatusToPassed()" ng-disabled="ctrl.scenario.status === 'PASSED'"
+              class="btn btn-primary btn-default">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        Marquer le scénario comme OK
+      </button>
+
+    </div>
+  </div>
+
   <hr>
 
   <!-- Steps -->

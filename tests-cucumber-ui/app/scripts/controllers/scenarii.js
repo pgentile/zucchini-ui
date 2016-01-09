@@ -14,12 +14,15 @@
 
     this.getScenarioHistory = function (scenarioId) {
       return AllScenariiResource.getScenarioHistory({ scenarioId: scenarioId }).$promise;
-    }
+    };
 
   };
 
   angular.module('testsCucumberApp')
-    .controller('ScenarioCtrl', function ($routeParams, ScenarioLoader, FeatureLoader, TestRunLoader, $q) {
+    .controller('ScenarioCtrl', function (AllScenariiResource, ScenarioLoader, FeatureLoader, TestRunLoader, $routeParams, $q) {
+
+      this.scenario = {};
+
       this.load = function () {
 
         // Load scenario
@@ -63,6 +66,14 @@
 
       };
 
+      this.changeStatusToPassed = function () {
+        // TODO Put it in a service
+        AllScenariiResource.changeStatusToPassed({ id: this.scenario.id }).$promise
+          .then(function () {
+            this.load();
+          }.bind(this));
+      };
+
       this.load();
 
     })
@@ -76,6 +87,10 @@
             method: 'GET',
             url: baseUri + '/scenarii/:scenarioId/history',
             isArray: true
+          },
+          changeStatusToPassed: {
+            method: 'POST',
+            url: baseUri + '/scenarii/:scenarioId/changeStatusToPassed',
           }
         }
        );

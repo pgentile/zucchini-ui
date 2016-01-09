@@ -25,17 +25,17 @@ public class AllScenariiResource {
 
     private final ScenarioDAO scenarioDAO;
 
-    private final ScenarioHistoryResource.Factory historyResourceFactory;
+    private final ScenarioResource.Factory scenarioResourceFactory;
 
     @Autowired
     public AllScenariiResource(
         ScenarioViewAccess scenarioViewAccess,
         ScenarioDAO scenarioDAO,
-        ScenarioHistoryResource.Factory historyResourceFactory
+        ScenarioResource.Factory scenarioResourceFactory
     ) {
         this.scenarioViewAccess = scenarioViewAccess;
         this.scenarioDAO = scenarioDAO;
-        this.historyResourceFactory = historyResourceFactory;
+        this.scenarioResourceFactory = scenarioResourceFactory;
     }
 
     @GET
@@ -49,7 +49,7 @@ public class AllScenariiResource {
         if (scenario == null) {
             throw new NotFoundException("Scenario with ID '" + scenarioId + "' doesn't exist");
         }
-        return new ScenarioResource(historyResourceFactory, scenario);
+        return scenarioResourceFactory.create(scenario);
     }
 
 }
