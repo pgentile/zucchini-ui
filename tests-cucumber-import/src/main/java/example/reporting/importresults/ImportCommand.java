@@ -82,9 +82,6 @@ public class ImportCommand extends EnvironmentCommand<ImportConfiguration> {
             final Response importResponse = importTarget.request().post(Entity.entity(reportStream, MediaType.APPLICATION_JSON_TYPE));
             LOGGER.info("Import response: {}", importResponse);
         }
-
-        final Response closeResponse = testRunTarget.path("close").request().post(null);
-        LOGGER.info("Close response: {}", closeResponse);
     }
 
 }

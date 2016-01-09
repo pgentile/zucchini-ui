@@ -27,7 +27,7 @@ public class TestRunDAO extends BasicDAO<TestRun, String> {
 
         return query
             .order("-date")
-            .retrievedFields(true, "id", "env", "date", "status")
+            .retrievedFields(true, "id", "env", "date")
             .limit(50) // FIXME With params ?!
             .asList();
     }
