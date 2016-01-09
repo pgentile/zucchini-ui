@@ -14,7 +14,7 @@
 
     this.getStats = function (featureId) {
       return AllFeaturesResource.getStats({ featureId: featureId }).$promise;
-    }
+    };
 
   };
 

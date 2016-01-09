@@ -25,6 +25,11 @@
     <tr>
       <th>Fonctionnalité</th>
       <th>Tags</th>
+      <th>Nombre de scénarii</th>
+      <th>Succès</th>
+      <th>Echecs</th>
+      <th>En attente</th>
+      <th>Non joués</th>
     </tr>
     </thead>
     <tbody>
@@ -37,6 +42,11 @@
       <td>
         <tc-tags tags="feature.tags"></tc-tags>
       </td>
+      <td><span class="badge">{{ feature.stats.scenarioCount }}</span></td>
+      <td><span class="badge">{{ feature.stats.statsByStatus['PASSED'] }}</span></td>
+      <td><span class="badge">{{ feature.stats.statsByStatus['FAILED'] }}</span></td>
+      <td><span class="badge">{{ feature.stats.statsByStatus['PENDING'] }}</span></td>
+      <td><span class="badge">{{ feature.stats.statsByStatus['NOT_RUN'] }}</span></td>
     </tr>
     </tbody>
   </table>

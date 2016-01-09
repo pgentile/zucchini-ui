@@ -74,7 +74,7 @@
       this.load();
 
     })
-    .controller('TestRunCtrl', function ($routeParams, $uibModal, TestRunLoader, FeatureLoader, CucumberReportImporter) {
+    .controller('TestRunCtrl', function ($q, $routeParams, $uibModal, TestRunLoader, FeatureLoader, CucumberReportImporter) {
 
       this.load = function () {
 
@@ -83,8 +83,17 @@
 
             return FeatureLoader.getFeaturesByTestRunId($routeParams.testRunId)
               .then(function (features) {
-                testRun.features = features;
-                return testRun;
+
+                return $q.all(features.map(function (feature) {
+                  return FeatureLoader.getStats(feature.id)
+                    .then(function (stats) {
+                      feature.stats = stats;
+                      return feature;
+                    });
+                  })).then(function (features) {
+                    testRun.features = features;
+                    return testRun;
+                  });
               });
 
           })
