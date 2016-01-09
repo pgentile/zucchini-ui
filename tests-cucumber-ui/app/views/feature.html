@@ -22,7 +22,39 @@
     <tc-line-breaks content="ctrl.feature.description"></tc-line-breaks>
   </p>
 
+  <!-- Stats -->
+
   <hr>
+
+  <h2>Statistiques</h2>
+
+
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Nombre de scénarii</th>
+      <th>Succès</th>
+      <th>Echecs</th>
+      <th>En attente</th>
+      <th>Non joués</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><span class="badge">{{ ctrl.feature.stats.scenarioCount }}</span></td>
+      <td><span class="badge">{{ ctrl.feature.stats.statsByStatus['PASSED'] }}</span></td>
+      <td><span class="badge">{{ ctrl.feature.stats.statsByStatus['FAILED'] }}</span></td>
+      <td><span class="badge">{{ ctrl.feature.stats.statsByStatus['PENDING'] }}</span></td>
+      <td><span class="badge">{{ ctrl.feature.stats.statsByStatus['NOT_RUN'] }}</span></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Scenarii -->
+
+  <hr>
+
+  <h2>Scénarii</h2>
 
   <table class="table table-striped table-bordered">
     <thead>

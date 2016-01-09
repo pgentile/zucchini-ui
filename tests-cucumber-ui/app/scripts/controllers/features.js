@@ -12,6 +12,10 @@
       return AllFeaturesResource.get({ featureId: featureId }).$promise;
     };
 
+    this.getStats = function (featureId) {
+      return AllFeaturesResource.getStats({ featureId: featureId }).$promise;
+    }
+
   };
 
 
@@ -25,11 +29,13 @@
 
             var testRunQ = TestRunLoader.getById(feature.testRunId);
             var scenariiQ = ScenarioLoader.getScenariiByFeatureId(feature.id);
+            var statsQ = FeatureLoader.getStats(feature.id);
 
-            return $q.all([testRunQ, scenariiQ])
-              .then(_.spread(function (testRun, scenarii) {
+            return $q.all([testRunQ, scenariiQ, statsQ])
+              .then(_.spread(function (testRun, scenarii, stats) {
                 feature.testRun = testRun;
                 feature.scenarii = scenarii;
+                feature.stats = stats;
                 return feature;
               }));
 
@@ -45,7 +51,16 @@
     })
     .service('FeatureLoader', FeatureLoader)
     .service('AllFeaturesResource', function ($resource, baseUri) {
-      return $resource(baseUri + '/features/:featureId', { featureId: '@id' });
+      return $resource(
+        baseUri + '/features/:featureId',
+        { featureId: '@id' },
+        {
+          getStats: {
+            method: 'GET',
+            url: baseUri + '/features/:featureId/stats',
+          }
+        }
+      );
     })
     .config(function ($routeProvider) {
       $routeProvider

@@ -43,9 +43,9 @@ public class ScenarioService {
             return;
         }
 
-        // Si tous les steps du scénario sont skipped, alors skipped
+        // Si tous les steps du scénario sont skipped, alors non joués
         if (scenario.getSteps().stream().map(Step::getStatus).allMatch(StepStatus.SKIPPED::equals)) {
-            scenario.setStatus(ScenarioStatus.SKIPPED);
+            scenario.setStatus(ScenarioStatus.NOT_RUN);
             return;
         }
 

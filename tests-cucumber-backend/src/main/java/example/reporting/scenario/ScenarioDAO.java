@@ -27,4 +27,10 @@ public class ScenarioDAO extends BasicDAO<Scenario, String> {
             .get();
     }
 
+    public List<Scenario> findByFeatureId(String featureId) {
+        return createQuery()
+            .field("featureId").equal(featureId)
+            .asList();
+    }
+
 }

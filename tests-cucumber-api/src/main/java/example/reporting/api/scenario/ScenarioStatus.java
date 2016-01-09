@@ -5,7 +5,6 @@ public enum ScenarioStatus {
     NOT_RUN,
     PASSED,
     FAILED,
-    SKIPPED,
     PENDING
 
 }

@@ -24,9 +24,12 @@ public class AllFeaturesResource {
 
     private final FeatureDAO featureDAO;
 
+    private final FeatureService featureService;
+
     @Autowired
-    public AllFeaturesResource(FeatureDAO featureDAO) {
+    public AllFeaturesResource(FeatureDAO featureDAO, FeatureService featureService) {
         this.featureDAO = featureDAO;
+        this.featureService = featureService;
     }
 
     @GET
@@ -45,7 +48,7 @@ public class AllFeaturesResource {
         if (feature == null) {
             throw new NotFoundException("Feature with ID '" + featureId + "' doesn't exist");
         }
-        return new FeatureResource(feature);
+        return new FeatureResource(featureService, feature);
     }
 
 }
