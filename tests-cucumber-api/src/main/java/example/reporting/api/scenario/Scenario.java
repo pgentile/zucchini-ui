@@ -30,7 +30,7 @@ public class Scenario extends FeatureElement {
 
     private Background background;
 
-    private StepStatus status;
+    private ScenarioStatus status;
 
     private List<AroundAction> beforeActions = new ArrayList<>();
 
@@ -84,11 +84,11 @@ public class Scenario extends FeatureElement {
         this.background = background;
     }
 
-    public StepStatus getStatus() {
+    public ScenarioStatus getStatus() {
         return status;
     }
 
-    public void setStatus(StepStatus status) {
+    public void setStatus(ScenarioStatus status) {
         this.status = status;
     }
 

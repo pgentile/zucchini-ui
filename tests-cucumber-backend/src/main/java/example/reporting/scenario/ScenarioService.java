@@ -2,6 +2,7 @@ package example.reporting.scenario;
 
 import example.reporting.api.scenario.AroundAction;
 import example.reporting.api.scenario.Scenario;
+import example.reporting.api.scenario.ScenarioStatus;
 import example.reporting.api.scenario.Step;
 import example.reporting.api.scenario.StepStatus;
 import org.springframework.stereotype.Component;
@@ -25,10 +26,10 @@ public class ScenarioService {
             switch (oneInnerStatus) {
                 case FAILED:
                 case UNDEFINED:
-                    scenario.setStatus(StepStatus.FAILED);
+                    scenario.setStatus(ScenarioStatus.FAILED);
                     return;
                 case PENDING:
-                    scenario.setStatus(StepStatus.PENDING);
+                    scenario.setStatus(ScenarioStatus.PENDING);
                     return;
                 default:
                     // Rien à faire, on continue
@@ -38,23 +39,23 @@ public class ScenarioService {
 
         // Tous les steps ont fonctionné : c'est good !
         if (innerStatus.stream().allMatch(StepStatus.PASSED::equals)) {
-            scenario.setStatus(StepStatus.PASSED);
+            scenario.setStatus(ScenarioStatus.PASSED);
             return;
         }
 
         // Si tous les steps du scénario sont skipped, alors skipped
         if (scenario.getSteps().stream().map(Step::getStatus).allMatch(StepStatus.SKIPPED::equals)) {
-            scenario.setStatus(StepStatus.SKIPPED);
+            scenario.setStatus(ScenarioStatus.SKIPPED);
             return;
         }
 
         // Si tous les steps du scénario sont non joués, alors non joués
         if (scenario.getSteps().stream().map(Step::getStatus).allMatch(StepStatus.NOT_RUN::equals)) {
-            scenario.setStatus(StepStatus.NOT_RUN);
+            scenario.setStatus(ScenarioStatus.NOT_RUN);
             return;
         }
 
-        scenario.setStatus(StepStatus.FAILED);
+        scenario.setStatus(ScenarioStatus.FAILED);
     }
 
     public void changeStatus(Scenario scenario, StepStatus newStatus) {
