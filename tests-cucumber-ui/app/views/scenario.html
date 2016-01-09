@@ -31,8 +31,14 @@
 
       <button ng-click="ctrl.changeStatusToPassed()" ng-disabled="ctrl.scenario.status === 'PASSED'"
               class="btn btn-primary btn-default">
-        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
         Marquer le scénario comme OK
+      </button>
+
+      <button ng-click="ctrl.changeStatusToFailed()" ng-disabled="ctrl.scenario.status === 'FAILED'"
+              class="btn btn-primary btn-default">
+        <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+        Marquer le scénario comme KO
       </button>
 
     </div>

@@ -74,6 +74,14 @@
           }.bind(this));
       };
 
+      this.changeStatusToFailed = function () {
+        // TODO Put it in a service
+        AllScenariiResource.changeStatusToFailed({ id: this.scenario.id }).$promise
+          .then(function () {
+            this.load();
+          }.bind(this));
+      };
+
       this.load();
 
     })
@@ -90,7 +98,11 @@
           },
           changeStatusToPassed: {
             method: 'POST',
-            url: baseUri + '/scenarii/:scenarioId/changeStatusToPassed',
+            url: baseUri + '/scenarii/:scenarioId/changeStatus/passed',
+          },
+          changeStatusToFailed: {
+            method: 'POST',
+            url: baseUri + '/scenarii/:scenarioId/changeStatus/failed',
           }
         }
        );

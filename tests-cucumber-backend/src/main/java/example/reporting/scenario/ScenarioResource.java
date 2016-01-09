@@ -1,6 +1,7 @@
 package example.reporting.scenario;
 
 import example.reporting.api.scenario.Scenario;
+import example.reporting.api.scenario.StepStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -62,9 +63,16 @@ public class ScenarioResource {
     }
 
     @POST
-    @Path("changeStatusToPassed")
+    @Path("changeStatus/passed")
     public void changeStatusToPassed() {
-        scenarioService.changeStatusToPassed(scenario);
+        scenarioService.changeStatus(scenario, StepStatus.PASSED);
+        scenarioDAO.save(scenario);
+    }
+
+    @POST
+    @Path("changeStatus/failed")
+    public void changeStatusToFailed() {
+        scenarioService.changeStatus(scenario, StepStatus.FAILED);
         scenarioDAO.save(scenario);
     }
 

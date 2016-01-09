@@ -57,33 +57,33 @@ public class ScenarioService {
         scenario.setStatus(StepStatus.FAILED);
     }
 
-    public void changeStatusToPassed(Scenario scenario) {
+    public void changeStatus(Scenario scenario, StepStatus newStatus) {
         if (scenario.getBackground() != null) {
             scenario.getBackground().getSteps().forEach(step -> {
-                if (step.getStatus() != StepStatus.PASSED) {
-                    step.setStatus(StepStatus.PASSED);
+                if (step.getStatus() != newStatus) {
+                    step.setStatus(newStatus);
                     step.setErrorMessage(null);
                 }
             });
         }
 
         scenario.getSteps().forEach(step -> {
-            if (step.getStatus() != StepStatus.PASSED) {
-                step.setStatus(StepStatus.PASSED);
+            if (step.getStatus() != newStatus) {
+                step.setStatus(newStatus);
                 step.setErrorMessage(null);
             }
         });
 
         scenario.getBeforeActions().forEach(step -> {
-            if (step.getStatus() != StepStatus.PASSED) {
-                step.setStatus(StepStatus.PASSED);
+            if (step.getStatus() != newStatus) {
+                step.setStatus(newStatus);
                 step.setErrorMessage(null);
             }
         });
 
         scenario.getAfterActions().forEach(step -> {
-            if (step.getStatus() != StepStatus.PASSED) {
-                step.setStatus(StepStatus.PASSED);
+            if (step.getStatus() != newStatus) {
+                step.setStatus(newStatus);
                 step.setErrorMessage(null);
             }
         });
