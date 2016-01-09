@@ -1,28 +1,32 @@
 <div>
 
+  <ol class="breadcrumb">
+    <li>Environnement {{ ctrl.scenario.testRun.env }}</li>
+    <li class="active">
+      <a ng-href="#/test-runs/{{ ctrl.scenario.testRun.id }}">
+        Tir du {{ ctrl.scenario.testRun.date | date:'dd/MM/yyyy à HH:mm' }}
+      </a>
+    </li>
+    <li class="active">
+      <a href="#/features/{{ ctrl.scenario.featureId }}">
+        {{ ctrl.scenario.feature.info.keyword + ' ' + ctrl.scenario.feature.info.name }}
+      </a>
+    </li>
+    <li class="active">
+      {{ ctrl.scenario.info.keyword + ' ' + ctrl.scenario.info.name }}
+    </li>
+  </ol>
+
   <!-- Header -->
 
   <h1>
     <tc-element-info info="ctrl.scenario.info"></tc-element-info>
-    <tc-status status="ctrl.scenario.status"></tc-status>
+    <small><tc-status status="ctrl.scenario.status"></tc-status></small>
   </h1>
 
   <p ng-if="ctrl.scenario.tags">
     <tc-tags tags="ctrl.scenario.tags"></tc-tags>
   </p>
-
-  <p>
-    <b>Fonctionnalité :</b>
-    <a href="#/features/{{ ctrl.scenario.featureId }}">{{ ctrl.scenario.feature.info.name }}</a>
-  </p>
-
-  <p>
-    <b>Tir :</b>
-    <a ng-href="#/test-runs/{{ ctrl.scenario.testRun.id }}">{{ ctrl.scenario.testRun.date | date:'dd/MM/yyyy à HH:mm'
-      }}</a>
-    <span class="label label-default">{{ ctrl.scenario.testRun.env }}</span>
-  </p>
-
 
   <hr>
 

@@ -1,9 +1,11 @@
 <div>
 
-  <h1>
-    Tir du {{ ctrl.testRun.date | date:'dd/MM/yyyy à HH:mm' }}
-    <span class="label label-default">{{ ctrl.testRun.env }}</span>
-  </h1>
+  <ol class="breadcrumb">
+    <li>Environnement {{ ctrl.testRun.env }}</li>
+    <li class="active">Tir du {{ ctrl.testRun.date | date:'dd/MM/yyyy à HH:mm' }}</li>
+  </ol>
+
+  <h1>Tir du {{ ctrl.testRun.date | date:'dd/MM/yyyy à HH:mm' }}</h1>
 
   <hr>
 

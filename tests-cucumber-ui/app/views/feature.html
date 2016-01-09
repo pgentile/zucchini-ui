@@ -1,19 +1,20 @@
 <div>
 
+  <ol class="breadcrumb">
+    <li>Environnement {{ ctrl.feature.testRun.env }}</li>
+    <li class="active">
+      <a ng-href="#/test-runs/{{ ctrl.feature.testRun.id }}">Tir du {{ ctrl.feature.testRun.date | date:'dd/MM/yyyy à HH:mm' }}</a>
+    </li>
+    <li class="active">{{ ctrl.feature.info.keyword }} {{ ctrl.feature.info.name }}</li>
+  </ol>
+
   <h1>
-    <b>{{ ctrl.feature.info.keyword }} :</b>
+    <b>{{ ctrl.feature.info.keyword }}</b>
     {{ ctrl.feature.info.name }}
   </h1>
 
   <p ng-if="ctrl.feature.tags">
     <tc-tags tags="ctrl.feature.tags"></tc-tags>
-  </p>
-
-  <p>
-    <b>Tir :</b>
-    <a ng-href="#/test-runs/{{ ctrl.feature.testRun.id }}">{{ ctrl.feature.testRun.date | date:'dd/MM/yyyy à HH:mm'
-      }}</a>
-    <span class="label label-default">{{ ctrl.feature.testRun.env }}</span>
   </p>
 
   <hr>
