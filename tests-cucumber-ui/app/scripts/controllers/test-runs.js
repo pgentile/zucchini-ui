@@ -28,9 +28,14 @@
 
   var CucumberReportImporter = function (Upload, baseUri) {
 
-    this.import = function (testRunId, file) {
+    this.import = function (testRunId, file, dryRun) {
+      var url = baseUri + '/test-runs/' + testRunId + '/import';
+      if (dryRun) {
+        url += '?dry-run=true';
+      }
+
       return Upload.http({
-         url: baseUri + '/test-runs/' + testRunId + '/import',
+         url: url,
          headers : {
            'Content-Type': 'application/json'
          },
@@ -62,18 +67,14 @@
             return TestRunCreator.create(testRun);
           })
           .then(function (response) {
-            createdModal.close();
             $location.path('/test-runs/' + response.id);
-          })
-          .catch(function () {
-            createdModal.dismiss();
           });
       };
 
       this.load();
 
     })
-    .controller('TestRunCtrl', function ($routeParams, TestRunLoader, FeatureLoader, CucumberReportImporter) {
+    .controller('TestRunCtrl', function ($routeParams, $uibModal, TestRunLoader, FeatureLoader, CucumberReportImporter) {
 
       this.load = function () {
 
@@ -93,10 +94,24 @@
 
       };
 
-      this.import = function (file) {
-        if (file !== null) {
-          CucumberReportImporter.import(this.testRun.id, file).then(this.load.bind(this));
-        }
+      this.openImportForm = function () {
+        var createdModal = $uibModal.open({
+          templateUrl: 'importCucumberResults.html',
+          controller: 'ImportCucumberResultsCtrl',
+          controllerAs: 'importCtrl'
+        });
+
+        createdModal.result
+          .then(function (content) {
+            if (content.file === null || angular.isUndefined(content.file)) {
+              throw new Error('No file defined');
+            }
+
+            return CucumberReportImporter.import(this.testRun.id, content.file, content.dryRun);
+          }.bind(this))
+          .then(function () {
+            this.load();
+          }.bind(this));
       };
 
       this.load();
@@ -112,8 +127,18 @@
         $uibModalInstance.close(this.testRun);
       };
 
-      this.dismiss = function () {
-        $uibModalInstance.dismiss();
+    })
+    .controller('ImportCucumberResultsCtrl', function ($uibModalInstance) {
+
+      this.file = null;
+
+      this.dryRun = false;
+
+      this.import = function () {
+        $uibModalInstance.close({
+          file: this.file,
+          dryRun: this.dryRun
+        });
       };
 
     })

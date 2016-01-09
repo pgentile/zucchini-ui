@@ -11,7 +11,7 @@
   <div class="btn-toolbar" role="toolbar">
     <div class="btn-group" role="group">
 
-      <button ngf-select="ctrl.import($file)" class="btn btn-primary btn-default">
+      <button ng-click="ctrl.openImportForm()" class="btn btn-primary btn-default">
         <span class="glyphicon glyphicon-import" aria-hidden="true"></span>
         Importer un résultat de tests Cucumber
       </button>
@@ -41,5 +41,31 @@
     </tr>
     </tbody>
   </table>
+
+  <!-- Import cucumber results modal window -->
+  <script type="text/ng-template" id="importCucumberResults.html">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="$dismiss()" aria-label="Fermer">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h4 class="modal-title">Importer un résultat de tests Cucumber</h4>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="file">Fichier à importer</label>
+        <input type="file" id="file" ng-model="importCtrl.file" ngf-select ngf-pattern="'.json'">
+        <p class="help-block">Importez un fichier généré par le runner Cucumber</p>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" id="dryRun" ng-model="importCtrl.dryRun"> Tir à blanc
+        </label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" ng-click="$dismiss()">Annuler</button>
+      <button type="button" class="btn btn-primary" ng-click="importCtrl.import()">Importer</button>
+    </div>
+  </script>
 
 </div>
