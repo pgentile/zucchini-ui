@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-class TestRunDAO extends BasicDAO<TestRun, String> {
+public class TestRunDAO extends BasicDAO<TestRun, String> {
 
     @Autowired
     public TestRunDAO(final Datastore ds) {

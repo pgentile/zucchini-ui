@@ -91,14 +91,14 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="item in ctrl.history">
+    <tr ng-repeat="scenario in ctrl.history">
       <td>
-        <a ng-href="#/test-runs/{{ item.testRun.id }}">
-          {{ item.testRun.date | date:'dd/MM/yyyy à HH:mm' }}
+        <a ng-href="#/scenarii/{{ scenario.id }}">
+          {{ scenario.testRun.date | date:'dd/MM/yyyy à HH:mm' }}
         </a>
       </td>
       <td>
-        TODO
+        <tc-status status="scenario.status"></tc-status>
       </td>
     </tr>
     </tbody>

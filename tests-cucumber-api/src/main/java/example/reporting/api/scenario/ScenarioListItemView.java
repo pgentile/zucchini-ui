@@ -17,6 +17,8 @@ public class ScenarioListItemView {
 
     private StepStatus status;
 
+    private String testRunId;
+
     public String getId() {
         return id;
     }
@@ -49,4 +51,11 @@ public class ScenarioListItemView {
         this.status = status;
     }
 
+    public String getTestRunId() {
+        return testRunId;
+    }
+
+    public void setTestRunId(String testRunId) {
+        this.testRunId = testRunId;
+    }
 }

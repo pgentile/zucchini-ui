@@ -17,6 +17,7 @@
 
   angular.module('testsCucumberApp')
     .controller('FeatureCtrl', function ($routeParams, $q, FeatureLoader, TestRunLoader, ScenarioLoader) {
+
       this.load = function () {
 
         FeatureLoader.getById($routeParams.featureId)

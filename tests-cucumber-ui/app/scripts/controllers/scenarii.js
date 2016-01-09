@@ -12,13 +12,15 @@
       return AllScenariiResource.get({ scenarioId: scenarioId }).$promise;
     };
 
+    this.getScenarioHistory = function (scenarioId) {
+      return AllScenariiResource.getScenarioHistory({ scenarioId: scenarioId }).$promise;
+    }
+
   };
 
   angular.module('testsCucumberApp')
     .controller('ScenarioCtrl', function ($routeParams, ScenarioLoader, FeatureLoader, TestRunLoader, $q) {
       this.load = function () {
-
-        var deferredTestRun = $q.defer();
 
         // Load scenario
 
@@ -38,23 +40,22 @@
               });
           })
           .then(function (scenario) {
-            deferredTestRun.resolve(scenario.testRun);
-            return scenario;
-          })
-          .then(function (scenario) {
             this.scenario = scenario;
           }.bind(this));
 
-          // Load test run history
+          // Load history
 
-          deferredTestRun.promise
-            .then(function (testRun) {
-              return TestRunLoader.getByEnv(testRun.env);
-            })
-            .then(function (testRuns) {
-              return testRuns.map(function (testRun) {
-                return { testRun: testRun };
-              });
+          ScenarioLoader.getScenarioHistory($routeParams.scenarioId)
+            .then(function (history) {
+
+              return $q.all(history.map(function (scenario) {
+                return TestRunLoader.getById(scenario.testRunId)
+                  .then(function (testRun) {
+                    scenario.testRun = testRun;
+                    return scenario;
+                  });
+              }));
+
             })
             .then(function (history) {
               this.history = history;
@@ -67,7 +68,17 @@
     })
     .service('ScenarioLoader', ScenarioLoader)
     .service('AllScenariiResource', function ($resource, baseUri) {
-      return $resource(baseUri + '/scenarii/:scenarioId', { scenarioId: '@id' });
+      return $resource(
+        baseUri + '/scenarii/:scenarioId',
+        { scenarioId: '@id' },
+        {
+          getScenarioHistory: {
+            method: 'GET',
+            url: baseUri + '/scenarii/:scenarioId/history',
+            isArray: true
+          }
+        }
+       );
     })
     .config(function ($routeProvider) {
       $routeProvider
