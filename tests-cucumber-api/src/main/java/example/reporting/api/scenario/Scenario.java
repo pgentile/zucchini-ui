@@ -3,6 +3,7 @@ package example.reporting.api.scenario;
 import com.google.common.base.MoreObjects;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Indexed;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,12 +16,16 @@ public class Scenario extends FeatureElement {
     @Id
     private String id;
 
+    @Indexed
     private String scenarioKey;
 
+    @Indexed
     private String featureId;
 
+    @Indexed
     private String testRunId;
 
+    @Indexed
     private Set<String> tags = new HashSet<>();
 
     private Background background;

@@ -5,6 +5,7 @@ import example.reporting.api.shared.BasicInfo;
 import example.reporting.api.shared.Location;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Indexed;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,12 +16,15 @@ public class Feature {
     @Id
     private String id;
 
+    @Indexed
     private String featureKey;
 
+    @Indexed
     private String testRunId;
 
     private BasicInfo info;
 
+    @Indexed
     private Set<String> tags = new HashSet<>();
 
     private Location location;
