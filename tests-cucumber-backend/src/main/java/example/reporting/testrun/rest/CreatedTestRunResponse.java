@@ -8,7 +8,7 @@ public class CreatedTestRunResponse {
     private final String id;
 
     @JsonCreator
-    public CreatedTestRunResponse(@JsonProperty("id") String id) {
+    public CreatedTestRunResponse(@JsonProperty("id") final String id) {
         this.id = id;
     }
 

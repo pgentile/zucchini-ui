@@ -7,7 +7,7 @@ class SpringContextManaged implements Managed {
 
     private final ConfigurableApplicationContext applicationContext;
 
-    public SpringContextManaged(ConfigurableApplicationContext applicationContext) {
+    public SpringContextManaged(final ConfigurableApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 

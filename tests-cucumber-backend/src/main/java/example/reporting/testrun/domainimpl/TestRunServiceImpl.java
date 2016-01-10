@@ -15,13 +15,13 @@ public class TestRunServiceImpl implements TestRunService {
     private final FeatureService featureService;
 
     @Autowired
-    public TestRunServiceImpl(TestRunRepository testRunRepository, FeatureService featureService) {
+    public TestRunServiceImpl(final TestRunRepository testRunRepository, final FeatureService featureService) {
         this.testRunRepository = testRunRepository;
         this.featureService = featureService;
     }
 
     @Override
-    public void deleteById(String testRunId) {
+    public void deleteById(final String testRunId) {
         final TestRun testRun = testRunRepository.getById(testRunId);
 
         featureService.deleteByTestRunId(testRunId);

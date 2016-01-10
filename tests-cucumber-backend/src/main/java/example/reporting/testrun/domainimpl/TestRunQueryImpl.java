@@ -8,12 +8,12 @@ import org.mongodb.morphia.query.Query;
 
 class TestRunQueryImpl extends AbstractMorphiaQuery<TestRun> implements TestRunQuery {
 
-    public TestRunQueryImpl(Query<TestRun> query) {
+    public TestRunQueryImpl(final Query<TestRun> query) {
         super(query);
     }
 
     @Override
-    public TestRunQuery withEnv(String env) {
+    public TestRunQuery withEnv(final String env) {
         if (!Strings.isNullOrEmpty(env)) {
             configureQuery(q -> q.field("env").equal(env));
         }

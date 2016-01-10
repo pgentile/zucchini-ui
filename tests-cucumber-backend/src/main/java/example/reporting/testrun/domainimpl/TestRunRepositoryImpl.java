@@ -13,7 +13,7 @@ class TestRunRepositoryImpl extends MorphiaRepository<TestRun, String> implement
     private final TestRunDAO dao;
 
     @Autowired
-    public TestRunRepositoryImpl(TestRunDAO dao) {
+    public TestRunRepositoryImpl(final TestRunDAO dao) {
         super(dao);
         this.dao = dao;
     }

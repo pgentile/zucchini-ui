@@ -39,7 +39,7 @@ public class BackendApplication extends Application<BackendConfiguration> implem
 
     @Override
     public void run(final BackendConfiguration configuration, final Environment environment) throws Exception {
-        FilterRegistration.Dynamic crossOriginFilterRegistration = environment.servlets()
+        final FilterRegistration.Dynamic crossOriginFilterRegistration = environment.servlets()
             .addFilter("cors-filter", CrossOriginFilter.class);
         crossOriginFilterRegistration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
         crossOriginFilterRegistration.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, "GET,POST,PUT,PATCH,DELETE");

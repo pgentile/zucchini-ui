@@ -28,13 +28,13 @@ public class AllFeaturesResource {
     private final FeatureService featureService;
 
     @Autowired
-    public AllFeaturesResource(FeatureRepository featureRepository, FeatureService featureService) {
+    public AllFeaturesResource(final FeatureRepository featureRepository, final FeatureService featureService) {
         this.featureRepository = featureRepository;
         this.featureService = featureService;
     }
 
     @GET
-    public List<Feature> getFeatures(@QueryParam("testRunId") String testRunId) {
+    public List<Feature> getFeatures(@QueryParam("testRunId") final String testRunId) {
         return featureRepository.query()
             .withTestRunId(testRunId)
             .orderByFeatureName()
@@ -43,19 +43,19 @@ public class AllFeaturesResource {
 
     @GET
     @Path("{featureId}")
-    public Feature get(@PathParam("featureId") String featureId) {
+    public Feature get(@PathParam("featureId") final String featureId) {
         return featureRepository.getById(featureId);
     }
 
     @GET
     @Path("{featureId}/stats")
-    public FeatureStats getStats(@PathParam("featureId") String featureId) {
+    public FeatureStats getStats(@PathParam("featureId") final String featureId) {
         return featureService.computeStats(featureId);
     }
 
     @DELETE
     @Path("{featureId}")
-    public void delete(@PathParam("featureId") String featureId) {
+    public void delete(@PathParam("featureId") final String featureId) {
         featureService.deleteById(featureId);
     }
 

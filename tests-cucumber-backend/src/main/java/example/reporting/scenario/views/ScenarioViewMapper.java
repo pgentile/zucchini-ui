@@ -7,7 +7,7 @@ import ma.glasnost.orika.impl.ConfigurableMapper;
 public class ScenarioViewMapper extends ConfigurableMapper {
 
     @Override
-    protected void configure(MapperFactory factory) {
+    protected void configure(final MapperFactory factory) {
         factory.classMap(Scenario.class, ScenarioListItemView.class)
             .byDefault()
             .register();

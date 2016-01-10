@@ -8,12 +8,12 @@ import org.mongodb.morphia.query.Query;
 
 class FeatureQueryImpl extends AbstractMorphiaQuery<Feature> implements FeatureQuery {
 
-    public FeatureQueryImpl(Query<Feature> query) {
+    public FeatureQueryImpl(final Query<Feature> query) {
         super(query);
     }
 
     @Override
-    public FeatureQuery withFeatureKey(String featureKey) {
+    public FeatureQuery withFeatureKey(final String featureKey) {
         if (!Strings.isNullOrEmpty(featureKey)) {
             configureQuery(query -> query.field("featureKey").equal(featureKey));
         }
@@ -21,7 +21,7 @@ class FeatureQueryImpl extends AbstractMorphiaQuery<Feature> implements FeatureQ
     }
 
     @Override
-    public FeatureQuery withTestRunId(String testRunId) {
+    public FeatureQuery withTestRunId(final String testRunId) {
         if (!Strings.isNullOrEmpty(testRunId)) {
             configureQuery(query -> query.field("testRunId").equal(testRunId));
         }

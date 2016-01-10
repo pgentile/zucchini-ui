@@ -14,7 +14,7 @@ class FeatureRepositoryImpl extends MorphiaRepository<Feature, String> implement
     private final FeatureDAO dao;
 
     @Autowired
-    public FeatureRepositoryImpl(FeatureDAO dao) {
+    public FeatureRepositoryImpl(final FeatureDAO dao) {
         super(dao);
         this.dao = dao;
     }
@@ -25,7 +25,7 @@ class FeatureRepositoryImpl extends MorphiaRepository<Feature, String> implement
     }
 
     @Override
-    public void deleteByTestRunId(String testRunId) {
+    public void deleteByTestRunId(final String testRunId) {
         final Query<Feature> query = dao.prepareTypedQuery(q -> q.withTestRunId(testRunId));
         dao.deleteByQuery(query);
     }

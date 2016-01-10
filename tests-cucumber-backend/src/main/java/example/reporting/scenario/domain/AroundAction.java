@@ -10,7 +10,7 @@ public class AroundAction {
         return status;
     }
 
-    public void setStatus(StepStatus status) {
+    public void setStatus(final StepStatus status) {
         this.status = status;
     }
 
@@ -18,7 +18,7 @@ public class AroundAction {
         return errorMessage;
     }
 
-    public void setErrorMessage(String errorMessage) {
+    public void setErrorMessage(final String errorMessage) {
         this.errorMessage = errorMessage;
     }
 

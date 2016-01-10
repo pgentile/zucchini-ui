@@ -14,7 +14,7 @@ public class ScenarioRepositoryImpl extends MorphiaRepository<Scenario, String> 
     private final ScenarioDAO dao;
 
     @Autowired
-    public ScenarioRepositoryImpl(ScenarioDAO dao) {
+    public ScenarioRepositoryImpl(final ScenarioDAO dao) {
         super(dao);
         this.dao = dao;
     }
@@ -25,13 +25,13 @@ public class ScenarioRepositoryImpl extends MorphiaRepository<Scenario, String> 
     }
 
     @Override
-    public void deleteByTestRunId(String testRunId) {
+    public void deleteByTestRunId(final String testRunId) {
         final Query<Scenario> query = dao.prepareTypedQuery(q -> q.withTestRunId(testRunId));
         dao.deleteByQuery(query);
     }
 
     @Override
-    public void deleteByFeatureId(String featureId) {
+    public void deleteByFeatureId(final String featureId) {
         final Query<Scenario> query = dao.prepareTypedQuery(q -> q.withFeatureId(featureId));
         dao.deleteByQuery(query);
     }

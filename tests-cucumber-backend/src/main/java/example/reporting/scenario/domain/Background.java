@@ -18,7 +18,7 @@ public class Background {
         return info;
     }
 
-    public void setInfo(BasicInfo info) {
+    public void setInfo(final BasicInfo info) {
         this.info = info;
     }
 
@@ -26,7 +26,7 @@ public class Background {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(final Location location) {
         this.location = location;
     }
 
@@ -34,7 +34,7 @@ public class Background {
         return steps;
     }
 
-    public void setSteps(List<Step> steps) {
+    public void setSteps(final List<Step> steps) {
         this.steps = steps;
     }
 

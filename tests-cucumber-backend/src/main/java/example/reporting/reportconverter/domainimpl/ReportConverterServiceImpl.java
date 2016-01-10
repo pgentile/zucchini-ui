@@ -77,7 +77,7 @@ class ReportConverterServiceImpl implements ReportConverterService {
         });
     }
 
-    private void mergeFeature(final String testRunId, Feature newFeature) {
+    private void mergeFeature(final String testRunId, final Feature newFeature) {
         featureRepository.query()
             .withTestRunId(testRunId)
             .withFeatureKey(newFeature.getFeatureKey())
@@ -88,7 +88,7 @@ class ReportConverterServiceImpl implements ReportConverterService {
             });
     }
 
-    private void mergeScenario(String featureId, Scenario newScenario) {
+    private void mergeScenario(final String featureId, final Scenario newScenario) {
         scenarioRepository.query()
             .withFeatureId(featureId)
             .withScenarioKey(newScenario.getScenarioKey())

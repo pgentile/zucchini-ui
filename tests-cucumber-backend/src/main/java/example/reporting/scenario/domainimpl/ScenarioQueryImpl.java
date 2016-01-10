@@ -8,12 +8,12 @@ import org.mongodb.morphia.query.Query;
 
 public class ScenarioQueryImpl extends AbstractMorphiaQuery<Scenario> implements ScenarioQuery {
 
-    public ScenarioQueryImpl(Query<Scenario> query) {
+    public ScenarioQueryImpl(final Query<Scenario> query) {
         super(query);
     }
 
     @Override
-    public ScenarioQuery withFeatureId(String featureId) {
+    public ScenarioQuery withFeatureId(final String featureId) {
         if (!Strings.isNullOrEmpty(featureId)) {
             configureQuery(q -> q.field("featureId").equal(featureId));
         }
@@ -21,7 +21,7 @@ public class ScenarioQueryImpl extends AbstractMorphiaQuery<Scenario> implements
     }
 
     @Override
-    public ScenarioQuery withScenarioKey(String scenarioKey) {
+    public ScenarioQuery withScenarioKey(final String scenarioKey) {
         if (!Strings.isNullOrEmpty(scenarioKey)) {
             configureQuery(q -> q.field("scenarioKey").equal(scenarioKey));
         }
@@ -29,7 +29,7 @@ public class ScenarioQueryImpl extends AbstractMorphiaQuery<Scenario> implements
     }
 
     @Override
-    public ScenarioQuery withTestRunId(String testRunId) {
+    public ScenarioQuery withTestRunId(final String testRunId) {
         if (!Strings.isNullOrEmpty(testRunId)) {
             configureQuery(q -> q.field("testRunId").equal(testRunId));
         }

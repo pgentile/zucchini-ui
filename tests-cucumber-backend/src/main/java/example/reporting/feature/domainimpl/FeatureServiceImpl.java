@@ -22,15 +22,15 @@ class FeatureServiceImpl implements FeatureService {
     private final ScenarioRepository scenarioRepository;
 
     @Autowired
-    public FeatureServiceImpl(FeatureRepository featureRepository, ScenarioRepository scenarioRepository) {
+    public FeatureServiceImpl(final FeatureRepository featureRepository, final ScenarioRepository scenarioRepository) {
         this.featureRepository = featureRepository;
         this.scenarioRepository = scenarioRepository;
     }
 
     @Override
-    public FeatureStats computeStats(String featureId) {
+    public FeatureStats computeStats(final String featureId) {
         final Map<ScenarioStatus, Integer> statsByStatus = new EnumMap<>(ScenarioStatus.class);
-        for (ScenarioStatus status : ScenarioStatus.values()) {
+        for (final ScenarioStatus status : ScenarioStatus.values()) {
             statsByStatus.put(status, 0);
         }
 
@@ -39,20 +39,20 @@ class FeatureServiceImpl implements FeatureService {
             .withFeatureId(featureId)
             .find();
 
-        for (Scenario scenario : scenarii) {
+        for (final Scenario scenario : scenarii) {
             statsByStatus.compute(scenario.getStatus(), (key, count) -> count + 1);
         }
         return new FeatureStats(scenarii.size(), statsByStatus);
     }
 
     @Override
-    public void deleteByTestRunId(String testRunId) {
+    public void deleteByTestRunId(final String testRunId) {
         scenarioRepository.deleteByTestRunId(testRunId);
         featureRepository.deleteByTestRunId(testRunId);
     }
 
     @Override
-    public void deleteById(String featureId) {
+    public void deleteById(final String featureId) {
         final Feature feature = featureRepository.getById(featureId);
 
         scenarioRepository.deleteByFeatureId(featureId);

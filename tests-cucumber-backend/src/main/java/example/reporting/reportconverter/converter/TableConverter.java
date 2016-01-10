@@ -9,7 +9,7 @@ import java.util.List;
 class TableConverter extends CustomConverter<List<TableRow>, String[][]> {
 
     @Override
-    public String[][] convert(List<TableRow> source, Type<? extends String[][]> destinationType) {
+    public String[][] convert(final List<TableRow> source, final Type<? extends String[][]> destinationType) {
         if (source == null || source.isEmpty()) {
             return null;
         }
@@ -18,9 +18,9 @@ class TableConverter extends CustomConverter<List<TableRow>, String[][]> {
 
         int i = 0;
         for (final TableRow sourceRow : source) {
-            String[] targetRow = new String[sourceRow.getCells().size()];
+            final String[] targetRow = new String[sourceRow.getCells().size()];
             int j = 0;
-            for (String cell : sourceRow.getCells()) {
+            for (final String cell : sourceRow.getCells()) {
                 targetRow[j] = cell;
                 j++;
             }

@@ -16,12 +16,12 @@ public class SpringBundle implements ConfiguredBundle<Configuration> {
 
     private final ConfigurableApplicationContext applicationContext;
 
-    public SpringBundle(ConfigurableApplicationContext applicationContext) {
+    public SpringBundle(final ConfigurableApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 
     @Override
-    public void run(Configuration configuration, Environment environment) throws Exception {
+    public void run(final Configuration configuration, final Environment environment) throws Exception {
         if (applicationContext.isActive()) {
             throw new IllegalStateException("Spring context already started");
         }
@@ -39,7 +39,7 @@ public class SpringBundle implements ConfiguredBundle<Configuration> {
     }
 
     @Override
-    public void initialize(Bootstrap<?> bootstrap) {
+    public void initialize(final Bootstrap<?> bootstrap) {
 
     }
 

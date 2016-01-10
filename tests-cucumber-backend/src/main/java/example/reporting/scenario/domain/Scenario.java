@@ -44,7 +44,7 @@ public class Scenario extends BaseEntity<String> {
 
     private List<AroundAction> afterActions = new ArrayList<>();
 
-    public void changeStatus(StepStatus newStatus) {
+    public void changeStatus(final StepStatus newStatus) {
         if (background != null) {
             background.getSteps().forEach(step -> {
                 if (step.getStatus() != newStatus) {
@@ -175,7 +175,7 @@ public class Scenario extends BaseEntity<String> {
         return status;
     }
 
-    public void setStatus(ScenarioStatus status) {
+    public void setStatus(final ScenarioStatus status) {
         this.status = status;
     }
 
@@ -183,7 +183,7 @@ public class Scenario extends BaseEntity<String> {
         return beforeActions;
     }
 
-    public void setBeforeActions(List<AroundAction> beforeActions) {
+    public void setBeforeActions(final List<AroundAction> beforeActions) {
         this.beforeActions = beforeActions;
     }
 
@@ -191,7 +191,7 @@ public class Scenario extends BaseEntity<String> {
         return afterActions;
     }
 
-    public void setAfterActions(List<AroundAction> afterActions) {
+    public void setAfterActions(final List<AroundAction> afterActions) {
         this.afterActions = afterActions;
     }
 
@@ -199,7 +199,7 @@ public class Scenario extends BaseEntity<String> {
         return info;
     }
 
-    public void setInfo(BasicInfo info) {
+    public void setInfo(final BasicInfo info) {
         this.info = info;
     }
 
@@ -207,7 +207,7 @@ public class Scenario extends BaseEntity<String> {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(final Location location) {
         this.location = location;
     }
 
@@ -215,7 +215,7 @@ public class Scenario extends BaseEntity<String> {
         return steps;
     }
 
-    public void setSteps(List<Step> steps) {
+    public void setSteps(final List<Step> steps) {
         this.steps = steps;
     }
 

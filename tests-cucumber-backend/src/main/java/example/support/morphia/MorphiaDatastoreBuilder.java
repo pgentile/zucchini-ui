@@ -32,21 +32,21 @@ public class MorphiaDatastoreBuilder {
         return this;
     }
 
-    public MorphiaDatastoreBuilder withOptions(MongoClientOptions.Builder optionsBuilder) {
+    public MorphiaDatastoreBuilder withOptions(final MongoClientOptions.Builder optionsBuilder) {
         return withOptions(optionsBuilder.build());
     }
 
-    public MorphiaDatastoreBuilder withOptions(MongoClientOptions options) {
+    public MorphiaDatastoreBuilder withOptions(final MongoClientOptions options) {
         this.options = Optional.of(options);
         return this;
     }
 
-    public MorphiaDatastoreBuilder withMorphia(Morphia morphia) {
+    public MorphiaDatastoreBuilder withMorphia(final Morphia morphia) {
         this.morphia = Optional.of(morphia);
         return this;
     }
 
-    public MorphiaDatastoreBuilder withHealthcheckName(String healthcheckName) {
+    public MorphiaDatastoreBuilder withHealthcheckName(final String healthcheckName) {
         this.healthcheckName = Optional.of(healthcheckName);
         return this;
     }

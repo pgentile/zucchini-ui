@@ -48,9 +48,9 @@ public class TestRunResource {
 
     @Autowired
     public TestRunResource(
-        TestRunFactory testRunFactory,
-        TestRunRepository testRunRepository,
-        TestRunService testRunService, ReportConverterService reportConverterService
+        final TestRunFactory testRunFactory,
+        final TestRunRepository testRunRepository,
+        final TestRunService testRunService, final ReportConverterService reportConverterService
     ) {
         this.testRunFactory = testRunFactory;
         this.testRunRepository = testRunRepository;
@@ -59,7 +59,7 @@ public class TestRunResource {
     }
 
     @GET
-    public List<TestRun> getLatests(@QueryParam("env") String env) {
+    public List<TestRun> getLatests(@QueryParam("env") final String env) {
         return testRunRepository.query()
             .orderByLatestFirst()
             .withEnv(env)

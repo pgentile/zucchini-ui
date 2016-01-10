@@ -21,7 +21,7 @@ public class ZonedDateTimeConverter extends TypeConverter implements SimpleValue
     }
 
     @Override
-    public Object decode(Class<?> targetClass, Object fromDBObject, MappedField optionalExtraInfo) {
+    public Object decode(final Class<?> targetClass, final Object fromDBObject, final MappedField optionalExtraInfo) {
         if (fromDBObject == null) {
             return null;
         }
@@ -42,7 +42,7 @@ public class ZonedDateTimeConverter extends TypeConverter implements SimpleValue
     }
 
     @Override
-    public Object encode(Object value, MappedField optionalExtraInfo) {
+    public Object encode(final Object value, final MappedField optionalExtraInfo) {
         if (value == null) {
             return null;
         }
@@ -56,7 +56,7 @@ public class ZonedDateTimeConverter extends TypeConverter implements SimpleValue
         throw createUnsupportedTypeException("Encode", value);
     }
 
-    private static IllegalArgumentException createUnsupportedTypeException(String context, Object value) {
+    private static IllegalArgumentException createUnsupportedTypeException(final String context, final Object value) {
         return new IllegalArgumentException(context + ": unsupported type " + value.getClass() + " for value " + value);
     }
 

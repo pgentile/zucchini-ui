@@ -11,7 +11,7 @@ public abstract class AbstractMorphiaQuery<T> implements Query<T>, MorphiaQuery<
 
     private org.mongodb.morphia.query.Query<T> query;
 
-    public AbstractMorphiaQuery(org.mongodb.morphia.query.Query<T> query) {
+    protected AbstractMorphiaQuery(final org.mongodb.morphia.query.Query<T> query) {
         this.query = query;
     }
 
@@ -40,7 +40,7 @@ public abstract class AbstractMorphiaQuery<T> implements Query<T>, MorphiaQuery<
         return query;
     }
 
-    protected void configureQuery(Function<org.mongodb.morphia.query.Query<T>, org.mongodb.morphia.query.Query<T>> transform) {
+    protected void configureQuery(final Function<org.mongodb.morphia.query.Query<T>, org.mongodb.morphia.query.Query<T>> transform) {
         query = transform.apply(query);
     }
 

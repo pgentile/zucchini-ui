@@ -32,7 +32,7 @@ public class ScenarioListItemView {
         return info;
     }
 
-    public void setInfo(BasicInfo info) {
+    public void setInfo(final BasicInfo info) {
         this.info = info;
     }
 
@@ -48,7 +48,7 @@ public class ScenarioListItemView {
         return status;
     }
 
-    public void setStatus(StepStatus status) {
+    public void setStatus(final StepStatus status) {
         this.status = status;
     }
 
@@ -56,7 +56,7 @@ public class ScenarioListItemView {
         return testRunId;
     }
 
-    public void setTestRunId(String testRunId) {
+    public void setTestRunId(final String testRunId) {
         this.testRunId = testRunId;
     }
 }

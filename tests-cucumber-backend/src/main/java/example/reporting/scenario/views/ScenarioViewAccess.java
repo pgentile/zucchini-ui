@@ -17,14 +17,14 @@ public class ScenarioViewAccess {
     private final BoundMapperFacade<Scenario, ScenarioListItemView> scenarioToListItemView;
 
     @Autowired
-    public ScenarioViewAccess(ScenarioDAO scenarioDAO) {
+    public ScenarioViewAccess(final ScenarioDAO scenarioDAO) {
         this.scenarioDAO = scenarioDAO;
 
         final ScenarioViewMapper mapper = new ScenarioViewMapper();
         scenarioToListItemView = mapper.dedicatedMapperFor(Scenario.class, ScenarioListItemView.class, false);
     }
 
-    public List<ScenarioListItemView> getScenariiByFeatureId(String featureId) {
+    public List<ScenarioListItemView> getScenariiByFeatureId(final String featureId) {
         return scenarioDAO.prepareTypedQuery(q -> q.withFeatureId(featureId).orderedByScenarioName())
             .retrievedFields(true, "id", "info", "tags", "status", "testRunId")
             .order("info.name")
@@ -34,7 +34,7 @@ public class ScenarioViewAccess {
             .collect(Collectors.toList());
     }
 
-    public ScenarioListItemView getScenarioByTestRunIdAndScenarioKey(String testRunId, String scenarioKey) {
+    public ScenarioListItemView getScenarioByTestRunIdAndScenarioKey(final String testRunId, final String scenarioKey) {
         final Scenario scenario = scenarioDAO.prepareTypedQuery(q -> q.withTestRunId(testRunId).withScenarioKey(scenarioKey))
             .retrievedFields(true, "id", "info", "tags", "status", "testRunId")
             .get();

@@ -36,9 +36,9 @@ public class ScenarioResource {
 
     @Autowired
     public ScenarioResource(
-        ScenarioViewAccess scenarioViewAccess,
-        ScenarioRepository scenarioRepository,
-        TestRunRepository testRunRepository
+        final ScenarioViewAccess scenarioViewAccess,
+        final ScenarioRepository scenarioRepository,
+        final TestRunRepository testRunRepository
     ) {
         this.scenarioViewAccess = scenarioViewAccess;
         this.scenarioRepository = scenarioRepository;
@@ -46,42 +46,42 @@ public class ScenarioResource {
     }
 
     @GET
-    public List<ScenarioListItemView> getScenarii(@QueryParam("featureId") String featureId) {
+    public List<ScenarioListItemView> getScenarii(@QueryParam("featureId") final String featureId) {
         return scenarioViewAccess.getScenariiByFeatureId(featureId);
     }
 
     @GET
     @Path("{scenarioId}")
-    public Scenario get(@PathParam("scenarioId") String scenarioId) {
+    public Scenario get(@PathParam("scenarioId") final String scenarioId) {
         return scenarioRepository.getById(scenarioId);
     }
 
     @DELETE
     @Path("{scenarioId}")
-    public void delete(@PathParam("scenarioId") String scenarioId) {
+    public void delete(@PathParam("scenarioId") final String scenarioId) {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
         scenarioRepository.delete(scenario);
     }
 
     @POST
     @Path("{scenarioId}/changeStatus/passed")
-    public void changeStatusToPassed(@PathParam("scenarioId") String scenarioId) {
-        Scenario scenario = scenarioRepository.getById(scenarioId);
+    public void changeStatusToPassed(@PathParam("scenarioId") final String scenarioId) {
+        final Scenario scenario = scenarioRepository.getById(scenarioId);
         scenario.changeStatus(StepStatus.PASSED);
         scenarioRepository.save(scenario);
     }
 
     @POST
     @Path("{scenarioId}/changeStatus/failed")
-    public void changeStatusToFailed(@PathParam("scenarioId") String scenarioId) {
-        Scenario scenario = scenarioRepository.getById(scenarioId);
+    public void changeStatusToFailed(@PathParam("scenarioId") final String scenarioId) {
+        final Scenario scenario = scenarioRepository.getById(scenarioId);
         scenario.changeStatus(StepStatus.FAILED);
         scenarioRepository.save(scenario);
     }
 
     @GET
     @Path("{scenarioId}/history")
-    public List<ScenarioListItemView> getHistory(@PathParam("scenarioId") String scenarioId) {
+    public List<ScenarioListItemView> getHistory(@PathParam("scenarioId") final String scenarioId) {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
         final TestRun scenarioTestRun = testRunRepository.getById(scenario.getTestRunId());
 

@@ -15,7 +15,7 @@ public class FeatureStats {
         statsByStatus = new EnumMap<>(ScenarioStatus.class);
     }
 
-    public FeatureStats(int scenarioCount, Map<ScenarioStatus, Integer> statsByStatus) {
+    public FeatureStats(final int scenarioCount, final Map<ScenarioStatus, Integer> statsByStatus) {
         this.scenarioCount = scenarioCount;
         this.statsByStatus = new EnumMap<>(statsByStatus);
     }
@@ -24,7 +24,7 @@ public class FeatureStats {
         return scenarioCount;
     }
 
-    public void setScenarioCount(int scenarioCount) {
+    public void setScenarioCount(final int scenarioCount) {
         this.scenarioCount = scenarioCount;
     }
 
@@ -32,7 +32,7 @@ public class FeatureStats {
         return statsByStatus;
     }
 
-    public void setStatsByStatus(Map<ScenarioStatus, Integer> statsByStatus) {
+    public void setStatsByStatus(final Map<ScenarioStatus, Integer> statsByStatus) {
         this.statsByStatus.clear();
         this.statsByStatus.putAll(statsByStatus);
     }

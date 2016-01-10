@@ -10,26 +10,26 @@ import java.util.function.Consumer;
 
 public abstract class AbstractMorphiaTypedQueryDAO<T, K, Q extends MorphiaQuery<T>> extends BasicDAO<T, K> {
 
-    public AbstractMorphiaTypedQueryDAO(Class<T> entityClass, MongoClient mongoClient, Morphia morphia, String dbName) {
+    protected AbstractMorphiaTypedQueryDAO(final Class<T> entityClass, final MongoClient mongoClient, final Morphia morphia, final String dbName) {
         super(entityClass, mongoClient, morphia, dbName);
     }
 
-    public AbstractMorphiaTypedQueryDAO(Class<T> entityClass, Datastore ds) {
+    protected AbstractMorphiaTypedQueryDAO(final Class<T> entityClass, final Datastore ds) {
         super(entityClass, ds);
     }
 
-    public AbstractMorphiaTypedQueryDAO(MongoClient mongoClient, Morphia morphia, String dbName) {
+    protected AbstractMorphiaTypedQueryDAO(final MongoClient mongoClient, final Morphia morphia, final String dbName) {
         super(mongoClient, morphia, dbName);
     }
 
-    public AbstractMorphiaTypedQueryDAO(Datastore ds) {
+    protected AbstractMorphiaTypedQueryDAO(final Datastore ds) {
         super(ds);
     }
 
     public abstract Q createTypedQuery();
 
-    public Query<T> prepareTypedQuery(Consumer<Q> preparator) {
-        Q typedQuery = createTypedQuery();
+    public Query<T> prepareTypedQuery(final Consumer<Q> preparator) {
+        final Q typedQuery = createTypedQuery();
         preparator.accept(typedQuery);
         return typedQuery.morphiaQuery();
     }

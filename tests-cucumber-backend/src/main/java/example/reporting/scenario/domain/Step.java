@@ -52,7 +52,7 @@ public class Step {
         return table;
     }
 
-    public void setTable(String[][] table) {
+    public void setTable(final String[][] table) {
         this.table = table;
     }
 
