@@ -1,8 +1,8 @@
 package example.reporting.scenario.rest;
 
 import example.reporting.scenario.domain.Scenario;
+import example.reporting.scenario.domain.ScenarioRepository;
 import example.reporting.scenario.domain.StepStatus;
-import example.reporting.scenario.domainimpl.ScenarioDAO;
 import example.reporting.scenario.views.ScenarioListItemView;
 import example.reporting.scenario.views.ScenarioViewAccess;
 import example.reporting.testrun.domain.TestRun;
@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -29,18 +30,18 @@ public class ScenarioResource {
 
     private final ScenarioViewAccess scenarioViewAccess;
 
-    private final ScenarioDAO scenarioDAO;
+    private final ScenarioRepository scenarioRepository;
 
     private final TestRunRepository testRunRepository;
 
     @Autowired
     public ScenarioResource(
         ScenarioViewAccess scenarioViewAccess,
-        ScenarioDAO scenarioDAO,
+        ScenarioRepository scenarioRepository,
         TestRunRepository testRunRepository
     ) {
         this.scenarioViewAccess = scenarioViewAccess;
-        this.scenarioDAO = scenarioDAO;
+        this.scenarioRepository = scenarioRepository;
         this.testRunRepository = testRunRepository;
     }
 
@@ -52,29 +53,36 @@ public class ScenarioResource {
     @GET
     @Path("{scenarioId}")
     public Scenario get(@PathParam("scenarioId") String scenarioId) {
-        return scenarioDAO.get(scenarioId);
+        return scenarioRepository.getById(scenarioId);
+    }
+
+    @DELETE
+    @Path("{scenarioId}")
+    public void delete(@PathParam("scenarioId") String scenarioId) {
+        final Scenario scenario = scenarioRepository.getById(scenarioId);
+        scenarioRepository.delete(scenario);
     }
 
     @POST
     @Path("{scenarioId}/changeStatus/passed")
     public void changeStatusToPassed(@PathParam("scenarioId") String scenarioId) {
-        Scenario scenario = scenarioDAO.get(scenarioId);
+        Scenario scenario = scenarioRepository.getById(scenarioId);
         scenario.changeStatus(StepStatus.PASSED);
-        scenarioDAO.save(scenario);
+        scenarioRepository.save(scenario);
     }
 
     @POST
     @Path("{scenarioId}/changeStatus/failed")
     public void changeStatusToFailed(@PathParam("scenarioId") String scenarioId) {
-        Scenario scenario = scenarioDAO.get(scenarioId);
+        Scenario scenario = scenarioRepository.getById(scenarioId);
         scenario.changeStatus(StepStatus.FAILED);
-        scenarioDAO.save(scenario);
+        scenarioRepository.save(scenario);
     }
 
     @GET
     @Path("{scenarioId}/history")
     public List<ScenarioListItemView> getHistory(@PathParam("scenarioId") String scenarioId) {
-        final Scenario scenario = scenarioDAO.get(scenarioId);
+        final Scenario scenario = scenarioRepository.getById(scenarioId);
         final TestRun scenarioTestRun = testRunRepository.getById(scenario.getTestRunId());
 
         return testRunRepository.query()

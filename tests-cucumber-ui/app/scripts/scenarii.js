@@ -16,10 +16,15 @@
       return AllScenariiResource.getScenarioHistory({ scenarioId: scenarioId }).$promise;
     };
 
+    // FIXME not in a good class :(
+    this.delete = function (scenarioId) {
+      return AllScenariiResource.delete({ scenarioId: scenarioId }).$promise;
+    };
+
   };
 
   angular.module('testsCucumberApp')
-    .controller('ScenarioCtrl', function (AllScenariiResource, ScenarioLoader, FeatureLoader, TestRunLoader, $routeParams, $q) {
+    .controller('ScenarioCtrl', function (AllScenariiResource, ScenarioLoader, FeatureLoader, TestRunLoader, $routeParams, $q, $location) {
 
       this.scenario = {};
 
@@ -80,6 +85,12 @@
           .then(function () {
             this.load();
           }.bind(this));
+      };
+
+      this.delete = function () {
+        ScenarioLoader.delete(this.scenario.id).then(function () {
+          $location.path('/features/' + this.scenario.featureId);
+        }.bind(this));
       };
 
       this.load();
