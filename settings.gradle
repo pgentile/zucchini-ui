@@ -1,7 +1,5 @@
 rootProject.name = 'tests-cucumber'
 
-include "${rootProject.name}-api"
 include "${rootProject.name}-backend"
-include "${rootProject.name}-import"
 include "${rootProject.name}-ui"
 include "${rootProject.name}-example-features"

@@ -68,7 +68,7 @@ allprojects {
             tasks.withType(Checkstyle) {
                 reports {
                     xml.enabled = false
-                    html.enabled = true
+                    // html.enabled = true // FIXME Disabled because of bugs in IntelliJ Gradle import
                 }
             }
 
@@ -132,35 +132,11 @@ allprojects {
 }
 
 
-project("${rootProject.name}-api") {
-
-    apply plugin: 'java'
-
-    dependencies {
-
-        // Required for validation annotations
-        compile "org.hibernate:hibernate-validator:${versions.hibernateValidator}"
-
-        // Required for Jackson JSON annotations
-        compile "com.fasterxml.jackson.core:jackson-annotations:${versions.jackson}"
-
-        // Required for Morphia annotations
-        compile "org.mongodb.morphia:morphia:${versions.morphia}"
-
-        compile "com.google.guava:guava:${versions.guava}"
-
-    }
-
-}
-
-
 project("${rootProject.name}-backend") {
 
     apply plugin: 'java'
 
     dependencies {
-
-        compile project(":${rootProject.name}-api")
 
         compile "io.dropwizard:dropwizard-core:${versions.dropwizard}"
         compile "io.dropwizard:dropwizard-client:${versions.dropwizard}"
@@ -180,30 +156,11 @@ project("${rootProject.name}-backend") {
 
         classpath = sourceSets.main.runtimeClasspath
 
-        main = 'example.reporting.application.BackendApplication'
+        main = 'example.reporting.BackendApplication'
 
         args += ['serve', "${projectDir}/backend-config.yml"]
     }
 
-
-}
-
-
-project("${rootProject.name}-import") {
-
-    apply plugin: 'java'
-
-    dependencies {
-
-        compile project(":${rootProject.name}-api")
-
-        compile "io.dropwizard:dropwizard-core:${versions.dropwizard}"
-        compile "io.dropwizard:dropwizard-client:${versions.dropwizard}"
-        compile "org.slf4j:slf4j-api:${versions.slf4j}"
-        compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${versions.jackson}"
-        compile "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:${versions.jackson}"
-
-    }
 
 }
 

@@ -1,17 +1,17 @@
 package example.reporting.reportconverter.converter;
 
-import example.reporting.api.feature.Feature;
-import example.reporting.api.scenario.AroundAction;
-import example.reporting.api.scenario.Background;
-import example.reporting.api.scenario.Scenario;
-import example.reporting.api.scenario.Step;
-import example.reporting.feature.FeatureFactory;
+import example.reporting.feature.domain.Feature;
+import example.reporting.scenario.domain.AroundAction;
+import example.reporting.scenario.domain.Background;
+import example.reporting.scenario.domain.Scenario;
+import example.reporting.scenario.domain.Step;
+import example.reporting.feature.domain.FeatureFactory;
 import example.reporting.reportconverter.report.ReportAroundAction;
 import example.reporting.reportconverter.report.ReportBackground;
 import example.reporting.reportconverter.report.ReportFeature;
 import example.reporting.reportconverter.report.ReportScenario;
 import example.reporting.reportconverter.report.ReportStep;
-import example.reporting.scenario.ScenarioFactory;
+import example.reporting.scenario.domain.ScenarioFactory;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.ConfigurableMapper;
 import ma.glasnost.orika.metadata.TypeFactory;

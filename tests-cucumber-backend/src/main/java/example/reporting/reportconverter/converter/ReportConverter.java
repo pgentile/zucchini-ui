@@ -1,12 +1,13 @@
 package example.reporting.reportconverter.converter;
 
-import example.reporting.api.feature.Feature;
-import example.reporting.api.scenario.Background;
-import example.reporting.api.scenario.FeatureElement;
-import example.reporting.api.scenario.Scenario;
-import example.reporting.api.scenario.StepStatus;
+import example.reporting.feature.domain.Feature;
+import example.reporting.reportconverter.report.ReportBackground;
 import example.reporting.reportconverter.report.ReportFeature;
 import example.reporting.reportconverter.report.ReportFeatureElement;
+import example.reporting.reportconverter.report.ReportScenario;
+import example.reporting.scenario.domain.Background;
+import example.reporting.scenario.domain.Scenario;
+import example.reporting.scenario.domain.StepStatus;
 import ma.glasnost.orika.BoundMapperFacade;
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.MappingContextFactory;
@@ -25,12 +26,15 @@ public class ReportConverter {
 
     private final BoundMapperFacade<ReportFeature, Feature> featureMapper;
 
-    private final BoundMapperFacade<ReportFeatureElement, FeatureElement> featureElementMapper;
+    private final BoundMapperFacade<ReportScenario, Scenario> scenarioMapper;
+
+    private final BoundMapperFacade<ReportBackground, Background> backgroundMapper;
 
     @Autowired
     public ReportConverter(final ReportMapper reportMapper) {
         featureMapper = reportMapper.dedicatedMapperFor(ReportFeature.class, Feature.class, false);
-        featureElementMapper = reportMapper.dedicatedMapperFor(ReportFeatureElement.class, FeatureElement.class, false);
+        scenarioMapper = reportMapper.dedicatedMapperFor(ReportScenario.class, Scenario.class, false);
+        backgroundMapper = reportMapper.dedicatedMapperFor(ReportBackground.class, Background.class, false);
     }
 
     public ConversionResult convert(
@@ -71,17 +75,16 @@ public class ReportConverter {
 
         Background currentBackground = null;
         for (final ReportFeatureElement reportFeatureElement : reportFeatureElements) {
-            final FeatureElement featureElement = map(mappingContextFactory, featureElementMapper, reportFeatureElement);
-            if (featureElement instanceof Scenario) {
-                final Scenario scenario = (Scenario) featureElement;
+            if (reportFeatureElement instanceof ReportScenario) {
+                final Scenario scenario = map(mappingContextFactory, scenarioMapper, (ReportScenario) reportFeatureElement);
                 if (currentBackground != null) {
                     scenario.setBackground(currentBackground);
                 }
                 scenarii.add(scenario);
-            } else if (featureElement instanceof Background) {
-                currentBackground = (Background) featureElement;
+            } else if (reportFeatureElement instanceof ReportBackground) {
+                currentBackground = map(mappingContextFactory, backgroundMapper, (ReportBackground) reportFeatureElement);
             } else {
-                throw new IllegalStateException("Unhandled type: " + featureElement);
+                throw new IllegalStateException("Unhandled type: " + reportFeatureElement);
             }
         }
 
