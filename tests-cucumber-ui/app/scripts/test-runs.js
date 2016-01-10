@@ -16,6 +16,11 @@
       return AllTestRunsResource.query({ env: env }).$promise;
     };
 
+    // FIXME This is not a good class !!!
+    this.delete = function (testRunId) {
+      return AllTestRunsResource.delete({ testRunId: testRunId }).$promise;
+    };
+
   };
 
   var TestRunCreator = function (AllTestRunsResource) {
@@ -74,7 +79,7 @@
       this.load();
 
     })
-    .controller('TestRunCtrl', function ($q, $routeParams, $uibModal, TestRunLoader, FeatureLoader, CucumberReportImporter) {
+    .controller('TestRunCtrl', function ($q, $routeParams, $location, $uibModal, TestRunLoader, FeatureLoader, CucumberReportImporter) {
 
       this.load = function () {
 
@@ -100,7 +105,12 @@
           .then(function (testRun) {
             this.testRun = testRun;
           }.bind(this));
+      };
 
+      this.delete = function () {
+        TestRunLoader.delete(this.testRun.id).then(function () {
+          $location.path('/');
+        });
       };
 
       this.openImportForm = function () {

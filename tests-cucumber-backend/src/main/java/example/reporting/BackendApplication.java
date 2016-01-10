@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
 import java.util.EnumSet;
 
 public class BackendApplication extends Application<BackendConfiguration> implements Thread.UncaughtExceptionHandler {
@@ -32,15 +33,16 @@ public class BackendApplication extends Application<BackendConfiguration> implem
         bootstrap.addBundle(new SpringBundle(applicationContext));
 
         bootstrap.getObjectMapper()
-                .registerModules(new JavaTimeModule(), new Jdk8Module())
-                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+            .registerModules(new JavaTimeModule(), new Jdk8Module())
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
     @Override
     public void run(final BackendConfiguration configuration, final Environment environment) throws Exception {
-        environment.servlets()
-                .addFilter("cors-filter", CrossOriginFilter.class)
-                .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
+        FilterRegistration.Dynamic crossOriginFilterRegistration = environment.servlets()
+            .addFilter("cors-filter", CrossOriginFilter.class);
+        crossOriginFilterRegistration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
+        crossOriginFilterRegistration.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, "GET,POST,PUT,PATCH,DELETE");
 
         configuration.getMetrics().configure(environment.lifecycle(), environment.metrics());
     }

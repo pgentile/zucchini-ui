@@ -4,4 +4,6 @@ public interface FeatureService {
 
     FeatureStats computeStats(Feature feature);
 
+    void deleteByTestRunId(String testRunId);
+
 }

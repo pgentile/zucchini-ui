@@ -10,4 +10,6 @@ public interface ScenarioQuery extends Query<Scenario> {
 
     ScenarioQuery orderedByScenarioName();
 
+    ScenarioQuery withTestRunId(String testRunId);
+
 }

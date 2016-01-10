@@ -28,6 +28,7 @@ public class ScenarioQueryImpl extends AbstractMorphiaQuery<Scenario> implements
         return this;
     }
 
+    @Override
     public ScenarioQuery withTestRunId(String testRunId) {
         if (!Strings.isNullOrEmpty(testRunId)) {
             configureQuery(q -> q.field("testRunId").equal(testRunId));

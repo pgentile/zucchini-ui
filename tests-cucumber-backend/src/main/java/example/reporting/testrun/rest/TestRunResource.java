@@ -5,6 +5,7 @@ import example.reporting.reportconverter.domain.ReportConverterService;
 import example.reporting.testrun.domain.TestRun;
 import example.reporting.testrun.domain.TestRunFactory;
 import example.reporting.testrun.domain.TestRunRepository;
+import example.reporting.testrun.domain.TestRunService;
 import io.dropwizard.jersey.PATCH;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -40,16 +42,19 @@ public class TestRunResource {
 
     private final TestRunRepository testRunRepository;
 
+    private final TestRunService testRunService;
+
     private final ReportConverterService reportConverterService;
 
     @Autowired
     public TestRunResource(
         TestRunFactory testRunFactory,
         TestRunRepository testRunRepository,
-        ReportConverterService reportConverterService
+        TestRunService testRunService, ReportConverterService reportConverterService
     ) {
         this.testRunFactory = testRunFactory;
         this.testRunRepository = testRunRepository;
+        this.testRunService = testRunService;
         this.reportConverterService = reportConverterService;
     }
 
@@ -88,6 +93,12 @@ public class TestRunResource {
         final TestRun testRun = testRunRepository.getById(testRunId);
         testRun.setLabels(request.getLabels());
         testRunRepository.save(testRun);
+    }
+
+    @DELETE
+    @Path("{testRunId}")
+    public void delete(@PathParam("testRunId") final String testRunId) {
+        testRunService.deleteById(testRunId);
     }
 
     @POST

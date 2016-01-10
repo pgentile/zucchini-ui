@@ -1,6 +1,7 @@
 package example.reporting.feature.domainimpl;
 
 import example.reporting.feature.domain.Feature;
+import example.reporting.feature.domain.FeatureRepository;
 import example.reporting.feature.domain.FeatureService;
 import example.reporting.feature.domain.FeatureStats;
 import example.reporting.scenario.domain.Scenario;
@@ -16,10 +17,13 @@ import java.util.Map;
 @Component
 class FeatureServiceImpl implements FeatureService {
 
+    private final FeatureRepository featureRepository;
+
     private final ScenarioRepository scenarioRepository;
 
     @Autowired
-    public FeatureServiceImpl(ScenarioRepository scenarioRepository) {
+    public FeatureServiceImpl(FeatureRepository featureRepository, ScenarioRepository scenarioRepository) {
+        this.featureRepository = featureRepository;
         this.scenarioRepository = scenarioRepository;
     }
 
@@ -39,6 +43,12 @@ class FeatureServiceImpl implements FeatureService {
             statsByStatus.compute(scenario.getStatus(), (key, count) -> count + 1);
         }
         return new FeatureStats(scenarii.size(), statsByStatus);
+    }
+
+    @Override
+    public void deleteByTestRunId(String testRunId) {
+        scenarioRepository.deleteByTestRunId(testRunId);
+        featureRepository.deleteByTestRunId(testRunId);
     }
 
 }
