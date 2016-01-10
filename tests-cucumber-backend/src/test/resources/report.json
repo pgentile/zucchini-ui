@@ -1,0 +1,946 @@
+[
+  {
+    "comments": [
+      {
+        "line": 1,
+        "value": "# language: fr"
+      }
+    ],
+    "line": 6,
+    "elements": [
+      {
+        "comments": [
+          {
+            "line": 12,
+            "value": "# Commentaire sur le premier test"
+          }
+        ],
+        "before": [
+          {
+            "result": {
+              "duration": 65257299,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:10"
+            }
+          }
+        ],
+        "line": 13,
+        "name": "Premier test",
+        "description": "",
+        "id": "test;premier-test",
+        "after": [
+          {
+            "result": {
+              "duration": 283443,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:20"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 126964672,
+              "status": "passed"
+            },
+            "line": 14,
+            "name": "j\u0027additionne 5 et 8",
+            "match": {
+              "arguments": [
+                {
+                  "val": "5",
+                  "offset": 13
+                },
+                {
+                  "val": "8",
+                  "offset": 18
+                }
+              ],
+              "location": "ExampleSteps.groovy:20"
+            },
+            "keyword": "Quand "
+          },
+          {
+            "result": {
+              "duration": 119594365,
+              "status": "passed"
+            },
+            "line": 15,
+            "name": "j\u0027obtiens 13",
+            "match": {
+              "arguments": [
+                {
+                  "val": "13",
+                  "offset": 10
+                }
+              ],
+              "location": "ExampleSteps.groovy:25"
+            },
+            "keyword": "Alors "
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 85576,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:10"
+            }
+          }
+        ],
+        "line": 18,
+        "name": "Test avec un tableau",
+        "description": "",
+        "id": "test;test-avec-un-tableau",
+        "after": [
+          {
+            "result": {
+              "duration": 86757,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:20"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 25513275,
+              "status": "passed"
+            },
+            "line": 19,
+            "name": "j\u0027obtiens le tableau suivant:",
+            "match": {
+              "location": "ExampleSteps.groovy:30"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "1",
+                  "2",
+                  "3"
+                ],
+                "line": 20
+              },
+              {
+                "cells": [
+                  "4",
+                  "5",
+                  "6"
+                ],
+                "line": 21
+              }
+            ],
+            "keyword": "Alors "
+          }
+        ],
+        "tags": [
+          {
+            "line": 17,
+            "name": "@tata"
+          },
+          {
+            "line": 17,
+            "name": "@titi"
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 88239,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:10"
+            }
+          }
+        ],
+        "line": 32,
+        "name": "Second test : additionner 5 et 8",
+        "description": "",
+        "id": "test;second-test-:-additionner-\u003ca\u003e-et-\u003cb\u003e;;2",
+        "after": [
+          {
+            "result": {
+              "duration": 101786,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:20"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Plan du scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 168472,
+              "status": "passed"
+            },
+            "line": 26,
+            "name": "j\u0027additionne 5 et 8",
+            "match": {
+              "arguments": [
+                {
+                  "val": "5",
+                  "offset": 13
+                },
+                {
+                  "val": "8",
+                  "offset": 18
+                }
+              ],
+              "location": "ExampleSteps.groovy:20"
+            },
+            "matchedColumns": [
+              0,
+              1
+            ],
+            "keyword": "Quand "
+          },
+          {
+            "result": {
+              "duration": 184279,
+              "status": "passed"
+            },
+            "comments": [
+              {
+                "line": 27,
+                "value": "# Pourriture"
+              }
+            ],
+            "line": 28,
+            "name": "j\u0027obtiens 13",
+            "match": {
+              "arguments": [
+                {
+                  "val": "13",
+                  "offset": 10
+                }
+              ],
+              "location": "ExampleSteps.groovy:25"
+            },
+            "matchedColumns": [
+              2
+            ],
+            "keyword": "Alors "
+          }
+        ],
+        "tags": [
+          {
+            "line": 4,
+            "name": "@titi"
+          },
+          {
+            "line": 24,
+            "name": "@tata"
+          },
+          {
+            "line": 3,
+            "name": "@toto"
+          },
+          {
+            "line": 5,
+            "name": "@tutu"
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 56682,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:10"
+            }
+          }
+        ],
+        "line": 33,
+        "name": "Second test : additionner 104 et -6",
+        "description": "",
+        "id": "test;second-test-:-additionner-\u003ca\u003e-et-\u003cb\u003e;;3",
+        "after": [
+          {
+            "result": {
+              "duration": 304082,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:20"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Plan du scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 268252,
+              "status": "passed"
+            },
+            "line": 26,
+            "name": "j\u0027additionne 104 et -6",
+            "match": {
+              "arguments": [
+                {
+                  "val": "104",
+                  "offset": 13
+                },
+                {
+                  "val": "-6",
+                  "offset": 20
+                }
+              ],
+              "location": "ExampleSteps.groovy:20"
+            },
+            "matchedColumns": [
+              0,
+              1
+            ],
+            "keyword": "Quand "
+          },
+          {
+            "result": {
+              "duration": 490378,
+              "status": "passed"
+            },
+            "comments": [
+              {
+                "line": 27,
+                "value": "# Pourriture"
+              }
+            ],
+            "line": 28,
+            "name": "j\u0027obtiens 98",
+            "match": {
+              "arguments": [
+                {
+                  "val": "98",
+                  "offset": 10
+                }
+              ],
+              "location": "ExampleSteps.groovy:25"
+            },
+            "matchedColumns": [
+              2
+            ],
+            "keyword": "Alors "
+          }
+        ],
+        "tags": [
+          {
+            "line": 4,
+            "name": "@titi"
+          },
+          {
+            "line": 24,
+            "name": "@tata"
+          },
+          {
+            "line": 3,
+            "name": "@toto"
+          },
+          {
+            "line": 5,
+            "name": "@tutu"
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 222468,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:10"
+            }
+          }
+        ],
+        "line": 34,
+        "name": "Second test : additionner 1 et 2",
+        "description": "",
+        "id": "test;second-test-:-additionner-\u003ca\u003e-et-\u003cb\u003e;;4",
+        "after": [
+          {
+            "result": {
+              "duration": 104607,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:20"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Plan du scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 173672,
+              "status": "passed"
+            },
+            "line": 26,
+            "name": "j\u0027additionne 1 et 2",
+            "match": {
+              "arguments": [
+                {
+                  "val": "1",
+                  "offset": 13
+                },
+                {
+                  "val": "2",
+                  "offset": 18
+                }
+              ],
+              "location": "ExampleSteps.groovy:20"
+            },
+            "matchedColumns": [
+              0,
+              1
+            ],
+            "keyword": "Quand "
+          },
+          {
+            "result": {
+              "duration": 27108736,
+              "error_message": "java.lang.AssertionError: \nExpecting:\n \u003c3\u003e\nto be equal to:\n \u003c10\u003e\nbut was not.\n\tat example.ExampleSteps$_run_closure3.doCall(ExampleSteps.groovy:26)\n\tat ✽.Alors j\u0027obtiens 10(test.feature:28)\n",
+              "status": "failed"
+            },
+            "comments": [
+              {
+                "line": 27,
+                "value": "# Pourriture"
+              }
+            ],
+            "line": 28,
+            "name": "j\u0027obtiens 10",
+            "match": {
+              "arguments": [
+                {
+                  "val": "10",
+                  "offset": 10
+                }
+              ],
+              "location": "ExampleSteps.groovy:25"
+            },
+            "matchedColumns": [
+              2
+            ],
+            "keyword": "Alors "
+          }
+        ],
+        "tags": [
+          {
+            "line": 4,
+            "name": "@titi"
+          },
+          {
+            "line": 24,
+            "name": "@tata"
+          },
+          {
+            "line": 3,
+            "name": "@toto"
+          },
+          {
+            "line": 5,
+            "name": "@tutu"
+          }
+        ]
+      }
+    ],
+    "name": "test",
+    "description": "\nAfin de tester Cucumber\nEn tant que développeur\nJe souhaite écrire des scénarios de tests",
+    "id": "test",
+    "keyword": "Fonctionnalité",
+    "uri": "test.feature",
+    "tags": [
+      {
+        "line": 3,
+        "name": "@toto"
+      },
+      {
+        "line": 4,
+        "name": "@titi"
+      },
+      {
+        "line": 5,
+        "name": "@tutu"
+      }
+    ]
+  },
+  {
+    "comments": [
+      {
+        "line": 1,
+        "value": "# language: fr"
+      }
+    ],
+    "line": 3,
+    "elements": [
+      {
+        "line": 6,
+        "name": "Toto",
+        "description": "",
+        "type": "background",
+        "keyword": "Contexte",
+        "steps": [
+          {
+            "result": {
+              "duration": 201657,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "un contexte initialisé",
+            "match": {
+              "location": "ExampleSteps.groovy:15"
+            },
+            "keyword": "Soit "
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 104594,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:10"
+            }
+          }
+        ],
+        "line": 9,
+        "name": "Test gauffré",
+        "description": "",
+        "id": "test2;test-gauffré",
+        "after": [
+          {
+            "result": {
+              "duration": 103749,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:20"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 191031,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "j\u0027additionne -1 et -1",
+            "match": {
+              "arguments": [
+                {
+                  "val": "-1",
+                  "offset": 13
+                },
+                {
+                  "val": "-1",
+                  "offset": 19
+                }
+              ],
+              "location": "ExampleSteps.groovy:20"
+            },
+            "keyword": "Quand "
+          },
+          {
+            "result": {
+              "duration": 919648,
+              "error_message": "java.lang.AssertionError: \nExpecting:\n \u003c-2\u003e\nto be equal to:\n \u003c500\u003e\nbut was not.\n\tat example.ExampleSteps$_run_closure3.doCall(ExampleSteps.groovy:26)\n\tat ✽.Alors j\u0027obtiens 500(test2.feature:11)\n",
+              "status": "failed"
+            },
+            "line": 11,
+            "name": "j\u0027obtiens 500",
+            "match": {
+              "arguments": [
+                {
+                  "val": "500",
+                  "offset": 10
+                }
+              ],
+              "location": "ExampleSteps.groovy:25"
+            },
+            "keyword": "Alors "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 12,
+            "name": "j\u0027obtiens 600",
+            "match": {
+              "arguments": [
+                {
+                  "val": "600",
+                  "offset": 10
+                }
+              ],
+              "location": "ExampleSteps.groovy:25"
+            },
+            "keyword": "Et "
+          }
+        ]
+      },
+      {
+        "line": 6,
+        "name": "Toto",
+        "description": "",
+        "type": "background",
+        "keyword": "Contexte",
+        "steps": [
+          {
+            "result": {
+              "duration": 28253,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "un contexte initialisé",
+            "match": {
+              "location": "ExampleSteps.groovy:15"
+            },
+            "keyword": "Soit "
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 63641,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:10"
+            }
+          }
+        ],
+        "line": 14,
+        "name": "Test à la con",
+        "description": "",
+        "id": "test2;test-à-la-con",
+        "after": [
+          {
+            "result": {
+              "duration": 87539,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:20"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 268955,
+              "status": "passed"
+            },
+            "line": 15,
+            "name": "j\u0027additionne -1 et 12",
+            "match": {
+              "arguments": [
+                {
+                  "val": "-1",
+                  "offset": 13
+                },
+                {
+                  "val": "12",
+                  "offset": 19
+                }
+              ],
+              "location": "ExampleSteps.groovy:20"
+            },
+            "keyword": "Quand "
+          },
+          {
+            "result": {
+              "duration": 273198,
+              "status": "passed"
+            },
+            "line": 16,
+            "name": "j\u0027obtiens 11",
+            "match": {
+              "arguments": [
+                {
+                  "val": "11",
+                  "offset": 10
+                }
+              ],
+              "location": "ExampleSteps.groovy:25"
+            },
+            "keyword": "Alors "
+          }
+        ]
+      },
+      {
+        "line": 6,
+        "name": "Toto",
+        "description": "",
+        "type": "background",
+        "keyword": "Contexte",
+        "steps": [
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 7,
+            "name": "un contexte initialisé",
+            "match": {
+              "location": "ExampleSteps.groovy:15"
+            },
+            "keyword": "Soit "
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 73132,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:10"
+            }
+          },
+          {
+            "result": {
+              "duration": 6362817,
+              "error_message": "cucumber.api.PendingException: @wip test\n\tat sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)\n\tat sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)\n\tat sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)\n\tat java.lang.reflect.Constructor.newInstance(Constructor.java:408)\n\tat org.codehaus.groovy.reflection.CachedConstructor.invoke(CachedConstructor.java:80)\n\tat org.codehaus.groovy.runtime.callsite.ConstructorSite$ConstructorSiteNoUnwrapNoCoerce.callConstructor(ConstructorSite.java:105)\n\tat org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallConstructor(CallSiteArray.java:60)\n\tat org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:235)\n\tat org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:247)\n\tat example.ExampleEnv$_run_closure2.doCall(ExampleEnv.groovy:16)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:483)\n\tat org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:93)\n\tat groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:325)\n\tat org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:294)\n\tat groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1019)\n\tat groovy.lang.Closure.call(Closure.java:426)\n\tat cucumber.runtime.groovy.GroovyBackend.invoke(GroovyBackend.java:155)\n\tat cucumber.runtime.groovy.GroovyHookDefinition$1.call(GroovyHookDefinition.java:46)\n\tat cucumber.runtime.Timeout.timeout(Timeout.java:13)\n\tat cucumber.runtime.groovy.GroovyHookDefinition.execute(GroovyHookDefinition.java:43)\n\tat cucumber.runtime.Runtime.runHookIfTagsMatch(Runtime.java:223)\n\tat cucumber.runtime.Runtime.runHooks(Runtime.java:211)\n\tat cucumber.runtime.Runtime.runBeforeHooks(Runtime.java:201)\n\tat cucumber.runtime.model.CucumberScenario.run(CucumberScenario.java:40)\n\tat cucumber.runtime.model.CucumberFeature.run(CucumberFeature.java:165)\n\tat cucumber.runtime.Runtime.run(Runtime.java:121)\n\tat cucumber.api.cli.Main.run(Main.java:36)\n\tat cucumber.api.cli.Main.main(Main.java:18)\n",
+              "status": "pending"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:15"
+            }
+          }
+        ],
+        "line": 19,
+        "name": "En préparation",
+        "description": "",
+        "id": "test2;en-préparation",
+        "after": [
+          {
+            "result": {
+              "duration": 1490313,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:20"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scénario",
+        "steps": [
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 20,
+            "name": "j\u0027additionne -1 et 12",
+            "match": {
+              "arguments": [
+                {
+                  "val": "-1",
+                  "offset": 13
+                },
+                {
+                  "val": "12",
+                  "offset": 19
+                }
+              ],
+              "location": "ExampleSteps.groovy:20"
+            },
+            "keyword": "Quand "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 21,
+            "name": "j\u0027obtiens 11",
+            "match": {
+              "arguments": [
+                {
+                  "val": "11",
+                  "offset": 10
+                }
+              ],
+              "location": "ExampleSteps.groovy:25"
+            },
+            "keyword": "Alors "
+          }
+        ],
+        "tags": [
+          {
+            "line": 18,
+            "name": "@wip"
+          }
+        ]
+      },
+      {
+        "line": 6,
+        "name": "Toto",
+        "description": "",
+        "type": "background",
+        "keyword": "Contexte",
+        "steps": [
+          {
+            "result": {
+              "duration": 43156,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "un contexte initialisé",
+            "match": {
+              "location": "ExampleSteps.groovy:15"
+            },
+            "keyword": "Soit "
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 88623,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:10"
+            }
+          }
+        ],
+        "line": 23,
+        "name": "Non implémenté",
+        "description": "",
+        "id": "test2;non-implémenté",
+        "after": [
+          {
+            "result": {
+              "duration": 162294,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:20"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scénario",
+        "steps": [
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "line": 24,
+            "name": "une tâche non implémentée",
+            "match": {},
+            "keyword": "Soit "
+          }
+        ]
+      },
+      {
+        "line": 6,
+        "name": "Toto",
+        "description": "",
+        "type": "background",
+        "keyword": "Contexte",
+        "steps": [
+          {
+            "result": {
+              "duration": 40329,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "un contexte initialisé",
+            "match": {
+              "location": "ExampleSteps.groovy:15"
+            },
+            "keyword": "Soit "
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 171298,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:10"
+            }
+          }
+        ],
+        "line": 26,
+        "name": "En attente",
+        "description": "",
+        "id": "test2;en-attente",
+        "after": [
+          {
+            "result": {
+              "duration": 89824,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.groovy:20"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 366480,
+              "error_message": "cucumber.api.PendingException: TODO: implement me\n\tat example.ExampleSteps$_run_closure5.doCall(ExampleSteps.groovy:39)\n\tat ✽.Soit une tâche en attente(test2.feature:27)\n",
+              "status": "pending"
+            },
+            "line": 27,
+            "name": "une tâche en attente",
+            "match": {
+              "location": "ExampleSteps.groovy:38"
+            },
+            "keyword": "Soit "
+          }
+        ]
+      }
+    ],
+    "name": "test2",
+    "description": "Je souhaite écrire des scénarios de tests",
+    "id": "test2",
+    "keyword": "Fonctionnalité",
+    "uri": "test2.feature"
+  }
+]

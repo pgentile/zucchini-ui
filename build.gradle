@@ -36,6 +36,9 @@ allprojects {
         jackson           : '2.6.4',
         guava             : '19.0',
         hibernateValidator: '5.2.2.Final',
+        junit             : '4.12',
+        assertj           : '3.2.0',
+        mockito           : '1.10.19',
     ]
 
     // Maven plugin
@@ -51,6 +54,16 @@ allprojects {
     project.afterEvaluate {
 
         if (project.pluginManager.hasPlugin("java")) {
+
+            // Add common dependencies
+
+            project.dependencies {
+
+                testCompile "junit:junit:${project.versions.junit}"
+                testCompile "org.assertj:assertj-core:${project.versions.assertj}"
+                testCompile "org.mockito:mockito-core:${project.versions.mockito}"
+
+            }
 
             // Versions plugin
 
