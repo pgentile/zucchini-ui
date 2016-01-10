@@ -1,8 +1,8 @@
 package example.reporting.testrun.domain;
 
-import example.support.ddd.Query;
+import example.support.ddd.TypedQuery;
 
-public interface TestRunQuery extends Query<TestRun> {
+public interface TestRunQuery extends TypedQuery<TestRun> {
 
     TestRunQuery orderByLatestFirst();
 

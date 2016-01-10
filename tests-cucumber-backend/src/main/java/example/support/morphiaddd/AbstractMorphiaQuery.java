@@ -1,17 +1,18 @@
 package example.support.morphiaddd;
 
 import example.support.ddd.ObjectNotFoundException;
-import example.support.ddd.Query;
+import example.support.ddd.TypedQuery;
+import org.mongodb.morphia.query.Query;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-public abstract class AbstractMorphiaQuery<T> implements Query<T>, MorphiaQuery<T> {
+public abstract class AbstractMorphiaQuery<T> implements TypedQuery<T>, MorphiaQuery<T> {
 
-    private org.mongodb.morphia.query.Query<T> query;
+    private Query<T> query;
 
-    protected AbstractMorphiaQuery(final org.mongodb.morphia.query.Query<T> query) {
+    protected AbstractMorphiaQuery(final Query<T> query) {
         this.query = query;
     }
 
@@ -36,11 +37,11 @@ public abstract class AbstractMorphiaQuery<T> implements Query<T>, MorphiaQuery<
     }
 
     @Override
-    public org.mongodb.morphia.query.Query<T> morphiaQuery() {
+    public Query<T> morphiaQuery() {
         return query;
     }
 
-    protected void configureQuery(final Function<org.mongodb.morphia.query.Query<T>, org.mongodb.morphia.query.Query<T>> transform) {
+    protected void configureQuery(final Function<Query<T>, Query<T>> transform) {
         query = transform.apply(query);
     }
 

@@ -1,7 +1,9 @@
 package example.support.morphiaddd;
 
+import org.mongodb.morphia.query.Query;
+
 public interface MorphiaQuery<T> {
 
-    org.mongodb.morphia.query.Query<T> morphiaQuery();
+    Query<T> morphiaQuery();
 
 }

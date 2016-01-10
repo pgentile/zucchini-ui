@@ -1,8 +1,8 @@
 package example.reporting.scenario.domain;
 
-import example.support.ddd.Query;
+import example.support.ddd.TypedQuery;
 
-public interface ScenarioQuery extends Query<Scenario> {
+public interface ScenarioQuery extends TypedQuery<Scenario> {
 
     ScenarioQuery withFeatureId(String featureId);
 

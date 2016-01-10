@@ -3,7 +3,7 @@ package example.support.ddd;
 import java.util.List;
 import java.util.Optional;
 
-public interface Query<T> {
+public interface TypedQuery<T> {
 
     List<T> find();
 
