@@ -28,7 +28,7 @@ class FeatureServiceImpl implements FeatureService {
     }
 
     @Override
-    public FeatureStats computeStats(Feature feature) {
+    public FeatureStats computeStats(String featureId) {
         final Map<ScenarioStatus, Integer> statsByStatus = new EnumMap<>(ScenarioStatus.class);
         for (ScenarioStatus status : ScenarioStatus.values()) {
             statsByStatus.put(status, 0);
@@ -36,7 +36,7 @@ class FeatureServiceImpl implements FeatureService {
 
         final List<Scenario> scenarii = scenarioRepository
             .query()
-            .withFeatureId(feature.getId())
+            .withFeatureId(featureId)
             .find();
 
         for (Scenario scenario : scenarii) {

@@ -2,7 +2,7 @@ package example.reporting.feature.domain;
 
 public interface FeatureService {
 
-    FeatureStats computeStats(Feature feature);
+    FeatureStats computeStats(String featureId);
 
     void deleteByTestRunId(String testRunId);
 

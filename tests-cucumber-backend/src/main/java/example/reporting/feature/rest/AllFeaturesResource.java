@@ -50,8 +50,7 @@ public class AllFeaturesResource {
     @GET
     @Path("{featureId}/stats")
     public FeatureStats getStats(@PathParam("featureId") String featureId) {
-        Feature feature = featureRepository.getById(featureId);
-        return featureService.computeStats(feature);
+        return featureService.computeStats(featureId);
     }
 
     @DELETE
