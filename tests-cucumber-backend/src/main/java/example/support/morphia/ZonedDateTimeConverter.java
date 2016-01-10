@@ -4,6 +4,7 @@ import org.mongodb.morphia.converters.SimpleValueConverter;
 import org.mongodb.morphia.converters.TypeConverter;
 import org.mongodb.morphia.mapping.MappedField;
 
+import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -30,11 +31,17 @@ public class ZonedDateTimeConverter extends TypeConverter implements SimpleValue
             if (fromDBObject instanceof Date) {
                 return ZonedDateTime.ofInstant(((Date) fromDBObject).toInstant(), ZoneId.systemDefault());
             }
+            if (fromDBObject instanceof Number) {
+                return ZonedDateTime.ofInstant(Instant.ofEpochMilli(((Number) fromDBObject).longValue()), ZoneId.systemDefault());
+            }
         }
 
         if (targetClass == OffsetDateTime.class) {
             if (fromDBObject instanceof Date) {
                 return OffsetDateTime.ofInstant(((Date) fromDBObject).toInstant(), ZoneId.systemDefault());
+            }
+            if (fromDBObject instanceof Number) {
+                return OffsetDateTime.ofInstant(Instant.ofEpochMilli(((Number) fromDBObject).longValue()), ZoneId.systemDefault());
             }
         }
 
