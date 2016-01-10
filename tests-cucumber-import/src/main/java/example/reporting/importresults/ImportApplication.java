@@ -1,5 +1,8 @@
 package example.reporting.importresults;
 
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -18,6 +21,10 @@ public class ImportApplication extends Application<ImportConfiguration> implemen
 
     @Override
     public void initialize(final Bootstrap<ImportConfiguration> bootstrap) {
+        bootstrap.getObjectMapper()
+            .registerModules(new JavaTimeModule(), new Jdk8Module())
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
         bootstrap.addCommand(new ImportCommand(this));
     }
 

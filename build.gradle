@@ -200,6 +200,8 @@ project("${rootProject.name}-import") {
         compile "io.dropwizard:dropwizard-core:${versions.dropwizard}"
         compile "io.dropwizard:dropwizard-client:${versions.dropwizard}"
         compile "org.slf4j:slf4j-api:${versions.slf4j}"
+        compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${versions.jackson}"
+        compile "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:${versions.jackson}"
 
     }
 
