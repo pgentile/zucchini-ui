@@ -6,4 +6,6 @@ public interface ScenarioRepository extends QueriableRepository<Scenario, String
 
     void deleteByTestRunId(String testRunId);
 
+    void deleteByFeatureId(String featureId);
+
 }

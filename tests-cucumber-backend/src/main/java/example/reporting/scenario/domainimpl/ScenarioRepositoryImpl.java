@@ -30,4 +30,10 @@ public class ScenarioRepositoryImpl extends MorphiaRepository<Scenario, String> 
         dao.deleteByQuery(query);
     }
 
+    @Override
+    public void deleteByFeatureId(String featureId) {
+        final Query<Scenario> query = dao.prepareTypedQuery(q -> q.withFeatureId(featureId));
+        dao.deleteByQuery(query);
+    }
+
 }

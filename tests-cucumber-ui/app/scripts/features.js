@@ -16,11 +16,15 @@
       return AllFeaturesResource.getStats({ featureId: featureId }).$promise;
     };
 
+    this.delete = function (featureId) {
+      return AllFeaturesResource.delete({ featureId: featureId}).$promise;
+    };
+
   };
 
 
   angular.module('testsCucumberApp')
-    .controller('FeatureCtrl', function ($routeParams, $q, FeatureLoader, TestRunLoader, ScenarioLoader) {
+    .controller('FeatureCtrl', function ($routeParams, $q, $location, FeatureLoader, TestRunLoader, ScenarioLoader) {
 
       this.load = function () {
 
@@ -44,6 +48,12 @@
             this.feature = feature;
           }.bind(this));
 
+      };
+
+      this.delete = function () {
+        FeatureLoader.delete(this.feature.id).then(function () {
+          $location.path('/test-runs/' + this.feature.testRun.id);
+        }.bind(this));
       };
 
       this.load();

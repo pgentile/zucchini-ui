@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -51,6 +52,12 @@ public class AllFeaturesResource {
     public FeatureStats getStats(@PathParam("featureId") String featureId) {
         Feature feature = featureRepository.getById(featureId);
         return featureService.computeStats(feature);
+    }
+
+    @DELETE
+    @Path("{featureId}")
+    public void delete(@PathParam("featureId") String featureId) {
+        featureService.deleteById(featureId);
     }
 
 }
