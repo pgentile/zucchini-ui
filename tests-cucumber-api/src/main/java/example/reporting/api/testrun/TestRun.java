@@ -4,7 +4,7 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +17,7 @@ public class TestRun {
     @Indexed
     private String env;
 
-    private Date date;
+    private ZonedDateTime date;
 
     private Map<String, String> labels = new HashMap<>();
 
@@ -37,11 +37,11 @@ public class TestRun {
         this.env = env;
     }
 
-    public Date getDate() {
+    public ZonedDateTime getDate() {
         return date;
     }
 
-    public void setDate(final Date date) {
+    public void setDate(final ZonedDateTime date) {
         this.date = date;
     }
 

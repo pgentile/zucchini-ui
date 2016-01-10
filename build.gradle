@@ -169,6 +169,8 @@ project("${rootProject.name}-backend") {
         compile "org.mongodb.morphia:morphia:${versions.morphia}"
         compile "org.slf4j:slf4j-api:${versions.slf4j}"
         compile "org.springframework:spring-context:${versions.spring}"
+        compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${versions.jackson}"
+        compile "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:${versions.jackson}"
 
         testCompile "org.assertj:assertj-core:${versions.assertj}"
 

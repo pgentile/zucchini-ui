@@ -1,6 +1,8 @@
 package example.reporting.application;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import example.support.spring.SpringBundle;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
@@ -30,6 +32,7 @@ public class BackendApplication extends Application<BackendConfiguration> implem
         bootstrap.addBundle(new SpringBundle(applicationContext));
 
         bootstrap.getObjectMapper()
+                .registerModules(new JavaTimeModule(), new Jdk8Module())
                 .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 

@@ -69,7 +69,7 @@ public class MorphiaDatastoreBuilder {
         environment.lifecycle().manage(new AutoCloseableManagedAdapter(mongoClient));
 
         // Create datastore
-        final Morphia activeMorphia = morphia.orElseGet(Morphia::new);
+        final Morphia activeMorphia = morphia.orElseGet(this::createMorphia);
         final Datastore datastore = activeMorphia.createDatastore(mongoClient, clientURI.getDatabase());
 
         // Add healthcheck
@@ -78,6 +78,12 @@ public class MorphiaDatastoreBuilder {
         environment.healthChecks().register(activeHealthcheckName, new MongoHealthCheck(db));
 
         return datastore;
+    }
+
+    protected Morphia createMorphia() {
+        final Morphia morphia = new Morphia();
+        morphia.getMapper().getConverters().addConverter(ZonedDateTimeConverter.class);
+        return morphia;
     }
 
 }
