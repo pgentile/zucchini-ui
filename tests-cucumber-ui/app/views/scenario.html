@@ -21,7 +21,9 @@
 
   <h1>
     <tc-element-info info="ctrl.scenario.info"></tc-element-info>
-    <small><tc-status status="ctrl.scenario.status"></tc-status></small>
+    <small>
+      <tc-status status="ctrl.scenario.status"></tc-status>
+    </small>
   </h1>
 
   <p ng-if="ctrl.scenario.tags">
@@ -119,8 +121,8 @@
   <table class="table table-striped table-bordered">
     <thead>
     <tr>
-      <th>Tir</th>
-      <th>Statut</th>
+      <th class="col-md-11">Tir</th>
+      <th class="col-md-1">Statut</th>
     </tr>
     </thead>
     <tbody>
@@ -129,6 +131,8 @@
         <a ng-href="#/scenarii/{{ scenario.id }}">
           {{ scenario.testRun.date | date:'dd/MM/yyyy à HH:mm' }}
         </a>
+        <span ng-if="ctrl.scenario.testRunId === scenario.testRunId" class="glyphicon glyphicon-asterisk"
+              aria-hidden="true"></span>
       </td>
       <td>
         <tc-status status="scenario.status"></tc-status>
