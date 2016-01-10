@@ -105,6 +105,14 @@ allprojects {
                 }
             }
 
+            // JDepend
+
+            project.apply plugin: 'jdepend'
+
+            project.jdepend {
+                ignoreFailures = true
+            }
+
         }
 
         // Replace commons logging by slf4j, if present

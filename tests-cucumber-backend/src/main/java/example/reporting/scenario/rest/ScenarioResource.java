@@ -91,6 +91,7 @@ public class ScenarioResource {
             .find()
             .stream()
             .map(testRun -> scenarioViewAccess.getScenarioByTestRunIdAndScenarioKey(testRun.getId(), scenario.getScenarioKey()))
+            .filter(s -> s != null)
             .collect(Collectors.toList());
     }
 }
