@@ -31,4 +31,4 @@ Fonctionnalité: test
       | A   | B   | Résultat |
       |   5 |   8 |       13 |
       | 104 |  -6 |       98 |
-      | 1   |  2  |       10 |
+      | 1   |   2 |       10 |
