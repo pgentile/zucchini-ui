@@ -34,11 +34,13 @@ public class ScenarioViewAccess {
             .collect(Collectors.toList());
     }
 
-    public ScenarioListItemView getScenarioByTestRunIdAndScenarioKey(final String testRunId, final String scenarioKey) {
-        final Scenario scenario = scenarioDAO.prepareTypedQuery(q -> q.withTestRunId(testRunId).withScenarioKey(scenarioKey))
+    public List<ScenarioListItemView> getScenariiByScenarioKeyAndOneOfTestRunIds(final String scenarioKey, final List<String> testRunIds) {
+        return scenarioDAO.prepareTypedQuery(q -> q.withTestRunIdIn(testRunIds).withScenarioKey(scenarioKey))
             .retrievedFields(true, "id", "info", "tags", "status", "testRunId")
-            .get();
-        return scenarioToListItemView.map(scenario);
+            .asList()
+            .stream()
+            .map(scenarioToListItemView::map)
+            .collect(Collectors.toList());
     }
 
 }

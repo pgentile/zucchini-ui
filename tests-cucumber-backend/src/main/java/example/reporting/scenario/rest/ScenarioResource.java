@@ -85,13 +85,14 @@ public class ScenarioResource {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
         final TestRun scenarioTestRun = testRunRepository.getById(scenario.getTestRunId());
 
-        return testRunRepository.query()
-            .orderByLatestFirst()
+        final List<String> testRunIds = testRunRepository.query()
             .withEnv(scenarioTestRun.getEnv())
             .find()
             .stream()
-            .map(testRun -> scenarioViewAccess.getScenarioByTestRunIdAndScenarioKey(testRun.getId(), scenario.getScenarioKey()))
-            .filter(s -> s != null)
+            .map(TestRun::getId)
             .collect(Collectors.toList());
+
+        // FIXME Order by date
+        return scenarioViewAccess.getScenariiByScenarioKeyAndOneOfTestRunIds(scenario.getScenarioKey(), testRunIds);
     }
 }

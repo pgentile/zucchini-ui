@@ -6,6 +6,8 @@ import example.reporting.scenario.domain.ScenarioQuery;
 import example.support.morphiaddd.AbstractMorphiaQuery;
 import org.mongodb.morphia.query.Query;
 
+import java.util.List;
+
 public class ScenarioQueryImpl extends AbstractMorphiaQuery<Scenario> implements ScenarioQuery {
 
     public ScenarioQueryImpl(final Query<Scenario> query) {
@@ -36,6 +38,10 @@ public class ScenarioQueryImpl extends AbstractMorphiaQuery<Scenario> implements
         return this;
     }
 
+    public ScenarioQuery withTestRunIdIn(final List<String> testRunIds) {
+        configureQuery(q -> q.field("testRunId").in(testRunIds));
+        return this;
+    }
     @Override
     public ScenarioQuery orderedByScenarioName() {
         configureQuery(q -> q.order("info.name"));

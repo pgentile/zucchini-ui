@@ -74,7 +74,7 @@ public class FeatureResource {
         final Feature feature = featureRepository.getById(featureId);
         final TestRun featureTestRun = testRunRepository.getById(feature.getTestRunId());
 
-        final List<String> testRuns = testRunRepository.query()
+        final List<String> testRunIds = testRunRepository.query()
             .withEnv(featureTestRun.getEnv())
             .find()
             .stream()
@@ -84,7 +84,7 @@ public class FeatureResource {
         // FIXME Order by date
         return featureRepository.query()
             .withFeatureKey(feature.getFeatureKey())
-            .withTestRunIdIn(testRuns)
+            .withTestRunIdIn(testRunIds)
             .find();
     }
 
