@@ -2,13 +2,14 @@ package example
 
 import cucumber.api.PendingException
 import cucumber.api.groovy.Hooks
+import org.slf4j.LoggerFactory
 
 this.metaClass.mixin(Hooks)
-this.metaClass.mixin(Logging)
 
+final LOGGER = LoggerFactory.getLogger(getClass())
 
 Before {
-    info("Start")
+    LOGGER.info("Start")
 }
 
 
@@ -18,5 +19,5 @@ Before("@wip") {
 
 
 After {
-    info("End")
+    LOGGER.info("End")
 }
