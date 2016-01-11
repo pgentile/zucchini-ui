@@ -6,6 +6,8 @@ import example.reporting.feature.domain.FeatureQuery;
 import example.support.morphiaddd.AbstractMorphiaQuery;
 import org.mongodb.morphia.query.Query;
 
+import java.util.List;
+
 class FeatureQueryImpl extends AbstractMorphiaQuery<Feature> implements FeatureQuery {
 
     public FeatureQueryImpl(final Query<Feature> query) {
@@ -15,7 +17,7 @@ class FeatureQueryImpl extends AbstractMorphiaQuery<Feature> implements FeatureQ
     @Override
     public FeatureQuery withFeatureKey(final String featureKey) {
         if (!Strings.isNullOrEmpty(featureKey)) {
-            configureQuery(query -> query.field("featureKey").equal(featureKey));
+            configureQuery(q -> q.field("featureKey").equal(featureKey));
         }
         return this;
     }
@@ -23,14 +25,20 @@ class FeatureQueryImpl extends AbstractMorphiaQuery<Feature> implements FeatureQ
     @Override
     public FeatureQuery withTestRunId(final String testRunId) {
         if (!Strings.isNullOrEmpty(testRunId)) {
-            configureQuery(query -> query.field("testRunId").equal(testRunId));
+            configureQuery(q -> q.field("testRunId").equal(testRunId));
         }
         return this;
     }
 
     @Override
+    public FeatureQuery withTestRunIdIn(final List<String> testRunIds) {
+        configureQuery(q -> q.field("testRunId").in(testRunIds));
+        return this;
+    }
+
+    @Override
     public FeatureQuery orderByFeatureName() {
-        configureQuery(query -> query.order("info.name"));
+        configureQuery(q -> q.order("info.name"));
         return this;
     }
 

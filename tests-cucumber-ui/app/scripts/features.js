@@ -20,6 +20,10 @@
       return AllFeaturesResource.delete({ featureId: featureId}).$promise;
     };
 
+    this.getFeatureHistory = function (featureId) {
+      return AllFeaturesResource.getFeatureHistory({ featureId: featureId }).$promise;
+    };
+
   };
 
 
@@ -27,6 +31,8 @@
     .controller('FeatureCtrl', function ($routeParams, $q, $location, FeatureLoader, TestRunLoader, ScenarioLoader) {
 
       this.load = function () {
+
+        // Load feature
 
         FeatureLoader.getById($routeParams.featureId)
           .then(function (feature) {
@@ -48,6 +54,35 @@
             this.feature = feature;
           }.bind(this));
 
+          // Load history
+
+          FeatureLoader.getFeatureHistory($routeParams.featureId)
+            .then(function (history) {
+
+              return $q.all(history.map(function (feature) {
+                return TestRunLoader.getById(feature.testRunId)
+                  .then(function (testRun) {
+                    feature.testRun = testRun;
+                    return feature;
+                  });
+              }));
+
+            })
+            .then(function (history) {
+
+              return $q.all(history.map(function (feature) {
+                return FeatureLoader.getStats(feature.id)
+                  .then(function (stats) {
+                    feature.stats = stats;
+                    return feature;
+                  });
+              }));
+
+            })
+            .then(function (history) {
+              this.history = history;
+            }.bind(this));
+
       };
 
       this.delete = function () {
@@ -68,6 +103,11 @@
           getStats: {
             method: 'GET',
             url: baseUri + '/features/:featureId/stats',
+          },
+          getFeatureHistory: {
+            method: 'GET',
+            url: baseUri + '/features/:featureId/history',
+             isArray: true,
           }
         }
       );

@@ -5,6 +5,8 @@ import example.reporting.feature.domain.FeatureRepository;
 import example.reporting.feature.domain.FeatureService;
 import example.reporting.feature.views.FeatureStats;
 import example.reporting.feature.views.FeatureStatsViewAccess;
+import example.reporting.testrun.domain.TestRun;
+import example.reporting.testrun.domain.TestRunRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +19,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @Path("/features")
@@ -30,11 +33,19 @@ public class FeatureResource {
 
     private final FeatureStatsViewAccess featureStatsViewAccess;
 
+    private final TestRunRepository testRunRepository;
+
     @Autowired
-    public FeatureResource(final FeatureRepository featureRepository, final FeatureService featureService, final FeatureStatsViewAccess featureStatsViewAccess) {
+    public FeatureResource(
+        final FeatureRepository featureRepository,
+        final FeatureService featureService,
+        final FeatureStatsViewAccess featureStatsViewAccess,
+        final TestRunRepository testRunRepository
+    ) {
         this.featureRepository = featureRepository;
         this.featureService = featureService;
         this.featureStatsViewAccess = featureStatsViewAccess;
+        this.testRunRepository = testRunRepository;
     }
 
     @GET
@@ -55,6 +66,26 @@ public class FeatureResource {
     @Path("{featureId}/stats")
     public FeatureStats getStats(@PathParam("featureId") final String featureId) {
         return featureStatsViewAccess.getStatsForByFeatureId(featureId);
+    }
+
+    @GET
+    @Path("{featureId}/history")
+    public List<Feature> getFeatureHistory(@PathParam("featureId") final String featureId) {
+        final Feature feature = featureRepository.getById(featureId);
+        final TestRun featureTestRun = testRunRepository.getById(feature.getTestRunId());
+
+        final List<String> testRuns = testRunRepository.query()
+            .withEnv(featureTestRun.getEnv())
+            .find()
+            .stream()
+            .map(TestRun::getId)
+            .collect(Collectors.toList());
+
+        // FIXME Order by date
+        return featureRepository.query()
+            .withFeatureKey(feature.getFeatureKey())
+            .withTestRunIdIn(testRuns)
+            .find();
     }
 
     @DELETE
