@@ -21,14 +21,14 @@ import java.util.List;
 @Path("/features")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class AllFeaturesResource {
+public class FeatureResource {
 
     private final FeatureRepository featureRepository;
 
     private final FeatureService featureService;
 
     @Autowired
-    public AllFeaturesResource(final FeatureRepository featureRepository, final FeatureService featureService) {
+    public FeatureResource(final FeatureRepository featureRepository, final FeatureService featureService) {
         this.featureRepository = featureRepository;
         this.featureService = featureService;
     }
