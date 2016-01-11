@@ -1,22 +1,20 @@
 package example.reporting.scenario.views;
 
+import example.reporting.scenario.domain.ScenarioStatus;
 import example.reporting.shared.domain.BasicInfo;
-import example.reporting.scenario.domain.StepStatus;
-import org.mongodb.morphia.annotations.Id;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class ScenarioListItemView {
 
-    @Id
     private String id;
 
     private BasicInfo info;
 
     private Set<String> tags = new HashSet<>();
 
-    private StepStatus status;
+    private ScenarioStatus status;
 
     private String testRunId;
 
@@ -44,11 +42,11 @@ public class ScenarioListItemView {
         this.tags = tags;
     }
 
-    public StepStatus getStatus() {
+    public ScenarioStatus getStatus() {
         return status;
     }
 
-    public void setStatus(final StepStatus status) {
+    public void setStatus(final ScenarioStatus status) {
         this.status = status;
     }
 

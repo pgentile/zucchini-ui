@@ -3,7 +3,8 @@ package example.reporting.feature.rest;
 import example.reporting.feature.domain.Feature;
 import example.reporting.feature.domain.FeatureRepository;
 import example.reporting.feature.domain.FeatureService;
-import example.reporting.feature.domain.FeatureStats;
+import example.reporting.feature.views.FeatureStats;
+import example.reporting.feature.views.FeatureStatsViewAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,10 +28,13 @@ public class FeatureResource {
 
     private final FeatureService featureService;
 
+    private final FeatureStatsViewAccess featureStatsViewAccess;
+
     @Autowired
-    public FeatureResource(final FeatureRepository featureRepository, final FeatureService featureService) {
+    public FeatureResource(final FeatureRepository featureRepository, final FeatureService featureService, final FeatureStatsViewAccess featureStatsViewAccess) {
         this.featureRepository = featureRepository;
         this.featureService = featureService;
+        this.featureStatsViewAccess = featureStatsViewAccess;
     }
 
     @GET
@@ -50,7 +54,7 @@ public class FeatureResource {
     @GET
     @Path("{featureId}/stats")
     public FeatureStats getStats(@PathParam("featureId") final String featureId) {
-        return featureService.computeStats(featureId);
+        return featureStatsViewAccess.getStatsForByFeatureId(featureId);
     }
 
     @DELETE

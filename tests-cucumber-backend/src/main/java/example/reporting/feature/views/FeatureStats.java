@@ -1,4 +1,4 @@
-package example.reporting.feature.domain;
+package example.reporting.feature.views;
 
 import example.reporting.scenario.domain.ScenarioStatus;
 
