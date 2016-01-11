@@ -119,7 +119,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="feature in ctrl.history">
+    <tr ng-repeat="feature in ctrl.history | orderBy:'-testRun.date'">
       <td>
         <a ng-href="#/features/{{ feature.id }}">
           {{ feature.testRun.date | date:'dd/MM/yyyy à HH:mm' }}

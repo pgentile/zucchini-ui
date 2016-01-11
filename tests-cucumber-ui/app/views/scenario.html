@@ -126,7 +126,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="scenario in ctrl.history">
+    <tr ng-repeat="scenario in ctrl.history | orderBy:'-testRun.date'">
       <td>
         <a ng-href="#/scenarii/{{ scenario.id }}">
           {{ scenario.testRun.date | date:'dd/MM/yyyy à HH:mm' }}
