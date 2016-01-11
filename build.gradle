@@ -31,7 +31,6 @@ allprojects {
         orika             : '1.4.6',
         morphia           : '1.0.1',
         slf4j             : '1.7.13',
-        assertj           : '3.2.0',
         spring            : '4.2.4.RELEASE',
         jackson           : '2.6.4',
         guava             : '19.0',
