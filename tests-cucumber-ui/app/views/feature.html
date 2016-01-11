@@ -13,7 +13,13 @@
     {{ ctrl.feature.info.name }}
   </h1>
 
-  <p ng-if="ctrl.feature.tags">
+  <p>
+    <b>Source :</b>
+    <code>{{ ctrl.feature.location.filename }}</code>, ligne <code>{{ ctrl.feature.location.line }}</code>
+  </p>
+
+  <p ng-if="ctrl.feature.tags.length > 0">
+    <b>Tags :</b>
     <tc-tags tags="ctrl.feature.tags"></tc-tags>
   </p>
 
