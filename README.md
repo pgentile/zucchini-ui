@@ -52,12 +52,11 @@ docker-compose up
 Start Java backend :
 
 ```
-./gradlew XXX
+./gradlew runBackend
 ```
 
 Start UI :
 
 ```
-cd tests-cucumber-ui
-grunt serve
+(cd tests-cucumber-ui && grunt serve)
 ```
