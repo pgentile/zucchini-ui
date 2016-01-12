@@ -181,7 +181,6 @@ project("${rootProject.name}-backend") {
         args += ['serve', "${projectDir}/backend-config.yml"]
     }
 
-
 }
 
 
@@ -273,6 +272,9 @@ project("${rootProject.name}-example-features") {
             '--tags', '~@ignored',
             'src/features',
         ]
+
+        ignoreExitValue = true
+
     }
 
     task dryRunCucumber(type: JavaExec, description: 'Dry run Cucumber features') {
@@ -289,6 +291,9 @@ project("${rootProject.name}-example-features") {
             '--dry-run',
             'src/features',
         ]
+
+        ignoreExitValue = true
+
     }
 
 }
