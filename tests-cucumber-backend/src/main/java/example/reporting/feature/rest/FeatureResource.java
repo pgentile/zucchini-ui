@@ -50,9 +50,7 @@ public class FeatureResource {
 
     @GET
     public List<Feature> getFeatures(@QueryParam("testRunId") final String testRunId) {
-        return featureRepository.query()
-            .withTestRunId(testRunId)
-            .orderByFeatureName()
+        return featureRepository.query(q -> q.withTestRunId(testRunId).orderByFeatureName())
             .find();
     }
 
@@ -74,17 +72,14 @@ public class FeatureResource {
         final Feature feature = featureRepository.getById(featureId);
         final TestRun featureTestRun = testRunRepository.getById(feature.getTestRunId());
 
-        final List<String> testRunIds = testRunRepository.query()
-            .withEnv(featureTestRun.getEnv())
+        final List<String> testRunIds = testRunRepository.query(q -> q.withEnv(featureTestRun.getEnv()))
             .find()
             .stream()
             .map(TestRun::getId)
             .collect(Collectors.toList());
 
         // FIXME Order by date
-        return featureRepository.query()
-            .withFeatureKey(feature.getFeatureKey())
-            .withTestRunIdIn(testRunIds)
+        return featureRepository.query(q -> q.withFeatureKey(feature.getFeatureKey()).withTestRunIdIn(testRunIds))
             .find();
     }
 

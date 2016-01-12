@@ -1,7 +1,9 @@
 package example.support.ddd;
 
-public interface QueriableRepository<T, I, Q extends TypedQuery<T>> extends Repository<T, I> {
+import java.util.function.Consumer;
 
-    Q query();
+public interface QueriableRepository<T, I, Q> extends Repository<T, I> {
+
+    PreparedQuery<T> query(Consumer<? super Q> preparator);
 
 }

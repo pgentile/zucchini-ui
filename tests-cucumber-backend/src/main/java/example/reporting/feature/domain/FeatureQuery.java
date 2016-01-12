@@ -1,10 +1,8 @@
 package example.reporting.feature.domain;
 
-import example.support.ddd.TypedQuery;
-
 import java.util.List;
 
-public interface FeatureQuery extends TypedQuery<Feature> {
+public interface FeatureQuery {
 
     FeatureQuery withFeatureKey(String featureKey);
 

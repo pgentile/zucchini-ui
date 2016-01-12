@@ -1,13 +1,13 @@
 package example.reporting.testrun.domainimpl;
 
 import example.reporting.testrun.domain.TestRun;
-import example.support.morphiaddd.AbstractMorphiaTypedQueryDAO;
+import example.support.morphiaddd.MorphiaTypedQueryDAO;
 import org.mongodb.morphia.Datastore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-class TestRunDAO extends AbstractMorphiaTypedQueryDAO<TestRun, String, TestRunQueryImpl> {
+class TestRunDAO extends MorphiaTypedQueryDAO<TestRun, String, TestRunQueryImpl> {
 
     @Autowired
     public TestRunDAO(final Datastore ds) {
@@ -15,7 +15,7 @@ class TestRunDAO extends AbstractMorphiaTypedQueryDAO<TestRun, String, TestRunQu
     }
 
     @Override
-    public TestRunQueryImpl createTypedQuery() {
+    protected TestRunQueryImpl createTypedQuery() {
         return new TestRunQueryImpl(createQuery());
     }
 

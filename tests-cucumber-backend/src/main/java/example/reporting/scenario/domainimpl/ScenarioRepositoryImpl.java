@@ -3,13 +3,13 @@ package example.reporting.scenario.domainimpl;
 import example.reporting.scenario.domain.Scenario;
 import example.reporting.scenario.domain.ScenarioQuery;
 import example.reporting.scenario.domain.ScenarioRepository;
-import example.support.morphiaddd.MorphiaRepository;
+import example.support.morphiaddd.MorphiaQueriableRepository;
 import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ScenarioRepositoryImpl extends MorphiaRepository<Scenario, String> implements ScenarioRepository {
+public class ScenarioRepositoryImpl extends MorphiaQueriableRepository<Scenario, String, ScenarioQuery> implements ScenarioRepository {
 
     private final ScenarioDAO dao;
 
@@ -17,11 +17,6 @@ public class ScenarioRepositoryImpl extends MorphiaRepository<Scenario, String> 
     public ScenarioRepositoryImpl(final ScenarioDAO dao) {
         super(dao);
         this.dao = dao;
-    }
-
-    @Override
-    public ScenarioQuery query() {
-        return dao.createTypedQuery();
     }
 
     @Override

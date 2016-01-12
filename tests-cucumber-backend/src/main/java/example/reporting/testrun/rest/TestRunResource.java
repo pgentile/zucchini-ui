@@ -60,9 +60,7 @@ public class TestRunResource {
 
     @GET
     public List<TestRun> getLatests(@QueryParam("env") final String env) {
-        return testRunRepository.query()
-            .orderByLatestFirst()
-            .withEnv(env)
+        return testRunRepository.query(q -> q.withEnv(env).orderByLatestFirst())
             .find();
     }
 

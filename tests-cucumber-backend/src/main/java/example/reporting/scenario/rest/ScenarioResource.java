@@ -85,8 +85,7 @@ public class ScenarioResource {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
         final TestRun scenarioTestRun = testRunRepository.getById(scenario.getTestRunId());
 
-        final List<String> testRunIds = testRunRepository.query()
-            .withEnv(scenarioTestRun.getEnv())
+        final List<String> testRunIds = testRunRepository.query(q -> q.withEnv(scenarioTestRun.getEnv()))
             .find()
             .stream()
             .map(TestRun::getId)

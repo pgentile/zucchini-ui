@@ -3,13 +3,13 @@ package example.reporting.feature.domainimpl;
 import example.reporting.feature.domain.Feature;
 import example.reporting.feature.domain.FeatureQuery;
 import example.reporting.feature.domain.FeatureRepository;
-import example.support.morphiaddd.MorphiaRepository;
+import example.support.morphiaddd.MorphiaQueriableRepository;
 import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-class FeatureRepositoryImpl extends MorphiaRepository<Feature, String> implements FeatureRepository {
+class FeatureRepositoryImpl extends MorphiaQueriableRepository<Feature, String, FeatureQuery> implements FeatureRepository {
 
     private final FeatureDAO dao;
 
@@ -17,11 +17,6 @@ class FeatureRepositoryImpl extends MorphiaRepository<Feature, String> implement
     public FeatureRepositoryImpl(final FeatureDAO dao) {
         super(dao);
         this.dao = dao;
-    }
-
-    @Override
-    public FeatureQuery query() {
-        return dao.createTypedQuery();
     }
 
     @Override

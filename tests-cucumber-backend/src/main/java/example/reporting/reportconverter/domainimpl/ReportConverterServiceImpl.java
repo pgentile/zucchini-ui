@@ -78,9 +78,7 @@ class ReportConverterServiceImpl implements ReportConverterService {
     }
 
     private void mergeFeature(final String testRunId, final Feature newFeature) {
-        featureRepository.query()
-            .withTestRunId(testRunId)
-            .withFeatureKey(newFeature.getFeatureKey())
+        featureRepository.query(q -> q.withTestRunId(testRunId).withFeatureKey(newFeature.getFeatureKey()))
             .tryToFindOne()
             .ifPresent(existingFeature -> {
                 LOGGER.info("Merging new feature {} with existing feature {}", newFeature, existingFeature);
@@ -89,9 +87,7 @@ class ReportConverterServiceImpl implements ReportConverterService {
     }
 
     private void mergeScenario(final String featureId, final Scenario newScenario) {
-        scenarioRepository.query()
-            .withFeatureId(featureId)
-            .withScenarioKey(newScenario.getScenarioKey())
+        scenarioRepository.query(q -> q.withFeatureId(featureId).withScenarioKey(newScenario.getScenarioKey()))
             .tryToFindOne()
             .ifPresent(existingScenario -> {
                 LOGGER.info("Merging new scenario {} with existing feature {}", newScenario, existingScenario);
