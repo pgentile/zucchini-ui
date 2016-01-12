@@ -3,7 +3,7 @@ package example.reporting.feature.domainimpl;
 import com.google.common.base.Strings;
 import example.reporting.feature.domain.Feature;
 import example.reporting.feature.domain.FeatureQuery;
-import example.support.morphiaddd.AbstractMorphiaQuery;
+import example.support.ddd.morphia.AbstractMorphiaQuery;
 import org.mongodb.morphia.query.Query;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package example.support.morphiaddd;
+package example.support.ddd.morphia;
 
 import example.support.ddd.PreparedQuery;
 import example.support.ddd.QueriableRepository;

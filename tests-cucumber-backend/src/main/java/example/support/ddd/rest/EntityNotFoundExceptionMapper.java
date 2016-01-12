@@ -1,4 +1,4 @@
-package example.support.restddd;
+package example.support.ddd.rest;
 
 import example.support.ddd.EntityNotFoundException;
 import io.dropwizard.jersey.errors.ErrorMessage;

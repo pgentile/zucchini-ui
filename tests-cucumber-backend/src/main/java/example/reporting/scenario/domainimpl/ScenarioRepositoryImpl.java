@@ -3,7 +3,7 @@ package example.reporting.scenario.domainimpl;
 import example.reporting.scenario.domain.Scenario;
 import example.reporting.scenario.domain.ScenarioQuery;
 import example.reporting.scenario.domain.ScenarioRepository;
-import example.support.morphiaddd.MorphiaQueriableRepository;
+import example.support.ddd.morphia.MorphiaQueriableRepository;
 import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

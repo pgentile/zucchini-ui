@@ -1,7 +1,7 @@
 package example.reporting.feature.domainimpl;
 
 import example.reporting.feature.domain.Feature;
-import example.support.morphiaddd.MorphiaTypedQueryDAO;
+import example.support.ddd.morphia.MorphiaTypedQueryDAO;
 import org.mongodb.morphia.Datastore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

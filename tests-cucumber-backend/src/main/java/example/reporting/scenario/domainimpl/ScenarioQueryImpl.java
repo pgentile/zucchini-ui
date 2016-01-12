@@ -3,7 +3,7 @@ package example.reporting.scenario.domainimpl;
 import com.google.common.base.Strings;
 import example.reporting.scenario.domain.Scenario;
 import example.reporting.scenario.domain.ScenarioQuery;
-import example.support.morphiaddd.AbstractMorphiaQuery;
+import example.support.ddd.morphia.AbstractMorphiaQuery;
 import org.mongodb.morphia.query.Query;
 
 import java.util.List;

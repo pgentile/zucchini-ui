@@ -3,7 +3,7 @@ package example.reporting.testrun.domainimpl;
 import com.google.common.base.Strings;
 import example.reporting.testrun.domain.TestRun;
 import example.reporting.testrun.domain.TestRunQuery;
-import example.support.morphiaddd.AbstractMorphiaQuery;
+import example.support.ddd.morphia.AbstractMorphiaQuery;
 import org.mongodb.morphia.query.Query;
 
 class TestRunQueryImpl extends AbstractMorphiaQuery<TestRun> implements TestRunQuery {

@@ -1,4 +1,4 @@
-package example.support.morphiaddd;
+package example.support.ddd.morphia;
 
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;

@@ -3,7 +3,7 @@ package example.reporting.feature.domainimpl;
 import example.reporting.feature.domain.Feature;
 import example.reporting.feature.domain.FeatureQuery;
 import example.reporting.feature.domain.FeatureRepository;
-import example.support.morphiaddd.MorphiaQueriableRepository;
+import example.support.ddd.morphia.MorphiaQueriableRepository;
 import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
