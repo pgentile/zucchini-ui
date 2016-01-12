@@ -1,6 +1,6 @@
 package example.support.morphiaddd;
 
-import example.support.ddd.ObjectNotFoundException;
+import example.support.ddd.EntityNotFoundException;
 import example.support.ddd.PreparedQuery;
 import org.mongodb.morphia.query.Query;
 
@@ -24,7 +24,7 @@ class MorphiaPreparedQuery<T> implements PreparedQuery<T> {
     public T findOne() {
         final T entity = query.get();
         if (entity == null) {
-            throw new ObjectNotFoundException(query.getEntityClass(), "Not found by query " + this);
+            throw new EntityNotFoundException(query.getEntityClass(), "Not found by query " + this);
         }
         return entity;
     }

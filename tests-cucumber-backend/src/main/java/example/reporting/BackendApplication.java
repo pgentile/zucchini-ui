@@ -3,7 +3,7 @@ package example.reporting;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import example.support.restddd.ObjectNotFoundExceptionMapper;
+import example.support.restddd.EntityNotFoundExceptionMapper;
 import example.support.spring.SpringBundle;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
@@ -47,7 +47,7 @@ public class BackendApplication extends Application<BackendConfiguration> implem
 
         configuration.getMetrics().configure(environment.lifecycle(), environment.metrics());
 
-        environment.jersey().register(new ObjectNotFoundExceptionMapper());
+        environment.jersey().register(new EntityNotFoundExceptionMapper());
     }
 
     @Override
