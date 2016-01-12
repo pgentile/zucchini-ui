@@ -71,17 +71,9 @@
 
       };
 
-      this.changeStatusToPassed = function () {
+      this.changeStatus = function (status) {
         // TODO Put it in a service
-        AllScenariiResource.changeStatusToPassed({ id: this.scenario.id }).$promise
-          .then(function () {
-            this.load();
-          }.bind(this));
-      };
-
-      this.changeStatusToFailed = function () {
-        // TODO Put it in a service
-        AllScenariiResource.changeStatusToFailed({ id: this.scenario.id }).$promise
+        AllScenariiResource.changeStatus({ id: this.scenario.id, status: status }).$promise
           .then(function () {
             this.load();
           }.bind(this));
@@ -100,20 +92,19 @@
     .service('AllScenariiResource', function ($resource, baseUri) {
       return $resource(
         baseUri + '/scenarii/:scenarioId',
-        { scenarioId: '@id' },
+        {
+          scenarioId: '@id',
+          status: '@status'
+        },
         {
           getScenarioHistory: {
             method: 'GET',
             url: baseUri + '/scenarii/:scenarioId/history',
             isArray: true
           },
-          changeStatusToPassed: {
+          changeStatus: {
             method: 'POST',
-            url: baseUri + '/scenarii/:scenarioId/changeStatus/passed',
-          },
-          changeStatusToFailed: {
-            method: 'POST',
-            url: baseUri + '/scenarii/:scenarioId/changeStatus/failed',
+            url: baseUri + '/scenarii/:scenarioId/changeStatus/:status',
           }
         }
        );

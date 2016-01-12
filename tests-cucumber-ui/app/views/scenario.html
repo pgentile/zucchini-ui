@@ -35,17 +35,19 @@
   <div class="btn-toolbar" role="toolbar">
     <div class="btn-group" role="group">
 
-      <button ng-click="ctrl.changeStatusToPassed()" ng-disabled="ctrl.scenario.status === 'PASSED'"
-              class="btn btn-primary btn-default">
-        <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
-        Marquer le scénario comme OK
+      <button type="button" class="btn btn-primary btn-default dropdown-toggle" data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false">
+        Modifier le statut
+        <span class="caret"></span>
       </button>
 
-      <button ng-click="ctrl.changeStatusToFailed()" ng-disabled="ctrl.scenario.status === 'FAILED'"
-              class="btn btn-primary btn-default">
-        <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
-        Marquer le scénario comme KO
-      </button>
+      <ul class="dropdown-menu">
+        <li><a href ng-click="ctrl.changeStatus('passed')">Succès</a></li>
+        <li><a href ng-click="ctrl.changeStatus('failed')">Echec</a></li>
+        <li><a href ng-click="ctrl.changeStatus('not-run')">Non joué</a></li>
+        <li><a href ng-click="ctrl.changeStatus('pending')">En attente</a></li>
+      </ul>
 
     </div>
     <div class="btn-group" role="group">

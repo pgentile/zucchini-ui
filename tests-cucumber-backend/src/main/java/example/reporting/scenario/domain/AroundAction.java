@@ -6,6 +6,17 @@ public class AroundAction {
 
     private String errorMessage;
 
+    public void changeStatus(final StepStatus newStatus) {
+        if (newStatus == status) {
+            return;
+        }
+
+        status = newStatus;
+        if (newStatus != StepStatus.FAILED && newStatus != StepStatus.UNDEFINED) {
+            errorMessage = null;
+        }
+    }
+
     public StepStatus getStatus() {
         return status;
     }

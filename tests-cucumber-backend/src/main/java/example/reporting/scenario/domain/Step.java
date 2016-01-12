@@ -16,6 +16,17 @@ public class Step {
 
     private String[][] table;
 
+    public void changeStatus(final StepStatus newStatus) {
+        if (newStatus == status) {
+            return;
+        }
+
+        status = newStatus;
+        if (newStatus != StepStatus.FAILED && newStatus != StepStatus.UNDEFINED) {
+            errorMessage = null;
+        }
+    }
+
     public BasicInfo getInfo() {
         return info;
     }
@@ -59,10 +70,10 @@ public class Step {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("info", info)
-                .add("location", location)
-                .add("status", status)
-                .toString();
+            .add("info", info)
+            .add("location", location)
+            .add("status", status)
+            .toString();
     }
 
 }

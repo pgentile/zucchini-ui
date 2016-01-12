@@ -44,38 +44,37 @@ public class Scenario extends BaseEntity<String> {
 
     private List<AroundAction> afterActions = new ArrayList<>();
 
-    public void changeStatus(final StepStatus newStatus) {
-        if (background != null) {
-            background.getSteps().forEach(step -> {
-                if (step.getStatus() != newStatus) {
-                    step.setStatus(newStatus);
-                    step.setErrorMessage(null);
-                }
-            });
+    public void changeStatus(final ScenarioStatus newStatus) {
+        if (status == newStatus) {
+            return;
         }
 
-        steps.forEach(step -> {
-            if (step.getStatus() != newStatus) {
-                step.setStatus(newStatus);
-                step.setErrorMessage(null);
-            }
-        });
+        final StepStatus newStepStatus;
+        switch (newStatus) {
+            case PASSED:
+                newStepStatus = StepStatus.PASSED;
+                break;
+            case FAILED:
+                newStepStatus = StepStatus.FAILED;
+                break;
+            case NOT_RUN:
+                newStepStatus = StepStatus.NOT_RUN;
+                break;
+            case PENDING:
+                newStepStatus = StepStatus.PENDING;
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported status: " + newStatus);
+        }
 
-        beforeActions.forEach(step -> {
-            if (step.getStatus() != newStatus) {
-                step.setStatus(newStatus);
-                step.setErrorMessage(null);
-            }
-        });
+        beforeActions.forEach(step -> step.changeStatus(newStepStatus));
+        if (background != null) {
+            background.getSteps().forEach(step -> step.changeStatus(newStepStatus));
+        }
+        steps.forEach(step -> step.changeStatus(newStepStatus));
+        afterActions.forEach(step -> step.changeStatus(newStepStatus));
 
-        afterActions.forEach(step -> {
-            if (step.getStatus() != newStatus) {
-                step.setStatus(newStatus);
-                step.setErrorMessage(null);
-            }
-        });
-
-        calculateStatusFromSteps();
+        status = newStatus;
     }
 
     public void calculateStatusFromSteps() {
