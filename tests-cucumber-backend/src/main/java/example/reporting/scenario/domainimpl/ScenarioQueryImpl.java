@@ -3,12 +3,12 @@ package example.reporting.scenario.domainimpl;
 import com.google.common.base.Strings;
 import example.reporting.scenario.domain.Scenario;
 import example.reporting.scenario.domain.ScenarioQuery;
-import example.support.ddd.morphia.AbstractMorphiaQuery;
+import example.support.ddd.morphia.BaseMorphiaQuery;
 import org.mongodb.morphia.query.Query;
 
 import java.util.List;
 
-public class ScenarioQueryImpl extends AbstractMorphiaQuery<Scenario> implements ScenarioQuery {
+public class ScenarioQueryImpl extends BaseMorphiaQuery<Scenario> implements ScenarioQuery {
 
     public ScenarioQueryImpl(final Query<Scenario> query) {
         super(query);

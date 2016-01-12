@@ -3,12 +3,12 @@ package example.reporting.feature.domainimpl;
 import com.google.common.base.Strings;
 import example.reporting.feature.domain.Feature;
 import example.reporting.feature.domain.FeatureQuery;
-import example.support.ddd.morphia.AbstractMorphiaQuery;
+import example.support.ddd.morphia.BaseMorphiaQuery;
 import org.mongodb.morphia.query.Query;
 
 import java.util.List;
 
-class FeatureQueryImpl extends AbstractMorphiaQuery<Feature> implements FeatureQuery {
+class FeatureQueryImpl extends BaseMorphiaQuery<Feature> implements FeatureQuery {
 
     public FeatureQueryImpl(final Query<Feature> query) {
         super(query);

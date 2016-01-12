@@ -4,11 +4,11 @@ import org.mongodb.morphia.query.Query;
 
 import java.util.function.Function;
 
-public abstract class AbstractMorphiaQuery<T> implements MorphiaQuery<T> {
+public class BaseMorphiaQuery<T> implements MorphiaQuery<T> {
 
     private Query<T> query;
 
-    protected AbstractMorphiaQuery(final Query<T> query) {
+    protected BaseMorphiaQuery(final Query<T> query) {
         this.query = query;
     }
 
