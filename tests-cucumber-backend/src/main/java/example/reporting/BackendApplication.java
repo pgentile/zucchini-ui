@@ -3,6 +3,7 @@ package example.reporting;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import example.support.restddd.ObjectNotFoundExceptionMapper;
 import example.support.spring.SpringBundle;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
@@ -45,6 +46,8 @@ public class BackendApplication extends Application<BackendConfiguration> implem
         crossOriginFilterRegistration.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, "GET,POST,PUT,PATCH,DELETE");
 
         configuration.getMetrics().configure(environment.lifecycle(), environment.metrics());
+
+        environment.jersey().register(new ObjectNotFoundExceptionMapper());
     }
 
     @Override
