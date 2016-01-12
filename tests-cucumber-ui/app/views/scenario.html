@@ -26,7 +26,8 @@
     </small>
   </h1>
 
-  <p ng-if="ctrl.scenario.tags">
+  <p ng-if="ctrl.scenario.tags.length > 0">
+    <b>Tags :</b>
     <tc-tags tags="ctrl.scenario.tags"></tc-tags>
   </p>
 
@@ -94,7 +95,7 @@
       <tc-status status="step.status"></tc-status>
     </p>
 
-    <table ng-if="step.table" class="table table-hover table-condensed" style="table-layout: auto">
+    <table ng-if="step.table" class="table table-bordered" style="width: auto">
       <tbody>
       <tr ng-repeat="row in step.table">
         <td ng-repeat="cell in row"><code>{{ cell }}</code></td>
