@@ -22,7 +22,7 @@ Build
 First time, install Bower dependencies and init Gradle build for Node component :
 
 ```
-(cd test-cucumber-ui && npm install && bower install)
+(cd tests-cucumber-ui && npm install && bower install)
 ```
 
 Build application with Gradle :
