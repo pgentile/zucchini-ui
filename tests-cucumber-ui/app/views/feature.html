@@ -11,8 +11,10 @@
   </ol>
 
   <h1>
-    <b>{{ ctrl.feature.info.keyword }}</b>
-    {{ ctrl.feature.info.name }}
+    <tc-element-info info="ctrl.feature.info"></tc-element-info>
+    <small>
+      <tc-status status="ctrl.feature.status"></tc-status>
+    </small>
   </h1>
 
   <p>
@@ -110,7 +112,8 @@
   <table class="table table-striped table-bordered">
     <thead>
     <tr>
-      <th class="col-md-7">Tir</th>
+      <th class="col-md-6">Tir</th>
+      <th class="col-md-1">Statut</th>
       <th class="col-md-1">Nombre de scénarii</th>
       <th class="col-md-1">Succès</th>
       <th class="col-md-1">Echecs</th>
@@ -127,6 +130,7 @@
         <span ng-if="ctrl.feature.testRunId === feature.testRunId" class="glyphicon glyphicon-asterisk"
               aria-hidden="true"></span>
       </td>
+      <td><tc-status status="feature.status"></tc-status></td>
       <td><span class="badge">{{ feature.stats.scenarioCount }}</span></td>
       <td><span class="badge">{{ feature.stats.statsByStatus['PASSED'] }}</span></td>
       <td><span class="badge">{{ feature.stats.statsByStatus['FAILED'] }}</span></td>

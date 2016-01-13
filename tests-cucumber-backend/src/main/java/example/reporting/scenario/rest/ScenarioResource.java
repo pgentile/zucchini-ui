@@ -2,6 +2,7 @@ package example.reporting.scenario.rest;
 
 import example.reporting.scenario.domain.Scenario;
 import example.reporting.scenario.domain.ScenarioRepository;
+import example.reporting.scenario.domain.ScenarioService;
 import example.reporting.scenario.domain.ScenarioStatus;
 import example.reporting.scenario.views.ScenarioListItemView;
 import example.reporting.scenario.views.ScenarioViewAccess;
@@ -35,16 +36,20 @@ public class ScenarioResource {
 
     private final ScenarioRepository scenarioRepository;
 
+    private final ScenarioService scenarioService;
+
     private final TestRunRepository testRunRepository;
 
     @Autowired
     public ScenarioResource(
         final ScenarioViewAccess scenarioViewAccess,
         final ScenarioRepository scenarioRepository,
+        ScenarioService scenarioService,
         final TestRunRepository testRunRepository
     ) {
         this.scenarioViewAccess = scenarioViewAccess;
         this.scenarioRepository = scenarioRepository;
+        this.scenarioService = scenarioService;
         this.testRunRepository = testRunRepository;
     }
 
@@ -62,8 +67,7 @@ public class ScenarioResource {
     @DELETE
     @Path("{scenarioId}")
     public void delete(@PathParam("scenarioId") final String scenarioId) {
-        final Scenario scenario = scenarioRepository.getById(scenarioId);
-        scenarioRepository.delete(scenario);
+        scenarioService.deleteById(scenarioId);
     }
 
     @POST
@@ -81,8 +85,7 @@ public class ScenarioResource {
         final ScenarioStatus newStatus = ScenarioStatus.valueOf(status.toUpperCase().replace('-', '_'));
 
         final Scenario scenario = scenarioRepository.getById(scenarioId);
-        scenario.changeStatus(newStatus);
-        scenarioRepository.save(scenario);
+        scenarioService.updateStatus(scenario, newStatus);
     }
 
     @GET

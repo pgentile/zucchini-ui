@@ -31,6 +31,8 @@ public class Feature extends BaseEntity<String> {
 
     private String description;
 
+    private FeatureStatus status;
+
     public String getId() {
         return id;
     }
@@ -85,6 +87,14 @@ public class Feature extends BaseEntity<String> {
 
     public void setDescription(final String description) {
         this.description = description;
+    }
+
+    public FeatureStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(FeatureStatus status) {
+        this.status = status;
     }
 
     @Override

@@ -7,7 +7,6 @@ import example.reporting.reportconverter.report.ReportFeatureElement;
 import example.reporting.reportconverter.report.ReportScenario;
 import example.reporting.scenario.domain.Background;
 import example.reporting.scenario.domain.Scenario;
-import example.reporting.scenario.domain.StepStatus;
 import ma.glasnost.orika.BoundMapperFacade;
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.MappingContextFactory;
@@ -39,11 +38,10 @@ public class ReportConverter {
 
     public ConversionResult convert(
         final String testRunId,
-        final ReportFeature reportFeature,
-        final boolean dryRun
+        final ReportFeature reportFeature
     ) {
         final Feature feature = mapFeature(testRunId, reportFeature);
-        final List<Scenario> scenarii = convertFeatureElementsToScenarii(feature, reportFeature.getElements(), dryRun);
+        final List<Scenario> scenarii = convertFeatureElementsToScenarii(feature, reportFeature.getElements());
         return new ConversionResult(feature, scenarii);
     }
 
@@ -61,8 +59,7 @@ public class ReportConverter {
 
     private List<Scenario> convertFeatureElementsToScenarii(
         final Feature feature,
-        final List<ReportFeatureElement> reportFeatureElements,
-        final boolean dryRun
+        final List<ReportFeatureElement> reportFeatureElements
     ) {
 
         final List<Scenario> scenarii = new ArrayList<>(reportFeatureElements.size());
@@ -86,16 +83,6 @@ public class ReportConverter {
             } else {
                 throw new IllegalStateException("Unhandled type: " + reportFeatureElement);
             }
-        }
-
-        // Définir le statut non joué si dry run demandé
-        if (dryRun) {
-            scenarii.forEach(scenario -> {
-                if (scenario.getBackground() != null) {
-                    scenario.getBackground().getSteps().stream().forEach(step -> step.setStatus(StepStatus.NOT_RUN));
-                }
-                scenario.getSteps().stream().forEach(step -> step.setStatus(StepStatus.NOT_RUN));
-            });
         }
 
         // Suppression des tags qui se répètent entre les scenarii et la feature

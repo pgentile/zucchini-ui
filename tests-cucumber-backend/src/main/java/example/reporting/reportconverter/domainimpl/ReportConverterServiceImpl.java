@@ -4,12 +4,14 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import example.reporting.feature.domain.Feature;
 import example.reporting.feature.domain.FeatureRepository;
+import example.reporting.feature.domain.FeatureService;
 import example.reporting.reportconverter.converter.ConversionResult;
 import example.reporting.reportconverter.converter.ReportConverter;
 import example.reporting.reportconverter.domain.ReportConverterService;
 import example.reporting.reportconverter.report.ReportFeature;
 import example.reporting.scenario.domain.Scenario;
 import example.reporting.scenario.domain.ScenarioRepository;
+import example.reporting.scenario.domain.ScenarioStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,8 @@ class ReportConverterServiceImpl implements ReportConverterService {
 
     private final FeatureRepository featureRepository;
 
+    private final FeatureService featureService;
+
     private final ScenarioRepository scenarioRepository;
 
     private final ReportConverter reportConverter;
@@ -37,11 +41,13 @@ class ReportConverterServiceImpl implements ReportConverterService {
     @Autowired
     public ReportConverterServiceImpl(
         final FeatureRepository featureRepository,
+        final FeatureService featureService,
         final ScenarioRepository scenarioRepository,
         final ReportConverter reportConverter,
         @Qualifier("reportObjectMapper") final ObjectMapper objectMapper
     ) {
         this.featureRepository = featureRepository;
+        this.featureService = featureService;
         this.scenarioRepository = scenarioRepository;
         this.reportConverter = reportConverter;
         this.objectMapper = objectMapper;
@@ -60,7 +66,11 @@ class ReportConverterServiceImpl implements ReportConverterService {
     }
 
     private void convertAndSaveFeature(final String testRunId, final ReportFeature reportFeature, final boolean dryRun) {
-        final ConversionResult conversionResult = reportConverter.convert(testRunId, reportFeature, dryRun);
+        final ConversionResult conversionResult = reportConverter.convert(testRunId, reportFeature);
+
+        if (dryRun) {
+            conversionResult.getScenarii().forEach(scenario -> scenario.changeStatus(ScenarioStatus.NOT_RUN));
+        }
 
         mergeFeature(testRunId, conversionResult.getFeature());
         featureRepository.save(conversionResult.getFeature());
@@ -75,6 +85,9 @@ class ReportConverterServiceImpl implements ReportConverterService {
             scenario.calculateStatusFromSteps();
             scenarioRepository.save(scenario);
         });
+
+        featureService.calculateStatusFromScenarii(conversionResult.getFeature());
+        featureRepository.save(conversionResult.getFeature());
     }
 
     private void mergeFeature(final String testRunId, final Feature newFeature) {

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TestRunServiceImpl implements TestRunService {
+class TestRunServiceImpl implements TestRunService {
 
     private final TestRunRepository testRunRepository;
 
@@ -22,9 +22,9 @@ public class TestRunServiceImpl implements TestRunService {
 
     @Override
     public void deleteById(final String testRunId) {
-        final TestRun testRun = testRunRepository.getById(testRunId);
-
         featureService.deleteByTestRunId(testRunId);
+
+        final TestRun testRun = testRunRepository.getById(testRunId);
         testRunRepository.delete(testRun);
     }
 
