@@ -37,18 +37,18 @@
 
         ScenarioCoreService.getScenario($routeParams.scenarioId)
           .then(function (scenario) {
-            return FeatureCoreService.getById(scenario.featureId)
-              .then(function (feature) {
+
+            var featureQ = FeatureCoreService.getById(scenario.featureId);
+            var testRunQ = TestRunCoreService.getById(scenario.testRunId);
+
+            return $q.all([featureQ, testRunQ])
+              .then(_.spread(function (feature, testRun) {
                 scenario.feature = feature;
-                return scenario;
-              });
-          })
-          .then(function (scenario) {
-            return TestRunCoreService.getById(scenario.testRunId)
-              .then(function (testRun) {
                 scenario.testRun = testRun;
+
                 return scenario;
-              });
+              }));
+
           })
           .then(function (scenario) {
             this.scenario = scenario;

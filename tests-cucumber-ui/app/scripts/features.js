@@ -59,23 +59,20 @@
           FeatureCoreService.getFeatureHistory($routeParams.featureId)
             .then(function (history) {
 
+              // For each feature in history, load associated test run and stats
               return $q.all(history.map(function (feature) {
-                return TestRunCoreService.getById(feature.testRunId)
-                  .then(function (testRun) {
+
+                var testRunQ = TestRunCoreService.getById(feature.testRunId);
+                var statsQ = FeatureCoreService.getStats(feature.id);
+
+                return $q.all([testRunQ, statsQ])
+                  .then(_.spread(function(testRun, stats) {
                     feature.testRun = testRun;
-                    return feature;
-                  });
-              }));
-
-            })
-            .then(function (history) {
-
-              return $q.all(history.map(function (feature) {
-                return FeatureCoreService.getStats(feature.id)
-                  .then(function (stats) {
                     feature.stats = stats;
+
                     return feature;
-                  });
+                  }));
+
               }));
 
             })
