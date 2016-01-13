@@ -2,44 +2,44 @@
 
 (function (angular) {
 
-  var FeatureLoader = function (AllFeaturesResource) {
+  var FeatureCoreService = function (FeatureResource) {
 
     this.getFeaturesByTestRunId = function (testRunId) {
-      return AllFeaturesResource.query({ testRunId: testRunId }).$promise;
+      return FeatureResource.query({ testRunId: testRunId }).$promise;
     };
 
     this.getById = function (featureId) {
-      return AllFeaturesResource.get({ featureId: featureId }).$promise;
+      return FeatureResource.get({ featureId: featureId }).$promise;
     };
 
     this.getStats = function (featureId) {
-      return AllFeaturesResource.getStats({ featureId: featureId }).$promise;
+      return FeatureResource.getStats({ featureId: featureId }).$promise;
     };
 
     this.delete = function (featureId) {
-      return AllFeaturesResource.delete({ featureId: featureId}).$promise;
+      return FeatureResource.delete({ featureId: featureId}).$promise;
     };
 
     this.getFeatureHistory = function (featureId) {
-      return AllFeaturesResource.getFeatureHistory({ featureId: featureId }).$promise;
+      return FeatureResource.getFeatureHistory({ featureId: featureId }).$promise;
     };
 
   };
 
 
   angular.module('testsCucumberApp')
-    .controller('FeatureCtrl', function ($routeParams, $q, $location, FeatureLoader, TestRunLoader, ScenarioLoader) {
+    .controller('FeatureCtrl', function ($routeParams, $q, $location, FeatureCoreService, TestRunCoreService, ScenarioCoreService) {
 
       this.load = function () {
 
         // Load feature
 
-        FeatureLoader.getById($routeParams.featureId)
+        FeatureCoreService.getById($routeParams.featureId)
           .then(function (feature) {
 
-            var testRunQ = TestRunLoader.getById(feature.testRunId);
-            var scenariiQ = ScenarioLoader.getScenariiByFeatureId(feature.id);
-            var statsQ = FeatureLoader.getStats(feature.id);
+            var testRunQ = TestRunCoreService.getById(feature.testRunId);
+            var scenariiQ = ScenarioCoreService.getScenariiByFeatureId(feature.id);
+            var statsQ = FeatureCoreService.getStats(feature.id);
 
             return $q.all([testRunQ, scenariiQ, statsQ])
               .then(_.spread(function (testRun, scenarii, stats) {
@@ -56,11 +56,11 @@
 
           // Load history
 
-          FeatureLoader.getFeatureHistory($routeParams.featureId)
+          FeatureCoreService.getFeatureHistory($routeParams.featureId)
             .then(function (history) {
 
               return $q.all(history.map(function (feature) {
-                return TestRunLoader.getById(feature.testRunId)
+                return TestRunCoreService.getById(feature.testRunId)
                   .then(function (testRun) {
                     feature.testRun = testRun;
                     return feature;
@@ -71,7 +71,7 @@
             .then(function (history) {
 
               return $q.all(history.map(function (feature) {
-                return FeatureLoader.getStats(feature.id)
+                return FeatureCoreService.getStats(feature.id)
                   .then(function (stats) {
                     feature.stats = stats;
                     return feature;
@@ -86,7 +86,7 @@
       };
 
       this.delete = function () {
-        FeatureLoader.delete(this.feature.id).then(function () {
+        FeatureCoreService.delete(this.feature.id).then(function () {
           $location.path('/test-runs/' + this.feature.testRun.id);
         }.bind(this));
       };
@@ -94,8 +94,8 @@
       this.load();
 
     })
-    .service('FeatureLoader', FeatureLoader)
-    .service('AllFeaturesResource', function ($resource, baseUri) {
+    .service('FeatureCoreService', FeatureCoreService)
+    .service('FeatureResource', function ($resource, baseUri) {
       return $resource(
         baseUri + '/features/:featureId',
         { featureId: '@id' },

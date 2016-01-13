@@ -2,29 +2,32 @@
 
 (function (angular) {
 
-  var ScenarioLoader = function (AllScenariiResource) {
+  var ScenarioCoreService = function (ScenarioResource) {
 
     this.getScenariiByFeatureId = function (featureId) {
-      return AllScenariiResource.query({ featureId: featureId }).$promise;
+      return ScenarioResource.query({ featureId: featureId }).$promise;
     };
 
     this.getScenario = function (scenarioId) {
-      return AllScenariiResource.get({ scenarioId: scenarioId }).$promise;
+      return ScenarioResource.get({ scenarioId: scenarioId }).$promise;
     };
 
     this.getScenarioHistory = function (scenarioId) {
-      return AllScenariiResource.getScenarioHistory({ scenarioId: scenarioId }).$promise;
+      return ScenarioResource.getScenarioHistory({ scenarioId: scenarioId }).$promise;
     };
 
-    // FIXME not in a good class :(
     this.delete = function (scenarioId) {
-      return AllScenariiResource.delete({ scenarioId: scenarioId }).$promise;
+      return ScenarioResource.delete({ scenarioId: scenarioId }).$promise;
+    };
+
+    this.changeStatus = function (scenarioId, status) {
+      return ScenarioResource.changeStatus({ id: scenarioId, status: status }).$promise;
     };
 
   };
 
   angular.module('testsCucumberApp')
-    .controller('ScenarioCtrl', function (AllScenariiResource, ScenarioLoader, FeatureLoader, TestRunLoader, $routeParams, $q, $location) {
+    .controller('ScenarioCtrl', function (ScenarioResource, ScenarioCoreService, FeatureCoreService, TestRunCoreService, $routeParams, $q, $location) {
 
       this.scenario = {};
 
@@ -32,16 +35,16 @@
 
         // Load scenario
 
-        ScenarioLoader.getScenario($routeParams.scenarioId)
+        ScenarioCoreService.getScenario($routeParams.scenarioId)
           .then(function (scenario) {
-            return FeatureLoader.getById(scenario.featureId)
+            return FeatureCoreService.getById(scenario.featureId)
               .then(function (feature) {
                 scenario.feature = feature;
                 return scenario;
               });
           })
           .then(function (scenario) {
-            return TestRunLoader.getById(scenario.testRunId)
+            return TestRunCoreService.getById(scenario.testRunId)
               .then(function (testRun) {
                 scenario.testRun = testRun;
                 return scenario;
@@ -53,11 +56,11 @@
 
           // Load history
 
-          ScenarioLoader.getScenarioHistory($routeParams.scenarioId)
+          ScenarioCoreService.getScenarioHistory($routeParams.scenarioId)
             .then(function (history) {
 
               return $q.all(history.map(function (scenario) {
-                return TestRunLoader.getById(scenario.testRunId)
+                return TestRunCoreService.getById(scenario.testRunId)
                   .then(function (testRun) {
                     scenario.testRun = testRun;
                     return scenario;
@@ -72,15 +75,14 @@
       };
 
       this.changeStatus = function (status) {
-        // TODO Put it in a service
-        AllScenariiResource.changeStatus({ id: this.scenario.id, status: status }).$promise
+        ScenarioCoreService.changeStatus(this.scenario.id, status)
           .then(function () {
             this.load();
           }.bind(this));
       };
 
       this.delete = function () {
-        ScenarioLoader.delete(this.scenario.id).then(function () {
+        ScenarioCoreService.delete(this.scenario.id).then(function () {
           $location.path('/features/' + this.scenario.featureId);
         }.bind(this));
       };
@@ -88,8 +90,8 @@
       this.load();
 
     })
-    .service('ScenarioLoader', ScenarioLoader)
-    .service('AllScenariiResource', function ($resource, baseUri) {
+    .service('ScenarioCoreService', ScenarioCoreService)
+    .service('ScenarioResource', function ($resource, baseUri) {
       return $resource(
         baseUri + '/scenarii/:scenarioId',
         {

@@ -2,38 +2,25 @@
 
 (function (angular) {
 
-  var TestRunLoader = function (AllTestRunsResource) {
+  var TestRunCoreService = function (TestRunResource, Upload, baseUri) {
 
     this.getLatests = function () {
-      return AllTestRunsResource.query().$promise;
+      return TestRunResource.query().$promise;
     };
 
     this.getById = function (testRunId) {
-      return AllTestRunsResource.get({ testRunId: testRunId }).$promise;
+      return TestRunResource.get({ testRunId: testRunId }).$promise;
     };
 
     this.getByEnv = function (env) {
-      return AllTestRunsResource.query({ env: env }).$promise;
+      return TestRunResource.query({ env: env }).$promise;
     };
-
-    // FIXME This is not a good class !!!
-    this.delete = function (testRunId) {
-      return AllTestRunsResource.delete({ testRunId: testRunId }).$promise;
-    };
-
-  };
-
-  var TestRunCreator = function (AllTestRunsResource) {
 
     this.create = function (testRun) {
-      return AllTestRunsResource.create(testRun).$promise;
+      return TestRunResource.create(testRun).$promise;
     };
 
-  };
-
-  var CucumberReportImporter = function (Upload, baseUri) {
-
-    this.import = function (testRunId, file, dryRun) {
+    this.importCucumberResults = function (testRunId, file, dryRun) {
       var url = baseUri + '/test-runs/' + testRunId + '/import';
       if (dryRun) {
         url += '?dry-run=true';
@@ -48,13 +35,17 @@
        });
     };
 
+    this.delete = function (testRunId) {
+      return TestRunResource.delete({ testRunId: testRunId }).$promise;
+    };
+
   };
 
   angular.module('testsCucumberApp')
-    .controller('AllTestRunsCtrl', function (TestRunLoader, TestRunCreator, $uibModal, $location) {
+    .controller('AllTestRunsCtrl', function (TestRunCoreService, $uibModal, $location) {
 
       this.load = function () {
-        TestRunLoader.getLatests()
+        TestRunCoreService.getLatests()
           .then(function (latestTestRuns) {
             this.latestTestRuns = latestTestRuns;
           }.bind(this));
@@ -69,7 +60,7 @@
 
         createdModal.result
           .then(function (testRun) {
-            return TestRunCreator.create(testRun);
+            return TestRunCoreService.create(testRun);
           })
           .then(function (response) {
             $location.path('/test-runs/' + response.id);
@@ -79,18 +70,18 @@
       this.load();
 
     })
-    .controller('TestRunCtrl', function ($q, $routeParams, $location, $uibModal, TestRunLoader, FeatureLoader, CucumberReportImporter) {
+    .controller('TestRunCtrl', function ($q, $routeParams, $location, $uibModal, TestRunCoreService, FeatureCoreService, ErrorService) {
 
       this.load = function () {
 
-        TestRunLoader.getById($routeParams.testRunId)
+        TestRunCoreService.getById($routeParams.testRunId)
           .then(function (testRun) {
 
-            return FeatureLoader.getFeaturesByTestRunId($routeParams.testRunId)
+            return FeatureCoreService.getFeaturesByTestRunId($routeParams.testRunId)
               .then(function (features) {
 
                 return $q.all(features.map(function (feature) {
-                  return FeatureLoader.getStats(feature.id)
+                  return FeatureCoreService.getStats(feature.id)
                     .then(function (stats) {
                       feature.stats = stats;
                       return feature;
@@ -108,9 +99,10 @@
       };
 
       this.delete = function () {
-        TestRunLoader.delete(this.testRun.id).then(function () {
-          $location.path('/');
-        });
+        TestRunCoreService.delete(this.testRun.id)
+          .then(function () {
+            $location.path('/');
+          });
       };
 
       this.openImportForm = function () {
@@ -122,15 +114,19 @@
 
         createdModal.result
           .then(function (content) {
+            // TODO Manage errors with Cucumber form validation
             if (content.file === null || angular.isUndefined(content.file)) {
-              throw new Error('No file defined');
+              return $q.reject('Fichier de rapport Cucumber non défini');
             }
 
-            return CucumberReportImporter.import(this.testRun.id, content.file, content.dryRun);
+            return TestRunCoreService.importCucumberResults(this.testRun.id, content.file, content.dryRun);
           }.bind(this))
           .then(function () {
             this.load();
-          }.bind(this));
+          }.bind(this))
+          .catch(function (error) {
+            ErrorService.sendError(error);
+          });
       };
 
       this.load();
@@ -161,10 +157,8 @@
       };
 
     })
-    .service('TestRunLoader', TestRunLoader)
-    .service('TestRunCreator', TestRunCreator)
-    .service('CucumberReportImporter', CucumberReportImporter)
-    .service('AllTestRunsResource', function ($resource, baseUri) {
+    .service('TestRunCoreService', TestRunCoreService)
+    .service('TestRunResource', function ($resource, baseUri) {
       return $resource(
         baseUri + '/test-runs/:testRunId',
         { testRunId: '@id' },

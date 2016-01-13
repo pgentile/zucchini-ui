@@ -5,7 +5,7 @@
   var ErrorService = function () {
 
       /**
-       * Ajouter une erreur.
+       * Send an error to the service.
        */
       this.sendError = function (error) {
         this.listeners.forEach(function (listener) {
@@ -14,7 +14,7 @@
       };
 
       /**
-       * Ajouter un listener d'erreurs.
+       * Add an error listener.
        */
       this.addListener = function (listener) {
         this.listeners.push(listener);
