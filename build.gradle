@@ -214,6 +214,19 @@ project("${rootProject.name}-ui") {
         commandLine 'grunt', 'test'
 
         inputs.file dist
+        outputs.file "${project.buildDir}/tests.flag"
+    }
+
+    tasks.test.doLast {
+        // Create and touch the flag file
+
+        File flagFile = file("${project.buildDir}/tests.flag")
+
+        logger.info("Creating flag file {}", flagFile)
+
+        flagFile.getParentFile().mkdirs()
+        flagFile.createNewFile()
+        flagFile.setLastModified(System.currentTimeMillis())
     }
 
     tasks.check.dependsOn(test)
@@ -267,8 +280,8 @@ project("${rootProject.name}-example-features") {
         args += [
             '--glue', 'classpath:example',
             '--plugin', 'pretty',
-            '--plugin', 'html:build/cucumber/html',
-            '--plugin', 'json:build/cucumber/report.json',
+            '--plugin', "html:${project.buildDir}/cucumber/html",
+            '--plugin', "json:${project.buildDir}/cucumber/report.json",
             '--tags', '~@ignored',
             'src/features',
         ]
@@ -286,8 +299,8 @@ project("${rootProject.name}-example-features") {
         args += [
             '--glue', 'classpath:example',
             '--plugin', 'pretty',
-            '--plugin', 'html:build/cucumber-dry/html',
-            '--plugin', 'json:build/cucumber-dry/report.json',
+            '--plugin', "html:${project.buildDir}/cucumber-dry/html",
+            '--plugin', "json:${project.buildDir}/cucumber-dry/report.json",
             '--dry-run',
             'src/features',
         ]
