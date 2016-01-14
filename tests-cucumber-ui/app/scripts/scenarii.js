@@ -41,7 +41,6 @@
 
         ScenarioCoreService.getScenario($routeParams.scenarioId)
           .then(function (scenario) {
-
             var featureQ = FeatureCoreService.getById(scenario.featureId);
             var testRunQ = TestRunCoreService.getById(scenario.testRunId);
 
@@ -56,6 +55,9 @@
           })
           .then(function (scenario) {
             this.scenario = scenario;
+          }.bind(this))
+          .then(function () {
+            this.loadComments();
           }.bind(this));
 
           // Load history
@@ -79,7 +81,7 @@
       };
 
       this.loadComments = function () {
-        CommentCoreService.getComments(COMMENT_TYPE, $routeParams.scenarioId)
+        CommentCoreService.getComments(COMMENT_TYPE, this.scenario.scenarioKey)
           .then(function (comments) {
             this.comments = comments;
           }.bind(this));
@@ -100,7 +102,6 @@
       };
 
       this.load();
-      this.loadComments();
 
     })
     .controller('AddCommentCtrl', function ($scope, $window, CommentCoreService) {
@@ -110,7 +111,7 @@
       this.content = '';
 
       this.addComment = function () {
-        return CommentCoreService.createComment(COMMENT_TYPE, parentCtrl.scenario.id, this.content)
+        return CommentCoreService.createComment(COMMENT_TYPE, parentCtrl.scenario.scenarioKey, this.content)
           .then(function () {
             this.content = '';
           }.bind(this))
