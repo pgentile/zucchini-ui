@@ -82,9 +82,10 @@
       };
 
       this.delete = function () {
-        ScenarioCoreService.delete(this.scenario.id).then(function () {
-          $location.path('/features/' + this.scenario.featureId);
-        }.bind(this));
+        ScenarioCoreService.delete(this.scenario.id)
+          .then(function () {
+            $location.path('/features/' + this.scenario.featureId);
+          }.bind(this));
       };
 
       this.load();

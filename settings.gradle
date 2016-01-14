@@ -3,3 +3,4 @@ rootProject.name = 'tests-cucumber'
 include "${rootProject.name}-backend"
 include "${rootProject.name}-ui"
 include "${rootProject.name}-example-features"
+include "${rootProject.name}-capsule"

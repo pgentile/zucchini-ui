@@ -9,6 +9,7 @@ buildscript {
 
     dependencies {
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
+        classpath 'us.kirchmeier:gradle-capsule-plugin:1.0.2'
     }
 
 }
@@ -176,7 +177,7 @@ project("${rootProject.name}-backend") {
 
         classpath = sourceSets.main.runtimeClasspath
 
-        main = 'example.reporting.BackendApplication'
+        main = 'io.testscucumber.backend.BackendApplication'
 
         args += ['serve', "${projectDir}/backend-config.yml"]
     }
@@ -186,7 +187,7 @@ project("${rootProject.name}-backend") {
 
 project("${rootProject.name}-ui") {
 
-    apply plugin: 'base'
+    apply plugin: 'java'
 
     task gruntClean(type: Exec) {
         description = 'Grunt clean'
@@ -196,7 +197,7 @@ project("${rootProject.name}-ui") {
 
     tasks.clean.dependsOn(gruntClean)
 
-    task dist(type: Exec) {
+    task uiDist(type: Exec) {
         description = 'Build dist'
 
         commandLine 'grunt'
@@ -208,16 +209,16 @@ project("${rootProject.name}-ui") {
         outputs.dir('dist')
     }
 
-    task test(type: Exec) {
+    task uiTest(type: Exec) {
         description = 'Test'
 
         commandLine 'grunt', 'test'
 
-        inputs.file dist
+        inputs.file uiDist
         outputs.file "${project.buildDir}/tests.flag"
     }
 
-    tasks.test.doLast {
+    tasks.uiTest.doLast {
         // Create and touch the flag file
 
         File flagFile = file("${project.buildDir}/tests.flag")
@@ -229,31 +230,48 @@ project("${rootProject.name}-ui") {
         flagFile.setLastModified(System.currentTimeMillis())
     }
 
-    tasks.check.dependsOn(test)
+    tasks.check.dependsOn(uiTest)
 
-    task distZip(type: Zip) {
-        description = 'Assemble'
+    task uiDistZip(type: Zip) {
+        description = 'Assemble UI zip'
 
-        inputs.file dist
+        inputs.file uiDist
         outputs.file(archivePath)
 
-        from dist
+        from uiDist
         into 'ui'
     }
 
-    tasks.assemble.dependsOn(distZip)
+    tasks.assemble.dependsOn(uiDistZip)
 
     configurations {
         archives
     }
 
     artifacts {
-        archives distZip
+        archives uiDistZip
     }
 
-    task install(type: Upload) {
-        configuration = configurations.archives
+}
+
+
+project("${rootProject.name}-capsule") {
+
+    apply plugin: "us.kirchmeier.capsule"
+
+    dependencies {
+
+        compile project(":${rootProject.name}-backend")
+
     }
+
+    task fatCapsule(type: FatCapsule) {
+
+        applicationClass 'io.testscucumber.backend.BackendApplication'
+
+    }
+
+    tasks.assemble.dependsOn(fatCapsule)
 
 }
 
@@ -278,7 +296,7 @@ project("${rootProject.name}-example-features") {
         main = 'cucumber.api.cli.Main'
 
         args += [
-            '--glue', 'classpath:example',
+            '--glue', 'classpath:io.testscucumber.examples',
             '--plugin', 'pretty',
             '--plugin', "html:${project.buildDir}/cucumber/html",
             '--plugin', "json:${project.buildDir}/cucumber/report.json",
@@ -297,7 +315,7 @@ project("${rootProject.name}-example-features") {
         main = 'cucumber.api.cli.Main'
 
         args += [
-            '--glue', 'classpath:example',
+            '--glue', 'classpath:io.testscucumber.examples',
             '--plugin', 'pretty',
             '--plugin', "html:${project.buildDir}/cucumber-dry/html",
             '--plugin', "json:${project.buildDir}/cucumber-dry/report.json",

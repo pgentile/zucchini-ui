@@ -4,7 +4,7 @@ var results = db.features.update(
   {},
   {
     $set: {
-      className: 'example.reporting.feature.domain.Feature'
+      className: 'io.testscucumber.backend.feature.domain.Feature'
     }
   },
   { multi: true }

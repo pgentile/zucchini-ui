@@ -4,7 +4,7 @@ var results = db.testRuns.update(
   {},
   {
     $set: {
-      className: 'example.reporting.testrun.domain.TestRun'
+      className: 'io.testscucumber.backend.testrun.domain.TestRun'
     }
   },
   { multi: true }

@@ -4,7 +4,7 @@ var results = db.scenarii.update(
   {},
   {
     $set: {
-      className: 'example.reporting.scenario.domain.Scenario'
+      className: 'io.testscucumber.backend.scenario.domain.Scenario'
     }
   },
   { multi: true }
