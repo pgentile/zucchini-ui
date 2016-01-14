@@ -8,7 +8,7 @@ import org.mongodb.morphia.query.Query;
 
 class TestRunQueryImpl extends BaseMorphiaQuery<TestRun> implements TestRunQuery {
 
-    public TestRunQueryImpl(final Query<TestRun> query) {
+    protected TestRunQueryImpl(final Query<TestRun> query) {
         super(query);
     }
 

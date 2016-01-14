@@ -10,7 +10,7 @@ import java.util.List;
 
 class FeatureQueryImpl extends BaseMorphiaQuery<Feature> implements FeatureQuery {
 
-    public FeatureQueryImpl(final Query<Feature> query) {
+    protected FeatureQueryImpl(final Query<Feature> query) {
         super(query);
     }
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ScenarioQueryImpl extends BaseMorphiaQuery<Scenario> implements ScenarioQuery {
 
-    public ScenarioQueryImpl(final Query<Scenario> query) {
+    protected ScenarioQueryImpl(final Query<Scenario> query) {
         super(query);
     }
 
