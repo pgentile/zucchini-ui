@@ -3,7 +3,6 @@ package io.testscucumber.backend.testrun.rest;
 
 import io.testscucumber.backend.reportconverter.domain.ReportConverterService;
 import io.testscucumber.backend.testrun.domain.TestRun;
-import io.testscucumber.backend.testrun.domain.TestRunFactory;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;
 import io.testscucumber.backend.testrun.domain.TestRunService;
 import io.dropwizard.jersey.PATCH;
@@ -38,8 +37,6 @@ public class TestRunResource {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TestRunResource.class);
 
-    private final TestRunFactory testRunFactory;
-
     private final TestRunRepository testRunRepository;
 
     private final TestRunService testRunService;
@@ -48,11 +45,9 @@ public class TestRunResource {
 
     @Autowired
     public TestRunResource(
-        final TestRunFactory testRunFactory,
         final TestRunRepository testRunRepository,
         final TestRunService testRunService, final ReportConverterService reportConverterService
     ) {
-        this.testRunFactory = testRunFactory;
         this.testRunRepository = testRunRepository;
         this.testRunService = testRunService;
         this.reportConverterService = reportConverterService;
@@ -67,8 +62,7 @@ public class TestRunResource {
     @POST
     @Path("create")
     public Response create(@Valid @NotNull final CreateTestRunRequest request) {
-        final TestRun testRun = testRunFactory.create(request.getEnv());
-        testRun.setLabels(request.getLabels());
+        final TestRun testRun = new TestRun(request.getEnv(), request.getLabels());
         testRunRepository.save(testRun);
 
         final URI location = UriBuilder.fromPath("/test-runs/{testRunId}")

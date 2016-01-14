@@ -4,10 +4,13 @@ import io.testscucumber.backend.support.ddd.BaseEntity;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
+import org.mongodb.morphia.annotations.PostLoad;
 
 import java.time.ZonedDateTime;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Entity("testRuns")
 public class TestRun extends BaseEntity<String> {
@@ -20,38 +23,46 @@ public class TestRun extends BaseEntity<String> {
 
     private ZonedDateTime date;
 
-    private Map<String, String> labels = new HashMap<>();
+    private Map<String, String> labels;
+
+    /**
+     * Private constructor for Morphia.
+     */
+    private TestRun() {
+    }
+
+    public TestRun(final String env, final Map<String, String> labels) {
+        id = UUID.randomUUID().toString();
+        date = ZonedDateTime.now();
+        this.env = env;
+        this.labels = new HashMap<>(labels);
+    }
 
     public String getId() {
         return id;
-    }
-
-    public void setId(final String id) {
-        this.id = id;
     }
 
     public String getEnv() {
         return env;
     }
 
-    public void setEnv(final String env) {
-        this.env = env;
-    }
-
     public ZonedDateTime getDate() {
         return date;
     }
 
-    public void setDate(final ZonedDateTime date) {
-        this.date = date;
-    }
-
     public Map<String, String> getLabels() {
-        return labels;
+        return Collections.unmodifiableMap(labels);
     }
 
     public void setLabels(final Map<String, String> labels) {
-        this.labels = labels;
+        this.labels = new HashMap<>(labels);
+    }
+
+    @PostLoad
+    protected void postLoad() {
+        if (labels == null) {
+            labels = Collections.emptyMap();
+        }
     }
 
     @Override
