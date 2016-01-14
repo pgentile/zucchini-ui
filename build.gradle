@@ -142,9 +142,10 @@ allprojects {
 
             project.sourceCompatibility = '1.8'
 
-            options.encoding = "UTF-8"
+            options.encoding = 'UTF-8'
             options.deprecation = true
-            options.compilerArgs << "-parameters"
+            options.compilerArgs << '-parameters'
+            options.compilerArgs << '-Werror'
 
         }
 
