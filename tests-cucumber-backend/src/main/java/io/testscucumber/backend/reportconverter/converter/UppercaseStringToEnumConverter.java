@@ -8,6 +8,7 @@ import java.util.Locale;
 class UppercaseStringToEnumConverter extends CustomConverter<String, Enum<?>> {
 
     @Override
+    @SuppressWarnings("unchecked")
     public Enum<?> convert(final String source, final Type<? extends Enum<?>> destinationType) {
         if (source == null) {
             return null;
