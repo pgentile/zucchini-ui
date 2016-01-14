@@ -117,6 +117,24 @@
 
   <hr>
 
+  <!-- Comments -->
+
+  <h2>Commentaires</h2>
+
+  <p ng-repeat="comment in ctrl.comments">
+    <b>Le {{ comment.date | date:'dd/MM/yyyy à HH:mm:ss' }} :</b>
+    {{ comment.content }}
+  </p>
+
+  <form ng-controller="AddCommentCtrl as addCommentCtrl">
+    <div class="form-group">
+      <textarea ng-model="addCommentCtrl.content" class="form-control" rows="3" placeholder="Entrez votre commentaire"></textarea>
+    </div>
+    <button ng-click="addCommentCtrl.addComment()" type="submit" class="btn btn-primary">Ajouter le commentaire</button>
+  </form>
+
+  <hr>
+
   <!-- Historique -->
 
   <h2>Historique</h2>

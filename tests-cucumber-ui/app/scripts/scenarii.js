@@ -2,6 +2,9 @@
 
 (function (angular) {
 
+  var COMMENT_TYPE = 'scenario';
+
+
   var ScenarioCoreService = function (ScenarioResource) {
 
     this.getScenariiByFeatureId = function (featureId) {
@@ -26,8 +29,9 @@
 
   };
 
+
   angular.module('testsCucumberApp')
-    .controller('ScenarioCtrl', function (ScenarioResource, ScenarioCoreService, FeatureCoreService, TestRunCoreService, $routeParams, $q, $location) {
+    .controller('ScenarioCtrl', function (ScenarioResource, ScenarioCoreService, FeatureCoreService, TestRunCoreService, CommentCoreService, $routeParams, $q, $location) {
 
       this.scenario = {};
 
@@ -74,6 +78,13 @@
 
       };
 
+      this.loadComments = function () {
+        CommentCoreService.getComments(COMMENT_TYPE, $routeParams.scenarioId)
+          .then(function (comments) {
+            this.comments = comments;
+          }.bind(this));
+      };
+
       this.changeStatus = function (status) {
         ScenarioCoreService.changeStatus(this.scenario.id, status)
           .then(function () {
@@ -89,6 +100,24 @@
       };
 
       this.load();
+      this.loadComments();
+
+    })
+    .controller('AddCommentCtrl', function ($scope, $window, CommentCoreService) {
+
+      var parentCtrl = $scope.ctrl;
+
+      this.content = '';
+
+      this.addComment = function () {
+        return CommentCoreService.createComment(COMMENT_TYPE, parentCtrl.scenario.id, this.content)
+          .then(function () {
+            this.content = '';
+          }.bind(this))
+          .then(function () {
+            parentCtrl.loadComments();
+          });
+      };
 
     })
     .service('ScenarioCoreService', ScenarioCoreService)

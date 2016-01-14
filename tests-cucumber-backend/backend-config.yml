@@ -12,7 +12,8 @@ logging:
   level: INFO
 
   loggers:
-    "example": DEBUG
+    "io.dropwizard": DEBUG
+    "io.testscucumber": DEBUG
 
 # metrics:
 #   frequency: 1 minute
