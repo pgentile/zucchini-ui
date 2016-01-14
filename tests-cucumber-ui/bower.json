@@ -2,7 +2,7 @@
   "name": "tests-cucumber-ui",
   "private": true,
   "dependencies": {
-    "lodash": "~3.10.1",
+    "lodash": "~4.0.0",
     "jquery": "^2.1.4",
     "angular": "^1.4.0",
     "bootstrap": "^3.2.0",
