@@ -1,12 +1,14 @@
 package io.testscucumber.backend.comment.domain;
 
 import io.testscucumber.backend.support.ddd.BaseEntity;
+import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
+@Entity("comments")
 public class Comment extends BaseEntity<String> {
 
     @Id

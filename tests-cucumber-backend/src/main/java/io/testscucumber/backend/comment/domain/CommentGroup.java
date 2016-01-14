@@ -2,6 +2,7 @@ package io.testscucumber.backend.comment.domain;
 
 import com.google.common.collect.Sets;
 import io.testscucumber.backend.support.ddd.BaseEntity;
+import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.PostLoad;
@@ -10,6 +11,7 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;
 
+@Entity("commentGroups")
 public class CommentGroup extends BaseEntity<String> {
 
     @Id

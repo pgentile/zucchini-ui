@@ -8,6 +8,7 @@ import io.testscucumber.backend.comment.domain.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,11 +45,12 @@ class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> getCommentsByTypeAndReferenceId(final String type, final String referenceId) {
-        final CommentGroup commentGroup = commentGroupRepository.query(q -> {
-            q.withType(type).withReferenceId(referenceId);
-        }).findOne();
-
-        return commentRepository.query(q -> q.withGroupId(commentGroup.getId()).orderByLatestFirst()).find();
+        return commentGroupRepository.query(q -> q.withType(type).withReferenceId(referenceId))
+            .tryToFindOne()
+            .map(commentGroup -> {
+                return commentRepository.query(q -> q.withGroupId(commentGroup.getId()).orderByLatestFirst()).find();
+            })
+            .orElse(Collections.emptyList());
     }
 
 }
