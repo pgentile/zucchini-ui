@@ -35,7 +35,6 @@ class FeatureServiceImpl implements FeatureService {
     @Override
     public void calculateStatusFromScenarii(final Feature feature) {
         final Set<ScenarioStatus> scenariiStatus = scenarioRepository.query(q -> q.withFeatureId(feature.getId()))
-            .find()
             .stream()
             .map(Scenario::getStatus)
             .collect(Collectors.toSet());

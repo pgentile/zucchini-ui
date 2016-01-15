@@ -73,7 +73,6 @@ public class FeatureResource {
         final TestRun featureTestRun = testRunRepository.getById(feature.getTestRunId());
 
         final List<String> testRunIds = testRunRepository.query(q -> q.withEnv(featureTestRun.getEnv()))
-            .find()
             .stream()
             .map(TestRun::getId)
             .collect(Collectors.toList());
