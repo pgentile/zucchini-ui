@@ -44,6 +44,27 @@ public class Scenario extends BaseEntity<String> {
 
     private List<AroundAction> afterActions = new ArrayList<>();
 
+    public void mergeWith(final Scenario other) {
+        if (!scenarioKey.equals(other.scenarioKey)) {
+            throw new IllegalArgumentException("Scenario key must be the same");
+        }
+        if (!featureId.equals(other.featureId)) {
+            throw new IllegalArgumentException("Feature ID must be the same");
+        }
+        if (!testRunId.equals(other.testRunId)) {
+            throw new IllegalArgumentException("Test run ID must be the same");
+        }
+
+        tags = new HashSet<>(other.tags);
+        background = other.background;
+        status = other.status;
+        info = other.info;
+        location = other.location;
+        steps = new ArrayList<>(other.steps);
+        beforeActions = new ArrayList<>(other.beforeActions);
+        afterActions = new ArrayList<>(other.afterActions);
+    }
+
     public void changeStatus(final ScenarioStatus newStatus) {
         if (status == newStatus) {
             return;

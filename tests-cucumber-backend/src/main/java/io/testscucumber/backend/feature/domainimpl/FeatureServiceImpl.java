@@ -69,4 +69,16 @@ class FeatureServiceImpl implements FeatureService {
         featureRepository.delete(feature);
     }
 
+    @Override
+    public Feature tryToMergeWithExistingFeature(final Feature newFeature) {
+        return featureRepository.query(q -> q.withTestRunId(newFeature.getTestRunId()).withFeatureKey(newFeature.getFeatureKey()))
+            .tryToFindOne()
+            .map(existingFeature -> {
+                LOGGER.info("Merged new feature with key {} with existing feature {}", newFeature.getFeatureKey(), existingFeature);
+                existingFeature.mergeWith(newFeature);
+                return existingFeature;
+            })
+            .orElse(newFeature);
+    }
+
 }

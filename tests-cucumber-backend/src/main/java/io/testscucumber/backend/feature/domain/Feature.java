@@ -33,6 +33,21 @@ public class Feature extends BaseEntity<String> {
 
     private FeatureStatus status;
 
+    public void mergeWith(final Feature other) {
+        if (!featureKey.equals(other.featureKey)) {
+            throw new IllegalArgumentException("Same feature key is required");
+        }
+        if (!testRunId.equals(other.testRunId)) {
+            throw new IllegalArgumentException("Same test run ID is required");
+        }
+
+        info = other.info;
+        tags = new HashSet<>(other.tags);
+        location = other.location;
+        description = other.description;
+        status = other.status;
+    }
+
     public String getId() {
         return id;
     }

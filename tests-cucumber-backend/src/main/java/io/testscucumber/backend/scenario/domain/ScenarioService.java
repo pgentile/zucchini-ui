@@ -6,4 +6,6 @@ public interface ScenarioService {
 
     void deleteById(String scenarioId);
 
+    Scenario tryToMergeWithExistingScenario(Scenario newScenario);
+
 }

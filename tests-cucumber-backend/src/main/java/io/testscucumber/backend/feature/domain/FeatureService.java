@@ -8,4 +8,6 @@ public interface FeatureService {
 
     void deleteById(String featureId);
 
+    Feature tryToMergeWithExistingFeature(Feature newFeature);
+
 }
