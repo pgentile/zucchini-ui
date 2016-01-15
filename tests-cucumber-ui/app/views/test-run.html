@@ -13,7 +13,7 @@
     <div class="btn-group" role="group">
 
       <button ng-click="ctrl.openImportForm()" class="btn btn-primary btn-default">
-        <span class="glyphicon glyphicon-import" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
         Importer un résultat de tests Cucumber
       </button>
 
@@ -28,7 +28,37 @@
     </div>
   </div>
 
+  <!-- Features -->
+
   <hr>
+
+  <h2>Fonctionnalités</h2>
+
+  <div class="form-inline" style="margin-bottom: 10px">
+    <div class="form-group">
+      <b>Filtrer par statut :</b>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="ctrl.filters.passed" ng-change="ctrl.updateStoredFilters()"> Succès
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="ctrl.filters.failed" ng-change="ctrl.updateStoredFilters()"> Echecs
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="ctrl.filters.partial" ng-change="ctrl.updateStoredFilters()"> Partiels
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="ctrl.filters.notRun" ng-change="ctrl.updateStoredFilters()"> Non joués
+      </label>
+    </div>
+  </div>
 
   <table class="table table-striped table-bordered">
     <thead>
@@ -43,13 +73,15 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="feature in ctrl.testRun.features">
+    <tr ng-repeat="feature in filteredFeatures = (ctrl.testRun.features | filter:ctrl.isFeatureDisplayable)">
       <td>
         <a ng-href="#/features/{{ feature.id }}">
           {{ feature.info.name }}
         </a>
       </td>
-      <td><tc-status status="feature.status"></tc-status></td>
+      <td>
+        <tc-status status="feature.status"></tc-status>
+      </td>
       <td><span class="badge">{{ feature.stats.scenarioCount }}</span></td>
       <td><span class="badge">{{ feature.stats.statsByStatus['PASSED'] }}</span></td>
       <td><span class="badge">{{ feature.stats.statsByStatus['FAILED'] }}</span></td>
@@ -59,14 +91,24 @@
     </tbody>
   </table>
 
+  <p ng-hide="filteredFeatures.length == ctrl.testRun.features.length" class="text-muted">
+    Attention :
+    <ng-pluralize count="ctrl.testRun.features.length - filteredFeatures.length"
+                  when="{ 'one': 'une fonctionnalité masquée', 'other': '{} fonctionnalités masquées'}">
+    </ng-pluralize>
+  </p>
+
   <!-- Import cucumber results modal window -->
+
   <script type="text/ng-template" id="importCucumberResults.html">
+
     <div class="modal-header">
       <button type="button" class="close" ng-click="$dismiss()" aria-label="Fermer">
         <span aria-hidden="true">&times;</span>
       </button>
       <h4 class="modal-title">Importer un résultat de tests Cucumber</h4>
     </div>
+
     <div class="modal-body">
       <div class="form-group">
         <label for="file">Fichier à importer</label>
@@ -75,14 +117,17 @@
       </div>
       <div class="checkbox">
         <label>
-          <input type="checkbox" id="dryRun" ng-model="importCtrl.dryRun"> Tir à blanc
+          <input type="checkbox" id="dryRun" ng-model="importCtrl.dryRun">
+          Tir à blanc
         </label>
       </div>
     </div>
+
     <div class="modal-footer">
       <button type="button" class="btn btn-default" ng-click="$dismiss()">Annuler</button>
       <button type="button" class="btn btn-primary" ng-click="importCtrl.import()">Importer</button>
     </div>
+
   </script>
 
 </div>

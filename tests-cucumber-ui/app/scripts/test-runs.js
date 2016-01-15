@@ -70,7 +70,7 @@
       this.load();
 
     })
-    .controller('TestRunCtrl', function ($q, $routeParams, $location, $uibModal, TestRunCoreService, FeatureCoreService, ErrorService) {
+    .controller('TestRunCtrl', function ($q, $routeParams, $location, $uibModal, TestRunCoreService, FeatureCoreService, ErrorService, sessionStorage) {
 
       this.load = function () {
 
@@ -128,6 +128,40 @@
             ErrorService.sendError(error);
           });
       };
+
+      this.filters = {
+        passed: true,
+        failed: true,
+        partial: true,
+        notRun: true
+      };
+
+      // Init filters from session storage
+      var storedFilters = sessionStorage.getItem('featureFilters');
+      if (_.isString(storedFilters)) {
+        _.merge(this.filters, JSON.parse(storedFilters));
+      }
+
+      this.updateStoredFilters = function () {
+        sessionStorage.setItem('featureFilters', JSON.stringify(this.filters));
+      }.bind(this);
+
+      this.isFeatureDisplayable = function (feature) {
+        if (feature.status === 'PASSED') {
+          return this.filters.passed;
+        }
+        if (feature.status === 'FAILED') {
+          return this.filters.failed;
+        }
+        if (feature.status === 'PARTIAL') {
+          return this.filters.partial;
+        }
+        if (feature.status === 'NOT_RUN') {
+          return this.filters.notRun;
+        }
+        return true;
+      }.bind(this);
+
 
       this.load();
 
