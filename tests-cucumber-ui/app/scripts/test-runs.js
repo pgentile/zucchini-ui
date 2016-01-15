@@ -70,7 +70,7 @@
       this.load();
 
     })
-    .controller('TestRunCtrl', function ($q, $routeParams, $location, $uibModal, TestRunCoreService, FeatureCoreService, ErrorService, sessionStorage) {
+    .controller('TestRunCtrl', function ($q, $routeParams, $location, $log, $uibModal, TestRunCoreService, FeatureCoreService, ErrorService, sessionStorage) {
 
       this.load = function () {
 
@@ -139,7 +139,11 @@
       // Init filters from session storage
       var storedFilters = sessionStorage.getItem('featureFilters');
       if (_.isString(storedFilters)) {
-        _.merge(this.filters, JSON.parse(storedFilters));
+        try {
+          _.merge(this.filters, JSON.parse(storedFilters));
+        } catch (e) {
+          $log.warn('Caught exception when loading filters from local storage:', e);
+        }
       }
 
       this.updateStoredFilters = function () {
