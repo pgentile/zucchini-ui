@@ -70,7 +70,7 @@
       this.load();
 
     })
-    .controller('TestRunCtrl', function ($q, $routeParams, $location, $log, $uibModal, TestRunCoreService, FeatureCoreService, ErrorService, sessionStorage) {
+    .controller('TestRunCtrl', function ($q, $routeParams, $location, $log, $uibModal, TestRunCoreService, FeatureCoreService, ErrorService, ObjectBrowserStorage) {
 
       this.load = function () {
 
@@ -129,25 +129,19 @@
           });
       };
 
-      this.filters = {
-        passed: true,
-        failed: true,
-        partial: true,
-        notRun: true
-      };
+      var storedFilters = ObjectBrowserStorage.getItem('featureFilters', function () {
+        return {
+          passed: true,
+          failed: true,
+          partial: true,
+          notRun: true
+        };
+      });
 
-      // Init filters from session storage
-      var storedFilters = sessionStorage.getItem('featureFilters');
-      if (_.isString(storedFilters)) {
-        try {
-          _.merge(this.filters, JSON.parse(storedFilters));
-        } catch (e) {
-          $log.warn('Caught exception when loading filters from local storage:', e);
-        }
-      }
+      this.filters = storedFilters.get();
 
       this.updateStoredFilters = function () {
-        sessionStorage.setItem('featureFilters', JSON.stringify(this.filters));
+        storedFilters.save(this.filters);
       }.bind(this);
 
       this.isFeatureDisplayable = function (feature) {

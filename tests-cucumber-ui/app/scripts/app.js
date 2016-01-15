@@ -14,9 +14,6 @@
       'ngFileUpload'
     ])
     .constant('baseUri', appConfig.apiBaseUri)
-    .factory('sessionStorage', function ($window) {
-      return $window.sessionStorage;
-    })
     .config(function ($routeProvider) {
       $routeProvider
         .otherwise({
