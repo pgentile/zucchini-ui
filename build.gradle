@@ -30,7 +30,7 @@ allprojects {
     ext.versions = [
         dropwizard        : '0.9.1',
         orika             : '1.4.6',
-        morphia           : '1.0.1',
+        morphia           : '1.1.0',
         slf4j             : '1.7.13',
         spring            : '4.2.4.RELEASE',
         jackson           : '2.6.4',
