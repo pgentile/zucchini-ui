@@ -121,10 +121,10 @@
 
   <h2>Commentaires</h2>
 
-  <p ng-repeat="comment in ctrl.comments">
-    <b>Le {{ comment.date | date:'dd/MM/yyyy à HH:mm:ss' }} :</b>
-    {{ comment.content }}
-  </p>
+  <div ng-repeat="comment in ctrl.comments">
+    <h5>Le {{ comment.date | date:'dd/MM/yyyy à HH:mm:ss' }}</h5>
+    <p><tc-line-breaks content="comment.content"></tc-line-breaks></p>
+  </div>
 
   <form ng-controller="AddCommentCtrl as addCommentCtrl">
     <div class="form-group">
