@@ -89,14 +89,17 @@
       <td><span class="badge">{{ feature.stats.statsByStatus['NOT_RUN'] }}</span></td>
     </tr>
     </tbody>
+    <tfoot ng-hide="filteredFeatures.length == ctrl.testRun.features.length">
+      <tr>
+        <td class="warning" colspan="12" style="text-align: center">
+          Attention :
+          <ng-pluralize count="ctrl.testRun.features.length - filteredFeatures.length"
+                        when="{ 'one': 'une fonctionnalité masquée', 'other': '{} fonctionnalités masquées'}">
+          </ng-pluralize>
+        </td>
+      </tr>
+    </tfoot>
   </table>
-
-  <p ng-hide="filteredFeatures.length == ctrl.testRun.features.length" class="text-muted">
-    Attention :
-    <ng-pluralize count="ctrl.testRun.features.length - filteredFeatures.length"
-                  when="{ 'one': 'une fonctionnalité masquée', 'other': '{} fonctionnalités masquées'}">
-    </ng-pluralize>
-  </p>
 
   <!-- Import cucumber results modal window -->
 
