@@ -62,29 +62,29 @@
 
   <hr>
 
-  <h2>Statistiques</h2>
+  <h2>Complétion</h2>
 
-
-  <table class="table table-bordered">
-    <thead>
-    <tr>
-      <th class="col-md-2">Nombre de scénarii</th>
-      <th class="col-md-2">Succès</th>
-      <th class="col-md-2">Echecs</th>
-      <th class="col-md-2">En attente</th>
-      <th class="col-md-2">Non joués</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td><span class="badge">{{ ctrl.feature.stats.scenarioCount }}</span></td>
-      <td><span class="badge">{{ ctrl.feature.stats.statsByStatus['PASSED'] }}</span></td>
-      <td><span class="badge">{{ ctrl.feature.stats.statsByStatus['FAILED'] }}</span></td>
-      <td><span class="badge">{{ ctrl.feature.stats.statsByStatus['PENDING'] }}</span></td>
-      <td><span class="badge">{{ ctrl.feature.stats.statsByStatus['NOT_RUN'] }}</span></td>
-    </tr>
-    </tbody>
-  </table>
+  <ng-switch on="ctrl.feature.stats.scenarioCount">
+    <div ng-switch-when="0">
+      <uib-progress></uib-progress>
+    </div>
+    <div ng-switch-default>
+      <uib-progress>
+        <uib-bar value="100 * ctrl.feature.stats.statsByStatus['PASSED'] / ctrl.feature.stats.scenarioCount"
+                 type="success">
+          {{ ctrl.feature.stats.statsByStatus['PASSED'] }}
+        </uib-bar>
+        <uib-bar value="100 * ctrl.feature.stats.statsByStatus['FAILED'] / ctrl.feature.stats.scenarioCount"
+                 type="danger">
+          {{ ctrl.feature.stats.statsByStatus['FAILED'] }}
+        </uib-bar>
+        <uib-bar value="100 * ctrl.feature.stats.statsByStatus['PENDING'] / ctrl.feature.stats.scenarioCount"
+                 type="warning">
+          {{ ctrl.feature.stats.statsByStatus['PENDING'] }}
+        </uib-bar>
+      </uib-progress>
+    </div>
+  </ng-switch>
 
   <!-- Scenarii -->
 

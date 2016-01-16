@@ -56,79 +56,81 @@
         return items;
       };
 
-      var link = function (scope, element) {
+      var link = function (scope, element, attrs) {
 
-        scope.$watch('info', function (info) {
-          element.empty();
+        attrs.$observe('info', function (infoAttr) {
+          scope.$watch(infoAttr, function (info) {
 
-          if (angular.isUndefined(info)) {
-            return;
-          }
+            element.empty();
 
-          // Keyword
-          var keywordElem = angular.element('<b></b>');
-          keywordElem.text(info.keyword);
-          element.append(keywordElem);
-
-          var spaceElement = $window.document.createTextNode(' ');
-          element.append(spaceElement);
-
-          // Name
-          cut(info).forEach(function (part) {
-            var newElement;
-            if (part.type === 'arg') {
-              newElement = angular.element('<code></code>');
-              newElement.text(part.value);
-            } else {
-              newElement = $window.document.createTextNode(part.value);
+            if (angular.isUndefined(info)) {
+              return;
             }
-            element.append(newElement);
-          });
 
+            // Keyword
+            var keywordElem = angular.element('<b></b>');
+            keywordElem.text(info.keyword);
+            element.append(keywordElem);
+
+            var spaceElement = $window.document.createTextNode(' ');
+            element.append(spaceElement);
+
+            // Name
+            cut(info).forEach(function (part) {
+              var newElement;
+              if (part.type === 'arg') {
+                newElement = angular.element('<code></code>');
+                newElement.text(part.value);
+              } else {
+                newElement = $window.document.createTextNode(part.value);
+              }
+              element.append(newElement);
+            });
+
+          });
         });
 
       };
 
       return {
         restrict: 'E',
-        scope: {
-          info: '=info'
-        },
+        scope: false,
         link: link
       };
 
     })
     .directive('tcLineBreaks', function ($window) {
 
-      var link = function (scope, element) {
+      var link = function (scope, element, attrs) {
 
-        scope.$watch('content', function (content) {
-          element.empty();
+        attrs.$observe('content', function (contentAttr) {
+            scope.$watch(contentAttr, function (content) {
 
-          if (content) {
-            var parts = content.trim().split('\n');
+              element.empty();
 
-            var textElement = $window.document.createTextNode(parts[0]);
-            element.append(textElement);
+              if (content) {
+                var parts = content.trim().split('\n');
 
-            for (var i = 1; i < parts.length; i++) {
-              var brElement = angular.element('<br></br>');
-              element.append(brElement);
+                var textElement = $window.document.createTextNode(parts[0]);
+                element.append(textElement);
 
-              var nextTextElement = $window.document.createTextNode(parts[i]);
-              element.append(nextTextElement);
-            }
-          }
+                for (var i = 1; i < parts.length; i++) {
+                  var brElement = angular.element('<br></br>');
+                  element.append(brElement);
 
+                  var nextTextElement = $window.document.createTextNode(parts[i]);
+                  element.append(nextTextElement);
+                }
+              }
+
+          });
         });
 
       };
 
       return {
         restrict: 'E',
-        scope: {
-          content: '=content'
-        },
+        scope: false,
         link: link
       };
 
