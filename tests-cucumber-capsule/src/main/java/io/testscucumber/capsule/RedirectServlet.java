@@ -10,12 +10,12 @@ class RedirectServlet extends HttpServlet {
 
     private final String targetPath;
 
-    public RedirectServlet(String targetPath) {
+    public RedirectServlet(final String targetPath) {
         this.targetPath = targetPath;
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
         response.sendRedirect(targetPath);
     }
 

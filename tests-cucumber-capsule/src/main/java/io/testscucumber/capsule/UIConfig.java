@@ -8,7 +8,7 @@ class UIConfig {
         return apiBaseUri;
     }
 
-    public void setApiBaseUri(String apiBaseUri) {
+    public void setApiBaseUri(final String apiBaseUri) {
         this.apiBaseUri = apiBaseUri;
     }
 
