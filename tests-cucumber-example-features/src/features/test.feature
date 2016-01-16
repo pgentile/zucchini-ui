@@ -14,6 +14,8 @@ Fonctionnalité: test
     Quand j'additionne 5 et 8
     Alors j'obtiens 13
 
+  # Joli test avec un tableau
+  # Et ça marche !
   @tata @titi
   Scénario: Test avec un tableau
     Alors j'obtiens le tableau suivant:

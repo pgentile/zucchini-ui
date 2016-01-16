@@ -1,17 +1,17 @@
 package io.testscucumber.backend.reportconverter.converter;
 
 import io.testscucumber.backend.feature.domain.Feature;
-import io.testscucumber.backend.scenario.domain.AroundAction;
-import io.testscucumber.backend.scenario.domain.Background;
-import io.testscucumber.backend.scenario.domain.Scenario;
-import io.testscucumber.backend.scenario.domain.Step;
 import io.testscucumber.backend.feature.domain.FeatureFactory;
 import io.testscucumber.backend.reportconverter.report.ReportAroundAction;
 import io.testscucumber.backend.reportconverter.report.ReportBackground;
 import io.testscucumber.backend.reportconverter.report.ReportFeature;
 import io.testscucumber.backend.reportconverter.report.ReportScenario;
 import io.testscucumber.backend.reportconverter.report.ReportStep;
+import io.testscucumber.backend.scenario.domain.AroundAction;
+import io.testscucumber.backend.scenario.domain.Background;
+import io.testscucumber.backend.scenario.domain.Scenario;
 import io.testscucumber.backend.scenario.domain.ScenarioFactory;
+import io.testscucumber.backend.scenario.domain.Step;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.ConfigurableMapper;
 import ma.glasnost.orika.metadata.TypeFactory;
@@ -49,6 +49,7 @@ class ReportMapper extends ConfigurableMapper {
         factory.getConverterFactory().registerConverter("sha1", new StringToSha1SumConverter());
         factory.getConverterFactory().registerConverter("stripAtSign", new StripAtSignConverter());
         factory.getConverterFactory().registerConverter("table", new TableConverter());
+        factory.getConverterFactory().registerConverter("reportCommentToString", new ReportCommentToStringConverter());
 
         factory.classMap(ReportFeature.class, Feature.class)
             .fieldMap("id", "featureKey").converter("sha1").add()
@@ -65,6 +66,7 @@ class ReportMapper extends ConfigurableMapper {
             .fieldMap("keyword", "info.keyword").converter("trimString").add()
             .fieldMap("name", "info.name").converter("trimString").add()
             .fieldMap("tags{name}", "tags{}").converter("stripAtSign").add()
+            .fieldMap("comments", "comment").converter("reportCommentToString").add()
             .field("line", "location.line")
             .byDefault()
             .register();

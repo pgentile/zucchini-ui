@@ -77,6 +77,10 @@
 
   <h2>Etapes</h2>
 
+  <p class="text-muted" ng-hide="ctrl.scenario.comment == ''">
+    <tc-line-breaks content="ctrl.scenario.comment"></tc-line-breaks>
+  </p>
+
   <div ng-repeat="action in ctrl.scenario.beforeActions">
     <p>
       <i><b>Pré-action</b> #{{ $index + 1 }}</i>

@@ -39,6 +39,8 @@ public class Scenario extends BaseEntity<String> {
 
     private Location location;
 
+    private String comment;
+
     private List<Step> steps = new ArrayList<>();
 
     private List<AroundAction> beforeActions = new ArrayList<>();
@@ -65,6 +67,7 @@ public class Scenario extends BaseEntity<String> {
         status = other.status;
         info = other.info;
         location = other.location;
+        comment = other.comment;
         steps = new ArrayList<>(other.steps);
         beforeActions = new ArrayList<>(other.beforeActions);
         afterActions = new ArrayList<>(other.afterActions);
@@ -236,6 +239,14 @@ public class Scenario extends BaseEntity<String> {
 
     public void setLocation(final Location location) {
         this.location = location;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(final String comment) {
+        this.comment = comment;
     }
 
     public List<Step> getSteps() {

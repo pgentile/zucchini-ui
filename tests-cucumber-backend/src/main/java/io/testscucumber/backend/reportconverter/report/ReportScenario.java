@@ -17,6 +17,8 @@ public class ReportScenario extends ReportFeatureElement {
     @JsonProperty("after")
     private List<ReportAroundAction> afterActions = new ArrayList<>();
 
+    private List<ReportComment> comments = new ArrayList<>();
+
     public String getId() {
         return id;
     }
@@ -47,6 +49,14 @@ public class ReportScenario extends ReportFeatureElement {
 
     public void setAfterActions(final List<ReportAroundAction> afterActions) {
         this.afterActions = afterActions;
+    }
+
+    public List<ReportComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(final List<ReportComment> comments) {
+        this.comments = comments;
     }
 
 }

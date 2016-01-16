@@ -9,8 +9,8 @@ import java.util.List;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = ReportScenario.class, name = "scenario"),
-        @JsonSubTypes.Type(value = ReportBackground.class, name = "background")
+    @JsonSubTypes.Type(value = ReportScenario.class, name = "scenario"),
+    @JsonSubTypes.Type(value = ReportBackground.class, name = "background")
 })
 public class ReportFeatureElement extends CucumberElement {
 
@@ -37,7 +37,7 @@ public class ReportFeatureElement extends CucumberElement {
     @Override
     protected MoreObjects.ToStringHelper createToStringHelper() {
         return super.createToStringHelper()
-                .add("size of steps", steps.size());
+            .add("size of steps", steps.size());
     }
 
 }
