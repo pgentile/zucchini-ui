@@ -145,19 +145,18 @@
       }.bind(this);
 
       this.isFeatureDisplayable = function (feature) {
-        if (feature.status === 'PASSED') {
-          return this.filters.passed;
+        switch (feature.status) {
+          case 'PASSED':
+            return this.filters.passed;
+          case 'FAILED':
+            return this.filters.failed;
+          case 'PARTIAL':
+            return this.filters.partial;
+          case 'NOT_RUN':
+            return this.filters.notRun;
+          default:
+            return true;
         }
-        if (feature.status === 'FAILED') {
-          return this.filters.failed;
-        }
-        if (feature.status === 'PARTIAL') {
-          return this.filters.partial;
-        }
-        if (feature.status === 'NOT_RUN') {
-          return this.filters.notRun;
-        }
-        return true;
       }.bind(this);
 
 
