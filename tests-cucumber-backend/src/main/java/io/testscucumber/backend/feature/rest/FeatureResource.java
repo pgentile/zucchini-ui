@@ -4,6 +4,7 @@ import io.testscucumber.backend.feature.domain.Feature;
 import io.testscucumber.backend.feature.domain.FeatureRepository;
 import io.testscucumber.backend.feature.domain.FeatureService;
 import io.testscucumber.backend.feature.views.FeatureHistoryItemView;
+import io.testscucumber.backend.feature.views.FeatureListItemView;
 import io.testscucumber.backend.feature.views.FeatureStats;
 import io.testscucumber.backend.feature.views.FeatureViewAccess;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -43,9 +45,11 @@ public class FeatureResource {
     }
 
     @GET
-    public List<Feature> getFeatures(@QueryParam("testRunId") final String testRunId) {
-        return featureRepository.query(q -> q.withTestRunId(testRunId).orderByFeatureName())
-            .find();
+    public List<FeatureListItemView> getFeatures(
+        @QueryParam("testRunId") final String testRunId,
+        @QueryParam("withStats") @DefaultValue("false") final boolean withStats
+    ) {
+        return featureViewAccess.getFeatureListItems(q -> q.withTestRunId(testRunId).orderByFeatureName(), withStats);
     }
 
     @GET

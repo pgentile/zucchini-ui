@@ -77,19 +77,10 @@
         TestRunCoreService.getById($routeParams.testRunId)
           .then(function (testRun) {
 
-            return FeatureCoreService.getFeaturesByTestRunId($routeParams.testRunId)
+            return FeatureCoreService.getFeaturesByTestRunId($routeParams.testRunId, true)
               .then(function (features) {
-
-                return $q.all(features.map(function (feature) {
-                  return FeatureCoreService.getStats(feature.id)
-                    .then(function (stats) {
-                      feature.stats = stats;
-                      return feature;
-                    });
-                  })).then(function (features) {
-                    testRun.features = features;
-                    return testRun;
-                  });
+                testRun.features = features;
+                return testRun;
               });
 
           })

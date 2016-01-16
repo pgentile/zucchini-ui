@@ -67,10 +67,10 @@ public class ScenarioViewAccess {
     }
 
     public List<ScenarioStatus> getScenariiStatusByFeatureId(final String featureId) {
-        return scenarioDAO.prepareTypedQuery(q -> q.withFeatureId(featureId))
-            .retrievedFields(true, "id", "status")
-            .asList()
-            .stream()
+        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(q -> q.withFeatureId(featureId))
+            .retrievedFields(true, "id", "status");
+
+        return MorphiaUtils.streamQuery(query)
             .map(Scenario::getStatus)
             .collect(Collectors.toList());
     }

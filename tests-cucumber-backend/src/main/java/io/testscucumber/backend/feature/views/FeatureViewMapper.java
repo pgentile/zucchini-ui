@@ -11,6 +11,10 @@ class FeatureViewMapper extends ConfigurableMapper {
         factory.classMap(Feature.class, FeatureHistoryItemView.class)
             .byDefault()
             .register();
+
+        factory.classMap(Feature.class, FeatureListItemView.class)
+            .byDefault()
+            .register();
     }
 
 }
