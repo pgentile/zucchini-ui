@@ -133,12 +133,16 @@
 
   <div ng-repeat="comment in ctrl.comments">
     <h5>Le {{ comment.date | date:'dd/MM/yyyy à HH:mm:ss' }}</h5>
-    <p><tc-line-breaks content="comment.content"></tc-line-breaks></p>
+    <p>
+      <tc-line-breaks content="comment.content"></tc-line-breaks>
+    </p>
   </div>
 
   <form ng-controller="AddCommentCtrl as addCommentCtrl">
     <div class="form-group">
-      <textarea ng-model="addCommentCtrl.content" class="form-control" rows="3" placeholder="Entrez votre commentaire"></textarea>
+      <textarea ng-model="addCommentCtrl.content" class="form-control" rows="3"
+                placeholder="Entrez votre commentaire">
+      </textarea>
     </div>
     <button ng-click="addCommentCtrl.addComment()" type="submit" class="btn btn-primary">Ajouter le commentaire</button>
   </form>
@@ -149,6 +153,18 @@
 
   <h2>Historique</h2>
 
+  <div class="form-inline" style="margin-bottom: 10px">
+    <div class="form-group">
+      <b>Filtrer :</b>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="ctrl.filters.sameTestRun" ng-change="ctrl.updateStoredFilters()">
+        Même environnement de tir
+      </label>
+    </div>
+  </div>
+
   <table class="table table-bordered">
     <thead>
     <tr>
@@ -158,7 +174,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="scenario in ctrl.history | orderBy:'-testRun.date'"
+    <tr ng-repeat="scenario in ctrl.history | filter:ctrl.isHistoryItemDisplayable | orderBy:'-testRun.date'"
         ng-class="ctrl.scenario.testRunId === scenario.testRun.id && 'active'">
       <td>
         <span class="label label-default">{{ scenario.testRun.env }}</span>

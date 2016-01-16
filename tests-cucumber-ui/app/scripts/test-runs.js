@@ -181,7 +181,7 @@
 
     })
     .factory('featureStoredFilters', function (ObjectBrowserStorage) {
-      return ObjectBrowserStorage.getItem('featureStoredFilters', function () {
+      return ObjectBrowserStorage.getItem('featureFilters', function () {
         return {
           passed: true,
           failed: true,

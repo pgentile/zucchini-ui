@@ -36,7 +36,7 @@
 
 
   angular.module('testsCucumberApp')
-    .controller('ScenarioCtrl', function (ScenarioResource, ScenarioCoreService, FeatureCoreService, TestRunCoreService, $routeParams, $q, $location) {
+    .controller('ScenarioCtrl', function (ScenarioCoreService, FeatureCoreService, TestRunCoreService, $routeParams, $q, $location, historyFilters) {
 
       this.scenario = {};
 
@@ -95,6 +95,21 @@
           }.bind(this));
       };
 
+
+      this.filters = historyFilters.get();
+
+      this.updateStoredFilters = function () {
+        historyFilters.save(this.filters);
+      }.bind(this);
+
+      this.isHistoryItemDisplayable = function (item) {
+        if (this.filters.sameTestRun) {
+          return item.testRun.env === this.scenario.testRun.env;
+        }
+        return true;
+      }.bind(this);
+
+
       this.load()
         .then(function () {
           this.loadComments();
@@ -118,6 +133,13 @@
           });
       };
 
+    })
+    .factory('historyFilters', function (ObjectBrowserStorage) {
+      return ObjectBrowserStorage.getItem('historyFilters', function () {
+        return {
+          sameTestRun: true
+        };
+      });
     })
     .service('ScenarioCoreService', ScenarioCoreService)
     .service('ScenarioResource', function ($resource, baseUri) {

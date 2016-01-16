@@ -114,7 +114,7 @@
 
     })
     .factory('scenarioStoredFilters', function (ObjectBrowserStorage) {
-      return ObjectBrowserStorage.getItem('scenarioStoredFilters', function () {
+      return ObjectBrowserStorage.getItem('scenarioFilters', function () {
         return {
           passed: true,
           failed: true,
