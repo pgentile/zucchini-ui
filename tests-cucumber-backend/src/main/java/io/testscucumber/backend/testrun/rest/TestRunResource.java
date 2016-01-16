@@ -1,11 +1,11 @@
 package io.testscucumber.backend.testrun.rest;
 
 
+import io.dropwizard.jersey.PATCH;
 import io.testscucumber.backend.reportconverter.domain.ReportConverterService;
 import io.testscucumber.backend.testrun.domain.TestRun;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;
 import io.testscucumber.backend.testrun.domain.TestRunService;
-import io.dropwizard.jersey.PATCH;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +22,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
+import javax.ws.rs.core.UriInfo;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
@@ -43,6 +44,8 @@ public class TestRunResource {
 
     private final ReportConverterService reportConverterService;
 
+    private UriInfo uriInfo;
+
     @Autowired
     public TestRunResource(
         final TestRunRepository testRunRepository,
@@ -51,6 +54,11 @@ public class TestRunResource {
         this.testRunRepository = testRunRepository;
         this.testRunService = testRunService;
         this.reportConverterService = reportConverterService;
+    }
+
+    @Context
+    public void setUriInfo(UriInfo uriInfo) {
+        this.uriInfo = uriInfo;
     }
 
     @GET
@@ -65,7 +73,8 @@ public class TestRunResource {
         final TestRun testRun = new TestRun(request.getEnv(), request.getLabels());
         testRunRepository.save(testRun);
 
-        final URI location = UriBuilder.fromPath("/test-runs/{testRunId}")
+        final URI location = uriInfo.getBaseUriBuilder()
+            .path("/test-runs/{testRunId}")
             .build(testRun.getId());
 
         final CreatedTestRunResponse response = new CreatedTestRunResponse(testRun.getId());

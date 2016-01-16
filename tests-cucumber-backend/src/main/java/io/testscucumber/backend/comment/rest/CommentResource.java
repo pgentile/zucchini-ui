@@ -13,9 +13,10 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
+import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.util.List;
 
@@ -27,9 +28,16 @@ public class CommentResource {
 
     private final CommentService commentService;
 
+    private UriInfo uriInfo;
+
     @Autowired
     public CommentResource(final CommentService commentService) {
         this.commentService = commentService;
+    }
+
+    @Context
+    public void setUriInfo(UriInfo uriInfo) {
+        this.uriInfo = uriInfo;
     }
 
     @GET
@@ -42,7 +50,8 @@ public class CommentResource {
     public Response create(@Valid @NotNull final CreateCommentRequest request) {
         final Comment comment = commentService.addComment(request.getType(), request.getReferenceId(), request.getContent());
 
-        final URI location = UriBuilder.fromPath("/comments/{id}")
+        final URI location = uriInfo.getBaseUriBuilder()
+            .path("/comments/{id}")
             .build(comment.getId());
 
         final CreatedCommentResponse response = new CreatedCommentResponse(comment.getId());
