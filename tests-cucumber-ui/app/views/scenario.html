@@ -26,6 +26,16 @@
     </small>
   </h1>
 
+  <p>
+    <b>Créé le :</b>
+    {{ ctrl.scenario.createdAt | date:'dd/MM/yyyy à HH:mm:ss' }}
+  </p>
+
+  <p ng-hide="ctrl.scenario.createdAt == ctrl.scenario.modifiedAt">
+    <b>Modifié le :</b>
+    {{ ctrl.scenario.modifiedAt | date:'dd/MM/yyyy à HH:mm:ss' }}
+  </p>
+
   <p ng-if="ctrl.scenario.tags.length > 0">
     <b>Tags :</b>
     <tc-tags tags="ctrl.scenario.tags"></tc-tags>

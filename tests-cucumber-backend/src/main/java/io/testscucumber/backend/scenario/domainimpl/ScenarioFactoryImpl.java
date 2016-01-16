@@ -4,6 +4,7 @@ import io.testscucumber.backend.scenario.domain.Scenario;
 import io.testscucumber.backend.scenario.domain.ScenarioFactory;
 import org.springframework.stereotype.Component;
 
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Component
@@ -15,6 +16,11 @@ class ScenarioFactoryImpl implements ScenarioFactory {
         scenario.setId(UUID.randomUUID().toString());
         scenario.setTestRunId(testRunId);
         scenario.setFeatureId(featureId);
+
+        final ZonedDateTime now = ZonedDateTime.now();
+        scenario.setCreatedAt(now);
+        scenario.setModifiedAt(now);
+
         return scenario;
     }
 

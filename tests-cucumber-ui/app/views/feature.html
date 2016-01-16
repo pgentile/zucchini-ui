@@ -22,6 +22,16 @@
     <code>{{ ctrl.feature.location.filename }}</code>, ligne <code>{{ ctrl.feature.location.line }}</code>
   </p>
 
+  <p>
+    <b>Créé le :</b>
+    {{ ctrl.feature.createdAt | date:'dd/MM/yyyy à HH:mm:ss' }}
+  </p>
+
+  <p ng-hide="ctrl.feature.createdAt == ctrl.feature.modifiedAt">
+    <b>Modifié le :</b>
+    {{ ctrl.feature.modifiedAt | date:'dd/MM/yyyy à HH:mm:ss' }}
+  </p>
+
   <p ng-if="ctrl.feature.tags.length > 0">
     <b>Tags :</b>
     <tc-tags tags="ctrl.feature.tags"></tc-tags>
@@ -130,7 +140,9 @@
         <span ng-if="ctrl.feature.testRunId === feature.testRunId" class="glyphicon glyphicon-asterisk"
               aria-hidden="true"></span>
       </td>
-      <td><tc-status status="feature.status"></tc-status></td>
+      <td>
+        <tc-status status="feature.status"></tc-status>
+      </td>
       <td><span class="badge">{{ feature.stats.scenarioCount }}</span></td>
       <td><span class="badge">{{ feature.stats.statsByStatus['PASSED'] }}</span></td>
       <td><span class="badge">{{ feature.stats.statsByStatus['FAILED'] }}</span></td>

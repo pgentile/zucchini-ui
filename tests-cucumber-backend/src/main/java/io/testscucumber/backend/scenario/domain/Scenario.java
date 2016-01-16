@@ -7,6 +7,7 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -44,6 +45,10 @@ public class Scenario extends BaseEntity<String> {
 
     private List<AroundAction> afterActions = new ArrayList<>();
 
+    private ZonedDateTime createdAt;
+
+    private ZonedDateTime modifiedAt;
+
     public void mergeWith(final Scenario other) {
         if (!scenarioKey.equals(other.scenarioKey)) {
             throw new IllegalArgumentException("Scenario key must be the same");
@@ -63,6 +68,7 @@ public class Scenario extends BaseEntity<String> {
         steps = new ArrayList<>(other.steps);
         beforeActions = new ArrayList<>(other.beforeActions);
         afterActions = new ArrayList<>(other.afterActions);
+        modifiedAt = ZonedDateTime.now();
     }
 
     public void changeStatus(final ScenarioStatus newStatus) {
@@ -237,6 +243,22 @@ public class Scenario extends BaseEntity<String> {
 
     public void setSteps(final List<Step> steps) {
         this.steps = steps;
+    }
+
+    public ZonedDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(final ZonedDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public ZonedDateTime getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(final ZonedDateTime modifiedAt) {
+        this.modifiedAt = modifiedAt;
     }
 
     @Override

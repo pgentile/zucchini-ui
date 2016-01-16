@@ -7,6 +7,7 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,6 +34,10 @@ public class Feature extends BaseEntity<String> {
 
     private FeatureStatus status;
 
+    private ZonedDateTime createdAt;
+
+    private ZonedDateTime modifiedAt;
+
     public void mergeWith(final Feature other) {
         if (!featureKey.equals(other.featureKey)) {
             throw new IllegalArgumentException("Same feature key is required");
@@ -46,6 +51,7 @@ public class Feature extends BaseEntity<String> {
         location = other.location;
         description = other.description;
         status = other.status;
+        modifiedAt = ZonedDateTime.now();
     }
 
     public String getId() {
@@ -110,6 +116,22 @@ public class Feature extends BaseEntity<String> {
 
     public void setStatus(final FeatureStatus status) {
         this.status = status;
+    }
+
+    public ZonedDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(final ZonedDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public ZonedDateTime getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(final ZonedDateTime modifiedAt) {
+        this.modifiedAt = modifiedAt;
     }
 
     @Override
