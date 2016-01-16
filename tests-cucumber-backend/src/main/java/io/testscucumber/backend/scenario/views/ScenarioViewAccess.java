@@ -26,7 +26,7 @@ public class ScenarioViewAccess {
 
     public List<ScenarioListItemView> getScenariiByFeatureId(final String featureId) {
         return scenarioDAO.prepareTypedQuery(q -> q.withFeatureId(featureId).orderedByScenarioName())
-            .retrievedFields(true, "id", "info", "tags", "status", "testRunId")
+            .retrievedFields(true, "id", "info", "status", "testRunId")
             .order("info.name")
             .asList()
             .stream()
@@ -36,7 +36,7 @@ public class ScenarioViewAccess {
 
     public List<ScenarioListItemView> getScenariiByScenarioKeyAndOneOfTestRunIds(final String scenarioKey, final List<String> testRunIds) {
         return scenarioDAO.prepareTypedQuery(q -> q.withTestRunIdIn(testRunIds).withScenarioKey(scenarioKey))
-            .retrievedFields(true, "id", "info", "tags", "status", "testRunId")
+            .retrievedFields(true, "id", "info", "status", "testRunId")
             .asList()
             .stream()
             .map(scenarioToListItemView::map)

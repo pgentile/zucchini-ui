@@ -3,16 +3,11 @@ package io.testscucumber.backend.scenario.views;
 import io.testscucumber.backend.scenario.domain.ScenarioStatus;
 import io.testscucumber.backend.shared.domain.BasicInfo;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class ScenarioListItemView {
 
     private String id;
 
     private BasicInfo info;
-
-    private Set<String> tags = new HashSet<>();
 
     private ScenarioStatus status;
 
@@ -32,14 +27,6 @@ public class ScenarioListItemView {
 
     public void setInfo(final BasicInfo info) {
         this.info = info;
-    }
-
-    public Set<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(final Set<String> tags) {
-        this.tags = tags;
     }
 
     public ScenarioStatus getStatus() {
