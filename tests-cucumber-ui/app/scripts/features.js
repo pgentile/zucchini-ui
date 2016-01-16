@@ -94,8 +94,8 @@
         scenarioStoredFilters.save(this.filters);
       }.bind(this);
 
-      this.isScenarioDisplayable = function (feature) {
-        switch (feature.status) {
+      this.isScenarioDisplayable = function (scenario) {
+        switch (scenario.status) {
           case 'PASSED':
             return this.filters.passed;
           case 'FAILED':
