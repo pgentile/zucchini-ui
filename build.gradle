@@ -193,7 +193,7 @@ project("${rootProject.name}-backend") {
 
         main = 'io.testscucumber.backend.BackendApplication'
 
-        args += ['serve', "${rootProject.projectDir}/server-config.yml"]
+        args += ['serve', "${rootDir}/server-config.yml"]
     }
 
 }
@@ -292,7 +292,7 @@ project("${rootProject.name}-capsule") {
     tasks.assemble.dependsOn fatCapsule
 
     task runCapsule(type: Exec, description: 'Run Capsule') {
-        commandLine 'java', '-jar', fatCapsule.archivePath, 'server', "${rootProject.projectDir}/server-config.yml"
+        commandLine 'java', '-jar', fatCapsule.archivePath, 'server', "${rootDir}/server-config.yml"
     }
 
     tasks.runCapsule.dependsOn fatCapsule
