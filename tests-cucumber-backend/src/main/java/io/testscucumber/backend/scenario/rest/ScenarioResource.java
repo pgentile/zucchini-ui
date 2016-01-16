@@ -9,7 +9,6 @@ import io.testscucumber.backend.scenario.domain.ScenarioStatus;
 import io.testscucumber.backend.scenario.views.ScenarioHistoryItemView;
 import io.testscucumber.backend.scenario.views.ScenarioListItemView;
 import io.testscucumber.backend.scenario.views.ScenarioViewAccess;
-import io.testscucumber.backend.testrun.domain.TestRunRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -43,8 +42,6 @@ public class ScenarioResource {
 
     private final ScenarioService scenarioService;
 
-    private final TestRunRepository testRunRepository;
-
     private final CommentResource.Factory commentResourceFactory;
 
     private UriInfo uriInfo;
@@ -54,13 +51,11 @@ public class ScenarioResource {
         final ScenarioViewAccess scenarioViewAccess,
         final ScenarioRepository scenarioRepository,
         final ScenarioService scenarioService,
-        final TestRunRepository testRunRepository,
         final CommentResource.Factory commentResourceFactory
     ) {
         this.scenarioViewAccess = scenarioViewAccess;
         this.scenarioRepository = scenarioRepository;
         this.scenarioService = scenarioService;
-        this.testRunRepository = testRunRepository;
         this.commentResourceFactory = commentResourceFactory;
     }
 

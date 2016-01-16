@@ -101,7 +101,7 @@ public class CommentResource {
         commentRepository.save(comment);
 
         final URI location = UriBuilder.fromUri(baseUri)
-            .path("/comments/{id}")
+            .path("/{commentId}")
             .build(comment.getId());
 
         final CreatedCommentResponse response = new CreatedCommentResponse(comment.getId());
