@@ -149,7 +149,7 @@
 
   <h2>Historique</h2>
 
-  <table class="table table-striped table-bordered">
+  <table class="table table-bordered">
     <thead>
     <tr>
       <th class="col-md-11">Tir</th>
@@ -157,13 +157,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="scenario in ctrl.history | orderBy:'-testRun.date'">
+    <tr ng-repeat="scenario in ctrl.history | orderBy:'-testRun.date'"
+        ng-class="ctrl.scenario.testRunId === scenario.testRunId && 'active'">
       <td>
         <a ng-href="#/scenarii/{{ scenario.id }}">
           {{ scenario.testRun.date | date:'dd/MM/yyyy à HH:mm' }}
         </a>
-        <span ng-if="ctrl.scenario.testRunId === scenario.testRunId" class="glyphicon glyphicon-asterisk"
-              aria-hidden="true"></span>
       </td>
       <td>
         <tc-status status="scenario.status"></tc-status>
