@@ -14,6 +14,12 @@ public class Background {
 
     private List<Step> steps = new ArrayList<>();
 
+    protected void changeStatus(final StepStatus newStatus) {
+        for (final Step step: steps) {
+            step.changeStatus(newStatus);
+        }
+    }
+
     public BasicInfo getInfo() {
         return info;
     }

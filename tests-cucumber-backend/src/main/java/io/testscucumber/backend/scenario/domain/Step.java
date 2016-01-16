@@ -16,7 +16,7 @@ public class Step {
 
     private String[][] table;
 
-    public void changeStatus(final StepStatus newStatus) {
+    protected void changeStatus(final StepStatus newStatus) {
         if (newStatus == status) {
             return;
         }

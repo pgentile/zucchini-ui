@@ -96,7 +96,7 @@ public class Scenario extends BaseEntity<String> {
 
         beforeActions.forEach(step -> step.changeStatus(newStepStatus));
         if (background != null) {
-            background.getSteps().forEach(step -> step.changeStatus(newStepStatus));
+            background.changeStatus(newStepStatus);
         }
         steps.forEach(step -> step.changeStatus(newStepStatus));
         afterActions.forEach(step -> step.changeStatus(newStepStatus));

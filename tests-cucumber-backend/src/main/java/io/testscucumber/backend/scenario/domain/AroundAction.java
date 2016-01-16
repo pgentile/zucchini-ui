@@ -6,7 +6,7 @@ public class AroundAction {
 
     private String errorMessage;
 
-    public void changeStatus(final StepStatus newStatus) {
+    protected void changeStatus(final StepStatus newStatus) {
         if (newStatus == status) {
             return;
         }
