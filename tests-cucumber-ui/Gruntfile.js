@@ -58,13 +58,13 @@ module.exports = function (grunt) {
           livereload: '<%= connect.options.livereload %>'
         }
       },
+      css: {
+        files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
+        tasks: ['copy:styles', 'newer:postcss:server']
+      },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'newer:jscs:test', 'karma']
-      },
-      compass: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass:server', 'postcss:server']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -101,10 +101,6 @@ module.exports = function (grunt) {
               connect().use(
                 '/bower_components',
                 connect.static('./bower_components')
-              ),
-              connect().use(
-                '/app/styles',
-                connect.static('./app/styles')
               ),
               connect.static(appConfig.app)
             ];
