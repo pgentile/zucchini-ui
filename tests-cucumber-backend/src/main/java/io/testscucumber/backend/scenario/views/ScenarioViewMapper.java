@@ -11,6 +11,10 @@ class ScenarioViewMapper extends ConfigurableMapper {
         factory.classMap(Scenario.class, ScenarioListItemView.class)
             .byDefault()
             .register();
+
+        factory.classMap(Scenario.class, ScenarioHistoryItemView.class)
+            .byDefault()
+            .register();
     }
 
 }

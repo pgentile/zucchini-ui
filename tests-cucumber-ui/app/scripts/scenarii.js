@@ -69,17 +69,6 @@
 
           ScenarioCoreService.getScenarioHistory($routeParams.scenarioId)
             .then(function (history) {
-
-              return $q.all(history.map(function (scenario) {
-                return TestRunCoreService.getById(scenario.testRunId)
-                  .then(function (testRun) {
-                    scenario.testRun = testRun;
-                    return scenario;
-                  });
-              }));
-
-            })
-            .then(function (history) {
               this.history = history;
             }.bind(this));
 

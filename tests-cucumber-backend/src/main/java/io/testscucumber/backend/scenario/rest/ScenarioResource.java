@@ -6,15 +6,16 @@ import io.testscucumber.backend.scenario.domain.Scenario;
 import io.testscucumber.backend.scenario.domain.ScenarioRepository;
 import io.testscucumber.backend.scenario.domain.ScenarioService;
 import io.testscucumber.backend.scenario.domain.ScenarioStatus;
+import io.testscucumber.backend.scenario.views.ScenarioHistoryItemView;
 import io.testscucumber.backend.scenario.views.ScenarioListItemView;
 import io.testscucumber.backend.scenario.views.ScenarioViewAccess;
-import io.testscucumber.backend.testrun.domain.TestRun;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -29,7 +30,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 @Path("/scenarii")
@@ -71,7 +71,7 @@ public class ScenarioResource {
 
     @GET
     public List<ScenarioListItemView> getScenarii(@QueryParam("featureId") final String featureId) {
-        return scenarioViewAccess.getScenariiByFeatureId(featureId);
+        return scenarioViewAccess.getScenarioListItems(q -> q.withFeatureId(featureId).orderedByScenarioName());
     }
 
     @GET
@@ -95,17 +95,10 @@ public class ScenarioResource {
 
     @GET
     @Path("{scenarioId}/history")
-    public List<ScenarioListItemView> getHistory(@PathParam("scenarioId") final String scenarioId) {
+    public List<ScenarioHistoryItemView> getHistory(@PathParam("scenarioId") final String scenarioId, @QueryParam("sameTestRunEnv") @DefaultValue("true") final boolean sameTestRunEnv) {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
-        final TestRun scenarioTestRun = testRunRepository.getById(scenario.getTestRunId());
 
-        final List<String> testRunIds = testRunRepository.query(q -> q.withEnv(scenarioTestRun.getEnv()))
-            .stream()
-            .map(TestRun::getId)
-            .collect(Collectors.toList());
-
-        // FIXME Order by date
-        return scenarioViewAccess.getScenariiByScenarioKeyAndOneOfTestRunIds(scenario.getScenarioKey(), testRunIds);
+        return scenarioViewAccess.getScenarioHistory(scenario.getScenarioKey());
     }
 
     @Path("{scenarioId}/comments")

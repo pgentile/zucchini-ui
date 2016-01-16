@@ -6,8 +6,6 @@ import io.testscucumber.backend.scenario.domain.ScenarioQuery;
 import io.testscucumber.backend.support.ddd.morphia.BaseMorphiaQuery;
 import org.mongodb.morphia.query.Query;
 
-import java.util.List;
-
 public class ScenarioQueryImpl extends BaseMorphiaQuery<Scenario> implements ScenarioQuery {
 
     protected ScenarioQueryImpl(final Query<Scenario> query) {
@@ -38,10 +36,6 @@ public class ScenarioQueryImpl extends BaseMorphiaQuery<Scenario> implements Sce
         return this;
     }
 
-    public ScenarioQuery withTestRunIdIn(final List<String> testRunIds) {
-        configureQuery(q -> q.field("testRunId").in(testRunIds));
-        return this;
-    }
     @Override
     public ScenarioQuery orderedByScenarioName() {
         configureQuery(q -> q.order("info.name"));
