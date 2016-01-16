@@ -14,16 +14,13 @@ import org.springframework.stereotype.Component;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -72,18 +69,7 @@ public class ScenarioResource {
 
     @POST
     @Path("{scenarioId}/changeStatus/{status}")
-    public void changeStatus(@PathParam("scenarioId") final String scenarioId, @PathParam("status") final String status) {
-        final Set<String> possibleStatus = Arrays.asList(ScenarioStatus.values())
-            .stream()
-            .map(s -> s.name().toLowerCase().replace('_', '-'))
-            .collect(Collectors.toSet());
-
-        if (!possibleStatus.contains(status)) {
-            throw new NotFoundException("Unknown new status: " + status);
-        }
-
-        final ScenarioStatus newStatus = ScenarioStatus.valueOf(status.toUpperCase().replace('-', '_'));
-
+    public void changeStatus(@PathParam("scenarioId") final String scenarioId, @PathParam("status") final ScenarioStatus newStatus) {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
         scenarioService.updateStatus(scenario, newStatus);
     }
