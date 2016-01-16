@@ -1,32 +1,26 @@
 package io.testscucumber.backend.comment.rest;
 
+import io.testscucumber.backend.comment.domain.CommentReference;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.Valid;
+import java.util.List;
 
 public class CreateCommentRequest {
 
+    @Valid
     @NotEmpty
-    private String type;
-
-    @NotEmpty
-    private String referenceId;
+    private List<CommentReference> references;
 
     @NotEmpty
     private String content;
 
-    public String getType() {
-        return type;
+    public List<CommentReference> getReferences() {
+        return references;
     }
 
-    public void setType(final String type) {
-        this.type = type;
-    }
-
-    public String getReferenceId() {
-        return referenceId;
-    }
-
-    public void setReferenceId(final String referenceId) {
-        this.referenceId = referenceId;
+    public void setReferences(List<CommentReference> references) {
+        this.references = references;
     }
 
     public String getContent() {

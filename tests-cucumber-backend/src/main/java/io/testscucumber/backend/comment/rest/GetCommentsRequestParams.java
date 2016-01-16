@@ -7,27 +7,27 @@ import javax.ws.rs.QueryParam;
 public class GetCommentsRequestParams {
 
     @NotEmpty
-    @QueryParam("type")
-    private String type;
+    @QueryParam("referenceType")
+    private String referenceType;
 
     @NotEmpty
-    @QueryParam("referenceId")
-    private String referenceId;
+    @QueryParam("reference")
+    private String reference;
 
-    public String getType() {
-        return type;
+    public String getReferenceType() {
+        return referenceType;
     }
 
-    public void setType(final String type) {
-        this.type = type;
+    public void setReferenceType(final String referenceType) {
+        this.referenceType = referenceType;
     }
 
-    public String getReferenceId() {
-        return referenceId;
+    public String getReference() {
+        return reference;
     }
 
-    public void setReferenceId(final String referenceId) {
-        this.referenceId = referenceId;
+    public void setReference(final String referenceId) {
+        reference = referenceId;
     }
 
 }

@@ -4,12 +4,12 @@
 
   var CommentCoreService = function (CommentResource) {
 
-    this.getComments = function (type, referenceId) {
-      return CommentResource.query({ type: type, referenceId: referenceId }).$promise;
+    this.getComments = function (referenceType, reference) {
+      return CommentResource.query({ referenceType: referenceType, reference: reference }).$promise;
     };
 
-    this.createComment = function(type, referenceId, content) {
-      return CommentResource.createComment({ type: type, referenceId: referenceId, content: content }).$promise;
+    this.createComment = function(references, content) {
+      return CommentResource.createComment({ references: references, content: content }).$promise;
     };
 
   };
@@ -21,8 +21,8 @@
       return $resource(
         baseUri + '/comments',
         {
-          type: '@type',
-          referenceId: '@referenceId'
+          referenceType: '@referenceType',
+          reference: '@reference'
         },
         {
           createComment: {

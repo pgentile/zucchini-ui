@@ -2,7 +2,9 @@
 
 (function (angular) {
 
-  var COMMENT_TYPE = 'scenario';
+  var SCENARIO_ID_COMMENT_REF_TYPE = 'scenarioId';
+  var TEST_RUN_ID_COMMENT_REF_TYPE = 'testRunId';
+  var SCENARIO_KEY_COMMENT_REF_TYPE = 'scenarioKey';
 
 
   var ScenarioCoreService = function (ScenarioResource) {
@@ -81,7 +83,7 @@
       };
 
       this.loadComments = function () {
-        CommentCoreService.getComments(COMMENT_TYPE, this.scenario.scenarioKey)
+        CommentCoreService.getComments(SCENARIO_KEY_COMMENT_REF_TYPE, this.scenario.scenarioKey)
           .then(function (comments) {
             this.comments = comments;
           }.bind(this));
@@ -111,7 +113,23 @@
       this.content = '';
 
       this.addComment = function () {
-        return CommentCoreService.createComment(COMMENT_TYPE, parentCtrl.scenario.scenarioKey, this.content)
+
+        var references = [
+          {
+            type: TEST_RUN_ID_COMMENT_REF_TYPE,
+            reference: parentCtrl.scenario.testRunId
+          },
+          {
+            type: SCENARIO_KEY_COMMENT_REF_TYPE,
+            reference: parentCtrl.scenario.scenarioKey
+          },
+          {
+            type: SCENARIO_ID_COMMENT_REF_TYPE,
+            reference: parentCtrl.scenario.id
+          }
+        ];
+
+        return CommentCoreService.createComment(references, this.content)
           .then(function () {
             this.content = '';
           }.bind(this))

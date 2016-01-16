@@ -2,6 +2,7 @@ package io.testscucumber.backend.comment.domainimpl;
 
 import io.testscucumber.backend.comment.domain.Comment;
 import io.testscucumber.backend.comment.domain.CommentQuery;
+import io.testscucumber.backend.comment.domain.CommentReference;
 import io.testscucumber.backend.support.ddd.morphia.BaseMorphiaQuery;
 import org.mongodb.morphia.query.Query;
 
@@ -12,8 +13,8 @@ class CommentQueryImpl extends BaseMorphiaQuery<Comment> implements CommentQuery
     }
 
     @Override
-    public CommentQuery withGroupId(final String groupId) {
-        configureQuery(q -> q.field("groupId").equal(groupId));
+    public CommentQuery withReference(final CommentReference commentReference) {
+        configureQuery(q -> q.field("references").hasThisElement(commentReference));
         return this;
     }
 

@@ -2,7 +2,7 @@ package io.testscucumber.backend.comment.domain;
 
 public interface CommentQuery {
 
-    CommentQuery withGroupId(String groupId);
+    CommentQuery withReference(CommentReference commentReference);
 
     CommentQuery orderByLatestFirst();
 
