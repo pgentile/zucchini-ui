@@ -52,7 +52,7 @@ class FeatureServiceImpl implements FeatureService {
 
         LOGGER.info("Calculed feature status {} for scenarii status {}", featureStatus, scenariiStatus);
 
-        feature.setStatus(featureStatus);
+        feature.changeStatus(featureStatus);
     }
 
     @Override

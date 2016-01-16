@@ -102,6 +102,7 @@ public class Scenario extends BaseEntity<String> {
         afterActions.forEach(step -> step.changeStatus(newStepStatus));
 
         status = newStatus;
+        modifiedAt = ZonedDateTime.now();
     }
 
     public void calculateStatusFromSteps() {

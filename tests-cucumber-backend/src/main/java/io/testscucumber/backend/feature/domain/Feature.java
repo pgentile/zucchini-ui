@@ -54,6 +54,11 @@ public class Feature extends BaseEntity<String> {
         modifiedAt = ZonedDateTime.now();
     }
 
+    public void changeStatus(final FeatureStatus newStatus) {
+        status = newStatus;
+        modifiedAt = ZonedDateTime.now();
+    }
+
     public String getId() {
         return id;
     }
