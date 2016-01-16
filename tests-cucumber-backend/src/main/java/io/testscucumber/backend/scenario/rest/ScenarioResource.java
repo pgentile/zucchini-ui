@@ -1,5 +1,7 @@
 package io.testscucumber.backend.scenario.rest;
 
+import io.testscucumber.backend.comment.domain.CommentReference;
+import io.testscucumber.backend.comment.rest.CommentResource;
 import io.testscucumber.backend.scenario.domain.Scenario;
 import io.testscucumber.backend.scenario.domain.ScenarioRepository;
 import io.testscucumber.backend.scenario.domain.ScenarioService;
@@ -19,8 +21,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
+import java.net.URI;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -37,17 +45,28 @@ public class ScenarioResource {
 
     private final TestRunRepository testRunRepository;
 
+    private final CommentResource.Factory commentResourceFactory;
+
+    private UriInfo uriInfo;
+
     @Autowired
     public ScenarioResource(
         final ScenarioViewAccess scenarioViewAccess,
         final ScenarioRepository scenarioRepository,
         final ScenarioService scenarioService,
-        final TestRunRepository testRunRepository
+        final TestRunRepository testRunRepository,
+        final CommentResource.Factory commentResourceFactory
     ) {
         this.scenarioViewAccess = scenarioViewAccess;
         this.scenarioRepository = scenarioRepository;
         this.scenarioService = scenarioService;
         this.testRunRepository = testRunRepository;
+        this.commentResourceFactory = commentResourceFactory;
+    }
+
+    @Context
+    public void setUriInfo(final UriInfo uriInfo) {
+        this.uriInfo = uriInfo;
     }
 
     @GET
@@ -88,4 +107,24 @@ public class ScenarioResource {
         // FIXME Order by date
         return scenarioViewAccess.getScenariiByScenarioKeyAndOneOfTestRunIds(scenario.getScenarioKey(), testRunIds);
     }
+
+    @Path("{scenarioId}/comments")
+    public CommentResource getComments(@PathParam("scenarioId") final String scenarioId) {
+        final Scenario scenario = scenarioRepository.getById(scenarioId);
+
+        final Set<CommentReference> findReferences = Collections.singleton(
+            new CommentReference("scenarioKey", scenario.getScenarioKey())
+        );
+
+        final Set<CommentReference> createReferences = new HashSet<>(findReferences);
+        createReferences.add(new CommentReference("testRunId", scenario.getTestRunId()));
+        createReferences.add(new CommentReference("scenarioId", scenario.getId()));
+
+        final URI commentsUri = uriInfo.getBaseUriBuilder()
+            .path("/scenarii/{scenarioId}/comments")
+            .build(scenarioId);
+
+        return commentResourceFactory.create(commentsUri, findReferences, createReferences);
+    }
+
 }

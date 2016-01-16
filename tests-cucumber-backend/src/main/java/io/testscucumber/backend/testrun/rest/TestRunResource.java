@@ -57,7 +57,7 @@ public class TestRunResource {
     }
 
     @Context
-    public void setUriInfo(UriInfo uriInfo) {
+    public void setUriInfo(final UriInfo uriInfo) {
         this.uriInfo = uriInfo;
     }
 

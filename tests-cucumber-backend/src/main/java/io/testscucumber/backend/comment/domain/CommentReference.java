@@ -1,21 +1,24 @@
 package io.testscucumber.backend.comment.domain;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
+import com.google.common.base.Strings;
 
 import java.util.Objects;
 
 public final class CommentReference {
 
-    @JsonProperty
     private final String type;
 
-    @JsonProperty
     private final String reference;
 
-    @JsonCreator
-    public CommentReference(@JsonProperty("type") final String type, @JsonProperty("reference") final String reference) {
+    public CommentReference(final String type, final String reference) {
+        if (Strings.isNullOrEmpty(type)) {
+            throw new IllegalArgumentException("Type must be defined");
+        }
+        if (Strings.isNullOrEmpty(reference)) {
+            throw new IllegalArgumentException("Reference must be defined");
+        }
+
         this.type = type;
         this.reference = reference;
     }

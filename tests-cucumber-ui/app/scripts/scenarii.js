@@ -2,11 +2,6 @@
 
 (function (angular) {
 
-  var SCENARIO_ID_COMMENT_REF_TYPE = 'scenarioId';
-  var TEST_RUN_ID_COMMENT_REF_TYPE = 'testRunId';
-  var SCENARIO_KEY_COMMENT_REF_TYPE = 'scenarioKey';
-
-
   var ScenarioCoreService = function (ScenarioResource) {
 
     this.getScenariiByFeatureId = function (featureId) {
@@ -29,11 +24,19 @@
       return ScenarioResource.changeStatus({ id: scenarioId, status: status }).$promise;
     };
 
+    this.createComment = function (scenarioId, content) {
+      return ScenarioResource.createComment({ id: scenarioId, content: content }).$promise;
+    };
+
+    this.getComments = function (scenarioId) {
+      return ScenarioResource.getComments({ scenarioId: scenarioId }).$promise;
+    };
+
   };
 
 
   angular.module('testsCucumberApp')
-    .controller('ScenarioCtrl', function (ScenarioResource, ScenarioCoreService, FeatureCoreService, TestRunCoreService, CommentCoreService, $routeParams, $q, $location) {
+    .controller('ScenarioCtrl', function (ScenarioResource, ScenarioCoreService, FeatureCoreService, TestRunCoreService, $routeParams, $q, $location) {
 
       this.scenario = {};
 
@@ -83,7 +86,7 @@
       };
 
       this.loadComments = function () {
-        CommentCoreService.getComments(SCENARIO_KEY_COMMENT_REF_TYPE, this.scenario.scenarioKey)
+        ScenarioCoreService.getComments(this.scenario.id)
           .then(function (comments) {
             this.comments = comments;
           }.bind(this));
@@ -106,30 +109,14 @@
       this.load();
 
     })
-    .controller('AddCommentCtrl', function ($scope, $window, CommentCoreService) {
+    .controller('AddCommentCtrl', function ($scope, $window, ScenarioCoreService) {
 
       var parentCtrl = $scope.ctrl;
 
       this.content = '';
 
       this.addComment = function () {
-
-        var references = [
-          {
-            type: TEST_RUN_ID_COMMENT_REF_TYPE,
-            reference: parentCtrl.scenario.testRunId
-          },
-          {
-            type: SCENARIO_KEY_COMMENT_REF_TYPE,
-            reference: parentCtrl.scenario.scenarioKey
-          },
-          {
-            type: SCENARIO_ID_COMMENT_REF_TYPE,
-            reference: parentCtrl.scenario.id
-          }
-        ];
-
-        return CommentCoreService.createComment(references, this.content)
+        return ScenarioCoreService.createComment(parentCtrl.scenario.id, this.content)
           .then(function () {
             this.content = '';
           }.bind(this))
@@ -156,6 +143,20 @@
           changeStatus: {
             method: 'POST',
             url: baseUri + '/scenarii/:scenarioId/changeStatus/:status',
+          },
+          getComments: {
+            method: 'GET',
+            url: baseUri + '/scenarii/:scenarioId/comments',
+            isArray: true
+          },
+          createComment: {
+            method: 'POST',
+            url: baseUri + '/scenarii/:scenarioId/comments/create',
+            transformRequest: function (data) {
+              // ID must be removed from input data
+              delete data.id;
+              return angular.toJson(data);
+            }
           }
         }
        );

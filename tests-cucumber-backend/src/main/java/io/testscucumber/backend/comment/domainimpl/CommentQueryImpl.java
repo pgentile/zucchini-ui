@@ -13,8 +13,16 @@ class CommentQueryImpl extends BaseMorphiaQuery<Comment> implements CommentQuery
     }
 
     @Override
-    public CommentQuery withReference(final CommentReference commentReference) {
-        configureQuery(q -> q.field("references").hasThisElement(commentReference));
+    public CommentQuery withReference(final CommentReference reference) {
+        configureQuery(q -> q.field("references").hasThisElement(reference));
+        return this;
+    }
+
+    @Override
+    public CommentQuery withReferences(final Iterable<CommentReference> references) {
+        for (final CommentReference reference : references) {
+            withReference(reference);
+        }
         return this;
     }
 
