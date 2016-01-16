@@ -55,11 +55,12 @@ class ReportConverterServiceImpl implements ReportConverterService {
 
     @Override
     public void convertAndSaveFeatures(final String testRunId, final InputStream featureStream, final boolean dryRun) {
-
         final JavaType featureListJavaType = objectMapper.getTypeFactory().constructCollectionType(List.class, ReportFeature.class);
         try {
             final List<ReportFeature> reportFeatures = objectMapper.readValue(featureStream, featureListJavaType);
-            reportFeatures.forEach(reportFeature -> convertAndSaveFeature(testRunId, reportFeature, dryRun));
+            for (final ReportFeature reportFeature : reportFeatures) {
+                convertAndSaveFeature(testRunId, reportFeature, dryRun);
+            }
         } catch (final IOException e) {
             throw new IllegalStateException("Can't parse report feature stream", e);
         }
