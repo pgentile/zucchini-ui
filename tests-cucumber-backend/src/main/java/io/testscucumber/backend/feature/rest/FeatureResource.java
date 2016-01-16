@@ -3,10 +3,9 @@ package io.testscucumber.backend.feature.rest;
 import io.testscucumber.backend.feature.domain.Feature;
 import io.testscucumber.backend.feature.domain.FeatureRepository;
 import io.testscucumber.backend.feature.domain.FeatureService;
+import io.testscucumber.backend.feature.views.FeatureHistoryItemView;
 import io.testscucumber.backend.feature.views.FeatureStats;
-import io.testscucumber.backend.feature.views.FeatureStatsViewAccess;
-import io.testscucumber.backend.testrun.domain.TestRun;
-import io.testscucumber.backend.testrun.domain.TestRunRepository;
+import io.testscucumber.backend.feature.views.FeatureViewAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +18,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @Path("/features")
@@ -31,21 +29,17 @@ public class FeatureResource {
 
     private final FeatureService featureService;
 
-    private final FeatureStatsViewAccess featureStatsViewAccess;
-
-    private final TestRunRepository testRunRepository;
+    private final FeatureViewAccess featureViewAccess;
 
     @Autowired
     public FeatureResource(
         final FeatureRepository featureRepository,
         final FeatureService featureService,
-        final FeatureStatsViewAccess featureStatsViewAccess,
-        final TestRunRepository testRunRepository
+        final FeatureViewAccess featureViewAccess
     ) {
         this.featureRepository = featureRepository;
         this.featureService = featureService;
-        this.featureStatsViewAccess = featureStatsViewAccess;
-        this.testRunRepository = testRunRepository;
+        this.featureViewAccess = featureViewAccess;
     }
 
     @GET
@@ -63,23 +57,14 @@ public class FeatureResource {
     @GET
     @Path("{featureId}/stats")
     public FeatureStats getStats(@PathParam("featureId") final String featureId) {
-        return featureStatsViewAccess.getStatsForByFeatureId(featureId);
+        return featureViewAccess.getStatsForByFeatureId(featureId);
     }
 
     @GET
     @Path("{featureId}/history")
-    public List<Feature> getFeatureHistory(@PathParam("featureId") final String featureId) {
+    public List<FeatureHistoryItemView> getFeatureHistory(@PathParam("featureId") final String featureId) {
         final Feature feature = featureRepository.getById(featureId);
-        final TestRun featureTestRun = testRunRepository.getById(feature.getTestRunId());
-
-        final List<String> testRunIds = testRunRepository.query(q -> q.withEnv(featureTestRun.getEnv()))
-            .stream()
-            .map(TestRun::getId)
-            .collect(Collectors.toList());
-
-        // FIXME Order by date
-        return featureRepository.query(q -> q.withFeatureKey(feature.getFeatureKey()).withTestRunIdIn(testRunIds))
-            .find();
+        return featureViewAccess.getFeatureHistory(feature.getFeatureKey());
     }
 
     @DELETE

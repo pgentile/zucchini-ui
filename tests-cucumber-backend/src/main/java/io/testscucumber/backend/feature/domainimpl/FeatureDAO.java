@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-class FeatureDAO extends MorphiaTypedQueryDAO<Feature, String, FeatureQueryImpl> {
+public class FeatureDAO extends MorphiaTypedQueryDAO<Feature, String, FeatureQueryImpl> {
 
     @Autowired
     public FeatureDAO(final Datastore ds) {

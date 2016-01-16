@@ -8,7 +8,7 @@ import org.mongodb.morphia.query.Query;
 
 import java.util.List;
 
-class FeatureQueryImpl extends BaseMorphiaQuery<Feature> implements FeatureQuery {
+public class FeatureQueryImpl extends BaseMorphiaQuery<Feature> implements FeatureQuery {
 
     protected FeatureQueryImpl(final Query<Feature> query) {
         super(query);

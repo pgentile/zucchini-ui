@@ -28,13 +28,13 @@
 
 
   angular.module('testsCucumberApp')
-    .controller('FeatureCtrl', function ($routeParams, $q, $location, FeatureCoreService, TestRunCoreService, ScenarioCoreService, scenarioStoredFilters) {
+    .controller('FeatureCtrl', function ($routeParams, $q, $location, FeatureCoreService, TestRunCoreService, ScenarioCoreService, scenarioStoredFilters, historyFilters) {
 
       this.load = function () {
 
         // Load feature
 
-        FeatureCoreService.getById($routeParams.featureId)
+        return FeatureCoreService.getById($routeParams.featureId)
           .then(function (feature) {
 
             var testRunQ = TestRunCoreService.getById(feature.testRunId);
@@ -54,32 +54,13 @@
             this.feature = feature;
           }.bind(this));
 
-          // Load history
+      };
 
-          FeatureCoreService.getFeatureHistory($routeParams.featureId)
-            .then(function (history) {
-
-              // For each feature in history, load associated test run and stats
-              return $q.all(history.map(function (feature) {
-
-                var testRunQ = TestRunCoreService.getById(feature.testRunId);
-                var statsQ = FeatureCoreService.getStats(feature.id);
-
-                return $q.all([testRunQ, statsQ])
-                  .then(_.spread(function(testRun, stats) {
-                    feature.testRun = testRun;
-                    feature.stats = stats;
-
-                    return feature;
-                  }));
-
-              }));
-
-            })
-            .then(function (history) {
-              this.history = history;
-            }.bind(this));
-
+      this.loadHistory = function () {
+        return FeatureCoreService.getFeatureHistory($routeParams.featureId)
+          .then(function (history) {
+            this.history = history;
+          }.bind(this));
       };
 
       this.delete = function () {
@@ -88,10 +69,15 @@
         }.bind(this));
       };
 
+
+      // Scenario status and history filters
+
       this.filters = scenarioStoredFilters.get();
+      this.historyFilters = historyFilters.get();
 
       this.updateStoredFilters = function () {
         scenarioStoredFilters.save(this.filters);
+        historyFilters.save(this.historyFilters);
       }.bind(this);
 
       this.isScenarioDisplayable = function (scenario) {
@@ -109,8 +95,18 @@
         }
       }.bind(this);
 
+      this.isHistoryItemDisplayable = function (item) {
+        if (this.historyFilters.sameTestRun) {
+          return item.testRun.env === this.feature.testRun.env;
+        }
+        return true;
+      }.bind(this);
 
-      this.load();
+
+      this.load()
+        .then(function () {
+          this.loadHistory();
+        }.bind(this));
 
     })
     .factory('scenarioStoredFilters', function (ObjectBrowserStorage) {
