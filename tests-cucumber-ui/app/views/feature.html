@@ -76,6 +76,32 @@
 
   <h2>Scénarii</h2>
 
+  <div class="form-inline" style="margin-bottom: 10px">
+    <div class="form-group">
+      <b>Filtrer par statut :</b>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="ctrl.filters.passed" ng-change="ctrl.updateStoredFilters()"> Succès
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="ctrl.filters.failed" ng-change="ctrl.updateStoredFilters()"> Echecs
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="ctrl.filters.pending" ng-change="ctrl.updateStoredFilters()"> En attente
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="ctrl.filters.notRun" ng-change="ctrl.updateStoredFilters()"> Non joués
+      </label>
+    </div>
+  </div>
+
   <table class="table table-striped table-bordered">
     <thead>
     <tr>
@@ -84,7 +110,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="scenario in ctrl.feature.scenarii">
+    <tr ng-repeat="scenario in filteredScenarii = (ctrl.feature.scenarii | filter:ctrl.isScenarioDisplayable)">
       <td>
         <a ng-href="#/scenarii/{{ scenario.id }}">
           <tc-element-info info="scenario.info"></tc-element-info>
@@ -95,6 +121,17 @@
       </td>
     </tr>
     </tbody>
+    </tbody>
+    <tfoot ng-hide="filteredScenarii.length == ctrl.feature.scenarii.length">
+    <tr>
+      <td class="warning" colspan="2" style="text-align: center">
+        Attention :
+        <ng-pluralize count="ctrl.feature.scenarii.length - filteredScenarii.length"
+                      when="{ 'one': 'un scénario masqué', 'other': '{} scénarii masqués'}">
+        </ng-pluralize>
+      </td>
+    </tr>
+    </tfoot>
   </table>
 
   <!-- History -->

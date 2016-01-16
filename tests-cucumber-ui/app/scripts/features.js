@@ -28,7 +28,7 @@
 
 
   angular.module('testsCucumberApp')
-    .controller('FeatureCtrl', function ($routeParams, $q, $location, FeatureCoreService, TestRunCoreService, ScenarioCoreService) {
+    .controller('FeatureCtrl', function ($routeParams, $q, $location, FeatureCoreService, TestRunCoreService, ScenarioCoreService, featureAndScenarioStoredFilters) {
 
       this.load = function () {
 
@@ -87,6 +87,28 @@
           $location.path('/test-runs/' + this.feature.testRun.id);
         }.bind(this));
       };
+
+      this.filters = featureAndScenarioStoredFilters.get();
+
+      this.updateStoredFilters = function () {
+        featureAndScenarioStoredFilters.save(this.filters);
+      }.bind(this);
+
+      this.isScenarioDisplayable = function (feature) {
+        switch (feature.status) {
+          case 'PASSED':
+            return this.filters.passed;
+          case 'FAILED':
+            return this.filters.failed;
+          case 'PENDING':
+            return this.filters.pending;
+          case 'NOT_RUN':
+            return this.filters.notRun;
+          default:
+            return true;
+        }
+      }.bind(this);
+
 
       this.load();
 

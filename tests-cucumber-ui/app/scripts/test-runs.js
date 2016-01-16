@@ -70,7 +70,7 @@
       this.load();
 
     })
-    .controller('TestRunCtrl', function ($q, $routeParams, $location, $log, $uibModal, TestRunCoreService, FeatureCoreService, ErrorService, ObjectBrowserStorage) {
+    .controller('TestRunCtrl', function ($q, $routeParams, $location, $log, $uibModal, TestRunCoreService, FeatureCoreService, ErrorService, featureAndScenarioStoredFilters) {
 
       this.load = function () {
 
@@ -129,19 +129,11 @@
           });
       };
 
-      var storedFilters = ObjectBrowserStorage.getItem('featureFilters', function () {
-        return {
-          passed: true,
-          failed: true,
-          partial: true,
-          notRun: true
-        };
-      });
 
-      this.filters = storedFilters.get();
+      this.filters = featureAndScenarioStoredFilters.get();
 
       this.updateStoredFilters = function () {
-        storedFilters.save(this.filters);
+        featureAndScenarioStoredFilters.save(this.filters);
       }.bind(this);
 
       this.isFeatureDisplayable = function (feature) {
@@ -187,6 +179,17 @@
         });
       };
 
+    })
+    .factory('featureAndScenarioStoredFilters', function (ObjectBrowserStorage) {
+      return ObjectBrowserStorage.getItem('featureAndScenarioStoredFilters', function () {
+        return {
+          passed: true,
+          failed: true,
+          partial: true,
+          pending: true,
+          notRun: true
+        };
+      });
     })
     .service('TestRunCoreService', TestRunCoreService)
     .service('TestRunResource', function ($resource, baseUri) {
