@@ -187,7 +187,7 @@ project("${rootProject.name}-backend") {
 
         main = 'io.testscucumber.backend.BackendApplication'
 
-        args += ['serve', "${projectDir}/backend-config.yml"]
+        args += ['serve', "${rootProject.projectDir}/server-config.yml"]
     }
 
 }
@@ -197,29 +197,27 @@ project("${rootProject.name}-ui") {
 
     apply plugin: 'java'
 
-    task gruntClean(type: Exec) {
-        description = 'Grunt clean'
+    sourceSets.main.resources.srcDir('build/dist')
 
+    task gruntClean(type: Exec, description: 'Clean UI') {
         commandLine 'grunt', 'clean'
     }
 
-    tasks.clean.dependsOn(gruntClean)
+    tasks.clean.dependsOn gruntClean
 
-    task uiDist(type: Exec) {
-        description = 'Build dist'
-
+    task uiDist(type: Exec, description: 'Build UI dist') {
         commandLine 'grunt'
 
         inputs.dir('app')
         inputs.dir('test')
         inputs.file('Gruntfile.js')
 
-        outputs.dir('dist')
+        outputs.dir('build/dist')
     }
 
-    task uiTest(type: Exec) {
-        description = 'Test'
+    tasks.jar.dependsOn uiDist
 
+    task uiTest(type: Exec, description: 'Run UI tests') {
         commandLine 'grunt', 'test'
 
         inputs.file uiDist
@@ -238,19 +236,19 @@ project("${rootProject.name}-ui") {
         flagFile.setLastModified(System.currentTimeMillis())
     }
 
-    tasks.check.dependsOn(uiTest)
+    tasks.check.dependsOn uiTest
 
-    task uiDistZip(type: Zip) {
-        description = 'Assemble UI zip'
+    task uiDistZip(type: Zip, description: 'Assemble UI zip') {
 
         inputs.file uiDist
         outputs.file(archivePath)
 
         from uiDist
         into 'ui'
+
     }
 
-    tasks.assemble.dependsOn(uiDistZip)
+    tasks.assemble.dependsOn uiDistZip
 
     configurations {
         archives
@@ -270,16 +268,28 @@ project("${rootProject.name}-capsule") {
     dependencies {
 
         compile project(":${rootProject.name}-backend")
+        compile project(":${rootProject.name}-ui")
+        compile "io.dropwizard:dropwizard-assets:${versions.dropwizard}"
 
     }
 
-    task fatCapsule(type: FatCapsule) {
+    task fatCapsule(type: FatCapsule, description: 'Build Capsule') {
 
-        applicationClass 'io.testscucumber.backend.BackendApplication'
+        applicationClass 'io.testscucumber.capsule.TestsCucumberApplication'
+
+        capsuleManifest {
+            minJavaVersion = '1.8.0'
+        }
 
     }
 
-    tasks.assemble.dependsOn(fatCapsule)
+    tasks.assemble.dependsOn fatCapsule
+
+    task runCapsule(type: Exec, description: 'Run Capsule') {
+        commandLine 'java', '-jar', fatCapsule.archivePath, 'server', "${rootProject.projectDir}/server-config.yml"
+    }
+
+    tasks.runCapsule.dependsOn fatCapsule
 
 }
 

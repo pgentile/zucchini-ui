@@ -13,7 +13,7 @@
       'ui.bootstrap',
       'ngFileUpload'
     ])
-    .constant('baseUri', appConfig.apiBaseUri)
+    .constant('baseUri', _.trimEnd(appConfig.apiBaseUri, '/'))
     .config(function ($routeProvider) {
       $routeProvider
         .otherwise({

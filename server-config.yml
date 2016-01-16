@@ -1,6 +1,5 @@
 server:
   type: default
-  rootPath: /api/
   minThreads:  12
   maxThreads: 48
   maxQueuedRequests: 2048
