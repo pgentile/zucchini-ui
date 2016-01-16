@@ -64,27 +64,11 @@
 
   <h2>Complétion</h2>
 
-  <ng-switch on="ctrl.feature.stats.scenarioCount">
-    <div ng-switch-when="0">
-      <uib-progress></uib-progress>
-    </div>
-    <div ng-switch-default>
-      <uib-progress>
-        <uib-bar value="100 * ctrl.feature.stats.statsByStatus['PASSED'] / ctrl.feature.stats.scenarioCount"
-                 type="success">
-          {{ ctrl.feature.stats.statsByStatus['PASSED'] }}
-        </uib-bar>
-        <uib-bar value="100 * ctrl.feature.stats.statsByStatus['FAILED'] / ctrl.feature.stats.scenarioCount"
-                 type="danger">
-          {{ ctrl.feature.stats.statsByStatus['FAILED'] }}
-        </uib-bar>
-        <uib-bar value="100 * ctrl.feature.stats.statsByStatus['PENDING'] / ctrl.feature.stats.scenarioCount"
-                 type="warning">
-          {{ ctrl.feature.stats.statsByStatus['PENDING'] }}
-        </uib-bar>
-      </uib-progress>
-    </div>
-  </ng-switch>
+  <tc-progress total="ctrl.feature.stats.scenarioCount"
+               success="ctrl.feature.stats.statsByStatus['PASSED']"
+               warning="ctrl.feature.stats.statsByStatus['PENDING']"
+               danger="ctrl.feature.stats.statsByStatus['FAILED']">
+  </tc-progress>
 
   <!-- Scenarii -->
 

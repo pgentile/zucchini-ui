@@ -21,6 +21,18 @@
         templateUrl: 'views/tc-tags.html'
       };
     })
+    .directive('tcProgress', function () {
+      return {
+        restrict: 'E',
+        scope: {
+          total: '=total',
+          success: '=success',
+          warning: '=warning',
+          danger: '=danger'
+        },
+        templateUrl: 'views/tc-progress.html'
+      };
+    })
     .directive('tcElementInfo', function ($window) {
 
       var cut = function (info) {
