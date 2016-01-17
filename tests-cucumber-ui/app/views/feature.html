@@ -165,7 +165,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="feature in ctrl.history | filter:ctrl.isHistoryItemDisplayable | orderBy:'-testRun.date' track by feature.testRun.id"
+    <tr ng-repeat="feature in ctrl.history | filter:ctrl.isHistoryItemDisplayable track by feature.testRun.id"
         ng-class="ctrl.feature.testRunId == feature.testRun.id && 'active'">
       <td>
         <span class="label label-default">{{ feature.testRun.env }}</span>
