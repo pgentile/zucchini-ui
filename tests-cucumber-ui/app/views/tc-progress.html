@@ -1,6 +1,7 @@
 <div uib-tooltip="Total: {{ total }}">
 
   <ng-switch on="total">
+    <div ng-switch-when="undefined"></div>
     <div ng-switch-when="0">
       <uib-progress></uib-progress>
     </div>
