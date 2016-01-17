@@ -61,7 +61,7 @@ public class FeatureResource {
     @GET
     @Path("{featureId}/stats")
     public FeatureStats getStats(@PathParam("featureId") final String featureId) {
-        return featureViewAccess.getStatsForByFeatureId(featureId);
+        return featureViewAccess.getStatsForFeatureById(featureId);
     }
 
     @GET

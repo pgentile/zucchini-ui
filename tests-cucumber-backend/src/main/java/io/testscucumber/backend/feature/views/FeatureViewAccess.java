@@ -47,7 +47,7 @@ public class FeatureViewAccess {
         featureToListItemMapper = mapper.dedicatedMapperFor(Feature.class, FeatureListItem.class, false);
     }
 
-    public FeatureStats getStatsForByFeatureId(final String featureId) {
+    public FeatureStats getStatsForFeatureById(final String featureId) {
         final Map<ScenarioStatus, Integer> statsByStatus = new EnumMap<>(ScenarioStatus.class);
         for (final ScenarioStatus status : ScenarioStatus.values()) {
             statsByStatus.put(status, 0);
@@ -66,7 +66,7 @@ public class FeatureViewAccess {
             .map(feature -> {
                 final FeatureListItem item = featureToListItemMapper.map(feature);
                 if (withStats) {
-                    item.setStats(getStatsForByFeatureId(feature.getId()));
+                    item.setStats(getStatsForFeatureById(feature.getId()));
                 }
                 return item;
             })
@@ -87,7 +87,7 @@ public class FeatureViewAccess {
 
                 final FeatureHistoryItem item = featureToHistoryItemMapper.map(feature);
                 item.setTestRun(testRun);
-                item.setStats(getStatsForByFeatureId(feature.getId()));
+                item.setStats(getStatsForFeatureById(feature.getId()));
                 return item;
             })
             .filter(item -> item != null)
