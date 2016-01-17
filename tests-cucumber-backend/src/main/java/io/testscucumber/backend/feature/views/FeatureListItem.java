@@ -19,7 +19,7 @@ public class FeatureListItem {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -27,7 +27,7 @@ public class FeatureListItem {
         return testRunId;
     }
 
-    public void setTestRunId(String testRunId) {
+    public void setTestRunId(final String testRunId) {
         this.testRunId = testRunId;
     }
 
@@ -35,7 +35,7 @@ public class FeatureListItem {
         return info;
     }
 
-    public void setInfo(BasicInfo info) {
+    public void setInfo(final BasicInfo info) {
         this.info = info;
     }
 
@@ -43,7 +43,7 @@ public class FeatureListItem {
         return status;
     }
 
-    public void setStatus(FeatureStatus status) {
+    public void setStatus(final FeatureStatus status) {
         this.status = status;
     }
 
@@ -51,7 +51,7 @@ public class FeatureListItem {
         return stats;
     }
 
-    public void setStats(FeatureStats stats) {
+    public void setStats(final FeatureStats stats) {
         this.stats = stats;
     }
 

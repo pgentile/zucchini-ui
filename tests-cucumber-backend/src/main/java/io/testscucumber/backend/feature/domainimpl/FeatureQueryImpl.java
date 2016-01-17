@@ -6,8 +6,6 @@ import io.testscucumber.backend.feature.domain.FeatureQuery;
 import io.testscucumber.backend.support.ddd.morphia.BaseMorphiaQuery;
 import org.mongodb.morphia.query.Query;
 
-import java.util.List;
-
 class FeatureQueryImpl extends BaseMorphiaQuery<Feature> implements FeatureQuery {
 
     protected FeatureQueryImpl(final Query<Feature> query) {
