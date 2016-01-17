@@ -20,6 +20,10 @@
       return TestRunResource.getStatsForFeatures({ testRunId: testRunId }).$promise;
     };
 
+    this.getStatsForScenarii = function (testRunId) {
+      return TestRunResource.getStatsForScenarii({ testRunId: testRunId }).$promise;
+    };
+
     this.create = function (testRun) {
       return TestRunResource.create(testRun).$promise;
     };
@@ -83,11 +87,13 @@
 
             var featuresQ = FeatureCoreService.getFeaturesByTestRunId(testRun.id, true);
             var statsForFeaturesQ = TestRunCoreService.getStatsForFeatures(testRun.id);
+            var statsForScenariiQ = TestRunCoreService.getStatsForScenarii(testRun.id);
 
-            return $q.all([featuresQ, statsForFeaturesQ])
-              .then(_.spread(function (features, statsForFeatures) {
+            return $q.all([featuresQ, statsForFeaturesQ, statsForScenariiQ])
+              .then(_.spread(function (features, statsForFeatures, statsForScenarii) {
                 testRun.features = features;
                 testRun.statsForFeatures = statsForFeatures;
+                testRun.statsForScenarii = statsForScenarii;
                 return testRun;
               }));
 
@@ -202,6 +208,10 @@
           getStatsForFeatures: {
             method: 'GET',
             url: baseUri + '/testRuns/:testRunId/stats/forFeatures'
+          },
+          getStatsForScenarii: {
+            method: 'GET',
+            url: baseUri + '/testRuns/:testRunId/stats/forScenarii'
           }
         }
       );

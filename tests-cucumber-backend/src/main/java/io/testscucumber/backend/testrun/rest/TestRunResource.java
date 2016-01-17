@@ -2,11 +2,12 @@ package io.testscucumber.backend.testrun.rest;
 
 
 import io.dropwizard.jersey.PATCH;
+import io.testscucumber.backend.feature.views.FeatureStats;
 import io.testscucumber.backend.reportconverter.domain.ReportConverterService;
+import io.testscucumber.backend.scenario.views.ScenarioStats;
 import io.testscucumber.backend.testrun.domain.TestRun;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;
 import io.testscucumber.backend.testrun.domain.TestRunService;
-import io.testscucumber.backend.feature.views.FeatureStats;
 import io.testscucumber.backend.testrun.views.TestRunViewAccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,8 +98,14 @@ public class TestRunResource {
 
     @GET
     @Path("{testRunId}/stats/forFeatures")
-    public FeatureStats getStats(@PathParam("testRunId") final String testRunId) {
+    public FeatureStats getStatsForFeatures(@PathParam("testRunId") final String testRunId) {
         return testRunViewAccess.getStatsForFeaturesByTestRunId(testRunId);
+    }
+
+    @GET
+    @Path("{testRunId}/stats/forScenarii")
+    public ScenarioStats getStatsForScenarii(@PathParam("testRunId") final String testRunId) {
+        return testRunViewAccess.getStatsForScenariiByTestRunId(testRunId);
     }
 
     @PATCH

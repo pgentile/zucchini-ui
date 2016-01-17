@@ -34,11 +34,29 @@
 
   <h2>Complétion</h2>
 
-  <tc-progress total="ctrl.testRun.statsForFeatures.count"
-               success="ctrl.testRun.statsForFeatures.statsByStatus['PASSED']"
-               warning="ctrl.testRun.statsForFeatures.statsByStatus['PARTIAL']"
-               danger="ctrl.testRun.statsForFeatures.statsByStatus['FAILED']">
-  </tc-progress>
+  <uib-tabset>
+
+    <uib-tab heading="Par fonctionnalité" active="true">
+      <div style="margin-top: 20px">
+        <tc-progress total="ctrl.testRun.statsForFeatures.count"
+                     success="ctrl.testRun.statsForFeatures.statsByStatus['PASSED']"
+                     warning="ctrl.testRun.statsForFeatures.statsByStatus['PARTIAL']"
+                     danger="ctrl.testRun.statsForFeatures.statsByStatus['FAILED']">
+        </tc-progress>
+      </div>
+    </uib-tab>
+
+    <uib-tab heading="Par scénario">
+      <div style="margin-top: 20px">
+        <tc-progress total="ctrl.testRun.statsForScenarii.count"
+                     success="ctrl.testRun.statsForScenarii.statsByStatus['PASSED']"
+                     warning="ctrl.testRun.statsForScenarii.statsByStatus['PENDING']"
+                     danger="ctrl.testRun.statsForScenarii.statsByStatus['FAILED']">
+        </tc-progress>
+      </div>
+    </uib-tab>
+
+  </uib-tabset>
 
   <!-- Features -->
 
