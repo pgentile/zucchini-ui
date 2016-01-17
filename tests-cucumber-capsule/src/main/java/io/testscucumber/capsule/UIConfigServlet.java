@@ -35,9 +35,19 @@ class UIConfigServlet extends HttpServlet {
         final StringBuilder apiBaseUri = new StringBuilder();
         apiBaseUri.append(request.getScheme()).append("://").append(request.getServerName());
 
-        if ("http".equals(request.getScheme()) && request.getServerPort() != 80) {
-            apiBaseUri.append(':').append(request.getServerPort());
-        } else if ("https".equals(request.getScheme()) && request.getServerPort() != 443) {
+        final boolean addPort;
+        switch (request.getScheme()) {
+            case "http":
+                addPort = (request.getServerPort() != 80);
+                break;
+            case "https":
+                addPort = (request.getServerPort() != 443);
+                break;
+            default:
+                addPort = true;
+                break;
+        }
+        if (addPort) {
             apiBaseUri.append(':').append(request.getServerPort());
         }
 
