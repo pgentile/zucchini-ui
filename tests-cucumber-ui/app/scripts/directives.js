@@ -7,7 +7,7 @@
       return {
         restrict: 'E',
         scope: {
-          status: '=status'
+          status: '='
         },
         templateUrl: 'views/tc-status.html'
       };
@@ -16,7 +16,7 @@
       return {
         restrict: 'E',
         scope: {
-          tags: '=tags'
+          tags: '='
         },
         templateUrl: 'views/tc-tags.html'
       };
@@ -25,10 +25,10 @@
       return {
         restrict: 'E',
         scope: {
-          total: '=total',
-          success: '=success',
-          warning: '=warning',
-          danger: '=danger'
+          total: '=',
+          success: '=',
+          warning: '=',
+          danger: '='
         },
         templateUrl: 'views/tc-progress.html'
       };
