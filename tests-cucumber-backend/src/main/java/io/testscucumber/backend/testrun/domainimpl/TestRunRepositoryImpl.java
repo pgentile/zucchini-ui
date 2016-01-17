@@ -10,12 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 class TestRunRepositoryImpl extends MorphiaQueriableRepository<TestRun, String, TestRunQuery> implements TestRunRepository {
 
-    private final TestRunDAO dao;
-
     @Autowired
     public TestRunRepositoryImpl(final TestRunDAO dao) {
         super(dao);
-        this.dao = dao;
     }
 
 }
