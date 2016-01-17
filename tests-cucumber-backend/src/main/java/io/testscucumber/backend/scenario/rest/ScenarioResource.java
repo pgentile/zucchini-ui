@@ -1,6 +1,8 @@
 package io.testscucumber.backend.scenario.rest;
 
+import com.google.common.collect.Sets;
 import io.testscucumber.backend.comment.domain.CommentReference;
+import io.testscucumber.backend.comment.domain.CommentReferenceType;
 import io.testscucumber.backend.comment.rest.CommentResource;
 import io.testscucumber.backend.scenario.domain.Scenario;
 import io.testscucumber.backend.scenario.domain.ScenarioRepository;
@@ -26,7 +28,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -100,19 +101,20 @@ public class ScenarioResource {
     public CommentResource getComments(@PathParam("scenarioId") final String scenarioId) {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
 
-        final Set<CommentReference> findReferences = Collections.singleton(
-            new CommentReference("scenarioKey", scenario.getScenarioKey())
+        final Set<CommentReference> mainReferences = Collections.singleton(
+            CommentReferenceType.SCENARIO_KEY.createReference(scenario.getScenarioKey())
         );
 
-        final Set<CommentReference> createReferences = new HashSet<>(findReferences);
-        createReferences.add(new CommentReference("testRunId", scenario.getTestRunId()));
-        createReferences.add(new CommentReference("scenarioId", scenario.getId()));
+        final Set<CommentReference> extraReferences = Sets.newHashSet(
+            CommentReferenceType.TEST_RUN_ID.createReference(scenario.getTestRunId()),
+            CommentReferenceType.SCENARIO_ID.createReference(scenario.getId())
+        );
 
         final URI commentsUri = uriInfo.getBaseUriBuilder()
             .path("/scenarii/{scenarioId}/comments")
             .build(scenarioId);
 
-        return commentResourceFactory.create(commentsUri, findReferences, createReferences);
+        return commentResourceFactory.create(commentsUri, mainReferences, extraReferences);
     }
 
 }

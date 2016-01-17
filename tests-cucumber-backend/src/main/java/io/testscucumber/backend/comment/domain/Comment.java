@@ -2,13 +2,11 @@ package io.testscucumber.backend.comment.domain;
 
 import com.google.common.collect.Sets;
 import io.testscucumber.backend.support.ddd.BaseEntity;
-import org.mongodb.morphia.annotations.ConstructorArgs;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
 import java.time.ZonedDateTime;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +22,6 @@ public class Comment extends BaseEntity<String> {
 
     private String content;
 
-    @ConstructorArgs({"type", "reference"})
     @Embedded(concreteClass = HashSet.class)
     private Set<CommentReference> references;
 
@@ -34,11 +31,7 @@ public class Comment extends BaseEntity<String> {
     private Comment() {
     }
 
-    public Comment(final CommentReference firstReference, final String content) {
-        this(Collections.singleton(firstReference), content);
-    }
-
-    public Comment(final Collection<CommentReference> references, final String content) {
+    public Comment(final Iterable<CommentReference> references, final String content) {
         id = UUID.randomUUID().toString();
         date = ZonedDateTime.now();
         this.references = Sets.newHashSet(references);

@@ -21,6 +21,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -34,9 +35,9 @@ public class CommentResource {
 
     private final URI baseUri;
 
-    private final Set<CommentReference> findReferences;
+    private final Set<CommentReference> mainReferences;
 
-    private final Set<CommentReference> createReferences;
+    private final Set<CommentReference> extraReferences;
 
     @Component
     public static class Factory {
@@ -61,33 +62,30 @@ public class CommentResource {
     private CommentResource(
         final Factory factory,
         final URI baseUri,
-        final Set<CommentReference> findReferences,
-        final Set<CommentReference> createReferences
+        final Set<CommentReference> mainReferences,
+        final Set<CommentReference> extraReferences
     ) {
-        if (findReferences.isEmpty()) {
+        if (mainReferences.isEmpty()) {
             throw new IllegalArgumentException("Find references are not defined");
-        }
-        if (!createReferences.containsAll(findReferences)) {
-            throw new IllegalArgumentException("Create reference " + createReferences + " must contain all find references" + findReferences);
         }
 
         commentRepository = factory.commentRepository;
         this.baseUri = baseUri;
-        this.findReferences = findReferences;
-        this.createReferences = createReferences;
+        this.mainReferences = mainReferences;
+        this.extraReferences = extraReferences;
     }
 
     @GET
     public List<Comment> getComments() {
-        return commentRepository.query(q -> q.withReferences(findReferences).orderByLatestFirst()).find();
+        return commentRepository.query(q -> q.withReferences(mainReferences).orderByLatestFirst()).find();
     }
 
     @GET
     @Path("{commentId}")
     public Comment getComment(@PathParam("commentId") final String commentId) {
         final Comment comment = commentRepository.getById(commentId);
-        if (!comment.getReferences().containsAll(findReferences)) {
-            throw new NotFoundException("Comment with ID " + commentId + " exists, but is not attached to references " + findReferences);
+        if (!comment.getReferences().containsAll(mainReferences)) {
+            throw new NotFoundException("Comment with ID " + commentId + " exists, but is not attached to references " + mainReferences);
         }
         return comment;
     }
@@ -95,9 +93,13 @@ public class CommentResource {
     @POST
     @Path("create")
     public Response create(@Valid @NotNull final CreateCommentRequest request) {
-        LOGGER.info("Create comment with references {}", createReferences);
+        final Set<CommentReference> references = new HashSet<>();
+        references.addAll(mainReferences);
+        references.addAll(extraReferences);
 
-        final Comment comment = new Comment(createReferences, request.getContent());
+        LOGGER.info("Create comment with references {}", references);
+
+        final Comment comment = new Comment(references, request.getContent());
         commentRepository.save(comment);
 
         final URI location = UriBuilder.fromUri(baseUri)

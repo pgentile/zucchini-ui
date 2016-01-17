@@ -7,12 +7,19 @@ import java.util.Objects;
 
 public final class CommentReference {
 
-    private final String type;
+    private CommentReferenceType type;
 
-    private final String reference;
+    private String reference;
 
-    public CommentReference(final String type, final String reference) {
-        if (Strings.isNullOrEmpty(type)) {
+    /**
+     * Private constructor for Morphia.
+     */
+    private CommentReference() {
+
+    }
+
+    public CommentReference(final CommentReferenceType type, final String reference) {
+        if (type == null) {
             throw new IllegalArgumentException("Type must be defined");
         }
         if (Strings.isNullOrEmpty(reference)) {
@@ -23,7 +30,7 @@ public final class CommentReference {
         this.reference = reference;
     }
 
-    public String getType() {
+    public CommentReferenceType getType() {
         return type;
     }
 
