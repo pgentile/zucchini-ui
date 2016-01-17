@@ -31,12 +31,6 @@ class FeatureQueryImpl extends BaseMorphiaQuery<Feature> implements FeatureQuery
     }
 
     @Override
-    public FeatureQuery withTestRunIdIn(final List<String> testRunIds) {
-        configureQuery(q -> q.field("testRunId").in(testRunIds));
-        return this;
-    }
-
-    @Override
     public FeatureQuery orderByFeatureName() {
         configureQuery(q -> q.order("info.name"));
         return this;

@@ -16,12 +16,16 @@
       return TestRunResource.query({ env: env }).$promise;
     };
 
+    this.getStatsForFeatures = function (testRunId) {
+      return TestRunResource.getStatsForFeatures({ testRunId: testRunId }).$promise;
+    };
+
     this.create = function (testRun) {
       return TestRunResource.create(testRun).$promise;
     };
 
     this.importCucumberResults = function (testRunId, file, dryRun) {
-      var url = baseUri + '/test-runs/' + testRunId + '/import';
+      var url = baseUri + '/testRuns/' + testRunId + '/import';
       if (dryRun) {
         url += '?dry-run=true';
       }
@@ -63,25 +67,29 @@
             return TestRunCoreService.create(testRun);
           })
           .then(function (response) {
-            $location.path('/test-runs/' + response.id);
+            $location.path('/testRuns/' + response.id);
           });
       };
 
       this.load();
 
     })
-    .controller('TestRunCtrl', function ($q, $routeParams, $location, $log, $uibModal, TestRunCoreService, FeatureCoreService, ErrorService, featureStoredFilters) {
+    .controller('TestRunCtrl', function ($q, $routeParams, $location, $uibModal, TestRunCoreService, FeatureCoreService, ErrorService, featureStoredFilters) {
 
       this.load = function () {
 
         TestRunCoreService.getById($routeParams.testRunId)
           .then(function (testRun) {
 
-            return FeatureCoreService.getFeaturesByTestRunId($routeParams.testRunId, true)
-              .then(function (features) {
+            var featuresQ = FeatureCoreService.getFeaturesByTestRunId(testRun.id, true);
+            var statsForFeaturesQ = TestRunCoreService.getStatsForFeatures(testRun.id);
+
+            return $q.all([featuresQ, statsForFeaturesQ])
+              .then(_.spread(function (features, statsForFeatures) {
                 testRun.features = features;
+                testRun.statsForFeatures = statsForFeatures;
                 return testRun;
-              });
+              }));
 
           })
           .then(function (testRun) {
@@ -184,12 +192,16 @@
     .service('TestRunCoreService', TestRunCoreService)
     .service('TestRunResource', function ($resource, baseUri) {
       return $resource(
-        baseUri + '/test-runs/:testRunId',
+        baseUri + '/testRuns/:testRunId',
         { testRunId: '@id' },
         {
           create: {
             method: 'POST',
-            url: baseUri + '/test-runs/create'
+            url: baseUri + '/testRuns/create'
+          },
+          getStatsForFeatures: {
+            method: 'GET',
+            url: baseUri + '/testRuns/:testRunId/stats/forFeatures'
           }
         }
       );

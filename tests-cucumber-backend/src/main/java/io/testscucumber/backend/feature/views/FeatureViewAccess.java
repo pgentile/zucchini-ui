@@ -2,6 +2,7 @@ package io.testscucumber.backend.feature.views;
 
 import io.testscucumber.backend.feature.domain.Feature;
 import io.testscucumber.backend.feature.domain.FeatureQuery;
+import io.testscucumber.backend.feature.domain.FeatureStatus;
 import io.testscucumber.backend.feature.domainimpl.FeatureDAO;
 import io.testscucumber.backend.scenario.domain.ScenarioStatus;
 import io.testscucumber.backend.scenario.views.ScenarioViewAccess;
@@ -91,6 +92,15 @@ public class FeatureViewAccess {
                 return item;
             })
             .filter(item -> item != null)
+            .collect(Collectors.toList());
+    }
+
+    public List<FeatureStatus> getFeaturesStatusByTestRunId(final String testRunId) {
+        final Query<Feature> query = featureDAO.prepareTypedQuery(q -> q.withTestRunId(testRunId))
+            .retrievedFields(true, "id", "status");
+
+        return MorphiaUtils.streamQuery(query)
+            .map(Feature::getStatus)
             .collect(Collectors.toList());
     }
 

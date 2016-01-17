@@ -6,6 +6,8 @@ import io.testscucumber.backend.reportconverter.domain.ReportConverterService;
 import io.testscucumber.backend.testrun.domain.TestRun;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;
 import io.testscucumber.backend.testrun.domain.TestRunService;
+import io.testscucumber.backend.testrun.views.TestRunStats;
+import io.testscucumber.backend.testrun.views.TestRunViewAccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,7 @@ import java.net.URI;
 import java.util.List;
 
 @Component
-@Path("/test-runs")
+@Path("/testRuns")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class TestRunResource {
@@ -42,6 +44,8 @@ public class TestRunResource {
 
     private final TestRunService testRunService;
 
+    private final TestRunViewAccess testRunViewAccess;
+
     private final ReportConverterService reportConverterService;
 
     private UriInfo uriInfo;
@@ -49,10 +53,13 @@ public class TestRunResource {
     @Autowired
     public TestRunResource(
         final TestRunRepository testRunRepository,
-        final TestRunService testRunService, final ReportConverterService reportConverterService
+        final TestRunService testRunService,
+        final TestRunViewAccess testRunViewAccess,
+        final ReportConverterService reportConverterService
     ) {
         this.testRunRepository = testRunRepository;
         this.testRunService = testRunService;
+        this.testRunViewAccess = testRunViewAccess;
         this.reportConverterService = reportConverterService;
     }
 
@@ -86,6 +93,12 @@ public class TestRunResource {
     public TestRun get(@PathParam("testRunId") final String testRunId) {
         LOGGER.debug("Get test run {}", testRunId);
         return testRunRepository.getById(testRunId);
+    }
+
+    @GET
+    @Path("{testRunId}/stats/forFeatures")
+    public TestRunStats getStats(@PathParam("testRunId") final String testRunId) {
+        return testRunViewAccess.getStatsForFeatureById(testRunId);
     }
 
     @PATCH

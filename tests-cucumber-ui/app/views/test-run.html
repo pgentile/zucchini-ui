@@ -28,6 +28,18 @@
     </div>
   </div>
 
+  <!-- Stats -->
+
+  <hr>
+
+  <h2>Complétion</h2>
+
+  <tc-progress total="ctrl.testRun.statsForFeatures.featureCount"
+               success="ctrl.testRun.statsForFeatures.statsByStatus['PASSED']"
+               warning="ctrl.testRun.statsForFeatures.statsByStatus['PARTIAL']"
+               danger="ctrl.testRun.statsForFeatures.statsByStatus['FAILED']">
+  </tc-progress>
+
   <!-- Features -->
 
   <hr>
