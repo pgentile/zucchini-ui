@@ -32,6 +32,10 @@
       return ScenarioResource.getComments({ scenarioId: scenarioId }).$promise;
     };
 
+    this.getComment = function (scenarioId, commentId) {
+      return ScenarioResource.getComment({ scenarioId: scenarioId, commentId: commentId }).$promise;
+    };
+
   };
 
 
@@ -46,6 +50,7 @@
 
         return ScenarioCoreService.getScenario($routeParams.scenarioId)
           .then(function (scenario) {
+
             var featureQ = FeatureCoreService.getById(scenario.featureId);
             var testRunQ = TestRunCoreService.getById(scenario.testRunId);
 
@@ -62,20 +67,6 @@
             this.scenario = scenario;
           }.bind(this));
 
-      };
-
-      this.loadHistory = function () {
-        return ScenarioCoreService.getScenarioHistory(this.scenario.id)
-          .then(function (history) {
-            this.history = history;
-          }.bind(this));
-      };
-
-      this.loadComments = function () {
-        ScenarioCoreService.getComments(this.scenario.id)
-          .then(function (comments) {
-            this.comments = comments;
-          }.bind(this));
       };
 
       this.changeStatus = function (status) {
@@ -95,6 +86,49 @@
           }.bind(this));
       };
 
+      this.maxDisplayedComments = 5;
+      this.limitMaxDisplayedComments = true;
+
+      this.loadComments = function () {
+        ScenarioCoreService.getComments(this.scenario.id)
+          .then(function (comments) {
+            this.comments = comments;
+          }.bind(this));
+      };
+
+      this.loadNewComment = function (newCommentId) {
+        return ScenarioCoreService.getComment(this.scenario.id, newCommentId)
+          .then(function (comment) {
+            this.comments.unshift(comment);
+          }.bind(this));
+      };
+
+      this.isCommentFromSameTestRun = function (comment) {
+        var testRunReference = comment.references.filter(function (reference) {
+          return reference.type === 'TEST_RUN_ID';
+        });
+        if (testRunReference.length === 0) {
+          return false;
+        }
+
+        var commentTestRunId = testRunReference[0].reference;
+        return commentTestRunId === this.scenario.testRunId;
+      }.bind(this);
+
+      this.limitDisplayedComments = function (comment, index) {
+        if (index < this.maxDisplayedComments) {
+          return true;
+        }
+        return !this.limitMaxDisplayedComments;
+      }.bind(this);
+
+
+      this.loadHistory = function () {
+        return ScenarioCoreService.getScenarioHistory(this.scenario.id)
+          .then(function (history) {
+            this.history = history;
+          }.bind(this));
+      };
 
       this.filters = historyFilters.get();
 
@@ -125,12 +159,11 @@
 
       this.addComment = function () {
         return ScenarioCoreService.createComment(parentCtrl.scenario.id, this.content)
-          .then(function () {
+          .then(function (response) {
             this.content = '';
-          }.bind(this))
-          .then(function () {
-            parentCtrl.loadComments();
-          });
+
+            return parentCtrl.loadNewComment(response.id);
+          }.bind(this));
       };
 
     })
@@ -147,7 +180,8 @@
         baseUri + '/scenarii/:scenarioId',
         {
           scenarioId: '@id',
-          status: '@status'
+          status: '@status',
+          commentId: '@commentId'
         },
         {
           getScenarioHistory: {
@@ -163,6 +197,10 @@
             method: 'GET',
             url: baseUri + '/scenarii/:scenarioId/comments',
             isArray: true
+          },
+          getComment: {
+            method: 'GET',
+            url: baseUri + '/scenarii/:scenarioId/comments/:commentId'
           },
           createComment: {
             method: 'POST',

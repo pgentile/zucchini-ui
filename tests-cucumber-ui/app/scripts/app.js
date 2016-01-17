@@ -4,12 +4,8 @@
 
   angular
     .module('testsCucumberApp', [
-      'ngAnimate',
-      'ngCookies',
       'ngResource',
       'ngRoute',
-      'ngSanitize',
-      'ngTouch',
       'ui.bootstrap',
       'ngFileUpload'
     ])

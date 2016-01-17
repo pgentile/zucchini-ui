@@ -136,20 +136,35 @@
 
   <h2>Commentaires</h2>
 
-  <div ng-repeat="comment in ctrl.comments track by comment.id">
+  <div
+    ng-repeat="comment in ctrl.comments | filter:ctrl.limitDisplayedComments as filteredComments track by comment.id">
     <h5>Le {{ comment.date | date:'dd/MM/yyyy à HH:mm:ss' }}</h5>
-    <p>
+    <p ng-class="ctrl.isCommentFromSameTestRun(comment) || 'text-muted'">
       <tc-line-breaks content="comment.content"></tc-line-breaks>
     </p>
   </div>
 
+  <p ng-show="filteredComments.length < ctrl.comments.length">
+    <i>
+      Les commentaires les plus anciens ne sont pas affichés.
+      <a href="" ng-click="ctrl.limitMaxDisplayedComments = false">
+        Cliquez ici pour afficher tous les commentaires.
+      </a>
+    </i>
+  </p>
+
   <form ng-controller="AddCommentCtrl as addCommentCtrl">
+
     <div class="form-group">
       <textarea ng-model="addCommentCtrl.content" class="form-control" rows="3"
                 placeholder="Entrez votre commentaire">
       </textarea>
     </div>
-    <button ng-click="addCommentCtrl.addComment()" type="submit" class="btn btn-primary">Ajouter le commentaire</button>
+
+    <button ng-click="addCommentCtrl.addComment()" type="submit" class="btn btn-primary">
+      Ajouter le commentaire
+    </button>
+
   </form>
 
   <hr>
@@ -159,15 +174,18 @@
   <h2>Historique</h2>
 
   <div class="form-inline" style="margin-bottom: 10px">
+
     <div class="form-group">
       <b>Filtrer :</b>
     </div>
+
     <div class="checkbox">
       <label>
         <input type="checkbox" ng-model="ctrl.filters.sameTestRun" ng-change="ctrl.updateStoredFilters()">
         Même environnement de tir
       </label>
     </div>
+
   </div>
 
   <table class="table table-bordered">
