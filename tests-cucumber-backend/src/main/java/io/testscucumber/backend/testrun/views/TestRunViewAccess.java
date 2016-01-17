@@ -19,7 +19,7 @@ public class TestRunViewAccess {
         this.featureViewAccess = featureViewAccess;
     }
 
-    public TestRunStats getStatsForFeatureById(final String testRunId) {
+    public TestRunStats getStatsForFeaturesByTestRunId(final String testRunId) {
         final Map<FeatureStatus, Integer> statsByStatus = new EnumMap<>(FeatureStatus.class);
         for (final FeatureStatus status : FeatureStatus.values()) {
             statsByStatus.put(status, 0);

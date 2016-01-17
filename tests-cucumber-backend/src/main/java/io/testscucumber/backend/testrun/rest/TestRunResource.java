@@ -98,7 +98,7 @@ public class TestRunResource {
     @GET
     @Path("{testRunId}/stats/forFeatures")
     public TestRunStats getStats(@PathParam("testRunId") final String testRunId) {
-        return testRunViewAccess.getStatsForFeatureById(testRunId);
+        return testRunViewAccess.getStatsForFeaturesByTestRunId(testRunId);
     }
 
     @PATCH
