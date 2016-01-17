@@ -5,7 +5,6 @@ import io.testscucumber.backend.shared.domain.Location;
 import io.testscucumber.backend.support.ddd.BaseEntity;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
 
 import java.time.ZonedDateTime;
 import java.util.HashSet;
@@ -17,15 +16,12 @@ public class Feature extends BaseEntity<String> {
     @Id
     private String id;
 
-    @Indexed
     private String featureKey;
 
-    @Indexed
     private String testRunId;
 
     private BasicInfo info;
 
-    @Indexed
     private Set<String> tags = new HashSet<>();
 
     private Location location;

@@ -5,7 +5,6 @@ import io.testscucumber.backend.shared.domain.Location;
 import io.testscucumber.backend.support.ddd.BaseEntity;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -19,16 +18,12 @@ public class Scenario extends BaseEntity<String> {
     @Id
     private String id;
 
-    @Indexed
     private String scenarioKey;
 
-    @Indexed
     private String featureId;
 
-    @Indexed
     private String testRunId;
 
-    @Indexed
     private Set<String> tags = new HashSet<>();
 
     private Background background;

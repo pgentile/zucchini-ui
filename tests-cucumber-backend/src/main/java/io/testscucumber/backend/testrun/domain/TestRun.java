@@ -3,7 +3,6 @@ package io.testscucumber.backend.testrun.domain;
 import io.testscucumber.backend.support.ddd.BaseEntity;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.PostLoad;
 
 import java.time.ZonedDateTime;
@@ -18,7 +17,6 @@ public class TestRun extends BaseEntity<String> {
     @Id
     private String id;
 
-    @Indexed
     private String env;
 
     private ZonedDateTime date;
