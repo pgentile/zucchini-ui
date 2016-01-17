@@ -32,7 +32,7 @@
 
   <hr>
 
-  <h2>Complétion</h2>
+  <h2>Avancement</h2>
 
   <uib-tabset>
 
@@ -107,7 +107,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="feature in filteredFeatures = (ctrl.testRun.features | filter:ctrl.isFeatureDisplayable)">
+    <tr ng-repeat="feature in ctrl.testRun.features | filter:ctrl.isFeatureDisplayable as filteredFeatures track by feature.id">
       <td>
         <a ng-href="#/features/{{ feature.id }}">
           {{ feature.info.name }}

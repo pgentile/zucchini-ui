@@ -1,3 +1,3 @@
-<span ng-repeat="tag in tags | orderBy">
+<span ng-repeat="tag in tags | orderBy track by tag">
   <span class="label label-info">@{{ tag }}</span>
 </span>
