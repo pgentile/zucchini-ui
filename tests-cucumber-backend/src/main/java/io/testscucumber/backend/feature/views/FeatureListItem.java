@@ -3,7 +3,7 @@ package io.testscucumber.backend.feature.views;
 import io.testscucumber.backend.feature.domain.FeatureStatus;
 import io.testscucumber.backend.shared.domain.BasicInfo;
 
-public class FeatureListItemView {
+public class FeatureListItem {
 
     private String id;
 

@@ -8,11 +8,11 @@ class FeatureViewMapper extends ConfigurableMapper {
 
     @Override
     protected void configure(final MapperFactory factory) {
-        factory.classMap(Feature.class, FeatureHistoryItemView.class)
+        factory.classMap(Feature.class, FeatureHistoryItem.class)
             .byDefault()
             .register();
 
-        factory.classMap(Feature.class, FeatureListItemView.class)
+        factory.classMap(Feature.class, FeatureListItem.class)
             .byDefault()
             .register();
     }

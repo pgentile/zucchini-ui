@@ -1,13 +1,17 @@
 package io.testscucumber.backend.comment.domainimpl;
 
 import io.testscucumber.backend.comment.domain.Comment;
+import io.testscucumber.backend.comment.domain.CommentQuery;
 import io.testscucumber.backend.support.ddd.morphia.MorphiaTypedQueryDAO;
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.function.Consumer;
+
 @Component
-class CommentDAO extends MorphiaTypedQueryDAO<Comment, String, CommentQueryImpl> {
+class CommentDAO extends MorphiaTypedQueryDAO<Comment, String, CommentQuery> {
 
     @Autowired
     public CommentDAO(final Datastore ds) {
@@ -15,7 +19,10 @@ class CommentDAO extends MorphiaTypedQueryDAO<Comment, String, CommentQueryImpl>
     }
 
     @Override
-    protected CommentQueryImpl createTypedQuery() {
-        return new CommentQueryImpl(createQuery());
+    public Query<Comment> prepareTypedQuery(final Consumer<? super CommentQuery> preparator) {
+        final CommentQueryImpl typedQuery = new CommentQueryImpl(createQuery());
+        preparator.accept(typedQuery);
+        return typedQuery.morphiaQuery();
     }
+
 }

@@ -4,7 +4,7 @@ import org.mongodb.morphia.query.Query;
 
 import java.util.function.Function;
 
-public class BaseMorphiaQuery<T> implements MorphiaQuery<T> {
+public class BaseMorphiaQuery<T> {
 
     private Query<T> query;
 
@@ -12,7 +12,6 @@ public class BaseMorphiaQuery<T> implements MorphiaQuery<T> {
         this.query = query;
     }
 
-    @Override
     public Query<T> morphiaQuery() {
         return query;
     }

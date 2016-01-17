@@ -8,7 +8,7 @@ import org.mongodb.morphia.query.Query;
 
 import java.util.function.Consumer;
 
-public abstract class MorphiaTypedQueryDAO<T, K, Q extends MorphiaQuery<T>> extends BasicDAO<T, K> {
+public abstract class MorphiaTypedQueryDAO<T, K, Q> extends BasicDAO<T, K> {
 
     protected MorphiaTypedQueryDAO(final Class<T> entityClass, final MongoClient mongoClient, final Morphia morphia, final String dbName) {
         super(entityClass, mongoClient, morphia, dbName);
@@ -26,12 +26,6 @@ public abstract class MorphiaTypedQueryDAO<T, K, Q extends MorphiaQuery<T>> exte
         super(ds);
     }
 
-    public Query<T> prepareTypedQuery(final Consumer<? super Q> preparator) {
-        final Q typedQuery = createTypedQuery();
-        preparator.accept(typedQuery);
-        return typedQuery.morphiaQuery();
-    }
-
-    protected abstract Q createTypedQuery();
+    public abstract Query<T> prepareTypedQuery(Consumer<? super Q> preparator);
 
 }

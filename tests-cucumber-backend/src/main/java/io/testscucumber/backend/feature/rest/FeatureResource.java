@@ -3,8 +3,8 @@ package io.testscucumber.backend.feature.rest;
 import io.testscucumber.backend.feature.domain.Feature;
 import io.testscucumber.backend.feature.domain.FeatureRepository;
 import io.testscucumber.backend.feature.domain.FeatureService;
-import io.testscucumber.backend.feature.views.FeatureHistoryItemView;
-import io.testscucumber.backend.feature.views.FeatureListItemView;
+import io.testscucumber.backend.feature.views.FeatureHistoryItem;
+import io.testscucumber.backend.feature.views.FeatureListItem;
 import io.testscucumber.backend.feature.views.FeatureStats;
 import io.testscucumber.backend.feature.views.FeatureViewAccess;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class FeatureResource {
     }
 
     @GET
-    public List<FeatureListItemView> getFeatures(
+    public List<FeatureListItem> getFeatures(
         @QueryParam("testRunId") final String testRunId,
         @QueryParam("withStats") @DefaultValue("false") final boolean withStats
     ) {
@@ -66,7 +66,7 @@ public class FeatureResource {
 
     @GET
     @Path("{featureId}/history")
-    public List<FeatureHistoryItemView> getFeatureHistory(@PathParam("featureId") final String featureId) {
+    public List<FeatureHistoryItem> getFeatureHistory(@PathParam("featureId") final String featureId) {
         final Feature feature = featureRepository.getById(featureId);
         return featureViewAccess.getFeatureHistory(feature.getFeatureKey());
     }

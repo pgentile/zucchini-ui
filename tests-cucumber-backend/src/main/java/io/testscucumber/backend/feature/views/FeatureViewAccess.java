@@ -28,9 +28,9 @@ public class FeatureViewAccess {
 
     private final TestRunRepository testRunRepository;
 
-    private final BoundMapperFacade<Feature, FeatureHistoryItemView> featureToHistoryItemViewMapper;
+    private final BoundMapperFacade<Feature, FeatureHistoryItem> featureToHistoryItemMapper;
 
-    private final BoundMapperFacade<Feature, FeatureListItemView> featureToListItemViewMapper;
+    private final BoundMapperFacade<Feature, FeatureListItem> featureToListItemMapper;
 
     @Autowired
     public FeatureViewAccess(
@@ -43,8 +43,8 @@ public class FeatureViewAccess {
         this.testRunRepository = testRunRepository;
 
         final FeatureViewMapper mapper = new FeatureViewMapper();
-        featureToHistoryItemViewMapper = mapper.dedicatedMapperFor(Feature.class, FeatureHistoryItemView.class, false);
-        featureToListItemViewMapper = mapper.dedicatedMapperFor(Feature.class, FeatureListItemView.class, false);
+        featureToHistoryItemMapper = mapper.dedicatedMapperFor(Feature.class, FeatureHistoryItem.class, false);
+        featureToListItemMapper = mapper.dedicatedMapperFor(Feature.class, FeatureListItem.class, false);
     }
 
     public FeatureStats getStatsForByFeatureId(final String featureId) {
@@ -58,13 +58,13 @@ public class FeatureViewAccess {
         return new FeatureStats(scenariiStatus.size(), statsByStatus);
     }
 
-    public List<FeatureListItemView> getFeatureListItems(final Consumer<FeatureQuery> preparator, final boolean withStats) {
+    public List<FeatureListItem> getFeatureListItems(final Consumer<FeatureQuery> preparator, final boolean withStats) {
         final Query<Feature> query = featureDAO.prepareTypedQuery(preparator)
             .retrievedFields(true, "id", "testRunId", "info", "status");
 
         return MorphiaUtils.streamQuery(query)
             .map(feature -> {
-                final FeatureListItemView item = featureToListItemViewMapper.map(feature);
+                final FeatureListItem item = featureToListItemMapper.map(feature);
                 if (withStats) {
                     item.setStats(getStatsForByFeatureId(feature.getId()));
                 }
@@ -73,7 +73,7 @@ public class FeatureViewAccess {
             .collect(Collectors.toList());
     }
 
-    public List<FeatureHistoryItemView> getFeatureHistory(final String featureKey) {
+    public List<FeatureHistoryItem> getFeatureHistory(final String featureKey) {
         return testRunRepository.query(TestRunQuery::orderByLatestFirst)
             .stream()
             .map(testRun -> {
@@ -85,7 +85,7 @@ public class FeatureViewAccess {
                     return null;
                 }
 
-                final FeatureHistoryItemView item = featureToHistoryItemViewMapper.map(feature);
+                final FeatureHistoryItem item = featureToHistoryItemMapper.map(feature);
                 item.setTestRun(testRun);
                 item.setStats(getStatsForByFeatureId(feature.getId()));
                 return item;

@@ -6,7 +6,7 @@ import io.testscucumber.backend.scenario.domain.ScenarioQuery;
 import io.testscucumber.backend.support.ddd.morphia.BaseMorphiaQuery;
 import org.mongodb.morphia.query.Query;
 
-public class ScenarioQueryImpl extends BaseMorphiaQuery<Scenario> implements ScenarioQuery {
+class ScenarioQueryImpl extends BaseMorphiaQuery<Scenario> implements ScenarioQuery {
 
     protected ScenarioQueryImpl(final Query<Scenario> query) {
         super(query);

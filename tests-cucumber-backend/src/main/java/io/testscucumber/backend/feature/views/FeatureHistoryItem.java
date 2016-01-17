@@ -3,7 +3,7 @@ package io.testscucumber.backend.feature.views;
 import io.testscucumber.backend.feature.domain.FeatureStatus;
 import io.testscucumber.backend.testrun.domain.TestRun;
 
-public class FeatureHistoryItemView {
+public class FeatureHistoryItem {
 
     private String id;
 
