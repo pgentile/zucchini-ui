@@ -76,22 +76,6 @@ allprojects {
 
             project.apply plugin: 'com.github.ben-manes.versions'
 
-            // Checkstyle plugin
-
-            project.apply plugin: 'checkstyle'
-
-            project.checkstyle {
-                ignoreFailures = true
-                configFile = project.rootProject.file("config/checkstyle/checkstyle.xml")
-            }
-
-            tasks.withType(Checkstyle) {
-                reports {
-                    xml.enabled = false
-                    // html.enabled = true // TODO Disabled because of bugs in IntelliJ Gradle import
-                }
-            }
-
             // PMD plugin
 
             project.apply plugin: 'pmd'
@@ -322,8 +306,8 @@ project("${rootProject.name}-example-features") {
         args += [
             '--glue', 'classpath:io.testscucumber.examples',
             '--plugin', 'pretty',
-            '--plugin', "html:${project.buildDir}/cucumber/html",
-            '--plugin', "json:${project.buildDir}/cucumber/report.json",
+            '--plugin', 'html:' + project.file('cucumber/html'),
+            '--plugin', 'json:' + project.file('cucumber/report.json'),
             '--tags', '~@ignored',
             'src/features',
         ]
@@ -341,8 +325,8 @@ project("${rootProject.name}-example-features") {
         args += [
             '--glue', 'classpath:io.testscucumber.examples',
             '--plugin', 'pretty',
-            '--plugin', "html:${project.buildDir}/cucumber-dry/html",
-            '--plugin', "json:${project.buildDir}/cucumber-dry/report.json",
+            '--plugin', 'html:' + project.file('cucumber-dry/html'),
+            '--plugin', 'json:' + project.file('cucumber-dry/report.json'),
             '--dry-run',
             'src/features',
         ]
