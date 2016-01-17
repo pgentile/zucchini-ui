@@ -14,7 +14,7 @@ public final class MorphiaUtils {
 
     public static <T> Stream<T> streamQuery(final Query<T> query) {
         final MorphiaIterator<T, T> morphiaIterator = query.fetch();
-        return StreamSupport.stream(morphiaIterator.spliterator(), false);
+        return StreamSupport.stream(morphiaIterator.spliterator(), false).onClose(morphiaIterator::close);
     }
 
 }
