@@ -189,11 +189,11 @@ project("${rootProject.name}-ui") {
 
     sourceSets.main.resources.srcDir('build/dist')
 
-    task gruntClean(type: Exec, description: 'Clean UI') {
+    task uiClean(type: Exec, description: 'Clean UI') {
         commandLine 'grunt', 'clean'
     }
 
-    tasks.clean.dependsOn gruntClean
+    tasks.clean.dependsOn uiClean
 
     task uiDist(type: Exec, description: 'Build UI dist') {
         commandLine 'grunt'
