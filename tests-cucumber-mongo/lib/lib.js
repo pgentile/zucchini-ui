@@ -3,7 +3,6 @@ var migrationContext = {
 };
 
 function migrate(migration, idempotent) {
-  var previousAppliedMigration = db.appliedMigrations.findOne({ _id: migrationContext.filename });
 
   var runMigration = function () {
     migration(migrationContext);
@@ -21,6 +20,7 @@ function migrate(migration, idempotent) {
     );
   };
 
+  var previousAppliedMigration = db.appliedMigrations.findOne({ _id: migrationContext.filename });
   if (previousAppliedMigration == null) {
     print('Running migration ' + migrationContext.filename + ' for the first time...');
     runMigration();

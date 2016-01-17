@@ -49,6 +49,12 @@ Run Mongo with Docker Compose:
 docker-compose up
 ```
 
+Run Mongo migrations to build database:
+
+```
+(cd tests-cucumber-mongo && ./migrate.sh MONGO_HOST/MONGO_DATABASE)
+```
+
 Start Java backend:
 
 ```
