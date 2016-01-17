@@ -64,7 +64,7 @@
 
   <h2>Complétion</h2>
 
-  <tc-progress total="ctrl.feature.stats.scenarioCount"
+  <tc-progress total="ctrl.feature.stats.count"
                success="ctrl.feature.stats.statsByStatus['PASSED']"
                warning="ctrl.feature.stats.statsByStatus['PENDING']"
                danger="ctrl.feature.stats.statsByStatus['FAILED']">
@@ -178,7 +178,7 @@
       <td>
         <tc-status status="feature.status"></tc-status>
       </td>
-      <td><span class="badge">{{ feature.stats.scenarioCount }}</span></td>
+      <td><span class="badge">{{ feature.stats.count }}</span></td>
       <td><span class="badge">{{ feature.stats.statsByStatus['PASSED'] }}</span></td>
       <td><span class="badge">{{ feature.stats.statsByStatus['FAILED'] }}</span></td>
       <td><span class="badge">{{ feature.stats.statsByStatus['PENDING'] }}</span></td>
@@ -188,4 +188,3 @@
   </table>
 
 </div>
-

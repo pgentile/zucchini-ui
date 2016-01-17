@@ -1,40 +1,34 @@
 package io.testscucumber.backend.feature.views;
 
-import io.testscucumber.backend.scenario.domain.ScenarioStatus;
+import io.testscucumber.backend.feature.domain.FeatureStatus;
 
 import java.util.EnumMap;
 import java.util.Map;
 
 public class FeatureStats {
 
-    private int scenarioCount;
+    private int count;
 
-    private final Map<ScenarioStatus, Integer> statsByStatus;
+    private final Map<FeatureStatus, Integer> statsByStatus;
 
     public FeatureStats() {
-        statsByStatus = new EnumMap<>(ScenarioStatus.class);
+        statsByStatus = new EnumMap<>(FeatureStatus.class);
+        for (final FeatureStatus status : FeatureStatus.values()) {
+            statsByStatus.put(status, 0);
+        }
     }
 
-    public FeatureStats(final int scenarioCount, final Map<ScenarioStatus, Integer> statsByStatus) {
-        this.scenarioCount = scenarioCount;
-        this.statsByStatus = new EnumMap<>(statsByStatus);
+    public void addFeatureStatus(final FeatureStatus status) {
+        statsByStatus.compute(status, (key, count) -> count + 1);
+        count++;
     }
 
-    public int getScenarioCount() {
-        return scenarioCount;
+    public int getCount() {
+        return count;
     }
 
-    public void setScenarioCount(final int scenarioCount) {
-        this.scenarioCount = scenarioCount;
-    }
-
-    public Map<ScenarioStatus, Integer> getStatsByStatus() {
+    public Map<FeatureStatus, Integer> getStatsByStatus() {
         return statsByStatus;
-    }
-
-    public void setStatsByStatus(final Map<ScenarioStatus, Integer> statsByStatus) {
-        this.statsByStatus.clear();
-        this.statsByStatus.putAll(statsByStatus);
     }
 
 }

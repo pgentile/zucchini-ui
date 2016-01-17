@@ -6,7 +6,7 @@ import io.testscucumber.backend.reportconverter.domain.ReportConverterService;
 import io.testscucumber.backend.testrun.domain.TestRun;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;
 import io.testscucumber.backend.testrun.domain.TestRunService;
-import io.testscucumber.backend.testrun.views.TestRunStats;
+import io.testscucumber.backend.feature.views.FeatureStats;
 import io.testscucumber.backend.testrun.views.TestRunViewAccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,7 +97,7 @@ public class TestRunResource {
 
     @GET
     @Path("{testRunId}/stats/forFeatures")
-    public TestRunStats getStats(@PathParam("testRunId") final String testRunId) {
+    public FeatureStats getStats(@PathParam("testRunId") final String testRunId) {
         return testRunViewAccess.getStatsForFeaturesByTestRunId(testRunId);
     }
 

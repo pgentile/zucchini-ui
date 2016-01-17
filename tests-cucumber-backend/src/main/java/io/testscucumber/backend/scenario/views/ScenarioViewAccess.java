@@ -2,7 +2,6 @@ package io.testscucumber.backend.scenario.views;
 
 import io.testscucumber.backend.scenario.domain.Scenario;
 import io.testscucumber.backend.scenario.domain.ScenarioQuery;
-import io.testscucumber.backend.scenario.domain.ScenarioStatus;
 import io.testscucumber.backend.scenario.domainimpl.ScenarioDAO;
 import io.testscucumber.backend.support.ddd.morphia.MorphiaUtils;
 import io.testscucumber.backend.testrun.domain.TestRunQuery;
@@ -66,13 +65,17 @@ public class ScenarioViewAccess {
             .collect(Collectors.toList());
     }
 
-    public List<ScenarioStatus> getScenariiStatusByFeatureId(final String featureId) {
-        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(q -> q.withFeatureId(featureId))
+    public ScenarioStats getStats(final Consumer<ScenarioQuery> preparator) {
+        final ScenarioStats stats = new ScenarioStats();
+
+        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator)
             .retrievedFields(true, "id", "status");
 
-        return MorphiaUtils.streamQuery(query)
+        MorphiaUtils.streamQuery(query)
             .map(Scenario::getStatus)
-            .collect(Collectors.toList());
+            .forEach(stats::addScenarioStatus);
+
+        return stats;
     }
 
 }

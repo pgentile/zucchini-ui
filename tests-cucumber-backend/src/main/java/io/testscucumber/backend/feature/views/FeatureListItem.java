@@ -1,6 +1,7 @@
 package io.testscucumber.backend.feature.views;
 
 import io.testscucumber.backend.feature.domain.FeatureStatus;
+import io.testscucumber.backend.scenario.views.ScenarioStats;
 import io.testscucumber.backend.shared.domain.BasicInfo;
 
 public class FeatureListItem {
@@ -13,7 +14,7 @@ public class FeatureListItem {
 
     private FeatureStatus status;
 
-    private FeatureStats stats;
+    private ScenarioStats stats;
 
     public String getId() {
         return id;
@@ -47,11 +48,11 @@ public class FeatureListItem {
         this.status = status;
     }
 
-    public FeatureStats getStats() {
+    public ScenarioStats getStats() {
         return stats;
     }
 
-    public void setStats(final FeatureStats stats) {
+    public void setStats(final ScenarioStats stats) {
         this.stats = stats;
     }
 
