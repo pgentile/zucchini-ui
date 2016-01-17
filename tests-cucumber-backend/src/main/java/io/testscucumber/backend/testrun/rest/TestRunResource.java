@@ -1,11 +1,13 @@
 package io.testscucumber.backend.testrun.rest;
 
 
+import com.google.common.base.Strings;
 import io.dropwizard.jersey.PATCH;
 import io.testscucumber.backend.feature.views.FeatureStats;
 import io.testscucumber.backend.reportconverter.domain.ReportConverterService;
 import io.testscucumber.backend.scenario.views.ScenarioStats;
 import io.testscucumber.backend.testrun.domain.TestRun;
+import io.testscucumber.backend.testrun.domain.TestRunQuery;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;
 import io.testscucumber.backend.testrun.domain.TestRunService;
 import io.testscucumber.backend.testrun.views.TestRunViewAccess;
@@ -32,6 +34,7 @@ import javax.ws.rs.core.UriInfo;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
+import java.util.function.Consumer;
 
 @Component
 @Path("/testRuns")
@@ -71,8 +74,12 @@ public class TestRunResource {
 
     @GET
     public List<TestRun> getLatests(@QueryParam("env") final String env) {
-        return testRunRepository.query(q -> q.withEnv(env).orderByLatestFirst())
-            .find();
+        Consumer<TestRunQuery> queryPreparator = TestRunQuery::orderByLatestFirst;
+        if (!Strings.isNullOrEmpty(env)) {
+            queryPreparator = queryPreparator.andThen(q -> q.withEnv(env));
+        }
+
+        return testRunRepository.query(queryPreparator).find();
     }
 
     @POST

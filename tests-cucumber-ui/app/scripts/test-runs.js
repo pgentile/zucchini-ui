@@ -88,18 +88,24 @@
             var featuresQ = FeatureCoreService.getFeaturesByTestRunId(testRun.id, true);
             var statsForFeaturesQ = TestRunCoreService.getStatsForFeatures(testRun.id);
             var statsForScenariiQ = TestRunCoreService.getStatsForScenarii(testRun.id);
+            var historyQ = TestRunCoreService.getByEnv(testRun.env);
 
-            return $q.all([featuresQ, statsForFeaturesQ, statsForScenariiQ])
-              .then(_.spread(function (features, statsForFeatures, statsForScenarii) {
+            return $q.all([featuresQ, statsForFeaturesQ, statsForScenariiQ, historyQ])
+              .then(_.spread(function (features, statsForFeatures, statsForScenarii, history) {
                 testRun.features = features;
                 testRun.statsForFeatures = statsForFeatures;
                 testRun.statsForScenarii = statsForScenarii;
+                testRun.history = history;
                 return testRun;
               }));
 
           })
           .then(function (testRun) {
             this.testRun = testRun;
+
+            // TODO Not clean...
+            this.history = testRun.history;
+            delete testRun.history;
           }.bind(this));
       };
 

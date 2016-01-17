@@ -135,6 +135,30 @@
     </tfoot>
   </table>
 
+  <!-- History -->
+
+  <hr>
+
+  <h2>Historique</h2>
+
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th class="col-md-12">Tir</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="testRun in ctrl.history track by testRun.id"
+        ng-class="ctrl.testRun.id == testRun.id && 'active'">
+      <td>
+        <a ng-href="#/test-runs/{{ testRun.id }}">
+          {{ testRun.date | date:'dd/MM/yyyy à HH:mm' }}
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
   <!-- Import cucumber results modal window -->
 
   <script type="text/ng-template" id="importCucumberResults.html">
