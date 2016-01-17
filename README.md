@@ -61,6 +61,33 @@ Start UI:
 (cd tests-cucumber-ui && grunt serve)
 ```
 
+You can build sample Cucumber reports from the `tests-cucumber-example-features`:
+
+```
+./gradlew dryRunCucumber runCucumber
+```
+
+Generated reports can be found in `build` directory.
+
+
+Deploy
+------
+
+The sub-project `tests-cucumber-capsule` builds a fat [Capsule](http://www.capsule.io) that contains in one JAR
+backend and UI. This JAR contains everything that is needed to run the TestsCucumber app.
+
+You can run it from Gradle:
+
+```
+./gradlew runCapsule
+```
+
+The fat Capsule JAR is named `tests-cucumber-capsule-VERSION-SNAPSHOT-capsule.jar`. Run it with this command:
+
+```
+java -jar tests-cucumber-capsule-VERSION-SNAPSHOT-capsule.jar server CONFIG.yml
+```
+
 
 Architecture
 ------------
