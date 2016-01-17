@@ -24,12 +24,12 @@
 
   <p>
     <b>Créé le :</b>
-    {{ ctrl.feature.createdAt | date:'dd/MM/yyyy à HH:mm:ss' }}
+    {{ ctrl.feature.createdAt | date:'dd/MM/yyyy à HH:mm' }}
   </p>
 
   <p ng-hide="ctrl.feature.createdAt == ctrl.feature.modifiedAt">
     <b>Modifié le :</b>
-    {{ ctrl.feature.modifiedAt | date:'dd/MM/yyyy à HH:mm:ss' }}
+    {{ ctrl.feature.modifiedAt | date:'dd/MM/yyyy à HH:mm' }}
   </p>
 
   <p ng-if="ctrl.feature.tags.length > 0">
@@ -43,7 +43,7 @@
 
   <div class="btn-group" role="group">
 
-    <button ng-click="ctrl.delete()" class="btn btn-danger btn-default">
+    <button ng-click="ctrl.delete()" class="btn btn-danger">
       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
       Supprimer
     </button>
@@ -166,7 +166,7 @@
     </thead>
     <tbody>
     <tr ng-repeat="feature in ctrl.history | filter:ctrl.isHistoryItemDisplayable | orderBy:'-testRun.date'"
-        ng-class="ctrl.feature.testRunId === feature.testRun.id && 'active'">
+        ng-class="ctrl.feature.testRunId == feature.testRun.id && 'active'">
       <td>
         <span class="label label-default">{{ feature.testRun.env }}</span>
       </td>

@@ -28,12 +28,12 @@
 
   <p>
     <b>Créé le :</b>
-    {{ ctrl.scenario.createdAt | date:'dd/MM/yyyy à HH:mm:ss' }}
+    {{ ctrl.scenario.createdAt | date:'dd/MM/yyyy à HH:mm' }}
   </p>
 
   <p ng-hide="ctrl.scenario.createdAt == ctrl.scenario.modifiedAt">
     <b>Modifié le :</b>
-    {{ ctrl.scenario.modifiedAt | date:'dd/MM/yyyy à HH:mm:ss' }}
+    {{ ctrl.scenario.modifiedAt | date:'dd/MM/yyyy à HH:mm' }}
   </p>
 
   <p ng-if="ctrl.scenario.tags.length > 0">
@@ -46,7 +46,7 @@
   <div class="btn-toolbar" role="toolbar">
     <div class="btn-group" role="group">
 
-      <button type="button" class="btn btn-primary btn-default dropdown-toggle" data-toggle="dropdown"
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false">
         Modifier le statut
@@ -179,7 +179,7 @@
     </thead>
     <tbody>
     <tr ng-repeat="scenario in ctrl.history | filter:ctrl.isHistoryItemDisplayable | orderBy:'-testRun.date'"
-        ng-class="ctrl.scenario.testRunId === scenario.testRun.id && 'active'">
+        ng-class="ctrl.scenario.testRunId == scenario.testRun.id && 'active'">
       <td>
         <span class="label label-default">{{ scenario.testRun.env }}</span>
       </td>
