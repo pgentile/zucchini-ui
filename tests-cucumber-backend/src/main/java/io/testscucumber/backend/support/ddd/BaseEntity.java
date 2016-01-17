@@ -2,6 +2,14 @@ package io.testscucumber.backend.support.ddd;
 
 import java.util.Objects;
 
+/**
+ * Base class to build a DDD entity.
+ * <p>
+ * This class ensures that two differents entities are equal by identifier, by providing {@link #equals(Object)}
+ * and {@link #hashCode()} methods.
+ *
+ * @param <I> Type of entity identifier
+ */
 public abstract class BaseEntity<I> {
 
     @Override

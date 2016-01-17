@@ -20,4 +20,9 @@ public class BaseMorphiaQuery<T> {
         query = transform.apply(query);
     }
 
+    @Override
+    public String toString() {
+        return query.toString();
+    }
+
 }

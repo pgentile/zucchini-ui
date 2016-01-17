@@ -4,11 +4,9 @@ import io.testscucumber.backend.support.ddd.EntityNotFoundException;
 import io.testscucumber.backend.support.ddd.PreparedQuery;
 import org.mongodb.morphia.query.Query;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 class MorphiaPreparedQuery<T> implements PreparedQuery<T> {
 
@@ -19,18 +17,13 @@ class MorphiaPreparedQuery<T> implements PreparedQuery<T> {
     }
 
     @Override
-    public Iterator<T> iterator() {
-        return query.iterator();
-    }
-
-    @Override
     public List<T> find() {
         return query.asList();
     }
 
     @Override
     public Stream<T> stream() {
-        return StreamSupport.stream(spliterator(), false);
+        return MorphiaUtils.streamQuery(query);
     }
 
     @Override

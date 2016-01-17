@@ -18,7 +18,6 @@ public class MorphiaQueriableRepository<T, I, Q> extends MorphiaRepository<T, I>
     @Override
     public PreparedQuery<T> query(final Consumer<? super Q> preparator) {
         final Query<T> morphiaQuery = typedQueryDAO.prepareTypedQuery(preparator);
-
         return new MorphiaPreparedQuery<>(morphiaQuery);
     }
 
