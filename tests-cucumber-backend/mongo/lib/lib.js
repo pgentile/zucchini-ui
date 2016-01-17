@@ -3,7 +3,32 @@ var migrationContext = {
 };
 
 function migrate(migration, idempotent) {
-  print('Running migration ' + migrationContext.filename + '...');
+  var previousAppliedMigration = db.appliedMigrations.findOne({ _id: migrationContext.filename });
 
-  migration(migrationContext);
+  var runMigration = function () {
+    migration(migrationContext);
+    db.appliedMigrations.update(
+      {
+        _id: migrationContext.filename
+      },
+      {
+        _id: migrationContext.filename,
+        date: new Date()
+      },
+      {
+        upsert: true
+      }
+    );
+  };
+
+  if (previousAppliedMigration == null) {
+    print('Running migration ' + migrationContext.filename + ' for the first time...');
+    runMigration();
+  } else if (idempotent) {
+    print('Running idempotent migration ' + migrationContext.filename + ' prevously applied...');
+    runMigration();
+  } else {
+    print('Skipping previously applied migration ' + migrationContext.filename);
+  }
+
 }

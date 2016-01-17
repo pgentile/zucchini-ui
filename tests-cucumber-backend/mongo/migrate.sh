@@ -6,7 +6,10 @@ echo 'Build the migration file...'
 
 concat_filename="$TMPDIR/mongo-migration-$$.js"
 
-cat lib/lib.js >$concat_filename
+echo '// Migration library' >>$concat_filename
+cat lib/lib.js >>$concat_filename
+echo >>$concat_filename
+
 find migrations -type f -name '*.js' | sort | while read f; do
   migration_file=${f##*/}
   echo "  Adding file $f"
