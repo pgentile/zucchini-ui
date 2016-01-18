@@ -4,4 +4,4 @@ migrate(function () {
   db.features.createIndex({ testRunId: 1 });
   db.features.createIndex({ tags: 1 });
 
-}, true);
+});
