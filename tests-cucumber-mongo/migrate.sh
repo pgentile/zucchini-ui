@@ -4,7 +4,8 @@ set -e
 
 echo 'Build the migration file...'
 
-concat_filename="$TMPDIR/mongo-migration-$$.js"
+temp_dir=${TMPDIR:-${TEMP:-${TMP}}}
+concat_filename="$temp_dir/mongo-migration-$$.js"
 
 echo '// Migration library' >>$concat_filename
 cat lib/lib.js >>$concat_filename
