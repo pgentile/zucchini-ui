@@ -44,7 +44,7 @@
         info.arguments
           .filter(function (arg) {
             // Ignorer les arguments non définis
-            return _.isString(arg.value) && arg.value !== ''
+            return _.isString(arg.value) && arg.value !== '';
           })
           .forEach(function (arg) {
             // Ajouter le contenu avant l'argument
