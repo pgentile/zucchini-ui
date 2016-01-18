@@ -4,14 +4,20 @@ import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
-import io.testscucumber.backend.support.autocloseable.AutoCloseableManagedAdapter;
 import io.dropwizard.setup.Environment;
+import io.testscucumber.backend.support.autocloseable.AutoCloseableManagedAdapter;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
+import org.mongodb.morphia.logging.MorphiaLoggerFactory;
+import org.mongodb.morphia.logging.slf4j.SLF4JLoggerImplFactory;
 
 import java.util.Optional;
 
 public class MorphiaDatastoreBuilder {
+
+    static {
+        MorphiaLoggerFactory.registerLogger(SLF4JLoggerImplFactory.class);
+    }
 
     private final Environment environment;
 
