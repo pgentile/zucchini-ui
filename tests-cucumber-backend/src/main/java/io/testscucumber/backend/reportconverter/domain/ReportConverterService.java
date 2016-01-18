@@ -4,6 +4,6 @@ import java.io.InputStream;
 
 public interface ReportConverterService {
 
-    void convertAndSaveFeatures(String testRunId, InputStream featureStream, boolean dryRun);
+    void convertAndSaveFeatures(String testRunId, InputStream featureStream, boolean dryRun, boolean onlyNewScenarii);
 
 }

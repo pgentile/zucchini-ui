@@ -54,40 +54,55 @@ class ReportConverterServiceImpl implements ReportConverterService {
     }
 
     @Override
-    public void convertAndSaveFeatures(final String testRunId, final InputStream featureStream, final boolean dryRun) {
+    public void convertAndSaveFeatures(
+        final String testRunId,
+        final InputStream featureStream,
+        final boolean dryRun,
+        final boolean onlyNewScenarii
+    ) {
         final JavaType featureListJavaType = objectMapper.getTypeFactory().constructCollectionType(List.class, ReportFeature.class);
         try {
             final List<ReportFeature> reportFeatures = objectMapper.readValue(featureStream, featureListJavaType);
             for (final ReportFeature reportFeature : reportFeatures) {
-                convertAndSaveFeature(testRunId, reportFeature, dryRun);
+                convertAndSaveFeature(testRunId, reportFeature, dryRun, onlyNewScenarii);
             }
         } catch (final IOException e) {
             throw new IllegalStateException("Can't parse report feature stream", e);
         }
     }
 
-    private void convertAndSaveFeature(final String testRunId, final ReportFeature reportFeature, final boolean dryRun) {
+    private void convertAndSaveFeature(
+        final String testRunId,
+        final ReportFeature reportFeature,
+        final boolean dryRun,
+        final boolean onlyNewScenarii
+    ) {
         final ConversionResult conversionResult = reportConverter.convert(testRunId, reportFeature);
 
         if (dryRun) {
             conversionResult.getScenarii().forEach(s -> s.changeStatus(ScenarioStatus.NOT_RUN));
         }
 
+        // If feature has been merged to an existing feature, re-link scenarii to this existing feature
         final Feature feature = featureService.tryToMergeWithExistingFeature(conversionResult.getFeature());
-
-        if (feature != conversionResult.getFeature()) {
-            // Re-link to feature, if merged
+        if (!conversionResult.getFeature().equals(feature)) {
             conversionResult.getScenarii().forEach(s -> s.setFeatureId(feature.getId()));
         }
 
-        conversionResult.getScenarii().forEach(s -> {
-            final Scenario scenario = scenarioService.tryToMergeWithExistingScenario(s);
-            scenario.calculateStatusFromSteps();
-            scenarioRepository.save(scenario);
-        });
+        saveScenariiIfNeeded(conversionResult.getScenarii(), onlyNewScenarii);
 
         featureService.calculateStatusFromScenarii(feature);
         featureRepository.save(feature);
+    }
+
+    private void saveScenariiIfNeeded(final List<Scenario> allScenarii, final boolean onlyNewScenarii) {
+        for (final Scenario scenario : allScenarii) {
+            final Scenario mergedScenario = scenarioService.tryToMergeWithExistingScenario(scenario);
+            if (!onlyNewScenarii || mergedScenario.equals(scenario)) {
+                mergedScenario.calculateStatusFromSteps();
+                scenarioRepository.save(mergedScenario);
+            }
+        }
     }
 
 }

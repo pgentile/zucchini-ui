@@ -40,7 +40,9 @@ class FeatureServiceImpl implements FeatureService {
             .collect(Collectors.toSet());
 
         final FeatureStatus featureStatus;
-        if (scenariiStatus.contains(ScenarioStatus.FAILED)) {
+        if (scenariiStatus.isEmpty()) {
+            featureStatus = FeatureStatus.NOT_RUN;
+        } else if (scenariiStatus.contains(ScenarioStatus.FAILED)) {
             featureStatus = FeatureStatus.FAILED;
         } else if (scenariiStatus.stream().allMatch(isEqual(ScenarioStatus.PASSED))) {
             featureStatus = FeatureStatus.PASSED;

@@ -2,7 +2,7 @@
 
 (function (angular) {
 
-  var TestRunCoreService = function (TestRunResource, Upload, baseUri) {
+  var TestRunCoreService = function ($httpParamSerializer, TestRunResource, Upload, baseUri) {
 
     this.getLatests = function () {
       return TestRunResource.query().$promise;
@@ -28,11 +28,12 @@
       return TestRunResource.create(testRun).$promise;
     };
 
-    this.importCucumberResults = function (testRunId, file, dryRun) {
-      var url = baseUri + '/testRuns/' + testRunId + '/import';
-      if (dryRun) {
-        url += '?dry-run=true';
-      }
+    this.importCucumberResults = function (testRunId, file, dryRun, onlyNewScenarii) {
+      var queryParams = $httpParamSerializer({
+        dryRun: dryRun,
+        onlyNewScenarii: onlyNewScenarii
+      });
+      var url = baseUri + '/testRuns/' + testRunId + '/import?' + queryParams;
 
       return Upload.http({
          url: url,
@@ -71,7 +72,7 @@
             return TestRunCoreService.create(testRun);
           })
           .then(function (response) {
-            $location.path('/testRuns/' + response.id);
+            $location.path('/test-runs/' + response.id);
           });
       };
 
@@ -133,14 +134,19 @@
               return $q.reject('Fichier de rapport Cucumber non défini');
             }
 
-            return TestRunCoreService.importCucumberResults(this.testRun.id, content.file, content.dryRun)
-              .catch(function (error) {
-                ErrorService.sendError(error);
-              });
+            return TestRunCoreService.importCucumberResults(
+              this.testRun.id,
+              content.file,
+              content.dryRun,
+              content.onlyNewScenarii
+            );
           }.bind(this))
           .then(function () {
             this.load();
-          }.bind(this));
+          }.bind(this))
+          .catch(function (error) {
+            ErrorService.sendError(error);
+          });
 
       };
 
@@ -189,10 +195,13 @@
 
       this.dryRun = false;
 
+      this.onlyNewScenarii = true;
+
       this.import = function () {
         $uibModalInstance.close({
           file: this.file,
-          dryRun: this.dryRun
+          dryRun: this.dryRun,
+          onlyNewScenarii: this.onlyNewScenarii
         });
       };
 

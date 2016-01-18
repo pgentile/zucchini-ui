@@ -184,11 +184,17 @@
       <div class="form-group">
         <label for="file">Fichier à importer</label>
         <input type="file" id="file" ng-model="importCtrl.file" ngf-select ngf-pattern="'.json'">
-        <p class="help-block">Importez un fichier généré par le runner Cucumber</p>
+        <p class="help-block">Le fichier à importer est un résultat d'exécution Cucumber, au format JSON.</p>
       </div>
       <div class="checkbox">
         <label>
-          <input type="checkbox" id="dryRun" ng-model="importCtrl.dryRun">
+          <input type="checkbox" ng-model="importCtrl.onlyNewScenarii">
+          Limiter l'import aux nouveaux scénarii
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="importCtrl.dryRun">
           Tir à blanc
         </label>
       </div>
