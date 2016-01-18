@@ -43,7 +43,7 @@
 
         info.arguments.forEach(function (arg) {
           // Ignorer les arguments non définis
-          if (arg.value === null) {
+          if (_.isNull(arg.value) || _.isUndefined(arg.value)) {
             return;
           }
 
