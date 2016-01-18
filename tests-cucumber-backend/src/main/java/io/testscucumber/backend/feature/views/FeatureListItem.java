@@ -12,6 +12,8 @@ public class FeatureListItem {
 
     private BasicInfo info;
 
+    private String group;
+
     private FeatureStatus status;
 
     private ScenarioStats stats;
@@ -38,6 +40,14 @@ public class FeatureListItem {
 
     public void setInfo(final BasicInfo info) {
         this.info = info;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
     }
 
     public FeatureStatus getStatus() {

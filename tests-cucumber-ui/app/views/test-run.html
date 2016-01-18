@@ -97,7 +97,8 @@
   <table class="table table-striped table-bordered">
     <thead>
     <tr>
-      <th class="col-md-6">Fonctionnalité</th>
+      <th class="col-md-1">Groupe</th>
+      <th class="col-md-5">Fonctionnalité</th>
       <th class="col-md-1">Statut</th>
       <th class="col-md-1">Total</th>
       <th class="col-md-1">Succès</th>
@@ -107,7 +108,9 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="feature in ctrl.testRun.features | filter:ctrl.isFeatureDisplayable as filteredFeatures track by feature.id">
+    <tr
+      ng-repeat="feature in ctrl.testRun.features | filter:ctrl.isFeatureDisplayable as filteredFeatures track by feature.id">
+      <td>{{ feature.group }}</td>
       <td>
         <a ng-href="#/features/{{ feature.id }}">
           {{ feature.info.name }}
@@ -186,15 +189,20 @@
         <input type="file" id="file" ng-model="importCtrl.file" ngf-select ngf-pattern="'.json'">
         <p class="help-block">Le fichier à importer est un résultat d'exécution Cucumber, au format JSON.</p>
       </div>
+      <div class="form-group">
+        <label for="group">Groupe</label>
+        <input type="text" id="group" ng-model="importCtrl.importOptions.group" class="form-control"
+               placeholder="Nom d'un groupe pour les fonctionnalités importées">
+      </div>
       <div class="checkbox">
         <label>
-          <input type="checkbox" ng-model="importCtrl.onlyNewScenarii">
+          <input type="checkbox" ng-model="importCtrl.importOptions.onlyNewScenarii">
           Limiter l'import aux nouveaux scénarii
         </label>
       </div>
       <div class="checkbox">
         <label>
-          <input type="checkbox" ng-model="importCtrl.dryRun">
+          <input type="checkbox" ng-model="importCtrl.importOptions.dryRun">
           Tir à blanc
         </label>
       </div>

@@ -53,7 +53,7 @@ public class ReportMapperTest {
             reportFeatures = objectMapper.readValue(stream, reportFeatureListType);
         }
 
-        given(featureFactory.create(anyString())).willAnswer(args -> new Feature());
+        given(featureFactory.create(anyString(), anyString())).willAnswer(args -> new Feature());
         given(scenarioFactory.create(anyString(), anyString())).willAnswer(args -> new Scenario());
 
         // when

@@ -51,7 +51,7 @@ public class FeatureViewAccess {
 
     public List<FeatureListItem> getFeatureListItems(final Consumer<FeatureQuery> preparator, final boolean withStats) {
         final Query<Feature> query = featureDAO.prepareTypedQuery(preparator)
-            .retrievedFields(true, "id", "testRunId", "info", "status");
+            .retrievedFields(true, "id", "testRunId", "info", "group", "status");
 
         return MorphiaUtils.streamQuery(query)
             .map(feature -> {

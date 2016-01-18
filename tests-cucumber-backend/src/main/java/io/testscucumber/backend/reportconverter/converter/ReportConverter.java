@@ -38,19 +38,22 @@ public class ReportConverter {
 
     public ConversionResult convert(
         final String testRunId,
+        final String group,
         final ReportFeature reportFeature
     ) {
-        final Feature feature = mapFeature(testRunId, reportFeature);
+        final Feature feature = mapFeature(testRunId, group, reportFeature);
         final List<Scenario> scenarii = convertFeatureElementsToScenarii(feature, reportFeature.getElements());
         return new ConversionResult(feature, scenarii);
     }
 
     private Feature mapFeature(
         final String testRunId,
+        final String group,
         final ReportFeature reportFeature
     ) {
         final Map<Object, Object> globalProperties = new HashMap<>();
         globalProperties.put(MappingContextKey.TEST_RUN_ID, testRunId);
+        globalProperties.put(MappingContextKey.GROUP, group);
 
         final MappingContextFactory mappingContextFactory = new NonCyclicMappingContext.Factory(globalProperties);
 

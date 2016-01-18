@@ -28,6 +28,8 @@ public class Feature extends BaseEntity<String> {
 
     private String description;
 
+    private String group;
+
     private FeatureStatus status;
 
     private ZonedDateTime createdAt;
@@ -46,6 +48,11 @@ public class Feature extends BaseEntity<String> {
         tags = new HashSet<>(other.tags);
         location = other.location;
         description = other.description;
+
+        if (other.group != null) {
+            group = other.group;
+        }
+
         status = other.status;
         modifiedAt = ZonedDateTime.now();
     }
@@ -109,6 +116,14 @@ public class Feature extends BaseEntity<String> {
 
     public void setDescription(final String description) {
         this.description = description;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
     }
 
     public FeatureStatus getStatus() {

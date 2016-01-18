@@ -28,11 +28,8 @@
       return TestRunResource.create(testRun).$promise;
     };
 
-    this.importCucumberResults = function (testRunId, file, dryRun, onlyNewScenarii) {
-      var queryParams = $httpParamSerializer({
-        dryRun: dryRun,
-        onlyNewScenarii: onlyNewScenarii
-      });
+    this.importCucumberResults = function (testRunId, file, importOptions) {
+      var queryParams = $httpParamSerializer(importOptions);
       var url = baseUri + '/testRuns/' + testRunId + '/import?' + queryParams;
 
       return Upload.http({
@@ -134,12 +131,7 @@
               return $q.reject('Fichier de rapport Cucumber non défini');
             }
 
-            return TestRunCoreService.importCucumberResults(
-              this.testRun.id,
-              content.file,
-              content.dryRun,
-              content.onlyNewScenarii
-            );
+            return TestRunCoreService.importCucumberResults(this.testRun.id, content.file, content.importOptions);
           }.bind(this))
           .then(function () {
             this.load();
@@ -192,16 +184,16 @@
     .controller('ImportCucumberResultsCtrl', function ($uibModalInstance) {
 
       this.file = null;
-
-      this.dryRun = false;
-
-      this.onlyNewScenarii = true;
+      this.importOptions = {
+        group: null,
+        dryRun: false,
+        onlyNewScenarii: true
+      };
 
       this.import = function () {
         $uibModalInstance.close({
           file: this.file,
-          dryRun: this.dryRun,
-          onlyNewScenarii: this.onlyNewScenarii
+          importOptions: this.importOptions
         });
       };
 

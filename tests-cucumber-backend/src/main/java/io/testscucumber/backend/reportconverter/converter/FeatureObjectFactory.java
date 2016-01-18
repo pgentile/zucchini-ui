@@ -16,7 +16,8 @@ class FeatureObjectFactory implements ObjectFactory<Feature> {
     @Override
     public Feature create(final Object source, final MappingContext mappingContext) {
         final String testRunId = (String) mappingContext.getProperty(MappingContextKey.TEST_RUN_ID);
-        return featureFactory.create(testRunId);
+        final String group = (String) mappingContext.getProperty(MappingContextKey.GROUP);
+        return featureFactory.create(testRunId, group);
     }
 
 }

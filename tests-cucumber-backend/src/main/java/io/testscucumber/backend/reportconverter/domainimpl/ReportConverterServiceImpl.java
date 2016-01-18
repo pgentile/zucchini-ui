@@ -57,6 +57,7 @@ class ReportConverterServiceImpl implements ReportConverterService {
     public void convertAndSaveFeatures(
         final String testRunId,
         final InputStream featureStream,
+        final String group,
         final boolean dryRun,
         final boolean onlyNewScenarii
     ) {
@@ -64,7 +65,7 @@ class ReportConverterServiceImpl implements ReportConverterService {
         try {
             final List<ReportFeature> reportFeatures = objectMapper.readValue(featureStream, featureListJavaType);
             for (final ReportFeature reportFeature : reportFeatures) {
-                convertAndSaveFeature(testRunId, reportFeature, dryRun, onlyNewScenarii);
+                convertAndSaveFeature(testRunId, reportFeature, group, dryRun, onlyNewScenarii);
             }
         } catch (final IOException e) {
             throw new IllegalStateException("Can't parse report feature stream", e);
@@ -74,10 +75,11 @@ class ReportConverterServiceImpl implements ReportConverterService {
     private void convertAndSaveFeature(
         final String testRunId,
         final ReportFeature reportFeature,
+        final String group,
         final boolean dryRun,
         final boolean onlyNewScenarii
     ) {
-        final ConversionResult conversionResult = reportConverter.convert(testRunId, reportFeature);
+        final ConversionResult conversionResult = reportConverter.convert(testRunId, group, reportFeature);
 
         if (dryRun) {
             conversionResult.getScenarii().forEach(s -> s.changeStatus(ScenarioStatus.NOT_RUN));

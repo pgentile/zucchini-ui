@@ -17,6 +17,11 @@
     </small>
   </h1>
 
+  <p ng-show="ctrl.feature.group">
+    <b>Groupe :</b>
+    {{ ctrl.feature.group }}
+  </p>
+
   <p>
     <b>Source :</b>
     <code>{{ ctrl.feature.location.filename }}</code>, ligne <code>{{ ctrl.feature.location.line }}</code>

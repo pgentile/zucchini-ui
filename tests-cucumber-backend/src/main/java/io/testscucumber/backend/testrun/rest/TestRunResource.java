@@ -137,12 +137,13 @@ public class TestRunResource {
     @Path("{testRunId}/import")
     public void importCucumberReport(
         @PathParam("testRunId") final String testRunId,
+        @QueryParam("group") final String group,
         @QueryParam("dryRun") @DefaultValue("false") final boolean dryRun,
         @QueryParam("onlyNewScenarii") @DefaultValue("false") final boolean onlyNewScenarii,
         @NotNull final InputStream inputStream
     ) {
         final TestRun testRun = testRunRepository.getById(testRunId);
-        reportConverterService.convertAndSaveFeatures(testRun.getId(), inputStream, dryRun, onlyNewScenarii);
+        reportConverterService.convertAndSaveFeatures(testRun.getId(), inputStream, group, dryRun, onlyNewScenarii);
     }
 
 }
