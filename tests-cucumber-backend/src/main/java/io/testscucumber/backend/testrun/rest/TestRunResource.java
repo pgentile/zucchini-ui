@@ -10,6 +10,7 @@ import io.testscucumber.backend.testrun.domain.TestRun;
 import io.testscucumber.backend.testrun.domain.TestRunQuery;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;
 import io.testscucumber.backend.testrun.domain.TestRunService;
+import io.testscucumber.backend.testrun.views.TestRunListItem;
 import io.testscucumber.backend.testrun.views.TestRunViewAccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,13 +74,16 @@ public class TestRunResource {
     }
 
     @GET
-    public List<TestRun> getLatests(@QueryParam("env") final String env) {
+    public List<TestRunListItem> getLatests(
+        @QueryParam("env") final String env,
+        @QueryParam("withStats") @DefaultValue("false") final boolean withStats
+    ) {
         Consumer<TestRunQuery> queryPreparator = TestRunQuery::orderByLatestFirst;
         if (!Strings.isNullOrEmpty(env)) {
             queryPreparator = queryPreparator.andThen(q -> q.withEnv(env));
         }
 
-        return testRunRepository.query(queryPreparator).find();
+        return testRunViewAccess.getTestRunListItems(queryPreparator, withStats);
     }
 
     @POST

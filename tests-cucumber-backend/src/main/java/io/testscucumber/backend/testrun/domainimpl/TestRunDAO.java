@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.function.Consumer;
 
 @Component
-class TestRunDAO extends MorphiaTypedQueryDAO<TestRun, String, TestRunQuery> {
+public class TestRunDAO extends MorphiaTypedQueryDAO<TestRun, String, TestRunQuery> {
 
     @Autowired
     public TestRunDAO(final Datastore ds) {

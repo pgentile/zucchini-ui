@@ -12,8 +12,8 @@
       return TestRunResource.get({ testRunId: testRunId }).$promise;
     };
 
-    this.getByEnv = function (env) {
-      return TestRunResource.query({ env: env }).$promise;
+    this.getByEnv = function (env, withStats) {
+      return TestRunResource.query({ env: env, withStats: withStats || false }).$promise;
     };
 
     this.getStatsForFeatures = function (testRunId) {
@@ -88,7 +88,7 @@
             var featuresQ = FeatureCoreService.getFeaturesByTestRunId(testRun.id, true);
             var statsForFeaturesQ = TestRunCoreService.getStatsForFeatures(testRun.id);
             var statsForScenariiQ = TestRunCoreService.getStatsForScenarii(testRun.id);
-            var historyQ = TestRunCoreService.getByEnv(testRun.env);
+            var historyQ = TestRunCoreService.getByEnv(testRun.env, true);
 
             return $q.all([featuresQ, statsForFeaturesQ, statsForScenariiQ, historyQ])
               .then(_.spread(function (features, statsForFeatures, statsForScenarii, history) {
@@ -116,6 +116,9 @@
           });
       };
 
+
+      // Import
+
       this.openImportForm = function () {
         var createdModal = $uibModal.open({
           templateUrl: 'importCucumberResults.html',
@@ -130,16 +133,19 @@
               return $q.reject('Fichier de rapport Cucumber non défini');
             }
 
-            return TestRunCoreService.importCucumberResults(this.testRun.id, content.file, content.dryRun);
+            return TestRunCoreService.importCucumberResults(this.testRun.id, content.file, content.dryRun)
+              .catch(function (error) {
+                ErrorService.sendError(error);
+              });
           }.bind(this))
           .then(function () {
             this.load();
-          }.bind(this))
-          .catch(function (error) {
-            ErrorService.sendError(error);
-          });
+          }.bind(this));
+
       };
 
+
+      // Filter
 
       this.filters = featureStoredFilters.get();
 

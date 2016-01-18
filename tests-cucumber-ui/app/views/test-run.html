@@ -144,7 +144,12 @@
   <table class="table table-bordered">
     <thead>
     <tr>
-      <th class="col-md-12">Tir</th>
+      <th class="col-md-7">Tir</th>
+      <th class="col-md-1">Total</th>
+      <th class="col-md-1">Succès</th>
+      <th class="col-md-1">Échecs</th>
+      <th class="col-md-1">Partiels</th>
+      <th class="col-md-1">Non joués</th>
     </tr>
     </thead>
     <tbody>
@@ -155,6 +160,11 @@
           {{ testRun.date | date:'dd/MM/yyyy à HH:mm' }}
         </a>
       </td>
+      <td><span class="badge">{{ testRun.stats.count }}</span></td>
+      <td><span class="badge">{{ testRun.stats.statsByStatus['PASSED'] }}</span></td>
+      <td><span class="badge">{{ testRun.stats.statsByStatus['FAILED'] }}</span></td>
+      <td><span class="badge">{{ testRun.stats.statsByStatus['PARTIAL'] }}</span></td>
+      <td><span class="badge">{{ testRun.stats.statsByStatus['NOT_RUN'] }}</span></td>
     </tr>
     </tbody>
   </table>
