@@ -41,23 +41,23 @@
 
         var items = [];
 
-        info.arguments.forEach(function (arg) {
-          // Ignorer les arguments non définis
-          if (_.isNull(arg.value) || _.isUndefined(arg.value)) {
-            return;
-          }
+        info.arguments
+          .filter(function (arg) {
+            // Ignorer les arguments non définis
+            return _.isString(arg.value) && arg.value !== ''
+          })
+          .forEach(function (arg) {
+            // Ajouter le contenu avant l'argument
+            var before = name.substring(previousOffset, arg.offset);
+            if (before.length > 0) {
+              items.push({ type: 'text', value: before });
+            }
 
-          // Ajouter le contenu avant l'argument
-          var before = name.substring(previousOffset, arg.offset);
-          if (before.length > 0) {
-            items.push({ type: 'text', value: before });
-          }
+            // Extraire la valeur de l'argument
+            items.push({ type: 'arg', value: arg.value });
 
-          // Extraire la valeur de l'argument
-          items.push({ type: 'arg', value: arg.value });
-
-          previousOffset = arg.offset + arg.value.length;
-        });
+            previousOffset = arg.offset + arg.value.length;
+          });
 
         // Ajouter le contenu restant
         var remaining = name.substring(previousOffset);
