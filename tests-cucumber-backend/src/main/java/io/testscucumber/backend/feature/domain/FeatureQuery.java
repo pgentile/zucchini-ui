@@ -6,6 +6,6 @@ public interface FeatureQuery {
 
     FeatureQuery withTestRunId(String testRunId);
 
-    FeatureQuery orderByFeatureName();
+    FeatureQuery orderByGroupAndName();
 
 }

@@ -49,7 +49,7 @@ public class FeatureResource {
         @QueryParam("testRunId") final String testRunId,
         @QueryParam("withStats") @DefaultValue("false") final boolean withStats
     ) {
-        return featureViewAccess.getFeatureListItems(q -> q.withTestRunId(testRunId).orderByFeatureName(), withStats);
+        return featureViewAccess.getFeatureListItems(q -> q.withTestRunId(testRunId).orderByGroupAndName(), withStats);
     }
 
     @GET

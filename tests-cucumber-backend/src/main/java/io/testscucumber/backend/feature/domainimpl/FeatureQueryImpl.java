@@ -29,8 +29,8 @@ class FeatureQueryImpl extends BaseMorphiaQuery<Feature> implements FeatureQuery
     }
 
     @Override
-    public FeatureQuery orderByFeatureName() {
-        configureQuery(q -> q.order("info.name"));
+    public FeatureQuery orderByGroupAndName() {
+        configureQuery(q -> q.order("group,info.name"));
         return this;
     }
 
