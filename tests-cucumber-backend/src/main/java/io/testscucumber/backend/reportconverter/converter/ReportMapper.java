@@ -55,6 +55,7 @@ class ReportMapper extends ConfigurableMapper {
             .fieldMap("id", "featureKey").converter("sha1").add()
             .fieldMap("keyword", "info.keyword").converter("trimString").add()
             .fieldMap("name", "info.name").converter("trimString").add()
+            .fieldMap("description", "description").converter("trimString").add()
             .fieldMap("tags{name}", "tags{}").converter("stripAtSign").add()
             .field("filename", "location.filename")
             .field("line", "location.line")
