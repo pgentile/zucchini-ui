@@ -64,30 +64,22 @@
 
   <h2>Fonctionnalités</h2>
 
-  <div class="form-inline" style="margin-bottom: 10px">
+  <div class="form" style="margin-bottom: 10px">
     <div class="form-group">
       <b>Filtrer par statut :</b>
-    </div>
-    <div class="checkbox">
-      <label>
+      <label class="checkbox-inline">
         <input type="checkbox" ng-model="ctrl.filters.passed" ng-change="ctrl.updateStoredFilters()">
         Succès
       </label>
-    </div>
-    <div class="checkbox">
-      <label>
+      <label class="checkbox-inline">
         <input type="checkbox" ng-model="ctrl.filters.failed" ng-change="ctrl.updateStoredFilters()">
         Échecs
       </label>
-    </div>
-    <div class="checkbox">
-      <label>
+      <label class="checkbox-inline">
         <input type="checkbox" ng-model="ctrl.filters.partial" ng-change="ctrl.updateStoredFilters()">
         Partiels
       </label>
-    </div>
-    <div class="checkbox">
-      <label>
+      <label class="checkbox-inline">
         <input type="checkbox" ng-model="ctrl.filters.notRun" ng-change="ctrl.updateStoredFilters()">
         Non joués
       </label>

@@ -81,27 +81,19 @@
 
   <h2>Scénarii</h2>
 
-  <div class="form-inline" style="margin-bottom: 10px">
+  <div class="form" style="margin-bottom: 10px">
     <div class="form-group">
       <b>Filtrer par statut :</b>
-    </div>
-    <div class="checkbox">
-      <label>
+      <label class="checkbox-inline">
         <input type="checkbox" ng-model="ctrl.filters.passed" ng-change="ctrl.updateStoredFilters()"> Succès
       </label>
-    </div>
-    <div class="checkbox">
-      <label>
+      <label class="checkbox-inline">
         <input type="checkbox" ng-model="ctrl.filters.failed" ng-change="ctrl.updateStoredFilters()"> Échecs
       </label>
-    </div>
-    <div class="checkbox">
-      <label>
+      <label class="checkbox-inline">
         <input type="checkbox" ng-model="ctrl.filters.pending" ng-change="ctrl.updateStoredFilters()"> En attente
       </label>
-    </div>
-    <div class="checkbox">
-      <label>
+      <label class="checkbox-inline">
         <input type="checkbox" ng-model="ctrl.filters.notRun" ng-change="ctrl.updateStoredFilters()"> Non joués
       </label>
     </div>
@@ -115,7 +107,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="scenario in ctrl.feature.scenarii | filter:ctrl.isScenarioDisplayable as filteredScenarii track by scenario.id">
+    <tr
+      ng-repeat="scenario in ctrl.feature.scenarii | filter:ctrl.isScenarioDisplayable as filteredScenarii track by scenario.id">
       <td>
         <a ng-href="#/scenarii/{{ scenario.id }}">
           <tc-element-info info="scenario.info"></tc-element-info>
@@ -144,12 +137,10 @@
 
   <h2>Historique</h2>
 
-  <div class="form-inline" style="margin-bottom: 10px">
+  <div class="form" style="margin-bottom: 10px">
     <div class="form-group">
       <b>Filtrer :</b>
-    </div>
-    <div class="checkbox">
-      <label>
+      <label class="checkbox-inline">
         <input type="checkbox" ng-model="ctrl.historyFilters.sameTestRun" ng-change="ctrl.updateStoredFilters()">
         Même environnement de tir
       </label>
