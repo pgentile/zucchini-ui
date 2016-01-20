@@ -37,7 +37,7 @@ class ScenarioQueryImpl extends BaseMorphiaQuery<Scenario> implements ScenarioQu
     }
 
     @Override
-    public ScenarioQuery orderedByScenarioName() {
+    public ScenarioQuery orderedByName() {
         configureQuery(q -> q.order("info.name"));
         return this;
     }

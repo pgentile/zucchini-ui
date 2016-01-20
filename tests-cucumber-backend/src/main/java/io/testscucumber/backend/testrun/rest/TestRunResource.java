@@ -2,7 +2,6 @@ package io.testscucumber.backend.testrun.rest;
 
 
 import com.google.common.base.Strings;
-import io.dropwizard.jersey.PATCH;
 import io.testscucumber.backend.feature.views.FeatureStats;
 import io.testscucumber.backend.reportconverter.domain.ReportConverterService;
 import io.testscucumber.backend.scenario.views.ScenarioStats;
@@ -89,7 +88,7 @@ public class TestRunResource {
     @POST
     @Path("create")
     public Response create(@Valid @NotNull final CreateTestRunRequest request) {
-        final TestRun testRun = new TestRun(request.getEnv(), request.getLabels());
+        final TestRun testRun = new TestRun(request.getEnv());
         testRunRepository.save(testRun);
 
         final URI location = uriInfo.getBaseUriBuilder()
@@ -119,12 +118,10 @@ public class TestRunResource {
         return testRunViewAccess.getStatsForScenariiByTestRunId(testRunId);
     }
 
-    @PATCH
-    @Path("{testRunId}")
-    public void update(@PathParam("testRunId") final String testRunId, @Valid @NotNull final UpdateTestRunRequest request) {
-        final TestRun testRun = testRunRepository.getById(testRunId);
-        testRun.setLabels(request.getLabels());
-        testRunRepository.save(testRun);
+    @GET
+    @Path("{testRunId}/tags")
+    public ScenarioStats getTags(@PathParam("testRunId") final String testRunId) {
+        return testRunViewAccess.getStatsForScenariiByTestRunId(testRunId);
     }
 
     @DELETE

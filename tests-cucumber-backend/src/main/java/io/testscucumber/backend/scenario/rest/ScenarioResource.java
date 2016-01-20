@@ -67,7 +67,7 @@ public class ScenarioResource {
 
     @GET
     public List<ScenarioListItemView> getScenarii(@QueryParam("featureId") final String featureId) {
-        return scenarioViewAccess.getScenarioListItems(q -> q.withFeatureId(featureId).orderedByScenarioName());
+        return scenarioViewAccess.getScenarioListItems(q -> q.withFeatureId(featureId).orderedByName());
     }
 
     @GET

@@ -42,7 +42,7 @@ public class TestRunListItem {
         return stats;
     }
 
-    public void setStats(FeatureStats stats) {
+    public void setStats(final FeatureStats stats) {
         this.stats = stats;
     }
 }

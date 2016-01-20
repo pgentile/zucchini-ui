@@ -122,7 +122,7 @@ public class Feature extends BaseEntity<String> {
         return group;
     }
 
-    public void setGroup(String group) {
+    public void setGroup(final String group) {
         this.group = group;
     }
 

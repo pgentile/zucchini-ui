@@ -8,6 +8,6 @@ public interface ScenarioQuery {
 
     ScenarioQuery withTestRunId(String testRunId);
 
-    ScenarioQuery orderedByScenarioName();
+    ScenarioQuery orderedByName();
 
 }
