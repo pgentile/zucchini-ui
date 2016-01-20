@@ -4,8 +4,8 @@
 
   var TestRunCoreService = function ($httpParamSerializer, TestRunResource, Upload, baseUri) {
 
-    this.getLatests = function () {
-      return TestRunResource.query().$promise;
+    this.getLatests = function (withStats) {
+      return TestRunResource.query({ withStats: withStats || false }).$promise;
     };
 
     this.getById = function (testRunId) {
@@ -51,7 +51,7 @@
     .controller('AllTestRunsCtrl', function (TestRunCoreService, $uibModal, $location) {
 
       this.load = function () {
-        TestRunCoreService.getLatests()
+        TestRunCoreService.getLatests(true)
           .then(function (latestTestRuns) {
             this.latestTestRuns = latestTestRuns;
           }.bind(this));
