@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="$dismiss()" aria-label="Fermer">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="modal-title">{{ ctrl.displayOptions.title }}</h4>
+</div>
+
+<div class="modal-body">
+  <p>{{ ctrl.displayOptions.bodyContent }}</p>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" ng-click="$dismiss()">
+    Annuler
+  </button>
+  <button type="button" class="btn btn-primary" ng-click="$close({})">
+    {{ ctrl.displayOptions.confirmTitle }}
+  </button>
+</div>

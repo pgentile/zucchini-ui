@@ -40,7 +40,7 @@
 
 
   angular.module('testsCucumberApp')
-    .controller('ScenarioCtrl', function (ScenarioCoreService, FeatureCoreService, TestRunCoreService, $routeParams, $q, $location, historyFilters) {
+    .controller('ScenarioCtrl', function (ScenarioCoreService, FeatureCoreService, TestRunCoreService, ConfirmationModalService, $routeParams, $q, $location, historyFilters) {
 
       this.scenario = {};
 
@@ -80,10 +80,20 @@
       };
 
       this.delete = function () {
-        ScenarioCoreService.delete(this.scenario.id)
+
+        return ConfirmationModalService
+          .open({
+            title: 'Supprimer le scénario',
+            bodyContent: 'La suppression est irreversible. Êtes-vous sûr de supprimer ce scénario ?',
+            confirmTitle: 'Supprimer'
+          })
+          .then(function () {
+            return ScenarioCoreService.delete(this.scenario.id);
+          }.bind(this))
           .then(function () {
             $location.path('/features/' + this.scenario.featureId);
           }.bind(this));
+
       };
 
       this.maxDisplayedComments = 5;

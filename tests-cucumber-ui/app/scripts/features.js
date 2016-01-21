@@ -28,7 +28,7 @@
 
 
   angular.module('testsCucumberApp')
-    .controller('FeatureCtrl', function ($routeParams, $q, $location, FeatureCoreService, TestRunCoreService, ScenarioCoreService, scenarioStoredFilters, historyFilters) {
+    .controller('FeatureCtrl', function ($routeParams, $q, $location, FeatureCoreService, TestRunCoreService, ScenarioCoreService, ConfirmationModalService, scenarioStoredFilters, historyFilters) {
 
       this.load = function () {
 
@@ -64,9 +64,20 @@
       };
 
       this.delete = function () {
-        FeatureCoreService.delete(this.feature.id).then(function () {
-          $location.path('/test-runs/' + this.feature.testRun.id);
-        }.bind(this));
+
+        return ConfirmationModalService
+          .open({
+            title: 'Supprimer la fonctionnalité',
+            bodyContent: 'La suppression est irreversible. Êtes-vous sûr de supprimer cette fonctionnnalité ?',
+            confirmTitle: 'Supprimer'
+          })
+          .then(function () {
+            return FeatureCoreService.delete(this.feature.id);
+          }.bind(this))
+          .then(function () {
+            $location.path('/test-runs/' + this.feature.testRun.id);
+          }.bind(this));
+
       };
 
 

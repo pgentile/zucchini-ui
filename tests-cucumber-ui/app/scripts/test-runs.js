@@ -76,7 +76,7 @@
       this.load();
 
     })
-    .controller('TestRunCtrl', function ($q, $routeParams, $location, $uibModal, TestRunCoreService, FeatureCoreService, ErrorService, featureStoredFilters) {
+    .controller('TestRunCtrl', function ($q, $routeParams, $location, $uibModal, TestRunCoreService, FeatureCoreService, ErrorService, ConfirmationModalService, featureStoredFilters) {
 
       this.load = function () {
 
@@ -108,10 +108,20 @@
       };
 
       this.delete = function () {
-        TestRunCoreService.delete(this.testRun.id)
+
+        return ConfirmationModalService
+          .open({
+            title: 'Supprimer le tir de tests',
+            bodyContent: 'La suppression est irreversible. Êtes-vous sûr de supprimer ce tir ?',
+            confirmTitle: 'Supprimer'
+          })
+          .then(function () {
+            return TestRunCoreService.delete(this.testRun.id);
+          }.bind(this))
           .then(function () {
             $location.path('/');
           });
+
       };
 
 
