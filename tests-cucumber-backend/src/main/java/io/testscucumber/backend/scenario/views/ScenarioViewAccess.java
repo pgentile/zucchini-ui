@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -76,6 +77,15 @@ public class ScenarioViewAccess {
             .forEach(stats::addScenarioStatus);
 
         return stats;
+    }
+
+    public Set<String> getTags(final Consumer<ScenarioQuery> preparator) {
+        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator)
+            .retrievedFields(true, "id", "tags");
+
+        return MorphiaUtils.streamQuery(query)
+            .flatMap(scenario -> scenario.getTags().stream())
+            .collect(Collectors.toSet());
     }
 
 }

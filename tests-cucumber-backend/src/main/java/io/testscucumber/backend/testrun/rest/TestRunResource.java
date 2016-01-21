@@ -9,6 +9,7 @@ import io.testscucumber.backend.testrun.domain.TestRun;
 import io.testscucumber.backend.testrun.domain.TestRunQuery;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;
 import io.testscucumber.backend.testrun.domain.TestRunService;
+import io.testscucumber.backend.testrun.views.ScenarioTagStats;
 import io.testscucumber.backend.testrun.views.TestRunListItem;
 import io.testscucumber.backend.testrun.views.TestRunViewAccess;
 import org.slf4j.Logger;
@@ -120,8 +121,8 @@ public class TestRunResource {
 
     @GET
     @Path("{testRunId}/tags")
-    public ScenarioStats getTags(@PathParam("testRunId") final String testRunId) {
-        return testRunViewAccess.getStatsForScenariiByTestRunId(testRunId);
+    public List<ScenarioTagStats> getTags(@PathParam("testRunId") final String testRunId) {
+        return testRunViewAccess.getScenarioTagStats(testRunId);
     }
 
     @DELETE

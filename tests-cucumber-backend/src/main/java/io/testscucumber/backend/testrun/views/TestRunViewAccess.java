@@ -12,6 +12,7 @@ import ma.glasnost.orika.BoundMapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -59,6 +60,16 @@ public class TestRunViewAccess {
 
     public ScenarioStats getStatsForScenariiByTestRunId(final String testRunId) {
         return scenarioViewAccess.getStats(q -> q.withTestRunId(testRunId));
+    }
+
+    public List<ScenarioTagStats> getScenarioTagStats(final String testRunId) {
+        return scenarioViewAccess.getTags(q -> q.withTestRunId(testRunId)).stream()
+            .map(tag -> {
+                final ScenarioStats stats = scenarioViewAccess.getStats(q -> q.withTestRunId(testRunId).withTag(tag));
+                return new ScenarioTagStats(tag, stats);
+            })
+            .sorted(Comparator.comparing(ScenarioTagStats::getTag))
+            .collect(Collectors.toList());
     }
 
 }
