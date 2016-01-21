@@ -30,6 +30,7 @@ module.exports = function(config) {
       'bower_components/angular-route/angular-route.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/ng-file-upload/ng-file-upload.js',
+      'bower_components/angular-loading-bar/build/loading-bar.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "test/mock/globals.js",
