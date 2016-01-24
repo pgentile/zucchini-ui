@@ -10,4 +10,6 @@ public interface FeatureService {
 
     Feature tryToMergeWithExistingFeature(Feature newFeature);
 
+    void updateScenariiWithFeatureTags(Feature feature);
+
 }

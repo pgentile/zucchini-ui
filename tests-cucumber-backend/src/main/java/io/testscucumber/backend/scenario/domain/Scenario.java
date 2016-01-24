@@ -26,6 +26,8 @@ public class Scenario extends BaseEntity<String> {
 
     private Set<String> tags = new HashSet<>();
 
+    private Set<String> allTags = new HashSet<>();
+
     private Background background;
 
     private ScenarioStatus status;
@@ -58,6 +60,7 @@ public class Scenario extends BaseEntity<String> {
         }
 
         tags = new HashSet<>(other.tags);
+        allTags = new HashSet<>(other.allTags);
         background = other.background;
         status = other.status;
         info = other.info;
@@ -101,6 +104,18 @@ public class Scenario extends BaseEntity<String> {
 
         status = newStatus;
         modifiedAt = ZonedDateTime.now();
+    }
+
+    public void updateWithExtraTags(final Set<String> extraTags) {
+        final Set<String> oldTags = new HashSet<>(tags);
+
+        allTags.clear();
+        allTags.addAll(tags);
+        allTags.addAll(extraTags);
+
+        if (!oldTags.equals(allTags)) {
+            modifiedAt = ZonedDateTime.now();
+        }
     }
 
     public void calculateStatusFromSteps() {
@@ -186,6 +201,14 @@ public class Scenario extends BaseEntity<String> {
 
     public void setTags(final Set<String> tags) {
         this.tags = tags;
+    }
+
+    public Set<String> getAllTags() {
+        return allTags;
+    }
+
+    public void setAllTags(Set<String> allTags) {
+        this.allTags = allTags;
     }
 
     public Background getBackground() {

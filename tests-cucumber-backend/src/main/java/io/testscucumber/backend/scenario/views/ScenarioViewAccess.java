@@ -81,10 +81,10 @@ public class ScenarioViewAccess {
 
     public Set<String> getTags(final Consumer<ScenarioQuery> preparator) {
         final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator)
-            .retrievedFields(true, "id", "tags");
+            .retrievedFields(true, "id", "allTags");
 
         return MorphiaUtils.streamQuery(query)
-            .flatMap(scenario -> scenario.getTags().stream())
+            .flatMap(scenario -> scenario.getAllTags().stream())
             .collect(Collectors.toSet());
     }
 

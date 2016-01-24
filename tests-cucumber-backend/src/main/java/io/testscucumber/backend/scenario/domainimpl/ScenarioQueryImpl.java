@@ -44,7 +44,7 @@ class ScenarioQueryImpl extends BaseMorphiaQuery<Scenario> implements ScenarioQu
 
     @Override
     public ScenarioQuery withTag(final String tag) {
-        configureQuery(q -> q.field("tags").equal(tag));
+        configureQuery(q -> q.field("allTags").equal(tag));
         return this;
     }
 

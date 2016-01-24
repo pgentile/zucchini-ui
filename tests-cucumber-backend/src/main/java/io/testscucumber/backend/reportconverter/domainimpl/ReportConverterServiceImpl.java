@@ -99,6 +99,8 @@ class ReportConverterServiceImpl implements ReportConverterService {
 
         featureService.calculateStatusFromScenarii(feature);
         featureRepository.save(feature);
+
+        featureService.updateScenariiWithFeatureTags(feature);
     }
 
     private void saveScenariiIfNeeded(final List<Scenario> allScenarii, final boolean onlyNewScenarii) {

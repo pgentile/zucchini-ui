@@ -83,4 +83,14 @@ class FeatureServiceImpl implements FeatureService {
             .orElse(newFeature);
     }
 
+    @Override
+    public void updateScenariiWithFeatureTags(final Feature feature) {
+        scenarioRepository.query(q -> q.withFeatureId(feature.getId()))
+            .stream()
+            .forEach(scenario -> {
+                scenario.updateWithExtraTags(feature.getTags());
+                scenarioRepository.save(scenario);
+            });
+    }
+
 }

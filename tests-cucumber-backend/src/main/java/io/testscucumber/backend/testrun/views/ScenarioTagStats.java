@@ -11,7 +11,7 @@ public class ScenarioTagStats {
     private final ScenarioStats stats;
 
     @JsonCreator
-    public ScenarioTagStats(@JsonProperty("tag") String tag, @JsonProperty("stats") ScenarioStats stats) {
+    public ScenarioTagStats(@JsonProperty("tag") final String tag, @JsonProperty("stats") final ScenarioStats stats) {
         this.tag = tag;
         this.stats = stats;
     }
