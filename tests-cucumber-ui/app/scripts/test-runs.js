@@ -24,6 +24,10 @@
       return TestRunResource.getStatsForScenarii({ testRunId: testRunId }).$promise;
     };
 
+    this.getTags = function (testRunId) {
+      return TestRunResource.getTags({ testRunId: testRunId }).$promise;
+    };
+
     this.create = function (testRun) {
       return TestRunResource.create(testRun).$promise;
     };
@@ -177,6 +181,34 @@
       }.bind(this);
 
 
+      // Tags
+
+      this.viewTags = function () {
+        $location.path('/test-runs/' + $routeParams.testRunId + '/tags');
+      };
+
+
+      this.load();
+
+    })
+    .controller('TestRunTagsCtrl', function ($routeParams, $q, TestRunCoreService) {
+
+      this.load = function () {
+
+        var testRunQ = TestRunCoreService.getById($routeParams.testRunId);
+        var tagsQ = TestRunCoreService.getTags($routeParams.testRunId);
+
+        return $q.all([testRunQ, tagsQ])
+          .then(_.spread(function (testRun, tags) {
+            testRun.tags = tags;
+            return testRun;
+          }))
+          .then(function (testRun) {
+            this.testRun = testRun;
+          }.bind(this));
+      };
+
+
       this.load();
 
     })
@@ -235,6 +267,11 @@
           getStatsForScenarii: {
             method: 'GET',
             url: baseUri + '/testRuns/:testRunId/stats/forScenarii'
+          },
+          getTags: {
+            method: 'GET',
+            url: baseUri + '/testRuns/:testRunId/tags',
+            isArray: true
           }
         }
       );
@@ -249,6 +286,11 @@
         .when('/test-runs/:testRunId', {
           templateUrl: 'views/test-run.html',
           controller: 'TestRunCtrl',
+          controllerAs: 'ctrl'
+        })
+        .when('/test-runs/:testRunId/tags', {
+          templateUrl: 'views/test-run-tags.html',
+          controller: 'TestRunTagsCtrl',
           controllerAs: 'ctrl'
         });
     });

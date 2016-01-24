@@ -1,0 +1,45 @@
+<div>
+
+  <ol class="breadcrumb">
+    <li>Environnement {{ ctrl.testRun.env }}</li>
+    <li>
+      <a ng-href="#/test-runs/{{ ctrl.testRun.id }}">
+        Tir du {{ ctrl.testRun.date | date:'dd/MM/yyyy à HH:mm' }}
+      </a>
+    </li>
+    <li class="active">Tags</li>
+  </ol>
+
+  <h1>Tir du {{ ctrl.testRun.date | date:'dd/MM/yyyy à HH:mm' }} - Tags</h1>
+
+  <!-- Tags -->
+
+  <hr>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+      <th class="col-md-7">Tag</th>
+      <th class="col-md-1">Total</th>
+      <th class="col-md-1">Succès</th>
+      <th class="col-md-1">Échecs</th>
+      <th class="col-md-1">En attente</th>
+      <th class="col-md-1">Non joués</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr
+      ng-repeat="tag in ctrl.testRun.tags track by tag.tag">
+      <td>
+        <tc-tags tags="[tag.tag]"></tc-tags>
+      </td>
+      <td><span class="badge">{{ tag.stats.count }}</span></td>
+      <td><span class="badge">{{ tag.stats.statsByStatus['PASSED'] }}</span></td>
+      <td><span class="badge">{{ tag.stats.statsByStatus['FAILED'] }}</span></td>
+      <td><span class="badge">{{ tag.stats.statsByStatus['PENDING'] }}</span></td>
+      <td><span class="badge">{{ tag.stats.statsByStatus['NOT_RUN'] }}</span></td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
