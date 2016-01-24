@@ -10,4 +10,4 @@ public enum CommentReferenceType {
         return new CommentReference(this, reference);
     }
 
-    }
+}
