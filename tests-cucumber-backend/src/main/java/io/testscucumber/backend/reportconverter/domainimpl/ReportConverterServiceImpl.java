@@ -1,7 +1,7 @@
 package io.testscucumber.backend.reportconverter.domainimpl;
 
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
 import io.testscucumber.backend.feature.domain.Feature;
 import io.testscucumber.backend.feature.domain.FeatureRepository;
 import io.testscucumber.backend.feature.domain.FeatureService;
@@ -65,7 +65,7 @@ class ReportConverterServiceImpl implements ReportConverterService {
         final boolean dryRun,
         final boolean onlyNewScenarii
     ) {
-        final JavaType featureListJavaType = objectMapper.getTypeFactory().constructCollectionType(List.class, ReportFeature.class);
+        final CollectionType featureListJavaType = objectMapper.getTypeFactory().constructCollectionType(List.class, ReportFeature.class);
         try {
             final List<ReportFeature> reportFeatures = objectMapper.readValue(featureStream, featureListJavaType);
             for (final ReportFeature reportFeature : reportFeatures) {
