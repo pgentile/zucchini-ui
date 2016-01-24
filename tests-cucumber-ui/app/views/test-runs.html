@@ -39,7 +39,7 @@
         <span class="label label-default">{{ testRun.env }}</span>
       </td>
       <td>
-        <a ng-href="#/test-runs/{{ testRun.id }}">Tir du {{ testRun.date | date:'dd/MM/yyyy à HH:mm' }}</a>
+        <a ng-href="#/test-runs/{{ testRun.id }}">Tir du {{ testRun.date | niceDate }}</a>
       </td>
       <td><span class="badge">{{ testRun.stats.count }}</span></td>
       <td><span class="badge">{{ testRun.stats.statsByStatus['PASSED'] }}</span></td>

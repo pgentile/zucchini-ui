@@ -4,7 +4,7 @@
     <li>Environnement {{ ctrl.feature.testRun.env }}</li>
     <li class="active">
       <a ng-href="#/test-runs/{{ ctrl.feature.testRun.id }}">
-        Tir du {{ ctrl.feature.testRun.date | date:'dd/MM/yyyy à HH:mm' }}
+        Tir du {{ ctrl.feature.testRun.date | niceDate }}
       </a>
     </li>
     <li class="active">{{ ctrl.feature.info.keyword }} {{ ctrl.feature.info.name }}</li>
@@ -29,12 +29,12 @@
 
   <p>
     <b>Créé le :</b>
-    {{ ctrl.feature.createdAt | date:'dd/MM/yyyy à HH:mm' }}
+    {{ ctrl.feature.createdAt | niceDate }}
   </p>
 
   <p ng-hide="ctrl.feature.createdAt == ctrl.feature.modifiedAt">
     <b>Modifié le :</b>
-    {{ ctrl.feature.modifiedAt | date:'dd/MM/yyyy à HH:mm' }}
+    {{ ctrl.feature.modifiedAt | niceDate }}
   </p>
 
   <p ng-if="ctrl.feature.tags.length > 0">
@@ -173,7 +173,7 @@
       </td>
       <td>
         <a ng-href="#/features/{{ feature.id }}">
-          {{ feature.testRun.date | date:'dd/MM/yyyy à HH:mm' }}
+          {{ feature.testRun.date | niceDate }}
         </a>
       </td>
       <td>

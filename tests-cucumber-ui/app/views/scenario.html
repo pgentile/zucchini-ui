@@ -4,7 +4,7 @@
     <li>Environnement {{ ctrl.scenario.testRun.env }}</li>
     <li class="active">
       <a ng-href="#/test-runs/{{ ctrl.scenario.testRun.id }}">
-        Tir du {{ ctrl.scenario.testRun.date | date:'dd/MM/yyyy à HH:mm' }}
+        Tir du {{ ctrl.scenario.testRun.date | niceDate }}
       </a>
     </li>
     <li class="active">
@@ -28,12 +28,12 @@
 
   <p>
     <b>Créé le :</b>
-    {{ ctrl.scenario.createdAt | date:'dd/MM/yyyy à HH:mm' }}
+    {{ ctrl.scenario.createdAt | niceDate }}
   </p>
 
   <p ng-hide="ctrl.scenario.createdAt == ctrl.scenario.modifiedAt">
     <b>Modifié le :</b>
-    {{ ctrl.scenario.modifiedAt | date:'dd/MM/yyyy à HH:mm' }}
+    {{ ctrl.scenario.modifiedAt | niceDate }}
   </p>
 
   <p ng-if="ctrl.scenario.tags.length > 0">
@@ -138,7 +138,7 @@
 
   <div
     ng-repeat="comment in ctrl.comments | filter:ctrl.limitDisplayedComments as filteredComments track by comment.id">
-    <h5>Le {{ comment.date | date:'dd/MM/yyyy à HH:mm:ss' }}</h5>
+    <h5>Le {{ comment.date | niceDate }}</h5>
     <p ng-class="ctrl.isCommentFromSameTestRun(comment) || 'text-muted'">
       <tc-line-breaks content="comment.content"></tc-line-breaks>
     </p>
@@ -203,7 +203,7 @@
       </td>
       <td>
         <a ng-href="#/scenarii/{{ scenario.id }}">
-          {{ scenario.testRun.date | date:'dd/MM/yyyy à HH:mm' }}
+          {{ scenario.testRun.date | niceDate }}
         </a>
       </td>
       <td>

@@ -4,13 +4,13 @@
     <li>Environnement {{ ctrl.testRun.env }}</li>
     <li>
       <a ng-href="#/test-runs/{{ ctrl.testRun.id }}">
-        Tir du {{ ctrl.testRun.date | date:'dd/MM/yyyy à HH:mm' }}
+        Tir du {{ ctrl.testRun.date | niceDate }}
       </a>
     </li>
     <li class="active">Tags</li>
   </ol>
 
-  <h1>Tir du {{ ctrl.testRun.date | date:'dd/MM/yyyy à HH:mm' }} - Tags</h1>
+  <h1>Tir du {{ ctrl.testRun.date | niceDate }} - Tags</h1>
 
   <!-- Tags -->
 
