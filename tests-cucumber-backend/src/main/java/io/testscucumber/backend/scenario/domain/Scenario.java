@@ -107,13 +107,12 @@ public class Scenario extends BaseEntity<String> {
     }
 
     public void updateWithExtraTags(final Set<String> extraTags) {
-        final Set<String> oldTags = new HashSet<>(tags);
+        final Set<String> newTags = new HashSet<>();
+        newTags.addAll(tags);
+        newTags.addAll(extraTags);
 
-        allTags.clear();
-        allTags.addAll(tags);
-        allTags.addAll(extraTags);
-
-        if (!oldTags.equals(allTags)) {
+        if (!newTags.equals(allTags)) {
+            allTags = newTags;
             modifiedAt = ZonedDateTime.now();
         }
     }

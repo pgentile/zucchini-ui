@@ -36,9 +36,9 @@
     {{ ctrl.scenario.modifiedAt | niceDate }}
   </p>
 
-  <p ng-if="ctrl.scenario.tags.length > 0">
+  <p ng-if="ctrl.scenario.allTags.length > 0">
     <b>Tags :</b>
-    <tc-tags tags="ctrl.scenario.tags"></tc-tags>
+    <tc-tags tags="ctrl.scenario.allTags" primary-tags="ctrl.scenario.tags"></tc-tags>
   </p>
 
   <hr>
