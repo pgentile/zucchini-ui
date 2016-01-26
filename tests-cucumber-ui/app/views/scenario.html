@@ -174,16 +174,13 @@
   <h2>Historique</h2>
 
   <div class="form" style="margin-bottom: 10px">
-
     <div class="form-group">
       <b>Filtrer :</b>
+      <label class="checkbox-inline">
+        <input type="checkbox" ng-model="ctrl.filters.sameTestRun" ng-change="ctrl.updateStoredFilters()">
+        Même environnement de tir
+      </label>
     </div>
-
-    <label class="checkbox-inline">
-      <input type="checkbox" ng-model="ctrl.filters.sameTestRun" ng-change="ctrl.updateStoredFilters()">
-      Même environnement de tir
-    </label>
-
   </div>
 
   <table class="table table-bordered">
