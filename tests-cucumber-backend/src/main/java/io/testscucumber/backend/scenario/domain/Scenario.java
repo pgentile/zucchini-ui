@@ -206,7 +206,7 @@ public class Scenario extends BaseEntity<String> {
         return allTags;
     }
 
-    public void setAllTags(Set<String> allTags) {
+    public void setAllTags(final Set<String> allTags) {
         this.allTags = allTags;
     }
 

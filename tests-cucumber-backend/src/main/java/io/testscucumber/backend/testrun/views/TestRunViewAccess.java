@@ -1,6 +1,5 @@
 package io.testscucumber.backend.testrun.views;
 
-import io.testscucumber.backend.feature.views.FeatureViewAccess;
 import io.testscucumber.backend.scenario.views.ScenarioStats;
 import io.testscucumber.backend.scenario.views.ScenarioViewAccess;
 import io.testscucumber.backend.support.ddd.morphia.MorphiaUtils;
@@ -21,8 +20,6 @@ public class TestRunViewAccess {
 
     private final TestRunDAO testRunDAO;
 
-    private final FeatureViewAccess featureViewAccess;
-
     private final ScenarioViewAccess scenarioViewAccess;
 
     private final BoundMapperFacade<TestRun, TestRunListItem> testRunToListItemMapper;
@@ -30,11 +27,9 @@ public class TestRunViewAccess {
     @Autowired
     public TestRunViewAccess(
         final TestRunDAO testRunDAO,
-        final FeatureViewAccess featureViewAccess,
         final ScenarioViewAccess scenarioViewAccess
     ) {
         this.testRunDAO = testRunDAO;
-        this.featureViewAccess = featureViewAccess;
         this.scenarioViewAccess = scenarioViewAccess;
 
         final TestRunMapper mapper = new TestRunMapper();
