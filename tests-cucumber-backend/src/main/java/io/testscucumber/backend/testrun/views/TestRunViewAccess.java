@@ -1,6 +1,5 @@
 package io.testscucumber.backend.testrun.views;
 
-import io.testscucumber.backend.feature.views.FeatureStats;
 import io.testscucumber.backend.feature.views.FeatureViewAccess;
 import io.testscucumber.backend.scenario.views.ScenarioStats;
 import io.testscucumber.backend.scenario.views.ScenarioViewAccess;
@@ -47,15 +46,11 @@ public class TestRunViewAccess {
             .map(testRun -> {
                 final TestRunListItem item = testRunToListItemMapper.map(testRun);
                 if (withStats) {
-                    item.setStats(getStatsForFeaturesByTestRunId(item.getId()));
+                    item.setStats(getStatsForScenariiByTestRunId(item.getId()));
                 }
                 return item;
             })
             .collect(Collectors.toList());
-    }
-
-    public FeatureStats getStatsForFeaturesByTestRunId(final String testRunId) {
-        return featureViewAccess.getStats(q -> q.withTestRunId(testRunId));
     }
 
     public ScenarioStats getStatsForScenariiByTestRunId(final String testRunId) {

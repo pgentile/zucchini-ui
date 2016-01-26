@@ -16,12 +16,8 @@
       return TestRunResource.query({ env: env, withStats: withStats || false }).$promise;
     };
 
-    this.getStatsForFeatures = function (testRunId) {
-      return TestRunResource.getStatsForFeatures({ testRunId: testRunId }).$promise;
-    };
-
-    this.getStatsForScenarii = function (testRunId) {
-      return TestRunResource.getStatsForScenarii({ testRunId: testRunId }).$promise;
+    this.getStats = function (testRunId) {
+      return TestRunResource.getStats({ testRunId: testRunId }).$promise;
     };
 
     this.getTags = function (testRunId) {
@@ -88,15 +84,13 @@
           .then(function (testRun) {
 
             var featuresQ = FeatureCoreService.getFeaturesByTestRunId(testRun.id, true);
-            var statsForFeaturesQ = TestRunCoreService.getStatsForFeatures(testRun.id);
-            var statsForScenariiQ = TestRunCoreService.getStatsForScenarii(testRun.id);
+            var statsQ = TestRunCoreService.getStats(testRun.id);
             var historyQ = TestRunCoreService.getByEnv(testRun.env, true);
 
-            return $q.all([featuresQ, statsForFeaturesQ, statsForScenariiQ, historyQ])
-              .then(_.spread(function (features, statsForFeatures, statsForScenarii, history) {
+            return $q.all([featuresQ, statsQ, historyQ])
+              .then(_.spread(function (features, stats, history) {
                 testRun.features = features;
-                testRun.statsForFeatures = statsForFeatures;
-                testRun.statsForScenarii = statsForScenarii;
+                testRun.stats = stats;
                 testRun.history = history;
                 return testRun;
               }));
@@ -276,13 +270,9 @@
             method: 'POST',
             url: baseUri + '/testRuns/create'
           },
-          getStatsForFeatures: {
+          getStats: {
             method: 'GET',
-            url: baseUri + '/testRuns/:testRunId/stats/forFeatures'
-          },
-          getStatsForScenarii: {
-            method: 'GET',
-            url: baseUri + '/testRuns/:testRunId/stats/forScenarii'
+            url: baseUri + '/testRuns/:testRunId/stats'
           },
           getTags: {
             method: 'GET',

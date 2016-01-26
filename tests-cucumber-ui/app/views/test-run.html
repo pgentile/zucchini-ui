@@ -40,31 +40,13 @@
 
   <hr>
 
-  <h2>Avancement</h2>
+  <h2>Avancement par scénario</h2>
 
-  <uib-tabset>
-
-    <uib-tab heading="Par fonctionnalité" active="true">
-      <div style="margin-top: 20px">
-        <tc-progress total="ctrl.testRun.statsForFeatures.count"
-                     success="ctrl.testRun.statsForFeatures.statsByStatus['PASSED']"
-                     warning="ctrl.testRun.statsForFeatures.statsByStatus['PARTIAL']"
-                     danger="ctrl.testRun.statsForFeatures.statsByStatus['FAILED']">
-        </tc-progress>
-      </div>
-    </uib-tab>
-
-    <uib-tab heading="Par scénario">
-      <div style="margin-top: 20px">
-        <tc-progress total="ctrl.testRun.statsForScenarii.count"
-                     success="ctrl.testRun.statsForScenarii.statsByStatus['PASSED']"
-                     warning="ctrl.testRun.statsForScenarii.statsByStatus['PENDING']"
-                     danger="ctrl.testRun.statsForScenarii.statsByStatus['FAILED']">
-        </tc-progress>
-      </div>
-    </uib-tab>
-
-  </uib-tabset>
+  <tc-progress total="ctrl.testRun.stats.count"
+               success="ctrl.testRun.stats.statsByStatus['PASSED']"
+               warning="ctrl.testRun.stats.statsByStatus['PENDING']"
+               danger="ctrl.testRun.stats.statsByStatus['FAILED']">
+  </tc-progress>
 
   <!-- Features -->
 
@@ -151,7 +133,7 @@
       <th class="col-md-1">Total</th>
       <th class="col-md-1">Succès</th>
       <th class="col-md-1">Échecs</th>
-      <th class="col-md-1">Partiels</th>
+      <th class="col-md-1">En attente</th>
       <th class="col-md-1">Non joués</th>
     </tr>
     </thead>
@@ -166,7 +148,7 @@
       <td><span class="badge">{{ testRun.stats.count }}</span></td>
       <td><span class="badge">{{ testRun.stats.statsByStatus['PASSED'] }}</span></td>
       <td><span class="badge">{{ testRun.stats.statsByStatus['FAILED'] }}</span></td>
-      <td><span class="badge">{{ testRun.stats.statsByStatus['PARTIAL'] }}</span></td>
+      <td><span class="badge">{{ testRun.stats.statsByStatus['PENDING'] }}</span></td>
       <td><span class="badge">{{ testRun.stats.statsByStatus['NOT_RUN'] }}</span></td>
     </tr>
     </tbody>

@@ -2,7 +2,6 @@ package io.testscucumber.backend.testrun.rest;
 
 
 import com.google.common.base.Strings;
-import io.testscucumber.backend.feature.views.FeatureStats;
 import io.testscucumber.backend.reportconverter.domain.ReportConverterService;
 import io.testscucumber.backend.scenario.views.ScenarioStats;
 import io.testscucumber.backend.testrun.domain.TestRun;
@@ -108,13 +107,7 @@ public class TestRunResource {
     }
 
     @GET
-    @Path("{testRunId}/stats/forFeatures")
-    public FeatureStats getStatsForFeatures(@PathParam("testRunId") final String testRunId) {
-        return testRunViewAccess.getStatsForFeaturesByTestRunId(testRunId);
-    }
-
-    @GET
-    @Path("{testRunId}/stats/forScenarii")
+    @Path("{testRunId}/stats")
     public ScenarioStats getStatsForScenarii(@PathParam("testRunId") final String testRunId) {
         return testRunViewAccess.getStatsForScenariiByTestRunId(testRunId);
     }

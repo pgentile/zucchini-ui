@@ -85,17 +85,4 @@ public class FeatureViewAccess {
             .collect(Collectors.toList());
     }
 
-    public FeatureStats getStats(final Consumer<FeatureQuery> preparator) {
-        final FeatureStats stats = new FeatureStats();
-
-        final Query<Feature> query = featureDAO.prepareTypedQuery(preparator)
-            .retrievedFields(true, "id", "status");
-
-        MorphiaUtils.streamQuery(query)
-            .map(Feature::getStatus)
-            .forEach(stats::addFeatureStatus);
-
-        return stats;
-    }
-
 }

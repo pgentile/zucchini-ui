@@ -55,18 +55,6 @@
 
   </div>
 
-  <!-- Description -->
-
-  <div ng-show="ctrl.feature.description">
-
-    <hr>
-
-    <p>
-      <tc-line-breaks content="ctrl.feature.description"></tc-line-breaks>
-    </p>
-
-  </div>
-
   <!-- Stats -->
 
   <hr>
@@ -78,6 +66,18 @@
                warning="ctrl.feature.stats.statsByStatus['PENDING']"
                danger="ctrl.feature.stats.statsByStatus['FAILED']">
   </tc-progress>
+
+  <!-- Description -->
+
+  <div ng-show="ctrl.feature.description">
+
+    <hr>
+
+    <p>
+      <tc-line-breaks content="ctrl.feature.description"></tc-line-breaks>
+    </p>
+
+  </div>
 
   <!-- Scenarii -->
 

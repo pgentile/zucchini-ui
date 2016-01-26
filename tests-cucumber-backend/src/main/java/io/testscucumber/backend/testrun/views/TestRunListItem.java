@@ -1,6 +1,6 @@
 package io.testscucumber.backend.testrun.views;
 
-import io.testscucumber.backend.feature.views.FeatureStats;
+import io.testscucumber.backend.scenario.views.ScenarioStats;
 
 import java.time.ZonedDateTime;
 
@@ -12,7 +12,7 @@ public class TestRunListItem {
 
     private ZonedDateTime date;
 
-    private FeatureStats stats;
+    private ScenarioStats stats;
 
     public String getId() {
         return id;
@@ -38,11 +38,11 @@ public class TestRunListItem {
         this.date = date;
     }
 
-    public FeatureStats getStats() {
+    public ScenarioStats getStats() {
         return stats;
     }
 
-    public void setStats(final FeatureStats stats) {
+    public void setStats(final ScenarioStats stats) {
         this.stats = stats;
     }
 }
