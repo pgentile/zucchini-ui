@@ -209,6 +209,22 @@
       };
 
 
+      // Filter tags
+
+      this.filteredTags = '';
+
+      this.clearTagsFilter = function () {
+        this.filteredTags = '';
+      };
+
+      this.isAcceptedTag = function (tag) {
+        if (this.filteredTags.length > 0) {
+          return tag.tag.startsWith(this.filteredTags);
+        }
+        return true;
+      }.bind(this);
+
+
       this.load();
 
     })
