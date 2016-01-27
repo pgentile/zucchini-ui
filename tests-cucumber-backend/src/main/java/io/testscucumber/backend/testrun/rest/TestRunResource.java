@@ -34,6 +34,7 @@ import javax.ws.rs.core.UriInfo;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 @Component
@@ -128,12 +129,13 @@ public class TestRunResource {
     @Path("{testRunId}/import")
     public void importCucumberReport(
         @PathParam("testRunId") final String testRunId,
-        @QueryParam("group") final String group,
+        @QueryParam("group") final String groupStr,
         @QueryParam("dryRun") @DefaultValue("false") final boolean dryRun,
         @QueryParam("onlyNewScenarii") @DefaultValue("false") final boolean onlyNewScenarii,
         @NotNull final InputStream inputStream
     ) {
         final TestRun testRun = testRunRepository.getById(testRunId);
+        final Optional<String> group = Optional.ofNullable(Strings.emptyToNull(groupStr));
         reportConverterService.convertAndSaveFeatures(testRun.getId(), inputStream, group, dryRun, onlyNewScenarii);
     }
 

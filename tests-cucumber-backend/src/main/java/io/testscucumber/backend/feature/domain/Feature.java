@@ -7,8 +7,10 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
 import java.time.ZonedDateTime;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity("features")
 public class Feature extends BaseEntity<String> {
@@ -36,6 +38,34 @@ public class Feature extends BaseEntity<String> {
 
     private ZonedDateTime modifiedAt;
 
+    /**
+     * Private constructor for Morphia.
+     */
+    private Feature() {
+    }
+
+    /**
+     * Feature constructor
+     *
+     * @param featureKey Feature key
+     * @param testRunId  Test run ID
+     * @param info       Basic information
+     * @param location   Feature location
+     */
+    public Feature(final String featureKey, final String testRunId, final BasicInfo info, final Location location) {
+        id = UUID.randomUUID().toString();
+        status = FeatureStatus.NOT_RUN;
+
+        final ZonedDateTime now = ZonedDateTime.now();
+        createdAt = now;
+        modifiedAt = now;
+
+        this.featureKey = featureKey;
+        this.testRunId = testRunId;
+        this.info = info;
+        this.location = location;
+    }
+
     public void mergeWith(final Feature other) {
         if (!featureKey.equals(other.featureKey)) {
             throw new IllegalArgumentException("Same feature key is required");
@@ -57,8 +87,31 @@ public class Feature extends BaseEntity<String> {
         modifiedAt = ZonedDateTime.now();
     }
 
-    public void changeStatus(final FeatureStatus newStatus) {
-        status = newStatus;
+    public void setStatus(final FeatureStatus newStatus) {
+        if (newStatus != status) {
+            status = newStatus;
+            modifiedAt = ZonedDateTime.now();
+        }
+    }
+
+    public void setInfo(final BasicInfo info) {
+        this.info = info;
+    }
+
+    public void setTags(final Set<String> tags) {
+        if (!this.tags.equals(tags)) {
+            this.tags = new HashSet<>(tags);
+            modifiedAt = ZonedDateTime.now();
+        }
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
+        modifiedAt = ZonedDateTime.now();
+    }
+
+    public void setGroup(final String group) {
+        this.group = group;
         modifiedAt = ZonedDateTime.now();
     }
 
@@ -66,88 +119,44 @@ public class Feature extends BaseEntity<String> {
         return id;
     }
 
-    public void setId(final String id) {
-        this.id = id;
-    }
-
     public String getTestRunId() {
         return testRunId;
-    }
-
-    public void setTestRunId(final String testRunId) {
-        this.testRunId = testRunId;
     }
 
     public String getFeatureKey() {
         return featureKey;
     }
 
-    public void setFeatureKey(final String featureKey) {
-        this.featureKey = featureKey;
-    }
-
     public BasicInfo getInfo() {
         return info;
     }
 
-    public void setInfo(final BasicInfo info) {
-        this.info = info;
-    }
-
     public Set<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(final Set<String> tags) {
-        this.tags = tags;
+        return Collections.unmodifiableSet(tags);
     }
 
     public Location getLocation() {
         return location;
     }
 
-    public void setLocation(final Location location) {
-        this.location = location;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(final String description) {
-        this.description = description;
     }
 
     public String getGroup() {
         return group;
     }
 
-    public void setGroup(final String group) {
-        this.group = group;
-    }
-
     public FeatureStatus getStatus() {
         return status;
-    }
-
-    public void setStatus(final FeatureStatus status) {
-        this.status = status;
     }
 
     public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(final ZonedDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public ZonedDateTime getModifiedAt() {
         return modifiedAt;
-    }
-
-    public void setModifiedAt(final ZonedDateTime modifiedAt) {
-        this.modifiedAt = modifiedAt;
     }
 
     @Override

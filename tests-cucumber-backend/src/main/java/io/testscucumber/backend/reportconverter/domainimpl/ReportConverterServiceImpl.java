@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 
 
 @Component
@@ -61,7 +62,7 @@ class ReportConverterServiceImpl implements ReportConverterService {
     public void convertAndSaveFeatures(
         final String testRunId,
         final InputStream featureStream,
-        final String group,
+        final Optional<String> group,
         final boolean dryRun,
         final boolean onlyNewScenarii
     ) {
@@ -79,7 +80,7 @@ class ReportConverterServiceImpl implements ReportConverterService {
     private void convertAndSaveFeature(
         final String testRunId,
         final ReportFeature reportFeature,
-        final String group,
+        final Optional<String> group,
         final boolean dryRun,
         final boolean onlyNewScenarii
     ) {

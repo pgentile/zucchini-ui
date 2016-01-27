@@ -6,6 +6,17 @@ public class Location {
 
     private long line;
 
+    /**
+     * For frameworks.
+     */
+    public Location() {
+    }
+
+    public Location(final String filename, final long line) {
+        this.filename = filename;
+        this.line = line;
+    }
+
     public String getFilename() {
         return filename;
     }

@@ -18,46 +18,33 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 
 @Component
 public class ReportConverter {
 
-    private final BoundMapperFacade<ReportFeature, Feature> featureMapper;
+    private final ReportFeatureConverter reportFeatureConverter;
 
     private final BoundMapperFacade<ReportScenario, Scenario> scenarioMapper;
 
     private final BoundMapperFacade<ReportBackground, Background> backgroundMapper;
 
     @Autowired
-    public ReportConverter(final ReportMapper reportMapper) {
-        featureMapper = reportMapper.dedicatedMapperFor(ReportFeature.class, Feature.class, false);
+    public ReportConverter(final ReportFeatureConverter reportFeatureConverter, final ReportMapper reportMapper) {
+        this.reportFeatureConverter = reportFeatureConverter;
         scenarioMapper = reportMapper.dedicatedMapperFor(ReportScenario.class, Scenario.class, false);
         backgroundMapper = reportMapper.dedicatedMapperFor(ReportBackground.class, Background.class, false);
     }
 
     public ConversionResult convert(
         final String testRunId,
-        final String group,
+        final Optional<String> group,
         final ReportFeature reportFeature
     ) {
-        final Feature feature = mapFeature(testRunId, group, reportFeature);
+        final Feature feature = reportFeatureConverter.convert(testRunId, group, reportFeature);
         final List<Scenario> scenarii = convertFeatureElementsToScenarii(feature, reportFeature.getElements());
         return new ConversionResult(feature, scenarii);
-    }
-
-    private Feature mapFeature(
-        final String testRunId,
-        final String group,
-        final ReportFeature reportFeature
-    ) {
-        final Map<Object, Object> globalProperties = new HashMap<>();
-        globalProperties.put(MappingContextKey.TEST_RUN_ID, testRunId);
-        globalProperties.put(MappingContextKey.GROUP, group);
-
-        final MappingContextFactory mappingContextFactory = new NonCyclicMappingContext.Factory(globalProperties);
-
-        return map(mappingContextFactory, featureMapper, reportFeature);
     }
 
     private List<Scenario> convertFeatureElementsToScenarii(

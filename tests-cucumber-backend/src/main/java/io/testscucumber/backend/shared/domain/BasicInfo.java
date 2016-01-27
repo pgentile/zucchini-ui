@@ -11,6 +11,24 @@ public class BasicInfo {
 
     private List<Argument> arguments = new ArrayList<>();
 
+    /**
+     * Constructor used by frameworks
+     */
+    public BasicInfo() {
+    }
+
+    public BasicInfo(final String keyword, final String name) {
+        this.keyword = keyword;
+        this.name = name;
+        arguments = new ArrayList<>();
+    }
+
+    public BasicInfo(final String keyword, final String name, final List<Argument> arguments) {
+        this.keyword = keyword;
+        this.name = name;
+        this.arguments = new ArrayList<>(arguments);
+    }
+
     public String getKeyword() {
         return keyword;
     }

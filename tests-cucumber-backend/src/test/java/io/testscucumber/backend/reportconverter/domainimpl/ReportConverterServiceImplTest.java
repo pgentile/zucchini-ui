@@ -23,6 +23,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Collections.singletonList;
 import static org.mockito.BDDMockito.given;
@@ -69,7 +70,7 @@ public class ReportConverterServiceImplTest {
         // given
         final String testRunId = "1234";
         final InputStream inputStream = mock(InputStream.class);
-        final String group = "toto";
+        final Optional<String> group = Optional.of("toto");
 
         final ReportFeature reportFeature = mock(ReportFeature.class);
         final List<ReportFeature> reportFeatures = singletonList(reportFeature);
@@ -108,7 +109,7 @@ public class ReportConverterServiceImplTest {
         // given
         final String testRunId = "1234";
         final InputStream inputStream = mock(InputStream.class);
-        final String group = "toto";
+        final Optional<String> group = Optional.of("toto");
 
         final ReportFeature reportFeature = mock(ReportFeature.class);
         final List<ReportFeature> reportFeatures = singletonList(reportFeature);
@@ -148,7 +149,7 @@ public class ReportConverterServiceImplTest {
         // given
         final String testRunId = "1234";
         final InputStream inputStream = mock(InputStream.class);
-        final String group = "toto";
+        final Optional<String> group = Optional.of("toto");
 
         final ReportFeature reportFeature = mock(ReportFeature.class);
         final List<ReportFeature> reportFeatures = singletonList(reportFeature);
@@ -191,7 +192,7 @@ public class ReportConverterServiceImplTest {
         // given
         final String testRunId = "1234";
         final InputStream inputStream = mock(InputStream.class);
-        final String group = "toto";
+        final Optional<String> group = Optional.of("toto");
 
         final ReportFeature reportFeature = mock(ReportFeature.class);
         final List<ReportFeature> reportFeatures = singletonList(reportFeature);

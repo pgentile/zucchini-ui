@@ -1,10 +1,7 @@
 package io.testscucumber.backend.reportconverter.converter;
 
-import io.testscucumber.backend.feature.domain.Feature;
-import io.testscucumber.backend.feature.domain.FeatureFactory;
 import io.testscucumber.backend.reportconverter.report.ReportAroundAction;
 import io.testscucumber.backend.reportconverter.report.ReportBackground;
-import io.testscucumber.backend.reportconverter.report.ReportFeature;
 import io.testscucumber.backend.reportconverter.report.ReportScenario;
 import io.testscucumber.backend.reportconverter.report.ReportStep;
 import io.testscucumber.backend.scenario.domain.AroundAction;
@@ -23,14 +20,11 @@ import javax.annotation.PostConstruct;
 @Component
 class ReportMapper extends ConfigurableMapper {
 
-    private final FeatureFactory featureFactory;
-
     private final ScenarioFactory scenarioFactory;
 
     @Autowired
-    public ReportMapper(final FeatureFactory featureFactory, final ScenarioFactory scenarioFactory) {
+    public ReportMapper(final ScenarioFactory scenarioFactory) {
         super(false);
-        this.featureFactory = featureFactory;
         this.scenarioFactory = scenarioFactory;
     }
 
@@ -41,7 +35,6 @@ class ReportMapper extends ConfigurableMapper {
 
     @Override
     protected void configure(final MapperFactory factory) {
-        factory.registerObjectFactory(new FeatureObjectFactory(featureFactory), TypeFactory.valueOf(Feature.class));
         factory.registerObjectFactory(new ScenarioObjectFactory(scenarioFactory), TypeFactory.valueOf(Scenario.class));
 
         factory.getConverterFactory().registerConverter("uppercaseToEnum", new UppercaseStringToEnumConverter());
@@ -50,17 +43,6 @@ class ReportMapper extends ConfigurableMapper {
         factory.getConverterFactory().registerConverter("stripAtSign", new StripAtSignConverter());
         factory.getConverterFactory().registerConverter("table", new TableConverter());
         factory.getConverterFactory().registerConverter("reportCommentToString", new ReportCommentToStringConverter());
-
-        factory.classMap(ReportFeature.class, Feature.class)
-            .fieldMap("id", "featureKey").converter("sha1").add()
-            .fieldMap("keyword", "info.keyword").converter("trimString").add()
-            .fieldMap("name", "info.name").converter("trimString").add()
-            .fieldMap("description", "description").converter("trimString").add()
-            .fieldMap("tags{name}", "tags{}").converter("stripAtSign").add()
-            .field("filename", "location.filename")
-            .field("line", "location.line")
-            .byDefault()
-            .register();
 
         factory.classMap(ReportScenario.class, Scenario.class)
             .fieldMap("id", "scenarioKey").converter("sha1").add()
