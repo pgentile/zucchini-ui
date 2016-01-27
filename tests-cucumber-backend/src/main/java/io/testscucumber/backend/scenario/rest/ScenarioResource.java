@@ -1,10 +1,12 @@
 package io.testscucumber.backend.scenario.rest;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
 import io.testscucumber.backend.comment.domain.CommentReference;
 import io.testscucumber.backend.comment.domain.CommentReferenceType;
 import io.testscucumber.backend.comment.rest.CommentResource;
 import io.testscucumber.backend.scenario.domain.Scenario;
+import io.testscucumber.backend.scenario.domain.ScenarioQuery;
 import io.testscucumber.backend.scenario.domain.ScenarioRepository;
 import io.testscucumber.backend.scenario.domain.ScenarioService;
 import io.testscucumber.backend.scenario.domain.ScenarioStatus;
@@ -14,6 +16,7 @@ import io.testscucumber.backend.scenario.views.ScenarioViewAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -30,6 +33,7 @@ import java.net.URI;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 
 @Component
 @Path("/scenarii")
@@ -66,8 +70,22 @@ public class ScenarioResource {
     }
 
     @GET
-    public List<ScenarioListItemView> getScenarii(@QueryParam("featureId") final String featureId) {
-        return scenarioViewAccess.getScenarioListItems(q -> q.withFeatureId(featureId).orderedByName());
+    public List<ScenarioListItemView> getScenarii(@BeanParam final GetScenariiRequestParams requestParams) {
+        final Consumer<ScenarioQuery> queryPreparator = q -> {
+            if (!Strings.isNullOrEmpty(requestParams.getTestRunId())) {
+                q.withTestRunId(requestParams.getTestRunId());
+            }
+            if (!Strings.isNullOrEmpty(requestParams.getFeatureId())) {
+                q.withFeatureId(requestParams.getFeatureId());
+            }
+            if (!requestParams.getTags().isEmpty()) {
+                q.withTags(requestParams.getTags());
+            }
+
+            q.orderedByName();
+        };
+
+        return scenarioViewAccess.getScenarioListItems(queryPreparator);
     }
 
     @GET

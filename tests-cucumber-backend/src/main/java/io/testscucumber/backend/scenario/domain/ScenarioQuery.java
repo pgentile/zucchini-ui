@@ -1,5 +1,7 @@
 package io.testscucumber.backend.scenario.domain;
 
+import java.util.Collection;
+
 public interface ScenarioQuery {
 
     ScenarioQuery withFeatureId(String featureId);
@@ -10,6 +12,6 @@ public interface ScenarioQuery {
 
     ScenarioQuery orderedByName();
 
-    ScenarioQuery withTag(String tag);
+    ScenarioQuery withTags(Collection<String> tags);
 
 }
