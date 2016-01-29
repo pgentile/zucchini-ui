@@ -1,5 +1,6 @@
 # language: fr
 
+@toto
 Fonctionnalité: test2
   Je souhaite écrire des scénarios de tests
 
