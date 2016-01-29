@@ -40,7 +40,7 @@
     <thead>
     <tr>
       <th class="col-md-1">Groupe</th>
-      <th class="col-md-65">Fonctionnalité</th>
+      <th class="col-md-6">Fonctionnalité</th>
       <th class="col-md-1">Total</th>
       <th class="col-md-1">Succès</th>
       <th class="col-md-1">Échecs</th>
@@ -50,10 +50,10 @@
     </thead>
     <tbody>
     <tr
-      ng-repeat="feature in ctrl.features track by feature.id">
+      ng-repeat="feature in ctrl.features | filter:ctrl.isFeatureDisplayable track by feature.id">
       <td>{{ feature.group }}</td>
       <td>
-        <a ng-href="#/features/{{ feature.id }}">
+        <a href="" ng-click="ctrl.selectFeatureId(feature.id)">
           {{ feature.info.name }}
         </a>
       </td>
@@ -64,6 +64,14 @@
       <td><span class="badge">{{ feature.stats.statsByStatus['NOT_RUN'] }}</span></td>
     </tr>
     </tbody>
+    <tfoot ng-show="ctrl.selectedFeatureIds.length > 0">
+    <tr>
+      <td class="warning" colspan="12" style="text-align: center">
+        Attention : certains fonctionnalités sont masquées.
+        <a href="" ng-click="ctrl.clearSelectedFeatureIds()">Cliquez ici pour supprimer le filtre</a>
+      </td>
+    </tr>
+    </tfoot>
   </table>
 
   <!-- Scénarii -->
@@ -75,13 +83,19 @@
   <table class="table table-striped table-bordered">
     <thead>
     <tr>
-      <th class="col-md-11">Scénario</th>
+      <th class="col-md-4">Fonctionnalité</th>
+      <th class="col-md-7">Scénario</th>
       <th class="col-md-1">Statut</th>
     </tr>
     </thead>
     <tbody>
     <tr
-      ng-repeat="scenario in ctrl.scenarii track by scenario.id">
+      ng-repeat="scenario in ctrl.scenarii | filter:ctrl.isScenarioDisplayable track by scenario.id">
+      <td>
+        <a ng-href="#/features/{{ scenario.feature.id }}">
+          {{ scenario.feature.info.name }}
+        </a>
+      </td>
       <td>
         <a ng-href="#/scenarii/{{ scenario.id }}">
           <tc-element-info info="scenario.info"></tc-element-info>

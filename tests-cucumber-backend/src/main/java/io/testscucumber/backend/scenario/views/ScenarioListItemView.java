@@ -13,6 +13,8 @@ public class ScenarioListItemView {
 
     private String testRunId;
 
+    private String featureId;
+
     public String getId() {
         return id;
     }
@@ -44,4 +46,13 @@ public class ScenarioListItemView {
     public void setTestRunId(final String testRunId) {
         this.testRunId = testRunId;
     }
+
+    public String getFeatureId() {
+        return featureId;
+    }
+
+    public void setFeatureId(final String featureId) {
+        this.featureId = featureId;
+    }
+
 }

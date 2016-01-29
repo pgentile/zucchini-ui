@@ -40,7 +40,7 @@ public class ScenarioViewAccess {
 
     public List<ScenarioListItemView> getScenarioListItems(final Consumer<ScenarioQuery> preparator) {
         final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator)
-            .retrievedFields(true, "id", "info", "status", "testRunId");
+            .retrievedFields(true, "id", "info", "status", "testRunId", "featureId");
 
         return MorphiaUtils.streamQuery(query)
             .map(scenarioToListItemViewMapper::map)

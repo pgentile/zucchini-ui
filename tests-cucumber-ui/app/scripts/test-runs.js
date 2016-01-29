@@ -227,12 +227,59 @@
 
         return $q.all([testRunQ, scenariiQ, featuresQ, statsQ])
           .then(_.spread(function (testRun, scenarii, features, stats) {
+
+            // Attach features to scenarii
+
+            var featuresById = {};
+            features.forEach(function (feature) {
+              featuresById[feature.id] = feature;
+            });
+
+            scenarii.forEach(function (scenario) {
+              scenario.feature = featuresById[scenario.featureId];
+            });
+
+            // Sort scenarii by feature name, then scenario name
+
+            scenarii.sort(function (left, right) {
+              var featureNameComparison = left.feature.info.name.localeCompare(right.feature.info.name);
+              if (featureNameComparison === 0) {
+                return left.info.name.localeCompare(right.info.name);
+              }
+              return featureNameComparison;
+            });
+
             this.testRun = testRun;
             this.scenarii = scenarii;
             this.features = features;
             this.stats = stats;
           }.bind(this)));
       };
+
+
+      this.selectedFeatureIds = [];
+
+      this.selectFeatureId = function (featureId) {
+        this.selectedFeatureIds.push(featureId);
+      }.bind(this);
+
+      this.clearSelectedFeatureIds = function () {
+        this.selectedFeatureIds = [];
+      }.bind(this);
+
+      this.isFeatureDisplayable = function (feature) {
+        if (this.selectedFeatureIds.length === 0) {
+          return true;
+        }
+        return this.selectedFeatureIds.indexOf(feature.id) >= 0;
+      }.bind(this);
+
+      this.isScenarioDisplayable = function (scenario) {
+        if (this.selectedFeatureIds.length === 0) {
+          return true;
+        }
+        return this.selectedFeatureIds.indexOf(scenario.featureId) >= 0;
+      }.bind(this);
 
 
       this.load();
