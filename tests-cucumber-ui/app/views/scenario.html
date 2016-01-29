@@ -2,12 +2,12 @@
 
   <ol class="breadcrumb">
     <li>Environnement {{ ctrl.scenario.testRun.env }}</li>
-    <li class="active">
+    <li>
       <a ng-href="#/test-runs/{{ ctrl.scenario.testRun.id }}">
         Tir du {{ ctrl.scenario.testRun.date | niceDate }}
       </a>
     </li>
-    <li class="active">
+    <li>
       <a href="#/features/{{ ctrl.scenario.featureId }}">
         {{ ctrl.scenario.feature.info.keyword + ' ' + ctrl.scenario.feature.info.name }}
       </a>
