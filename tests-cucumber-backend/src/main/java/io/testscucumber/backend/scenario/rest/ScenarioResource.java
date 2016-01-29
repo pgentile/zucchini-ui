@@ -12,7 +12,9 @@ import io.testscucumber.backend.scenario.domain.ScenarioService;
 import io.testscucumber.backend.scenario.domain.ScenarioStatus;
 import io.testscucumber.backend.scenario.views.ScenarioHistoryItemView;
 import io.testscucumber.backend.scenario.views.ScenarioListItemView;
+import io.testscucumber.backend.scenario.views.ScenarioStats;
 import io.testscucumber.backend.scenario.views.ScenarioViewAccess;
+import io.testscucumber.backend.testrun.views.ScenarioTagStats;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,9 +33,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Component
 @Path("/scenarii")
@@ -81,11 +86,39 @@ public class ScenarioResource {
             if (!requestParams.getTags().isEmpty()) {
                 q.withTags(requestParams.getTags());
             }
-
             q.orderedByName();
         };
 
         return scenarioViewAccess.getScenarioListItems(queryPreparator);
+    }
+
+    @GET
+    @Path("tags")
+    public List<ScenarioTagStats> getStats(@BeanParam final GetScenariiRequestParams requestParams) {
+        // Filter scenarii
+        final Consumer<ScenarioQuery> tagsQueryPreparator = q -> {
+            if (!Strings.isNullOrEmpty(requestParams.getTestRunId())) {
+                q.withTestRunId(requestParams.getTestRunId());
+            }
+            if (!Strings.isNullOrEmpty(requestParams.getFeatureId())) {
+                q.withFeatureId(requestParams.getFeatureId());
+            }
+        };
+
+        // Filter tags if requested
+        Predicate<String> tagFilter = ignored -> true;
+        if (!requestParams.getTags().isEmpty()) {
+            tagFilter = tag -> requestParams.getTags().contains(tag);
+        }
+
+        return scenarioViewAccess.getTags(tagsQueryPreparator).stream()
+            .filter(tagFilter)
+            .map(tag -> {
+                final ScenarioStats stats = scenarioViewAccess.getStats(tagsQueryPreparator.andThen(q -> q.withTag(tag)));
+                return new ScenarioTagStats(tag, stats);
+            })
+            .sorted(Comparator.comparing(ScenarioTagStats::getTag))
+            .collect(Collectors.toList());
     }
 
     @GET

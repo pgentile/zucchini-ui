@@ -12,6 +12,8 @@ public interface ScenarioQuery {
 
     ScenarioQuery orderedByName();
 
+    ScenarioQuery withTag(String tag);
+
     ScenarioQuery withTags(Collection<String> tags);
 
 }

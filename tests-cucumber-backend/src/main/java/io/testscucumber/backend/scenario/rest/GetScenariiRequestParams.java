@@ -1,8 +1,8 @@
 package io.testscucumber.backend.scenario.rest;
 
 import javax.ws.rs.QueryParam;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class GetScenariiRequestParams {
 
@@ -13,7 +13,7 @@ public class GetScenariiRequestParams {
     private String featureId;
 
     @QueryParam("tag")
-    private List<String> tags;
+    private Set<String> tags;
 
     public String getTestRunId() {
         return testRunId;
@@ -31,14 +31,14 @@ public class GetScenariiRequestParams {
         this.featureId = featureId;
     }
 
-    public List<String> getTags() {
+    public Set<String> getTags() {
         if (tags == null) {
-            tags = new ArrayList<>();
+            tags = new HashSet<>();
         }
         return tags;
     }
 
-    public void setTags(final List<String> tags) {
+    public void setTags(final Set<String> tags) {
         this.tags = tags;
     }
 

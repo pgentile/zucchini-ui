@@ -36,6 +36,9 @@
       return ScenarioResource.getComment({ scenarioId: scenarioId, commentId: commentId }).$promise;
     };
 
+    this.getTagsByTestRunId = function (testRunId) {
+      return ScenarioResource.getTags({ testRunId: testRunId }).$promise;
+    };
   };
 
 
@@ -220,6 +223,11 @@
               delete data.id;
               return angular.toJson(data);
             }
+          },
+          getTags: {
+            method: 'GET',
+            url: baseUri + '/scenarii/tags',
+            isArray: true
           }
         }
        );

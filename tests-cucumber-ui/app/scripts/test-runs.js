@@ -20,10 +20,6 @@
       return TestRunResource.getStats({ testRunId: testRunId }).$promise;
     };
 
-    this.getTags = function (testRunId) {
-      return TestRunResource.getTags({ testRunId: testRunId }).$promise;
-    };
-
     this.create = function (testRun) {
       return TestRunResource.create(testRun).$promise;
     };
@@ -185,12 +181,12 @@
       this.load();
 
     })
-    .controller('TestRunTagsCtrl', function ($routeParams, $q, TestRunCoreService) {
+    .controller('TestRunTagsCtrl', function ($routeParams, $q, TestRunCoreService, ScenarioCoreService) {
 
       this.load = function () {
 
         var testRunQ = TestRunCoreService.getById($routeParams.testRunId);
-        var tagsQ = TestRunCoreService.getTags($routeParams.testRunId);
+        var tagsQ = ScenarioCoreService.getTagsByTestRunId($routeParams.testRunId);
 
         return $q.all([testRunQ, tagsQ])
           .then(_.spread(function (testRun, tags) {
@@ -273,11 +269,6 @@
           getStats: {
             method: 'GET',
             url: baseUri + '/testRuns/:testRunId/stats'
-          },
-          getTags: {
-            method: 'GET',
-            url: baseUri + '/testRuns/:testRunId/tags',
-            isArray: true
           }
         }
       );
