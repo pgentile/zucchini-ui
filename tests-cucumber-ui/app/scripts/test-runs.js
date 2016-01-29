@@ -12,8 +12,8 @@
       return TestRunResource.get({ testRunId: testRunId }).$promise;
     };
 
-    this.getByEnv = function (env, withStats) {
-      return TestRunResource.query({ env: env, withStats: withStats || false }).$promise;
+    this.getByEnv = function (env) {
+      return TestRunResource.query({ env: env, withStats: true }).$promise;
     };
 
     this.create = function (testRun) {
@@ -75,9 +75,9 @@
         TestRunCoreService.getById($routeParams.testRunId)
           .then(function (testRun) {
 
-            var featuresQ = FeatureCoreService.getFeaturesByTestRunId(testRun.id, true);
+            var featuresQ = FeatureCoreService.getFeaturesByTestRunId(testRun.id);
             var statsQ = ScenarioCoreService.getStatsByTestRunId(testRun.id);
-            var historyQ = TestRunCoreService.getByEnv(testRun.env, true);
+            var historyQ = TestRunCoreService.getByEnv(testRun.env);
 
             return $q.all([featuresQ, statsQ, historyQ])
               .then(_.spread(function (features, stats, history) {
@@ -214,7 +214,7 @@
       this.load();
 
     })
-    .controller('TestRunTagCtrl', function ($q, $routeParams, TestRunCoreService, ScenarioCoreService) {
+    .controller('TestRunTagCtrl', function ($q, $routeParams, TestRunCoreService, FeatureCoreService, ScenarioCoreService) {
 
       this.tag = $routeParams.tag;
 
@@ -222,12 +222,14 @@
 
         var testRunQ = TestRunCoreService.getById($routeParams.testRunId);
         var scenariiQ = ScenarioCoreService.getScenariiByTestRunIdAndTag($routeParams.testRunId, $routeParams.tag);
+        var featuresQ = FeatureCoreService.getFeaturesByTestRunIdAndTag($routeParams.testRunId, $routeParams.tag);
         var statsQ = ScenarioCoreService.getStatsByTestRunIdAndTag($routeParams.testRunId, $routeParams.tag);
 
-        return $q.all([testRunQ, scenariiQ, statsQ])
-          .then(_.spread(function (testRun, scenarii, stats) {
+        return $q.all([testRunQ, scenariiQ, featuresQ, statsQ])
+          .then(_.spread(function (testRun, scenarii, features, stats) {
             this.testRun = testRun;
             this.scenarii = scenarii;
+            this.features = features;
             this.stats = stats;
           }.bind(this)));
       };

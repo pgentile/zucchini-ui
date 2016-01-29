@@ -11,6 +11,7 @@ import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -85,6 +86,15 @@ public class ScenarioViewAccess {
 
         return MorphiaUtils.streamQuery(query)
             .flatMap(scenario -> scenario.getAllTags().stream())
+            .collect(Collectors.toSet());
+    }
+
+    public Set<String> getFeatureIdsForTags(final Collection<String> tags) {
+        final Query<Scenario> query =  scenarioDAO.prepareTypedQuery(q -> q.withTags(tags))
+            .retrievedFields(true, "id", "featureId");
+
+        return MorphiaUtils.streamQuery(query)
+            .map(Scenario::getFeatureId)
             .collect(Collectors.toSet());
     }
 

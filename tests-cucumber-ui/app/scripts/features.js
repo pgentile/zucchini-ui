@@ -4,8 +4,12 @@
 
   var FeatureCoreService = function (FeatureResource) {
 
-    this.getFeaturesByTestRunId = function (testRunId, withStats) {
-      return FeatureResource.query({ testRunId: testRunId, withStats: withStats }).$promise;
+    this.getFeaturesByTestRunId = function (testRunId) {
+      return FeatureResource.query({ testRunId: testRunId, withStats: true }).$promise;
+    };
+
+    this.getFeaturesByTestRunIdAndTag = function (testRunId, tag) {
+      return FeatureResource.query({ testRunId: testRunId, tag: tag, withStats: true }).$promise;
     };
 
     this.getById = function (featureId) {

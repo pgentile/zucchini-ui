@@ -3,6 +3,7 @@ package io.testscucumber.backend.feature.views;
 import io.testscucumber.backend.feature.domain.Feature;
 import io.testscucumber.backend.feature.domain.FeatureQuery;
 import io.testscucumber.backend.feature.domainimpl.FeatureDAO;
+import io.testscucumber.backend.scenario.domain.ScenarioQuery;
 import io.testscucumber.backend.scenario.views.ScenarioStats;
 import io.testscucumber.backend.scenario.views.ScenarioViewAccess;
 import io.testscucumber.backend.support.ddd.morphia.MorphiaUtils;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -45,15 +47,35 @@ public class FeatureViewAccess {
         featureToListItemMapper = mapper.dedicatedMapperFor(Feature.class, FeatureListItem.class, false);
     }
 
-    public List<FeatureListItem> getFeatureListItems(final Consumer<FeatureQuery> preparator, final boolean withStats) {
-        final Query<Feature> query = featureDAO.prepareTypedQuery(preparator)
+    public List<FeatureListItem> getFeatureListItems(
+        final Consumer<FeatureQuery> preparator,
+        final Set<String> tags,
+        final boolean withStats
+    ) {
+        Consumer<FeatureQuery> updatedPreparator = preparator;
+
+        if (!tags.isEmpty()) {
+            final Set<String> featureIdsForTags = scenarioViewAccess.getFeatureIdsForTags(tags);
+            updatedPreparator = updatedPreparator.andThen(q -> q.withIdIn(featureIdsForTags));
+        }
+
+        final Query<Feature> query = featureDAO.prepareTypedQuery(updatedPreparator)
             .retrievedFields(true, "id", "testRunId", "info", "group", "status");
 
         return MorphiaUtils.streamQuery(query)
             .map(feature -> {
                 final FeatureListItem item = featureToListItemMapper.map(feature);
                 if (withStats) {
-                    item.setStats(getStatsForFeatureById(feature.getId()));
+                    final Consumer<ScenarioQuery> scenarioQuery = q -> {
+                        q.withFeatureId(feature.getId());
+
+                        if (!tags.isEmpty()) {
+                            q.withTags(tags);
+                        }
+                    };
+
+                    final ScenarioStats stats = scenarioViewAccess.getStats(scenarioQuery);
+                    item.setStats(stats);
                 }
                 return item;
             })
@@ -72,17 +94,15 @@ public class FeatureViewAccess {
                     return null;
                 }
 
+                final ScenarioStats stats = scenarioViewAccess.getStats(q -> q.withFeatureId(feature.getId()));
+
                 final FeatureHistoryItem item = featureToHistoryItemMapper.map(feature);
                 item.setTestRun(testRun);
-                item.setStats(getStatsForFeatureById(feature.getId()));
+                item.setStats(stats);
                 return item;
             })
             .filter(item -> item != null)
             .collect(Collectors.toList());
-    }
-
-    private ScenarioStats getStatsForFeatureById(final String featureId) {
-        return scenarioViewAccess.getStats(q -> q.withFeatureId(featureId));
     }
 
 }

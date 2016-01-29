@@ -1,6 +1,7 @@
 package io.testscucumber.backend.feature.rest;
 
 import io.testscucumber.backend.feature.domain.Feature;
+import io.testscucumber.backend.feature.domain.FeatureQuery;
 import io.testscucumber.backend.feature.domain.FeatureRepository;
 import io.testscucumber.backend.feature.domain.FeatureService;
 import io.testscucumber.backend.feature.views.FeatureHistoryItem;
@@ -19,6 +20,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Set;
+import java.util.function.Consumer;
 
 @Component
 @Path("/features")
@@ -46,9 +49,11 @@ public class FeatureResource {
     @GET
     public List<FeatureListItem> getFeatures(
         @QueryParam("testRunId") final String testRunId,
+        @QueryParam("tag") final Set<String> tags,
         @QueryParam("withStats") @DefaultValue("false") final boolean withStats
     ) {
-        return featureViewAccess.getFeatureListItems(q -> q.withTestRunId(testRunId).orderByGroupAndName(), withStats);
+        final Consumer<FeatureQuery> query = q -> q.withTestRunId(testRunId).orderByGroupAndName();
+        return featureViewAccess.getFeatureListItems(query, tags, withStats);
     }
 
     @GET
