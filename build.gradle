@@ -307,8 +307,8 @@ project("${rootProject.name}-example-features") {
         args += [
             '--glue', 'classpath:io.testscucumber.examples',
             '--plugin', 'pretty',
-            '--plugin', 'html:' + project.file('cucumber/html'),
-            '--plugin', 'json:' + project.file('cucumber/report.json'),
+            '--plugin', "html:${project.buildDir}/cucumber/html",
+            '--plugin', "json:${project.buildDir}/cucumber/report.json",
             '--tags', '~@ignored',
             'src/features',
         ]
@@ -326,8 +326,8 @@ project("${rootProject.name}-example-features") {
         args += [
             '--glue', 'classpath:io.testscucumber.examples',
             '--plugin', 'pretty',
-            '--plugin', 'html:' + project.file('cucumber-dry/html'),
-            '--plugin', 'json:' + project.file('cucumber-dry/report.json'),
+            '--plugin', "html:${project.buildDir}/cucumber-dry/html",
+            '--plugin', "json:${project.buildDir}/cucumber-dry/report.json",
             '--dry-run',
             'src/features',
         ]
