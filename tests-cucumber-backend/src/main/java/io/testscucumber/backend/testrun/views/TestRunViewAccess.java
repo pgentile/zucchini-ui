@@ -40,15 +40,12 @@ public class TestRunViewAccess {
             .map(testRun -> {
                 final TestRunListItem item = testRunToListItemMapper.map(testRun);
                 if (withStats) {
-                    item.setStats(getStatsForScenariiByTestRunId(item.getId()));
+                    final ScenarioStats stats = scenarioViewAccess.getStats(q -> q.withTestRunId(item.getId()));
+                    item.setStats(stats);
                 }
                 return item;
             })
             .collect(Collectors.toList());
-    }
-
-    public ScenarioStats getStatsForScenariiByTestRunId(final String testRunId) {
-        return scenarioViewAccess.getStats(q -> q.withTestRunId(testRunId));
     }
 
 }

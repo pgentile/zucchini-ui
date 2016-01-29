@@ -10,7 +10,10 @@
     <li class="active">Tags</li>
   </ol>
 
-  <h1>Tir du {{ ctrl.testRun.date | niceDate }} - Tags</h1>
+  <h1>
+    Tous les tags
+    <small>Tir du {{ ctrl.testRun.date | niceDate }}</small>
+  </h1>
 
   <!-- Tags -->
 
@@ -54,7 +57,7 @@
     <tr
       ng-repeat="tag in ctrl.testRun.tags | filter:ctrl.isAcceptedTag track by tag.tag">
       <td>
-        <tc-tags tags="[tag.tag]"></tc-tags>
+        <tc-tags test-run-id="ctrl.testRun.id" tags="[tag.tag]"></tc-tags>
       </td>
       <td>
         <tc-status status="tag.status"></tc-status>

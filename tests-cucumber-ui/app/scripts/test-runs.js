@@ -16,10 +16,6 @@
       return TestRunResource.query({ env: env, withStats: withStats || false }).$promise;
     };
 
-    this.getStats = function (testRunId) {
-      return TestRunResource.getStats({ testRunId: testRunId }).$promise;
-    };
-
     this.create = function (testRun) {
       return TestRunResource.create(testRun).$promise;
     };
@@ -72,7 +68,7 @@
       this.load();
 
     })
-    .controller('TestRunCtrl', function ($q, $routeParams, $location, $uibModal, TestRunCoreService, FeatureCoreService, ErrorService, ConfirmationModalService, featureStoredFilters) {
+    .controller('TestRunCtrl', function ($q, $routeParams, $location, $uibModal, TestRunCoreService, FeatureCoreService, ScenarioCoreService, ErrorService, ConfirmationModalService, featureStoredFilters) {
 
       this.load = function () {
 
@@ -80,7 +76,7 @@
           .then(function (testRun) {
 
             var featuresQ = FeatureCoreService.getFeaturesByTestRunId(testRun.id, true);
-            var statsQ = TestRunCoreService.getStats(testRun.id);
+            var statsQ = ScenarioCoreService.getStatsByTestRunId(testRun.id);
             var historyQ = TestRunCoreService.getByEnv(testRun.env, true);
 
             return $q.all([featuresQ, statsQ, historyQ])
@@ -218,6 +214,28 @@
       this.load();
 
     })
+    .controller('TestRunTagCtrl', function ($q, $routeParams, TestRunCoreService, ScenarioCoreService) {
+
+      this.tag = $routeParams.tag;
+
+      this.load = function () {
+
+        var testRunQ = TestRunCoreService.getById($routeParams.testRunId);
+        var scenariiQ = ScenarioCoreService.getScenariiByTestRunIdAndTag($routeParams.testRunId, $routeParams.tag);
+        var statsQ = ScenarioCoreService.getStatsByTestRunIdAndTag($routeParams.testRunId, $routeParams.tag);
+
+        return $q.all([testRunQ, scenariiQ, statsQ])
+          .then(_.spread(function (testRun, scenarii, stats) {
+            this.testRun = testRun;
+            this.scenarii = scenarii;
+            this.stats = stats;
+          }.bind(this)));
+      };
+
+
+      this.load();
+
+    })
     .controller('CreateTestRunCtrl', function ($uibModalInstance) {
 
       this.testRun = {
@@ -265,10 +283,6 @@
           create: {
             method: 'POST',
             url: baseUri + '/testRuns/create'
-          },
-          getStats: {
-            method: 'GET',
-            url: baseUri + '/testRuns/:testRunId/stats'
           }
         }
       );
@@ -288,6 +302,11 @@
         .when('/test-runs/:testRunId/tags', {
           templateUrl: 'views/test-run-tags.html',
           controller: 'TestRunTagsCtrl',
+          controllerAs: 'ctrl'
+        })
+        .when('/test-runs/:testRunId/tags/:tag', {
+          templateUrl: 'views/test-run-tag.html',
+          controller: 'TestRunTagCtrl',
           controllerAs: 'ctrl'
         });
     });

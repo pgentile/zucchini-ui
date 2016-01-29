@@ -12,10 +12,6 @@
       return FeatureResource.get({ featureId: featureId }).$promise;
     };
 
-    this.getStats = function (featureId) {
-      return FeatureResource.getStats({ featureId: featureId }).$promise;
-    };
-
     this.delete = function (featureId) {
       return FeatureResource.delete({ featureId: featureId}).$promise;
     };
@@ -39,7 +35,7 @@
 
             var testRunQ = TestRunCoreService.getById(feature.testRunId);
             var scenariiQ = ScenarioCoreService.getScenariiByFeatureId(feature.id);
-            var statsQ = FeatureCoreService.getStats(feature.id);
+            var statsQ = ScenarioCoreService.getStatsByFeatureId(feature.id);
 
             return $q.all([testRunQ, scenariiQ, statsQ])
               .then(_.spread(function (testRun, scenarii, stats) {
@@ -136,10 +132,6 @@
         baseUri + '/features/:featureId',
         { featureId: '@id' },
         {
-          getStats: {
-            method: 'GET',
-            url: baseUri + '/features/:featureId/stats',
-          },
           getFeatureHistory: {
             method: 'GET',
             url: baseUri + '/features/:featureId/history',

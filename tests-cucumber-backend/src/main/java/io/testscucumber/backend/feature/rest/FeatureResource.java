@@ -5,7 +5,6 @@ import io.testscucumber.backend.feature.domain.FeatureRepository;
 import io.testscucumber.backend.feature.domain.FeatureService;
 import io.testscucumber.backend.feature.views.FeatureHistoryItem;
 import io.testscucumber.backend.feature.views.FeatureListItem;
-import io.testscucumber.backend.scenario.views.ScenarioStats;
 import io.testscucumber.backend.feature.views.FeatureViewAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -56,12 +55,6 @@ public class FeatureResource {
     @Path("{featureId}")
     public Feature get(@PathParam("featureId") final String featureId) {
         return featureRepository.getById(featureId);
-    }
-
-    @GET
-    @Path("{featureId}/stats")
-    public ScenarioStats getStats(@PathParam("featureId") final String featureId) {
-        return featureViewAccess.getStatsForFeatureById(featureId);
     }
 
     @GET

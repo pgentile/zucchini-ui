@@ -76,34 +76,21 @@ public class ScenarioResource {
 
     @GET
     public List<ScenarioListItemView> getScenarii(@BeanParam final GetScenariiRequestParams requestParams) {
-        final Consumer<ScenarioQuery> queryPreparator = q -> {
-            if (!Strings.isNullOrEmpty(requestParams.getTestRunId())) {
-                q.withTestRunId(requestParams.getTestRunId());
-            }
-            if (!Strings.isNullOrEmpty(requestParams.getFeatureId())) {
-                q.withFeatureId(requestParams.getFeatureId());
-            }
+        final Consumer<ScenarioQuery> query = prepareQueryFromRequestParams(requestParams).andThen(q -> {
             if (!requestParams.getTags().isEmpty()) {
                 q.withTags(requestParams.getTags());
             }
             q.orderedByName();
-        };
+        });
 
-        return scenarioViewAccess.getScenarioListItems(queryPreparator);
+        return scenarioViewAccess.getScenarioListItems(query);
     }
 
     @GET
     @Path("tags")
-    public List<ScenarioTagStats> getStats(@BeanParam final GetScenariiRequestParams requestParams) {
+    public List<ScenarioTagStats> getTagStats(@BeanParam final GetScenariiRequestParams requestParams) {
         // Filter scenarii
-        final Consumer<ScenarioQuery> tagsQueryPreparator = q -> {
-            if (!Strings.isNullOrEmpty(requestParams.getTestRunId())) {
-                q.withTestRunId(requestParams.getTestRunId());
-            }
-            if (!Strings.isNullOrEmpty(requestParams.getFeatureId())) {
-                q.withFeatureId(requestParams.getFeatureId());
-            }
-        };
+        final Consumer<ScenarioQuery> query = prepareQueryFromRequestParams(requestParams);
 
         // Filter tags if requested
         Predicate<String> tagFilter = ignored -> true;
@@ -111,14 +98,26 @@ public class ScenarioResource {
             tagFilter = tag -> requestParams.getTags().contains(tag);
         }
 
-        return scenarioViewAccess.getTags(tagsQueryPreparator).stream()
+        return scenarioViewAccess.getTags(query).stream()
             .filter(tagFilter)
             .map(tag -> {
-                final ScenarioStats stats = scenarioViewAccess.getStats(tagsQueryPreparator.andThen(q -> q.withTag(tag)));
+                final ScenarioStats stats = scenarioViewAccess.getStats(query.andThen(q -> q.withTag(tag)));
                 return new ScenarioTagStats(tag, stats);
             })
             .sorted(Comparator.comparing(ScenarioTagStats::getTag))
             .collect(Collectors.toList());
+    }
+
+    @GET
+    @Path("stats")
+    public ScenarioStats getStats(@BeanParam final GetScenariiRequestParams requestParams) {
+        final Consumer<ScenarioQuery> query = prepareQueryFromRequestParams(requestParams).andThen(q -> {
+            if (!requestParams.getTags().isEmpty()) {
+                q.withTags(requestParams.getTags());
+            }
+        });
+
+        return scenarioViewAccess.getStats(query);
     }
 
     @GET
@@ -166,6 +165,17 @@ public class ScenarioResource {
             .build(scenarioId);
 
         return commentResourceFactory.create(commentsUri, mainReferences, extraReferences);
+    }
+
+    private static Consumer<ScenarioQuery> prepareQueryFromRequestParams(final GetScenariiRequestParams requestParams) {
+        return q -> {
+            if (!Strings.isNullOrEmpty(requestParams.getTestRunId())) {
+                q.withTestRunId(requestParams.getTestRunId());
+            }
+            if (!Strings.isNullOrEmpty(requestParams.getFeatureId())) {
+                q.withFeatureId(requestParams.getFeatureId());
+            }
+        };
     }
 
 }

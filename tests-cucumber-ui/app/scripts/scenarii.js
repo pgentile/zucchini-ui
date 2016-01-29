@@ -8,6 +8,10 @@
       return ScenarioResource.query({ featureId: featureId }).$promise;
     };
 
+    this.getScenariiByTestRunIdAndTag = function (testRunId, tag) {
+      return ScenarioResource.query({ testRunId: testRunId, tag: tag }).$promise;
+    };
+
     this.getScenario = function (scenarioId) {
       return ScenarioResource.get({ scenarioId: scenarioId }).$promise;
     };
@@ -39,6 +43,19 @@
     this.getTagsByTestRunId = function (testRunId) {
       return ScenarioResource.getTags({ testRunId: testRunId }).$promise;
     };
+
+    this.getStatsByTestRunId = function (testRunId) {
+      return ScenarioResource.getStats({ testRunId: testRunId }).$promise;
+    };
+
+    this.getStatsByFeatureId = function (featureId) {
+      return ScenarioResource.getStats({ featureId: featureId }).$promise;
+    };
+
+    this.getStatsByTestRunIdAndTag = function (testRunId, tag) {
+      return ScenarioResource.getStats({ testRunId: testRunId, tag: tag }).$promise;
+    };
+
   };
 
 
@@ -228,6 +245,10 @@
             method: 'GET',
             url: baseUri + '/scenarii/tags',
             isArray: true
+          },
+          getStats: {
+            method: 'GET',
+            url: baseUri + '/scenarii/stats'
           }
         }
        );

@@ -28,7 +28,8 @@
         restrict: 'E',
         scope: {
           tags: '=',
-          primaryTags: '='
+          primaryTags: '=',
+          testRunId: '='
         },
         controller: TagsCtrl,
         controllerAs: 'ctrl',

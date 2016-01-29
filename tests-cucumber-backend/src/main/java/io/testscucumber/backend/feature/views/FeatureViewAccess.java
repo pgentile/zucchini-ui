@@ -45,10 +45,6 @@ public class FeatureViewAccess {
         featureToListItemMapper = mapper.dedicatedMapperFor(Feature.class, FeatureListItem.class, false);
     }
 
-    public ScenarioStats getStatsForFeatureById(final String featureId) {
-        return scenarioViewAccess.getStats(q -> q.withFeatureId(featureId));
-    }
-
     public List<FeatureListItem> getFeatureListItems(final Consumer<FeatureQuery> preparator, final boolean withStats) {
         final Query<Feature> query = featureDAO.prepareTypedQuery(preparator)
             .retrievedFields(true, "id", "testRunId", "info", "group", "status");
@@ -83,6 +79,10 @@ public class FeatureViewAccess {
             })
             .filter(item -> item != null)
             .collect(Collectors.toList());
+    }
+
+    private ScenarioStats getStatsForFeatureById(final String featureId) {
+        return scenarioViewAccess.getStats(q -> q.withFeatureId(featureId));
     }
 
 }

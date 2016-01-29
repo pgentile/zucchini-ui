@@ -3,7 +3,6 @@ package io.testscucumber.backend.testrun.rest;
 
 import com.google.common.base.Strings;
 import io.testscucumber.backend.reportconverter.domain.ReportConverterService;
-import io.testscucumber.backend.scenario.views.ScenarioStats;
 import io.testscucumber.backend.testrun.domain.TestRun;
 import io.testscucumber.backend.testrun.domain.TestRunQuery;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;
@@ -104,12 +103,6 @@ public class TestRunResource {
     public TestRun get(@PathParam("testRunId") final String testRunId) {
         LOGGER.debug("Get test run {}", testRunId);
         return testRunRepository.getById(testRunId);
-    }
-
-    @GET
-    @Path("{testRunId}/stats")
-    public ScenarioStats getStatsForScenarii(@PathParam("testRunId") final String testRunId) {
-        return testRunViewAccess.getStatsForScenariiByTestRunId(testRunId);
     }
 
     @DELETE
