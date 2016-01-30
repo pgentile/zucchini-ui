@@ -50,7 +50,7 @@
     </thead>
     <tbody>
     <tr
-      ng-repeat="feature in ctrl.features | filter:ctrl.isFeatureDisplayable track by feature.id">
+      ng-repeat="feature in ctrl.features | filter:ctrl.isFeatureDisplayable as filteredFeatures track by feature.id">
       <td>{{ feature.group }}</td>
       <td>
         <a href="" ng-click="ctrl.selectFeatureId(feature.id)">
@@ -64,7 +64,7 @@
       <td><span class="badge">{{ feature.stats.statsByStatus['NOT_RUN'] }}</span></td>
     </tr>
     </tbody>
-    <tfoot ng-show="ctrl.selectedFeatureIds.length > 0">
+    <tfoot ng-hide="ctrl.features.length == filteredFeatures.length">
     <tr>
       <td class="warning" colspan="12" style="text-align: center">
         Attention : certains fonctionnalités sont masquées.

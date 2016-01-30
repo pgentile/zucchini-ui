@@ -1,10 +1,9 @@
-package io.testscucumber.backend.testrun.views;
+package io.testscucumber.backend.scenario.views;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.testscucumber.backend.feature.domain.FeatureStatus;
 import io.testscucumber.backend.scenario.domain.ScenarioStatus;
-import io.testscucumber.backend.scenario.views.ScenarioStats;
 
 public class ScenarioTagStats {
 

@@ -257,28 +257,28 @@
       };
 
 
-      this.selectedFeatureIds = [];
+      this.selectedFeatureId = null;
 
       this.selectFeatureId = function (featureId) {
-        this.selectedFeatureIds.push(featureId);
+        this.selectedFeatureId = featureId;
       }.bind(this);
 
       this.clearSelectedFeatureIds = function () {
-        this.selectedFeatureIds = [];
+        this.selectedFeatureId = null;
       }.bind(this);
 
       this.isFeatureDisplayable = function (feature) {
-        if (this.selectedFeatureIds.length === 0) {
+        if (this.selectedFeatureId === null) {
           return true;
         }
-        return this.selectedFeatureIds.indexOf(feature.id) >= 0;
+        return this.selectedFeatureId === feature.id;
       }.bind(this);
 
       this.isScenarioDisplayable = function (scenario) {
-        if (this.selectedFeatureIds.length === 0) {
+        if (this.selectedFeatureId === null) {
           return true;
         }
-        return this.selectedFeatureIds.indexOf(scenario.featureId) >= 0;
+        return this.selectedFeatureId === scenario.featureId;
       }.bind(this);
 
 
