@@ -9,5 +9,6 @@
   },
   "api": {
     "baseUri": "http://localhost:8080/api"
-  }
+  },
+  "angularDebugMode": true
 }

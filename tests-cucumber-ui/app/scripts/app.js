@@ -11,6 +11,9 @@
       'angular-loading-bar'
     ])
     .constant('baseUri', _.trimEnd(appConfig.apiBaseUri, '/'))
+    .config(function ($compileProvider) {
+      $compileProvider.debugInfoEnabled(appConfig.angularDebugMode || false);
+    })
     .config(function ($routeProvider) {
       $routeProvider
         .otherwise({

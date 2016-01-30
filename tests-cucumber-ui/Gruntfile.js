@@ -32,7 +32,8 @@ module.exports = function (grunt) {
   // Connect function to serve a Javascript configuration file
   var javascriptConfigMiddleware = function (req, res) {
     var config = {
-      apiBaseUri: appConfig.api.baseUri
+      apiBaseUri: appConfig.api.baseUri,
+      angularDebugMode: appConfig.angularDebugMode
     };
 
     res.writeHead(200, {'Content-Type': 'application/javascript'});
