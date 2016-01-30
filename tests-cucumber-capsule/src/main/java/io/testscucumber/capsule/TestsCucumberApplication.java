@@ -33,6 +33,7 @@ public class TestsCucumberApplication extends Application<TestsCucumberConfigura
         // Redirect to UI
         final ServletHolder redirectServletHolder = new ServletHolder(new RedirectServlet("/ui/"));
         environment.getApplicationContext().addServlet(redirectServletHolder, "/");
+        environment.getApplicationContext().addServlet(redirectServletHolder, "/ui");
     }
 
 }
