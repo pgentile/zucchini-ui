@@ -65,7 +65,9 @@ public class FeatureViewAccess {
         return MorphiaUtils.streamQuery(query)
             .map(feature -> {
                 final FeatureListItem item = featureToListItemMapper.map(feature);
-                if (withStats) {
+
+                ScenarioStats stats = null;
+                if (withStats || !tags.isEmpty()) {
                     final Consumer<ScenarioQuery> scenarioQuery = q -> {
                         q.withFeatureId(feature.getId());
 
@@ -74,7 +76,11 @@ public class FeatureViewAccess {
                         }
                     };
 
-                    final ScenarioStats stats = scenarioViewAccess.getStats(scenarioQuery);
+                    stats = scenarioViewAccess.getStats(scenarioQuery);
+                    item.setStatus(stats.computeStatus());
+                }
+
+                if (withStats) {
                     item.setStats(stats);
                 }
                 return item;

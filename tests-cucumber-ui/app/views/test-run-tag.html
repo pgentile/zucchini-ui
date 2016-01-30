@@ -40,7 +40,8 @@
     <thead>
     <tr>
       <th class="col-md-1">Groupe</th>
-      <th class="col-md-6">Fonctionnalité</th>
+      <th class="col-md-5">Fonctionnalité</th>
+      <th class="col-md-1">Statut</th>
       <th class="col-md-1">Total</th>
       <th class="col-md-1">Succès</th>
       <th class="col-md-1">Échecs</th>
@@ -56,6 +57,9 @@
         <a href="" ng-click="ctrl.selectFeatureId(feature.id)">
           {{ feature.info.name }}
         </a>
+      </td>
+      <td>
+        <tc-status status="feature.status"></tc-status>
       </td>
       <td><span class="badge">{{ feature.stats.count }}</span></td>
       <td><span class="badge">{{ feature.stats.statsByStatus['PASSED'] }}</span></td>

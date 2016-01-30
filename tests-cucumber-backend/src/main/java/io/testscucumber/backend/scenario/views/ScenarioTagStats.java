@@ -3,7 +3,6 @@ package io.testscucumber.backend.scenario.views;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.testscucumber.backend.feature.domain.FeatureStatus;
-import io.testscucumber.backend.scenario.domain.ScenarioStatus;
 
 public class ScenarioTagStats {
 
@@ -26,19 +25,7 @@ public class ScenarioTagStats {
     }
 
     public FeatureStatus getStatus() {
-        if (stats.getCount() == 0) {
-            return FeatureStatus.NOT_RUN;
-        }
-        if (stats.getStatsByStatus().get(ScenarioStatus.FAILED) > 0) {
-            return FeatureStatus.FAILED;
-        }
-        if (stats.getStatsByStatus().get(ScenarioStatus.PASSED) == stats.getCount()) {
-            return FeatureStatus.PASSED;
-        }
-        if (stats.getStatsByStatus().get(ScenarioStatus.NOT_RUN) == stats.getCount()) {
-            return FeatureStatus.NOT_RUN;
-        }
-        return FeatureStatus.PARTIAL;
+        return stats.computeStatus();
     }
 
 }
