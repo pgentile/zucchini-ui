@@ -59,7 +59,7 @@
 
 
   angular.module('testsCucumberApp')
-    .controller('ScenarioCtrl', function (ScenarioCoreService, FeatureCoreService, TestRunCoreService, ConfirmationModalService, $routeParams, $q, $location, historyFilters) {
+    .controller('ScenarioCtrl', function (ScenarioCoreService, FeatureCoreService, TestRunCoreService, ConfirmationModalService, $routeParams, $q, $location, historyFilters, stepFilters) {
 
       this.scenario = {};
 
@@ -159,17 +159,24 @@
           }.bind(this));
       };
 
-      this.filters = historyFilters.get();
+      this.historyFilters = historyFilters.get();
 
-      this.updateStoredFilters = function () {
-        historyFilters.save(this.filters);
+      this.updateStoredHistoryFilters = function () {
+        historyFilters.save(this.historyFilters);
       }.bind(this);
 
       this.isHistoryItemDisplayable = function (item) {
-        if (this.filters.sameTestRun) {
+        if (this.historyFilters.sameTestRun) {
           return item.testRun.env === this.scenario.testRun.env;
         }
         return true;
+      }.bind(this);
+
+
+      this.stepFilters = stepFilters.get();
+
+      this.updateStoredStepFilters = function () {
+        stepFilters.save(this.stepFilters);
       }.bind(this);
 
 
@@ -200,6 +207,16 @@
       return ObjectBrowserStorage.getItem('historyFilters', function () {
         return {
           sameTestRun: true
+        };
+      });
+    })
+    .factory('stepFilters', function (ObjectBrowserStorage) {
+      return ObjectBrowserStorage.getItem('stepFilters', function () {
+        return {
+          comments: true,
+          context: true,
+          beforeAndAfterActions: true,
+          errorDetails: true
         };
       });
     })

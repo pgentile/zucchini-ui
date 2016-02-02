@@ -38,7 +38,8 @@
 
   <p ng-if="ctrl.scenario.allTags.length > 0">
     <b>Tags :</b>
-    <tc-tags test-run-id="ctrl.scenario.testRunId" tags="ctrl.scenario.allTags" primary-tags="ctrl.scenario.tags"></tc-tags>
+    <tc-tags test-run-id="ctrl.scenario.testRunId" tags="ctrl.scenario.allTags"
+             primary-tags="ctrl.scenario.tags"></tc-tags>
   </p>
 
   <hr>
@@ -76,23 +77,39 @@
 
   <!-- Steps -->
 
-  <h2>Etapes</h2>
+  <h2>Étapes du scénario</h2>
 
-  <p class="text-muted" ng-show="ctrl.scenario.comment">
+  <p>
+    <button type="button" class="btn btn-default btn-xs"
+            uib-popover-template="'stepDisplayOptions.html'"
+            popover-title="Configurer les options d'affichage"
+            popover-placement="right"
+            popover-trigger="outsideClick">
+      Options d'affichage
+    </button>
+  </p>
+
+  <!-- Comments -->
+
+  <p class="text-muted" ng-if="ctrl.stepFilters.comments && ctrl.scenario.comment">
     <tc-line-breaks content="ctrl.scenario.comment"></tc-line-breaks>
   </p>
 
-  <div ng-repeat="action in ctrl.scenario.beforeActions">
+  <!-- Before actions -->
+
+  <div ng-if="ctrl.stepFilters.beforeAndAfterActions" ng-repeat="action in ctrl.scenario.beforeActions">
     <p>
       <i><b>Pré-action</b> #{{ $index + 1 }}</i>
       <tc-status status="action.status"></tc-status>
     </p>
-    <pre ng-if="action.errorMessage">{{ action.errorMessage }}</pre>
+    <pre ng-if="ctrl.stepFilters.errorDetails && action.errorMessage">{{ action.errorMessage }}</pre>
   </div>
 
-  <div ng-if="ctrl.scenario.background" ng-repeat="step in ctrl.scenario.background.steps">
+  <!-- Test background -->
 
-    <p class="text-muted" ng-show="step.comment">
+  <div ng-if="ctrl.stepFilters.context && ctrl.scenario.background" ng-repeat="step in ctrl.scenario.background.steps">
+
+    <p class="text-muted" ng-if="ctrl.stepFilters.comments && step.comment">
       <tc-line-breaks content="step.comment"></tc-line-breaks>
     </p>
 
@@ -103,13 +120,15 @@
       <tc-status status="step.status"></tc-status>
     </p>
 
-    <pre ng-if="step.errorMessage">{{ step.errorMessage }}</pre>
+    <pre ng-if="ctrl.stepFilters.errorDetails && step.errorMessage">{{ step.errorMessage }}</pre>
 
   </div>
 
+  <!-- Test steps -->
+
   <div ng-repeat="step in ctrl.scenario.steps">
 
-    <p class="text-muted" ng-show="step.comment">
+    <p class="text-muted" ng-if="ctrl.stepFilters.comments && step.comment">
       <tc-line-breaks content="step.comment"></tc-line-breaks>
     </p>
 
@@ -126,16 +145,18 @@
       </tbody>
     </table>
 
-    <pre ng-if="step.errorMessage">{{ step.errorMessage }}</pre>
+    <pre ng-if="ctrl.stepFilters.errorDetails && step.errorMessage">{{ step.errorMessage }}</pre>
 
   </div>
 
-  <div ng-repeat="action in ctrl.scenario.afterActions">
+  <!-- After actions -->
+
+  <div ng-if="ctrl.stepFilters.beforeAndAfterActions" ng-repeat="action in ctrl.scenario.afterActions">
     <p>
       <i><b>Post-action</b> #{{ $index + 1 }}</i>
       <tc-status status="action.status"></tc-status>
     </p>
-    <pre ng-if="action.errorMessage">{{ action.errorMessage }}</pre>
+    <pre ng-if="ctrl.stepFilters.errorDetails && action.errorMessage">{{ action.errorMessage }}</pre>
   </div>
 
   <hr>
@@ -152,7 +173,7 @@
     </p>
   </div>
 
-  <p ng-show="filteredComments.length < ctrl.comments.length">
+  <p ng-if="filteredComments.length < ctrl.comments.length">
     <i>
       Les commentaires les plus anciens ne sont pas affichés.
       <a href="" ng-click="ctrl.limitMaxDisplayedComments = false">
@@ -177,7 +198,7 @@
 
   <hr>
 
-  <!-- Historique -->
+  <!-- History -->
 
   <h2>Historique</h2>
 
@@ -185,7 +206,7 @@
     <div class="form-group">
       <b>Filtrer :</b>
       <label class="checkbox-inline">
-        <input type="checkbox" ng-model="ctrl.filters.sameTestRun" ng-change="ctrl.updateStoredFilters()">
+        <input type="checkbox" ng-model="ctrl.historyFilters.sameTestRun" ng-change="ctrl.updateStoredHistoryFilters()">
         Même environnement de tir
       </label>
     </div>
@@ -217,6 +238,44 @@
     </tr>
     </tbody>
   </table>
+
+  <!-- Popup content for display options -->
+  <script type="text/ng-template" id="stepDisplayOptions.html">
+
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="ctrl.stepFilters.comments" ng-change="ctrl.updateStoredStepFilters()">
+          Les commentaires
+        </label>
+      </div>
+
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="ctrl.stepFilters.context" ng-change="ctrl.updateStoredStepFilters()">
+          Le contexte
+        </label>
+      </div>
+
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"
+                 ng-model="ctrl.stepFilters.beforeAndAfterActions"
+                 ng-change="ctrl.updateStoredStepFilters()">
+          Les actions avant / après
+        </label>
+      </div>
+
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="ctrl.stepFilters.errorDetails" ng-change="ctrl.updateStoredStepFilters()">
+          Le détail des erreurs
+        </label>
+      </div>
+
+    </div>
+
+  </script>
 
 
 </div>
