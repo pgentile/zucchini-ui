@@ -30,12 +30,10 @@ allprojects {
     ext.versions = [
         dropwizard        : '0.9.2',
         orika             : '1.4.6',
-        morphia           : '1.1.0',
+        morphia           : '1.1.1',
         slf4j             : '1.7.13',
         spring            : '4.2.4.RELEASE',
         jackson           : '2.6.4',
-        guava             : '19.0',
-        hibernateValidator: '5.2.2.Final',
         junit             : '4.12',
         assertj           : '3.3.0',
         mockito           : '1.10.19',
