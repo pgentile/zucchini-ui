@@ -31,7 +31,7 @@
     {{ ctrl.scenario.createdAt | niceDate }}
   </p>
 
-  <p ng-hide="ctrl.scenario.createdAt == ctrl.scenario.modifiedAt">
+  <p ng-if="ctrl.scenario.createdAt != ctrl.scenario.modifiedAt">
     <b>Modifié le :</b>
     {{ ctrl.scenario.modifiedAt | niceDate }}
   </p>

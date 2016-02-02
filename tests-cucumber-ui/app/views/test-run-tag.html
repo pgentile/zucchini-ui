@@ -68,7 +68,7 @@
       <td><span class="badge">{{ feature.stats.statsByStatus['NOT_RUN'] }}</span></td>
     </tr>
     </tbody>
-    <tfoot ng-hide="ctrl.features.length == filteredFeatures.length">
+    <tfoot ng-if="ctrl.features.length != filteredFeatures.length">
     <tr>
       <td class="warning" colspan="12" style="text-align: center">
         Attention : certains fonctionnalités sont masquées.

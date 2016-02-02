@@ -17,7 +17,7 @@
     </small>
   </h1>
 
-  <p ng-show="ctrl.feature.group">
+  <p ng-if="ctrl.feature.group">
     <b>Groupe :</b>
     {{ ctrl.feature.group }}
   </p>
@@ -32,7 +32,7 @@
     {{ ctrl.feature.createdAt | niceDate }}
   </p>
 
-  <p ng-hide="ctrl.feature.createdAt == ctrl.feature.modifiedAt">
+  <p ng-if="ctrl.feature.createdAt != ctrl.feature.modifiedAt">
     <b>Modifié le :</b>
     {{ ctrl.feature.modifiedAt | niceDate }}
   </p>
@@ -69,7 +69,7 @@
 
   <!-- Description -->
 
-  <div ng-show="ctrl.feature.description">
+  <div ng-if="ctrl.feature.description">
 
     <hr>
 
@@ -124,7 +124,7 @@
       </td>
     </tr>
     </tbody>
-    <tfoot ng-hide="filteredScenarii.length == ctrl.feature.scenarii.length">
+    <tfoot ng-if="filteredScenarii.length != ctrl.feature.scenarii.length">
     <tr>
       <td class="warning" colspan="2" style="text-align: center">
         Attention :

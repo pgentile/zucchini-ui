@@ -7,13 +7,13 @@
     </div>
     <div ng-switch-default>
       <uib-progress>
-        <uib-bar ng-hide="success == 0" value="100 * success / total" type="success" style="min-width: 2em">
+        <uib-bar ng-if="success" value="100 * success / total" type="success" style="min-width: 2em">
           {{ success }}
         </uib-bar>
-        <uib-bar ng-hide="warning == 0" value="100 * warning / total" type="warning" style="min-width: 2em">
+        <uib-bar ng-if="warning" value="100 * warning / total" type="warning" style="min-width: 2em">
           {{ warning }}
         </uib-bar>
-        <uib-bar ng-hide="danger == 0" value="100 * danger / total" type="danger" style="min-width: 2em">
+        <uib-bar ng-if="danger" value="100 * danger / total" type="danger" style="min-width: 2em">
           {{ danger }}
         </uib-bar>
       </uib-progress>
