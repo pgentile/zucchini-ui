@@ -1,13 +1,10 @@
 migrate(function () {
 
-  db.testRuns.find().forEach(function (testRun) {
-    if (typeof testRun.type === 'undefined') {
-      testRun.type = testRun.env;
-      delete testRun.env;
+  db.testRuns.find({ env: { $exists: true } }).forEach(function (testRun) {
+    testRun.type = testRun.env;
+    delete testRun.env;
 
-      db.testRuns.update({ _id: testRun._id }, testRun);
-    }
-
+    db.testRuns.update({ _id: testRun._id }, testRun);
   });
 
 });
