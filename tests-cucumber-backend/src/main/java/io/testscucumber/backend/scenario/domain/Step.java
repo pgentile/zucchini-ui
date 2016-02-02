@@ -16,6 +16,8 @@ public class Step {
 
     private String[][] table;
 
+    private String comment;
+
     protected void changeStatus(final StepStatus newStatus) {
         if (newStatus == status) {
             return;
@@ -65,6 +67,14 @@ public class Step {
 
     public void setTable(final String[][] table) {
         this.table = table;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(final String comment) {
+        this.comment = comment;
     }
 
     @Override

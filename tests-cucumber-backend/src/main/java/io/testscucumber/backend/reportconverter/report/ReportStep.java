@@ -18,6 +18,8 @@ public class ReportStep extends CucumberElement {
     @JsonProperty("rows")
     private List<TableRow> tableRows = new ArrayList<>();
 
+    private List<ReportComment> comments = new ArrayList<>();
+
     public Result getResult() {
         return result;
     }
@@ -48,6 +50,14 @@ public class ReportStep extends CucumberElement {
 
     public void setTableRows(final List<TableRow> tableRows) {
         this.tableRows = tableRows;
+    }
+
+    public List<ReportComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(final List<ReportComment> comments) {
+        this.comments = comments;
     }
 
     @Override

@@ -78,7 +78,7 @@
 
   <h2>Etapes</h2>
 
-  <p class="text-muted" ng-hide="ctrl.scenario.comment == ''">
+  <p class="text-muted" ng-show="ctrl.scenario.comment">
     <tc-line-breaks content="ctrl.scenario.comment"></tc-line-breaks>
   </p>
 
@@ -92,6 +92,10 @@
 
   <div ng-if="ctrl.scenario.background" ng-repeat="step in ctrl.scenario.background.steps">
 
+    <p class="text-muted" ng-show="step.comment">
+      <tc-line-breaks content="step.comment"></tc-line-breaks>
+    </p>
+
     <p>
       <i>
         <tc-element-info info="step.info"></tc-element-info>
@@ -104,6 +108,10 @@
   </div>
 
   <div ng-repeat="step in ctrl.scenario.steps">
+
+    <p class="text-muted" ng-show="step.comment">
+      <tc-line-breaks content="step.comment"></tc-line-breaks>
+    </p>
 
     <p>
       <tc-element-info info="step.info"></tc-element-info>

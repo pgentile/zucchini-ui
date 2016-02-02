@@ -69,6 +69,7 @@ class ReportMapper extends ConfigurableMapper {
             .fieldMap("result.errorMessage", "errorMessage").converter("trimString").add()
             .fieldMap("result.status", "status").converter("uppercaseToEnum").add()
             .fieldMap("tableRows", "table").converter("table").add()
+            .fieldMap("comments", "comment").converter("reportCommentToString").add()
             .byDefault()
             .register();
 
