@@ -8,7 +8,7 @@ public class TestRunListItem {
 
     private String id;
 
-    private String env;
+    private String type;
 
     private ZonedDateTime date;
 
@@ -22,12 +22,12 @@ public class TestRunListItem {
         this.id = id;
     }
 
-    public String getEnv() {
-        return env;
+    public String getType() {
+        return type;
     }
 
-    public void setEnv(final String env) {
-        this.env = env;
+    public void setType(final String type) {
+        this.type = type;
     }
 
     public ZonedDateTime getDate() {

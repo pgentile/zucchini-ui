@@ -11,8 +11,8 @@
       return TestRunResource.get({ testRunId: testRunId }).$promise;
     };
 
-    this.getByEnv = function (env) {
-      return TestRunResource.query({ env: env, withStats: true }).$promise;
+    this.findByType = function (type) {
+      return TestRunResource.query({ type: type, withStats: true }).$promise;
     };
 
     this.create = function (testRun) {
@@ -76,7 +76,7 @@
 
             var featuresQ = FeatureCoreService.getFeaturesByTestRunId(testRun.id);
             var statsQ = ScenarioCoreService.getStatsByTestRunId(testRun.id);
-            var historyQ = TestRunCoreService.getByEnv(testRun.env);
+            var historyQ = TestRunCoreService.findByType(testRun.type);
 
             return $q.all([featuresQ, statsQ, historyQ])
               .then(_.spread(function (features, stats, history) {
@@ -287,7 +287,7 @@
     .controller('CreateTestRunCtrl', function ($uibModalInstance) {
 
       this.testRun = {
-        env: ''
+        type: ''
       };
 
       this.create = function () {

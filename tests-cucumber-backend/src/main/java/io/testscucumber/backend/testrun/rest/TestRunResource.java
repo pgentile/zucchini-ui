@@ -73,12 +73,12 @@ public class TestRunResource {
 
     @GET
     public List<TestRunListItem> getLatests(
-        @QueryParam("env") final String env,
+        @QueryParam("type") final String type,
         @QueryParam("withStats") @DefaultValue("false") final boolean withStats
     ) {
         Consumer<TestRunQuery> queryPreparator = TestRunQuery::orderByLatestFirst;
-        if (!Strings.isNullOrEmpty(env)) {
-            queryPreparator = queryPreparator.andThen(q -> q.withEnv(env));
+        if (!Strings.isNullOrEmpty(type)) {
+            queryPreparator = queryPreparator.andThen(q -> q.withType(type));
         }
 
         return testRunViewAccess.getTestRunListItems(queryPreparator, withStats);
@@ -87,7 +87,7 @@ public class TestRunResource {
     @POST
     @Path("create")
     public Response create(@Valid @NotNull final CreateTestRunRequest request) {
-        final TestRun testRun = new TestRun(request.getEnv());
+        final TestRun testRun = new TestRun(request.getType());
         testRunRepository.save(testRun);
 
         final URI location = uriInfo.getBaseUriBuilder()

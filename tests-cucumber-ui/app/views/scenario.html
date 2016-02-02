@@ -1,7 +1,7 @@
 <div>
 
   <ol class="breadcrumb">
-    <li>Environnement {{ ctrl.scenario.testRun.env }}</li>
+    <li>Type {{ ctrl.scenario.testRun.type }}</li>
     <li>
       <a ng-href="#/test-runs/{{ ctrl.scenario.testRun.id }}">
         Tir du {{ ctrl.scenario.testRun.date | niceDate }}
@@ -207,7 +207,7 @@
       <b>Filtrer :</b>
       <label class="checkbox-inline">
         <input type="checkbox" ng-model="ctrl.historyFilters.sameTestRun" ng-change="ctrl.updateStoredHistoryFilters()">
-        Même environnement de tir
+        Même type de tir
       </label>
     </div>
   </div>
@@ -215,7 +215,7 @@
   <table class="table table-bordered">
     <thead>
     <tr>
-      <th class="col-md-1">Environnement</th>
+      <th class="col-md-1">Type</th>
       <th class="col-md-10">Tir</th>
       <th class="col-md-1">Statut</th>
     </tr>
@@ -225,7 +225,7 @@
       ng-repeat="scenario in ctrl.history | filter:ctrl.isHistoryItemDisplayable track by scenario.testRun.id"
       ng-class="ctrl.scenario.testRunId == scenario.testRun.id && 'active'">
       <td>
-        <span class="label label-default">{{ scenario.testRun.env }}</span>
+        <span class="label label-default">{{ scenario.testRun.type }}</span>
       </td>
       <td>
         <a ng-href="#/scenarii/{{ scenario.id }}">

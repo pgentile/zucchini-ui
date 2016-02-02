@@ -167,7 +167,7 @@
 
       this.isHistoryItemDisplayable = function (item) {
         if (this.historyFilters.sameTestRun) {
-          return item.testRun.env === this.scenario.testRun.env;
+          return item.testRun.type === this.scenario.testRun.type;
         }
         return true;
       }.bind(this);

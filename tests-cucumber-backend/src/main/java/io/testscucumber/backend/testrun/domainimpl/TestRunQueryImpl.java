@@ -12,8 +12,8 @@ class TestRunQueryImpl extends BaseMorphiaQuery<TestRun> implements TestRunQuery
     }
 
     @Override
-    public TestRunQuery withEnv(final String env) {
-        configureQuery(q -> q.field("env").equal(env));
+    public TestRunQuery withType(final String type) {
+        configureQuery(q -> q.field("type").equal(type));
         return this;
     }
 

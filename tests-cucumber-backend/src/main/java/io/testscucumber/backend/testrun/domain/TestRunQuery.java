@@ -4,6 +4,6 @@ public interface TestRunQuery {
 
     TestRunQuery orderByLatestFirst();
 
-    TestRunQuery withEnv(String env);
+    TestRunQuery withType(String type);
 
 }

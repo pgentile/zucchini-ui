@@ -5,14 +5,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class CreateTestRunRequest {
 
     @NotEmpty
-    private String env;
+    private String type;
 
-    public String getEnv() {
-        return env;
+    public String getType() {
+        return type;
     }
 
-    public void setEnv(final String env) {
-        this.env = env;
+    public void setType(final String type) {
+        this.type = type;
     }
 
 }

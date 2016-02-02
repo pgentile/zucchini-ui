@@ -13,7 +13,7 @@ public class TestRun extends BaseEntity<String> {
     @Id
     private String id;
 
-    private String env;
+    private String type;
 
     private ZonedDateTime date;
 
@@ -23,18 +23,18 @@ public class TestRun extends BaseEntity<String> {
     private TestRun() {
     }
 
-    public TestRun(final String env) {
+    public TestRun(final String type) {
         id = UUID.randomUUID().toString();
         date = ZonedDateTime.now();
-        this.env = env;
+        this.type = type;
     }
 
     public String getId() {
         return id;
     }
 
-    public String getEnv() {
-        return env;
+    public String getType() {
+        return type;
     }
 
     public ZonedDateTime getDate() {
