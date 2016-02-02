@@ -1,6 +1,5 @@
-'use strict';
-
 (function (angular) {
+  'use strict';
 
   angular.module('testsCucumberApp')
     .filter('niceDate', function ($filter) {

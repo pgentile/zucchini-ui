@@ -1,6 +1,5 @@
-'use strict';
-
 (function (angular, appConfig) {
+  'use strict';
 
   angular
     .module('testsCucumberApp', [

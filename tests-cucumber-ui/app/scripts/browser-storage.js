@@ -1,6 +1,5 @@
-'use strict';
-
 (function (angular) {
+  'use strict';
 
   var StoredItem = function (log, storage, itemName, defaultValueFactory) {
 

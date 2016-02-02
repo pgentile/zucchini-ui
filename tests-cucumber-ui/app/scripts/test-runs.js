@@ -1,6 +1,5 @@
-'use strict';
-
 (function (angular) {
+  'use strict';
 
   var TestRunCoreService = function ($httpParamSerializer, TestRunResource, Upload, baseUri) {
 
