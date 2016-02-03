@@ -15,6 +15,9 @@ public class GetScenariiRequestParams {
     @QueryParam("tag")
     private Set<String> tags;
 
+    @QueryParam("excludedTag")
+    private Set<String> excludedTags;
+
     public String getTestRunId() {
         return testRunId;
     }
@@ -40,6 +43,17 @@ public class GetScenariiRequestParams {
 
     public void setTags(final Set<String> tags) {
         this.tags = tags;
+    }
+
+    public Set<String> getExcludedTags() {
+        if (excludedTags == null) {
+            excludedTags = new HashSet<>();
+        }
+        return excludedTags;
+    }
+
+    public void setExcludedTags(final Set<String> excludedTags) {
+        this.excludedTags = excludedTags;
     }
 
 }

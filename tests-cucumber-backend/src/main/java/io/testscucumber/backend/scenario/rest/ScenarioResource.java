@@ -13,11 +13,13 @@ import io.testscucumber.backend.scenario.domain.ScenarioStatus;
 import io.testscucumber.backend.scenario.views.ScenarioHistoryItemView;
 import io.testscucumber.backend.scenario.views.ScenarioListItemView;
 import io.testscucumber.backend.scenario.views.ScenarioStats;
-import io.testscucumber.backend.scenario.views.ScenarioViewAccess;
 import io.testscucumber.backend.scenario.views.ScenarioTagStats;
+import io.testscucumber.backend.scenario.views.ScenarioViewAccess;
+import io.testscucumber.backend.shared.domain.TagSelection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -78,6 +80,10 @@ public class ScenarioResource {
     @GET
     @Path("tags")
     public List<ScenarioTagStats> getTagStats(@BeanParam final GetScenariiRequestParams requestParams) {
+        if (!requestParams.getExcludedTags().isEmpty()) {
+            throw new BadRequestException("You can't exclude tags when requesting feature tags");
+        }
+
         final Consumer<ScenarioQuery> query = prepareQueryFromRequestParams(requestParams);
         return scenarioViewAccess.getTagStats(query, requestParams.getTags());
     }
@@ -143,9 +149,9 @@ public class ScenarioResource {
             if (!Strings.isNullOrEmpty(requestParams.getFeatureId())) {
                 q.withFeatureId(requestParams.getFeatureId());
             }
-            if (!requestParams.getTags().isEmpty()) {
-                q.withTags(requestParams.getTags());
-            }
+
+            final TagSelection tagSelection = new TagSelection(requestParams.getTags(), requestParams.getExcludedTags());
+            q.withSelectedTags(tagSelection);
         };
     }
 

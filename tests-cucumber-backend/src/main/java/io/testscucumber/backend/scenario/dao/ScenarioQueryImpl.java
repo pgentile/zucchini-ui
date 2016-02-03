@@ -2,10 +2,9 @@ package io.testscucumber.backend.scenario.dao;
 
 import io.testscucumber.backend.scenario.domain.Scenario;
 import io.testscucumber.backend.scenario.domain.ScenarioQuery;
+import io.testscucumber.backend.shared.domain.TagSelection;
 import io.testscucumber.backend.support.ddd.morphia.BaseMorphiaQuery;
 import org.mongodb.morphia.query.Query;
-
-import java.util.Collection;
 
 class ScenarioQueryImpl extends BaseMorphiaQuery<Scenario> implements ScenarioQuery {
 
@@ -44,8 +43,15 @@ class ScenarioQueryImpl extends BaseMorphiaQuery<Scenario> implements ScenarioQu
     }
 
     @Override
-    public ScenarioQuery withTags(final Collection<String> tags) {
-        configureQuery(q -> q.field("allTags").in(tags));
+    public ScenarioQuery withSelectedTags(final TagSelection tagSelection) {
+        if (tagSelection.isActive()) {
+            if (!tagSelection.getIncludedTags().isEmpty()) {
+                configureQuery(q -> q.field("allTags").in(tagSelection.getIncludedTags()));
+            }
+            if (!tagSelection.getExcludedTags().isEmpty()) {
+                configureQuery(q -> q.field("allTags").notIn(tagSelection.getExcludedTags()));
+            }
+        }
         return this;
     }
 

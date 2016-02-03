@@ -1,11 +1,11 @@
 package io.testscucumber.backend.feature.views;
 
+import io.testscucumber.backend.feature.dao.FeatureDAO;
 import io.testscucumber.backend.feature.domain.Feature;
 import io.testscucumber.backend.feature.domain.FeatureQuery;
-import io.testscucumber.backend.feature.dao.FeatureDAO;
-import io.testscucumber.backend.scenario.domain.ScenarioQuery;
 import io.testscucumber.backend.scenario.views.ScenarioStats;
 import io.testscucumber.backend.scenario.views.ScenarioViewAccess;
+import io.testscucumber.backend.shared.domain.TagSelection;
 import io.testscucumber.backend.support.ddd.morphia.MorphiaUtils;
 import io.testscucumber.backend.testrun.domain.TestRunQuery;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;
@@ -49,13 +49,13 @@ public class FeatureViewAccess {
 
     public List<FeatureListItem> getFeatureListItems(
         final Consumer<FeatureQuery> preparator,
-        final Set<String> tags,
+        final TagSelection tagSelection,
         final boolean withStats
     ) {
         Consumer<FeatureQuery> updatedPreparator = preparator;
 
-        if (!tags.isEmpty()) {
-            final Set<String> featureIdsForTags = scenarioViewAccess.getFeatureIdsForTags(tags);
+        if (tagSelection.isActive()) {
+            final Set<String> featureIdsForTags = scenarioViewAccess.getFeatureIdsForTags(tagSelection);
             updatedPreparator = updatedPreparator.andThen(q -> q.withIdIn(featureIdsForTags));
         }
 
@@ -66,21 +66,9 @@ public class FeatureViewAccess {
             .map(feature -> {
                 final FeatureListItem item = featureToListItemMapper.map(feature);
 
-                ScenarioStats stats = null;
-                if (withStats || !tags.isEmpty()) {
-                    final Consumer<ScenarioQuery> scenarioQuery = q -> {
-                        q.withFeatureId(feature.getId());
-
-                        if (!tags.isEmpty()) {
-                            q.withTags(tags);
-                        }
-                    };
-
-                    stats = scenarioViewAccess.getStats(scenarioQuery);
-                    item.setStatus(stats.computeStatus());
-                }
-
                 if (withStats) {
+                    final ScenarioStats stats = scenarioViewAccess.getStats(q -> q.withFeatureId(feature.getId()).withSelectedTags(tagSelection));
+                    item.setStatus(stats.computeStatus());
                     item.setStats(stats);
                 }
                 return item;

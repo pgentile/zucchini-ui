@@ -1,5 +1,6 @@
 package io.testscucumber.backend.feature.rest;
 
+import com.google.common.base.Strings;
 import io.testscucumber.backend.feature.domain.Feature;
 import io.testscucumber.backend.feature.domain.FeatureQuery;
 import io.testscucumber.backend.feature.domain.FeatureRepository;
@@ -7,6 +8,7 @@ import io.testscucumber.backend.feature.domain.FeatureService;
 import io.testscucumber.backend.feature.views.FeatureHistoryItem;
 import io.testscucumber.backend.feature.views.FeatureListItem;
 import io.testscucumber.backend.feature.views.FeatureViewAccess;
+import io.testscucumber.backend.shared.domain.TagSelection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -50,10 +52,17 @@ public class FeatureResource {
     public List<FeatureListItem> getFeatures(
         @QueryParam("testRunId") final String testRunId,
         @QueryParam("tag") final Set<String> tags,
+        @QueryParam("excludedTag") final Set<String> excludedTag,
         @QueryParam("withStats") @DefaultValue("false") final boolean withStats
     ) {
-        final Consumer<FeatureQuery> query = q -> q.withTestRunId(testRunId).orderByGroupAndName();
-        return featureViewAccess.getFeatureListItems(query, tags, withStats);
+        final Consumer<FeatureQuery> query = q -> {
+            if (!Strings.isNullOrEmpty(testRunId)) {
+                q.withTestRunId(testRunId);
+            }
+            q.orderByGroupAndName();
+        };
+        final TagSelection tagSelection = new TagSelection(tags, excludedTag);
+        return featureViewAccess.getFeatureListItems(query, tagSelection, withStats);
     }
 
     @GET

@@ -1,8 +1,9 @@
 package io.testscucumber.backend.scenario.views;
 
+import io.testscucumber.backend.scenario.dao.ScenarioDAO;
 import io.testscucumber.backend.scenario.domain.Scenario;
 import io.testscucumber.backend.scenario.domain.ScenarioQuery;
-import io.testscucumber.backend.scenario.dao.ScenarioDAO;
+import io.testscucumber.backend.shared.domain.TagSelection;
 import io.testscucumber.backend.support.ddd.morphia.MorphiaUtils;
 import io.testscucumber.backend.testrun.domain.TestRunQuery;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;
@@ -99,8 +100,8 @@ public class ScenarioViewAccess {
             .collect(Collectors.toList());
     }
 
-    public Set<String> getFeatureIdsForTags(final Collection<String> tags) {
-        final Query<Scenario> query =  scenarioDAO.prepareTypedQuery(q -> q.withTags(tags))
+    public Set<String> getFeatureIdsForTags(final TagSelection tagSelection) {
+        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(q -> q.withSelectedTags(tagSelection))
             .retrievedFields(true, "id", "featureId");
 
         return MorphiaUtils.streamQuery(query)
