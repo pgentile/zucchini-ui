@@ -7,8 +7,8 @@
       return ScenarioResource.query({ featureId: featureId }).$promise;
     };
 
-    this.getScenariiByTestRunIdAndTag = function (testRunId, tag) {
-      return ScenarioResource.query({ testRunId: testRunId, tag: tag }).$promise;
+    this.getScenariiByTestRunIdAndTag = function (testRunId, tag, excludedTag) {
+      return ScenarioResource.query({ testRunId: testRunId, tag: tag, excludedTag: excludedTag }).$promise;
     };
 
     this.getScenario = function (scenarioId) {
@@ -51,8 +51,8 @@
       return ScenarioResource.getStats({ featureId: featureId }).$promise;
     };
 
-    this.getStatsByTestRunIdAndTag = function (testRunId, tag) {
-      return ScenarioResource.getStats({ testRunId: testRunId, tag: tag }).$promise;
+    this.getStatsByTestRunIdAndTag = function (testRunId, tag, excludedTag) {
+      return ScenarioResource.getStats({ testRunId: testRunId, tag: tag, excludedTag: excludedTag }).$promise;
     };
 
   };

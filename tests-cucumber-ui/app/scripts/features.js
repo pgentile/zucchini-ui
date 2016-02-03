@@ -7,8 +7,8 @@
       return FeatureResource.query({ testRunId: testRunId, withStats: true }).$promise;
     };
 
-    this.getFeaturesByTestRunIdAndTag = function (testRunId, tag) {
-      return FeatureResource.query({ testRunId: testRunId, tag: tag, withStats: true }).$promise;
+    this.getFeaturesByTestRunIdAndTag = function (testRunId, tag, excludedTag) {
+      return FeatureResource.query({ testRunId: testRunId, tag: tag, excludedTag: excludedTag, withStats: true }).$promise;
     };
 
     this.getById = function (featureId) {

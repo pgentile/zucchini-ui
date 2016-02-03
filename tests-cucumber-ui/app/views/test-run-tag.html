@@ -10,13 +10,43 @@
     <li>
       <a ng-href="#/test-runs/{{ ctrl.testRun.id }}/tags">Tags</a>
     </li>
-    <li class="active">Tag @{{ ctrl.tag }}</li>
+    <li class="active">Tags {{ ctrl.tags.join(', ') }}</li>
   </ol>
 
   <h1>
-    Tag @{{ ctrl.tag }}
+    Tags {{ ctrl.tags.join(', ') }}
     <small>Tir du {{ ctrl.testRun.date | niceDate }}</small>
   </h1>
+
+  <!-- Tag filters -->
+
+  <hr>
+
+  <div class="form">
+
+    <div class="form-group">
+      <div class="input-group input-group-sm">
+        <label for="tags" class="control-label input-group-addon">Tags inclus</label>
+        <input type="text" class="form-control" id="tags"
+               ng-model="ctrl.tags"
+               ng-list
+               ng-model-options="{ updateOn: 'blur' }"
+               ng-change="ctrl.updateRouteForTags()">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="input-group input-group-sm">
+        <label for="excludedTags" class="control-label input-group-addon">Tags exclus</label>
+        <input type="text" class="form-control" id="excludedTags"
+               ng-model="ctrl.excludedTags"
+               ng-list
+               ng-model-options="{ updateOn: 'blur' }"
+               ng-change="ctrl.updateRouteForTags()">
+      </div>
+    </div>
+
+  </div>
 
   <!-- Stats -->
 

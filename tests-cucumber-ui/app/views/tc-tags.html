@@ -1,4 +1,4 @@
 <span ng-repeat="tag in tags | orderBy track by tag">
-  <a ng-href="#/test-runs/{{ testRunId }}/tags/{{ tag }}"
+  <a ng-href="#/test-runs/{{ testRunId }}/tagDetails/?tag={{ tag }}"
      ng-class="ctrl.isPrimary(tag) ? 'label label-primary' : 'label label-info'">@{{ tag }}</a>
 </span>
