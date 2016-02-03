@@ -1,4 +1,4 @@
-package io.testscucumber.backend.comment.domainimpl;
+package io.testscucumber.backend.comment.dao;
 
 import io.testscucumber.backend.comment.domain.Comment;
 import io.testscucumber.backend.comment.domain.CommentQuery;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.function.Consumer;
 
 @Component
-class CommentDAO extends MorphiaTypedQueryDAO<Comment, String, CommentQuery> {
+public class CommentDAO extends MorphiaTypedQueryDAO<Comment, String, CommentQuery> {
 
     @Autowired
     public CommentDAO(final Datastore ds) {

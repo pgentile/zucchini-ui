@@ -2,7 +2,7 @@ package io.testscucumber.backend.feature.views;
 
 import io.testscucumber.backend.feature.domain.Feature;
 import io.testscucumber.backend.feature.domain.FeatureQuery;
-import io.testscucumber.backend.feature.domainimpl.FeatureDAO;
+import io.testscucumber.backend.feature.dao.FeatureDAO;
 import io.testscucumber.backend.scenario.domain.ScenarioQuery;
 import io.testscucumber.backend.scenario.views.ScenarioStats;
 import io.testscucumber.backend.scenario.views.ScenarioViewAccess;

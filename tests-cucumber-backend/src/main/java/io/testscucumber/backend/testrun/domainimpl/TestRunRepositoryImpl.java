@@ -1,5 +1,6 @@
 package io.testscucumber.backend.testrun.domainimpl;
 
+import io.testscucumber.backend.testrun.dao.TestRunDAO;
 import io.testscucumber.backend.testrun.domain.TestRun;
 import io.testscucumber.backend.testrun.domain.TestRunQuery;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;

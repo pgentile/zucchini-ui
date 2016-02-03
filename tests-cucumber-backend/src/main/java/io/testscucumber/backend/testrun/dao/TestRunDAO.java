@@ -1,4 +1,4 @@
-package io.testscucumber.backend.testrun.domainimpl;
+package io.testscucumber.backend.testrun.dao;
 
 import io.testscucumber.backend.support.ddd.morphia.MorphiaTypedQueryDAO;
 import io.testscucumber.backend.testrun.domain.TestRun;

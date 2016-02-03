@@ -5,7 +5,7 @@ import io.testscucumber.backend.scenario.views.ScenarioViewAccess;
 import io.testscucumber.backend.support.ddd.morphia.MorphiaUtils;
 import io.testscucumber.backend.testrun.domain.TestRun;
 import io.testscucumber.backend.testrun.domain.TestRunQuery;
-import io.testscucumber.backend.testrun.domainimpl.TestRunDAO;
+import io.testscucumber.backend.testrun.dao.TestRunDAO;
 import ma.glasnost.orika.BoundMapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

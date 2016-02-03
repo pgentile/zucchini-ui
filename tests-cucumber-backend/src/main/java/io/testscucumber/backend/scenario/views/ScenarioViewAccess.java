@@ -2,7 +2,7 @@ package io.testscucumber.backend.scenario.views;
 
 import io.testscucumber.backend.scenario.domain.Scenario;
 import io.testscucumber.backend.scenario.domain.ScenarioQuery;
-import io.testscucumber.backend.scenario.domainimpl.ScenarioDAO;
+import io.testscucumber.backend.scenario.dao.ScenarioDAO;
 import io.testscucumber.backend.support.ddd.morphia.MorphiaUtils;
 import io.testscucumber.backend.testrun.domain.TestRunQuery;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;

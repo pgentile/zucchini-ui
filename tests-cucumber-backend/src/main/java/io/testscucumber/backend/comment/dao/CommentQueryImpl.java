@@ -1,4 +1,4 @@
-package io.testscucumber.backend.comment.domainimpl;
+package io.testscucumber.backend.comment.dao;
 
 import io.testscucumber.backend.comment.domain.Comment;
 import io.testscucumber.backend.comment.domain.CommentQuery;

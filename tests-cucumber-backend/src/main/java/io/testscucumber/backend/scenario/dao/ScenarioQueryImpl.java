@@ -1,4 +1,4 @@
-package io.testscucumber.backend.scenario.domainimpl;
+package io.testscucumber.backend.scenario.dao;
 
 import io.testscucumber.backend.scenario.domain.Scenario;
 import io.testscucumber.backend.scenario.domain.ScenarioQuery;
