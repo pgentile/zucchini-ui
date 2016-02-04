@@ -10,11 +10,17 @@
     <li>
       <a ng-href="#/test-runs/{{ ctrl.testRun.id }}/tags">Tags</a>
     </li>
-    <li class="active">Tags {{ ctrl.tags.join(', ') }}</li>
+    <li class="active">
+      Tags
+      {{ ctrl.tags | prefixAndJoin:'@':' ' }}
+      {{ ctrl.excludedTags | prefixAndJoin:'~@':' ' }}
+    </li>
   </ol>
 
   <h1>
-    Tags {{ ctrl.tags.join(', ') }}
+    Tags
+    {{ ctrl.tags | prefixAndJoin:'@':' ' }}
+    {{ ctrl.excludedTags | prefixAndJoin:'~@':' ' }}
     <small>Tir du {{ ctrl.testRun.date | niceDate }}</small>
   </h1>
 
@@ -22,31 +28,32 @@
 
   <hr>
 
-  <div class="form">
+  <form class="row">
 
-    <div class="form-group">
+    <div class="col-xs-5">
       <div class="input-group input-group-sm">
         <label for="tags" class="control-label input-group-addon">Tags inclus</label>
         <input type="text" class="form-control" id="tags"
-               ng-model="ctrl.tags"
-               ng-list
-               ng-model-options="{ updateOn: 'blur' }"
-               ng-change="ctrl.updateRouteForTags()">
+               ng-model="ctrl.tagsInput">
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="col-xs-5">
       <div class="input-group input-group-sm">
         <label for="excludedTags" class="control-label input-group-addon">Tags exclus</label>
         <input type="text" class="form-control" id="excludedTags"
-               ng-model="ctrl.excludedTags"
-               ng-list
-               ng-model-options="{ updateOn: 'blur' }"
-               ng-change="ctrl.updateRouteForTags()">
+               ng-model="ctrl.excludedTagsInput">
       </div>
     </div>
 
-  </div>
+    <div class="col-xs-2">
+      <button class="btn btn-default btn-sm btn-block" ng-click="ctrl.updateRouteForTags()">
+        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+        Actualiser
+      </button>
+    </div>
+
+    </form>
 
   <!-- Stats -->
 

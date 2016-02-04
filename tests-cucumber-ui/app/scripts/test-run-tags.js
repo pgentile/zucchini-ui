@@ -1,6 +1,36 @@
 (function (angular) {
   'use strict';
 
+
+  function anyTagTypeToArray(value) {
+    if (_.isEmpty(value)) {
+      return [];
+    } else if (_.isString(value)) {
+      return [value];
+    }
+    return value;
+  }
+
+
+  function tagStringToParamValue(value) {
+    if (_.isEmpty(value)) {
+      return;
+    }
+
+    var tags = value.split(' ')
+    .map(_.trim)
+    .filter(function (v) {
+      return !_.isEmpty(v);
+    });
+
+    if (tags.length === 0) {
+      return;
+    }
+
+    return tags;
+  }
+
+
   angular.module('testsCucumberApp')
     .controller('TestRunTagsCtrl', function ($routeParams, $q, TestRunCoreService, ScenarioCoreService) {
 
@@ -39,19 +69,15 @@
       this.load();
 
     })
-    .controller('TestRunTagCtrl', function ($q, $route, $routeParams, TestRunCoreService, FeatureCoreService, ScenarioCoreService) {
+    .controller('TestRunTagCtrl', function ($q, $route, $routeParams, $scope, TestRunCoreService, FeatureCoreService, ScenarioCoreService) {
 
-      if (_.isString($routeParams.tag)) {
-        this.tags = [$routeParams.tag];
-      } else {
-        this.tags = $routeParams.tag;
-      }
+      this.updateTags = function () {
+        this.tags = anyTagTypeToArray($routeParams.tag);
+        this.excludedTags = anyTagTypeToArray($routeParams.excludedTag);
 
-      if (_.isString($routeParams.excludedTag)) {
-        this.excludedTags = [$routeParams.excludedTag];
-      } else {
-        this.excludedTags = $routeParams.excludedTag;
-      }
+        this.tagsInput = this.tags.join(' ');
+        this.excludedTagsInput = this.excludedTags.join(' ');
+      };
 
       this.load = function () {
 
@@ -94,10 +120,10 @@
 
       this.updateRouteForTags = function () {
         $route.updateParams({
-          tag: this.tags,
-          excludedTag: this.excludedTags
+          tag: tagStringToParamValue(this.tagsInput),
+          excludedTag: tagStringToParamValue(this.excludedTagsInput),
         });
-      };
+      }.bind(this);
 
 
       this.selectedFeatureId = null;
@@ -125,8 +151,22 @@
       }.bind(this);
 
 
+      $scope.$on('$routeUpdate', function () {
+        this.updateTags();
+        this.load();
+      }.bind(this));
+
+
+      this.updateTags();
       this.load();
 
+    })
+    .filter('prefixAndJoin', function () {
+      return function (input, prefix, joiner) {
+        return input.map(function (item) {
+          return prefix + item;
+        }).join(joiner);
+      };
     })
     .config(function ($routeProvider) {
         $routeProvider.when('/test-runs/:testRunId/tags', {
@@ -137,7 +177,8 @@
         .when('/test-runs/:testRunId/tagDetails', {
           templateUrl: 'views/test-run-tag.html',
           controller: 'TestRunTagCtrl',
-          controllerAs: 'ctrl'
+          controllerAs: 'ctrl',
+          reloadOnSearch: false
         });
     });
 
