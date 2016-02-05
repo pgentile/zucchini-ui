@@ -10,6 +10,7 @@ buildscript {
     dependencies {
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
         classpath 'us.kirchmeier:gradle-capsule-plugin:1.0.2'
+        classpath 'gradle.plugin.com.google.gradle:osdetector-gradle-plugin:1.4.0'
     }
 
 }
@@ -184,17 +185,24 @@ project("${rootProject.name}-backend") {
 project("${rootProject.name}-ui") {
 
     apply plugin: 'java'
+    apply plugin: 'com.google.osdetector'
 
     sourceSets.main.resources.srcDir('build/dist')
 
+    // Determine grunt command to lauch based on current OS
+    def gruntCmd = 'grunt'
+    if (osdetector.os == 'windows') {
+        gruntCmd += '.cmd'
+    }
+
     task uiClean(type: Exec, description: 'Clean UI') {
-        commandLine 'grunt', 'clean'
+        commandLine gruntCmd, 'clean'
     }
 
     tasks.clean.dependsOn uiClean
 
     task uiDist(type: Exec, description: 'Build UI dist') {
-        commandLine 'grunt'
+        commandLine gruntCmd
 
         inputs.dir('app')
         inputs.dir('test')
@@ -206,7 +214,7 @@ project("${rootProject.name}-ui") {
     tasks.jar.dependsOn uiDist
 
     task uiTest(type: Exec, description: 'Run UI tests') {
-        commandLine 'grunt', 'test'
+        commandLine gruntCmd, 'test'
 
         inputs.file uiDist
         outputs.file "${project.buildDir}/tests.flag"
