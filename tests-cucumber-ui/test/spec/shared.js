@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Shared', function() {
+describe('Shared', function () {
 
   var $compile, $rootScope;
 
@@ -8,12 +8,12 @@ describe('Shared', function() {
 
   beforeEach(module('views/tc-status.html'));
 
-  beforeEach(inject(function(_$compile_, _$rootScope_){
+  beforeEach(inject(function (_$compile_, _$rootScope_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
   }));
 
-  it('should display success status', function() {
+  it('should display success status', function () {
 
     $rootScope.status = 'PASSED';
 
