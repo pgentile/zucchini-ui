@@ -5,10 +5,19 @@ import com.google.common.base.Strings;
 
 import java.util.Objects;
 
+/**
+ * Comment reference.
+ */
 public final class CommentReference {
 
+    /**
+     * Type
+     */
     private CommentReferenceType type;
 
+    /**
+     * Reference value.
+     */
     private String reference;
 
     /**
@@ -18,6 +27,12 @@ public final class CommentReference {
 
     }
 
+    /**
+     * Create a new reference.
+     *
+     * @param type      Type
+     * @param reference Reference value
+     */
     public CommentReference(final CommentReferenceType type, final String reference) {
         if (type == null) {
             throw new IllegalArgumentException("Type must be defined");

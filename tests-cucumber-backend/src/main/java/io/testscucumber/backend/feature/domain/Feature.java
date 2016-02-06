@@ -12,30 +12,66 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Feature.
+ */
 @Entity("features")
 public class Feature extends BaseEntity<String> {
 
+    /**
+     * ID.
+     */
     @Id
     private String id;
 
+    /**
+     * Feature key, useful for following multiple executions of a same feature over time.
+     */
     private String featureKey;
 
+    /**
+     * Test run ID.
+     */
     private String testRunId;
 
+    /**
+     * Information about feature.
+     */
     private BasicInfo info;
 
+    /**
+     * Tags.
+     */
     private Set<String> tags = new HashSet<>();
 
+    /**
+     * Location.
+     */
     private Location location;
 
+    /**
+     * Description.
+     */
     private String description;
 
+    /**
+     * Feature group.
+     */
     private String group;
 
+    /**
+     * Status.
+     */
     private FeatureStatus status;
 
+    /**
+     * Creation date.
+     */
     private ZonedDateTime createdAt;
 
+    /**
+     * Modification date.
+     */
     private ZonedDateTime modifiedAt;
 
     /**
@@ -45,7 +81,7 @@ public class Feature extends BaseEntity<String> {
     }
 
     /**
-     * Feature constructor
+     * Create a new feature.
      *
      * @param featureKey Feature key
      * @param testRunId  Test run ID
@@ -66,6 +102,11 @@ public class Feature extends BaseEntity<String> {
         this.location = location;
     }
 
+    /**
+     * Update current feature with informations from another feature.
+     *
+     * @param other Oher feature to merge with
+     */
     public void mergeWith(final Feature other) {
         if (!featureKey.equals(other.featureKey)) {
             throw new IllegalArgumentException("Same feature key is required");
@@ -87,6 +128,11 @@ public class Feature extends BaseEntity<String> {
         modifiedAt = ZonedDateTime.now();
     }
 
+    /**
+     * Change feature status.
+     *
+     * @param newStatus New status
+     */
     public void setStatus(final FeatureStatus newStatus) {
         if (newStatus != status) {
             status = newStatus;
@@ -94,10 +140,11 @@ public class Feature extends BaseEntity<String> {
         }
     }
 
-    public void setInfo(final BasicInfo info) {
-        this.info = info;
-    }
-
+    /**
+     * Update tags.
+     *
+     * @param tags New tags
+     */
     public void setTags(final Set<String> tags) {
         if (!this.tags.equals(tags)) {
             this.tags = new HashSet<>(tags);
@@ -105,11 +152,21 @@ public class Feature extends BaseEntity<String> {
         }
     }
 
+    /**
+     * Update description.
+     *
+     * @param description New description
+     */
     public void setDescription(final String description) {
         this.description = description;
         modifiedAt = ZonedDateTime.now();
     }
 
+    /**
+     * Update group.
+     *
+     * @param group New group
+     */
     public void setGroup(final String group) {
         this.group = group;
         modifiedAt = ZonedDateTime.now();

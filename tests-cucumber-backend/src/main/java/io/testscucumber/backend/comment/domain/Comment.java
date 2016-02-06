@@ -12,16 +12,31 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Comment entity.
+ */
 @Entity("comments")
 public class Comment extends BaseEntity<String> {
 
+    /**
+     * ID.
+     */
     @Id
     private String id;
 
+    /**
+     * Comment creation date.
+     */
     private ZonedDateTime date;
 
+    /**
+     * Comment content.
+     */
     private String content;
 
+    /**
+     * Comment references.
+     */
     @Embedded(concreteClass = HashSet.class)
     private Set<CommentReference> references;
 
@@ -31,6 +46,12 @@ public class Comment extends BaseEntity<String> {
     private Comment() {
     }
 
+    /**
+     * Create a new comment.
+     *
+     * @param references References
+     * @param content    Comment content
+     */
     public Comment(final Iterable<CommentReference> references, final String content) {
         id = UUID.randomUUID().toString();
         date = ZonedDateTime.now();
