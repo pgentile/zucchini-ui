@@ -27,7 +27,7 @@
 
 
   angular.module('testsCucumberApp')
-    .controller('FeatureCtrl', function ($routeParams, $q, $location, FeatureCoreService, TestRunCoreService, ScenarioCoreService, ConfirmationModalService, scenarioStoredFilters, historyFilters) {
+    .controller('FeatureCtrl', function ($routeParams, $q, $location, FeatureCoreService, TestRunCoreService, ScenarioCoreService, ConfirmationModalService, scenarioStoredFilters, historyStoredFilters) {
 
       this.load = function () {
 
@@ -80,29 +80,37 @@
       };
 
 
-      // Scenario status and history filters
+      // Scenario status
 
-      this.filters = scenarioStoredFilters.get();
-      this.historyFilters = historyFilters.get();
+      this.scenarioFilters = scenarioStoredFilters.get();
 
-      this.updateStoredFilters = function () {
-        scenarioStoredFilters.save(this.filters);
-        historyFilters.save(this.historyFilters);
+      this.updateScenarioStoredFilters = function (filters) {
+        this.scenarioFilters = filters;
+        scenarioStoredFilters.save(filters);
       }.bind(this);
 
       this.isScenarioDisplayable = function (scenario) {
         switch (scenario.status) {
           case 'PASSED':
-            return this.filters.passed;
+            return this.scenarioFilters.passed;
           case 'FAILED':
-            return this.filters.failed;
+            return this.scenarioFilters.failed;
           case 'PENDING':
-            return this.filters.pending;
+            return this.scenarioFilters.pending;
           case 'NOT_RUN':
-            return this.filters.notRun;
+            return this.scenarioFilters.notRun;
           default:
             return true;
         }
+      }.bind(this);
+
+
+      // History filters
+
+      this.historyFilters = historyStoredFilters.get();
+
+      this.updateHistoryStoredFilters = function () {
+        historyStoredFilters.save(this.historyFilters);
       }.bind(this);
 
       this.isHistoryItemDisplayable = function (item) {
@@ -126,6 +134,13 @@
           failed: true,
           pending: true,
           notRun: true
+        };
+      });
+    })
+    .factory('historyStoredFilters', function (ObjectBrowserStorage) {
+      return ObjectBrowserStorage.getItem('historyFilters', function () {
+        return {
+          sameTestRun: true
         };
       });
     })

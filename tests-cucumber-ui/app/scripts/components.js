@@ -20,6 +20,20 @@
       bindings: {
         stats: '<'
       }
+    })
+    .component('tcScenarioFilters', {
+      templateUrl: 'views/tc-scenario-filters.html',
+      bindings: {
+        filters: '<',
+        onUpdate: '&'
+      },
+      controller: function () {
+
+        this.onFilterChange = function () {
+          this.onUpdate({ filters: this.filters });
+        };
+
+      }
     });
 
 })(angular);

@@ -81,24 +81,8 @@
 
   <h2>Scénarii</h2>
 
-  <div class="form" style="margin-bottom: 10px">
-
-    <div class="form-group">
-      <b>Filtrer par statut :</b>
-      <label class="checkbox-inline">
-        <input type="checkbox" ng-model="ctrl.filters.passed" ng-change="ctrl.updateStoredFilters()"> Succès
-      </label>
-      <label class="checkbox-inline">
-        <input type="checkbox" ng-model="ctrl.filters.failed" ng-change="ctrl.updateStoredFilters()"> Échecs
-      </label>
-      <label class="checkbox-inline">
-        <input type="checkbox" ng-model="ctrl.filters.pending" ng-change="ctrl.updateStoredFilters()"> En attente
-      </label>
-      <label class="checkbox-inline">
-        <input type="checkbox" ng-model="ctrl.filters.notRun" ng-change="ctrl.updateStoredFilters()"> Non joués
-      </label>
-    </div>
-  </div>
+  <tc-scenario-filters filters="ctrl.scenarioFilters" on-update="ctrl.updateScenarioStoredFilters(filters)">
+  </tc-scenario-filters>
 
   <table class="table table-striped table-bordered">
     <thead>
@@ -142,7 +126,7 @@
     <div class="form-group">
       <b>Filtrer :</b>
       <label class="checkbox-inline">
-        <input type="checkbox" ng-model="ctrl.historyFilters.sameTestRun" ng-change="ctrl.updateStoredFilters()">
+        <input type="checkbox" ng-model="ctrl.historyFilters.sameTestRun" ng-change="ctrl.updateHistoryStoredFilters()">
         Même type de tir
       </label>
     </div>

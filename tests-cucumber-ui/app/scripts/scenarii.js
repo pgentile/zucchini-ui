@@ -59,7 +59,7 @@
 
 
   angular.module('testsCucumberApp')
-    .controller('ScenarioCtrl', function (ScenarioCoreService, FeatureCoreService, TestRunCoreService, ConfirmationModalService, $routeParams, $q, $location, historyFilters, stepFilters) {
+    .controller('ScenarioCtrl', function (ScenarioCoreService, FeatureCoreService, TestRunCoreService, ConfirmationModalService, $routeParams, $q, $location, historyStoredFilters, stepFilters) {
 
       this.scenario = {};
 
@@ -159,10 +159,10 @@
           }.bind(this));
       };
 
-      this.historyFilters = historyFilters.get();
+      this.historyFilters = historyStoredFilters.get();
 
-      this.updateStoredHistoryFilters = function () {
-        historyFilters.save(this.historyFilters);
+      this.updateHistoryStoredFilters = function () {
+        historyStoredFilters.save(this.historyFilters);
       }.bind(this);
 
       this.isHistoryItemDisplayable = function (item) {
@@ -202,13 +202,6 @@
           }.bind(this));
       };
 
-    })
-    .factory('historyFilters', function (ObjectBrowserStorage) {
-      return ObjectBrowserStorage.getItem('historyFilters', function () {
-        return {
-          sameTestRun: true
-        };
-      });
     })
     .factory('stepFilters', function (ObjectBrowserStorage) {
       return ObjectBrowserStorage.getItem('stepFilters', function () {

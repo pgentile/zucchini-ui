@@ -1,7 +1,7 @@
 (function (angular) {
   'use strict';
 
-  var StoredItem = function (log, storage, itemName, defaultValueFactory) {
+  var StoredItem = function (storage, itemName, defaultValueFactory, log) {
 
     var value = defaultValueFactory();
 
@@ -24,23 +24,23 @@
     };
 
     this.reset = function () {
-      value = null;
+      value = defaultValueFactory();
       storage.removeItem(itemName);
     };
 
   };
 
-  var ObjectBrowserStorage = function (log, storage) {
+  var ObjectBrowserStorage = function (storage, log) {
 
     this.getItem = function (itemName, defaultValueFactory) {
-      return new StoredItem(log, storage, itemName, defaultValueFactory);
+      return new StoredItem(storage, itemName, defaultValueFactory, log);
     };
 
   };
 
   angular.module('testsCucumberApp')
-    .factory('ObjectBrowserStorage', function ($log, $window) {
-      return new ObjectBrowserStorage($log, $window.sessionStorage);
+    .factory('ObjectBrowserStorage', function ($window, $log) {
+      return new ObjectBrowserStorage($window.sessionStorage, $log);
     });
 
 })(angular);

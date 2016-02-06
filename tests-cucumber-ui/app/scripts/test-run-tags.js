@@ -69,7 +69,7 @@
       this.load();
 
     })
-    .controller('TestRunTagCtrl', function ($q, $route, $routeParams, $scope, TestRunCoreService, FeatureCoreService, ScenarioCoreService) {
+    .controller('TestRunTagCtrl', function ($q, $route, $routeParams, $scope, TestRunCoreService, FeatureCoreService, ScenarioCoreService, scenarioStoredFilters) {
 
       this.updateTags = function () {
         this.tags = anyTagTypeToArray($routeParams.tag);
@@ -126,30 +126,59 @@
       }.bind(this);
 
 
-      this.selectedFeatureId = null;
+      // Feature filters
 
-      this.selectFeatureId = function (featureId) {
-        this.selectedFeatureId = featureId;
+      this.selectedFeature = null;
+
+      this.selectFeature = function (feature) {
+        this.selectedFeature = feature;
       }.bind(this);
 
-      this.clearSelectedFeatureIds = function () {
-        this.selectedFeatureId = null;
+      this.clearSelectedFeature = function () {
+        this.selectedFeature = null;
       }.bind(this);
 
       this.isFeatureDisplayable = function (feature) {
-        if (this.selectedFeatureId === null) {
+        if (this.selectedFeature === null) {
           return true;
         }
-        return this.selectedFeatureId === feature.id;
+        return this.selectedFeature === feature;
       }.bind(this);
 
-      this.isScenarioDisplayable = function (scenario) {
-        if (this.selectedFeatureId === null) {
+      this.isScenarioInSelectedFeature = function (scenario) {
+        if (this.selectedFeature === null) {
           return true;
         }
-        return this.selectedFeatureId === scenario.featureId;
+        return this.selectedFeature === scenario.feature;
       }.bind(this);
 
+
+      // Scenario status
+
+      this.scenarioFilters = scenarioStoredFilters.get();
+
+      this.updateScenarioStoredFilters = function (filters) {
+        this.scenarioFilters = filters;
+        scenarioStoredFilters.save(filters);
+      }.bind(this);
+
+      this.isScenarioStatusSelected = function (scenario) {
+        switch (scenario.status) {
+          case 'PASSED':
+            return this.scenarioFilters.passed;
+          case 'FAILED':
+            return this.scenarioFilters.failed;
+          case 'PENDING':
+            return this.scenarioFilters.pending;
+          case 'NOT_RUN':
+            return this.scenarioFilters.notRun;
+          default:
+            return true;
+        }
+      }.bind(this);
+
+
+      // Route update
 
       $scope.$on('$routeUpdate', function () {
         this.updateTags();
