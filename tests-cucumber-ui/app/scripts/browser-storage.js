@@ -38,13 +38,9 @@
 
   };
 
-  angular
-    .module('testsCucumberApp')
-    .factory('sessionStorage', function ($window) {
-      return $window.sessionStorage;
-    })
-    .factory('ObjectBrowserStorage', function ($log, sessionStorage) {
-      return new ObjectBrowserStorage($log, sessionStorage);
+  angular.module('testsCucumberApp')
+    .factory('ObjectBrowserStorage', function ($log, $window) {
+      return new ObjectBrowserStorage($log, $window.sessionStorage);
     });
 
 })(angular);
