@@ -1,17 +1,6 @@
 (function (angular) {
   'use strict';
 
-  var TagsCtrl = function ($scope) {
-
-    this.isPrimary = function (tag) {
-      if (_.isArray($scope.primaryTags)) {
-        return $scope.primaryTags.indexOf(tag) !== -1;
-      }
-      return false;
-    };
-
-  };
-
   angular.module('testsCucumberApp')
     .directive('tcStatus', function () {
       return {
@@ -27,11 +16,8 @@
         restrict: 'E',
         scope: {
           tags: '<',
-          primaryTags: '<',
           testRunId: '<'
         },
-        controller: TagsCtrl,
-        controllerAs: 'ctrl',
         templateUrl: 'views/tc-tags.html'
       };
     })
