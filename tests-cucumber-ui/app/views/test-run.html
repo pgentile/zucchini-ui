@@ -47,11 +47,7 @@
 
   <h2>Avancement par scénario</h2>
 
-  <tc-progress total="ctrl.testRun.stats.count"
-               success="ctrl.testRun.stats.statsByStatus['PASSED']"
-               warning="ctrl.testRun.stats.statsByStatus['PENDING']"
-               danger="ctrl.testRun.stats.statsByStatus['FAILED']">
-  </tc-progress>
+  <tc-scenario-progress stats="ctrl.testRun.stats"></tc-scenario-progress>
 
   <!-- Features -->
 

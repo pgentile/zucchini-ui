@@ -15,13 +15,10 @@
         testRunId: '<'
       }
     })
-    .component('tcProgress', {
-      templateUrl: 'views/tc-progress.html',
+    .component('tcScenarioProgress', {
+      templateUrl: 'views/tc-scenario-progress.html',
       bindings: {
-        total: '<',
-        success: '<',
-        warning: '<',
-        danger: '<'
+        stats: '<'
       }
     });
 

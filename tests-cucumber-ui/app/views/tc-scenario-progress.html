@@ -1,0 +1,28 @@
+<div uib-tooltip="Total: {{ $ctrl.stats.count }}">
+
+  <uib-progress>
+
+    <uib-bar ng-if="$ctrl.stats.statsByStatus['PASSED']"
+             value="100 * $ctrl.stats.statsByStatus['PASSED'] / $ctrl.stats.count"
+             type="success"
+             style="min-width: 2em">
+      {{ $ctrl.stats.statsByStatus['PASSED'] }}
+    </uib-bar>
+
+    <uib-bar ng-if="$ctrl.stats.statsByStatus['PENDING']"
+             value="100 * $ctrl.stats.statsByStatus['PENDING'] / $ctrl.stats.count"
+             type="warning"
+             style="min-width: 2em">
+      {{ $ctrl.stats.statsByStatus['PENDING'] }}
+    </uib-bar>
+
+    <uib-bar ng-if="$ctrl.stats.statsByStatus['FAILED']"
+             value="100 * $ctrl.stats.statsByStatus['FAILED'] / $ctrl.stats.count"
+             type="danger"
+             style="min-width: 2em">
+      {{ $ctrl.stats.statsByStatus['FAILED'] }}
+    </uib-bar>
+
+  </uib-progress>
+
+</div>
