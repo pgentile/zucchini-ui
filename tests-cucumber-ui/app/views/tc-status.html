@@ -1,4 +1,4 @@
-<ng-switch on="status">
+<ng-switch on="$ctrl.status">
   <span class="label label-success" ng-switch-when="PASSED">Succès</span>
   <span class="label label-danger" ng-switch-when="FAILED">Échec</span>
   <span class="label label-danger" ng-switch-when="UNDEFINED">Non défini</span>
@@ -6,5 +6,5 @@
   <span class="label label-default" ng-switch-when="NOT_RUN">Non joué</span>
   <span class="label label-warning" ng-switch-when="PENDING">En attente</span>
   <span class="label label-warning" ng-switch-when="PARTIAL">Partiel</span>
-  <span class="label label-warning" ng-switch-default>{{ status }}</span>
+  <span class="label label-warning" ng-switch-default>{{ $ctrl.status }}</span>
 </ng-switch>

@@ -1,23 +1,15 @@
-<div uib-tooltip="Total: {{ total }}">
+<div uib-tooltip="Total: {{ $ctrl.total }}">
 
-  <ng-switch on="total">
-    <div ng-switch-when="undefined"></div>
-    <div ng-switch-when="0">
-      <uib-progress></uib-progress>
-    </div>
-    <div ng-switch-default>
-      <uib-progress>
-        <uib-bar ng-if="success" value="100 * success / total" type="success" style="min-width: 2em">
-          {{ success }}
-        </uib-bar>
-        <uib-bar ng-if="warning" value="100 * warning / total" type="warning" style="min-width: 2em">
-          {{ warning }}
-        </uib-bar>
-        <uib-bar ng-if="danger" value="100 * danger / total" type="danger" style="min-width: 2em">
-          {{ danger }}
-        </uib-bar>
-      </uib-progress>
-    </div>
-  </ng-switch>
+  <uib-progress>
+    <uib-bar ng-if="$ctrl.success" value="100 * $ctrl.success / $ctrl.total" type="success" style="min-width: 2em">
+      {{ $ctrl.success }}
+    </uib-bar>
+    <uib-bar ng-if="$ctrl.warning" value="100 * $ctrl.warning / $ctrl.total" type="warning" style="min-width: 2em">
+      {{ $ctrl.warning }}
+    </uib-bar>
+    <uib-bar ng-if="$ctrl.danger" value="100 * $ctrl.danger / $ctrl.total" type="danger" style="min-width: 2em">
+      {{ $ctrl.danger }}
+    </uib-bar>
+  </uib-progress>
 
 </div>

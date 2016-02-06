@@ -1,3 +1,3 @@
-<span ng-repeat="tag in tags | orderBy track by tag">
-  <a ng-href="#/test-runs/{{ testRunId }}/tagDetails/?tag={{ tag }}" class="label label-info">@{{ tag }}</a>
+<span ng-repeat="tag in $ctrl.tags | orderBy track by tag">
+  <a ng-href="#/test-runs/{{ $ctrl.testRunId }}/tagDetails/?tag={{ tag }}" class="label label-info">@{{ tag }}</a>
 </span>

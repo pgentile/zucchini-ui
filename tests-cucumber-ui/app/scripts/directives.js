@@ -2,37 +2,6 @@
   'use strict';
 
   angular.module('testsCucumberApp')
-    .directive('tcStatus', function () {
-      return {
-        restrict: 'E',
-        scope: {
-          status: '<'
-        },
-        templateUrl: 'views/tc-status.html'
-      };
-    })
-    .directive('tcTags', function () {
-      return {
-        restrict: 'E',
-        scope: {
-          tags: '<',
-          testRunId: '<'
-        },
-        templateUrl: 'views/tc-tags.html'
-      };
-    })
-    .directive('tcProgress', function () {
-      return {
-        restrict: 'E',
-        scope: {
-          total: '<',
-          success: '<',
-          warning: '<',
-          danger: '<'
-        },
-        templateUrl: 'views/tc-progress.html'
-      };
-    })
     .directive('tcElementInfo', function ($window) {
 
       var cut = function (info) {
@@ -127,7 +96,7 @@
                 element.append(textElement);
 
                 for (var i = 1; i < parts.length; i++) {
-                  var brElement = angular.element('<br></br>');
+                  var brElement = angular.element('<br>');
                   element.append(brElement);
 
                   var nextTextElement = $window.document.createTextNode(parts[i]);
@@ -147,6 +116,5 @@
       };
 
     });
-
 
 })(angular);
