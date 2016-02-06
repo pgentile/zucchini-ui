@@ -52,22 +52,24 @@
 
   <!-- Create test run modal window -->
   <script type="text/ng-template" id="createTestRunForm.html">
-    <div class="modal-header">
-      <button type="button" class="close" ng-click="$dismiss()" aria-label="Fermer">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <h4 class="modal-title">Créer un nouveau tir de tests</h4>
-    </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <label for="type">Type</label>
-        <input type="text" class="form-control" id="type" ng-model="createCtrl.testRun.type" autofocus>
+    <form>
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="$dismiss()" aria-label="Fermer">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Créer un nouveau tir de tests</h4>
       </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-default" ng-click="$dismiss()">Annuler</button>
-      <button type="button" class="btn btn-primary" ng-click="createCtrl.create()">Créer</button>
-    </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="type">Type</label>
+          <input type="text" class="form-control" id="type" ng-model="createCtrl.testRun.type" autofocus>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="$dismiss()">Annuler</button>
+        <button type="submit" class="btn btn-primary" ng-click="createCtrl.create()">Créer</button>
+      </div>
+    </form>
   </script>
 
 </div>
