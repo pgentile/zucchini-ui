@@ -17,7 +17,7 @@
       return {
         restrict: 'E',
         scope: {
-          status: '='
+          status: '<'
         },
         templateUrl: 'views/tc-status.html'
       };
@@ -26,9 +26,9 @@
       return {
         restrict: 'E',
         scope: {
-          tags: '=',
-          primaryTags: '=',
-          testRunId: '='
+          tags: '<',
+          primaryTags: '<',
+          testRunId: '<'
         },
         controller: TagsCtrl,
         controllerAs: 'ctrl',
@@ -39,10 +39,10 @@
       return {
         restrict: 'E',
         scope: {
-          total: '=',
-          success: '=',
-          warning: '=',
-          danger: '='
+          total: '<',
+          success: '<',
+          warning: '<',
+          danger: '<'
         },
         templateUrl: 'views/tc-progress.html'
       };
