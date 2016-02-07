@@ -96,7 +96,6 @@ public class ReportConverterServiceImplTest {
         inOrder.verify(reportConverter).convert(testRunId, group, reportFeature);
         inOrder.verify(featureService).tryToMergeWithExistingFeature(feature);
         inOrder.verify(scenarioService).tryToMergeWithExistingScenario(scenario);
-        inOrder.verify(scenario).calculateStatusFromSteps();
         inOrder.verify(scenarioRepository).save(scenario);
         inOrder.verify(featureService).calculateStatusFromScenarii(feature);
         inOrder.verify(featureRepository).save(feature);
@@ -136,7 +135,6 @@ public class ReportConverterServiceImplTest {
         inOrder.verify(scenario).changeStatus(ScenarioStatus.NOT_RUN);
         inOrder.verify(featureService).tryToMergeWithExistingFeature(feature);
         inOrder.verify(scenarioService).tryToMergeWithExistingScenario(scenario);
-        inOrder.verify(scenario).calculateStatusFromSteps();
         inOrder.verify(scenarioRepository).save(scenario);
         inOrder.verify(featureService).calculateStatusFromScenarii(feature);
         inOrder.verify(featureRepository).save(feature);
@@ -179,7 +177,6 @@ public class ReportConverterServiceImplTest {
         inOrder.verify(reportConverter).convert(testRunId, group, reportFeature);
         inOrder.verify(featureService).tryToMergeWithExistingFeature(feature);
         inOrder.verify(scenarioService).tryToMergeWithExistingScenario(scenario);
-        inOrder.verify(scenario).calculateStatusFromSteps();
         inOrder.verify(scenarioRepository).save(scenario);
         inOrder.verify(featureService).calculateStatusFromScenarii(existingFeature);
         inOrder.verify(featureRepository).save(existingFeature);
@@ -224,7 +221,6 @@ public class ReportConverterServiceImplTest {
         inOrder.verify(reportConverter).convert(testRunId, group, reportFeature);
         inOrder.verify(featureService).tryToMergeWithExistingFeature(feature);
         inOrder.verify(scenarioService).tryToMergeWithExistingScenario(scenario);
-        inOrder.verify(existingScenario, never()).calculateStatusFromSteps();
         inOrder.verify(scenarioRepository, never()).save(existingScenario);
         inOrder.verify(featureService).calculateStatusFromScenarii(existingFeature);
         inOrder.verify(featureRepository).save(existingFeature);

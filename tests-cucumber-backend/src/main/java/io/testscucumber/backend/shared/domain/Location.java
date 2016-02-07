@@ -1,6 +1,8 @@
 package io.testscucumber.backend.shared.domain;
 
-public class Location {
+import java.util.Objects;
+
+public final class Location {
 
     private String filename;
 
@@ -9,7 +11,7 @@ public class Location {
     /**
      * For frameworks.
      */
-    public Location() {
+    private Location() {
     }
 
     public Location(final String filename, final long line) {
@@ -21,16 +23,29 @@ public class Location {
         return filename;
     }
 
-    public void setFilename(final String filename) {
-        this.filename = filename;
-    }
-
     public long getLine() {
         return line;
     }
 
-    public void setLine(final long line) {
-        this.line = line;
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (this == obj) {
+            return true;
+        }
+        if (!getClass().equals(obj.getClass())) {
+            return false;
+        }
+
+        final Location other = (Location) obj;
+        return Objects.equals(filename, other.filename) && line == other.line;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(filename, line);
     }
 
     @Override

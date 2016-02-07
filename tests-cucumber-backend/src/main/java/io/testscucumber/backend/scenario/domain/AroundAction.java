@@ -6,7 +6,27 @@ public class AroundAction {
 
     private String errorMessage;
 
-    protected void changeStatus(final StepStatus newStatus) {
+    /**
+     * Private constructor for Morphia.
+     */
+    private AroundAction() {
+
+    }
+
+    protected AroundAction(final AroundActionBuilder builder) {
+        status = builder.getStatus();
+        errorMessage = builder.getErrorMessage();
+    }
+
+    public StepStatus getStatus() {
+        return status;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    protected void setStatus(final StepStatus newStatus) {
         if (newStatus == status) {
             return;
         }
@@ -15,22 +35,6 @@ public class AroundAction {
         if (newStatus != StepStatus.FAILED && newStatus != StepStatus.UNDEFINED) {
             errorMessage = null;
         }
-    }
-
-    public StepStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(final StepStatus status) {
-        this.status = status;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(final String errorMessage) {
-        this.errorMessage = errorMessage;
     }
 
 }

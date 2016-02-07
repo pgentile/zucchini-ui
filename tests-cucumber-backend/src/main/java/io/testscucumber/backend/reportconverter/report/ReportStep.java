@@ -10,9 +10,6 @@ public class ReportStep extends CucumberElement {
 
     private Result result;
 
-    @JsonProperty("error_message")
-    private String errorMessage;
-
     private Match match;
 
     @JsonProperty("rows")
@@ -26,14 +23,6 @@ public class ReportStep extends CucumberElement {
 
     public void setResult(final Result result) {
         this.result = result;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(final String errorMessage) {
-        this.errorMessage = errorMessage;
     }
 
     public Match getMatch() {

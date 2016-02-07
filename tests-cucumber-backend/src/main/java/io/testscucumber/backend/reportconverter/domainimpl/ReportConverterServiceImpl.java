@@ -108,7 +108,6 @@ class ReportConverterServiceImpl implements ReportConverterService {
         for (final Scenario scenario : allScenarii) {
             final Scenario mergedScenario = scenarioService.tryToMergeWithExistingScenario(scenario);
             if (!onlyNewScenarii || mergedScenario.equals(scenario)) {
-                mergedScenario.calculateStatusFromSteps();
                 scenarioRepository.save(mergedScenario);
             } else {
                 LOGGER.debug("Scenario {} will not be imported", scenario);

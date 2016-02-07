@@ -1,16 +1,17 @@
 package io.testscucumber.backend.scenario.domain;
 
 import io.testscucumber.backend.shared.domain.BasicInfo;
-import io.testscucumber.backend.shared.domain.Location;
 import io.testscucumber.backend.support.ddd.BaseEntity;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity("scenarii")
 public class Scenario extends BaseEntity<String> {
@@ -34,8 +35,6 @@ public class Scenario extends BaseEntity<String> {
 
     private BasicInfo info;
 
-    private Location location;
-
     private String comment;
 
     private List<Step> steps = new ArrayList<>();
@@ -47,6 +46,52 @@ public class Scenario extends BaseEntity<String> {
     private ZonedDateTime createdAt;
 
     private ZonedDateTime modifiedAt;
+
+    /**
+     * Private constructor for Morphia.
+     */
+    private Scenario() {
+
+    }
+
+    protected Scenario(final ScenarioBuilder builder) {
+        id = UUID.randomUUID().toString();
+
+        final ZonedDateTime now = ZonedDateTime.now();
+        createdAt = now;
+        modifiedAt = now;
+
+        scenarioKey = builder.getScenarioKey();
+        featureId = builder.getFeatureId();
+        testRunId = builder.getTestRunId();
+
+        tags = new HashSet<>(builder.getTags());
+        tags.removeAll(builder.getExtraTags());
+
+        allTags = new HashSet<>(tags);
+        allTags.addAll(builder.getExtraTags());
+
+        if (builder.getBackgroundBuilder() != null) {
+            background = builder.getBackgroundBuilder().build();
+        }
+
+        info = builder.getInfo();
+        comment = builder.getComment();
+
+        for (final StepBuilder stepBuilder : builder.getStepBuilders()) {
+            steps.add(stepBuilder.build());
+        }
+
+        for (final AroundActionBuilder aroundActionBuilder : builder.getBeforeActionBuilders()) {
+            beforeActions.add(aroundActionBuilder.build());
+        }
+
+        for (final AroundActionBuilder aroundActionBuilder : builder.getAfterActionBuilders()) {
+            afterActions.add(aroundActionBuilder.build());
+        }
+
+        calculateStatusFromSteps();
+    }
 
     public void mergeWith(final Scenario other) {
         if (!scenarioKey.equals(other.scenarioKey)) {
@@ -64,12 +109,13 @@ public class Scenario extends BaseEntity<String> {
         background = other.background;
         status = other.status;
         info = other.info;
-        location = other.location;
         comment = other.comment;
         steps = new ArrayList<>(other.steps);
         beforeActions = new ArrayList<>(other.beforeActions);
         afterActions = new ArrayList<>(other.afterActions);
         modifiedAt = ZonedDateTime.now();
+
+        calculateStatusFromSteps();
     }
 
     public void changeStatus(final ScenarioStatus newStatus) {
@@ -95,12 +141,12 @@ public class Scenario extends BaseEntity<String> {
                 throw new IllegalArgumentException("Unsupported status: " + newStatus);
         }
 
-        beforeActions.forEach(step -> step.changeStatus(newStepStatus));
+        beforeActions.forEach(step -> step.setStatus(newStepStatus));
         if (background != null) {
-            background.changeStatus(newStepStatus);
+            background.setStatus(newStepStatus);
         }
-        steps.forEach(step -> step.changeStatus(newStepStatus));
-        afterActions.forEach(step -> step.changeStatus(newStepStatus));
+        steps.forEach(step -> step.setStatus(newStepStatus));
+        afterActions.forEach(step -> step.setStatus(newStepStatus));
 
         status = newStatus;
         modifiedAt = ZonedDateTime.now();
@@ -117,7 +163,76 @@ public class Scenario extends BaseEntity<String> {
         }
     }
 
-    public void calculateStatusFromSteps() {
+    public void setFeatureId(final String featureId) {
+        this.featureId = featureId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getScenarioKey() {
+        return scenarioKey;
+    }
+
+    public String getFeatureId() {
+        return featureId;
+    }
+
+    public String getTestRunId() {
+        return testRunId;
+    }
+
+    public Set<String> getTags() {
+        return tags;
+    }
+
+    public Set<String> getAllTags() {
+        return allTags;
+    }
+
+    public Background getBackground() {
+        return background;
+    }
+
+    public ScenarioStatus getStatus() {
+        return status;
+    }
+
+    public List<AroundAction> getBeforeActions() {
+        return Collections.unmodifiableList(beforeActions);
+    }
+
+    public List<AroundAction> getAfterActions() {
+        return Collections.unmodifiableList(afterActions);
+    }
+
+    public BasicInfo getInfo() {
+        return info;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public List<Step> getSteps() {
+        return Collections.unmodifiableList(steps);
+    }
+
+    public ZonedDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public ZonedDateTime getModifiedAt() {
+        return modifiedAt;
+    }
+
+    @Override
+    protected String getEntityId() {
+        return getId();
+    }
+
+    private void calculateStatusFromSteps() {
         final List<StepStatus> innerStatus = new ArrayList<>();
         if (background != null) {
             background.getSteps().stream().map(Step::getStatus).forEach(innerStatus::add);
@@ -160,139 +275,6 @@ public class Scenario extends BaseEntity<String> {
         }
 
         status = ScenarioStatus.FAILED;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(final String id) {
-        this.id = id;
-    }
-
-    public String getScenarioKey() {
-        return scenarioKey;
-    }
-
-    public void setScenarioKey(final String scenarioKey) {
-        this.scenarioKey = scenarioKey;
-    }
-
-    public String getFeatureId() {
-        return featureId;
-    }
-
-    public void setFeatureId(final String featureId) {
-        this.featureId = featureId;
-    }
-
-    public String getTestRunId() {
-        return testRunId;
-    }
-
-    public void setTestRunId(final String testRunId) {
-        this.testRunId = testRunId;
-    }
-
-    public Set<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(final Set<String> tags) {
-        this.tags = tags;
-    }
-
-    public Set<String> getAllTags() {
-        return allTags;
-    }
-
-    public void setAllTags(final Set<String> allTags) {
-        this.allTags = allTags;
-    }
-
-    public Background getBackground() {
-        return background;
-    }
-
-    public void setBackground(final Background background) {
-        this.background = background;
-    }
-
-    public ScenarioStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(final ScenarioStatus status) {
-        this.status = status;
-    }
-
-    public List<AroundAction> getBeforeActions() {
-        return beforeActions;
-    }
-
-    public void setBeforeActions(final List<AroundAction> beforeActions) {
-        this.beforeActions = beforeActions;
-    }
-
-    public List<AroundAction> getAfterActions() {
-        return afterActions;
-    }
-
-    public void setAfterActions(final List<AroundAction> afterActions) {
-        this.afterActions = afterActions;
-    }
-
-    public BasicInfo getInfo() {
-        return info;
-    }
-
-    public void setInfo(final BasicInfo info) {
-        this.info = info;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(final Location location) {
-        this.location = location;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(final String comment) {
-        this.comment = comment;
-    }
-
-    public List<Step> getSteps() {
-        return steps;
-    }
-
-    public void setSteps(final List<Step> steps) {
-        this.steps = steps;
-    }
-
-    public ZonedDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(final ZonedDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public ZonedDateTime getModifiedAt() {
-        return modifiedAt;
-    }
-
-    public void setModifiedAt(final ZonedDateTime modifiedAt) {
-        this.modifiedAt = modifiedAt;
-    }
-
-    @Override
-    protected String getEntityId() {
-        return getId();
     }
 
 }

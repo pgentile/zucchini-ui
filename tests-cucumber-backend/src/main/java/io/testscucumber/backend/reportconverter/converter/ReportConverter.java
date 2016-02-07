@@ -5,20 +5,17 @@ import io.testscucumber.backend.reportconverter.report.ReportBackground;
 import io.testscucumber.backend.reportconverter.report.ReportFeature;
 import io.testscucumber.backend.reportconverter.report.ReportFeatureElement;
 import io.testscucumber.backend.reportconverter.report.ReportScenario;
-import io.testscucumber.backend.scenario.domain.Background;
+import io.testscucumber.backend.scenario.domain.BackgroundBuilder;
 import io.testscucumber.backend.scenario.domain.Scenario;
-import ma.glasnost.orika.BoundMapperFacade;
-import ma.glasnost.orika.MappingContext;
-import ma.glasnost.orika.MappingContextFactory;
-import ma.glasnost.orika.impl.NonCyclicMappingContext;
+import io.testscucumber.backend.scenario.domain.ScenarioBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -26,15 +23,15 @@ public class ReportConverter {
 
     private final ReportFeatureConverter reportFeatureConverter;
 
-    private final BoundMapperFacade<ReportScenario, Scenario> scenarioMapper;
-
-    private final BoundMapperFacade<ReportBackground, Background> backgroundMapper;
+    private final ReportScenarioConverter reportScenarioConverter;
 
     @Autowired
-    public ReportConverter(final ReportFeatureConverter reportFeatureConverter, final ReportMapper reportMapper) {
+    public ReportConverter(
+        final ReportFeatureConverter reportFeatureConverter,
+        final ReportScenarioConverter reportScenarioConverter
+    ) {
         this.reportFeatureConverter = reportFeatureConverter;
-        scenarioMapper = reportMapper.dedicatedMapperFor(ReportScenario.class, Scenario.class, false);
-        backgroundMapper = reportMapper.dedicatedMapperFor(ReportBackground.class, Background.class, false);
+        this.reportScenarioConverter = reportScenarioConverter;
     }
 
     public ConversionResult convert(
@@ -52,42 +49,34 @@ public class ReportConverter {
         final List<ReportFeatureElement> reportFeatureElements
     ) {
 
-        final List<Scenario> scenarii = new ArrayList<>(reportFeatureElements.size());
+        final List<ScenarioBuilder> scenarioBuilders = new ArrayList<>(reportFeatureElements.size());
 
-        final Map<Object, Object> globalProperties = new HashMap<>();
-        globalProperties.put(MappingContextKey.TEST_RUN_ID, feature.getTestRunId());
-        globalProperties.put(MappingContextKey.FEATURE_ID, feature.getId());
+        Consumer<BackgroundBuilder> backgroundBuilderConsumer = null;
 
-        final MappingContextFactory mappingContextFactory = new NonCyclicMappingContext.Factory(globalProperties);
-
-        Background currentBackground = null;
         for (final ReportFeatureElement reportFeatureElement : reportFeatureElements) {
             if (reportFeatureElement instanceof ReportScenario) {
-                final Scenario scenario = map(mappingContextFactory, scenarioMapper, (ReportScenario) reportFeatureElement);
-                if (currentBackground != null) {
-                    scenario.setBackground(currentBackground);
+
+                final ScenarioBuilder scenarioBuilder = reportScenarioConverter.createScenarioBuilder(
+                    feature,
+                    (ReportScenario) reportFeatureElement
+                );
+
+                if (backgroundBuilderConsumer != null) {
+                    scenarioBuilder.withBackground(backgroundBuilderConsumer);
                 }
-                scenarii.add(scenario);
+
+                scenarioBuilders.add(scenarioBuilder);
+
             } else if (reportFeatureElement instanceof ReportBackground) {
-                currentBackground = map(mappingContextFactory, backgroundMapper, (ReportBackground) reportFeatureElement);
+                backgroundBuilderConsumer = reportScenarioConverter.createBackgroundBuilderConsumer((ReportBackground) reportFeatureElement);
             } else {
                 throw new IllegalStateException("Unhandled type: " + reportFeatureElement);
             }
         }
 
-        // Suppression des tags qui se répètent entre les scenarii et la feature
-        scenarii.forEach(scenario -> scenario.getTags().removeAll(feature.getTags()));
-
-        return scenarii;
-    }
-
-    private static <A, B> B map(final MappingContextFactory mappingContextFactory, final BoundMapperFacade<A, B> mapperFacade, final A source) {
-        final MappingContext mappingContext = mappingContextFactory.getContext();
-        try {
-            return mapperFacade.map(source, mappingContext);
-        } finally {
-            mappingContextFactory.release(mappingContext);
-        }
+        return scenarioBuilders.stream()
+            .map(ScenarioBuilder::build)
+            .collect(Collectors.toList());
     }
 
 }

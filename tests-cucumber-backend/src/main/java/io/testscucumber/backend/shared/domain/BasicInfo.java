@@ -2,8 +2,9 @@ package io.testscucumber.backend.shared.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class BasicInfo {
+public final class BasicInfo {
 
     private String keyword;
 
@@ -12,9 +13,9 @@ public class BasicInfo {
     private List<Argument> arguments = new ArrayList<>();
 
     /**
-     * Constructor used by frameworks
+     * For frameworks.
      */
-    public BasicInfo() {
+    private BasicInfo() {
     }
 
     public BasicInfo(final String keyword, final String name) {
@@ -33,24 +34,33 @@ public class BasicInfo {
         return keyword;
     }
 
-    public void setKeyword(final String keyword) {
-        this.keyword = keyword;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
     }
 
     public List<Argument> getArguments() {
         return arguments;
     }
 
-    public void setArguments(final List<Argument> arguments) {
-        this.arguments = arguments;
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (this == obj) {
+            return true;
+        }
+        if (!getClass().equals(obj.getClass())) {
+            return false;
+        }
+
+        final BasicInfo other = (BasicInfo) obj;
+        return Objects.equals(keyword, other.keyword) && Objects.equals(name, other.name) && Objects.equals(arguments, other.arguments);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(keyword, name, arguments);
     }
 
     @Override

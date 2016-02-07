@@ -1,16 +1,23 @@
 package io.testscucumber.backend.shared.domain;
 
-public class Argument {
+import com.google.common.base.MoreObjects;
 
-    private String value;
+import java.util.Objects;
+
+public final class Argument {
 
     private int offset;
 
-    public String getValue() {
-        return value;
+    private String value;
+
+    /**
+     * For frameworks.
+     */
+    private Argument() {
     }
 
-    public void setValue(final String value) {
+    public Argument(final int offset, final String value) {
+        this.offset = offset;
         this.value = value;
     }
 
@@ -18,8 +25,37 @@ public class Argument {
         return offset;
     }
 
-    public void setOffset(final int offset) {
-        this.offset = offset;
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (this == obj) {
+            return true;
+        }
+        if (!getClass().equals(obj.getClass())) {
+            return false;
+        }
+
+        final Argument other = (Argument) obj;
+        return offset == other.offset && Objects.equals(value, other.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(offset, value);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+            .add("offset", offset)
+            .add("value", value)
+            .toString();
     }
 
 }
