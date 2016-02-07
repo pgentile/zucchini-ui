@@ -6,8 +6,6 @@ public class ReportAroundAction {
 
     private Result result;
 
-    private Match match;
-
     public Result getResult() {
         return result;
     }
@@ -16,20 +14,11 @@ public class ReportAroundAction {
         this.result = result;
     }
 
-    public Match getMatch() {
-        return match;
-    }
-
-    public void setMatch(final Match match) {
-        this.match = match;
-    }
-
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("result", result)
-                .add("match", match)
-                .toString();
+            .add("result", result)
+            .toString();
     }
 
 }
