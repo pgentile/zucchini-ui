@@ -2,13 +2,10 @@ package io.testscucumber.backend.scenario.domain;
 
 import com.google.common.base.MoreObjects;
 import io.testscucumber.backend.shared.domain.BasicInfo;
-import io.testscucumber.backend.shared.domain.Location;
 
 public class Step {
 
     private BasicInfo info;
-
-    private Location location;
 
     private StepStatus status;
 
@@ -27,7 +24,6 @@ public class Step {
 
     protected Step(final StepBuilder builder) {
         info = builder.getInfo();
-        location = builder.getLocation();
         status = builder.getStatus();
         errorMessage = builder.getErrorMessage();
         table = builder.getTable();
@@ -36,10 +32,6 @@ public class Step {
 
     public BasicInfo getInfo() {
         return info;
-    }
-
-    public Location getLocation() {
-        return location;
     }
 
     public StepStatus getStatus() {

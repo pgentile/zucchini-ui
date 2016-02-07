@@ -1,13 +1,10 @@
 package io.testscucumber.backend.scenario.domain;
 
 import io.testscucumber.backend.shared.domain.BasicInfo;
-import io.testscucumber.backend.shared.domain.Location;
 
 public class StepBuilder {
 
     private BasicInfo info;
-
-    private Location location;
 
     private StepStatus status = StepStatus.NOT_RUN;
 
@@ -19,11 +16,6 @@ public class StepBuilder {
 
     public StepBuilder withInfo(final BasicInfo info) {
         this.info = info;
-        return this;
-    }
-
-    public StepBuilder withLocation(final Location location) {
-        this.location = location;
         return this;
     }
 
@@ -53,10 +45,6 @@ public class StepBuilder {
 
     protected BasicInfo getInfo() {
         return info;
-    }
-
-    protected Location getLocation() {
-        return location;
     }
 
     protected StepStatus getStatus() {
