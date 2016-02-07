@@ -1,4 +1,7 @@
-<div uib-tooltip="Total: {{ $ctrl.stats.count }}">
+<div uib-popover-template="'scenarioProgessPopover.html'"
+     popover-placement="bottom"
+     popover-trigger="mouseenter"
+     popover-title="Statistiques détaillées">
 
   <uib-progress>
 
@@ -24,5 +27,20 @@
     </uib-bar>
 
   </uib-progress>
+
+
+  <!-- Popup content for display options -->
+  <script type="text/ng-template" id="scenarioProgessPopover.html">
+
+    <ul class="list-unstyled">
+      <li><b>Total :</b> {{ $ctrl.stats.count }}</li>
+      <li><b>Succès :</b> {{ $ctrl.stats.statsByStatus['PASSED'] }}</li>
+      <li><b>En attente :</b> {{ $ctrl.stats.statsByStatus['PENDING'] }}</li>
+      <li><b>Échecs :</b> {{ $ctrl.stats.statsByStatus['FAILED'] }}</li>
+      <li><b>Non joués :</b> {{ $ctrl.stats.statsByStatus['NOT_RUN'] }}</li>
+    </ul>
+
+  </script>
+
 
 </div>
