@@ -3,19 +3,13 @@ package io.testscucumber.backend.feature.domainimpl;
 import io.testscucumber.backend.feature.domain.Feature;
 import io.testscucumber.backend.feature.domain.FeatureRepository;
 import io.testscucumber.backend.feature.domain.FeatureService;
-import io.testscucumber.backend.feature.domain.FeatureStatus;
-import io.testscucumber.backend.scenario.domain.Scenario;
 import io.testscucumber.backend.scenario.domain.ScenarioRepository;
-import io.testscucumber.backend.scenario.domain.ScenarioStatus;
+import io.testscucumber.backend.scenario.views.ScenarioStats;
+import io.testscucumber.backend.scenario.views.ScenarioViewAccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import static java.util.function.Predicate.isEqual;
 
 @Component
 class FeatureServiceImpl implements FeatureService {
@@ -26,35 +20,23 @@ class FeatureServiceImpl implements FeatureService {
 
     private final ScenarioRepository scenarioRepository;
 
+    private final ScenarioViewAccess scenarioViewAccess;
+
     @Autowired
-    public FeatureServiceImpl(final FeatureRepository featureRepository, final ScenarioRepository scenarioRepository) {
+    public FeatureServiceImpl(
+        final FeatureRepository featureRepository,
+        final ScenarioRepository scenarioRepository,
+        final ScenarioViewAccess scenarioViewAccess
+    ) {
         this.featureRepository = featureRepository;
         this.scenarioRepository = scenarioRepository;
+        this.scenarioViewAccess = scenarioViewAccess;
     }
 
     @Override
     public void calculateStatusFromScenarii(final Feature feature) {
-        final Set<ScenarioStatus> scenariiStatus = scenarioRepository.query(q -> q.withFeatureId(feature.getId()))
-            .stream()
-            .map(Scenario::getStatus)
-            .collect(Collectors.toSet());
-
-        final FeatureStatus featureStatus;
-        if (scenariiStatus.isEmpty()) {
-            featureStatus = FeatureStatus.NOT_RUN;
-        } else if (scenariiStatus.contains(ScenarioStatus.FAILED)) {
-            featureStatus = FeatureStatus.FAILED;
-        } else if (scenariiStatus.stream().allMatch(isEqual(ScenarioStatus.PASSED))) {
-            featureStatus = FeatureStatus.PASSED;
-        } else if (scenariiStatus.stream().allMatch(isEqual(ScenarioStatus.NOT_RUN))) {
-            featureStatus = FeatureStatus.NOT_RUN;
-        } else {
-            featureStatus = FeatureStatus.PARTIAL;
-        }
-
-        LOGGER.info("Calculed feature status {} for scenarii status {}", featureStatus, scenariiStatus);
-
-        feature.setStatus(featureStatus);
+        final ScenarioStats scenarioStats = scenarioViewAccess.getStats(q -> q.withFeatureId(feature.getId()));
+        feature.setStatus(scenarioStats.computeFeatureStatus());
     }
 
     @Override
