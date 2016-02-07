@@ -32,7 +32,7 @@ public class ScenarioStats {
         return statsByStatus;
     }
 
-    public FeatureStatus computeStatus() {
+    public FeatureStatus computeFeatureStatus() {
         if (count == 0) {
             return FeatureStatus.NOT_RUN;
         }

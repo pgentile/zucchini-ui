@@ -66,9 +66,9 @@ public class FeatureViewAccess {
             .map(feature -> {
                 final FeatureListItem item = featureToListItemMapper.map(feature);
 
-                if (withStats) {
+                if (withStats || tagSelection.isActive()) {
                     final ScenarioStats stats = scenarioViewAccess.getStats(q -> q.withFeatureId(feature.getId()).withSelectedTags(tagSelection));
-                    item.setStatus(stats.computeStatus());
+                    item.setStatus(stats.computeFeatureStatus());
                     item.setStats(stats);
                 }
                 return item;

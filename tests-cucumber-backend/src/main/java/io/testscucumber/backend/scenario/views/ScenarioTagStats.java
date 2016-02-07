@@ -25,7 +25,7 @@ public class ScenarioTagStats {
     }
 
     public FeatureStatus getStatus() {
-        return stats.computeStatus();
+        return stats.computeFeatureStatus();
     }
 
 }
