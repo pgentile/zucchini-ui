@@ -29,9 +29,9 @@ public class ReportArgument {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("value", value)
-                .add("offset", offset)
-                .toString();
+            .add("value", value)
+            .add("offset", offset)
+            .toString();
     }
 
 }

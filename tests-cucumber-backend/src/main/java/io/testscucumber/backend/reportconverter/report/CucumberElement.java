@@ -41,9 +41,9 @@ public class CucumberElement {
 
     protected MoreObjects.ToStringHelper createToStringHelper() {
         return MoreObjects.toStringHelper(this)
-                .add("keyword", keyword)
-                .add("name", name)
-                .add("line", line);
+            .add("keyword", keyword)
+            .add("name", name)
+            .add("line", line);
     }
 
 }

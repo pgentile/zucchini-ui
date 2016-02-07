@@ -5,20 +5,10 @@ import com.google.common.base.MoreObjects;
 
 public class Result {
 
-    private long duration;
-
     private String status;
 
     @JsonProperty("error_message")
     private String errorMessage;
-
-    public long getDuration() {
-        return duration;
-    }
-
-    public void setDuration(final long duration) {
-        this.duration = duration;
-    }
 
     public String getStatus() {
         return status;
@@ -39,8 +29,9 @@ public class Result {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("status", status)
-                .add("duration", duration)
-                .toString();
+            .add("status", status)
+            .add("errorMessage", errorMessage)
+            .toString();
     }
+
 }

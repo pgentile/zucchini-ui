@@ -52,7 +52,7 @@ public class ReportStep extends CucumberElement {
     @Override
     protected MoreObjects.ToStringHelper createToStringHelper() {
         return super.createToStringHelper()
-                .add("result", result)
-                .add("match", match);
+            .add("result", result)
+            .add("match", match);
     }
 }

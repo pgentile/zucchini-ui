@@ -14,17 +14,7 @@ import java.util.List;
 })
 public class ReportFeatureElement extends CucumberElement {
 
-    private String description;
-
     private List<ReportStep> steps = new ArrayList<>();
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(final String description) {
-        this.description = description;
-    }
 
     public List<ReportStep> getSteps() {
         return steps;

@@ -62,8 +62,9 @@ public class ReportFeature extends CucumberElement {
     @Override
     protected MoreObjects.ToStringHelper createToStringHelper() {
         return super.createToStringHelper()
-                .add("id", id)
-                .add("filename", filename)
-                .add("size of elements", elements.size());
+            .add("id", id)
+            .add("filename", filename)
+            .add("size of elements", elements.size());
     }
+
 }
