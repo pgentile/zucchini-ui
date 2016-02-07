@@ -1,5 +1,6 @@
 package io.testscucumber.backend.reportconverter.converter;
 
+import com.google.common.base.Strings;
 import io.testscucumber.backend.feature.domain.Feature;
 import io.testscucumber.backend.reportconverter.report.ReportAroundAction;
 import io.testscucumber.backend.reportconverter.report.ReportBackground;
@@ -79,6 +80,7 @@ class ReportScenarioConverter {
     private static void buildStep(final ReportStep reportStep, final StepBuilder stepBuilder) {
 
         final List<Argument> arguments = reportStep.getMatch().getArguments().stream()
+            .filter(a -> !Strings.isNullOrEmpty(a.getValue()))
             .map(reportArg -> new Argument(reportArg.getOffset(), reportArg.getValue()))
             .collect(Collectors.toList());
 
