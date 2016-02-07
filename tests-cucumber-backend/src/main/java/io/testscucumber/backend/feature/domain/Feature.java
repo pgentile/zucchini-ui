@@ -5,6 +5,7 @@ import io.testscucumber.backend.shared.domain.Location;
 import io.testscucumber.backend.support.ddd.BaseEntity;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Version;
 
 import java.time.ZonedDateTime;
 import java.util.Collections;
@@ -73,6 +74,12 @@ public class Feature extends BaseEntity<String> {
      * Modification date.
      */
     private ZonedDateTime modifiedAt;
+
+    /**
+     * Version, used for optimistic locking.
+     */
+    @Version
+    private long version;
 
     /**
      * Private constructor for Morphia.
@@ -214,6 +221,10 @@ public class Feature extends BaseEntity<String> {
 
     public ZonedDateTime getModifiedAt() {
         return modifiedAt;
+    }
+
+    public long getVersion() {
+        return version;
     }
 
     @Override

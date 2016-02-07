@@ -2,12 +2,15 @@ package io.testscucumber.backend.support.ddd.morphia;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import io.testscucumber.backend.support.ddd.ConcurrentEntityModificationException;
 import io.testscucumber.backend.support.ddd.EntityNotFoundException;
 import io.testscucumber.backend.support.ddd.RefreshableEntityRepository;
 import io.testscucumber.backend.support.ddd.Repository;
 import org.mongodb.morphia.dao.BasicDAO;
 import org.mongodb.morphia.mapping.Mapper;
 import org.mongodb.morphia.mapping.cache.EntityCache;
+
+import java.util.ConcurrentModificationException;
 
 public class MorphiaRepository<T, I> implements Repository<T, I>, RefreshableEntityRepository<T, I> {
 
@@ -28,7 +31,11 @@ public class MorphiaRepository<T, I> implements Repository<T, I>, RefreshableEnt
 
     @Override
     public void save(final T entity) {
-        dao.save(entity);
+        try {
+            dao.save(entity);
+        } catch (final ConcurrentModificationException e) {
+            throw new ConcurrentEntityModificationException(dao.getEntityClass(), "Concurrent modification for " + entity, e);
+        }
     }
 
     @Override
