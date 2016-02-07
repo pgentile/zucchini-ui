@@ -17,8 +17,12 @@ public final class Argument {
     }
 
     public Argument(final int offset, final String value) {
+        if (offset < 0) {
+            throw new IllegalArgumentException("Offset must be equal or greater than zero");
+        }
         this.offset = offset;
-        this.value = value;
+
+        this.value = Objects.requireNonNull(value);
     }
 
     public int getOffset() {

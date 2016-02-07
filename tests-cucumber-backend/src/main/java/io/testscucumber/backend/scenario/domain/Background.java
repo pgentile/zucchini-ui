@@ -3,7 +3,9 @@ package io.testscucumber.backend.scenario.domain;
 import io.testscucumber.backend.shared.domain.BasicInfo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class Background {
 
@@ -19,7 +21,7 @@ public class Background {
     }
 
     protected Background(final BackgroundBuilder builder) {
-        info = builder.getInfo();
+        info = Objects.requireNonNull(builder.getInfo());
 
         for (final StepBuilder stepBuilder : builder.getStepBuilders()) {
             steps.add(stepBuilder.build());
@@ -31,7 +33,7 @@ public class Background {
     }
 
     public List<Step> getSteps() {
-        return steps;
+        return Collections.unmodifiableList(steps);
     }
 
     protected void setStatus(final StepStatus newStatus) {
@@ -39,4 +41,5 @@ public class Background {
             step.setStatus(newStatus);
         }
     }
+
 }

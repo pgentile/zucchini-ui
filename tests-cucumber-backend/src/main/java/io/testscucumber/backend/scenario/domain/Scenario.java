@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -61,9 +62,9 @@ public class Scenario extends BaseEntity<String> {
         createdAt = now;
         modifiedAt = now;
 
-        scenarioKey = builder.getScenarioKey();
-        featureId = builder.getFeatureId();
-        testRunId = builder.getTestRunId();
+        scenarioKey = Objects.requireNonNull(builder.getScenarioKey());
+        featureId = Objects.requireNonNull(builder.getFeatureId());
+        testRunId = Objects.requireNonNull(builder.getTestRunId());
 
         tags = new HashSet<>(builder.getTags());
         tags.removeAll(builder.getExtraTags());
@@ -75,7 +76,7 @@ public class Scenario extends BaseEntity<String> {
             background = builder.getBackgroundBuilder().build();
         }
 
-        info = builder.getInfo();
+        info = Objects.requireNonNull(builder.getInfo());
         comment = builder.getComment();
 
         for (final StepBuilder stepBuilder : builder.getStepBuilders()) {

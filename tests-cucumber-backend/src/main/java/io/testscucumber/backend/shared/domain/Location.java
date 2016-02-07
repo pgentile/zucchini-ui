@@ -15,7 +15,11 @@ public final class Location {
     }
 
     public Location(final String filename, final long line) {
-        this.filename = filename;
+        this.filename = Objects.requireNonNull(filename);
+
+        if (line <= 0) {
+            throw new IllegalArgumentException("Line number starts at 1");
+        }
         this.line = line;
     }
 

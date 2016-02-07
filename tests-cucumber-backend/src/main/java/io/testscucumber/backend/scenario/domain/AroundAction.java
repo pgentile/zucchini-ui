@@ -1,5 +1,7 @@
 package io.testscucumber.backend.scenario.domain;
 
+import java.util.Objects;
+
 public class AroundAction {
 
     private StepStatus status;
@@ -10,11 +12,10 @@ public class AroundAction {
      * Private constructor for Morphia.
      */
     private AroundAction() {
-
     }
 
     protected AroundAction(final AroundActionBuilder builder) {
-        status = builder.getStatus();
+        status = Objects.requireNonNull(builder.getStatus());
         errorMessage = builder.getErrorMessage();
     }
 

@@ -4,13 +4,16 @@ import com.google.common.base.Strings;
 import io.testscucumber.backend.feature.domain.Feature;
 import io.testscucumber.backend.reportconverter.report.ReportAroundAction;
 import io.testscucumber.backend.reportconverter.report.ReportBackground;
+import io.testscucumber.backend.reportconverter.report.ReportComment;
 import io.testscucumber.backend.reportconverter.report.ReportScenario;
 import io.testscucumber.backend.reportconverter.report.ReportStep;
+import io.testscucumber.backend.reportconverter.report.TableRow;
 import io.testscucumber.backend.reportconverter.report.Tag;
 import io.testscucumber.backend.scenario.domain.AroundActionBuilder;
 import io.testscucumber.backend.scenario.domain.BackgroundBuilder;
 import io.testscucumber.backend.scenario.domain.ScenarioBuilder;
 import io.testscucumber.backend.scenario.domain.StepBuilder;
+import io.testscucumber.backend.scenario.domain.StepStatus;
 import io.testscucumber.backend.shared.domain.Argument;
 import io.testscucumber.backend.shared.domain.BasicInfo;
 import org.springframework.stereotype.Component;
@@ -35,7 +38,7 @@ class ReportScenarioConverter {
             .map(ConversionUtils::stripAtSign)
             .collect(Collectors.toSet());
 
-        final String comment = ConversionUtils.convertComment(reportScenario.getComments());
+        final String comment = convertComment(reportScenario.getComments());
 
         final ScenarioBuilder scenarioBuilder = new ScenarioBuilder()
             .withTestRunId(parentFeature.getTestRunId())
@@ -90,13 +93,13 @@ class ReportScenarioConverter {
             arguments
         );
 
-        final String stepComment = ConversionUtils.convertComment(reportStep.getComments());
+        final String stepComment = convertComment(reportStep.getComments());
 
-        final String[][] table = ConversionUtils.convertTable(reportStep.getTableRows());
+        final String[][] table = convertTable(reportStep.getTableRows());
 
         stepBuilder
             .withErrorMessage(reportStep.getResult().getErrorMessage())
-            .withStatus(ConversionUtils.convertStepStatus(reportStep.getResult().getStatus()))
+            .withStatus(convertStepStatus(reportStep.getResult().getStatus()))
             .withInfo(stepInfo)
             .withComment(stepComment)
             .withTable(table);
@@ -105,7 +108,46 @@ class ReportScenarioConverter {
     private static void buildAroundAction(final ReportAroundAction reportAroundAction, final AroundActionBuilder aroundActionBuilder) {
         aroundActionBuilder
             .withErrorMessage(reportAroundAction.getResult().getErrorMessage())
-            .withStatus(ConversionUtils.convertStepStatus(reportAroundAction.getResult().getStatus()));
+            .withStatus(convertStepStatus(reportAroundAction.getResult().getStatus()));
+    }
+
+    private static String[][] convertTable(final List<TableRow> source) {
+        if (source == null || source.isEmpty()) {
+            return null;
+        }
+
+        final String[][] table = new String[source.size()][];
+
+        int i = 0;
+        for (final TableRow sourceRow : source) {
+            final String[] targetRow = new String[sourceRow.getCells().size()];
+            int j = 0;
+            for (final String cell : sourceRow.getCells()) {
+                targetRow[j] = cell;
+                j++;
+            }
+            table[i] = targetRow;
+            i++;
+        }
+
+        return table;
+    }
+
+    private static String convertComment(final List<ReportComment> source) {
+        if (source == null || source.isEmpty()) {
+            return null;
+        }
+
+        return source.stream()
+            .map(ReportComment::getValue)
+            .collect(Collectors.joining("\n"));
+    }
+
+    private static StepStatus convertStepStatus(final String source) {
+        if (source == null) {
+            return null;
+        }
+        return StepStatus.valueOf(source.toUpperCase());
     }
 
 }

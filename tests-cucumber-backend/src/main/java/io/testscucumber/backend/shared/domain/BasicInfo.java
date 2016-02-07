@@ -1,6 +1,7 @@
 package io.testscucumber.backend.shared.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,14 +20,12 @@ public final class BasicInfo {
     }
 
     public BasicInfo(final String keyword, final String name) {
-        this.keyword = keyword;
-        this.name = name;
-        arguments = new ArrayList<>();
+        this(keyword, name, new ArrayList<>());
     }
 
     public BasicInfo(final String keyword, final String name, final List<Argument> arguments) {
-        this.keyword = keyword;
-        this.name = name;
+        this.keyword = Objects.requireNonNull(keyword);
+        this.name = Objects.requireNonNull(name);
         this.arguments = new ArrayList<>(arguments);
     }
 
@@ -39,7 +38,7 @@ public final class BasicInfo {
     }
 
     public List<Argument> getArguments() {
-        return arguments;
+        return Collections.unmodifiableList(arguments);
     }
 
     @Override

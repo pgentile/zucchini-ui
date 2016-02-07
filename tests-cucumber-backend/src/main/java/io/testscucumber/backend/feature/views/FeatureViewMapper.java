@@ -1,13 +1,13 @@
 package io.testscucumber.backend.feature.views;
 
 import io.testscucumber.backend.feature.domain.Feature;
+import io.testscucumber.backend.shared.views.AbstractConfigurableMapper;
 import ma.glasnost.orika.MapperFactory;
-import ma.glasnost.orika.impl.ConfigurableMapper;
 
-class FeatureViewMapper extends ConfigurableMapper {
+class FeatureViewMapper extends AbstractConfigurableMapper {
 
     @Override
-    protected void configure(final MapperFactory factory) {
+    protected void doConfigure(final MapperFactory factory) {
         factory.classMap(Feature.class, FeatureHistoryItem.class)
             .byDefault()
             .register();

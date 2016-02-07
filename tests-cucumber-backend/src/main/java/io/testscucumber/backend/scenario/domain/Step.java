@@ -3,6 +3,8 @@ package io.testscucumber.backend.scenario.domain;
 import com.google.common.base.MoreObjects;
 import io.testscucumber.backend.shared.domain.BasicInfo;
 
+import java.util.Objects;
+
 public class Step {
 
     private BasicInfo info;
@@ -23,8 +25,8 @@ public class Step {
     }
 
     protected Step(final StepBuilder builder) {
-        info = builder.getInfo();
-        status = builder.getStatus();
+        info = Objects.requireNonNull(builder.getInfo());
+        status = Objects.requireNonNull(builder.getStatus());
         errorMessage = builder.getErrorMessage();
         table = builder.getTable();
         comment = builder.getComment();
