@@ -6,8 +6,6 @@ jdk:
   - oraclejdk8
 
 before_install:
-  # Libs for PhantomJS 2, currently unsupported by travis
-  - apt-get install libicu52
   # Install bower, grunt and UI dependencies
   - npm install -g grunt bower
   - "(cd tests-cucumber-ui && npm install && bower install)"
