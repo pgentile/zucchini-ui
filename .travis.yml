@@ -6,5 +6,11 @@ jdk:
   - oraclejdk8
 
 before_install:
+  # Install PhantomJS 2, currently unsupported by travis
+  - mkdir travis-phantomjs
+  - wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 -O $PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2
+  - tar -xvf $PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2 -C $PWD/travis-phantomjs
+  - export PATH=$PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64/bin:$PATH
+  # Install bower, grunt and UI dependencies
   - npm install -g grunt bower
   - "(cd tests-cucumber-ui && npm install && bower install)"
