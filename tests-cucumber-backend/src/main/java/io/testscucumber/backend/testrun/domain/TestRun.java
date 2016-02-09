@@ -5,6 +5,7 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
 import java.time.ZonedDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity("testRuns")
@@ -26,7 +27,11 @@ public class TestRun extends BaseEntity<String> {
     public TestRun(final String type) {
         id = UUID.randomUUID().toString();
         date = ZonedDateTime.now();
-        this.type = type;
+        this.type = Objects.requireNonNull(type);
+    }
+
+    public void setType(final String type) {
+        this.type = Objects.requireNonNull(type);
     }
 
     public String getId() {

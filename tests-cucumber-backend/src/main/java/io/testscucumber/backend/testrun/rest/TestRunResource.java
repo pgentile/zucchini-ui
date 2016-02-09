@@ -2,6 +2,7 @@ package io.testscucumber.backend.testrun.rest;
 
 
 import com.google.common.base.Strings;
+import io.dropwizard.jersey.PATCH;
 import io.testscucumber.backend.reportconverter.domain.ReportConverterService;
 import io.testscucumber.backend.testrun.domain.TestRun;
 import io.testscucumber.backend.testrun.domain.TestRunQuery;
@@ -103,6 +104,18 @@ public class TestRunResource {
     public TestRun get(@PathParam("testRunId") final String testRunId) {
         LOGGER.debug("Get test run {}", testRunId);
         return testRunRepository.getById(testRunId);
+    }
+
+    @PATCH
+    @Path("{testRunId}")
+    public void update(@PathParam("testRunId") final String testRunId, @Valid @NotNull final UpdateTestRunRequest request) {
+        final TestRun testRun = testRunRepository.getById(testRunId);
+
+        if (!Strings.isNullOrEmpty(request.getType())) {
+            testRun.setType(request.getType());
+        }
+
+        testRunRepository.save(testRun);
     }
 
     @DELETE
