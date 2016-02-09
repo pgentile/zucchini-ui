@@ -87,7 +87,7 @@
       ng-repeat="feature in ctrl.features | filter:ctrl.isFeatureDisplayable as filteredFeatures track by feature.id">
       <td>{{ feature.group }}</td>
       <td>
-        <a href="" ng-click="ctrl.selectFeature(feature)">
+        <a ng-href="#/features/{{ feature.id }}" ng-click="ctrl.selectFeature(feature); $event.preventDefault(); $event.stopPropagation();">
           {{ feature.info.name }}
         </a>
       </td>
