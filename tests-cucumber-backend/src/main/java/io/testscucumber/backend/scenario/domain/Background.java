@@ -6,18 +6,30 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Background {
 
     private BasicInfo info;
 
-    private final List<Step> steps = new ArrayList<>();
+    private List<Step> steps = new ArrayList<>();
 
     /**
      * Private constructor for Morphia.
      */
     private Background() {
 
+    }
+
+    public Background copy() {
+        final Background newBackground = new Background();
+        newBackground.info = info;
+
+        newBackground.steps = steps.stream()
+            .map(Step::copy)
+            .collect(Collectors.toList());
+
+        return newBackground;
     }
 
     protected Background(final BackgroundBuilder builder) {

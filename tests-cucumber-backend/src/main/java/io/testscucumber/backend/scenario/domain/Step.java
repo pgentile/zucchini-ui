@@ -32,6 +32,16 @@ public class Step {
         comment = builder.getComment();
     }
 
+    public Step copy() {
+        final Step newStep = new Step();
+        newStep.info = info;
+        newStep.status = status;
+        newStep.errorMessage = errorMessage;
+        newStep.table = table;
+        newStep.comment = comment;
+        return newStep;
+    }
+
     public BasicInfo getInfo() {
         return info;
     }

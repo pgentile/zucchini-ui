@@ -109,13 +109,29 @@ public class Scenario extends BaseEntity<String> {
 
         tags = new HashSet<>(other.tags);
         allTags = new HashSet<>(other.allTags);
-        background = other.background;
+
+        if (other.background == null) {
+            background = null;
+        } else {
+            background = other.background.copy();
+        }
+
         status = other.status;
         info = other.info;
         comment = other.comment;
-        steps = new ArrayList<>(other.steps);
-        beforeActions = new ArrayList<>(other.beforeActions);
-        afterActions = new ArrayList<>(other.afterActions);
+
+        steps = other.steps.stream()
+            .map(Step::copy)
+            .collect(Collectors.toList());
+
+        beforeActions = other.beforeActions.stream()
+            .map(AroundAction::copy)
+            .collect(Collectors.toList());
+
+        afterActions = other.afterActions.stream()
+            .map(AroundAction::copy)
+            .collect(Collectors.toList());
+
         modifiedAt = ZonedDateTime.now();
 
         calculateStatusFromSteps();
@@ -187,11 +203,11 @@ public class Scenario extends BaseEntity<String> {
     }
 
     public Set<String> getTags() {
-        return tags;
+        return Collections.unmodifiableSet(tags);
     }
 
     public Set<String> getAllTags() {
-        return allTags;
+        return Collections.unmodifiableSet(allTags);
     }
 
     public Background getBackground() {
