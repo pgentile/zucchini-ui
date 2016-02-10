@@ -19,6 +19,10 @@
       return TestRunResource.create(testRun).$promise;
     };
 
+    this.update = function (testRunId, type) {
+      return TestRunResource.update({ id: testRunId, type: type }).$promise;
+    };
+
     this.importCucumberResults = function (testRunId, file, importOptions) {
       var queryParams = $httpParamSerializer(importOptions);
       var url = baseUri + '/testRuns/' + testRunId + '/import?' + queryParams;
@@ -142,6 +146,33 @@
       };
 
 
+      // Update test run
+
+      this.openUpdateTestRunForm = function () {
+        var createdModal = $uibModal.open({
+          templateUrl: 'updateTestRunForm.html',
+          controller: 'UpdateTestRunCtrl',
+          controllerAs: 'updateCtrl',
+          resolve: {
+            updateRequest: {
+              type: this.testRun.type
+            }
+          }
+        });
+
+        createdModal.result
+          .then(function (updateRequest) {
+            return TestRunCoreService.update(this.testRun.id, updateRequest.type)
+              .then(function () {
+                this.load();
+              }.bind(this))
+              .catch(function (error) {
+                ErrorService.sendError(error);
+              });
+          }.bind(this));
+
+      }.bind(this);
+
       // Filter
 
       this.filters = featureStoredFilters.get();
@@ -187,6 +218,15 @@
       };
 
     })
+    .controller('UpdateTestRunCtrl', function ($uibModalInstance, updateRequest) {
+
+      this.updateRequest = updateRequest;
+
+      this.update = function () {
+        $uibModalInstance.close(this.updateRequest);
+      }.bind(this);
+
+    })
     .controller('ImportCucumberResultsCtrl', function ($uibModalInstance) {
 
       this.file = null;
@@ -223,6 +263,14 @@
           create: {
             method: 'POST',
             url: baseUri + '/testRuns/create'
+          },
+          update: {
+            method: 'PATCH',
+            transformRequest: function (data) {
+              // ID must be removed from input data
+              delete data.id;
+              return angular.toJson(data);
+            }
           }
         }
       );
