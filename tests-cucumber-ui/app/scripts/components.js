@@ -19,6 +19,21 @@
       templateUrl: 'views/tc-scenario-progress.html',
       bindings: {
         stats: '<'
+      },
+      controller: function () {
+
+        this.hasStatus = function (status) {
+          return !_.isUndefined(this.stats) && _.isFinite(this.stats.statsByStatus[status]);
+        };
+
+        this.getStatusPercentRate = function(status) {
+          return _.isUndefined(this.stats) || this.stats.count === 0 ? 0 : 100 * this.stats.statsByStatus[status] / this.stats.count;
+        };
+
+        this.isValueDisplayable = function (status) {
+          return this.getStatusPercentRate(status) > 10;
+        };
+
       }
     })
     .component('tcScenarioFilters', {

@@ -5,25 +5,22 @@
 
   <uib-progress>
 
-    <uib-bar ng-if="$ctrl.stats.statsByStatus['PASSED']"
-             value="100 * $ctrl.stats.statsByStatus['PASSED'] / $ctrl.stats.count"
-             type="success"
-             style="min-width: 2em">
-      {{ $ctrl.stats.statsByStatus['PASSED'] }}
+    <uib-bar ng-if="$ctrl.hasStatus('PASSED')"
+             value="$ctrl.getStatusPercentRate('PASSED')"
+             type="success">
+      <span ng-if="$ctrl.isValueDisplayable('PASSED')">{{ $ctrl.stats.statsByStatus['PASSED'] }}</span>
     </uib-bar>
 
-    <uib-bar ng-if="$ctrl.stats.statsByStatus['PENDING']"
-             value="100 * $ctrl.stats.statsByStatus['PENDING'] / $ctrl.stats.count"
-             type="warning"
-             style="min-width: 2em">
-      {{ $ctrl.stats.statsByStatus['PENDING'] }}
+    <uib-bar ng-if="$ctrl.hasStatus('PENDING')"
+             value="$ctrl.getStatusPercentRate('PENDING')"
+             type="warning">
+      <span ng-if="$ctrl.isValueDisplayable('PENDING')">{{ $ctrl.stats.statsByStatus['PENDING'] }}</span>
     </uib-bar>
 
-    <uib-bar ng-if="$ctrl.stats.statsByStatus['FAILED']"
-             value="100 * $ctrl.stats.statsByStatus['FAILED'] / $ctrl.stats.count"
-             type="danger"
-             style="min-width: 2em">
-      {{ $ctrl.stats.statsByStatus['FAILED'] }}
+    <uib-bar ng-if="$ctrl.hasStatus('FAILED')"
+             value="$ctrl.getStatusPercentRate('FAILED')"
+             type="danger">
+      <span ng-if="$ctrl.isValueDisplayable('FAILED')">{{ $ctrl.stats.statsByStatus['FAILED'] }}</span>
     </uib-bar>
 
   </uib-progress>
