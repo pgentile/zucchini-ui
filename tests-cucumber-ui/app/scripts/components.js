@@ -23,11 +23,11 @@
       controller: function () {
 
         this.hasStatus = function (status) {
-          return !_.isUndefined(this.stats) && _.isFinite(this.stats.statsByStatus[status]);
+          return !_.isUndefined(this.stats) && _.isFinite(this.stats.statsByStatus[status]) && this.stats.statsByStatus[status] > 0;
         };
 
         this.getStatusPercentRate = function(status) {
-          return _.isUndefined(this.stats) || this.stats.count === 0 ? 0 : 100 * this.stats.statsByStatus[status] / this.stats.count;
+          return _.isUndefined(this.stats) || this.stats.count === 0 ? 0 : Math.floor(100 * this.stats.statsByStatus[status] / this.stats.count);
         };
 
         this.isValueDisplayable = function (status) {
