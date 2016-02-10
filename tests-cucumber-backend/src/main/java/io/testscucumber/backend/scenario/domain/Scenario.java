@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity("scenarii")
 public class Scenario extends BaseEntity<String> {
@@ -234,48 +236,55 @@ public class Scenario extends BaseEntity<String> {
     }
 
     private void calculateStatusFromSteps() {
-        final List<StepStatus> innerStatus = new ArrayList<>();
-        if (background != null) {
-            background.getSteps().stream().map(Step::getStatus).forEach(innerStatus::add);
-        }
-        beforeActions.stream().map(AroundAction::getStatus).forEach(innerStatus::add);
-        steps.stream().map(Step::getStatus).forEach(innerStatus::add);
-        afterActions.stream().map(AroundAction::getStatus).forEach(innerStatus::add);
+        final Set<StepStatus> stepStatus = steps.stream()
+            .map(Step::getStatus)
+            .collect(Collectors.toSet());
 
-        for (final StepStatus oneInnerStatus : innerStatus) {
-            switch (oneInnerStatus) {
-                case FAILED:
-                case UNDEFINED:
-                    status = ScenarioStatus.FAILED;
-                    return;
-                case PENDING:
-                    status = ScenarioStatus.PENDING;
-                    return;
-                default:
-                    // Rien à faire, on continue
-                    break;
-            }
-        }
+        final Set<StepStatus> allStatus = extractAllStepStatus().collect(Collectors.toSet());
 
-        // Tous les steps ont fonctionné : c'est good !
-        if (innerStatus.stream().allMatch(StepStatus.PASSED::equals)) {
-            status = ScenarioStatus.PASSED;
-            return;
-        }
-
-        // Si tous les steps du scénario sont skipped, alors non joués
-        if (steps.stream().map(Step::getStatus).allMatch(StepStatus.SKIPPED::equals)) {
+        if (allStatus.isEmpty()) {
             status = ScenarioStatus.NOT_RUN;
             return;
         }
 
-        // Si tous les steps du scénario sont non joués, alors non joués
-        if (steps.stream().map(Step::getStatus).allMatch(StepStatus.NOT_RUN::equals)) {
+        if (allStatus.contains(StepStatus.FAILED) || allStatus.contains(StepStatus.UNDEFINED)) {
+            status = ScenarioStatus.FAILED;
+            return;
+        }
+
+        if (allStatus.contains(StepStatus.PENDING)) {
+            status = ScenarioStatus.PENDING;
+            return;
+        }
+
+        if (allStatus.size() == 1 && allStatus.contains(StepStatus.PASSED)) {
+            status = ScenarioStatus.PASSED;
+            return;
+        }
+
+        if (stepStatus.size() == 1 && stepStatus.contains(StepStatus.SKIPPED)) {
+            status = ScenarioStatus.NOT_RUN;
+            return;
+        }
+
+        if (stepStatus.size() == 1 && stepStatus.contains(StepStatus.NOT_RUN)) {
             status = ScenarioStatus.NOT_RUN;
             return;
         }
 
         status = ScenarioStatus.FAILED;
+    }
+
+    private Stream<StepStatus> extractAllStepStatus() {
+        Stream<StepStatus> stream = steps.stream().map(Step::getStatus);
+        stream = Stream.concat(stream, beforeActions.stream().map(AroundAction::getStatus));
+        stream = Stream.concat(stream, afterActions.stream().map(AroundAction::getStatus));
+
+        if (background != null) {
+            stream = Stream.concat(stream, background.getSteps().stream().map(Step::getStatus));
+        }
+
+        return stream;
     }
 
 }
