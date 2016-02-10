@@ -130,14 +130,14 @@
               return $q.reject('Fichier de rapport Cucumber non défini');
             }
 
-            return TestRunCoreService.importCucumberResults(this.testRun.id, content.file, content.importOptions);
-          }.bind(this))
-          .then(function () {
-            this.load();
-          }.bind(this))
-          .catch(function (error) {
-            ErrorService.sendError(error);
-          });
+            return TestRunCoreService.importCucumberResults(this.testRun.id, content.file, content.importOptions)
+              .then(function () {
+                this.load();
+              }.bind(this))
+              .catch(function (error) {
+                ErrorService.sendError(error);
+              });
+          }.bind(this));
 
       };
 
