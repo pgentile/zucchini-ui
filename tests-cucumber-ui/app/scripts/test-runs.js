@@ -197,13 +197,6 @@
       }.bind(this);
 
 
-      // Tags
-
-      this.viewTags = function () {
-        $location.path('/test-runs/' + $routeParams.testRunId + '/tags');
-      };
-
-
       this.load();
 
     })
