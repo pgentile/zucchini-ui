@@ -3,7 +3,7 @@
      popover-trigger="mouseenter"
      popover-title="Statistiques détaillées">
 
-  <uib-progress>
+  <uib-progress ng-class="'scenario-progress'">
 
     <uib-bar ng-if="$ctrl.hasStatus('PASSED')"
              value="$ctrl.getStatusPercentRate('PASSED')"

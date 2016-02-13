@@ -1,6 +1,17 @@
+/**
+ * Brower happy
+ */
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
   color: #000;
   padding: 0.2em 0;
+}
+
+
+/**
+ * Scenario progress bar styling
+ */
+.progress.scenario-progress .progress-bar {
+  min-width: 0 !important;
 }
