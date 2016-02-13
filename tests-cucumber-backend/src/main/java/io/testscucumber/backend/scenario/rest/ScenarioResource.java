@@ -110,8 +110,7 @@ public class ScenarioResource {
     @POST
     @Path("{scenarioId}/changeStatus/{status}")
     public void changeStatus(@PathParam("scenarioId") final String scenarioId, @PathParam("status") final ScenarioStatus newStatus) {
-        final Scenario scenario = scenarioRepository.getById(scenarioId);
-        scenarioService.updateStatus(scenario, newStatus);
+        scenarioService.updateStatus(scenarioId, newStatus);
     }
 
     @GET
