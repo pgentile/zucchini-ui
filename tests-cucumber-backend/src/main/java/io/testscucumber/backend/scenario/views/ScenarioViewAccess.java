@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -48,6 +49,13 @@ public class ScenarioViewAccess {
         return MorphiaUtils.streamQuery(query)
             .map(scenarioToListItemViewMapper::map)
             .collect(Collectors.toList());
+    }
+
+    public Map<String, ScenarioListItemView> getScenarioListItemsGroupedByScenarioKey(final Consumer<ScenarioQuery> preparator) {
+        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator)
+            .retrievedFields(true, "id", "info", "status", "testRunId", "featureId", "scenarioKey");
+
+        return MorphiaUtils.streamQuery(query).collect(Collectors.toMap(Scenario::getScenarioKey, scenarioToListItemViewMapper::map));
     }
 
     public List<ScenarioHistoryItemView> getScenarioHistory(final String scenarioKey) {

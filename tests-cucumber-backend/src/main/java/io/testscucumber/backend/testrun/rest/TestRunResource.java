@@ -8,6 +8,7 @@ import io.testscucumber.backend.testrun.domain.TestRun;
 import io.testscucumber.backend.testrun.domain.TestRunQuery;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;
 import io.testscucumber.backend.testrun.domain.TestRunService;
+import io.testscucumber.backend.testrun.views.TestRunScenarioDiff;
 import io.testscucumber.backend.testrun.views.TestRunListItem;
 import io.testscucumber.backend.testrun.views.TestRunViewAccess;
 import org.slf4j.Logger;
@@ -136,6 +137,12 @@ public class TestRunResource {
         final TestRun testRun = testRunRepository.getById(testRunId);
         final Optional<String> group = Optional.ofNullable(Strings.emptyToNull(groupStr));
         reportConverterService.convertAndSaveFeatures(testRun.getId(), inputStream, group, dryRun, onlyNewScenarii);
+    }
+
+    @GET
+    @Path("{leftTestRunId}/scenarioDiff/{rightTestRunId}")
+    public TestRunScenarioDiff getScenarioDiff(@PathParam("leftTestRunId") final String leftTestRunId, @PathParam("rightTestRunId") final String rightTestRunId) {
+        return testRunViewAccess.getScenarioDiff(leftTestRunId, rightTestRunId);
     }
 
 }

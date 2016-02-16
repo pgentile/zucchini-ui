@@ -1,21 +1,28 @@
 package io.testscucumber.backend.testrun.views;
 
+import com.google.common.collect.Sets;
+import io.testscucumber.backend.scenario.views.ScenarioListItemView;
 import io.testscucumber.backend.scenario.views.ScenarioStats;
 import io.testscucumber.backend.scenario.views.ScenarioViewAccess;
 import io.testscucumber.backend.support.ddd.morphia.MorphiaUtils;
+import io.testscucumber.backend.testrun.dao.TestRunDAO;
 import io.testscucumber.backend.testrun.domain.TestRun;
 import io.testscucumber.backend.testrun.domain.TestRunQuery;
-import io.testscucumber.backend.testrun.dao.TestRunDAO;
+import io.testscucumber.backend.testrun.domain.TestRunRepository;
 import ma.glasnost.orika.BoundMapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @Component
 public class TestRunViewAccess {
+
+    private final TestRunRepository testRunRepository;
 
     private final TestRunDAO testRunDAO;
 
@@ -25,9 +32,11 @@ public class TestRunViewAccess {
 
     @Autowired
     public TestRunViewAccess(
+        final TestRunRepository testRunRepository,
         final TestRunDAO testRunDAO,
         final ScenarioViewAccess scenarioViewAccess
     ) {
+        this.testRunRepository = testRunRepository;
         this.testRunDAO = testRunDAO;
         this.scenarioViewAccess = scenarioViewAccess;
 
@@ -46,6 +55,48 @@ public class TestRunViewAccess {
                 return item;
             })
             .collect(Collectors.toList());
+    }
+
+    public TestRunScenarioDiff getScenarioDiff(final String leftTestRunId, final String rightTestRunId) {
+        final TestRun leftTestRun = testRunRepository.getById(leftTestRunId);
+        final TestRun rightTestRun = testRunRepository.getById(rightTestRunId);
+
+        final Map<String, ScenarioListItemView> leftScenarii = scenarioViewAccess.getScenarioListItemsGroupedByScenarioKey(q -> q.withTestRunId(leftTestRunId));
+        final Map<String, ScenarioListItemView> rightScenarii = scenarioViewAccess.getScenarioListItemsGroupedByScenarioKey(q -> q.withTestRunId(rightTestRunId));
+
+        final Set<String> newScenarioFeatureKeys = Sets.difference(rightScenarii.keySet(), leftScenarii.keySet());
+        final List<ScenarioListItemView> newScenarii = newScenarioFeatureKeys.stream()
+            .map(rightScenarii::get)
+            .collect(Collectors.toList());
+
+        final Set<String> deletedScenarioFeatureKeys = Sets.difference(leftScenarii.keySet(), rightScenarii.keySet());
+        final List<ScenarioListItemView> deletedScenarii = deletedScenarioFeatureKeys.stream()
+            .map(leftScenarii::get)
+            .collect(Collectors.toList());
+
+        final Set<String> commonFeatureKeys = Sets.intersection(leftScenarii.keySet(), rightScenarii.keySet());
+
+        final List<TestRunScenarioDiff.ScenarioDiff> scenarioDiffs = commonFeatureKeys.stream()
+            .map(scenarioKey -> {
+                final ScenarioListItemView leftScenario = leftScenarii.get(scenarioKey);
+                final ScenarioListItemView rightScenario = rightScenarii.get(scenarioKey);
+
+                if (leftScenario.getStatus() != rightScenario.getStatus()) {
+                    return new TestRunScenarioDiff.ScenarioDiff(leftScenario, rightScenario);
+                }
+
+                return null;
+            })
+            .filter(diff -> diff != null)
+            .collect(Collectors.toList());
+
+        final TestRunScenarioDiff diff = new TestRunScenarioDiff();
+        diff.setLeftTestRun(leftTestRun);
+        diff.setRightTestRun(rightTestRun);
+        diff.setNewScenarii(newScenarii);
+        diff.setDeletedScenarii(deletedScenarii);
+        diff.setDifferentScenarii(scenarioDiffs);
+        return diff;
     }
 
 }
