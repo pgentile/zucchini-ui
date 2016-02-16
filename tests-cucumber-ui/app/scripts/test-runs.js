@@ -23,6 +23,10 @@
       return TestRunResource.update({ id: testRunId, type: type }).$promise;
     };
 
+    this.getScenarioDiff = function (leftTestRunId, rightTestRunId) {
+      return TestRunResource.getScenarioDiff({ leftTestRunId: leftTestRunId, rightTestRunId: rightTestRunId }).$promise;
+    };
+
     this.importCucumberResults = function (testRunId, file, importOptions) {
       var queryParams = $httpParamSerializer(importOptions);
       var url = baseUri + '/testRuns/' + testRunId + '/import?' + queryParams;
@@ -237,6 +241,70 @@
       };
 
     })
+    .controller('TestRunDiffCtrl', function ($route, $routeParams, $scope, TestRunCoreService) {
+
+      this.baseTestRunId = $routeParams.baseTestRunId;
+      this.otherTestRunId = $routeParams.otherTestRunId;
+
+      this.diff = null;
+
+      this.load = function () {
+
+        TestRunCoreService.getLatests()
+          .then(function (latestTestRuns) {
+            this.latestTestRuns = latestTestRuns;
+          }.bind(this));
+
+        TestRunCoreService.getById(this.baseTestRunId)
+          .then(function (testRun) {
+            this.baseTestRun = testRun;
+          }.bind(this));
+
+      };
+
+      this.isOtherTestRunSelected = function () {
+        return _.isString(this.otherTestRunId);
+      }.bind(this);
+
+      this.selectOtherTestRun = function (otherTestRunId) {
+        $route.updateParams({ otherTestRunId: otherTestRunId });
+
+        this.otherTestRunId = otherTestRunId;
+      }.bind(this);
+
+      this.loadDiff = function () {
+
+        TestRunCoreService.getScenarioDiff(this.otherTestRunId, this.baseTestRunId)
+          .then(function (diff) {
+            this.diff = diff;
+          }.bind(this));
+
+      };
+
+      this.isNotBaseTestRun = function (testRun) {
+        return testRun.id !== this.baseTestRunId;
+      }.bind(this);
+
+      // Route update
+
+      $scope.$on('$routeUpdate', function () {
+        if ($routeParams.otherTestRunId) {
+          this.otherTestRunId = $routeParams.otherTestRunId;
+          this.loadDiff();
+        } else {
+          this.otherTestRunId =  null;
+          this.diff = null;
+        }
+      }.bind(this));
+
+
+      this.load();
+
+      if (this.otherTestRunId) {
+        this.loadDiff();
+      }
+
+    })
     .factory('featureStoredFilters', function (ObjectBrowserStorage) {
       return ObjectBrowserStorage.getItem('featureFilters', function () {
         return {
@@ -264,6 +332,9 @@
               delete data.id;
               return angular.toJson(data);
             }
+          },
+          getScenarioDiff: {
+            url: baseUri + '/testRuns/:leftTestRunId/scenarioDiff/:rightTestRunId'
           }
         }
       );
@@ -279,6 +350,12 @@
           templateUrl: 'views/test-run.html',
           controller: 'TestRunCtrl',
           controllerAs: 'ctrl'
+        })
+        .when('/test-runs/:baseTestRunId/diff', {
+          templateUrl: 'views/test-run-diff.html',
+          controller: 'TestRunDiffCtrl',
+          controllerAs: 'ctrl',
+          reloadOnSearch: false
         });
     });
 

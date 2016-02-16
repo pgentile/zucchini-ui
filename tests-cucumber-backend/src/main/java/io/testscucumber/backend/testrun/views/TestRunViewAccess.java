@@ -61,6 +61,8 @@ public class TestRunViewAccess {
         final TestRun leftTestRun = testRunRepository.getById(leftTestRunId);
         final TestRun rightTestRun = testRunRepository.getById(rightTestRunId);
 
+        // TODO Also use feature key ?
+
         final Map<String, ScenarioListItemView> leftScenarii = scenarioViewAccess.getScenarioListItemsGroupedByScenarioKey(q -> q.withTestRunId(leftTestRunId));
         final Map<String, ScenarioListItemView> rightScenarii = scenarioViewAccess.getScenarioListItemsGroupedByScenarioKey(q -> q.withTestRunId(rightTestRunId));
 

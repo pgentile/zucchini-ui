@@ -41,6 +41,14 @@
     </div>
     <div class="btn-group" role="group">
 
+      <a ng-href="#/test-runs/{{ ctrl.testRun.id }}/diff" class="btn btn-default">
+        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+        Comparer avec un autre tir
+      </a>
+
+    </div>
+    <div class="btn-group" role="group">
+
       <button ng-click="ctrl.delete()" class="btn btn-danger">
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
         Supprimer
