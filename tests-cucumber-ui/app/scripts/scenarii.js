@@ -23,8 +23,8 @@
       return ScenarioResource.delete({ scenarioId: scenarioId }).$promise;
     };
 
-    this.changeStatus = function (scenarioId, status) {
-      return ScenarioResource.changeStatus({ id: scenarioId, status: status }).$promise;
+    this.changeStatus = function (scenarioId, newStatus) {
+      return ScenarioResource.changeStatus({ id: scenarioId, newStatus: newStatus }).$promise;
     };
 
     this.createComment = function (scenarioId, content) {
@@ -88,8 +88,8 @@
 
       };
 
-      this.changeStatus = function (status) {
-        ScenarioCoreService.changeStatus(this.scenario.id, status)
+      this.changeStatus = function (newStatus) {
+        ScenarioCoreService.changeStatus(this.scenario.id, newStatus)
           .then(function () {
             this.load();
           }.bind(this))
@@ -230,7 +230,12 @@
           },
           changeStatus: {
             method: 'POST',
-            url: baseUri + '/scenarii/:scenarioId/changeStatus/:status',
+            url: baseUri + '/scenarii/:scenarioId/changeStatus',
+            transformRequest: function (data) {
+              // ID must be removed from input data
+              delete data.id;
+              return angular.toJson(data);
+            }
           },
           getComments: {
             method: 'GET',

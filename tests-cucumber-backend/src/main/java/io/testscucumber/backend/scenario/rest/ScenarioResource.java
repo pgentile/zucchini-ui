@@ -9,7 +9,6 @@ import io.testscucumber.backend.scenario.domain.Scenario;
 import io.testscucumber.backend.scenario.domain.ScenarioQuery;
 import io.testscucumber.backend.scenario.domain.ScenarioRepository;
 import io.testscucumber.backend.scenario.domain.ScenarioService;
-import io.testscucumber.backend.scenario.domain.ScenarioStatus;
 import io.testscucumber.backend.scenario.views.ScenarioHistoryItemView;
 import io.testscucumber.backend.scenario.views.ScenarioListItemView;
 import io.testscucumber.backend.scenario.views.ScenarioStats;
@@ -19,6 +18,8 @@ import io.testscucumber.backend.shared.domain.TagSelection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
@@ -108,9 +109,9 @@ public class ScenarioResource {
     }
 
     @POST
-    @Path("{scenarioId}/changeStatus/{status}")
-    public void changeStatus(@PathParam("scenarioId") final String scenarioId, @PathParam("status") final ScenarioStatus newStatus) {
-        scenarioService.updateStatus(scenarioId, newStatus);
+    @Path("{scenarioId}/changeStatus")
+    public void changeStatus(@PathParam("scenarioId") final String scenarioId, @Valid @NotNull final ChangeStatusRequest request) {
+        scenarioService.updateStatus(scenarioId, request.getNewStatus());
     }
 
     @GET

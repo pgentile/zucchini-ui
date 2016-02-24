@@ -138,6 +138,8 @@ public class Scenario extends BaseEntity<String> {
     }
 
     public void changeStatus(final ScenarioStatus newStatus) {
+        Objects.requireNonNull(newStatus);
+
         if (status == newStatus) {
             return;
         }
