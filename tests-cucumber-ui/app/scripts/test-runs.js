@@ -281,8 +281,8 @@
 
       };
 
-      this.isNotBaseTestRun = function (testRun) {
-        return testRun.id !== this.baseTestRunId;
+      this.isBaseTestRun = function (testRun) {
+        return testRun.id === this.baseTestRunId;
       }.bind(this);
 
       // Route update
