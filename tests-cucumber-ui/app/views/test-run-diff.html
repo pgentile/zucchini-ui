@@ -45,7 +45,12 @@
       <thead>
       <tr>
         <th class="col-md-1">Type</th>
-        <th class="col-md-11">Tir de test</th>
+        <th class="col-md-6">Tir de test</th>
+        <th class="col-md-1">Total</th>
+        <th class="col-md-1">Succès</th>
+        <th class="col-md-1">Échecs</th>
+        <th class="col-md-1">En attente</th>
+        <th class="col-md-1">Non joués</th>
       </tr>
       </thead>
       <tbody>
@@ -57,6 +62,11 @@
           <a href ng-switch-when="false" ng-click="ctrl.selectOtherTestRun(testRun.id)">Tir du {{ testRun.date | niceDate }}</a>
           <i ng-switch-default>Tir du {{ testRun.date | niceDate }}</i>
         </td>
+        <td><span class="badge">{{ testRun.stats.count }}</span></td>
+        <td><span class="badge">{{ testRun.stats.statsByStatus['PASSED'] }}</span></td>
+        <td><span class="badge">{{ testRun.stats.statsByStatus['FAILED'] }}</span></td>
+        <td><span class="badge">{{ testRun.stats.statsByStatus['PENDING'] }}</span></td>
+        <td><span class="badge">{{ testRun.stats.statsByStatus['NOT_RUN'] }}</span></td>
       </tr>
       </tbody>
     </table>

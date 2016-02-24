@@ -250,7 +250,7 @@
 
       this.load = function () {
 
-        TestRunCoreService.getLatests()
+        TestRunCoreService.getLatests(true)
           .then(function (latestTestRuns) {
             this.latestTestRuns = latestTestRuns;
           }.bind(this));
