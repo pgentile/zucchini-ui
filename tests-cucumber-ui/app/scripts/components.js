@@ -27,7 +27,7 @@
         };
 
         this.getStatusPercentRate = function(status) {
-          return _.isUndefined(this.stats) || this.stats.count === 0 ? 0 : Math.floor(100 * this.stats.statsByStatus[status] / this.stats.count);
+          return _.isUndefined(this.stats) || this.stats.count === 0 ? 0 : 100.0 * this.stats.statsByStatus[status] / this.stats.count;
         };
 
         this.isValueDisplayable = function (status) {
