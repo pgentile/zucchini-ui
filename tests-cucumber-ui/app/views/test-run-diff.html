@@ -31,6 +31,16 @@
 
     <h2>Sélectionner un autre tir</h2>
 
+    <div class="form" style="margin-bottom: 10px">
+      <div class="form-group">
+        <b>Filtrer :</b>
+        <label class="checkbox-inline">
+          <input type="checkbox" ng-model="ctrl.historyFilters.sameTestRun" ng-change="ctrl.updateHistoryStoredFilters()">
+          Même type de tir
+        </label>
+      </div>
+    </div>
+
     <table class="table table-striped table-bordered">
       <thead>
       <tr>
@@ -39,7 +49,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="testRun in ctrl.latestTestRuns track by testRun.id">
+      <tr ng-repeat="testRun in ctrl.latestTestRuns | filter:ctrl.isTestRunDisplayable track by testRun.id">
         <td>
           <span class="label label-default">{{ testRun.type }}</span>
         </td>

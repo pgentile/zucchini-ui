@@ -241,7 +241,7 @@
       };
 
     })
-    .controller('TestRunDiffCtrl', function ($route, $routeParams, $scope, TestRunCoreService) {
+    .controller('TestRunDiffCtrl', function ($route, $routeParams, $scope, TestRunCoreService, historyStoredFilters) {
 
       this.baseTestRunId = $routeParams.baseTestRunId;
       this.otherTestRunId = $routeParams.otherTestRunId;
@@ -284,6 +284,23 @@
       this.isBaseTestRun = function (testRun) {
         return testRun.id === this.baseTestRunId;
       }.bind(this);
+
+
+      // History filters
+
+      this.historyFilters = historyStoredFilters.get();
+
+      this.updateHistoryStoredFilters = function () {
+        historyStoredFilters.save(this.historyFilters);
+      }.bind(this);
+
+      this.isTestRunDisplayable = function (testRun) {
+        if (this.historyFilters.sameTestRun) {
+          return testRun.type === this.baseTestRun.type;
+        }
+        return true;
+      }.bind(this);
+
 
       // Route update
 
