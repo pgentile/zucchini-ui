@@ -27,6 +27,10 @@
       return ScenarioResource.changeStatus({ id: scenarioId, newStatus: newStatus }).$promise;
     };
 
+    this.changeReviewState = function (scenarioId, reviewState) {
+      return ScenarioResource.changeReviewState({ id: scenarioId, reviewed: reviewState }).$promise;
+    };
+
     this.createComment = function (scenarioId, content) {
       return ScenarioResource.createComment({ id: scenarioId, content: content }).$promise;
     };
@@ -95,6 +99,13 @@
           }.bind(this))
           .then(function () {
             this.loadHistory();
+          }.bind(this));
+      };
+
+      this.changeReviewState = function (reviewState) {
+        ScenarioCoreService.changeReviewState(this.scenario.id, reviewState)
+          .then(function () {
+            this.load();
           }.bind(this));
       };
 
@@ -231,6 +242,15 @@
           changeStatus: {
             method: 'POST',
             url: baseUri + '/scenarii/:scenarioId/changeStatus',
+            transformRequest: function (data) {
+              // ID must be removed from input data
+              delete data.id;
+              return angular.toJson(data);
+            }
+          },
+          changeReviewState: {
+            method: 'POST',
+            url: baseUri + '/scenarii/:scenarioId/changeReviewState',
             transformRequest: function (data) {
               // ID must be removed from input data
               delete data.id;

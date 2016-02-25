@@ -114,6 +114,14 @@ public class ScenarioResource {
         scenarioService.updateStatus(scenarioId, request.getNewStatus());
     }
 
+    @POST
+    @Path("{scenarioId}/changeReviewState")
+    public void changeStatus(@PathParam("scenarioId") final String scenarioId, @Valid @NotNull final ChangeReviewStateRequest request) {
+        final Scenario scenario = scenarioRepository.getById(scenarioId);
+        scenario.setReviewed(request.isReviewed());
+        scenarioRepository.save(scenario);
+    }
+
     @GET
     @Path("{scenarioId}/history")
     public List<ScenarioHistoryItemView> getHistory(@PathParam("scenarioId") final String scenarioId) {

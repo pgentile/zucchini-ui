@@ -40,6 +40,8 @@ public class Scenario extends BaseEntity<String> {
 
     private String comment;
 
+    private boolean reviewed;
+
     private List<Step> steps = new ArrayList<>();
 
     private List<AroundAction> beforeActions = new ArrayList<>();
@@ -94,6 +96,9 @@ public class Scenario extends BaseEntity<String> {
         }
 
         calculateStatusFromSteps();
+
+        // Passed scenario doesn't need a review
+        reviewed = (ScenarioStatus.PASSED == status);
     }
 
     public void mergeWith(final Scenario other) {
@@ -173,6 +178,11 @@ public class Scenario extends BaseEntity<String> {
         modifiedAt = ZonedDateTime.now();
     }
 
+    public void setReviewed(final boolean reviewed) {
+        this.reviewed = reviewed;
+        modifiedAt = ZonedDateTime.now();
+    }
+
     public void updateWithExtraTags(final Set<String> extraTags) {
         final Set<String> newTags = new HashSet<>();
         newTags.addAll(tags);
@@ -234,6 +244,10 @@ public class Scenario extends BaseEntity<String> {
 
     public String getComment() {
         return comment;
+    }
+
+    public boolean isReviewed() {
+        return reviewed;
     }
 
     public List<Step> getSteps() {
