@@ -13,6 +13,7 @@ import ma.glasnost.orika.BoundMapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -61,19 +62,19 @@ public class TestRunViewAccess {
         final TestRun leftTestRun = testRunRepository.getById(leftTestRunId);
         final TestRun rightTestRun = testRunRepository.getById(rightTestRunId);
 
-        // TODO Also use feature key ?
-
         final Map<String, ScenarioListItemView> leftScenarii = scenarioViewAccess.getScenarioListItemsGroupedByScenarioKey(q -> q.withTestRunId(leftTestRunId));
         final Map<String, ScenarioListItemView> rightScenarii = scenarioViewAccess.getScenarioListItemsGroupedByScenarioKey(q -> q.withTestRunId(rightTestRunId));
 
         final Set<String> newScenarioFeatureKeys = Sets.difference(rightScenarii.keySet(), leftScenarii.keySet());
         final List<ScenarioListItemView> newScenarii = newScenarioFeatureKeys.stream()
             .map(rightScenarii::get)
+            .sorted(Comparator.comparing(item -> item.getInfo().getName()))
             .collect(Collectors.toList());
 
         final Set<String> deletedScenarioFeatureKeys = Sets.difference(leftScenarii.keySet(), rightScenarii.keySet());
         final List<ScenarioListItemView> deletedScenarii = deletedScenarioFeatureKeys.stream()
             .map(leftScenarii::get)
+            .sorted(Comparator.comparing(item -> item.getInfo().getName()))
             .collect(Collectors.toList());
 
         final Set<String> commonFeatureKeys = Sets.intersection(leftScenarii.keySet(), rightScenarii.keySet());
@@ -90,6 +91,7 @@ public class TestRunViewAccess {
                 return null;
             })
             .filter(diff -> diff != null)
+            .sorted(Comparator.comparing(d -> d.getLeft().getInfo().getName()))
             .collect(Collectors.toList());
 
         final TestRunScenarioDiff diff = new TestRunScenarioDiff();
