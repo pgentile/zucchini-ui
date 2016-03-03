@@ -73,13 +73,14 @@
     <thead>
     <tr>
       <th class="col-md-1">Groupe</th>
-      <th class="col-md-5">Fonctionnalité</th>
+      <th class="col-md-4">Fonctionnalité</th>
       <th class="col-md-1">Statut</th>
       <th class="col-md-1">Total</th>
       <th class="col-md-1">Succès</th>
       <th class="col-md-1">Échecs</th>
       <th class="col-md-1">En attente</th>
       <th class="col-md-1">Non joués</th>
+      <th class="col-md-1">Analysés</th>
     </tr>
     </thead>
     <tbody>
@@ -99,6 +100,7 @@
       <td><span class="badge">{{ feature.stats.statsByStatus['FAILED'] }}</span></td>
       <td><span class="badge">{{ feature.stats.statsByStatus['PENDING'] }}</span></td>
       <td><span class="badge">{{ feature.stats.statsByStatus['NOT_RUN'] }}</span></td>
+      <td><span class="badge">{{ feature.stats.reviewedCount }}</span></td>
     </tr>
     </tbody>
     <tfoot ng-if="ctrl.features.length != filteredFeatures.length">
@@ -124,8 +126,9 @@
     <thead>
     <tr>
       <th class="col-md-4">Fonctionnalité</th>
-      <th class="col-md-7">Scénario</th>
+      <th class="col-md-6">Scénario</th>
       <th class="col-md-1">Statut</th>
+      <th class="col-md-1">Analysé</th>
     </tr>
     </thead>
     <tbody>
@@ -143,6 +146,10 @@
       </td>
       <td>
         <tc-status status="scenario.status"></tc-status>
+      </td>
+      <td>
+        <span class="label label-success" ng-if="scenario.reviewed">Oui</span>
+        <span class="label label-default" ng-if="!scenario.reviewed">Non</span>
       </td>
     </tr>
     </tbody>

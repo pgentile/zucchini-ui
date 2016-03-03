@@ -11,6 +11,8 @@ public class ScenarioListItemView {
 
     private ScenarioStatus status;
 
+    private boolean reviewed;
+
     private String testRunId;
 
     private String featureId;
@@ -37,6 +39,14 @@ public class ScenarioListItemView {
 
     public void setStatus(final ScenarioStatus status) {
         this.status = status;
+    }
+
+    public boolean isReviewed() {
+        return reviewed;
+    }
+
+    public void setReviewed(final boolean reviewed) {
+        this.reviewed = reviewed;
     }
 
     public String getTestRunId() {

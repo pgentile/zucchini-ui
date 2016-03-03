@@ -97,13 +97,14 @@
     <thead>
     <tr>
       <th class="col-md-1">Groupe</th>
-      <th class="col-md-5">Fonctionnalité</th>
+      <th class="col-md-4">Fonctionnalité</th>
       <th class="col-md-1">Statut</th>
       <th class="col-md-1">Total</th>
       <th class="col-md-1">Succès</th>
       <th class="col-md-1">Échecs</th>
       <th class="col-md-1">En attente</th>
       <th class="col-md-1">Non joués</th>
+      <th class="col-md-1">Analysés</th>
     </tr>
     </thead>
     <tbody>
@@ -123,6 +124,7 @@
       <td><span class="badge">{{ feature.stats.statsByStatus['FAILED'] }}</span></td>
       <td><span class="badge">{{ feature.stats.statsByStatus['PENDING'] }}</span></td>
       <td><span class="badge">{{ feature.stats.statsByStatus['NOT_RUN'] }}</span></td>
+      <td><span class="badge">{{ feature.stats.reviewedCount }}</span></td>
     </tr>
     </tbody>
     <tfoot ng-if="filteredFeatures.length != ctrl.testRun.features.length">
@@ -146,12 +148,13 @@
   <table class="table table-bordered">
     <thead>
     <tr>
-      <th class="col-md-7">Tir</th>
+      <th class="col-md-6">Tir</th>
       <th class="col-md-1">Total</th>
       <th class="col-md-1">Succès</th>
       <th class="col-md-1">Échecs</th>
       <th class="col-md-1">En attente</th>
       <th class="col-md-1">Non joués</th>
+      <th class="col-md-1">Analysés</th>
     </tr>
     </thead>
     <tbody>
@@ -167,6 +170,7 @@
       <td><span class="badge">{{ testRun.stats.statsByStatus['FAILED'] }}</span></td>
       <td><span class="badge">{{ testRun.stats.statsByStatus['PENDING'] }}</span></td>
       <td><span class="badge">{{ testRun.stats.statsByStatus['NOT_RUN'] }}</span></td>
+      <td><span class="badge">{{ testRun.stats.reviewedCount }}</span></td>
     </tr>
     </tbody>
   </table>

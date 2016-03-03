@@ -44,13 +44,14 @@
   <table class="table table-striped table-bordered">
     <thead>
     <tr>
-      <th class="col-md-6">Tag</th>
+      <th class="col-md-5">Tag</th>
       <th class="col-md-1">Statut</th>
       <th class="col-md-1">Total</th>
       <th class="col-md-1">Succès</th>
       <th class="col-md-1">Échecs</th>
       <th class="col-md-1">En attente</th>
       <th class="col-md-1">Non joués</th>
+      <th class="col-md-1">Analysés</th>
     </tr>
     </thead>
     <tbody>
@@ -67,6 +68,7 @@
       <td><span class="badge">{{ tag.stats.statsByStatus['FAILED'] }}</span></td>
       <td><span class="badge">{{ tag.stats.statsByStatus['PENDING'] }}</span></td>
       <td><span class="badge">{{ tag.stats.statsByStatus['NOT_RUN'] }}</span></td>
+      <td><span class="badge">{{ tag.stats.reviewedCount }}</span></td>
     </tr>
     </tbody>
   </table>

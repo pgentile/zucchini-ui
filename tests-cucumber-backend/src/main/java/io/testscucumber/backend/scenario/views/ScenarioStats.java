@@ -10,6 +10,8 @@ public class ScenarioStats {
 
     private int count;
 
+    private int reviewedCount;
+
     private final Map<ScenarioStatus, Integer> statsByStatus;
 
     public ScenarioStats() {
@@ -19,13 +21,21 @@ public class ScenarioStats {
         }
     }
 
-    public void addScenarioStatus(final ScenarioStatus status) {
+    public void addScenarioStatus(final ScenarioStatus status, final boolean reviewed) {
         statsByStatus.compute(status, (key, count) -> count + 1);
         count++;
+
+        if (reviewed) {
+            reviewedCount++;
+        }
     }
 
     public int getCount() {
         return count;
+    }
+
+    public int getReviewedCount() {
+        return reviewedCount;
     }
 
     public Map<ScenarioStatus, Integer> getStatsByStatus() {
