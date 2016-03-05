@@ -21,6 +21,7 @@ public class ScenarioTest {
 
         // then
         assertThat(scenario.getStatus()).isEqualTo(ScenarioStatus.NOT_RUN);
+        assertThat(scenario.isReviewed()).isFalse();
     }
 
     @Test
@@ -41,6 +42,7 @@ public class ScenarioTest {
 
         // then
         assertThat(scenario.getStatus()).isEqualTo(ScenarioStatus.PASSED);
+        assertThat(scenario.isReviewed()).isTrue();
     }
 
     @Test
@@ -58,6 +60,7 @@ public class ScenarioTest {
 
         // then
         assertThat(scenario.getStatus()).isEqualTo(ScenarioStatus.FAILED);
+        assertThat(scenario.isReviewed()).isFalse();
     }
 
     @Test
@@ -76,6 +79,7 @@ public class ScenarioTest {
 
         // then
         assertThat(scenario.getStatus()).isEqualTo(ScenarioStatus.FAILED);
+        assertThat(scenario.isReviewed()).isFalse();
     }
 
     @Test
@@ -94,6 +98,7 @@ public class ScenarioTest {
 
         // then
         assertThat(scenario.getStatus()).isEqualTo(ScenarioStatus.FAILED);
+        assertThat(scenario.isReviewed()).isFalse();
     }
 
     @Test
@@ -129,6 +134,7 @@ public class ScenarioTest {
 
         // then
         assertThat(scenario.getStatus()).isEqualTo(ScenarioStatus.PENDING);
+        assertThat(scenario.isReviewed()).isFalse();
     }
 
     @Test
@@ -147,6 +153,7 @@ public class ScenarioTest {
 
         // then
         assertThat(scenario.getStatus()).isEqualTo(ScenarioStatus.NOT_RUN);
+        assertThat(scenario.isReviewed()).isFalse();
     }
 
     @Test
@@ -165,6 +172,7 @@ public class ScenarioTest {
 
         // then
         assertThat(scenario.getStatus()).isEqualTo(ScenarioStatus.NOT_RUN);
+        assertThat(scenario.isReviewed()).isFalse();
     }
 
     @Test
@@ -196,6 +204,7 @@ public class ScenarioTest {
             })
             .addStep(sb -> sb.withInfo(new BasicInfo("Step", "Step E")).withStatus(StepStatus.FAILED).withErrorMessage("Error C").withComment("Comment B"))
             .addAfterAction(sb -> sb.withStatus(StepStatus.FAILED).withErrorMessage("Error D"))
+            .withReviewed(true)
             .build();
 
         // when

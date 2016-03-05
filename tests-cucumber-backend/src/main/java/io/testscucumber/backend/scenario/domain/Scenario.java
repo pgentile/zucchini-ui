@@ -98,7 +98,11 @@ public class Scenario extends BaseEntity<String> {
         calculateStatusFromSteps();
 
         // Passed scenario doesn't need a review
-        reviewed = (ScenarioStatus.PASSED == status);
+        if (builder.isReviewed().isPresent()) {
+            reviewed = builder.isReviewed().get();
+        } else {
+            calculateReviewStateFromStatus();
+        }
     }
 
     public void mergeWith(final Scenario other) {
@@ -136,6 +140,8 @@ public class Scenario extends BaseEntity<String> {
         afterActions = other.afterActions.stream()
             .map(AroundAction::copy)
             .collect(Collectors.toList());
+
+        reviewed = other.reviewed;
 
         modifiedAt = ZonedDateTime.now();
 
@@ -317,6 +323,10 @@ public class Scenario extends BaseEntity<String> {
         }
 
         return stream;
+    }
+
+    private void calculateReviewStateFromStatus() {
+        reviewed = (status == ScenarioStatus.PASSED);
     }
 
 }
