@@ -1,8 +1,8 @@
 package io.testscucumber.backend.scenario.domain;
 
-import io.testscucumber.backend.shared.domain.TagSelectionQuery;
+import io.testscucumber.backend.shared.domain.TagSelection;
 
-public interface ScenarioQuery extends TagSelectionQuery<ScenarioQuery> {
+public interface ScenarioQuery {
 
     ScenarioQuery withFeatureId(String featureId);
 
@@ -11,5 +11,9 @@ public interface ScenarioQuery extends TagSelectionQuery<ScenarioQuery> {
     ScenarioQuery withTestRunId(String testRunId);
 
     ScenarioQuery orderedByName();
+
+    ScenarioQuery withTag(String tag);
+
+    ScenarioQuery withSelectedTags(TagSelection tagSelection);
 
 }
