@@ -148,7 +148,7 @@ public class Scenario extends BaseEntity<String> {
         calculateStatusFromSteps();
     }
 
-    public void changeStatus(final ScenarioStatus newStatus) {
+    public void setStatus(final ScenarioStatus newStatus) {
         Objects.requireNonNull(newStatus);
 
         if (status == newStatus) {

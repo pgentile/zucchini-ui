@@ -132,7 +132,7 @@ public class ReportConverterServiceImplTest {
             scenarioService, reportConverter, feature, scenario);
 
         inOrder.verify(reportConverter).convert(testRunId, group, reportFeature);
-        inOrder.verify(scenario).changeStatus(ScenarioStatus.NOT_RUN);
+        inOrder.verify(scenario).setStatus(ScenarioStatus.NOT_RUN);
         inOrder.verify(featureService).tryToMergeWithExistingFeature(feature);
         inOrder.verify(scenarioService).tryToMergeWithExistingScenario(scenario);
         inOrder.verify(scenarioRepository).save(scenario);

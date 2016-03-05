@@ -24,11 +24,11 @@
     };
 
     this.changeStatus = function (scenarioId, newStatus) {
-      return ScenarioResource.changeStatus({ id: scenarioId, newStatus: newStatus }).$promise;
+      return ScenarioResource.update({ id: scenarioId, status: newStatus }).$promise;
     };
 
     this.changeReviewState = function (scenarioId, reviewState) {
-      return ScenarioResource.changeReviewState({ id: scenarioId, reviewed: reviewState }).$promise;
+      return ScenarioResource.update({ id: scenarioId, reviewed: reviewState }).$promise;
     };
 
     this.createComment = function (scenarioId, content) {
@@ -238,6 +238,14 @@
             method: 'GET',
             url: baseUri + '/scenarii/:scenarioId/history',
             isArray: true
+          },
+          update: {
+            method: 'PATCH',
+            transformRequest: function (data) {
+              // ID must be removed from input data
+              delete data.id;
+              return angular.toJson(data);
+            }
           },
           changeStatus: {
             method: 'POST',

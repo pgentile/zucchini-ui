@@ -2,6 +2,7 @@ package io.testscucumber.backend.scenario.rest;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
+import io.dropwizard.jersey.PATCH;
 import io.testscucumber.backend.comment.domain.CommentReference;
 import io.testscucumber.backend.comment.domain.CommentReferenceType;
 import io.testscucumber.backend.comment.rest.CommentResource;
@@ -25,7 +26,6 @@ import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -102,24 +102,23 @@ public class ScenarioResource {
         return scenarioRepository.getById(scenarioId);
     }
 
+    @PATCH
+    @Path("{scenarioId}")
+    public void update(@PathParam("scenarioId") final String scenarioId, @Valid @NotNull final UpdateScenarioRequest request) {
+        final Scenario scenario = scenarioRepository.getById(scenarioId);
+        if (request.getStatus() != null) {
+            scenarioService.updateStatus(scenario, request.getStatus());
+        }
+        if (request.isReviewed() != null) {
+            scenario.setReviewed(request.isReviewed());
+        }
+        scenarioRepository.save(scenario);
+    }
+
     @DELETE
     @Path("{scenarioId}")
     public void delete(@PathParam("scenarioId") final String scenarioId) {
         scenarioService.deleteById(scenarioId);
-    }
-
-    @POST
-    @Path("{scenarioId}/changeStatus")
-    public void changeStatus(@PathParam("scenarioId") final String scenarioId, @Valid @NotNull final ChangeStatusRequest request) {
-        scenarioService.updateStatus(scenarioId, request.getNewStatus());
-    }
-
-    @POST
-    @Path("{scenarioId}/changeReviewState")
-    public void changeStatus(@PathParam("scenarioId") final String scenarioId, @Valid @NotNull final ChangeReviewStateRequest request) {
-        final Scenario scenario = scenarioRepository.getById(scenarioId);
-        scenario.setReviewed(request.isReviewed());
-        scenarioRepository.save(scenario);
     }
 
     @GET
