@@ -1,6 +1,5 @@
 package io.testscucumber.backend.scenario.domainimpl;
 
-import io.testscucumber.backend.feature.domain.FeatureRepository;
 import io.testscucumber.backend.feature.domain.FeatureService;
 import io.testscucumber.backend.scenario.domain.Scenario;
 import io.testscucumber.backend.scenario.domain.ScenarioRepository;
@@ -18,18 +17,14 @@ class ScenarioServiceImpl implements ScenarioService {
 
     private final ScenarioRepository scenarioRepository;
 
-    private final FeatureRepository featureRepository;
-
     private final FeatureService featureService;
 
     @Autowired
     public ScenarioServiceImpl(
         final ScenarioRepository scenarioRepository,
-        final FeatureRepository featureRepository,
         final FeatureService featureService
     ) {
         this.scenarioRepository = scenarioRepository;
-        this.featureRepository = featureRepository;
         this.featureService = featureService;
     }
 
