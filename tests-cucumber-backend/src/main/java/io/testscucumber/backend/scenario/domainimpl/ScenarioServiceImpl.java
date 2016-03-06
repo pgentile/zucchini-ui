@@ -34,7 +34,7 @@ class ScenarioServiceImpl implements ScenarioService {
     }
 
     @Override
-    public void updateScenario(String scenarioId, UpdateScenarioParams params) {
+    public void updateScenario(final String scenarioId, final UpdateScenarioParams params) {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
         params.getStatus().ifPresent(scenario::setStatus);
         params.isReviewed().ifPresent(scenario::setReviewed);
