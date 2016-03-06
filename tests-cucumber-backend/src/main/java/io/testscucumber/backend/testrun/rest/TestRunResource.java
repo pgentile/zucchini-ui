@@ -110,13 +110,7 @@ public class TestRunResource {
     @PATCH
     @Path("{testRunId}")
     public void update(@PathParam("testRunId") final String testRunId, @Valid @NotNull final UpdateTestRunRequest request) {
-        final TestRun testRun = testRunRepository.getById(testRunId);
-
-        if (!Strings.isNullOrEmpty(request.getType())) {
-            testRun.setType(request.getType());
-        }
-
-        testRunRepository.save(testRun);
+        testRunService.updateType(testRunId, request.getType());
     }
 
     @DELETE

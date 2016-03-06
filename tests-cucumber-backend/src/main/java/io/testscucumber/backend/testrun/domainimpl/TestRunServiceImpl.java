@@ -1,5 +1,6 @@
 package io.testscucumber.backend.testrun.domainimpl;
 
+import com.google.common.base.Strings;
 import io.testscucumber.backend.feature.domain.FeatureService;
 import io.testscucumber.backend.testrun.domain.TestRun;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;
@@ -18,6 +19,13 @@ class TestRunServiceImpl implements TestRunService {
     public TestRunServiceImpl(final TestRunRepository testRunRepository, final FeatureService featureService) {
         this.testRunRepository = testRunRepository;
         this.featureService = featureService;
+    }
+
+    @Override
+    public void updateType(final String testRunId, final String newType) {
+        final TestRun testRun = testRunRepository.getById(testRunId);
+        testRun.setType(Strings.nullToEmpty(newType));
+        testRunRepository.save(testRun);
     }
 
     @Override
