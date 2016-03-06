@@ -40,6 +40,13 @@ class FeatureServiceImpl implements FeatureService {
     }
 
     @Override
+    public void updateStatusFromScenarii(final String featureId) {
+        final Feature feature = featureRepository.getById(featureId);
+        calculateStatusFromScenarii(feature);
+        featureRepository.save(feature);
+    }
+
+    @Override
     public void deleteByTestRunId(final String testRunId) {
         scenarioRepository.deleteByTestRunId(testRunId);
         featureRepository.deleteByTestRunId(testRunId);

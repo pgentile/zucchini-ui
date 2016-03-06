@@ -10,6 +10,7 @@ import io.testscucumber.backend.scenario.domain.Scenario;
 import io.testscucumber.backend.scenario.domain.ScenarioQuery;
 import io.testscucumber.backend.scenario.domain.ScenarioRepository;
 import io.testscucumber.backend.scenario.domain.ScenarioService;
+import io.testscucumber.backend.scenario.domain.UpdateScenarioParams;
 import io.testscucumber.backend.scenario.views.ScenarioHistoryItemView;
 import io.testscucumber.backend.scenario.views.ScenarioListItemView;
 import io.testscucumber.backend.scenario.views.ScenarioStats;
@@ -35,6 +36,7 @@ import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -105,14 +107,11 @@ public class ScenarioResource {
     @PATCH
     @Path("{scenarioId}")
     public void update(@PathParam("scenarioId") final String scenarioId, @Valid @NotNull final UpdateScenarioRequest request) {
-        final Scenario scenario = scenarioRepository.getById(scenarioId);
-        if (request.getStatus() != null) {
-            scenarioService.updateStatus(scenario, request.getStatus());
-        }
-        if (request.isReviewed() != null) {
-            scenario.setReviewed(request.isReviewed());
-        }
-        scenarioRepository.save(scenario);
+        final UpdateScenarioParams updateScenarioParams = new UpdateScenarioParams(
+            Optional.ofNullable(request.getStatus()),
+            Optional.ofNullable(request.isReviewed())
+        );
+        scenarioService.updateScenario(scenarioId, updateScenarioParams);
     }
 
     @DELETE

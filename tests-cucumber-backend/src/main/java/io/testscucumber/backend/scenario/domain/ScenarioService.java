@@ -2,7 +2,7 @@ package io.testscucumber.backend.scenario.domain;
 
 public interface ScenarioService {
 
-    void updateStatus(Scenario scenario, ScenarioStatus newStatus);
+    void updateScenario(String scenarioId, UpdateScenarioParams params);
 
     void deleteById(String scenarioId);
 

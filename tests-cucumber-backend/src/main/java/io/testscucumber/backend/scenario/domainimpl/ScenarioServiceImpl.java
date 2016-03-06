@@ -1,12 +1,11 @@
 package io.testscucumber.backend.scenario.domainimpl;
 
-import io.testscucumber.backend.feature.domain.Feature;
 import io.testscucumber.backend.feature.domain.FeatureRepository;
 import io.testscucumber.backend.feature.domain.FeatureService;
 import io.testscucumber.backend.scenario.domain.Scenario;
 import io.testscucumber.backend.scenario.domain.ScenarioRepository;
 import io.testscucumber.backend.scenario.domain.ScenarioService;
-import io.testscucumber.backend.scenario.domain.ScenarioStatus;
+import io.testscucumber.backend.scenario.domain.UpdateScenarioParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +34,15 @@ class ScenarioServiceImpl implements ScenarioService {
     }
 
     @Override
-    public void updateStatus(final Scenario scenario, final ScenarioStatus newStatus) {
-        scenario.setStatus(newStatus);
+    public void updateScenario(String scenarioId, UpdateScenarioParams params) {
+        final Scenario scenario = scenarioRepository.getById(scenarioId);
+        params.getStatus().ifPresent(scenario::setStatus);
+        params.isReviewed().ifPresent(scenario::setReviewed);
+        scenarioRepository.save(scenario);
 
-        final Feature feature = featureRepository.getById(scenario.getFeatureId());
-        featureService.calculateStatusFromScenarii(feature);
-        featureRepository.save(feature);
+        if (params.getStatus().isPresent()) {
+            featureService.updateStatusFromScenarii(scenario.getFeatureId());
+        }
     }
 
     @Override
@@ -48,9 +50,7 @@ class ScenarioServiceImpl implements ScenarioService {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
         scenarioRepository.delete(scenario);
 
-        final Feature feature = featureRepository.getById(scenario.getFeatureId());
-        featureService.calculateStatusFromScenarii(feature);
-        featureRepository.save(feature);
+        featureService.updateStatusFromScenarii(scenario.getFeatureId());
     }
 
     @Override
