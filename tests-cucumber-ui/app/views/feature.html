@@ -111,7 +111,7 @@
     </tbody>
     <tfoot ng-if="filteredScenarii.length != ctrl.feature.scenarii.length">
     <tr>
-      <td class="warning" colspan="2" style="text-align: center">
+      <td class="warning" colspan="3" style="text-align: center">
         Attention :
         <ng-pluralize count="ctrl.feature.scenarii.length - filteredScenarii.length"
                       when="{ 'one': 'un scénario masqué', 'other': '{} scénarii masqués'}">
