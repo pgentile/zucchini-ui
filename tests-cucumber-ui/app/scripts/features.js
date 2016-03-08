@@ -89,21 +89,6 @@
         scenarioStoredFilters.save(filters);
       }.bind(this);
 
-      this.isScenarioDisplayable = function (scenario) {
-        switch (scenario.status) {
-          case 'PASSED':
-            return this.scenarioFilters.passed;
-          case 'FAILED':
-            return this.scenarioFilters.failed;
-          case 'PENDING':
-            return this.scenarioFilters.pending;
-          case 'NOT_RUN':
-            return this.scenarioFilters.notRun;
-          default:
-            return true;
-        }
-      }.bind(this);
-
 
       // History filters
 
