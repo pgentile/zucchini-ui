@@ -2,7 +2,7 @@
 
   <div class="form" style="margin-bottom: 10px">
     <div class="form-group">
-      <b>Filtrer par statut :</b>
+      <b>Filtrer les fonctionnalités :</b>
       <label class="checkbox-inline">
         <input type="checkbox" ng-model="$ctrl.filters.passed" ng-change="$ctrl.onFilterChange()">
         Succès
@@ -18,6 +18,10 @@
       <label class="checkbox-inline">
         <input type="checkbox" ng-model="$ctrl.filters.notRun" ng-change="$ctrl.onFilterChange()">
         Non joués
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" ng-model="$ctrl.filters.reviewed" ng-change="$ctrl.onFilterChange()">
+        Analysés
       </label>
     </div>
   </div>

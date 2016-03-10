@@ -314,7 +314,8 @@
           passed: true,
           failed: true,
           partial: true,
-          notRun: true
+          notRun: true,
+          reviewed: true
         };
       });
     })

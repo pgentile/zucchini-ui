@@ -116,6 +116,10 @@
         };
 
         this.isScenarioDisplayable = function (scenario) {
+          return this.isScenarioStatusDisplayable(scenario) && this.isScenarioReviewedStateDisplayable(scenario);
+        }.bind(this);
+
+        this.isScenarioStatusDisplayable = function (scenario) {
           switch (scenario.status) {
             case 'PASSED':
               return this.filters.passed;
@@ -128,7 +132,14 @@
             default:
               return true;
           }
-        }.bind(this);
+        };
+
+        this.isScenarioReviewedStateDisplayable = function (scenario) {
+          if (!this.filters.reviewed) {
+            return !scenario.reviewed;
+          }
+          return true;
+        };
 
       }
     })
@@ -146,6 +157,10 @@
         };
 
         this.isFeatureDisplayable = function (feature) {
+          return this.isFeatureStatusDisplayable(feature) && this.isFeatureReviewedStateDisplayable(feature);
+        }.bind(this);
+
+        this.isFeatureStatusDisplayable = function (feature) {
           switch (feature.status) {
             case 'PASSED':
               return this.filters.passed;
@@ -158,8 +173,14 @@
             default:
               return true;
           }
-        }.bind(this);
+        };
 
+        this.isFeatureReviewedStateDisplayable = function (feature) {
+          if (!this.filters.reviewed) {
+            return feature.stats.reviewedCount !== feature.stats.count;
+          }
+          return true;
+        };
       }
     });
 

@@ -118,7 +118,8 @@
           passed: true,
           failed: true,
           pending: true,
-          notRun: true
+          notRun: true,
+          reviewed: true
         };
       });
     })
