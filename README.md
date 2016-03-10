@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/pgentile/tests-cucumber.svg?branch=master)](https://travis-ci.org/pgentile/tests-cucumber)
-[![Code Climate](https://codeclimate.com/github/pgentile/tests-cucumber/badges/gpa.svg)](https://codeclimate.com/github/pgentile/tests-cucumber)
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/666c1c5ba97d4ab0893ed2573fd1e428)](https://www.codacy.com/app/pierre-gentile-perso/tests-cucumber)
 
 Tests Cucumber
 ==============
