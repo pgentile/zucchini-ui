@@ -131,6 +131,36 @@
         }.bind(this);
 
       }
+    })
+    .component('tcFeatureList', {
+      templateUrl: 'views/tc-feature-list.html',
+      bindings: {
+        features: '<',
+        filters: '<',
+        onFilterUpdate: '&'
+      },
+      controller: function () {
+
+        this.onFilterChange = function () {
+          this.onFilterUpdate({ filters: this.filters });
+        };
+
+        this.isFeatureDisplayable = function (feature) {
+          switch (feature.status) {
+            case 'PASSED':
+              return this.filters.passed;
+            case 'FAILED':
+              return this.filters.failed;
+            case 'PARTIAL':
+              return this.filters.partial;
+            case 'NOT_RUN':
+              return this.filters.notRun;
+            default:
+              return true;
+          }
+        }.bind(this);
+
+      }
     });
 
 })(angular);

@@ -181,23 +181,9 @@
 
       this.filters = featureStoredFilters.get();
 
-      this.updateStoredFilters = function () {
-        featureStoredFilters.save(this.filters);
-      }.bind(this);
-
-      this.isFeatureDisplayable = function (feature) {
-        switch (feature.status) {
-          case 'PASSED':
-            return this.filters.passed;
-          case 'FAILED':
-            return this.filters.failed;
-          case 'PARTIAL':
-            return this.filters.partial;
-          case 'NOT_RUN':
-            return this.filters.notRun;
-          default:
-            return true;
-        }
+      this.updateStoredFilters = function (filters) {
+        this.filters = filters;
+        featureStoredFilters.save(filters);
       }.bind(this);
 
 

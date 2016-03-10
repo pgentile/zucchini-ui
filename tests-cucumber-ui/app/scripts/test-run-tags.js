@@ -69,7 +69,7 @@
       this.load();
 
     })
-    .controller('TestRunTagCtrl', function ($q, $route, $routeParams, $scope, TestRunCoreService, FeatureCoreService, ScenarioCoreService, scenarioStoredFilters) {
+    .controller('TestRunTagCtrl', function ($q, $route, $routeParams, $scope, TestRunCoreService, FeatureCoreService, ScenarioCoreService, scenarioStoredFilters, featureStoredFilters) {
 
       this.updateTags = function () {
         this.tags = anyTagTypeToArray($routeParams.tag);
@@ -123,6 +123,16 @@
           tag: tagStringToParamValue(this.tagsInput),
           excludedTag: tagStringToParamValue(this.excludedTagsInput),
         });
+      }.bind(this);
+
+
+      // Filter
+
+      this.featureFilters = featureStoredFilters.get();
+
+      this.updateStoredFilters = function (filters) {
+        this.featureFilters = filters;
+        featureStoredFilters.save(filters);
       }.bind(this);
 
 
