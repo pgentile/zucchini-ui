@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/pgentile/tests-cucumber.svg?branch=master)](https://travis-ci.org/pgentile/tests-cucumber)
+[![Code Climate](https://codeclimate.com/github/pgentile/tests-cucumber/badges/gpa.svg)](https://codeclimate.com/github/pgentile/tests-cucumber)
 
 Tests Cucumber
 ==============
