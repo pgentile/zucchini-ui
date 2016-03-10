@@ -33,7 +33,7 @@ allprojects {
         orika     : '1.4.6',
         morphia   : '1.1.1',
         slf4j     : '1.7.13',
-        spring    : '4.2.4.RELEASE',
+        spring    : '4.2.5.RELEASE',
         jackson   : '2.6.4',
         junit     : '4.12',
         assertj   : '3.3.0',
@@ -299,7 +299,7 @@ project("${rootProject.name}-example-features") {
 
     dependencies {
 
-        compile 'org.codehaus.groovy:groovy-all:2.4.5'
+        compile 'org.codehaus.groovy:groovy-all:2.4.6'
         compile 'info.cukes:cucumber-groovy:1.2.4'
         compile "org.slf4j:slf4j-api:${versions.slf4j}"
         compile "org.assertj:assertj-core:${versions.assertj}"
