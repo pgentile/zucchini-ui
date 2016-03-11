@@ -19,19 +19,19 @@ public class AroundAction {
         errorMessage = builder.getErrorMessage();
     }
 
-    public AroundAction copy() {
-        final AroundAction newAroundAction = new AroundAction();
-        newAroundAction.status = status;
-        newAroundAction.errorMessage = errorMessage;
-        return newAroundAction;
-    }
-
     public StepStatus getStatus() {
         return status;
     }
 
     public String getErrorMessage() {
         return errorMessage;
+    }
+
+    protected AroundAction copy() {
+        final AroundAction newAroundAction = new AroundAction();
+        newAroundAction.status = status;
+        newAroundAction.errorMessage = errorMessage;
+        return newAroundAction;
     }
 
     protected void setStatus(final StepStatus newStatus) {

@@ -21,17 +21,6 @@ public class Background {
 
     }
 
-    public Background copy() {
-        final Background newBackground = new Background();
-        newBackground.info = info;
-
-        newBackground.steps = steps.stream()
-            .map(Step::copy)
-            .collect(Collectors.toList());
-
-        return newBackground;
-    }
-
     protected Background(final BackgroundBuilder builder) {
         info = Objects.requireNonNull(builder.getInfo());
 
@@ -46,6 +35,17 @@ public class Background {
 
     public List<Step> getSteps() {
         return Collections.unmodifiableList(steps);
+    }
+
+    protected Background copy() {
+        final Background newBackground = new Background();
+        newBackground.info = info;
+
+        newBackground.steps = steps.stream()
+            .map(Step::copy)
+            .collect(Collectors.toList());
+
+        return newBackground;
     }
 
     protected void setStatus(final StepStatus newStatus) {
