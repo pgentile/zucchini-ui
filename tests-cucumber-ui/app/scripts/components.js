@@ -88,6 +88,58 @@
 
       }
     })
+    .component('tcScenarioPieChart', {
+      templateUrl: 'views/tc-scenario-pie-chart.html',
+      bindings: {
+        stats: '<',
+        kind: '@'
+      },
+      controller: function ($scope) {
+
+        $scope.$watchGroup(['$ctrl.stats'], function () {
+          if (_.isUndefined(this.stats)) {
+            delete this.series;
+          } else {
+            var target = 'statsByStatus';
+            if (this.kind === 'reviewed') {
+              target = 'reviewedStatsByStatus';
+            }
+
+            var series = [
+              {
+                value: this.stats[target].PASSED,
+                name: 'Passés',
+                className: 'chart-progress-passed'
+              },
+              {
+                value: this.stats[target].PENDING,
+                name: 'En attente',
+                className: 'chart-progress-pending'
+              },
+              {
+                value: this.stats[target].FAILED,
+                name: 'Echecs',
+                className: 'chart-progress-failed'
+              },
+              {
+                value: this.stats[target].NOT_RUN,
+                name: 'Non joués',
+                className: 'chart-progress-not-run'
+              }
+            ];
+
+            series = series.filter(function (serie) {
+              return serie.value > 0;
+            });
+
+            this.series = {
+              series: series
+            };
+          }
+        }.bind(this));
+
+      }
+    })
     .component('tcScenarioList', {
       templateUrl: 'views/tc-scenario-list.html',
       bindings: {

@@ -61,7 +61,21 @@
 
   <h2>Avancement</h2>
 
-  <tc-scenario-progress stats="ctrl.feature.stats"></tc-scenario-progress>
+  <div class="row">
+    <div class="col-md-6">
+      <p class="text-center">Tous les tests</p>
+      <div style="height: 20rem">
+        <tc-scenario-pie-chart stats="ctrl.feature.stats"></tc-scenario-pie-chart>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <p class="text-center">Tests analysés</p>
+      <div style="height: 20rem">
+        <tc-scenario-pie-chart stats="ctrl.feature.stats" kind="reviewed"></tc-scenario-pie-chart>
+      </div>
+    </div>
+  </div>
+
 
   <!-- Description -->
 

@@ -181,6 +181,33 @@
         link: link
       };
 
+    })
+    .directive('tcPieChart', function () {
+
+      var link = function (scope, element) {
+
+        var chart = new Chartist.Pie(element[0]);
+
+        scope.$watchGroup(['data', 'total'], function (newValues) {
+          var data, total;
+          [data, total] = newValues;
+
+          chart.update(data, {
+            total: total
+          }, true);
+        });
+
+      };
+
+      return {
+        restrict: 'E',
+        scope: {
+          data: '=',
+          total: '='
+        },
+        link: link
+      };
+
     });
 
 })(angular);

@@ -15,3 +15,26 @@
 .progress.scenario-progress .progress-bar {
   min-width: 0 !important;
 }
+
+
+.ct-chart-pie .chart-progress-passed .ct-slice-pie {
+  fill: #5cb85c;
+}
+
+.ct-chart-pie .chart-progress-failed .ct-slice-pie {
+  fill: #d9534f;
+}
+
+.ct-chart-pie .chart-progress-pending .ct-slice-pie {
+  fill: #f0ad4e;
+}
+
+.ct-chart-pie .chart-progress-not-run .ct-slice-pie {
+  fill: #777;
+}
+
+.ct-chart-pie .ct-label {
+  color: #fff;
+  fill: #fff;
+  font-size: 1em;
+}

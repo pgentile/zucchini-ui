@@ -12,12 +12,22 @@ public class ScenarioStats {
 
     private int reviewedCount;
 
+    private int notReviewedCount;
+
     private final Map<ScenarioStatus, Integer> statsByStatus;
+
+    private final Map<ScenarioStatus, Integer> reviewedStatsByStatus;
+
+    private final Map<ScenarioStatus, Integer> notReviewedStatsByStatus;
 
     public ScenarioStats() {
         statsByStatus = new EnumMap<>(ScenarioStatus.class);
+        reviewedStatsByStatus = new EnumMap<>(ScenarioStatus.class);
+        notReviewedStatsByStatus = new EnumMap<>(ScenarioStatus.class);
         for (final ScenarioStatus status : ScenarioStatus.values()) {
             statsByStatus.put(status, 0);
+            reviewedStatsByStatus.put(status, 0);
+            notReviewedStatsByStatus.put(status, 0);
         }
     }
 
@@ -27,6 +37,10 @@ public class ScenarioStats {
 
         if (reviewed) {
             reviewedCount++;
+            reviewedStatsByStatus.compute(status, (key, count) -> count + 1);
+        } else {
+            notReviewedCount++;
+            notReviewedStatsByStatus.compute(status, (key, count) -> count + 1);
         }
     }
 
@@ -38,8 +52,20 @@ public class ScenarioStats {
         return reviewedCount;
     }
 
+    public int getNotReviewedCount() {
+        return notReviewedCount;
+    }
+
     public Map<ScenarioStatus, Integer> getStatsByStatus() {
         return statsByStatus;
+    }
+
+    public Map<ScenarioStatus, Integer> getReviewedStatsByStatus() {
+        return reviewedStatsByStatus;
+    }
+
+    public Map<ScenarioStatus, Integer> getNotReviewedStatsByStatus() {
+        return notReviewedStatsByStatus;
     }
 
     public FeatureStatus computeFeatureStatus() {
