@@ -138,28 +138,14 @@
 
       // Feature filters
 
-      this.selectedFeature = null;
+      this.selectedFeatureIds = undefined;
 
-      this.selectFeature = function (feature) {
-        this.selectedFeature = feature;
+      this.updateFeatureIds = function (featureIds) {
+        this.selectedFeatureIds = featureIds;
       }.bind(this);
 
-      this.clearSelectedFeature = function () {
-        this.selectedFeature = null;
-      }.bind(this);
-
-      this.isFeatureDisplayable = function (feature) {
-        if (this.selectedFeature === null) {
-          return true;
-        }
-        return this.selectedFeature === feature;
-      }.bind(this);
-
-      this.isScenarioInSelectedFeature = function (scenario) {
-        if (this.selectedFeature === null) {
-          return true;
-        }
-        return this.selectedFeature === scenario.feature;
+      this.isFeatureIdSelected = function (scenario) {
+        return _.isUndefined(this.selectedFeatureIds) || this.selectedFeatureIds.indexOf(scenario.featureId) !== -1;
       }.bind(this);
 
 

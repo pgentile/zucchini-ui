@@ -94,7 +94,8 @@
         scenarii: '<',
         displayFeature: '@',
         filters: '<',
-        onFilterUpdate: '&'
+        onFilterUpdate: '&',
+        extraFilter: '<'
       },
       controller: function () {
 
@@ -116,7 +117,7 @@
         };
 
         this.isScenarioDisplayable = function (scenario) {
-          return this.isScenarioStatusDisplayable(scenario) && this.isScenarioReviewedStateDisplayable(scenario);
+          return this.isScenarioStatusDisplayable(scenario) && this.isScenarioReviewedStateDisplayable(scenario) && this.isScenarioAcceptedByExtraFilter(scenario);
         }.bind(this);
 
         this.isScenarioStatusDisplayable = function (scenario) {
@@ -141,6 +142,13 @@
           return true;
         };
 
+        this.isScenarioAcceptedByExtraFilter = function (scenario) {
+          if (!_.isUndefined(this.extraFilter)) {
+            return this.extraFilter(scenario);
+          }
+          return true;
+        };
+
       }
     })
     .component('tcFeatureList', {
@@ -148,9 +156,22 @@
       bindings: {
         features: '<',
         filters: '<',
-        onFilterUpdate: '&'
+        onFilterUpdate: '&',
+        onFeaturesFiltered: '&'
       },
-      controller: function () {
+      controller: function ($scope) {
+
+        this.$onInit = function () {
+          // Watch changes on filtered feature list
+          $scope.$watch('filteredFeatures', function (filteredFeatures) {
+            if (_.isArray(filteredFeatures)) {
+              var featureIds = filteredFeatures.map(function (feature) {
+                return feature.id;
+              });
+              this.onFeaturesFiltered({ featureIds: featureIds });
+            }
+          }.bind(this));
+        };
 
         this.onFilterChange = function () {
           this.onFilterUpdate({ filters: this.filters });
@@ -181,6 +202,7 @@
           }
           return true;
         };
+
       }
     });
 

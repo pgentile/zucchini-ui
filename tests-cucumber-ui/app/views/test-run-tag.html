@@ -72,7 +72,8 @@
   <tc-feature-list
     features="ctrl.features"
     filters="ctrl.featureFilters"
-    on-filter-update="ctrl.updateStoredFilters(filters)">
+    on-filter-update="ctrl.updateStoredFilters(filters)"
+    on-features-filtered="ctrl.updateFeatureIds(featureIds)">
   </tc-feature-list>
 
   <!-- Scénarii -->
@@ -84,7 +85,8 @@
   <tc-scenario-list
     display-feature="true" scenarii="ctrl.scenarii"
     filters="ctrl.scenarioFilters"
-    on-filter-update="ctrl.updateScenarioStoredFilters(filters)">
+    on-filter-update="ctrl.updateScenarioStoredFilters(filters)"
+    extra-filter="ctrl.isFeatureIdSelected">
   </tc-scenario-list>
 
 </div>
