@@ -96,12 +96,7 @@ public class Scenario extends BaseEntity<String> {
         }
 
         calculateStatusFromSteps();
-
-        if (builder.isReviewed().isPresent()) {
-            reviewed = builder.isReviewed().get();
-        } else {
-            calculateReviewStateFromStatus();
-        }
+        calculateReviewStateFromStatus();
     }
 
     public void mergeWith(final Scenario other) {

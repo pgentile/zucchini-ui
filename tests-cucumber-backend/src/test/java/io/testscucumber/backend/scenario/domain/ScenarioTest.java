@@ -204,8 +204,8 @@ public class ScenarioTest {
             })
             .addStep(sb -> sb.withInfo(new BasicInfo("Step", "Step E")).withStatus(StepStatus.FAILED).withErrorMessage("Error C").withComment("Comment B"))
             .addAfterAction(sb -> sb.withStatus(StepStatus.FAILED).withErrorMessage("Error D"))
-            .withReviewed(true)
             .build();
+        inputScenario.setReviewed(true);
 
         // when
         receivingScenario.mergeWith(inputScenario);

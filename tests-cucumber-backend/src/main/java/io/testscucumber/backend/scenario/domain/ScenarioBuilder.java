@@ -5,7 +5,6 @@ import io.testscucumber.backend.shared.domain.BasicInfo;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -32,8 +31,6 @@ public class ScenarioBuilder {
     private final List<AroundActionBuilder> beforeActionBuilders = new ArrayList<>();
 
     private final List<AroundActionBuilder> afterActionBuilders = new ArrayList<>();
-
-    private Optional<Boolean> reviewed = Optional.empty();
 
     public Scenario build() {
         return new Scenario(this);
@@ -78,11 +75,6 @@ public class ScenarioBuilder {
 
     public ScenarioBuilder withComment(final String comment) {
         this.comment = comment;
-        return this;
-    }
-
-    public ScenarioBuilder withReviewed(final boolean reviewed) {
-        this.reviewed = Optional.of(reviewed);
         return this;
     }
 
@@ -149,10 +141,6 @@ public class ScenarioBuilder {
 
     protected List<AroundActionBuilder> getAfterActionBuilders() {
         return afterActionBuilders;
-    }
-
-    protected Optional<Boolean> isReviewed() {
-        return reviewed;
     }
 
 }
