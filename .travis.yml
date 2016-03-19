@@ -17,12 +17,11 @@ before_install:
   - npm install -g grunt bower
 
 install:
-  # Show node version
-  - "node -v"
   # Install UI dependencies
   - "(cd tests-cucumber-ui && npm install && bower install)"
   # Install Java project dependencies
   - ./gradlew assemble
 
 script:
+  - "(cd tests-cucumber-ui && grunt build)"
   - ./gradlew check
