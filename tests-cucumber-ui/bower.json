@@ -2,14 +2,14 @@
   "name": "tests-cucumber-ui",
   "private": true,
   "dependencies": {
-    "lodash": "~4.0.0",
+    "lodash": "~4.6.0",
     "jquery": "~2.1.4",
-    "angular": "~1.5.0",
-    "bootstrap": "~3.2.0",
+    "angular": "1.5.0",
     "angular-resource": "1.5.0",
     "angular-route": "1.5.0",
-    "angular-bootstrap": "~1.0.0",
-    "ng-file-upload": "~11.0.2",
+    "angular-bootstrap": "~1.2.4",
+    "bootstrap": "~3.2.0",
+    "ng-file-upload": "~12.0.0",
     "angular-loading-bar": "~0.8.0"
   },
   "devDependencies": {
