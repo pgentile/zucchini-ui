@@ -14,7 +14,7 @@ before_install:
   - nvm install 5.8
   - nvm use 5.8
   # Install Grunt and Bower
-  - npm install -g grunt bower
+  - npm install -g grunt-cli bower
 
 install:
   # Install UI dependencies
