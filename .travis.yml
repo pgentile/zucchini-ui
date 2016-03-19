@@ -19,7 +19,6 @@ before_install:
 install:
   # Install UI dependencies
   - "(cd tests-cucumber-ui && npm install && bower install)"
-  - "(cd tests-cucumber-ui && grunt build)"
   # Install Java project dependencies
   - ./gradlew assemble
 
