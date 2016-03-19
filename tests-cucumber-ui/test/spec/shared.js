@@ -5,8 +5,7 @@ describe('Shared', function () {
   var $compile, $rootScope;
 
   beforeEach(module('testsCucumberApp'));
-
-  beforeEach(module('views/tc-status.html'));
+  beforeEach(module('testsCucumberApp.templates'));
 
   beforeEach(inject(function (_$compile_, _$rootScope_) {
     $compile = _$compile_;

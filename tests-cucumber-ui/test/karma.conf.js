@@ -81,7 +81,8 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
 
     ngHtml2JsPreprocessor: {
-      stripPrefix: 'app/'
+      stripPrefix: 'app/',
+      moduleName: 'testsCucumberApp.templates'
     },
 
     // Uncomment the following lines if you are using grunt's server to run the tests
