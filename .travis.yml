@@ -13,6 +13,16 @@ before_install:
   - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
   - nvm install 5.8
   - nvm use 5.8
-  # Install bower, grunt and UI dependencies
+  # Install Grunt and Bower
   - npm install -g grunt bower
+
+install:
+  # Show node version
+  - "node -v"
+  # Install UI dependencies
   - "(cd tests-cucumber-ui && npm install && bower install)"
+  # Install Java project dependencies
+  - ./gradlew assemble
+
+script:
+  - ./gradlew check
