@@ -144,7 +144,6 @@
       $scope.$on('$routeUpdate', function () {
         this.updateTags();
         this.load();
-        this.clearSelectedFeature();
       }.bind(this));
 
 
