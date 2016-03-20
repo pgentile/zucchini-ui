@@ -27,7 +27,7 @@
 
 
   angular.module('testsCucumberApp')
-    .controller('FeatureCtrl', function ($routeParams, $q, $location, FeatureCoreService, TestRunCoreService, ScenarioCoreService, ConfirmationModalService, scenarioStoredFilters, historyStoredFilters) {
+    .controller('FeatureCtrl', function ($routeParams, $q, $location, FeatureCoreService, TestRunCoreService, ScenarioCoreService, ConfirmationModalService, historyStoredFilters) {
 
       this.load = function () {
 
@@ -80,16 +80,6 @@
       };
 
 
-      // Scenario status
-
-      this.scenarioFilters = scenarioStoredFilters.get();
-
-      this.updateScenarioStoredFilters = function (filters) {
-        this.scenarioFilters = filters;
-        scenarioStoredFilters.save(filters);
-      }.bind(this);
-
-
       // History filters
 
       this.historyFilters = historyStoredFilters.get();
@@ -111,17 +101,6 @@
           this.loadHistory();
         }.bind(this));
 
-    })
-    .factory('scenarioStoredFilters', function (ObjectBrowserStorage) {
-      return ObjectBrowserStorage.getItem('scenarioFilters', function () {
-        return {
-          passed: true,
-          failed: true,
-          pending: true,
-          notRun: true,
-          reviewed: true
-        };
-      });
     })
     .factory('historyStoredFilters', function (ObjectBrowserStorage) {
       return ObjectBrowserStorage.getItem('historyFilters', function () {

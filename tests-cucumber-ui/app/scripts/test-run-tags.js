@@ -69,7 +69,7 @@
       this.load();
 
     })
-    .controller('TestRunTagCtrl', function ($q, $route, $routeParams, $scope, TestRunCoreService, FeatureCoreService, ScenarioCoreService, scenarioStoredFilters, featureStoredFilters) {
+    .controller('TestRunTagCtrl', function ($q, $route, $routeParams, $scope, TestRunCoreService, FeatureCoreService, ScenarioCoreService) {
 
       this.updateTags = function () {
         this.tags = anyTagTypeToArray($routeParams.tag);
@@ -126,16 +126,6 @@
       }.bind(this);
 
 
-      // Filter
-
-      this.featureFilters = featureStoredFilters.get();
-
-      this.updateStoredFilters = function (filters) {
-        this.featureFilters = filters;
-        featureStoredFilters.save(filters);
-      }.bind(this);
-
-
       // Feature filters
 
       this.selectedFeatureIds = undefined;
@@ -146,16 +136,6 @@
 
       this.isFeatureIdSelected = function (scenario) {
         return _.isUndefined(this.selectedFeatureIds) || this.selectedFeatureIds.indexOf(scenario.featureId) !== -1;
-      }.bind(this);
-
-
-      // Scenario status
-
-      this.scenarioFilters = scenarioStoredFilters.get();
-
-      this.updateScenarioStoredFilters = function (filters) {
-        this.scenarioFilters = filters;
-        scenarioStoredFilters.save(filters);
       }.bind(this);
 
 

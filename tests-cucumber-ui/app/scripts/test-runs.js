@@ -75,7 +75,7 @@
       this.load();
 
     })
-    .controller('TestRunCtrl', function ($q, $routeParams, $location, $uibModal, TestRunCoreService, FeatureCoreService, ScenarioCoreService, ErrorService, ConfirmationModalService, featureStoredFilters) {
+    .controller('TestRunCtrl', function ($q, $routeParams, $location, $uibModal, TestRunCoreService, FeatureCoreService, ScenarioCoreService, ErrorService, ConfirmationModalService) {
 
       this.load = function () {
 
@@ -175,15 +175,6 @@
               });
           }.bind(this));
 
-      }.bind(this);
-
-      // Filter
-
-      this.filters = featureStoredFilters.get();
-
-      this.updateStoredFilters = function (filters) {
-        this.filters = filters;
-        featureStoredFilters.save(filters);
       }.bind(this);
 
 
@@ -307,17 +298,6 @@
         this.loadDiff();
       }
 
-    })
-    .factory('featureStoredFilters', function (ObjectBrowserStorage) {
-      return ObjectBrowserStorage.getItem('featureFilters', function () {
-        return {
-          passed: true,
-          failed: true,
-          partial: true,
-          notRun: true,
-          reviewed: true
-        };
-      });
     })
     .service('TestRunCoreService', TestRunCoreService)
     .service('TestRunResource', function ($resource, baseUri) {

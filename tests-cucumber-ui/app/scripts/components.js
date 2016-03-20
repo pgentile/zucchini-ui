@@ -93,11 +93,9 @@
       bindings: {
         scenarii: '<',
         displayFeature: '@',
-        filters: '<',
-        onFilterUpdate: '&',
         extraFilter: '<'
       },
-      controller: function () {
+      controller: function (scenarioStoredFilters) {
 
         this.columns = new ColumnManager({
           feature: 4,
@@ -107,13 +105,17 @@
         });
 
         this.$onInit = function () {
+          // Configure columns
           if (!this.displayFeature) {
             this.columns.removeColumnByName('feature');
           }
+
+          // Get filters
+          this.filters = scenarioStoredFilters.get();
         };
 
         this.onFilterChange = function () {
-          this.onFilterUpdate({ filters: this.filters });
+          scenarioStoredFilters.save(this.filters);
         };
 
         this.isScenarioDisplayable = function (scenario) {
@@ -151,17 +153,29 @@
 
       }
     })
+    .factory('scenarioStoredFilters', function (ObjectBrowserStorage) {
+      return ObjectBrowserStorage.getItem('scenarioFilters', function () {
+        return {
+          passed: true,
+          failed: true,
+          pending: true,
+          notRun: true,
+          reviewed: true
+        };
+      });
+    })
     .component('tcFeatureList', {
       templateUrl: 'views/tc-feature-list.html',
       bindings: {
         features: '<',
-        filters: '<',
-        onFilterUpdate: '&',
         onFeaturesFiltered: '&'
       },
-      controller: function ($scope) {
+      controller: function (featureStoredFilters, $scope) {
 
         this.$onInit = function () {
+          // Init filters
+          this.filters = featureStoredFilters.get();
+
           // Watch changes on filtered feature list
           $scope.$watch('filteredFeatures', function (filteredFeatures) {
             if (_.isArray(filteredFeatures)) {
@@ -174,7 +188,7 @@
         };
 
         this.onFilterChange = function () {
-          this.onFilterUpdate({ filters: this.filters });
+          featureStoredFilters.save(this.filters);
         };
 
         this.isFeatureDisplayable = function (feature) {
@@ -204,6 +218,17 @@
         };
 
       }
+    })
+    .factory('featureStoredFilters', function (ObjectBrowserStorage) {
+      return ObjectBrowserStorage.getItem('featureFilters', function () {
+        return {
+          passed: true,
+          failed: true,
+          partial: true,
+          notRun: true,
+          reviewed: true
+        };
+      });
     });
 
 })(angular);
