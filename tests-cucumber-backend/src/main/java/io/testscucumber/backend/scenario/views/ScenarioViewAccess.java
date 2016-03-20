@@ -3,6 +3,7 @@ package io.testscucumber.backend.scenario.views;
 import io.testscucumber.backend.scenario.dao.ScenarioDAO;
 import io.testscucumber.backend.scenario.domain.Scenario;
 import io.testscucumber.backend.scenario.domain.ScenarioQuery;
+import io.testscucumber.backend.scenario.domain.ScenarioStatus;
 import io.testscucumber.backend.shared.domain.TagSelection;
 import io.testscucumber.backend.support.ddd.morphia.MorphiaUtils;
 import io.testscucumber.backend.testrun.domain.TestRunQuery;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -84,24 +86,51 @@ public class ScenarioViewAccess {
         final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator)
             .retrievedFields(true, "id", "status", "reviewed");
 
-        MorphiaUtils.streamQuery(query).forEach(scenario -> stats.addScenarioStatus(scenario.getStatus(), scenario.isReviewed()));
+        // Raw Mongo query for performance, to bypass Morphia object conversion
+        scenarioDAO.getCollection().find(query.getQueryObject(), query.getFieldsObject())
+            .forEach(dbObj -> {
+                final String statusStr = (String) dbObj.get("status");
+                final boolean reviewed = (Boolean) dbObj.get("reviewed");
+                stats.addScenarioStatus(ScenarioStatus.valueOf(statusStr), reviewed);
+            });
 
         return stats;
     }
 
     public List<ScenarioTagStats> getTagStats(final Consumer<ScenarioQuery> preparator, final Collection<String> tags) {
         // Filter tags if requested
-        Predicate<String> tagFilter = ignored -> true;
-        if (!tags.isEmpty()) {
+        final Predicate<String> tagFilter;
+        if (tags.isEmpty()) {
+            tagFilter = ignored -> true;
+        } else {
             tagFilter = tags::contains;
         }
 
-        return getTags(preparator).stream()
-            .filter(tagFilter)
-            .map(tag -> {
-                final ScenarioStats stats = getStats(preparator.andThen(q -> q.withTag(tag)));
-                return new ScenarioTagStats(tag, stats);
-            })
+        final Map<String, ScenarioStats> statsByTag = new HashMap<>();
+
+        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator)
+            .retrievedFields(true, "id", "status", "reviewed", "allTags");
+
+        // Raw Mongo query for performance, to bypass Morphia object conversion
+        scenarioDAO.getCollection().find(query.getQueryObject(), query.getFieldsObject())
+            .forEach(dbObj -> {
+                final String statusStr = (String) dbObj.get("status");
+                final boolean reviewed = (Boolean) dbObj.get("reviewed");
+
+                @SuppressWarnings("unchecked")
+                final List<String> scenarioTags = (List) dbObj.get("allTags");
+
+                scenarioTags.stream()
+                    .filter(tagFilter)
+                    .forEach(tag -> {
+                        final ScenarioStats tagStats = statsByTag.computeIfAbsent(tag, key -> new ScenarioStats());
+                        tagStats.addScenarioStatus(ScenarioStatus.valueOf(statusStr), reviewed);
+                        statsByTag.put(tag, tagStats);
+                    });
+            });
+
+        return statsByTag.entrySet().stream()
+            .map(entry -> new ScenarioTagStats(entry.getKey(), entry.getValue()))
             .sorted(Comparator.comparing(ScenarioTagStats::getTag))
             .collect(Collectors.toList());
     }
@@ -112,15 +141,6 @@ public class ScenarioViewAccess {
 
         return MorphiaUtils.streamQuery(query)
             .map(Scenario::getFeatureId)
-            .collect(Collectors.toSet());
-    }
-
-    private Set<String> getTags(final Consumer<ScenarioQuery> preparator) {
-        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator)
-            .retrievedFields(true, "id", "allTags");
-
-        return MorphiaUtils.streamQuery(query)
-            .flatMap(scenario -> scenario.getAllTags().stream())
             .collect(Collectors.toSet());
     }
 
