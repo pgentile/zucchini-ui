@@ -5,6 +5,7 @@ import io.testscucumber.backend.scenario.domain.Scenario;
 import io.testscucumber.backend.scenario.domain.ScenarioQuery;
 import io.testscucumber.backend.scenario.domain.ScenarioStatus;
 import io.testscucumber.backend.shared.domain.TagSelection;
+import io.testscucumber.backend.support.ddd.morphia.MorphiaRawQuery;
 import io.testscucumber.backend.support.ddd.morphia.MorphiaUtils;
 import io.testscucumber.backend.testrun.domain.TestRunQuery;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;
@@ -83,11 +84,9 @@ public class ScenarioViewAccess {
     public ScenarioStats getStats(final Consumer<ScenarioQuery> preparator) {
         final ScenarioStats stats = new ScenarioStats();
 
-        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator)
-            .retrievedFields(true, "id", "status", "reviewed");
-
-        // Raw Mongo query for performance, to bypass Morphia object conversion
-        scenarioDAO.getCollection().find(query.getQueryObject(), query.getFieldsObject())
+        new MorphiaRawQuery(scenarioDAO.prepareTypedQuery(preparator))
+            .includeFields("status", "reviewed")
+            .stream()
             .forEach(dbObj -> {
                 final String statusStr = (String) dbObj.get("status");
                 final boolean reviewed = (Boolean) dbObj.get("reviewed");
@@ -108,11 +107,10 @@ public class ScenarioViewAccess {
 
         final Map<String, ScenarioStats> statsByTag = new HashMap<>();
 
-        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator)
-            .retrievedFields(true, "id", "status", "reviewed", "allTags");
-
         // Raw Mongo query for performance, to bypass Morphia object conversion
-        scenarioDAO.getCollection().find(query.getQueryObject(), query.getFieldsObject())
+        new MorphiaRawQuery(scenarioDAO.prepareTypedQuery(preparator))
+            .includeFields("status", "reviewed", "allTags")
+            .stream()
             .forEach(dbObj -> {
                 final String statusStr = (String) dbObj.get("status");
                 final boolean reviewed = (Boolean) dbObj.get("reviewed");
@@ -136,11 +134,10 @@ public class ScenarioViewAccess {
     }
 
     public Set<String> getFeatureIdsForTags(final TagSelection tagSelection) {
-        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(q -> q.withSelectedTags(tagSelection))
-            .retrievedFields(true, "id", "featureId");
-
-        return MorphiaUtils.streamQuery(query)
-            .map(Scenario::getFeatureId)
+        return new MorphiaRawQuery(scenarioDAO.prepareTypedQuery(q -> q.withSelectedTags(tagSelection)))
+            .includeFields("featureId")
+            .stream()
+            .map(dbObj -> (String) dbObj.get("featureId"))
             .collect(Collectors.toSet());
     }
 
