@@ -43,6 +43,14 @@
       return ScenarioResource.getComment({ scenarioId: scenarioId, commentId: commentId }).$promise;
     };
 
+    this.updateComment = function (scenarioId, commentId, newContent) {
+      return ScenarioResource.updateComment({ id: scenarioId, commentId: commentId, content: newContent }).$promise;
+    };
+
+    this.deleteComment = function (scenarioId, commentId) {
+      return ScenarioResource.deleteComment({ scenarioId: scenarioId, commentId: commentId }).$promise;
+    };
+
     this.getTagsByTestRunId = function (testRunId) {
       return ScenarioResource.getTags({ testRunId: testRunId }).$promise;
     };
@@ -63,7 +71,7 @@
 
 
   angular.module('testsCucumberApp')
-    .controller('ScenarioCtrl', function (ScenarioCoreService, FeatureCoreService, TestRunCoreService, ConfirmationModalService, $routeParams, $q, $location, historyStoredFilters, stepFilters) {
+    .controller('ScenarioCtrl', function (ScenarioCoreService, FeatureCoreService, TestRunCoreService, ConfirmationModalService, $routeParams, $q, $location, $filter, historyStoredFilters, stepFilters) {
 
       this.scenario = {};
 
@@ -129,29 +137,34 @@
       this.maxDisplayedComments = 5;
       this.limitMaxDisplayedComments = true;
 
+      this.getCommentReference = $filter('commentReference');
+
       this.loadComments = function () {
         ScenarioCoreService.getComments(this.scenario.id)
           .then(function (comments) {
+
+            comments.map(function (comment) {
+              var testRunId = this.getCommentReference(comment, 'TEST_RUN_ID');
+              TestRunCoreService.getById(testRunId).then(function (testRun) {
+                comment.testRun = testRun;
+              });
+            }.bind(this));
+
             this.comments = comments;
+
           }.bind(this));
       };
 
       this.loadNewComment = function (newCommentId) {
         return ScenarioCoreService.getComment(this.scenario.id, newCommentId)
           .then(function (comment) {
+            comment.testRun = this.scenario.testRun;
             this.comments.unshift(comment);
           }.bind(this));
       };
 
       this.isCommentFromSameTestRun = function (comment) {
-        var testRunReference = comment.references.filter(function (reference) {
-          return reference.type === 'TEST_RUN_ID';
-        });
-        if (testRunReference.length === 0) {
-          return false;
-        }
-
-        var commentTestRunId = testRunReference[0].reference;
+        var commentTestRunId = this.getCommentReference(comment, 'TEST_RUN_ID');
         return commentTestRunId === this.scenario.testRunId;
       }.bind(this);
 
@@ -160,6 +173,25 @@
           return true;
         }
         return !this.limitMaxDisplayedComments;
+      }.bind(this);
+
+      this.deleteComment = function (comment) {
+        ConfirmationModalService
+          .open({
+            title: 'Supprimer le commentaire',
+            bodyContent: 'La suppression est irreversible. Êtes-vous sûr de supprimer ce commentaire ?',
+            confirmTitle: 'Supprimer'
+          })
+          .then(function () {
+            return ScenarioCoreService.deleteComment(this.scenario.id, comment.id);
+          }.bind(this))
+          .then(function () {
+
+            _.remove(this.comments, function (someComment) {
+              return comment.id === someComment.id;
+            });
+
+          }.bind(this));
       }.bind(this);
 
 
@@ -198,7 +230,7 @@
         }.bind(this));
 
     })
-    .controller('AddCommentCtrl', function ($scope, $window, ScenarioCoreService) {
+    .controller('AddCommentCtrl', function ($scope, ScenarioCoreService) {
 
       var parentCtrl = $scope.ctrl;
 
@@ -214,6 +246,19 @@
       };
 
     })
+    .controller('EditCommentCtrl', function (ScenarioCoreService, $filter) {
+
+      var getCommentReference = $filter('commentReference');
+
+      this.save = function (comment) {
+        var scenarioId = getCommentReference(comment, 'SCENARIO_ID');
+        return ScenarioCoreService.updateComment(scenarioId, comment.id, comment.content)
+          .then(function () {
+            comment.edit = false;
+          });
+      };
+
+    })
     .factory('stepFilters', function (ObjectBrowserStorage) {
       return ObjectBrowserStorage.getItem('stepFilters', function () {
         return {
@@ -223,6 +268,18 @@
           errorDetails: true
         };
       });
+    })
+    .filter('commentReference', function () {
+
+      return function (comment, referenceType) {
+        var testRunReference = _.find(comment.references, function (reference) {
+          return reference.type === referenceType;
+        });
+        if (testRunReference) {
+          return testRunReference.reference;
+        }
+      };
+
     })
     .service('ScenarioCoreService', ScenarioCoreService)
     .service('ScenarioResource', function ($resource, baseUri) {
@@ -273,6 +330,20 @@
           getComment: {
             method: 'GET',
             url: baseUri + '/scenarii/:scenarioId/comments/:commentId'
+          },
+          deleteComment: {
+            method: 'DELETE',
+            url: baseUri + '/scenarii/:scenarioId/comments/:commentId'
+          },
+          updateComment: {
+            method: 'PATCH',
+            url: baseUri + '/scenarii/:scenarioId/comments/:commentId',
+            transformRequest: function (data) {
+              // ID must be removed from input data
+              delete data.id;
+              delete data.commentId;
+              return angular.toJson(data);
+            }
           },
           createComment: {
             method: 'POST',

@@ -59,6 +59,10 @@ public class Comment extends BaseEntity<String> {
         this.content = content;
     }
 
+    public void setContent(final String content) {
+        this.content = content;
+    }
+
     public String getId() {
         return id;
     }

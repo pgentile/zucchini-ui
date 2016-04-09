@@ -181,10 +181,59 @@
 
   <div
     ng-repeat="comment in ctrl.comments | filter:ctrl.limitDisplayedComments as filteredComments track by comment.id">
-    <h5>Le {{ comment.date | niceDate }}</h5>
-    <p ng-class="ctrl.isCommentFromSameTestRun(comment) || 'text-muted'">
-      <tc-line-breaks content="comment.content"></tc-line-breaks>
-    </p>
+
+    <h4>
+      Le {{ comment.date | niceDate }}
+      <small ng-if="comment.testRun">
+        (tir du <a ng-href="#/scenarii/{{ comment | commentReference:'SCENARIO_ID' }}">{{ comment.testRun.date |
+        niceDate }}</a>)
+      </small>
+    </h4>
+
+    <!-- Comment display -->
+    <div ng-if="!comment.edit">
+
+      <p ng-class="ctrl.isCommentFromSameTestRun(comment) || 'text-muted'">
+        <tc-line-breaks content="comment.content"></tc-line-breaks>
+      </p>
+
+      <p>
+        <button type="button" class="btn btn-default btn-xs" ng-click="comment.edit = true">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          Modifier
+        </button>
+        <button type="button" class="btn btn-danger btn-xs" ng-click="ctrl.deleteComment(comment)">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          Supprimer
+        </button>
+      </p>
+
+    </div>
+
+    <!-- Comment editing -->
+    <div ng-if="comment.edit">
+
+      <form ng-controller="EditCommentCtrl as editCommentCtrl">
+
+        <div class="form-group">
+          <textarea ng-model="comment.content" class="form-control" rows="3"
+                    placeholder="Entrez votre commentaire">
+          </textarea>
+        </div>
+
+        <p>
+          <button type="button" class="btn btn-default btn-xs" ng-click="comment.edit = false">
+            Annuler
+          </button>
+          <button type="button" class="btn btn-primary btn-xs" ng-click="editCommentCtrl.save(comment)">
+            Enregistrer
+          </button>
+        </p>
+
+      </form>
+
+    </div>
+
   </div>
 
   <p ng-if="filteredComments.length < ctrl.comments.length">
@@ -195,6 +244,8 @@
       </a>
     </i>
   </p>
+
+  <h4>Ajouter un nouveau commentaire</h4>
 
   <form ng-controller="AddCommentCtrl as addCommentCtrl">
 

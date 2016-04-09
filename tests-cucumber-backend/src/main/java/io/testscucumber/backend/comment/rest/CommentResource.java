@@ -1,5 +1,6 @@
 package io.testscucumber.backend.comment.rest;
 
+import io.dropwizard.jersey.PATCH;
 import io.testscucumber.backend.comment.domain.Comment;
 import io.testscucumber.backend.comment.domain.CommentReference;
 import io.testscucumber.backend.comment.domain.CommentRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
@@ -83,11 +85,22 @@ public class CommentResource {
     @GET
     @Path("{commentId}")
     public Comment getComment(@PathParam("commentId") final String commentId) {
-        final Comment comment = commentRepository.getById(commentId);
-        if (!comment.getReferences().containsAll(mainReferences)) {
-            throw new NotFoundException("Comment with ID " + commentId + " exists, but is not attached to references " + mainReferences);
-        }
-        return comment;
+        return loadCommentById(commentId);
+    }
+
+    @PATCH
+    @Path("{commentId}")
+    public void updateComment(@PathParam("commentId") final String commentId, @Valid @NotNull final UpdateCommentRequest request) {
+        final Comment comment = loadCommentById(commentId);
+        comment.setContent(request.getContent());
+        commentRepository.save(comment);
+    }
+
+    @DELETE
+    @Path("{commentId}")
+    public void delete(@PathParam("commentId") final String commentId) {
+        final Comment comment = loadCommentById(commentId);
+        commentRepository.delete(comment);
     }
 
     @POST
@@ -108,6 +121,14 @@ public class CommentResource {
 
         final CreatedCommentResponse response = new CreatedCommentResponse(comment.getId());
         return Response.created(location).entity(response).build();
+    }
+
+    private Comment loadCommentById(final String commentId) {
+        final Comment comment = commentRepository.getById(commentId);
+        if (!comment.getReferences().containsAll(mainReferences)) {
+            throw new NotFoundException("Comment with ID " + comment.getId() + " exists, but is not attached to references " + mainReferences);
+        }
+        return comment;
     }
 
 }
