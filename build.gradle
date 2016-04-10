@@ -36,7 +36,7 @@ allprojects {
         spring    : '4.2.5.RELEASE',
         jackson   : '2.6.4',
         junit     : '4.12',
-        assertj   : '3.3.0',
+        assertj   : '3.4.1',
         mockito   : '1.10.19',
     ]
 
