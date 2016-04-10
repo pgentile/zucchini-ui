@@ -73,8 +73,6 @@
   angular.module('testsCucumberApp')
     .controller('ScenarioCtrl', function (ScenarioCoreService, FeatureCoreService, TestRunCoreService, ConfirmationModalService, $routeParams, $q, $location, $filter, historyStoredFilters, stepFilters) {
 
-      this.scenario = {};
-
       this.load = function () {
 
         // Load scenario
@@ -134,6 +132,43 @@
 
       };
 
+
+      this.loadHistory = function () {
+        return ScenarioCoreService.getScenarioHistory(this.scenario.id)
+          .then(function (history) {
+            this.history = history;
+          }.bind(this));
+      };
+
+      this.historyFilters = historyStoredFilters.get();
+
+      this.updateHistoryStoredFilters = function () {
+        historyStoredFilters.save(this.historyFilters);
+      }.bind(this);
+
+      this.isHistoryItemDisplayable = function (item) {
+        if (this.historyFilters.sameTestRun) {
+          return item.testRun.type === this.scenario.testRun.type;
+        }
+        return true;
+      }.bind(this);
+
+
+      this.stepFilters = stepFilters.get();
+
+      this.updateStoredStepFilters = function () {
+        stepFilters.save(this.stepFilters);
+      }.bind(this);
+
+
+      this.load()
+        .then(function () {
+          this.loadHistory();
+        }.bind(this));
+
+    })
+    .controller('ScenarioCommentsCtrl', function ($scope, $filter, ScenarioCoreService, TestRunCoreService, ConfirmationModalService) {
+
       this.maxDisplayedComments = 5;
       this.limitMaxDisplayedComments = true;
 
@@ -152,14 +187,6 @@
 
             this.comments = comments;
 
-          }.bind(this));
-      };
-
-      this.loadNewComment = function (newCommentId) {
-        return ScenarioCoreService.getComment(this.scenario.id, newCommentId)
-          .then(function (comment) {
-            comment.testRun = this.scenario.testRun;
-            this.comments.unshift(comment);
           }.bind(this));
       };
 
@@ -195,58 +222,34 @@
       }.bind(this);
 
 
-      this.loadHistory = function () {
-        return ScenarioCoreService.getScenarioHistory(this.scenario.id)
-          .then(function (history) {
-            this.history = history;
-          }.bind(this));
-      };
-
-      this.historyFilters = historyStoredFilters.get();
-
-      this.updateHistoryStoredFilters = function () {
-        historyStoredFilters.save(this.historyFilters);
-      }.bind(this);
-
-      this.isHistoryItemDisplayable = function (item) {
-        if (this.historyFilters.sameTestRun) {
-          return item.testRun.type === this.scenario.testRun.type;
-        }
-        return true;
-      }.bind(this);
-
-
-      this.stepFilters = stepFilters.get();
-
-      this.updateStoredStepFilters = function () {
-        stepFilters.save(this.stepFilters);
-      }.bind(this);
-
-
-      this.load()
-        .then(function () {
+      $scope.$watch('ctrl.scenario', function (scenario) {
+        if (scenario) {
+          this.scenario = scenario;
           this.loadComments();
-          this.loadHistory();
-        }.bind(this));
+        }
+      }.bind(this));
 
     })
     .controller('AddCommentCtrl', function ($scope, ScenarioCoreService) {
 
-      var parentCtrl = $scope.ctrl;
+      var parentCtrl = $scope.commentsCtrl;
 
       this.content = '';
 
       this.addComment = function () {
         return ScenarioCoreService.createComment(parentCtrl.scenario.id, this.content)
-          .then(function (response) {
+          .then(function () {
             this.content = '';
-
-            return parentCtrl.loadNewComment(response.id);
+          }.bind(this))
+          .then(function () {
+            return parentCtrl.loadComments();
           }.bind(this));
       };
 
     })
-    .controller('EditCommentCtrl', function (ScenarioCoreService, $filter) {
+    .controller('EditCommentCtrl', function (ScenarioCoreService, $scope, $filter) {
+
+      var parentCtrl = $scope.commentsCtrl;
 
       var getCommentReference = $filter('commentReference');
 
@@ -255,6 +258,9 @@
         return ScenarioCoreService.updateComment(scenarioId, comment.id, comment.content)
           .then(function () {
             comment.edit = false;
+          })
+          .then(function () {
+            return parentCtrl.loadComments();
           });
       };
 
