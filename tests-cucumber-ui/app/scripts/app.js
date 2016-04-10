@@ -7,7 +7,8 @@
       'ngRoute',
       'ui.bootstrap',
       'ngFileUpload',
-      'angular-loading-bar'
+      'angular-loading-bar',
+      'monospaced.elastic'
     ])
     .constant('baseUri', _.trimEnd(appConfig.apiBaseUri, '/'))
     .config(function ($compileProvider) {
