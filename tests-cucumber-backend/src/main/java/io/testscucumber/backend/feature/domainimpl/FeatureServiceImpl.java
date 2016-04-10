@@ -48,13 +48,13 @@ class FeatureServiceImpl implements FeatureService {
 
     @Override
     public void deleteByTestRunId(final String testRunId) {
-        scenarioRepository.deleteByTestRunId(testRunId);
-        featureRepository.deleteByTestRunId(testRunId);
+        scenarioRepository.query(q -> q.withTestRunId(testRunId)).delete();
+        featureRepository.query(q -> q.withTestRunId(testRunId)).delete();
     }
 
     @Override
     public void deleteById(final String featureId) {
-        scenarioRepository.deleteByFeatureId(featureId);
+        scenarioRepository.query(q -> q.withFeatureId(featureId)).delete();
 
         final Feature feature = featureRepository.getById(featureId);
         featureRepository.delete(feature);
