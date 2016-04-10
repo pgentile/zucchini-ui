@@ -2,6 +2,7 @@ package io.testscucumber.backend.support.ddd.morphia;
 
 import io.testscucumber.backend.support.ddd.EntityNotFoundException;
 import io.testscucumber.backend.support.ddd.PreparedQuery;
+import org.mongodb.morphia.dao.DAO;
 import org.mongodb.morphia.query.Query;
 
 import java.util.List;
@@ -10,9 +11,12 @@ import java.util.stream.Stream;
 
 class MorphiaPreparedQuery<T> implements PreparedQuery<T> {
 
+    private final DAO<T, ?> dao;
+
     private final Query<T> query;
 
-    public MorphiaPreparedQuery(final Query<T> query) {
+    public MorphiaPreparedQuery(final DAO<T, ?> dao, final Query<T> query) {
+        this.dao = dao;
         this.query = query;
     }
 
@@ -39,6 +43,11 @@ class MorphiaPreparedQuery<T> implements PreparedQuery<T> {
     public Optional<T> tryToFindOne() {
         final T entity = query.get();
         return Optional.ofNullable(entity);
+    }
+
+    @Override
+    public void delete() {
+        dao.deleteByQuery(query);
     }
 
 }

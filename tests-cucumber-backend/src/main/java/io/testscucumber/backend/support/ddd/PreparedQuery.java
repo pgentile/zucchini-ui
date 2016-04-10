@@ -40,4 +40,9 @@ public interface PreparedQuery<T> {
      */
     Optional<T> tryToFindOne();
 
+    /**
+     * Delete entities with a query
+     */
+    void delete();
+
 }
