@@ -106,7 +106,7 @@
   <!-- Comments -->
 
   <p class="text-muted" ng-if="ctrl.stepFilters.comments && ctrl.scenario.comment">
-    <tc-line-breaks content="ctrl.scenario.comment"></tc-line-breaks>
+    <tc-simple-text content="ctrl.scenario.comment"></tc-simple-text>
   </p>
 
   <!-- Before actions -->
@@ -124,7 +124,7 @@
   <div ng-if="ctrl.stepFilters.context && ctrl.scenario.background" ng-repeat="step in ctrl.scenario.background.steps">
 
     <p class="text-muted" ng-if="ctrl.stepFilters.comments && step.comment">
-      <tc-line-breaks content="step.comment"></tc-line-breaks>
+      <tc-simple-text content="step.comment"></tc-simple-text>
     </p>
 
     <p>
@@ -143,7 +143,7 @@
   <div ng-repeat="step in ctrl.scenario.steps">
 
     <p class="text-muted" ng-if="ctrl.stepFilters.comments && step.comment">
-      <tc-line-breaks content="step.comment"></tc-line-breaks>
+      <tc-simple-text content="step.comment"></tc-simple-text>
     </p>
 
     <p>
@@ -196,7 +196,7 @@
       <div ng-if="!comment.edit">
 
         <p ng-class="commentsCtrl.isCommentFromSameTestRun(comment) || 'text-muted'">
-          <tc-line-breaks content="comment.content"></tc-line-breaks>
+          <tc-simple-text content="comment.content"></tc-simple-text>
         </p>
 
         <p>

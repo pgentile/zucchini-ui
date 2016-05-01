@@ -10,6 +10,7 @@ Fonctionnalité: test
   Je souhaite écrire des scénarios de tests
 
   # Commentaire sur le premier test
+  # Exemple de commentaire avec une URL : http://example.org/test/123
   Scénario: Premier test
     Quand j'additionne 5 et 8
     Alors j'obtiens 13
