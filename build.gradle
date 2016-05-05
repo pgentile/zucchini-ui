@@ -187,6 +187,34 @@ project("${rootProject.name}-ui") {
         gruntCmd += '.cmd'
     }
 
+    // Determine npm command to lauch based on current OS
+    def npmCmd = 'npm'
+    if (osdetector.os == 'windows') {
+        npmCmd += '.cmd'
+    }
+
+    // Determine bower command to lauch based on current OS
+    def bowerCmd = 'bower'
+    if (osdetector.os == 'windows') {
+        bowerCmd += '.cmd'
+    }
+
+    task npmUpdate(type: Exec, description: 'NPM Update') {
+        commandLine npmCmd, 'update'
+    }
+
+    task bowerUpdate(type: Exec, description: 'Bower Update') {
+        commandLine bowerCmd, 'update'
+    }
+
+    task npmInstall(type: Exec, description: 'NPM Install') {
+        commandLine npmCmd, 'install'
+    }
+
+    task bowerInstall(type: Exec, description: 'Bower Install') {
+        commandLine bowerCmd, 'install'
+    }
+
     task uiClean(type: Exec, description: 'Clean UI') {
         commandLine gruntCmd, 'clean'
     }
@@ -204,12 +232,6 @@ project("${rootProject.name}-ui") {
     }
 
     tasks.processResources.dependsOn uiDist
-
-    project.afterEvaluate {
-
-        project.sourceSets.main.resources.srcDir('build/dist')
-
-    }
 
     task uiTest(type: Exec, description: 'Run UI tests') {
         commandLine gruntCmd, 'test'
@@ -243,6 +265,12 @@ project("${rootProject.name}-ui") {
     }
 
     tasks.assemble.dependsOn uiDistZip
+
+    project.afterEvaluate {
+
+        project.sourceSets.main.resources.srcDir('build/dist')
+
+    }
 
     configurations {
         archives
