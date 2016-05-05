@@ -34,14 +34,11 @@ public final class CommentReference {
      * @param reference Reference value
      */
     public CommentReference(final CommentReferenceType type, final String reference) {
-        if (type == null) {
-            throw new IllegalArgumentException("Type must be defined");
-        }
+        this.type = Objects.requireNonNull(type);
+
         if (Strings.isNullOrEmpty(reference)) {
             throw new IllegalArgumentException("Reference must be defined");
         }
-
-        this.type = type;
         this.reference = reference;
     }
 

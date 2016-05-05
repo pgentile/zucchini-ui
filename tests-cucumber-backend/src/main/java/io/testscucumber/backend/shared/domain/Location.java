@@ -17,7 +17,7 @@ public final class Location {
     public Location(final String filename, final long line) {
         this.filename = Objects.requireNonNull(filename);
 
-        if (line <= 0) {
+        if (line < 1) {
             throw new IllegalArgumentException("Line number starts at 1");
         }
         this.line = line;
@@ -44,7 +44,7 @@ public final class Location {
         }
 
         final Location other = (Location) obj;
-        return Objects.equals(filename, other.filename) && line == other.line;
+        return filename.equals(other.filename) && line == other.line;
     }
 
     @Override

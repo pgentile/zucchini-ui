@@ -54,7 +54,7 @@ public final class BasicInfo {
         }
 
         final BasicInfo other = (BasicInfo) obj;
-        return Objects.equals(keyword, other.keyword) && Objects.equals(name, other.name) && Objects.equals(arguments, other.arguments);
+        return keyword.equals(other.keyword) && name.equals(other.name) && arguments.equals(other.arguments);
     }
 
     @Override

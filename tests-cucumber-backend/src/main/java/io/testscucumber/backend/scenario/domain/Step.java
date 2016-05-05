@@ -71,6 +71,8 @@ public class Step {
     }
 
     protected void setStatus(final StepStatus newStatus) {
+        Objects.requireNonNull(newStatus);
+
         if (newStatus == status) {
             return;
         }

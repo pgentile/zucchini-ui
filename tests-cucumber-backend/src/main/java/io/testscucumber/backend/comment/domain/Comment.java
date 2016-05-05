@@ -9,6 +9,7 @@ import org.mongodb.morphia.annotations.Id;
 import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -56,11 +57,11 @@ public class Comment extends BaseEntity<String> {
         id = UUID.randomUUID().toString();
         date = ZonedDateTime.now();
         this.references = Sets.newHashSet(references);
-        this.content = content;
+        this.content = Objects.requireNonNull(content);
     }
 
     public void setContent(final String content) {
-        this.content = content;
+        this.content = Objects.requireNonNull(content);
     }
 
     public String getId() {

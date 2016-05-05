@@ -46,7 +46,7 @@ public final class Argument {
         }
 
         final Argument other = (Argument) obj;
-        return offset == other.offset && Objects.equals(value, other.value);
+        return offset == other.offset && value.equals(other.value);
     }
 
     @Override
