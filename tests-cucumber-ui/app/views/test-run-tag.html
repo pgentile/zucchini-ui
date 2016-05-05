@@ -62,16 +62,22 @@
   <h2>Avancement par scénario</h2>
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <p class="text-center">Tous les tests</p>
       <div style="height: 20rem">
-        <tc-scenario-pie-chart stats="ctrl.stats"></tc-scenario-pie-chart>
+        <tc-scenario-pie-chart stats="ctrl.stats.all" total="ctrl.stats.all.count"></tc-scenario-pie-chart>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <p class="text-center">Tests analysés</p>
       <div style="height: 20rem">
-        <tc-scenario-pie-chart stats="ctrl.stats" kind="reviewed"></tc-scenario-pie-chart>
+        <tc-scenario-pie-chart stats="ctrl.stats.reviewed" total="ctrl.stats.all.count"></tc-scenario-pie-chart>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <p class="text-center">Tests non analysés</p>
+      <div style="height: 20rem">
+        <tc-scenario-pie-chart stats="ctrl.stats.nonReviewed" total="ctrl.stats.all.count"></tc-scenario-pie-chart>
       </div>
     </div>
   </div>

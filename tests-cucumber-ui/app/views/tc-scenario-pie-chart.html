@@ -1,7 +1,7 @@
 <!-- Pie char -->
 <tc-pie-chart
   data="$ctrl.series"
-  total="$ctrl.stats.count"
+  total="$ctrl.total"
   uib-popover-template="'scenarioProgessPopover.html'"
   popover-placement="bottom"
   popover-trigger="mouseenter"
@@ -14,10 +14,10 @@
 
   <ul class="list-unstyled">
     <li><b>Total :</b> {{ $ctrl.stats.count }}</li>
-    <li><b>Succès :</b> {{ $ctrl.stats.statsByStatus['PASSED'] }}</li>
-    <li><b>En attente :</b> {{ $ctrl.stats.statsByStatus['PENDING'] }}</li>
-    <li><b>Échecs :</b> {{ $ctrl.stats.statsByStatus['FAILED'] }}</li>
-    <li><b>Non joués :</b> {{ $ctrl.stats.statsByStatus['NOT_RUN'] }}</li>
+    <li><b>Succès :</b> {{ $ctrl.stats.passed }}</li>
+    <li><b>En attente :</b> {{ $ctrl.stats.pending }}</li>
+    <li><b>Échecs :</b> {{ $ctrl.stats.failed }}</li>
+    <li><b>Non joués :</b> {{ $ctrl.stats.notRun }}</li>
   </ul>
 
 </script>

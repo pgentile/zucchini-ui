@@ -64,16 +64,22 @@
   <h2>Avancement par scénario</h2>
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <p class="text-center">Tous les tests</p>
       <div style="height: 20rem">
-        <tc-scenario-pie-chart stats="ctrl.testRun.stats"></tc-scenario-pie-chart>
+        <tc-scenario-pie-chart stats="ctrl.testRun.stats.all" total="ctrl.testRun.stats.all.count"></tc-scenario-pie-chart>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <p class="text-center">Tests analysés</p>
       <div style="height: 20rem">
-        <tc-scenario-pie-chart stats="ctrl.testRun.stats" kind="reviewed"></tc-scenario-pie-chart>
+        <tc-scenario-pie-chart stats="ctrl.testRun.stats.reviewed" total="ctrl.testRun.stats.all.count"></tc-scenario-pie-chart>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <p class="text-center">Tests non analysés</p>
+      <div style="height: 20rem">
+        <tc-scenario-pie-chart stats="ctrl.testRun.stats.nonReviewed" total="ctrl.testRun.stats.all.count"></tc-scenario-pie-chart>
       </div>
     </div>
   </div>
@@ -115,12 +121,12 @@
           {{ testRun.date | niceDate }}
         </a>
       </td>
-      <td><span class="badge">{{ testRun.stats.count }}</span></td>
-      <td><span class="badge">{{ testRun.stats.statsByStatus['PASSED'] }}</span></td>
-      <td><span class="badge">{{ testRun.stats.statsByStatus['FAILED'] }}</span></td>
-      <td><span class="badge">{{ testRun.stats.statsByStatus['PENDING'] }}</span></td>
-      <td><span class="badge">{{ testRun.stats.statsByStatus['NOT_RUN'] }}</span></td>
-      <td><span class="badge">{{ testRun.stats.reviewedCount }}</span></td>
+      <td><span class="badge">{{ testRun.stats.all.count }}</span></td>
+      <td><span class="badge">{{ testRun.stats.all.passed }}</span></td>
+      <td><span class="badge">{{ testRun.stats.all.failed }}</span></td>
+      <td><span class="badge">{{ testRun.stats.all.pending }}</span></td>
+      <td><span class="badge">{{ testRun.stats.all.notRun }}</span></td>
+      <td><span class="badge">{{ testRun.stats.reviewed.count }}</span></td>
     </tr>
     </tbody>
   </table>

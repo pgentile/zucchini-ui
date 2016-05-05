@@ -63,12 +63,12 @@
       <td>
         <tc-status status="tag.status"></tc-status>
       </td>
-      <td><span class="badge">{{ tag.stats.count }}</span></td>
-      <td><span class="badge">{{ tag.stats.statsByStatus['PASSED'] }}</span></td>
-      <td><span class="badge">{{ tag.stats.statsByStatus['FAILED'] }}</span></td>
-      <td><span class="badge">{{ tag.stats.statsByStatus['PENDING'] }}</span></td>
-      <td><span class="badge">{{ tag.stats.statsByStatus['NOT_RUN'] }}</span></td>
-      <td><span class="badge">{{ tag.stats.reviewedCount }}</span></td>
+      <td><span class="badge">{{ tag.stats.all.count }}</span></td>
+      <td><span class="badge">{{ tag.stats.all.passed }}</span></td>
+      <td><span class="badge">{{ tag.stats.all.failed }}</span></td>
+      <td><span class="badge">{{ tag.stats.all.pending }}</span></td>
+      <td><span class="badge">{{ tag.stats.all.notRun }}</span></td>
+      <td><span class="badge">{{ tag.stats.reviewed.count }}</span></td>
     </tr>
     </tbody>
   </table>

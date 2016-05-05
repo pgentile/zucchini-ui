@@ -67,62 +67,37 @@
         testRunId: '<'
       }
     })
-    .component('tcScenarioProgress', {
-      templateUrl: 'views/tc-scenario-progress.html',
-      bindings: {
-        stats: '<'
-      },
-      controller: function () {
-
-        this.hasStatus = function (status) {
-          return !_.isUndefined(this.stats) && _.isFinite(this.stats.statsByStatus[status]) && this.stats.statsByStatus[status] > 0;
-        };
-
-        this.getStatusPercentRate = function(status) {
-          return _.isUndefined(this.stats) || this.stats.count === 0 ? 0 : 100.0 * this.stats.statsByStatus[status] / this.stats.count;
-        };
-
-        this.isValueDisplayable = function (status) {
-          return this.getStatusPercentRate(status) > 10;
-        };
-
-      }
-    })
     .component('tcScenarioPieChart', {
       templateUrl: 'views/tc-scenario-pie-chart.html',
       bindings: {
         stats: '<',
-        kind: '@'
+        total: '<'
       },
       controller: function ($scope) {
 
-        $scope.$watchGroup(['$ctrl.stats'], function () {
+        $scope.$watch('$ctrl.stats', function () {
           if (_.isUndefined(this.stats)) {
             delete this.series;
           } else {
-            var target = 'statsByStatus';
-            if (this.kind === 'reviewed') {
-              target = 'reviewedStatsByStatus';
-            }
 
             var series = [
               {
-                value: this.stats[target].PASSED,
+                value: this.stats.passed,
                 name: 'Passés',
                 className: 'chart-progress-passed'
               },
               {
-                value: this.stats[target].PENDING,
+                value: this.stats.pending,
                 name: 'En attente',
                 className: 'chart-progress-pending'
               },
               {
-                value: this.stats[target].FAILED,
+                value: this.stats.failed,
                 name: 'Echecs',
                 className: 'chart-progress-failed'
               },
               {
-                value: this.stats[target].NOT_RUN,
+                value: this.stats.notRun,
                 name: 'Non joués',
                 className: 'chart-progress-not-run'
               }
@@ -135,6 +110,7 @@
             this.series = {
               series: series
             };
+
           }
         }.bind(this));
 
@@ -264,7 +240,7 @@
 
         this.isFeatureReviewedStateDisplayable = function (feature) {
           if (!this.filters.reviewed) {
-            return feature.stats.reviewedCount !== feature.stats.count;
+            return feature.stats.reviewed.count !== feature.stats.all.count;
           }
           return true;
         };

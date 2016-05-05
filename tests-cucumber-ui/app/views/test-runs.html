@@ -42,12 +42,12 @@
       <td>
         <a ng-href="#/test-runs/{{ testRun.id }}">Tir du {{ testRun.date | niceDate }}</a>
       </td>
-      <td><span class="badge">{{ testRun.stats.count }}</span></td>
-      <td><span class="badge">{{ testRun.stats.statsByStatus['PASSED'] }}</span></td>
-      <td><span class="badge">{{ testRun.stats.statsByStatus['FAILED'] }}</span></td>
-      <td><span class="badge">{{ testRun.stats.statsByStatus['PENDING'] }}</span></td>
-      <td><span class="badge">{{ testRun.stats.statsByStatus['NOT_RUN'] }}</span></td>
-      <td><span class="badge">{{ testRun.stats.reviewedCount }}</span></td>
+      <td><span class="badge">{{ testRun.stats.all.count }}</span></td>
+      <td><span class="badge">{{ testRun.stats.all.passed }}</span></td>
+      <td><span class="badge">{{ testRun.stats.all.failed }}</span></td>
+      <td><span class="badge">{{ testRun.stats.all.pending }}</span></td>
+      <td><span class="badge">{{ testRun.stats.all.notRun }}</span></td>
+      <td><span class="badge">{{ testRun.stats.reviewed.count }}</span></td>
     </tr>
     </tbody>
   </table>

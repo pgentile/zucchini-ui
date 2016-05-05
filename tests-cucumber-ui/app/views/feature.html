@@ -62,16 +62,22 @@
   <h2>Avancement</h2>
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <p class="text-center">Tous les tests</p>
       <div style="height: 20rem">
-        <tc-scenario-pie-chart stats="ctrl.feature.stats"></tc-scenario-pie-chart>
+        <tc-scenario-pie-chart stats="ctrl.feature.stats.all" total="ctrl.feature.stats.all.count"></tc-scenario-pie-chart>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <p class="text-center">Tests analysés</p>
       <div style="height: 20rem">
-        <tc-scenario-pie-chart stats="ctrl.feature.stats" kind="reviewed"></tc-scenario-pie-chart>
+        <tc-scenario-pie-chart stats="ctrl.feature.stats.reviewed" total="ctrl.feature.stats.all.count"></tc-scenario-pie-chart>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <p class="text-center">Tests non analysés</p>
+      <div style="height: 20rem">
+        <tc-scenario-pie-chart stats="ctrl.feature.stats.nonReviewed" total="ctrl.feature.stats.all.count"></tc-scenario-pie-chart>
       </div>
     </div>
   </div>
@@ -143,12 +149,12 @@
       <td>
         <tc-status status="feature.status"></tc-status>
       </td>
-      <td><span class="badge">{{ feature.stats.count }}</span></td>
-      <td><span class="badge">{{ feature.stats.statsByStatus['PASSED'] }}</span></td>
-      <td><span class="badge">{{ feature.stats.statsByStatus['FAILED'] }}</span></td>
-      <td><span class="badge">{{ feature.stats.statsByStatus['PENDING'] }}</span></td>
-      <td><span class="badge">{{ feature.stats.statsByStatus['NOT_RUN'] }}</span></td>
-      <td><span class="badge">{{ feature.stats.reviewedCount }}</span></td>
+      <td><span class="badge">{{ feature.stats.all.count }}</span></td>
+      <td><span class="badge">{{ feature.stats.all.passed }}</span></td>
+      <td><span class="badge">{{ feature.stats.all.failed }}</span></td>
+      <td><span class="badge">{{ feature.stats.all.pending }}</span></td>
+      <td><span class="badge">{{ feature.stats.all.notRun }}</span></td>
+      <td><span class="badge">{{ feature.stats.reviewed.count }}</span></td>
     </tr>
     </tbody>
   </table>
