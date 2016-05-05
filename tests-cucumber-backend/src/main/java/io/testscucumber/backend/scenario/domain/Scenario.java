@@ -178,7 +178,7 @@ public class Scenario extends BaseEntity<String> {
     }
 
     public void setReviewed(final boolean reviewed) {
-        if (this.reviewed == reviewed) {
+        if (this.reviewed != reviewed) {
             this.reviewed = reviewed;
             modifiedAt = ZonedDateTime.now();
         }
