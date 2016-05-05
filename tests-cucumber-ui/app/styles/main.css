@@ -17,23 +17,23 @@
 }
 
 
-.ct-chart-pie .chart-progress-passed .ct-slice-pie {
-  fill: #5cb85c;
+.ct-chart-donut .chart-progress-passed .ct-slice-donut {
+  stroke: #5cb85c;
 }
 
-.ct-chart-pie .chart-progress-failed .ct-slice-pie {
-  fill: #d9534f;
+.ct-chart-donut .chart-progress-failed .ct-slice-donut {
+  stroke: #d9534f;
 }
 
-.ct-chart-pie .chart-progress-pending .ct-slice-pie {
-  fill: #f0ad4e;
+.ct-chart-donut .chart-progress-pending .ct-slice-donut {
+  stroke: #f0ad4e;
 }
 
-.ct-chart-pie .chart-progress-not-run .ct-slice-pie {
-  fill: #777;
+.ct-chart-donut .chart-progress-not-run .ct-slice-donut {
+  stroke: #777;
 }
 
-.ct-chart-pie .ct-label {
+.ct-chart-donut .ct-label {
   color: #fff;
   fill: #fff;
   font-size: 1em;

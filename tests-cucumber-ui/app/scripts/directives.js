@@ -193,7 +193,8 @@
           [data, total] = newValues;
 
           chart.update(data, {
-            total: total
+            total: total,
+            donut: true
           }, true);
         });
 
