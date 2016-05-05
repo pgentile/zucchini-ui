@@ -123,7 +123,6 @@ public class ScenarioViewAccess {
                     .forEach(tag -> {
                         final ScenarioStats tagStats = statsByTag.computeIfAbsent(tag, key -> new ScenarioStats());
                         tagStats.addScenarioStatus(ScenarioStatus.valueOf(statusStr), reviewed);
-                        statsByTag.put(tag, tagStats);
                     });
             });
 
