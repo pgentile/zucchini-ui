@@ -20,7 +20,7 @@ public class TestRunTest {
         // then
         assertThat(testRun.getId()).isNotEmpty();
         assertThat(testRun.getType()).isEqualTo(type);
-        assertThat(testRun.getDate()).isAfter(testStartDate);
+        assertThat(testRun.getDate()).isAfterOrEqualTo(testStartDate);
 
         assertThat(testRun.getEntityId()).isEqualTo(testRun.getId());
     }

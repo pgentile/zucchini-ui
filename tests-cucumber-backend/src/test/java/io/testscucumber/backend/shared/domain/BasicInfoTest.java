@@ -40,6 +40,6 @@ public class BasicInfoTest {
         // then
         assertThat(info.getKeyword()).isEqualTo(KEYWORD);
         assertThat(info.getName()).isEqualTo(NAME);
-        assertThat(info.getArguments()).isEqualTo(arguments);
     }
+
 }
