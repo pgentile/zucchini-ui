@@ -10,9 +10,8 @@ import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.testscucumber.backend.support.ddd.rest.EntityNotFoundExceptionMapper;
-import io.testscucumber.backend.support.spring.SpringBundle;
+import io.testscucumber.backend.support.spring.AnnotationSpringConfigBundle;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
@@ -28,10 +27,10 @@ public class BackendBundle implements ConfiguredBundle<BackendConfiguration> {
             new EnvironmentVariableSubstitutor(false)
         ));
 
-        final AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
-        applicationContext.register(BackendSpringConfig.class);
-        bootstrap.addBundle(new SpringBundle(applicationContext));
+        // Register Spring context
+        bootstrap.addBundle(new AnnotationSpringConfigBundle(BackendSpringConfig.class));
 
+        // Configure Jackson mapper
         bootstrap.getObjectMapper()
             .registerModules(new JavaTimeModule(), new Jdk8Module())
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)

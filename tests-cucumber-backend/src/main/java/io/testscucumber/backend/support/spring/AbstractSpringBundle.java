@@ -10,18 +10,13 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import javax.ws.rs.Path;
 
-public class SpringBundle implements ConfiguredBundle<Configuration> {
+public abstract class AbstractSpringBundle implements ConfiguredBundle<Configuration> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SpringBundle.class);
-
-    private final ConfigurableApplicationContext applicationContext;
-
-    public SpringBundle(final ConfigurableApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractSpringBundle.class);
 
     @Override
     public void run(final Configuration configuration, final Environment environment) throws Exception {
+        final ConfigurableApplicationContext applicationContext = createApplicationContext();
         if (applicationContext.isActive()) {
             throw new IllegalStateException("Spring context already started");
         }
@@ -42,5 +37,7 @@ public class SpringBundle implements ConfiguredBundle<Configuration> {
     public void initialize(final Bootstrap<?> bootstrap) {
 
     }
+
+    protected abstract ConfigurableApplicationContext createApplicationContext();
 
 }
