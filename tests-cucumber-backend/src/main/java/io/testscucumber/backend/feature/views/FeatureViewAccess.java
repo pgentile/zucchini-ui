@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class FeatureViewAccess {
@@ -79,13 +80,13 @@ public class FeatureViewAccess {
     public List<FeatureHistoryItem> getFeatureHistory(final String featureKey) {
         return testRunRepository.query(TestRunQuery::orderByLatestFirst)
             .stream()
-            .map(testRun -> {
+            .flatMap(testRun -> {
                 final Feature feature = featureDAO.prepareTypedQuery(q -> q.withTestRunId(testRun.getId()).withFeatureKey(featureKey))
                     .retrievedFields(true, "id", "status")
                     .get();
 
                 if (feature == null) {
-                    return null;
+                    return Stream.empty();
                 }
 
                 final ScenarioStats stats = scenarioViewAccess.getStats(q -> q.withFeatureId(feature.getId()));
@@ -93,9 +94,9 @@ public class FeatureViewAccess {
                 final FeatureHistoryItem item = featureToHistoryItemMapper.map(feature);
                 item.setTestRun(testRun);
                 item.setStats(stats);
-                return item;
+
+                return Stream.of(item);
             })
-            .filter(item -> item != null)
             .collect(Collectors.toList());
     }
 
