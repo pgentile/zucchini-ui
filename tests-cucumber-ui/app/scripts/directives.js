@@ -186,8 +186,10 @@
 
       var link = function (scope, element) {
 
+        // Attach chart to current element
         var chart = new Chartist.Pie(element[0]);
 
+        // Update chart on attribute changes
         scope.$watchGroup(['data', 'total'], function (newValues) {
           var data, total;
           [data, total] = newValues;
@@ -196,6 +198,11 @@
             total: total,
             donut: true
           }, true);
+        });
+
+        // Release chart resources on directive destroy
+        scope.$on('$destroy', function () {
+          chart.detach();
         });
 
       };
