@@ -7,6 +7,7 @@ import org.mongodb.morphia.query.Query;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 class MorphiaPreparedQuery<T> implements PreparedQuery<T> {
@@ -43,6 +44,11 @@ class MorphiaPreparedQuery<T> implements PreparedQuery<T> {
     public Optional<T> tryToFindOne() {
         final T entity = query.get();
         return Optional.ofNullable(entity);
+    }
+
+    @Override
+    public void update(final Consumer<T> updater) {
+        stream().peek(updater).forEach(dao::save);
     }
 
     @Override

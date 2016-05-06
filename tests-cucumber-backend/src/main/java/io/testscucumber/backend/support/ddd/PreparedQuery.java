@@ -2,6 +2,7 @@ package io.testscucumber.backend.support.ddd;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 /**
@@ -41,7 +42,14 @@ public interface PreparedQuery<T> {
     Optional<T> tryToFindOne();
 
     /**
-     * Delete entities with a query
+     * Update selected entities.
+     *
+     * @param updater Consumer that updates selected entities
+     */
+    void update(Consumer<T> updater);
+
+    /**
+     * Delete entities with a query.
      */
     void delete();
 
