@@ -4,12 +4,13 @@ package io.testscucumber.backend.testrun.rest;
 import com.google.common.base.Strings;
 import io.dropwizard.jersey.PATCH;
 import io.testscucumber.backend.reportconverter.domain.ReportConverterService;
+import io.testscucumber.backend.testrun.domain.Label;
 import io.testscucumber.backend.testrun.domain.TestRun;
 import io.testscucumber.backend.testrun.domain.TestRunQuery;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;
 import io.testscucumber.backend.testrun.domain.TestRunService;
-import io.testscucumber.backend.testrun.views.TestRunScenarioDiff;
 import io.testscucumber.backend.testrun.views.TestRunListItem;
+import io.testscucumber.backend.testrun.views.TestRunScenarioDiff;
 import io.testscucumber.backend.testrun.views.TestRunViewAccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 @Component
 @Path("/testRuns")
@@ -90,6 +92,9 @@ public class TestRunResource {
     @Path("create")
     public Response create(@Valid @NotNull final CreateTestRunRequest request) {
         final TestRun testRun = new TestRun(request.getType());
+
+        convertRequestLabels(request.getLabels()).ifPresent(testRun::setLabels);
+
         testRunRepository.save(testRun);
 
         final URI location = uriInfo.getBaseUriBuilder()
@@ -110,7 +115,15 @@ public class TestRunResource {
     @PATCH
     @Path("{testRunId}")
     public void update(@PathParam("testRunId") final String testRunId, @Valid @NotNull final UpdateTestRunRequest request) {
-        testRunService.updateType(testRunId, request.getType());
+        final TestRun testRun = testRunRepository.getById(testRunId);
+
+        if (!Strings.isNullOrEmpty(request.getType())) {
+            testRun.setType(request.getType());
+        }
+
+        convertRequestLabels(request.getLabels()).ifPresent(testRun::setLabels);
+
+        testRunRepository.save(testRun);
     }
 
     @DELETE
@@ -137,6 +150,18 @@ public class TestRunResource {
     @Path("{leftTestRunId}/scenarioDiff/{rightTestRunId}")
     public TestRunScenarioDiff getScenarioDiff(@PathParam("leftTestRunId") final String leftTestRunId, @PathParam("rightTestRunId") final String rightTestRunId) {
         return testRunViewAccess.getScenarioDiff(leftTestRunId, rightTestRunId);
+    }
+
+    private static Optional<List<Label>> convertRequestLabels(final List<RequestLabel> requestLabels) {
+        if (requestLabels == null) {
+            return Optional.empty();
+        }
+
+        final List<Label> labels = requestLabels.stream()
+            .map(requestLabel -> new Label(requestLabel.getName(), requestLabel.getValue(), requestLabel.getUrl()))
+            .collect(Collectors.toList());
+
+        return Optional.of(labels);
     }
 
 }

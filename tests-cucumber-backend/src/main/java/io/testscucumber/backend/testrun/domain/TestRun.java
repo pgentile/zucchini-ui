@@ -5,6 +5,9 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -17,6 +20,8 @@ public class TestRun extends BaseEntity<String> {
     private String type;
 
     private ZonedDateTime date;
+
+    private List<Label> labels = new ArrayList<>();
 
     /**
      * Private constructor for Morphia.
@@ -34,6 +39,10 @@ public class TestRun extends BaseEntity<String> {
         this.type = Objects.requireNonNull(type);
     }
 
+    public void setLabels(final List<Label> labels) {
+        this.labels = new ArrayList<>(labels);
+    }
+
     public String getId() {
         return id;
     }
@@ -44,6 +53,10 @@ public class TestRun extends BaseEntity<String> {
 
     public ZonedDateTime getDate() {
         return date;
+    }
+
+    public List<Label> getLabels() {
+        return Collections.unmodifiableList(labels);
     }
 
     @Override
