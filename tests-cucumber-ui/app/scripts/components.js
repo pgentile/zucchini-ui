@@ -71,35 +71,35 @@
       templateUrl: 'views/tc-scenario-pie-chart.html',
       bindings: {
         stats: '<',
-        total: '<'
+        kind: '@'
       },
       controller: function ($scope) {
 
-        $scope.$watch('$ctrl.stats', function () {
-          if (_.isUndefined(this.stats)) {
+        $scope.$watchGroup(['$ctrl.stats', '$ctrl.kind'], function () {
+          if (_.isUndefined(this.stats) || _.isUndefined(this.kind)) {
             delete this.series;
           } else {
 
             var series = [
               {
-                value: this.stats.passed,
-                name: 'Passés',
+                value: this.stats[this.kind].passed,
                 className: 'chart-progress-passed'
               },
               {
-                value: this.stats.pending,
-                name: 'En attente',
+                value: this.stats[this.kind].pending,
                 className: 'chart-progress-pending'
               },
               {
-                value: this.stats.failed,
-                name: 'Echecs',
+                value: this.stats[this.kind].failed,
                 className: 'chart-progress-failed'
               },
               {
-                value: this.stats.notRun,
-                name: 'Non joués',
+                value: this.stats[this.kind].notRun,
                 className: 'chart-progress-not-run'
+              },
+              {
+                value: this.stats.all.count - this.stats[this.kind].count,
+                className: 'chart-progress-others'
               }
             ];
 
@@ -114,6 +114,12 @@
           }
         }.bind(this));
 
+      }
+    })
+    .component('tcStatsDashboard', {
+      templateUrl: 'views/tc-stats-dashboard.html',
+      bindings: {
+        stats: '<'
       }
     })
     .component('tcScenarioList', {

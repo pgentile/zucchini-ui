@@ -61,26 +61,7 @@
 
   <h2>Avancement</h2>
 
-  <div class="row">
-    <div class="col-md-4">
-      <p class="text-center">Tous les tests</p>
-      <div style="height: 20rem">
-        <tc-scenario-pie-chart stats="ctrl.feature.stats.all" total="ctrl.feature.stats.all.count"></tc-scenario-pie-chart>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <p class="text-center">Tests analysés</p>
-      <div style="height: 20rem">
-        <tc-scenario-pie-chart stats="ctrl.feature.stats.reviewed" total="ctrl.feature.stats.all.count"></tc-scenario-pie-chart>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <p class="text-center">Tests non analysés</p>
-      <div style="height: 20rem">
-        <tc-scenario-pie-chart stats="ctrl.feature.stats.nonReviewed" total="ctrl.feature.stats.all.count"></tc-scenario-pie-chart>
-      </div>
-    </div>
-  </div>
+  <tc-stats-dashboard stats="ctrl.feature.stats"></tc-stats-dashboard>
 
 
   <!-- Description -->

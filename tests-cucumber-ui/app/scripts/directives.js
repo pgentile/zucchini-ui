@@ -196,7 +196,7 @@
 
           chart.update(data, {
             total: total,
-            donut: true
+            donut: true,
           }, true);
         });
 

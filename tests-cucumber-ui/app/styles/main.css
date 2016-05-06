@@ -33,6 +33,10 @@
   stroke: #777;
 }
 
+.ct-chart-donut .chart-progress-others .ct-slice-donut {
+  stroke: #f9f9f9;
+}
+
 .ct-chart-donut .ct-label {
   color: #fff;
   fill: #fff;
