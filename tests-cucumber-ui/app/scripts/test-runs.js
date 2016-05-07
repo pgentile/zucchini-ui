@@ -19,8 +19,8 @@
       return TestRunResource.create(testRun).$promise;
     };
 
-    this.update = function (testRunId, type) {
-      return TestRunResource.update({ id: testRunId, type: type }).$promise;
+    this.update = function (testRunId, type, labels) {
+      return TestRunResource.update({ id: testRunId, type: type, labels: labels }).$promise;
     };
 
     this.getScenarioDiff = function (leftTestRunId, rightTestRunId) {
@@ -157,16 +157,18 @@
           templateUrl: 'updateTestRunForm.html',
           controller: 'UpdateTestRunCtrl',
           controllerAs: 'updateCtrl',
+          size: 'lg',
           resolve: {
             updateRequest: {
-              type: this.testRun.type
+              type: this.testRun.type,
+              labels: angular.copy(this.testRun.labels)
             }
           }
         });
 
         createdModal.result
           .then(function (updateRequest) {
-            return TestRunCoreService.update(this.testRun.id, updateRequest.type)
+            return TestRunCoreService.update(this.testRun.id, updateRequest.type, updateRequest.labels)
               .then(function () {
                 this.load();
               }.bind(this))
@@ -198,6 +200,18 @@
 
       this.update = function () {
         $uibModalInstance.close(this.updateRequest);
+      }.bind(this);
+
+      this.addNewLabel = function () {
+        this.updateRequest.labels.push({
+          name: '',
+          value: '',
+          url: ''
+        });
+      }.bind(this);
+
+      this.deleteLabel = function (index) {
+        this.updateRequest.labels.splice(index, 1);
       }.bind(this);
 
     })
