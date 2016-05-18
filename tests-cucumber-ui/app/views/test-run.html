@@ -120,8 +120,7 @@
   <!-- Import cucumber results modal window -->
 
   <script type="text/ng-template" id="importCucumberResults.html">
-    <form>
-
+    <form name="importForm" ng-submit="importForm.$valid && importCtrl.import()">
 
       <div class="modal-header">
         <button type="button" class="close" ng-click="$dismiss()" aria-label="Fermer">
@@ -134,7 +133,7 @@
 
         <div class="form-group">
           <label for="file">Fichier à importer</label>
-          <input type="file" id="file" ng-model="importCtrl.file" ngf-select ngf-pattern="'.json'" autofocus>
+          <input type="file" id="file" ng-model="importCtrl.file" ngf-select ngf-pattern="'.json'" autofocus required>
           <p class="help-block">Le fichier à importer est un résultat d'exécution Cucumber, au format JSON.</p>
         </div>
 
@@ -162,7 +161,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="$dismiss()">Annuler</button>
-        <button type="submit" class="btn btn-primary" ng-click="importCtrl.import()">Importer</button>
+        <button type="submit" class="btn btn-primary" ng-disabled="importForm.$invalid">Importer</button>
       </div>
 
     </form>
