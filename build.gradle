@@ -295,6 +295,8 @@ project("${rootProject.name}-capsule") {
 
     }
 
+    capsule.version = '1.0.2'
+
     task fatCapsule(type: FatCapsule, description: 'Build Capsule') {
 
         applicationClass 'io.testscucumber.capsule.TestsCucumberApplication'
