@@ -120,7 +120,7 @@
   <!-- Import cucumber results modal window -->
 
   <script type="text/ng-template" id="importCucumberResults.html">
-    <form name="importForm" ng-submit="importForm.$valid && importCtrl.import()">
+    <form name="importForm" ng-submit="importForm.$valid && importCtrl.import()" novalidate>
 
       <div class="modal-header">
         <button type="button" class="close" ng-click="$dismiss()" aria-label="Fermer">
@@ -205,13 +205,13 @@
             <tr ng-repeat="label in updateCtrl.updateRequest.labels" ng-form="labelForm">
 
               <td ng-class="labelForm.name.$invalid && 'has-error'">
-                <input name="name" ng-model="label.name" class="form-control input-sm" required>
+                <input name="name" ng-model="label.name" class="form-control input-sm" required placeholder="Nom">
               </td>
               <td ng-class="labelForm.value.$invalid && 'has-error'">
-                <input name="value" ng-model="label.value" class="form-control input-sm" required>
+                <input name="value" ng-model="label.value" class="form-control input-sm" required placeholder="Valeur">
               </td>
               <td ng-class="labelForm.url.$invalid && 'has-error'">
-                <input name="url" type="url" ng-model="label.url" class="form-control input-sm">
+                <input name="url" type="url" ng-model="label.url" class="form-control input-sm" placeholder="URL">
               </td>
               <td>
                 <button type="button" class="btn btn-sm btn-danger"
@@ -237,10 +237,6 @@
 
             </tbody>
           </table>
-
-          <p>
-
-          </p>
 
         </div>
 
