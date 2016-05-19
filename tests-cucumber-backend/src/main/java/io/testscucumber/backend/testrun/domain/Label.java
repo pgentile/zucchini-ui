@@ -4,7 +4,7 @@ import com.google.common.base.MoreObjects;
 
 import java.util.Objects;
 
-public class Label {
+public final class Label {
 
     private String name;
 
