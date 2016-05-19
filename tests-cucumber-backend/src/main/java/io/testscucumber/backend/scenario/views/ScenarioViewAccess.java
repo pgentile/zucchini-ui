@@ -23,6 +23,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class ScenarioViewAccess {
@@ -64,20 +65,19 @@ public class ScenarioViewAccess {
     public List<ScenarioHistoryItemView> getScenarioHistory(final String scenarioKey) {
         return testRunRepository.query(TestRunQuery::orderByLatestFirst)
             .stream()
-            .map(testRun -> {
+            .flatMap(testRun -> {
                 final Scenario scenario = scenarioDAO.prepareTypedQuery(q -> q.withTestRunId(testRun.getId()).withScenarioKey(scenarioKey))
                     .retrievedFields(true, "id", "status")
                     .get();
 
                 if (scenario == null) {
-                    return null;
+                    return Stream.empty();
                 }
 
                 final ScenarioHistoryItemView item = scenarioToHistoryItemViewMapper.map(scenario);
                 item.setTestRun(testRun);
-                return item;
+                return Stream.of(item);
             })
-            .filter(item -> item != null)
             .collect(Collectors.toList());
     }
 
