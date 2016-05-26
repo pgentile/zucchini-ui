@@ -19,7 +19,6 @@ buildscript {
 allprojects {
 
     group = 'org.example.tests-cucumber'
-    version = new File("${rootDir}/VERSION.txt").text.trim()
 
     apply plugin: 'idea'
 
@@ -309,11 +308,22 @@ project("${rootProject.name}-capsule") {
 
     tasks.assemble.dependsOn fatCapsule
 
-    task runCapsule(type: Exec, description: 'Run Capsule') {
+    def getDockerTag = { ->
+        String imageName = project.properties['docker.baseRepository'] + '/' + project.name
+        return "${imageName}:${project.version}"
+    }
+
+    task runCapsule(type: Exec, description: 'Run Capsule', dependsOn: fatCapsule) {
         commandLine 'java', '-jar', fatCapsule.archivePath, 'server', "${rootDir}/server-config.yml"
     }
 
-    tasks.runCapsule.dependsOn fatCapsule
+    task dockerBuild(type: Exec, description: 'Build Docker image', dependsOn: fatCapsule) {
+        commandLine 'docker', 'build', '-t', getDockerTag(), '.'
+    }
+
+    task dockerPush(type: Exec, description: 'Push Docker image', dependsOn: dockerBuild) {
+        commandLine 'docker', 'push', getDockerTag()
+    }
 
 }
 
