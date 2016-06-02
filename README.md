@@ -96,6 +96,14 @@ java -jar tests-cucumber-capsule-VERSION-SNAPSHOT-capsule.jar server CONFIG.yml
 ```
 
 
+Configuration
+-------------
+
+The configuration file used by the application is a [Dropwizard YAML file](http://www.dropwizard.io/0.9.2/docs/manual/configuration.html).
+
+You can use in your file environment variable, like `${HOME}` ou `${USER}`. View the [sample configuration file](server-config.yml) for more information.
+
+
 Architecture
 ------------
 
