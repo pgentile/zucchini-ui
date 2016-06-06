@@ -67,25 +67,59 @@
         testRunId: '<'
       }
     })
-    .component('tcScenarioProgress', {
-      templateUrl: 'views/tc-scenario-progress.html',
+    .component('tcScenarioPieChart', {
+      templateUrl: 'views/tc-scenario-pie-chart.html',
+      bindings: {
+        stats: '<',
+        kind: '@'
+      },
+      controller: function ($scope) {
+
+        $scope.$watchGroup(['$ctrl.stats', '$ctrl.kind'], function () {
+          if (_.isUndefined(this.stats) || _.isUndefined(this.kind)) {
+            delete this.series;
+          } else {
+
+            var series = [
+              {
+                value: this.stats[this.kind].passed,
+                className: 'chart-progress-passed'
+              },
+              {
+                value: this.stats[this.kind].pending,
+                className: 'chart-progress-pending'
+              },
+              {
+                value: this.stats[this.kind].failed,
+                className: 'chart-progress-failed'
+              },
+              {
+                value: this.stats[this.kind].notRun,
+                className: 'chart-progress-not-run'
+              },
+              {
+                value: this.stats.all.count - this.stats[this.kind].count,
+                className: 'chart-progress-others'
+              }
+            ];
+
+            series = series.filter(function (serie) {
+              return serie.value > 0;
+            });
+
+            this.series = {
+              series: series
+            };
+
+          }
+        }.bind(this));
+
+      }
+    })
+    .component('tcStatsDashboard', {
+      templateUrl: 'views/tc-stats-dashboard.html',
       bindings: {
         stats: '<'
-      },
-      controller: function () {
-
-        this.hasStatus = function (status) {
-          return !_.isUndefined(this.stats) && _.isFinite(this.stats.statsByStatus[status]) && this.stats.statsByStatus[status] > 0;
-        };
-
-        this.getStatusPercentRate = function(status) {
-          return _.isUndefined(this.stats) || this.stats.count === 0 ? 0 : 100.0 * this.stats.statsByStatus[status] / this.stats.count;
-        };
-
-        this.isValueDisplayable = function (status) {
-          return this.getStatusPercentRate(status) > 10;
-        };
-
       }
     })
     .component('tcScenarioList', {
@@ -212,7 +246,7 @@
 
         this.isFeatureReviewedStateDisplayable = function (feature) {
           if (!this.filters.reviewed) {
-            return feature.stats.reviewedCount !== feature.stats.count;
+            return feature.stats.reviewed.count !== feature.stats.all.count;
           }
           return true;
         };

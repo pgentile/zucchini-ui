@@ -15,3 +15,30 @@
 .progress.scenario-progress .progress-bar {
   min-width: 0 !important;
 }
+
+
+.ct-chart-donut .chart-progress-passed .ct-slice-donut {
+  stroke: #5cb85c;
+}
+
+.ct-chart-donut .chart-progress-failed .ct-slice-donut {
+  stroke: #d9534f;
+}
+
+.ct-chart-donut .chart-progress-pending .ct-slice-donut {
+  stroke: #f0ad4e;
+}
+
+.ct-chart-donut .chart-progress-not-run .ct-slice-donut {
+  stroke: #777;
+}
+
+.ct-chart-donut .chart-progress-others .ct-slice-donut {
+  stroke: #f9f9f9;
+}
+
+.ct-chart-donut .ct-label {
+  color: #fff;
+  fill: #fff;
+  font-size: 1em;
+}

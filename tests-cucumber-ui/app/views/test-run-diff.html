@@ -62,11 +62,11 @@
           <a href ng-switch-when="false" ng-click="ctrl.selectOtherTestRun(testRun.id)">Tir du {{ testRun.date | niceDate }}</a>
           <i ng-switch-default>Tir du {{ testRun.date | niceDate }}</i>
         </td>
-        <td><span class="badge">{{ testRun.stats.count }}</span></td>
-        <td><span class="badge">{{ testRun.stats.statsByStatus['PASSED'] }}</span></td>
-        <td><span class="badge">{{ testRun.stats.statsByStatus['FAILED'] }}</span></td>
-        <td><span class="badge">{{ testRun.stats.statsByStatus['PENDING'] }}</span></td>
-        <td><span class="badge">{{ testRun.stats.statsByStatus['NOT_RUN'] }}</span></td>
+        <td><span class="badge">{{ testRun.stats.all.count }}</span></td>
+        <td><span class="badge">{{ testRun.stats.all.passed }}</span></td>
+        <td><span class="badge">{{ testRun.stats.all.failed }}</span></td>
+        <td><span class="badge">{{ testRun.stats.all.pending }}</span></td>
+        <td><span class="badge">{{ testRun.stats.all.notRun }}</span></td>
       </tr>
       </tbody>
     </table>

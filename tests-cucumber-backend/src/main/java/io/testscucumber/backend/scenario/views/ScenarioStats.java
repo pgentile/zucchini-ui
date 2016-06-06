@@ -3,56 +3,47 @@ package io.testscucumber.backend.scenario.views;
 import io.testscucumber.backend.feature.domain.FeatureStatus;
 import io.testscucumber.backend.scenario.domain.ScenarioStatus;
 
-import java.util.EnumMap;
-import java.util.Map;
-
 public class ScenarioStats {
 
-    private int count;
+    private final TypedScenarioStats all = new TypedScenarioStats();
 
-    private int reviewedCount;
+    private final TypedScenarioStats reviewed = new TypedScenarioStats();
 
-    private final Map<ScenarioStatus, Integer> statsByStatus;
+    private final TypedScenarioStats nonReviewed = new TypedScenarioStats();
 
-    public ScenarioStats() {
-        statsByStatus = new EnumMap<>(ScenarioStatus.class);
-        for (final ScenarioStatus status : ScenarioStatus.values()) {
-            statsByStatus.put(status, 0);
+    public void addScenarioStatus(final ScenarioStatus status, final boolean reviewedState) {
+        all.addScenarioStatus(status);
+
+        if (reviewedState) {
+            reviewed.addScenarioStatus(status);
+        } else {
+            nonReviewed.addScenarioStatus(status);
         }
     }
 
-    public void addScenarioStatus(final ScenarioStatus status, final boolean reviewed) {
-        statsByStatus.compute(status, (key, count) -> count + 1);
-        count++;
-
-        if (reviewed) {
-            reviewedCount++;
-        }
+    public TypedScenarioStats getAll() {
+        return all;
     }
 
-    public int getCount() {
-        return count;
+    public TypedScenarioStats getReviewed() {
+        return reviewed;
     }
 
-    public int getReviewedCount() {
-        return reviewedCount;
-    }
-
-    public Map<ScenarioStatus, Integer> getStatsByStatus() {
-        return statsByStatus;
+    public TypedScenarioStats getNonReviewed() {
+        return nonReviewed;
     }
 
     public FeatureStatus computeFeatureStatus() {
-        if (count == 0) {
+        if (all.getCount() == 0) {
             return FeatureStatus.NOT_RUN;
         }
-        if (statsByStatus.get(ScenarioStatus.FAILED) > 0) {
+        if (all.getFailed() > 0) {
             return FeatureStatus.FAILED;
         }
-        if (statsByStatus.get(ScenarioStatus.PASSED) == count) {
+        if (all.getPassed() == all.getCount()) {
             return FeatureStatus.PASSED;
         }
-        if (statsByStatus.get(ScenarioStatus.NOT_RUN) == count) {
+        if (all.getNotRun() == all.getCount()) {
             return FeatureStatus.NOT_RUN;
         }
         return FeatureStatus.PARTIAL;

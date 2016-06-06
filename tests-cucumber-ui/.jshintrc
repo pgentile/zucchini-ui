@@ -13,6 +13,7 @@
   "globals": {
     "_": false,
     "angular": false,
-    "configuration": false
+    "configuration": false,
+    "Chartist": false
   }
 }

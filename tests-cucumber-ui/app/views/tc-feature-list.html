@@ -52,12 +52,12 @@
       <td>
         <tc-status status="feature.status"></tc-status>
       </td>
-      <td><span class="badge">{{ feature.stats.count }}</span></td>
-      <td><span class="badge">{{ feature.stats.statsByStatus['PASSED'] }}</span></td>
-      <td><span class="badge">{{ feature.stats.statsByStatus['FAILED'] }}</span></td>
-      <td><span class="badge">{{ feature.stats.statsByStatus['PENDING'] }}</span></td>
-      <td><span class="badge">{{ feature.stats.statsByStatus['NOT_RUN'] }}</span></td>
-      <td><span class="badge">{{ feature.stats.reviewedCount }}</span></td>
+      <td><span class="badge">{{ feature.stats.all.count }}</span></td>
+      <td><span class="badge">{{ feature.stats.all.passed }}</span></td>
+      <td><span class="badge">{{ feature.stats.all.failed }}</span></td>
+      <td><span class="badge">{{ feature.stats.all.pending }}</span></td>
+      <td><span class="badge">{{ feature.stats.all.notRun }}</span></td>
+      <td><span class="badge">{{ feature.stats.reviewed.count }}</span></td>
     </tr>
     </tbody>
     <tfoot ng-if="filteredFeatures.length != $ctrl.features.length">
