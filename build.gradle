@@ -318,7 +318,7 @@ project("${rootProject.name}-capsule") {
     }
 
     task dockerBuild(type: Exec, description: 'Build Docker image', dependsOn: fatCapsule) {
-        commandLine 'docker', 'build', '-t', getDockerTag(), '.'
+        commandLine 'docker', 'build', '--build-arg', "VERSION=${project.version}", '-t', getDockerTag(), '.'
     }
 
     task dockerPush(type: Exec, description: 'Push Docker image', dependsOn: dockerBuild) {
