@@ -4,7 +4,6 @@ import io.testscucumber.backend.feature.domain.FeatureService;
 import io.testscucumber.backend.testrun.domain.TestRun;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;
 import io.testscucumber.backend.testrun.domain.TestRunService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,7 +13,6 @@ class TestRunServiceImpl implements TestRunService {
 
     private final FeatureService featureService;
 
-    @Autowired
     public TestRunServiceImpl(final TestRunRepository testRunRepository, final FeatureService featureService) {
         this.testRunRepository = testRunRepository;
         this.featureService = featureService;

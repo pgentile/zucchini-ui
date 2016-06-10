@@ -8,7 +8,6 @@ import io.testscucumber.backend.scenario.views.ScenarioStats;
 import io.testscucumber.backend.scenario.views.ScenarioViewAccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,7 +21,6 @@ class FeatureServiceImpl implements FeatureService {
 
     private final ScenarioViewAccess scenarioViewAccess;
 
-    @Autowired
     public FeatureServiceImpl(
         final FeatureRepository featureRepository,
         final ScenarioRepository scenarioRepository,

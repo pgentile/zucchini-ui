@@ -8,7 +8,6 @@ import io.testscucumber.backend.reportconverter.report.ReportScenario;
 import io.testscucumber.backend.scenario.domain.BackgroundBuilder;
 import io.testscucumber.backend.scenario.domain.Scenario;
 import io.testscucumber.backend.scenario.domain.ScenarioBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -25,7 +24,6 @@ public class ReportConverter {
 
     private final ReportScenarioConverter reportScenarioConverter;
 
-    @Autowired
     public ReportConverter(
         final ReportFeatureConverter reportFeatureConverter,
         final ReportScenarioConverter reportScenarioConverter

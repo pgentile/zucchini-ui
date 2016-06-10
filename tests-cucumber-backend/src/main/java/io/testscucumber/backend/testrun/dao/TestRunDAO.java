@@ -5,7 +5,6 @@ import io.testscucumber.backend.testrun.domain.TestRun;
 import io.testscucumber.backend.testrun.domain.TestRunQuery;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Consumer;
@@ -13,7 +12,6 @@ import java.util.function.Consumer;
 @Component
 public class TestRunDAO extends MorphiaTypedQueryDAO<TestRun, String, TestRunQuery> {
 
-    @Autowired
     public TestRunDAO(final Datastore ds) {
         super(ds);
     }

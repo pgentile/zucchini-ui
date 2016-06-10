@@ -6,7 +6,6 @@ import io.testscucumber.backend.comment.domain.CommentReference;
 import io.testscucumber.backend.comment.domain.CommentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
@@ -46,7 +45,6 @@ public class CommentResource {
 
         private final CommentRepository commentRepository;
 
-        @Autowired
         public Factory(final CommentRepository commentRepository) {
             this.commentRepository = commentRepository;
         }

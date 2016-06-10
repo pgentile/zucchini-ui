@@ -10,7 +10,6 @@ import io.testscucumber.backend.testrun.domain.TestRun;
 import io.testscucumber.backend.testrun.domain.TestRunQuery;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;
 import ma.glasnost.orika.BoundMapperFacade;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Comparator;
@@ -31,7 +30,6 @@ public class TestRunViewAccess {
 
     private final BoundMapperFacade<TestRun, TestRunListItem> testRunToListItemMapper;
 
-    @Autowired
     public TestRunViewAccess(
         final TestRunRepository testRunRepository,
         final TestRunDAO testRunDAO,

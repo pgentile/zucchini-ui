@@ -15,7 +15,6 @@ import io.testscucumber.backend.scenario.domain.ScenarioService;
 import io.testscucumber.backend.scenario.domain.ScenarioStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
@@ -42,7 +41,6 @@ class ReportConverterServiceImpl implements ReportConverterService {
 
     private final ObjectMapper objectMapper;
 
-    @Autowired
     public ReportConverterServiceImpl(
         final FeatureRepository featureRepository,
         final FeatureService featureService,

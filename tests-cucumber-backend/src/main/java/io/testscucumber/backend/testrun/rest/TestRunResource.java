@@ -14,7 +14,6 @@ import io.testscucumber.backend.testrun.views.TestRunScenarioDiff;
 import io.testscucumber.backend.testrun.views.TestRunViewAccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
@@ -58,7 +57,6 @@ public class TestRunResource {
 
     private UriInfo uriInfo;
 
-    @Autowired
     public TestRunResource(
         final TestRunRepository testRunRepository,
         final TestRunService testRunService,

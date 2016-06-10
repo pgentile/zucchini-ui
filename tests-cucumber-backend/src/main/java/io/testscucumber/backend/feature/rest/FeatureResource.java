@@ -9,7 +9,6 @@ import io.testscucumber.backend.feature.views.FeatureHistoryItem;
 import io.testscucumber.backend.feature.views.FeatureListItem;
 import io.testscucumber.backend.feature.views.FeatureViewAccess;
 import io.testscucumber.backend.shared.domain.TagSelection;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.Consumes;
@@ -37,7 +36,6 @@ public class FeatureResource {
 
     private final FeatureViewAccess featureViewAccess;
 
-    @Autowired
     public FeatureResource(
         final FeatureRepository featureRepository,
         final FeatureService featureService,

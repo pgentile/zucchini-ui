@@ -17,7 +17,6 @@ import io.testscucumber.backend.scenario.views.ScenarioStats;
 import io.testscucumber.backend.scenario.views.ScenarioTagStats;
 import io.testscucumber.backend.scenario.views.ScenarioViewAccess;
 import io.testscucumber.backend.shared.domain.TagSelection;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
@@ -56,7 +55,6 @@ public class ScenarioResource {
 
     private UriInfo uriInfo;
 
-    @Autowired
     public ScenarioResource(
         final ScenarioViewAccess scenarioViewAccess,
         final ScenarioRepository scenarioRepository,

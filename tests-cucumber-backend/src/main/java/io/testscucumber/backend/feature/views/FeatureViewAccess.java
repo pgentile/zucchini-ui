@@ -11,7 +11,6 @@ import io.testscucumber.backend.testrun.domain.TestRunQuery;
 import io.testscucumber.backend.testrun.domain.TestRunRepository;
 import ma.glasnost.orika.BoundMapperFacade;
 import org.mongodb.morphia.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -33,7 +32,6 @@ public class FeatureViewAccess {
 
     private final BoundMapperFacade<Feature, FeatureListItem> featureToListItemMapper;
 
-    @Autowired
     public FeatureViewAccess(
         final FeatureDAO featureDAO,
         final ScenarioViewAccess scenarioViewAccess,

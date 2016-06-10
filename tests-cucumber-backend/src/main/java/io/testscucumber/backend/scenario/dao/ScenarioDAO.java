@@ -5,7 +5,6 @@ import io.testscucumber.backend.scenario.domain.ScenarioQuery;
 import io.testscucumber.backend.support.ddd.morphia.MorphiaTypedQueryDAO;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Consumer;
@@ -13,7 +12,6 @@ import java.util.function.Consumer;
 @Component
 public class ScenarioDAO extends MorphiaTypedQueryDAO<Scenario, String, ScenarioQuery> {
 
-    @Autowired
     public ScenarioDAO(final Datastore ds) {
         super(ds);
     }
