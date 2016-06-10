@@ -162,7 +162,6 @@ project("${rootProject.name}-backend") {
     dependencies {
 
         compile "io.dropwizard:dropwizard-core:${versions.dropwizard}"
-        compile "io.dropwizard:dropwizard-client:${versions.dropwizard}"
         compile "ma.glasnost.orika:orika-core:${versions.orika}"
         compile "org.mongodb.morphia:morphia:${versions.morphia}"
         compile "org.mongodb.morphia:morphia-logging-slf4j:${versions.morphia}"
