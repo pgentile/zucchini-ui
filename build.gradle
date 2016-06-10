@@ -114,18 +114,6 @@ allprojects {
 
             resolutionStrategy {
 
-                // Exclude release candidate versions
-                componentSelection {
-                    all { ComponentSelection selection ->
-                        boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm'].any { qualifier ->
-                            selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
-                        }
-                        if (rejected) {
-                            selection.reject('Release candidate')
-                        }
-                    }
-                }
-
                 // Replace commons logging by slf4j, if present
                 dependencySubstitution {
                     substitute module('commons-logging:commons-logging') with module("org.slf4j:jcl-over-slf4j:${project.versions.slf4j}")
