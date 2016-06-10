@@ -40,7 +40,7 @@ allprojects {
         junitQuickcheck: '0.6'
     ]
 
-    project.ext.replaceDependencyGroupVersion = { DependencyResolveDetails details, String group, String version ->
+    ext.replaceDependencyGroupVersion = { DependencyResolveDetails details, String group, String version ->
         if (details.requested.group == group || details.requested.group.startsWith(group + ".")) {
             details.useVersion version
         }
@@ -111,15 +111,31 @@ allprojects {
 
         project.configurations.all {
 
-            // Replace commons logging by slf4j, if present
-            resolutionStrategy.dependencySubstitution {
-                substitute module('commons-logging:commons-logging') with module("org.slf4j:jcl-over-slf4j:${project.versions.slf4j}")
-            }
+            resolutionStrategy {
 
-            // Override some dependency versions
-            resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-                project.replaceDependencyGroupVersion(details, 'com.fasterxml.jackson', project.versions.jackson)
-                project.replaceDependencyGroupVersion(details, 'org.slf4j', project.versions.slf4j)
+                // Exclude release candidate versions
+                componentSelection {
+                    all { ComponentSelection selection ->
+                        boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm'].any { qualifier ->
+                            selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
+                        }
+                        if (rejected) {
+                            selection.reject('Release candidate')
+                        }
+                    }
+                }
+
+                // Replace commons logging by slf4j, if present
+                dependencySubstitution {
+                    substitute module('commons-logging:commons-logging') with module("org.slf4j:jcl-over-slf4j:${project.versions.slf4j}")
+                }
+
+                // Override some dependency versions
+                eachDependency { DependencyResolveDetails details ->
+                    project.replaceDependencyGroupVersion(details, 'com.fasterxml.jackson', project.versions.jackson)
+                    project.replaceDependencyGroupVersion(details, 'org.slf4j', project.versions.slf4j)
+                }
+
             }
 
         }
