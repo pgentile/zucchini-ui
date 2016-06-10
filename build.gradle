@@ -37,7 +37,8 @@ allprojects {
         junit          : '4.12',
         assertj        : '3.4.1',
         mockito        : '1.10.19',
-        junitQuickcheck: '0.6'
+        junitQuickcheck: '0.6',
+        capsule        : '1.0.2'
     ]
 
     ext.replaceDependencyGroupVersion = { DependencyResolveDetails details, String group, String version ->
@@ -310,7 +311,7 @@ project("${rootProject.name}-capsule") {
 
     }
 
-    capsule.version = '1.0.2'
+    capsule.version = versions.capsule
 
     task fatCapsule(type: FatCapsule, description: 'Build Capsule') {
 
