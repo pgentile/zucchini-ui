@@ -1,9 +1,9 @@
-package io.zucchiniui.backend.comment.domain;
+package io.zucchiniui.backend.shared.domain;
 
 /**
  * Reference type.
  */
-public enum CommentReferenceType {
+public enum ItemReferenceType {
 
     TEST_RUN_ID,
     SCENARIO_ID,
@@ -15,8 +15,8 @@ public enum CommentReferenceType {
      * @param reference Reference
      * @return Created reference
      */
-    public CommentReference createReference(final String reference) {
-        return new CommentReference(this, reference);
+    public ItemReference createReference(final String reference) {
+        return new ItemReference(this, reference);
     }
 
 }

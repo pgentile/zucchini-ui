@@ -2,8 +2,8 @@ package io.zucchiniui.backend.comment.rest;
 
 import io.dropwizard.jersey.PATCH;
 import io.zucchiniui.backend.comment.domain.Comment;
-import io.zucchiniui.backend.comment.domain.CommentReference;
 import io.zucchiniui.backend.comment.domain.CommentRepository;
+import io.zucchiniui.backend.shared.domain.ItemReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -36,9 +36,9 @@ public class CommentResource {
 
     private final URI baseUri;
 
-    private final Set<CommentReference> mainReferences;
+    private final Set<ItemReference> mainReferences;
 
-    private final Set<CommentReference> extraReferences;
+    private final Set<ItemReference> extraReferences;
 
     @Component
     public static class Factory {
@@ -51,8 +51,8 @@ public class CommentResource {
 
         public CommentResource create(
             final URI baseUri,
-            final Set<CommentReference> findReferences,
-            final Set<CommentReference> createReferences
+            final Set<ItemReference> findReferences,
+            final Set<ItemReference> createReferences
         ) {
             return new CommentResource(this, baseUri, findReferences, createReferences);
         }
@@ -62,8 +62,8 @@ public class CommentResource {
     private CommentResource(
         final Factory factory,
         final URI baseUri,
-        final Set<CommentReference> mainReferences,
-        final Set<CommentReference> extraReferences
+        final Set<ItemReference> mainReferences,
+        final Set<ItemReference> extraReferences
     ) {
         if (mainReferences.isEmpty()) {
             throw new IllegalArgumentException("Find references are not defined");
@@ -104,7 +104,7 @@ public class CommentResource {
     @POST
     @Path("create")
     public Response create(@Valid @NotNull final CreateCommentRequest request) {
-        final Set<CommentReference> references = new HashSet<>();
+        final Set<ItemReference> references = new HashSet<>();
         references.addAll(mainReferences);
         references.addAll(extraReferences);
 

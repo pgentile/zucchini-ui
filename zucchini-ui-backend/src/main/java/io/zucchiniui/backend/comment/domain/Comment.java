@@ -1,6 +1,7 @@
 package io.zucchiniui.backend.comment.domain;
 
 import com.google.common.collect.Sets;
+import io.zucchiniui.backend.shared.domain.ItemReference;
 import io.zucchiniui.backend.support.ddd.BaseEntity;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
@@ -39,7 +40,7 @@ public class Comment extends BaseEntity<String> {
      * Comment references.
      */
     @Embedded(concreteClass = HashSet.class)
-    private Set<CommentReference> references;
+    private Set<ItemReference> references;
 
     /**
      * Private constructor for Morphia.
@@ -53,7 +54,7 @@ public class Comment extends BaseEntity<String> {
      * @param references References
      * @param content    Comment content
      */
-    public Comment(final Iterable<CommentReference> references, final String content) {
+    public Comment(final Iterable<ItemReference> references, final String content) {
         id = UUID.randomUUID().toString();
         date = ZonedDateTime.now();
         this.references = Sets.newHashSet(references);
@@ -76,7 +77,7 @@ public class Comment extends BaseEntity<String> {
         return content;
     }
 
-    public Set<CommentReference> getReferences() {
+    public Set<ItemReference> getReferences() {
         return Collections.unmodifiableSet(references);
     }
 

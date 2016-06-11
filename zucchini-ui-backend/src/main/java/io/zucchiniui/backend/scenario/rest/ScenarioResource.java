@@ -3,8 +3,6 @@ package io.zucchiniui.backend.scenario.rest;
 import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
 import io.dropwizard.jersey.PATCH;
-import io.zucchiniui.backend.comment.domain.CommentReference;
-import io.zucchiniui.backend.comment.domain.CommentReferenceType;
 import io.zucchiniui.backend.comment.rest.CommentResource;
 import io.zucchiniui.backend.scenario.domain.Scenario;
 import io.zucchiniui.backend.scenario.domain.ScenarioQuery;
@@ -16,6 +14,8 @@ import io.zucchiniui.backend.scenario.views.ScenarioListItemView;
 import io.zucchiniui.backend.scenario.views.ScenarioStats;
 import io.zucchiniui.backend.scenario.views.ScenarioTagStats;
 import io.zucchiniui.backend.scenario.views.ScenarioViewAccess;
+import io.zucchiniui.backend.shared.domain.ItemReference;
+import io.zucchiniui.backend.shared.domain.ItemReferenceType;
 import io.zucchiniui.backend.shared.domain.TagSelection;
 import org.springframework.stereotype.Component;
 
@@ -129,13 +129,13 @@ public class ScenarioResource {
     public CommentResource getComments(@PathParam("scenarioId") final String scenarioId) {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
 
-        final Set<CommentReference> mainReferences = Collections.singleton(
-            CommentReferenceType.SCENARIO_KEY.createReference(scenario.getScenarioKey())
+        final Set<ItemReference> mainReferences = Collections.singleton(
+            ItemReferenceType.SCENARIO_KEY.createReference(scenario.getScenarioKey())
         );
 
-        final Set<CommentReference> extraReferences = Sets.newHashSet(
-            CommentReferenceType.TEST_RUN_ID.createReference(scenario.getTestRunId()),
-            CommentReferenceType.SCENARIO_ID.createReference(scenario.getId())
+        final Set<ItemReference> extraReferences = Sets.newHashSet(
+            ItemReferenceType.TEST_RUN_ID.createReference(scenario.getTestRunId()),
+            ItemReferenceType.SCENARIO_ID.createReference(scenario.getId())
         );
 
         final URI commentsUri = uriInfo.getBaseUriBuilder()

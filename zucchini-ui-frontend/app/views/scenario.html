@@ -41,6 +41,21 @@
     <tc-tags test-run-id="ctrl.scenario.testRunId" tags="ctrl.scenario.allTags"></tc-tags>
   </p>
 
+  <!-- FIXME Presence ! -->
+  <p style="color: red" ng-if="otherWatchers.length > 0">
+    <b>
+      <ng-pluralize count="otherWatchers.length"
+                    when="{ 'one': 'Une autre personne est', 'other': '{} autres personnes sont'}">
+      </ng-pluralize>
+      en train de regarder ce test.
+    </b>
+  </p>
+  <p style="color: green" ng-if="otherWatchers.length == 0">
+    <b>
+      Vous êtes le seul à regarder ce test.
+    </b>
+  </p>
+
   <hr>
 
   <div class="btn-toolbar" role="toolbar">

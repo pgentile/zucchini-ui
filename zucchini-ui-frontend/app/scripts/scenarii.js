@@ -71,7 +71,7 @@
 
 
   angular.module('zucchini-ui-frontend')
-    .controller('ScenarioCtrl', function (ScenarioCoreService, FeatureCoreService, TestRunCoreService, ConfirmationModalService, $routeParams, $q, $location, $filter, historyStoredFilters, stepFilters) {
+    .controller('ScenarioCtrl', function (ScenarioCoreService, FeatureCoreService, TestRunCoreService, ConfirmationModalService, PresenceService, $routeParams, $q, $location, $filter, $scope, historyStoredFilters, stepFilters) {
 
       this.load = function () {
 
@@ -94,6 +94,21 @@
           })
           .then(function (scenario) {
             this.scenario = scenario;
+
+            PresenceService.setReference({
+              type: 'SCENARIO_ID',
+              reference: scenario.id
+            });
+
+            PresenceService.onOtherWatchersUpdated = function (otherWatchers) {
+              $scope.otherWatchers = otherWatchers;
+            };
+
+            $scope.$on('$destroy', function () {
+              PresenceService.onOtherWatchersUpdated = null;
+              PresenceService.setReference(null);
+            });
+
           }.bind(this));
 
       };
@@ -265,8 +280,8 @@
       };
 
     })
-    .factory('stepFilters', function (ObjectBrowserStorage) {
-      return ObjectBrowserStorage.getItem('stepFilters', function () {
+    .factory('stepFilters', function (BrowserSessionStorage) {
+      return BrowserSessionStorage.getItem('stepFilters', function () {
         return {
           comments: true,
           context: true,

@@ -1,10 +1,12 @@
 package io.zucchiniui.backend.comment.domain;
 
+import io.zucchiniui.backend.shared.domain.ItemReference;
+
 public interface CommentQuery {
 
-    CommentQuery withReference(CommentReference commentReference);
+    CommentQuery withReference(ItemReference itemReference);
 
-    CommentQuery withReferences(Iterable<CommentReference> references);
+    CommentQuery withReferences(Iterable<ItemReference> references);
 
     CommentQuery orderByLatestFirst();
 

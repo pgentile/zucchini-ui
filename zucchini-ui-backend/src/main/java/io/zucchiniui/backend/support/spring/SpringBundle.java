@@ -10,17 +10,26 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import javax.ws.rs.Path;
 
-public abstract class AbstractSpringBundle implements ConfiguredBundle<Configuration> {
+public class SpringBundle implements ConfiguredBundle<Configuration> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractSpringBundle.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SpringBundle.class);
+
+    private final ConfigurableApplicationContext applicationContext;
+
+    public SpringBundle(final ConfigurableApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+        if (applicationContext.isActive()) {
+            throw new IllegalArgumentException("Spring context already started");
+        }
+    }
+
+    @Override
+    public void initialize(final Bootstrap<?> bootstrap) {
+
+    }
 
     @Override
     public void run(final Configuration configuration, final Environment environment) throws Exception {
-        final ConfigurableApplicationContext applicationContext = createApplicationContext();
-        if (applicationContext.isActive()) {
-            throw new IllegalStateException("Spring context already started");
-        }
-
         environment.lifecycle().manage(new SpringContextManaged(applicationContext));
 
         applicationContext.getBeanFactory().registerSingleton("dropwizardConfig", configuration);
@@ -32,12 +41,5 @@ public abstract class AbstractSpringBundle implements ConfiguredBundle<Configura
             environment.jersey().register(resource);
         });
     }
-
-    @Override
-    public void initialize(final Bootstrap<?> bootstrap) {
-
-    }
-
-    protected abstract ConfigurableApplicationContext createApplicationContext();
 
 }
