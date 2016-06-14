@@ -288,9 +288,9 @@
 
     })
     .service('ScenarioCoreService', ScenarioCoreService)
-    .service('ScenarioResource', function ($resource, baseUri) {
+    .service('ScenarioResource', function ($resource, UrlBuilder) {
       return $resource(
-        baseUri + '/scenarii/:scenarioId',
+        UrlBuilder.createApiUrl('/scenarii/:scenarioId'),
         {
           scenarioId: '@id',
           status: '@status',
@@ -299,7 +299,7 @@
         {
           getScenarioHistory: {
             method: 'GET',
-            url: baseUri + '/scenarii/:scenarioId/history',
+            url: UrlBuilder.createApiUrl('/scenarii/:scenarioId/history'),
             isArray: true
           },
           update: {
@@ -312,7 +312,7 @@
           },
           changeStatus: {
             method: 'POST',
-            url: baseUri + '/scenarii/:scenarioId/changeStatus',
+            url: UrlBuilder.createApiUrl('/scenarii/:scenarioId/changeStatus'),
             transformRequest: function (data) {
               // ID must be removed from input data
               delete data.id;
@@ -321,7 +321,7 @@
           },
           changeReviewState: {
             method: 'POST',
-            url: baseUri + '/scenarii/:scenarioId/changeReviewState',
+            url: UrlBuilder.createApiUrl('/scenarii/:scenarioId/changeReviewState'),
             transformRequest: function (data) {
               // ID must be removed from input data
               delete data.id;
@@ -330,20 +330,20 @@
           },
           getComments: {
             method: 'GET',
-            url: baseUri + '/scenarii/:scenarioId/comments',
+            url: UrlBuilder.createApiUrl('/scenarii/:scenarioId/comments'),
             isArray: true
           },
           getComment: {
             method: 'GET',
-            url: baseUri + '/scenarii/:scenarioId/comments/:commentId'
+            url: UrlBuilder.createApiUrl('/scenarii/:scenarioId/comments/:commentId')
           },
           deleteComment: {
             method: 'DELETE',
-            url: baseUri + '/scenarii/:scenarioId/comments/:commentId'
+            url: UrlBuilder.createApiUrl('/scenarii/:scenarioId/comments/:commentId')
           },
           updateComment: {
             method: 'PATCH',
-            url: baseUri + '/scenarii/:scenarioId/comments/:commentId',
+            url: UrlBuilder.createApiUrl('/scenarii/:scenarioId/comments/:commentId'),
             transformRequest: function (data) {
               // ID must be removed from input data
               delete data.id;
@@ -353,7 +353,7 @@
           },
           createComment: {
             method: 'POST',
-            url: baseUri + '/scenarii/:scenarioId/comments/create',
+            url: UrlBuilder.createApiUrl('/scenarii/:scenarioId/comments/create'),
             transformRequest: function (data) {
               // ID must be removed from input data
               delete data.id;
@@ -362,12 +362,12 @@
           },
           getTags: {
             method: 'GET',
-            url: baseUri + '/scenarii/tags',
+            url: UrlBuilder.createApiUrl('/scenarii/tags'),
             isArray: true
           },
           getStats: {
             method: 'GET',
-            url: baseUri + '/scenarii/stats'
+            url: UrlBuilder.createApiUrl('/scenarii/stats')
           }
         }
        );

@@ -110,14 +110,14 @@
       });
     })
     .service('FeatureCoreService', FeatureCoreService)
-    .service('FeatureResource', function ($resource, baseUri) {
+    .service('FeatureResource', function ($resource, UrlBuilder) {
       return $resource(
-        baseUri + '/features/:featureId',
+        UrlBuilder.createApiUrl('/features/:featureId'),
         { featureId: '@id' },
         {
           getFeatureHistory: {
             method: 'GET',
-            url: baseUri + '/features/:featureId/history',
+            url: UrlBuilder.createApiUrl('/features/:featureId/history'),
              isArray: true,
           }
         }

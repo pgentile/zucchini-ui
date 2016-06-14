@@ -1,7 +1,7 @@
 (function (angular) {
   'use strict';
 
-  var TestRunCoreService = function ($httpParamSerializer, TestRunResource, Upload, baseUri) {
+  var TestRunCoreService = function ($httpParamSerializer, TestRunResource, Upload, UrlBuilder) {
 
     this.getLatests = function (withStats) {
       return TestRunResource.query({ withStats: withStats || false }).$promise;
@@ -28,8 +28,7 @@
     };
 
     this.importCucumberResults = function (testRunId, file, importOptions) {
-      var queryParams = $httpParamSerializer(importOptions);
-      var url = baseUri + '/testRuns/' + testRunId + '/import?' + queryParams;
+      var url = UrlBuilder.createApiUrl('/testRuns/' + testRunId + '/import', importOptions);
 
       return Upload.http({
          url: url,
@@ -314,14 +313,14 @@
 
     })
     .service('TestRunCoreService', TestRunCoreService)
-    .service('TestRunResource', function ($resource, baseUri) {
+    .service('TestRunResource', function ($resource, UrlBuilder) {
       return $resource(
-        baseUri + '/testRuns/:testRunId',
+        UrlBuilder.createApiUrl('/testRuns/:testRunId'),
         { testRunId: '@id' },
         {
           create: {
             method: 'POST',
-            url: baseUri + '/testRuns/create'
+            url: UrlBuilder.createApiUrl('/testRuns/create')
           },
           update: {
             method: 'PATCH',
@@ -332,7 +331,7 @@
             }
           },
           getScenarioDiff: {
-            url: baseUri + '/testRuns/:leftTestRunId/scenarioDiff/:rightTestRunId'
+            url: UrlBuilder.createApiUrl('/testRuns/:leftTestRunId/scenarioDiff/:rightTestRunId')
           }
         }
       );

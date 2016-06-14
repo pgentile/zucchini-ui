@@ -10,7 +10,7 @@
       'angular-loading-bar',
       'monospaced.elastic'
     ])
-    .constant('baseUri', _.trimEnd(appConfig.apiBaseUri, '/'))
+    .constant('baseUri', appConfig.apiBaseUri)
     .config(function ($compileProvider) {
       $compileProvider.debugInfoEnabled(appConfig.angularDebugMode || false);
     })
