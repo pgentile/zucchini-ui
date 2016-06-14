@@ -7,8 +7,8 @@
   "test": {
     "port": 9001
   },
-  "api": {
-    "baseUri": "http://localhost:8080/api"
-  },
-  "angularDebugMode": true
+  "ui": {
+    "apiBaseUri": "http://localhost:8080/api",
+    "angularDebugMode": true
+  }
 }

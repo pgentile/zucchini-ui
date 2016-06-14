@@ -1,10 +1,10 @@
 (function (angular) {
   'use strict';
 
-  var UrlBuilder = function ($httpParamSerializer, baseUri) {
+  var UrlBuilder = function ($httpParamSerializer, config) {
 
     this.createApiUrl = function (path, queryParams) {
-      var url = _.trimEnd(baseUri, '/') + '/' + _.trimStart(path, '/');
+      var url = _.trimEnd(config.apiBaseUri, '/') + '/' + _.trimStart(path, '/');
       if (!_.isUndefined(queryParams) && queryParams.length > 0) {
         url += '?' + $httpParamSerializer(queryParams);
       }

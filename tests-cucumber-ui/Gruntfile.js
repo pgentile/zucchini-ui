@@ -22,30 +22,25 @@ module.exports = function (grunt) {
   });
 
   // Configurable paths for the application
-  var appConfig = {
+  var config = {
     app: 'app',
     dist: 'build/dist/ui'
   };
 
-  var externalAppConfig = require('./config.json');
-  appConfig = merge(appConfig, externalAppConfig);
+  var externalConfig = require('./config.json');
+  config = merge(config, externalConfig);
 
   // Connect function to serve a Javascript configuration file
   var javascriptConfigMiddleware = function (req, res) {
-    var config = {
-      apiBaseUri: appConfig.api.baseUri,
-      angularDebugMode: appConfig.angularDebugMode
-    };
-
     res.writeHead(200, {'Content-Type': 'application/javascript'});
-    res.end('var configuration = ' + JSON.stringify(config) + ';');
+    res.end('var configuration = ' + JSON.stringify(config.ui) + ';');
   };
 
   // Define the configuration for all the tasks
   grunt.initConfig({
 
     // Project settings
-    yeoman: appConfig,
+    yeoman: config,
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -104,7 +99,7 @@ module.exports = function (grunt) {
                 '/bower_components',
                 serveStatic('./bower_components')
               ),
-              serveStatic(appConfig.app)
+              serveStatic(config.app)
             ];
           }
         }
@@ -124,7 +119,7 @@ module.exports = function (grunt) {
                 '/bower_components',
                 serveStatic('./bower_components')
               ),
-              serveStatic(appConfig.app)
+              serveStatic(config.app)
             ];
           }
         }
@@ -138,7 +133,7 @@ module.exports = function (grunt) {
                 '/scripts/config.js',
                 javascriptConfigMiddleware
               ),
-              connect.static(appConfig.dist)
+              connect.static(config.dist)
             ];
           }
         }

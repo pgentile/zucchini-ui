@@ -1,5 +1,12 @@
-(function (angular, appConfig) {
+(function (angular, customConfig) {
   'use strict';
+
+
+  // Create real configuration by merging default values with configuration
+  var realConfig = _.merge({
+    angularDebugMode: false
+  }, customConfig);
+
 
   angular
     .module('testsCucumberApp', [
@@ -10,9 +17,10 @@
       'angular-loading-bar',
       'monospaced.elastic'
     ])
-    .constant('baseUri', appConfig.apiBaseUri)
-    .config(function ($compileProvider) {
-      $compileProvider.debugInfoEnabled(appConfig.angularDebugMode || false);
+    .constant('config', realConfig)
+    .config(function ($compileProvider, config) {
+      // Enable Angular debug mode if requested
+      $compileProvider.debugInfoEnabled(config.angularDebugMode);
     })
     .config(function ($routeProvider) {
       $routeProvider
