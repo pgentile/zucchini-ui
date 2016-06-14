@@ -2,14 +2,14 @@ package io.testscucumber.capsule;
 
 class UIConfig {
 
-    private String apiBaseUri;
+    private String backendBaseUri;
 
-    public String getApiBaseUri() {
-        return apiBaseUri;
+    public String getBackendBaseUri() {
+        return backendBaseUri;
     }
 
-    public void setApiBaseUri(final String apiBaseUri) {
-        this.apiBaseUri = apiBaseUri;
+    public void setBackendBaseUri(final String backendBaseUri) {
+        this.backendBaseUri = backendBaseUri;
     }
 
 }

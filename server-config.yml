@@ -1,5 +1,6 @@
 server:
   type: default
+  # Never change the following param!
   rootPath: /api
   minThreads:  12
   maxThreads: 48

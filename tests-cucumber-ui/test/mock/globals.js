@@ -1,3 +1,3 @@
 var configuration = {
-  apiBaseUri: "http://localhost:8080"
+  backendBaseUri: "http://localhost:8080"
 };

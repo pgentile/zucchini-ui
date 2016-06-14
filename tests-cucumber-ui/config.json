@@ -8,7 +8,7 @@
     "port": 9001
   },
   "ui": {
-    "apiBaseUri": "http://localhost:8080/api",
+    "backendBaseUri": "http://localhost:8080",
     "angularDebugMode": true
   }
 }

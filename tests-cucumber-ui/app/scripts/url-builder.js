@@ -4,7 +4,7 @@
   var UrlBuilder = function ($httpParamSerializer, config) {
 
     this.createApiUrl = function (path, queryParams) {
-      var url = _.trimEnd(config.apiBaseUri, '/') + '/' + _.trimStart(path, '/');
+      var url = _.trimEnd(config.backendBaseUri, '/') + '/api/' + _.trimStart(path, '/');
       if (!_.isUndefined(queryParams) && queryParams.length > 0) {
         url += '?' + $httpParamSerializer(queryParams);
       }

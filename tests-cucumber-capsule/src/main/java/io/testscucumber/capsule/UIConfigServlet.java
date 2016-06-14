@@ -22,7 +22,7 @@ class UIConfigServlet extends HttpServlet {
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
         final UIConfig uiConfig = new UIConfig();
-        uiConfig.setApiBaseUri(getApiBaseUri(request));
+        uiConfig.setBackendBaseUri(getBackendBaseUri(request));
 
         response.setStatus(200);
         response.setContentType("application/javascript");
@@ -31,9 +31,9 @@ class UIConfigServlet extends HttpServlet {
         response.getOutputStream().print("var configuration = " + serializedConfig + ";");
     }
 
-    private String getApiBaseUri(final HttpServletRequest request) {
-        final StringBuilder apiBaseUri = new StringBuilder();
-        apiBaseUri.append(request.getScheme()).append("://").append(request.getServerName());
+    private String getBackendBaseUri(final HttpServletRequest request) {
+        final StringBuilder baseUri = new StringBuilder();
+        baseUri.append(request.getScheme()).append("://").append(request.getServerName());
 
         final boolean addPort;
         switch (request.getScheme()) {
@@ -48,11 +48,10 @@ class UIConfigServlet extends HttpServlet {
                 break;
         }
         if (addPort) {
-            apiBaseUri.append(':').append(request.getServerPort());
+            baseUri.append(':').append(request.getServerPort());
         }
 
-        apiBaseUri.append(apiRootPath);
-        return apiBaseUri.toString();
+        return baseUri.toString();
     }
 
 }
