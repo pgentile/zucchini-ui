@@ -1,81 +1,89 @@
 <div>
 
-  <div class="form" style="margin-bottom: 10px">
+  <div ng-if="$ctrl.scenarii.length > 0">
 
-    <div class="form-group">
-      <b>Filtrer les scénarii :</b>
-      <label class="checkbox-inline">
-        <input type="checkbox" ng-model="$ctrl.filters.passed" ng-change="$ctrl.onFilterChange()"> Succès
-      </label>
-      <label class="checkbox-inline">
-        <input type="checkbox" ng-model="$ctrl.filters.failed" ng-change="$ctrl.onFilterChange()"> Échecs
-      </label>
-      <label class="checkbox-inline">
-        <input type="checkbox" ng-model="$ctrl.filters.pending" ng-change="$ctrl.onFilterChange()"> En attente
-      </label>
-      <label class="checkbox-inline">
-        <input type="checkbox" ng-model="$ctrl.filters.notRun" ng-change="$ctrl.onFilterChange()"> Non joués
-      </label>
-      <label class="checkbox-inline">
-        <input type="checkbox" ng-model="$ctrl.filters.reviewed" ng-change="$ctrl.onFilterChange()"> Analysés
-      </label>
+    <div class="form" style="margin-bottom: 10px">
+
+      <div class="form-group">
+        <b>Filtrer les scénarii :</b>
+        <label class="checkbox-inline">
+          <input type="checkbox" ng-model="$ctrl.filters.passed" ng-change="$ctrl.onFilterChange()"> Succès
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" ng-model="$ctrl.filters.failed" ng-change="$ctrl.onFilterChange()"> Échecs
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" ng-model="$ctrl.filters.pending" ng-change="$ctrl.onFilterChange()"> En attente
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" ng-model="$ctrl.filters.notRun" ng-change="$ctrl.onFilterChange()"> Non joués
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" ng-model="$ctrl.filters.reviewed" ng-change="$ctrl.onFilterChange()"> Analysés
+        </label>
+      </div>
+
     </div>
+
+    <table class="table table-striped table-bordered">
+
+      <thead>
+      <tr>
+        <th ng-if="$ctrl.columns.isDisplayable('feature')" class="col-md-{{ $ctrl.columns.getDisplaySize('feature') }}">
+          Fonctionnalité
+        </th>
+        <th class="col-md-{{ $ctrl.columns.getDisplaySize('scenario') }}">
+          Scénario
+        </th>
+        <th class="col-md-{{ $ctrl.columns.getDisplaySize('status') }}">
+          Statut
+        </th>
+        <th class="col-md-{{ $ctrl.columns.getDisplaySize('reviewed') }}">
+          Analysé
+        </th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr
+        ng-repeat="scenario in $ctrl.scenarii | filter:$ctrl.isScenarioDisplayable as filteredScenarii track by scenario.id">
+        <td ng-if="$ctrl.columns.isDisplayable('feature')">
+          <a ng-href="#/features/{{ scenario.feature.id }}">
+            {{ scenario.feature.info.name }}
+          </a>
+        </td>
+        <td>
+          <a ng-href="#/scenarii/{{ scenario.id }}">
+            <tc-element-info info="scenario.info"></tc-element-info>
+          </a>
+        </td>
+        <td>
+          <tc-status status="scenario.status"></tc-status>
+        </td>
+        <td>
+          <span class="label label-success" ng-if="scenario.reviewed">Oui</span>
+          <span class="label label-default" ng-if="!scenario.reviewed">Non</span>
+        </td>
+      </tr>
+      </tbody>
+
+      <tfoot ng-if="filteredScenarii.length != $ctrl.scenarii.length">
+      <tr>
+        <td class="warning" colspan="{{ $ctrl.columns.count() }}" style="text-align: center">
+          Attention :
+          <ng-pluralize count="$ctrl.scenarii.length - filteredScenarii.length"
+                        when="{ 'one': 'un scénario masqué', 'other': '{} scénarii masqués'}">
+          </ng-pluralize>
+        </td>
+      </tr>
+      </tfoot>
+
+    </table>
 
   </div>
 
-  <table class="table table-striped table-bordered">
-
-    <thead>
-    <tr>
-      <th ng-if="$ctrl.columns.isDisplayable('feature')" class="col-md-{{ $ctrl.columns.getDisplaySize('feature') }}">
-        Fonctionnalité
-      </th>
-      <th class="col-md-{{ $ctrl.columns.getDisplaySize('scenario') }}">
-        Scénario
-      </th>
-      <th class="col-md-{{ $ctrl.columns.getDisplaySize('status') }}">
-        Statut
-      </th>
-      <th class="col-md-{{ $ctrl.columns.getDisplaySize('reviewed') }}">
-        Analysé
-      </th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <tr
-      ng-repeat="scenario in $ctrl.scenarii | filter:$ctrl.isScenarioDisplayable as filteredScenarii track by scenario.id">
-      <td ng-if="$ctrl.columns.isDisplayable('feature')">
-        <a ng-href="#/features/{{ scenario.feature.id }}">
-          {{ scenario.feature.info.name }}
-        </a>
-      </td>
-      <td>
-        <a ng-href="#/scenarii/{{ scenario.id }}">
-          <tc-element-info info="scenario.info"></tc-element-info>
-        </a>
-      </td>
-      <td>
-        <tc-status status="scenario.status"></tc-status>
-      </td>
-      <td>
-        <span class="label label-success" ng-if="scenario.reviewed">Oui</span>
-        <span class="label label-default" ng-if="!scenario.reviewed">Non</span>
-      </td>
-    </tr>
-    </tbody>
-
-    <tfoot ng-if="filteredScenarii.length != $ctrl.scenarii.length">
-    <tr>
-      <td class="warning" colspan="{{ $ctrl.columns.count() }}" style="text-align: center">
-        Attention :
-        <ng-pluralize count="$ctrl.scenarii.length - filteredScenarii.length"
-                      when="{ 'one': 'un scénario masqué', 'other': '{} scénarii masqués'}">
-        </ng-pluralize>
-      </td>
-    </tr>
-    </tfoot>
-
-  </table>
+  <div ng-if="$ctrl.scenarii.length == 0">
+    <p class="text-muted text-center">Aucun scénario</p>
+  </div>
 
 </div>
