@@ -10,6 +10,7 @@ import java.util.List;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
     @JsonSubTypes.Type(value = ReportScenario.class, name = "scenario"),
+    @JsonSubTypes.Type(value = ReportScenarioOutline.class, name = "scenario_outline"),
     @JsonSubTypes.Type(value = ReportBackground.class, name = "background")
 })
 public class ReportFeatureElement extends CucumberElement {

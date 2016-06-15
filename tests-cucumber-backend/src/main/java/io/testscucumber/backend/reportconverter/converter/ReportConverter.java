@@ -5,9 +5,12 @@ import io.testscucumber.backend.reportconverter.report.ReportBackground;
 import io.testscucumber.backend.reportconverter.report.ReportFeature;
 import io.testscucumber.backend.reportconverter.report.ReportFeatureElement;
 import io.testscucumber.backend.reportconverter.report.ReportScenario;
+import io.testscucumber.backend.reportconverter.report.ReportScenarioOutline;
 import io.testscucumber.backend.scenario.domain.BackgroundBuilder;
 import io.testscucumber.backend.scenario.domain.Scenario;
 import io.testscucumber.backend.scenario.domain.ScenarioBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -19,6 +22,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class ReportConverter {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReportConverter.class);
 
     private final ReportFeatureConverter reportFeatureConverter;
 
@@ -67,6 +72,8 @@ public class ReportConverter {
 
             } else if (reportFeatureElement instanceof ReportBackground) {
                 backgroundBuilderConsumer = reportScenarioConverter.createBackgroundBuilderConsumer((ReportBackground) reportFeatureElement);
+            } else if (reportFeatureElement instanceof ReportScenarioOutline) {
+                LOGGER.debug("Ignoring scenario outline: {}", reportFeatureElement);
             } else {
                 throw new IllegalStateException("Unhandled type: " + reportFeatureElement);
             }
