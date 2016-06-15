@@ -149,9 +149,9 @@
           this.filters = scenarioStoredFilters.get();
         };
 
-        this.$onChanges = function (bindings) {
+        this.$onChanges = function () {
           // Init selected scenarii to bound scenarii
-          if (bindings.scenarii && bindings.scenarii.currentValue) {
+          if (this.scenarii) {
             this.updateScenariiSelection();
           }
         };
@@ -218,9 +218,9 @@
           this.filters = featureStoredFilters.get();
         };
 
-        this.$onChanges = function (bindings) {
+        this.$onChanges = function () {
           // Init selected features to bound features
-          if (bindings.features && bindings.features.currentValue) {
+          if (this.features) {
             this.updateFeatureSelection();
           }
         };
@@ -272,6 +272,38 @@
           reviewed: true
         };
       });
-    });
+    })
+    .component('tcPieChart', {
+      templateUrl: 'views/tc-feature-list.html',
+      bindings: {
+        data: '<',
+        total: '<'
+      },
+      controller: function ($element) {
+
+        this.chart = null;
+
+        this.$postLink = function () {
+          // Attach chart to current element
+          this.chart = new Chartist.Pie($element[0]);
+        };
+
+        this.$onChanges = function () {
+          // Init selected features to bound features
+          if (this.data && _.isNumber(this.total)) {
+            this.chart.update(this.data, {
+              total: this.total,
+              donut: true,
+            }, true);
+          }
+        };
+
+        this.$onDestroy = function () {
+          // Release chart resources on directive destroy
+          this.chart.detach();
+        };
+
+    }
+  });
 
 })(angular);
