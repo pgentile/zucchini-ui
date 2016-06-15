@@ -1,20 +1,28 @@
 <div class="row">
-  <div class="col-md-4">
-    <p class="text-center">Tous les tests</p>
-    <div style="height: 20rem">
-      <tc-scenario-pie-chart stats="$ctrl.stats" kind="all"></tc-scenario-pie-chart>
+
+  <div ng-if="$ctrl.stats.all.count > 0">
+    <div class="col-md-4">
+      <p class="text-center">Tous les scénarii</p>
+      <div style="height: 20rem">
+        <tc-scenario-pie-chart stats="$ctrl.stats" kind="all"></tc-scenario-pie-chart>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <p class="text-center">Scénarii analysés</p>
+      <div style="height: 20rem">
+        <tc-scenario-pie-chart stats="$ctrl.stats" kind="reviewed"></tc-scenario-pie-chart>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <p class="text-center">Scénarii non analysés</p>
+      <div style="height: 20rem">
+        <tc-scenario-pie-chart stats="$ctrl.stats" kind="nonReviewed"></tc-scenario-pie-chart>
+      </div>
     </div>
   </div>
-  <div class="col-md-4">
-    <p class="text-center">Tests analysés</p>
-    <div style="height: 20rem">
-      <tc-scenario-pie-chart stats="$ctrl.stats" kind="reviewed"></tc-scenario-pie-chart>
-    </div>
+
+  <div ng-if="$ctrl.stats.all.count == 0">
+    <p class="text-muted text-center">Aucun scénario</p>
   </div>
-  <div class="col-md-4">
-    <p class="text-center">Tests non analysés</p>
-    <div style="height: 20rem">
-      <tc-scenario-pie-chart stats="$ctrl.stats" kind="nonReviewed"></tc-scenario-pie-chart>
-    </div>
-  </div>
+
 </div>
