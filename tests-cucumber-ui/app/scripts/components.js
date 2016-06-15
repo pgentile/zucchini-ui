@@ -126,8 +126,7 @@
       templateUrl: 'views/tc-scenario-list.html',
       bindings: {
         scenarii: '<',
-        displayFeature: '@',
-        extraFilter: '<'
+        displayFeature: '@'
       },
       controller: function (scenarioStoredFilters) {
 
@@ -137,6 +136,8 @@
           status: 1,
           reviewed: 1
         });
+
+        this.selectedScenarii = [];
 
         this.$onInit = function () {
           // Configure columns
@@ -148,12 +149,24 @@
           this.filters = scenarioStoredFilters.get();
         };
 
+        this.$onChanges = function (bindings) {
+          // Init selected scenarii to bound scenarii
+          if (bindings.scenarii && bindings.scenarii.currentValue) {
+            this.updateScenariiSelection();
+          }
+        };
+
+        this.updateScenariiSelection = function () {
+          this.selectedScenarii = _.filter(this.scenarii, this.isScenarioDisplayable);
+        };
+
         this.onFilterChange = function () {
           scenarioStoredFilters.save(this.filters);
+          this.updateScenariiSelection();
         };
 
         this.isScenarioDisplayable = function (scenario) {
-          return this.isScenarioStatusDisplayable(scenario) && this.isScenarioReviewedStateDisplayable(scenario) && this.isScenarioAcceptedByExtraFilter(scenario);
+          return this.isScenarioStatusDisplayable(scenario) && this.isScenarioReviewedStateDisplayable(scenario);
         }.bind(this);
 
         this.isScenarioStatusDisplayable = function (scenario) {
@@ -178,13 +191,6 @@
           return true;
         };
 
-        this.isScenarioAcceptedByExtraFilter = function (scenario) {
-          if (!_.isUndefined(this.extraFilter)) {
-            return this.extraFilter(scenario);
-          }
-          return true;
-        };
-
       }
     })
     .factory('scenarioStoredFilters', function (ObjectBrowserStorage) {
@@ -201,28 +207,31 @@
     .component('tcFeatureList', {
       templateUrl: 'views/tc-feature-list.html',
       bindings: {
-        features: '<',
-        onFeaturesFiltered: '&'
+        features: '<'
       },
-      controller: function (featureStoredFilters, $scope) {
+      controller: function (featureStoredFilters) {
+
+        this.selectedFeatures = [];
 
         this.$onInit = function () {
           // Init filters
           this.filters = featureStoredFilters.get();
+        };
 
-          // Watch changes on filtered feature list
-          $scope.$watch('filteredFeatures', function (filteredFeatures) {
-            if (_.isArray(filteredFeatures)) {
-              var featureIds = filteredFeatures.map(function (feature) {
-                return feature.id;
-              });
-              this.onFeaturesFiltered({ featureIds: featureIds });
-            }
-          }.bind(this));
+        this.$onChanges = function (bindings) {
+          // Init selected features to bound features
+          if (bindings.features && bindings.features.currentValue) {
+            this.updateFeatureSelection();
+          }
+        };
+
+        this.updateFeatureSelection = function () {
+          this.selectedFeatures = _.filter(this.features, this.isFeatureDisplayable);
         };
 
         this.onFilterChange = function () {
           featureStoredFilters.save(this.filters);
+          this.updateFeatureSelection();
         };
 
         this.isFeatureDisplayable = function (feature) {

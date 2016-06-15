@@ -44,7 +44,7 @@
       </thead>
       <tbody>
       <tr
-        ng-repeat="feature in $ctrl.features | filter:$ctrl.isFeatureDisplayable as filteredFeatures track by feature.id">
+        ng-repeat="feature in $ctrl.selectedFeatures track by feature.id">
         <td>{{ feature.group }}</td>
         <td>
           <a ng-href="#/features/{{ feature.id }}">
@@ -62,11 +62,11 @@
         <td><span class="badge">{{ feature.stats.reviewed.count }}</span></td>
       </tr>
       </tbody>
-      <tfoot ng-if="filteredFeatures.length != $ctrl.features.length">
+      <tfoot ng-if="$ctrl.selectedFeatures.length != $ctrl.features.length">
       <tr>
         <td class="warning" colspan="12" style="text-align: center">
           Attention :
-          <ng-pluralize count="$ctrl.features.length - filteredFeatures.length"
+          <ng-pluralize count="$ctrl.features.length - $ctrl.selectedFeatures.length"
                         when="{ 'one': 'une fonctionnalité masquée', 'other': '{} fonctionnalités masquées'}">
           </ng-pluralize>
         </td>

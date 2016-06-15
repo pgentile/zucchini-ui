@@ -46,7 +46,7 @@
 
       <tbody>
       <tr
-        ng-repeat="scenario in $ctrl.scenarii | filter:$ctrl.isScenarioDisplayable as filteredScenarii track by scenario.id">
+        ng-repeat="scenario in $ctrl.selectedScenarii track by scenario.id">
         <td ng-if="$ctrl.columns.isDisplayable('feature')">
           <a ng-href="#/features/{{ scenario.feature.id }}">
             {{ scenario.feature.info.name }}
@@ -67,11 +67,11 @@
       </tr>
       </tbody>
 
-      <tfoot ng-if="filteredScenarii.length != $ctrl.scenarii.length">
+      <tfoot ng-if="$ctrl.selectedScenarii.length != $ctrl.scenarii.length">
       <tr>
         <td class="warning" colspan="{{ $ctrl.columns.count() }}" style="text-align: center">
           Attention :
-          <ng-pluralize count="$ctrl.scenarii.length - filteredScenarii.length"
+          <ng-pluralize count="$ctrl.scenarii.length - $ctrl.selectedScenarii.length"
                         when="{ 'one': 'un scénario masqué', 'other': '{} scénarii masqués'}">
           </ng-pluralize>
         </td>
