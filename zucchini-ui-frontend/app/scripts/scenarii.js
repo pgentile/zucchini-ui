@@ -95,20 +95,6 @@
           .then(function (scenario) {
             this.scenario = scenario;
 
-            PresenceService.setReference({
-              type: 'SCENARIO_ID',
-              reference: scenario.id
-            });
-
-            PresenceService.onOtherWatchersUpdated = function (otherWatchers) {
-              $scope.otherWatchers = otherWatchers;
-            };
-
-            $scope.$on('$destroy', function () {
-              PresenceService.onOtherWatchersUpdated = null;
-              PresenceService.setReference(null);
-            });
-
           }.bind(this));
 
       };
@@ -175,11 +161,35 @@
         stepFilters.save(this.stepFilters);
       }.bind(this);
 
+      // Load scenario
 
       this.load()
         .then(function () {
           this.loadHistory();
         }.bind(this));
+
+
+      // Start presence service
+
+      this.presence = {
+        otherWatchers: [],
+        known: false
+      };
+
+      PresenceService.onOtherWatchersUpdated(function (otherWatchers) {
+        this.presence.known = true;
+        this.presence.otherWatchers = otherWatchers;
+      }.bind(this));
+
+      PresenceService.watchReference({
+        type: 'SCENARIO_ID',
+        reference: $routeParams.scenarioId
+      });
+
+      // Unwatch on controller destruction
+      $scope.$on('$destroy', function () {
+        PresenceService.unwatch();
+      });
 
     })
     .controller('ScenarioCommentsCtrl', function ($scope, $filter, ScenarioCoreService, TestRunCoreService, ConfirmationModalService) {
