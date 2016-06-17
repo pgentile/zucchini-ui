@@ -31,7 +31,7 @@ void replaceDependencyGroupVersion(DependencyResolveDetails details, String grou
 
 allprojects {
 
-    group = 'org.example.tests-cucumber'
+    group = 'io.zucchini-ui'
 
     apply plugin: 'idea'
 
@@ -188,7 +188,7 @@ project("${rootProject.name}-backend") {
 }
 
 
-project("${rootProject.name}-ui") {
+project("${rootProject.name}-frontend") {
 
     apply plugin: 'java'
     apply plugin: 'com.google.osdetector'
@@ -302,7 +302,7 @@ project("${rootProject.name}-capsule") {
     dependencies {
 
         compile project(":${rootProject.name}-backend")
-        compile project(":${rootProject.name}-ui")
+        compile project(":${rootProject.name}-frontend")
         compile "io.dropwizard:dropwizard-assets:${versions.dropwizard}"
 
     }
@@ -311,7 +311,7 @@ project("${rootProject.name}-capsule") {
 
     task fatCapsule(type: FatCapsule, description: 'Build Capsule') {
 
-        applicationClass 'io.testscucumber.capsule.TestsCucumberApplication'
+        applicationClass 'io.testscucumber.capsule.ZucchiniUIApplication'
 
         capsuleManifest {
             minJavaVersion = '1.8.0'
