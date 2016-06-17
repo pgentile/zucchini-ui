@@ -1,4 +1,4 @@
-package io.testscucumber.examples
+package io.zucchiniui.examples
 
 import cucumber.api.PendingException
 import cucumber.api.groovy.Hooks

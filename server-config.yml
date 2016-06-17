@@ -11,7 +11,3 @@ mongoUri: "mongodb://${MONGO_HOST:-localhost}/${MONGO-DB:-reports}?connectTimeou
 
 logging:
   level: INFO
-
-  loggers:
-    "io.dropwizard": DEBUG
-    "io.testscucumber": DEBUG

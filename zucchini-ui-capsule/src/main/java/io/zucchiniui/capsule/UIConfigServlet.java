@@ -1,4 +1,4 @@
-package io.testscucumber.capsule;
+package io.zucchiniui.capsule;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

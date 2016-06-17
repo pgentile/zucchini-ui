@@ -1,4 +1,4 @@
-package io.testscucumber.examples
+package io.zucchiniui.examples
 
 import cucumber.api.DataTable
 import cucumber.api.PendingException

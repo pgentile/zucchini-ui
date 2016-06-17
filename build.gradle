@@ -180,7 +180,7 @@ project("${rootProject.name}-backend") {
 
         classpath = sourceSets.main.runtimeClasspath
 
-        main = 'io.testscucumber.backend.BackendApplication'
+        main = 'io.zucchiniui.backend.BackendApplication'
 
         args += ['serve', "${rootDir}/server-config.yml"]
     }
@@ -311,7 +311,7 @@ project("${rootProject.name}-capsule") {
 
     task fatCapsule(type: FatCapsule, description: 'Build Capsule') {
 
-        applicationClass 'io.testscucumber.capsule.ZucchiniUIApplication'
+        applicationClass 'io.zucchiniui.capsule.ZucchiniUIApplication'
 
         capsuleManifest {
             minJavaVersion = '1.8.0'
@@ -361,7 +361,7 @@ project("${rootProject.name}-example-features") {
         main = 'cucumber.api.cli.Main'
 
         args += [
-            '--glue', 'classpath:io.testscucumber.examples',
+            '--glue', 'classpath:io.zucchiniui.examples',
             '--plugin', 'pretty',
             '--plugin', "html:${project.buildDir}/cucumber/html",
             '--plugin', "json:${project.buildDir}/cucumber/report.json",
@@ -380,7 +380,7 @@ project("${rootProject.name}-example-features") {
         main = 'cucumber.api.cli.Main'
 
         args += [
-            '--glue', 'classpath:io.testscucumber.examples',
+            '--glue', 'classpath:io.zucchiniui.examples',
             '--plugin', 'pretty',
             '--plugin', "html:${project.buildDir}/cucumber-dry/html",
             '--plugin', "json:${project.buildDir}/cucumber-dry/report.json",

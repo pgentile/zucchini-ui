@@ -1,4 +1,4 @@
-package io.testscucumber.capsule;
+package io.zucchiniui.capsule;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

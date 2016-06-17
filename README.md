@@ -80,7 +80,7 @@ Deploy
 ------
 
 The sub-project `zucchini-ui-capsule` builds a fat [Capsule](http://www.capsule.io) that contains in one JAR
-backend and UI. This JAR contains everything that is needed to run the TestsCucumber app.
+backend and UI. This JAR contains everything that is needed to run the Zucchini UI app.
 
 You can run it from Gradle:
 

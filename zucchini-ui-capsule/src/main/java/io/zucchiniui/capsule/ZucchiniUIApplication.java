@@ -1,4 +1,4 @@
-package io.testscucumber.capsule;
+package io.zucchiniui.capsule;
 
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
