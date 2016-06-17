@@ -43,10 +43,10 @@ always contain path to Grunt. If this is the case, relaunch Gradle daemon:
 Develop
 -------
 
-Run Mongo with Docker Compose:
+Run Mongo database server:
 
 ```
-docker-compose up
+mongod &
 ```
 
 Run Mongo migrations to build database:
