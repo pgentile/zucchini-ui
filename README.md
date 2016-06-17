@@ -52,7 +52,7 @@ docker-compose up
 Run Mongo migrations to build database:
 
 ```
-(cd tests-cucumber-mongo && ./migrate.sh MONGO_HOST/MONGO_DATABASE)
+(cd zucchini-ui-mongo && ./migrate.sh MONGO_HOST/MONGO_DATABASE)
 ```
 
 Start Java backend:
@@ -61,13 +61,13 @@ Start Java backend:
 ./gradlew runBackend
 ```
 
-Start UI:
+Start frontend:
 
 ```
-(cd tests-cucumber-ui && grunt serve)
+(cd zucchini-ui-frontend && grunt serve)
 ```
 
-You can build sample Cucumber reports from the `tests-cucumber-example-features`:
+You can build sample Cucumber reports from the `zucchini-ui-example-features`:
 
 ```
 ./gradlew dryRunCucumber runCucumber
@@ -79,7 +79,7 @@ Generated reports can be found in `build` directory.
 Deploy
 ------
 
-The sub-project `tests-cucumber-capsule` builds a fat [Capsule](http://www.capsule.io) that contains in one JAR
+The sub-project `zucchini-ui-capsule` builds a fat [Capsule](http://www.capsule.io) that contains in one JAR
 backend and UI. This JAR contains everything that is needed to run the TestsCucumber app.
 
 You can run it from Gradle:
@@ -88,10 +88,10 @@ You can run it from Gradle:
 ./gradlew runCapsule
 ```
 
-The fat Capsule JAR is named `tests-cucumber-capsule-VERSION-SNAPSHOT-capsule.jar`. Run it with this command:
+The fat Capsule JAR is named `zucchini-ui-capsule-VERSION-SNAPSHOT-capsule.jar`. Run it with this command:
 
 ```
-java -jar tests-cucumber-capsule-VERSION-SNAPSHOT-capsule.jar server CONFIG.yml
+java -jar zucchini-ui-capsule-VERSION-SNAPSHOT-capsule.jar server CONFIG.yml
 ```
 
 

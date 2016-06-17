@@ -21,8 +21,6 @@ Make your change. Add tests for your change. Make the tests pass:
 
 Push to your fork and [submit a pull request][pr].
 
-[pr]: https://github.com/pgentile/tests-cucumber/compare/
-
 Some things that will increase the chance that your pull request is accepted:
 
 * Write tests.
