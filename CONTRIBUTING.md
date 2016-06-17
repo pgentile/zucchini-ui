@@ -4,7 +4,7 @@ Contributing
 Fork, then clone the repo:
 
 ```
-git clone git@github.com:your-username/tests-cucumber.git
+git clone git@github.com:your-username/zucchini-ui.git
 ```
 
 Make sure the tests pass:
