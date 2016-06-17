@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/pgentile/tests-cucumber.svg?branch=master)](https://travis-ci.org/pgentile/tests-cucumber)
-[![Codacy Badge](https://api.codacy.com/project/badge/grade/666c1c5ba97d4ab0893ed2573fd1e428)](https://www.codacy.com/app/pierre-gentile-perso/tests-cucumber)
+[![Build Status](https://travis-ci.org/voyages-sncf-technologies/zucchini-ui.svg?branch=master)](https://travis-ci.org/voyages-sncf-technologies/zucchini-ui)
 
 Zucchini UI
 ===========
