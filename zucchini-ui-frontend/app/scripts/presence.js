@@ -76,21 +76,23 @@
     this._closeWebSocket = function () {
       if (this._ws) {
         this._ws.close();
-        this._ws = null;
       }
     };
 
     this._keepAliveTimer = null;
 
     this._enableKeepAlive = function () {
-      this._keepAliveTimer = $interval(function () {
-        service._sendRefresh();
-      }, this.keepAliveTimeout);
+      if (!this._keepAliveTimer) {
+        this._keepAliveTimer = $interval(function () {
+          service._sendRefresh();
+        }, this.keepAliveTimeout);
+      }
     };
 
     this._disableKeepAlive = function () {
       if (this._keepAliveTimer) {
         $interval.cancel(this._keepAliveTimer);
+        this._keepAliveTimer = null;
       }
     };
 
@@ -107,7 +109,9 @@
     };
 
     this._sendRefresh = function () {
-      this._ws.send({ type: 'REFRESH' });
+      if (this._ws) {
+        this._ws.send({ type: 'REFRESH' });
+      }
     };
 
     WindowVisibility.onVisible(function () {
