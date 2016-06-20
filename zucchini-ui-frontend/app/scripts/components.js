@@ -185,10 +185,14 @@
         };
 
         this.isScenarioReviewedStateDisplayable = function (scenario) {
-          if (!this.filters.reviewed) {
-            return !scenario.reviewed;
+          var selected = false;
+          if (this.filters.reviewed) {
+            selected = selected || scenario.reviewed;
           }
-          return true;
+          if (this.filters.notReviewed) {
+            selected = selected || !scenario.reviewed;
+          }
+          return selected;
         };
 
       }
@@ -200,7 +204,8 @@
           failed: true,
           pending: true,
           notRun: true,
-          reviewed: true
+          reviewed: true,
+          notReviewed: true
         };
       });
     })
@@ -254,10 +259,14 @@
         };
 
         this.isFeatureReviewedStateDisplayable = function (feature) {
-          if (!this.filters.reviewed) {
-            return feature.stats.reviewed.count !== feature.stats.all.count;
+          var selected = false;
+          if (this.filters.reviewed) {
+            selected = selected || (feature.stats.reviewed.count === feature.stats.all.count);
           }
-          return true;
+          if (this.filters.notReviewed) {
+            selected = selected || (feature.stats.reviewed.count !== feature.stats.all.count);
+          }
+          return selected;
         };
 
       }
@@ -269,7 +278,8 @@
           failed: true,
           partial: true,
           notRun: true,
-          reviewed: true
+          reviewed: true,
+          notReviewed: true
         };
       });
     })

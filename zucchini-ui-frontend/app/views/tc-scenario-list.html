@@ -7,19 +7,28 @@
       <div class="form-group">
         <b>Filtrer les scénarii :</b>
         <label class="checkbox-inline">
-          <input type="checkbox" ng-model="$ctrl.filters.passed" ng-change="$ctrl.onFilterChange()"> Succès
+          <input type="checkbox" ng-model="$ctrl.filters.passed" ng-change="$ctrl.onFilterChange()">
+          Succès
         </label>
         <label class="checkbox-inline">
-          <input type="checkbox" ng-model="$ctrl.filters.failed" ng-change="$ctrl.onFilterChange()"> Échecs
+          <input type="checkbox" ng-model="$ctrl.filters.failed" ng-change="$ctrl.onFilterChange()">
+          Échecs
         </label>
         <label class="checkbox-inline">
-          <input type="checkbox" ng-model="$ctrl.filters.pending" ng-change="$ctrl.onFilterChange()"> En attente
+          <input type="checkbox" ng-model="$ctrl.filters.pending" ng-change="$ctrl.onFilterChange()">
+          En attente
         </label>
         <label class="checkbox-inline">
-          <input type="checkbox" ng-model="$ctrl.filters.notRun" ng-change="$ctrl.onFilterChange()"> Non joués
+          <input type="checkbox" ng-model="$ctrl.filters.notRun" ng-change="$ctrl.onFilterChange()">
+          Non joués
         </label>
         <label class="checkbox-inline">
-          <input type="checkbox" ng-model="$ctrl.filters.reviewed" ng-change="$ctrl.onFilterChange()"> Analysés
+          <input type="checkbox" ng-model="$ctrl.filters.reviewed" ng-change="$ctrl.onFilterChange()">
+          Analysés
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" ng-model="$ctrl.filters.notReviewed" ng-change="$ctrl.onFilterChange()">
+          Non analysés
         </label>
       </div>
 
