@@ -5,15 +5,6 @@
 
     var value = defaultValueFactory();
 
-    var storedValue = storage.getItem(itemName);
-    if (_.isString(storedValue)) {
-      try {
-        _.merge(value, angular.fromJson(storedValue));
-      } catch (e) {
-        log.warn('Caught exception when loading filters from local storage item', itemName, ':', e);
-      }
-    }
-
     this.get = function () {
       return value;
     };
@@ -27,6 +18,16 @@
       value = defaultValueFactory();
       storage.removeItem(itemName);
     };
+
+    var storedValue = storage.getItem(itemName);
+    if (_.isString(storedValue)) {
+      try {
+        _.merge(value, angular.fromJson(storedValue));
+      } catch (e) {
+        log.warn('Caught exception when loading filters from local storage item', itemName, ':', e);
+      }
+    }
+    this.save(value);
 
   };
 
