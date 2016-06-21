@@ -2,19 +2,23 @@
   'use strict';
 
 
-  var PresenceService = function ($log, $interval, $rootScope, WindowVisibility, ReactiveWebSocket, UrlBuilder, callbackContainer) {
+  var PresenceService = function ($log, $interval, $rootScope, WindowVisibility, ReactiveWebSocket, UrlBuilder, presenceInfos, callbackContainer) {
 
     var service = this;
 
     this.onOtherWatchersUpdated = callbackContainer();
+    this.onConnectionLost = callbackContainer();
 
     this.keepAliveTimeout = 10 * 1000;
 
-    this._watcherId = new UUID(4).format();
+    this._watcherId = presenceInfos.get().watcherId;
 
     this._reference = null;
 
     this._otherWatchers = [];
+
+    this._onVisibleCallback = null;
+    this._onHiddenCallback = null;
 
     this.watchReference = function (reference) {
       this._reference = reference;
@@ -22,6 +26,16 @@
       if (WindowVisibility.isVisible()) {
         this._createWebSocket();
       }
+
+      this._onVisibleCallback = WindowVisibility.onVisible(function () {
+        $log.debug('Visible, resuming');
+        service.resume();
+      });
+
+      this._onHiddenCallback = WindowVisibility.onHidden(function () {
+        $log.debug('Hidden, pausing');
+        service.pause();
+      });
     };
 
     this.pause = function () {
@@ -34,6 +48,13 @@
 
     this.unwatch = function () {
       this._closeWebSocket();
+
+      if (this._onVisibleCallback) {
+        this._onVisibleCallback.remove();
+      }
+      if (this._onHiddenCallback) {
+        this._onHiddenCallback.remove();
+      }
     };
 
     this._createWebSocket = function () {
@@ -65,7 +86,7 @@
           service._ws = null;
           service._otherWatchers = [];
 
-          service._updateWatchers([]);
+          service.onConnectionLost.invoke();
         });
 
         this._ws.open();
@@ -100,7 +121,6 @@
       var self = this;
 
       this._otherWatchers = watcherIds;
-      $log.debug('Other watchers:', this._otherWatchers);
 
       $rootScope.$apply(function () {
         self.onOtherWatchersUpdated.invoke(service._otherWatchers);
@@ -114,20 +134,17 @@
       }
     };
 
-    WindowVisibility.onVisible(function () {
-      $log.debug('Visible, resuming');
-      service.resume();
-    });
-
-    WindowVisibility.onHidden(function () {
-      $log.debug('Hidden, pausing');
-      service.pause();
-    });
-
   };
 
 
   angular.module('zucchini-ui-frontend')
-    .service('PresenceService', PresenceService);
+    .service('PresenceService', PresenceService)
+    .factory('presenceInfos', function (BrowserLocalStorage) {
+      return BrowserLocalStorage.getItem('presenceInfos', function () {
+        return {
+          watcherId: new UUID(4).format()
+        };
+      });
+    });
 
 })(angular);

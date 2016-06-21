@@ -181,6 +181,10 @@
         this.presence.otherWatchers = otherWatchers;
       }.bind(this));
 
+      PresenceService.onConnectionLost(function () {
+        this.presence.known = false;
+      }.bind(this));
+
       PresenceService.watchReference({
         type: 'SCENARIO_ID',
         reference: $routeParams.scenarioId
