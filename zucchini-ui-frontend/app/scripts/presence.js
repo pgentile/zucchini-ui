@@ -2,14 +2,14 @@
   'use strict';
 
 
-  var PresenceService = function ($log, $interval, $rootScope, WindowVisibility, ReactiveWebSocket, UrlBuilder, presenceInfos, callbackContainer) {
+  var PresenceService = function ($log, $interval, WindowVisibility, ReactiveWebSocket, UrlBuilder, presenceInfos, callbackContainer) {
 
     var service = this;
 
     this.onOtherWatchersUpdated = callbackContainer();
     this.onConnectionLost = callbackContainer();
 
-    this.keepAliveTimeout = 10 * 1000;
+    this.keepAliveTimeout = 25 * 1000;
 
     this._watcherId = presenceInfos.get().watcherId;
 
@@ -23,10 +23,6 @@
     this.watchReference = function (reference) {
       this._reference = reference;
 
-      if (WindowVisibility.isVisible()) {
-        this._createWebSocket();
-      }
-
       this._onVisibleCallback = WindowVisibility.onVisible(function () {
         $log.debug('Visible, resuming');
         service.resume();
@@ -36,6 +32,11 @@
         $log.debug('Hidden, pausing');
         service.pause();
       });
+
+      if (WindowVisibility.isVisible()) {
+        this._createWebSocket();
+      }
+
     };
 
     this.pause = function () {
@@ -97,6 +98,7 @@
     this._closeWebSocket = function () {
       if (this._ws) {
         this._ws.close();
+        this._ws = null;
       }
     };
 
@@ -118,14 +120,8 @@
     };
 
     this._updateWatchers = function (watcherIds) {
-      var self = this;
-
       this._otherWatchers = watcherIds;
-
-      $rootScope.$apply(function () {
-        self.onOtherWatchersUpdated.invoke(service._otherWatchers);
-      });
-
+      this.onOtherWatchersUpdated.invoke(service._otherWatchers);
     };
 
     this._sendRefresh = function () {

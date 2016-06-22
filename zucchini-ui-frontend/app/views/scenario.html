@@ -43,29 +43,32 @@
 
   <hr>
 
-  <div class="btn-toolbar" role="toolbar">
-    <div class="btn-group" role="group">
+  <div class="row">
+    <div class="col-md-7">
 
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false">
-        <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
-        Modifier le statut
-        <span class="caret"></span>
-      </button>
+      <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group" role="group">
 
-      <ul class="dropdown-menu">
-        <li><a href ng-click="ctrl.changeStatus('PASSED')">Succès</a></li>
-        <li><a href ng-click="ctrl.changeStatus('FAILED')">Échec</a></li>
-        <li><a href ng-click="ctrl.changeStatus('NOT_RUN')">Non joué</a></li>
-        <li><a href ng-click="ctrl.changeStatus('PENDING')">En attente</a></li>
-      </ul>
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false">
+            <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
+            Modifier le statut
+            <span class="caret"></span>
+          </button>
 
-    </div>
-    <div class="btn-group" role="group">
+          <ul class="dropdown-menu">
+            <li><a href ng-click="ctrl.changeStatus('PASSED')">Succès</a></li>
+            <li><a href ng-click="ctrl.changeStatus('FAILED')">Échec</a></li>
+            <li><a href ng-click="ctrl.changeStatus('NOT_RUN')">Non joué</a></li>
+            <li><a href ng-click="ctrl.changeStatus('PENDING')">En attente</a></li>
+          </ul>
 
-      <button type="button" class="btn btn-default" ng-click="ctrl.changeReviewState(!ctrl.scenario.reviewed)"
-              ng-switch on="ctrl.scenario.reviewed">
+        </div>
+        <div class="btn-group" role="group">
+
+          <button type="button" class="btn btn-default" ng-click="ctrl.changeReviewState(!ctrl.scenario.reviewed)"
+                  ng-switch on="ctrl.scenario.reviewed">
         <span ng-switch-when="true">
           <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
           Marquer comme non analysé
@@ -74,37 +77,49 @@
           <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
           Marquer comme analysé
         </span>
-      </button>
+          </button>
+
+        </div>
+        <div class="btn-group" role="group">
+
+          <button ng-click="ctrl.delete()" class="btn btn-danger btn-default">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            Supprimer
+          </button>
+
+        </div>
+      </div>
 
     </div>
-    <div class="btn-group" role="group">
+    <div class="col-md-5">
 
-      <button ng-click="ctrl.delete()" class="btn btn-danger btn-default">
-        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-        Supprimer
-      </button>
+      <!-- Présence -->
 
+      <p ng-if="!ctrl.presence.known" class="text-warning text-right">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        Présence d'utilisateurs en simultané inconnue
+      </p>
+
+      <div ng-if="ctrl.presence.known" ng-switch="ctrl.presence.otherWatchers.length">
+        <p ng-switch-when="0" class="text-success text-right">
+          <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+          Vous êtes seul à regarder ce scénario.
+        </p>
+        <p ng-switch-when="1" class="text-warning text-right">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          Une autre personne est en train de regarder ce scénario.
+        </p>
+        <p ng-switch-default class="text-warning text-right">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          {{ ctrl.presence.otherWatchers.length }} autres personnes sont en train de regarder ce scénario.
+        </p>
+
+      </div>
     </div>
   </div>
 
-
   <hr>
 
-  <!-- Présence -->
-
-  <p ng-if="!ctrl.presence.known" class="bg-warning">
-    Présence d'utilisateurs en simultané inconnue
-  </p>
-
-  <p ng-if="ctrl.presence.known" ng-class="ctrl.presence.otherWatchers.length > 0 ? 'bg-warning': 'bg-success'">
-    <ng-pluralize count="ctrl.presence.otherWatchers.length"
-                  when="{ '0': 'Personne n\'est en train de regarder ce test en même temps',
-                          'one': 'Une autre personne est en train de regarder ce test.',
-                          'other': '{} autres personnes sont en train de regarder ce test.'}">
-    </ng-pluralize>
-  </p>
-
-  <hr>
 
   <!-- Steps -->
 

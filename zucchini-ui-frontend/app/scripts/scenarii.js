@@ -177,12 +177,16 @@
       };
 
       PresenceService.onOtherWatchersUpdated(function (otherWatchers) {
-        this.presence.known = true;
-        this.presence.otherWatchers = otherWatchers;
+        $scope.$apply(function () {
+          this.presence.known = true;
+          this.presence.otherWatchers = otherWatchers;
+        }.bind(this));
       }.bind(this));
 
       PresenceService.onConnectionLost(function () {
-        this.presence.known = false;
+        $scope.$apply(function () {
+          this.presence.known = false;
+        }.bind(this));
       }.bind(this));
 
       PresenceService.watchReference({
