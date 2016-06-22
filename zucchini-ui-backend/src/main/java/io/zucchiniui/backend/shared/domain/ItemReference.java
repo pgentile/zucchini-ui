@@ -1,4 +1,4 @@
-package io.zucchiniui.backend.comment.domain;
+package io.zucchiniui.backend.shared.domain;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
@@ -6,14 +6,14 @@ import com.google.common.base.Strings;
 import java.util.Objects;
 
 /**
- * Comment reference.
+ * Item reference.
  */
-public final class CommentReference {
+public final class ItemReference {
 
     /**
      * Type
      */
-    private CommentReferenceType type;
+    private ItemReferenceType type;
 
     /**
      * Reference value.
@@ -23,7 +23,7 @@ public final class CommentReference {
     /**
      * Private constructor for Morphia.
      */
-    private CommentReference() {
+    private ItemReference() {
 
     }
 
@@ -33,7 +33,7 @@ public final class CommentReference {
      * @param type      Type
      * @param reference Reference value
      */
-    public CommentReference(final CommentReferenceType type, final String reference) {
+    public ItemReference(final ItemReferenceType type, final String reference) {
         this.type = Objects.requireNonNull(type);
 
         if (Strings.isNullOrEmpty(reference)) {
@@ -42,7 +42,7 @@ public final class CommentReference {
         this.reference = reference;
     }
 
-    public CommentReferenceType getType() {
+    public ItemReferenceType getType() {
         return type;
     }
 
@@ -62,7 +62,7 @@ public final class CommentReference {
             return false;
         }
 
-        final CommentReference other = (CommentReference) obj;
+        final ItemReference other = (ItemReference) obj;
         return Objects.equals(type, other.type) && Objects.equals(reference, other.reference);
     }
 

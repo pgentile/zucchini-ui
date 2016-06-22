@@ -33,6 +33,7 @@ module.exports = function(config) {
       'bower_components/angular-loading-bar/build/loading-bar.js',
       'bower_components/angular-elastic/elastic.js',
       'bower_components/chartist/dist/chartist.min.js',
+      'bower_components/pure-uuid/uuid.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "test/mock/globals.js",

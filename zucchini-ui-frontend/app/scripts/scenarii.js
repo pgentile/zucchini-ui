@@ -71,7 +71,7 @@
 
 
   angular.module('zucchini-ui-frontend')
-    .controller('ScenarioCtrl', function (ScenarioCoreService, FeatureCoreService, TestRunCoreService, ConfirmationModalService, $routeParams, $q, $location, $filter, historyStoredFilters, stepFilters) {
+    .controller('ScenarioCtrl', function (ScenarioCoreService, FeatureCoreService, TestRunCoreService, ConfirmationModalService, PresenceService, $routeParams, $q, $location, $filter, $scope, historyStoredFilters, stepFilters) {
 
       this.load = function () {
 
@@ -94,6 +94,7 @@
           })
           .then(function (scenario) {
             this.scenario = scenario;
+
           }.bind(this));
 
       };
@@ -160,11 +161,43 @@
         stepFilters.save(this.stepFilters);
       }.bind(this);
 
+      // Load scenario
 
       this.load()
         .then(function () {
           this.loadHistory();
         }.bind(this));
+
+
+      // Start presence service
+
+      this.presence = {
+        otherWatchers: [],
+        known: false
+      };
+
+      PresenceService.onOtherWatchersUpdated(function (otherWatchers) {
+        $scope.$apply(function () {
+          this.presence.known = true;
+          this.presence.otherWatchers = otherWatchers;
+        }.bind(this));
+      }.bind(this));
+
+      PresenceService.onConnectionLost(function () {
+        $scope.$apply(function () {
+          this.presence.known = false;
+        }.bind(this));
+      }.bind(this));
+
+      PresenceService.watchReference({
+        type: 'SCENARIO_ID',
+        reference: $routeParams.scenarioId
+      });
+
+      // Unwatch on controller destruction
+      $scope.$on('$destroy', function () {
+        PresenceService.unwatch();
+      });
 
     })
     .controller('ScenarioCommentsCtrl', function ($scope, $filter, ScenarioCoreService, TestRunCoreService, ConfirmationModalService) {
@@ -265,8 +298,8 @@
       };
 
     })
-    .factory('stepFilters', function (ObjectBrowserStorage) {
-      return ObjectBrowserStorage.getItem('stepFilters', function () {
+    .factory('stepFilters', function (BrowserSessionStorage) {
+      return BrowserSessionStorage.getItem('stepFilters', function () {
         return {
           comments: true,
           context: true,

@@ -102,8 +102,8 @@
         }.bind(this));
 
     })
-    .factory('historyStoredFilters', function (ObjectBrowserStorage) {
-      return ObjectBrowserStorage.getItem('historyFilters', function () {
+    .factory('historyStoredFilters', function (BrowserSessionStorage) {
+      return BrowserSessionStorage.getItem('historyFilters', function () {
         return {
           sameTestRun: true
         };

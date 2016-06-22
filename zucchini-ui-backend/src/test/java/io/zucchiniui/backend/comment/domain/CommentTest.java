@@ -1,6 +1,8 @@
 package io.zucchiniui.backend.comment.domain;
 
 import com.google.common.collect.Sets;
+import io.zucchiniui.backend.shared.domain.ItemReference;
+import io.zucchiniui.backend.shared.domain.ItemReferenceType;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
@@ -11,9 +13,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CommentTest {
 
-    private static final Set<CommentReference> REFERENCES = Sets.newHashSet(
-        CommentReferenceType.SCENARIO_ID.createReference("scenarioId"),
-        CommentReferenceType.TEST_RUN_ID.createReference("testRunId")
+    private static final Set<ItemReference> REFERENCES = Sets.newHashSet(
+        ItemReferenceType.SCENARIO_ID.createReference("scenarioId"),
+        ItemReferenceType.TEST_RUN_ID.createReference("testRunId")
     );
 
     private static final String CONTENT = "content";

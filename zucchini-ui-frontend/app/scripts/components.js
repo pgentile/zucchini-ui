@@ -197,8 +197,8 @@
 
       }
     })
-    .factory('scenarioStoredFilters', function (ObjectBrowserStorage) {
-      return ObjectBrowserStorage.getItem('scenarioFilters', function () {
+    .factory('scenarioStoredFilters', function (BrowserSessionStorage) {
+      return BrowserSessionStorage.getItem('scenarioFilters', function () {
         return {
           passed: true,
           failed: true,
@@ -271,8 +271,8 @@
 
       }
     })
-    .factory('featureStoredFilters', function (ObjectBrowserStorage) {
-      return ObjectBrowserStorage.getItem('featureFilters', function () {
+    .factory('featureStoredFilters', function (BrowserSessionStorage) {
+      return BrowserSessionStorage.getItem('featureFilters', function () {
         return {
           passed: true,
           failed: true,
