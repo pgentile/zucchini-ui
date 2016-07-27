@@ -2,8 +2,6 @@ package io.zucchiniui.backend;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.dropwizard.ConfiguredBundle;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
@@ -33,7 +31,6 @@ public class BackendBundle implements ConfiguredBundle<BackendConfiguration> {
 
         // Configure Jackson mapper
         bootstrap.getObjectMapper()
-            .registerModules(new JavaTimeModule(), new Jdk8Module())
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
             .setSerializationInclusion(JsonInclude.Include.NON_NULL);
 

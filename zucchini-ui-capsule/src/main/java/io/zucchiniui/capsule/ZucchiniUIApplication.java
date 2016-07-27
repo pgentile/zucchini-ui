@@ -27,7 +27,7 @@ public class ZucchiniUIApplication extends Application<BackendConfiguration> {
     @Override
     public void run(final BackendConfiguration configuration, final Environment environment) throws Exception {
         // Register the servlet that generates the UI Javascript config file
-        final String apiRootPath = ((AbstractServerFactory) configuration.getServerFactory()).getJerseyRootPath();
+        final String apiRootPath = ((AbstractServerFactory) configuration.getServerFactory()).getJerseyRootPath().orElse("/");
         final ServletHolder uiConfigServletHolder = new ServletHolder(new UIConfigServlet(environment.getObjectMapper(), apiRootPath));
         environment.getApplicationContext().addServlet(uiConfigServletHolder, "/ui/scripts/config.js");
 
