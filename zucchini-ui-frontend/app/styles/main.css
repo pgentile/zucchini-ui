@@ -10,12 +10,10 @@
 
 
 /**
- * Scenario progress bar styling
+ * Scenario pie charts
+ *
+ * See Bootstrap labels for colors
  */
-.progress.scenario-progress .progress-bar {
-  min-width: 0 !important;
-}
-
 
 .ct-chart-donut .chart-progress-passed .ct-slice-donut {
   stroke: #5cb85c;
@@ -41,4 +39,13 @@
   color: #fff;
   fill: #fff;
   font-size: 1em;
+}
+
+
+/**
+ * Stats legend
+ */
+
+.stats-legend-total td {
+  font-style: italic;
 }
