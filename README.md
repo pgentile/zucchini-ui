@@ -114,6 +114,12 @@ Used frameworks:
   [Orika](http://orika-mapper.github.io/orika-docs)
 
 
+Validating that a JSOn report can be parsed
+-------------------------------------------
+
+    ./gradlew runJsonImporter -PjsonFilePath=...
+
+
 Contributing
 ------------
 

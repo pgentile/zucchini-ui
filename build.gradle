@@ -183,6 +183,16 @@ project("${rootProject.name}-backend") {
         args += ['serve', "${rootDir}/server-config.yml"]
     }
 
+    task runJsonImporter(type: JavaExec, description: 'Execute JsonImportTest') {
+
+        classpath = sourceSets.main.runtimeClasspath
+
+        main = 'io.zucchiniui.backend.JsonImportTest'
+
+        if (project.hasProperty('jsonFilePath')) {
+            args = [jsonFilePath]
+        }
+    }
 }
 
 
