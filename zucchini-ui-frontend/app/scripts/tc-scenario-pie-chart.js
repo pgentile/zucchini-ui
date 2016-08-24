@@ -6,7 +6,8 @@
       templateUrl: 'views/tc-scenario-pie-chart.html',
       bindings: {
         stats: '<',
-        kind: '@'
+        kind: '@',
+        showDetails: '<'
       },
       controller: function ($scope) {
 

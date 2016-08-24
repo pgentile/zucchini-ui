@@ -1,23 +1,14 @@
 <!-- Pie char -->
-<tc-pie-chart
-  data="$ctrl.series"
-  total="$ctrl.stats.all.count"
-  uib-popover-template="'scenarioProgessPopover.html'"
-  popover-placement="bottom"
-  popover-trigger="mouseenter"
-  popover-title="Statistiques détaillées">
-</tc-pie-chart>
+<div ng-style="{ height: $ctrl.showDetails ? '20rem': '12rem' }">
+  <tc-pie-chart
+    data="$ctrl.series"
+    total="$ctrl.stats.all.count"
+    show-label="$ctrl.showDetails"
+    donut-width="$ctrl.showDetails ? 60: 30">
+  </tc-pie-chart>
+</div>
 
-
-<!-- Popup for detailed information about stats -->
-<script type="text/ng-template" id="scenarioProgessPopover.html">
-
-  <ul class="list-unstyled">
-    <li><b>Total :</b> {{ $ctrl.stats[$ctrl.kind].count }}</li>
-    <li><b>Succès :</b> {{ $ctrl.stats[$ctrl.kind].passed }}</li>
-    <li><b>En attente :</b> {{ $ctrl.stats[$ctrl.kind].pending }}</li>
-    <li><b>Échecs :</b> {{ $ctrl.stats[$ctrl.kind].failed }}</li>
-    <li><b>Non joués :</b> {{ $ctrl.stats[$ctrl.kind].notRun }}</li>
-  </ul>
-
-</script>
+<!-- Legend -->
+<div style="margin-top: 20px" ng-if="$ctrl.showDetails">
+  <tc-stats-legend stats="$ctrl.stats[$ctrl.kind]"></tc-stats-legend>
+</div>

@@ -1,24 +1,40 @@
-<div class="row">
+<div>
 
   <div ng-if="$ctrl.stats.all.count > 0">
-    <div class="col-md-4">
-      <p class="text-center">Tous les scénarii</p>
-      <div style="height: 20rem">
-        <tc-scenario-pie-chart stats="$ctrl.stats" kind="all"></tc-scenario-pie-chart>
+
+    <p>
+      <button class="btn btn-default btn-xs" ng-click="$ctrl.hide()" ng-if="$ctrl.showDetails">
+        <span class="glyphicon glyphicon-minus"></span>
+        Masquer les détails
+      </button>
+      <button class="btn btn-default btn-xs" ng-click="$ctrl.show()" ng-if="!$ctrl.showDetails">
+        <span class="glyphicon glyphicon-plus"></span>
+        Afficher les détails
+      </button>
+    </p>
+
+    <div class="row">
+
+      <div ng-if="$ctrl.stats.all.count > 0">
+        <div class="col-md-4">
+          <h5 class="text-center"><b>Tous les scénarii</b></h5>
+          <tc-scenario-pie-chart stats="$ctrl.stats" kind="all" show-details="$ctrl.showDetails">
+          </tc-scenario-pie-chart>
+        </div>
+        <div class="col-md-4">
+          <h5 class="text-center"><b>Scénarii analysés</b></h5>
+          <tc-scenario-pie-chart stats="$ctrl.stats" kind="reviewed" show-details="$ctrl.showDetails">
+          </tc-scenario-pie-chart>
+        </div>
+        <div class="col-md-4">
+          <h5 class="text-center"><b>Scénarii non analysés</b></h5>
+          <tc-scenario-pie-chart stats="$ctrl.stats" kind="nonReviewed" show-details="$ctrl.showDetails">
+          </tc-scenario-pie-chart>
+        </div>
       </div>
+
     </div>
-    <div class="col-md-4">
-      <p class="text-center">Scénarii analysés</p>
-      <div style="height: 20rem">
-        <tc-scenario-pie-chart stats="$ctrl.stats" kind="reviewed"></tc-scenario-pie-chart>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <p class="text-center">Scénarii non analysés</p>
-      <div style="height: 20rem">
-        <tc-scenario-pie-chart stats="$ctrl.stats" kind="nonReviewed"></tc-scenario-pie-chart>
-      </div>
-    </div>
+
   </div>
 
   <div ng-if="$ctrl.stats.all.count == 0">
