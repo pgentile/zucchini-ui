@@ -6,7 +6,9 @@
       templateUrl: 'views/tc-feature-list.html',
       bindings: {
         data: '<',
-        total: '<'
+        total: '<',
+        showLabel: '<',
+        donutWidth: '<'
       },
       controller: function ($element) {
 
@@ -35,6 +37,8 @@
             this.chart.update(this.data, {
               total: this.total,
               donut: true,
+              showLabel: this.showLabel,
+              donutWidth: this.donutWidth,
             }, true);
           }
         };
