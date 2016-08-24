@@ -51,7 +51,7 @@ allprojects {
         assertj        : '3.5.2',
         mockito        : '1.10.19',
         junitQuickcheck: '0.6.1',
-        capsule        : '1.0.2',
+        capsule        : '1.0.3',
         groovy         : '2.4.7',
         cucumberGroovy : '1.2.4',
         jetty          : '9.3.9.v20160517',
@@ -275,30 +275,10 @@ project("${rootProject.name}-frontend") {
 
     tasks.check.dependsOn uiTest
 
-    task uiDistZip(type: Zip, description: 'Assemble UI zip') {
-
-        inputs.file uiDist
-        outputs.file(archivePath)
-
-        from uiDist
-        into 'ui'
-
-    }
-
-    tasks.assemble.dependsOn uiDistZip
-
     project.afterEvaluate {
 
         project.sourceSets.main.resources.srcDir('build/dist')
 
-    }
-
-    configurations {
-        archives
-    }
-
-    artifacts {
-        archives uiDistZip
     }
 
 }
@@ -404,7 +384,7 @@ project("${rootProject.name}-example-features") {
             'src/features',
         ]
 
-        ignoreExitValue = true
+        ignoreExitValue true
 
     }
 
@@ -423,7 +403,7 @@ project("${rootProject.name}-example-features") {
             'src/features',
         ]
 
-        ignoreExitValue = true
+        ignoreExitValue true
 
     }
 
