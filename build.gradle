@@ -11,6 +11,7 @@ buildscript {
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
         classpath 'us.kirchmeier:gradle-capsule-plugin:1.0.2'
         classpath 'gradle.plugin.com.google.gradle:osdetector-gradle-plugin:1.4.0'
+        classpath 'org.ajoberstar:gradle-git:1.5.1'
     }
 
 }
@@ -305,7 +306,8 @@ project("${rootProject.name}-frontend") {
 
 project("${rootProject.name}-capsule") {
 
-    apply plugin: "us.kirchmeier.capsule"
+    apply plugin: 'us.kirchmeier.capsule'
+    apply plugin: 'org.ajoberstar.grgit'
 
     dependencies {
 
@@ -329,9 +331,24 @@ project("${rootProject.name}-capsule") {
 
     tasks.assemble.dependsOn fatCapsule
 
-    def getDockerTag = { ->
-        String imageName = project.properties['docker.baseRepository'] + '/' + project.name
-        return "${imageName}:${project.version}"
+    // Get tag names from project version and Git branch
+    def getTagNames = { ->
+        List<String> tags = [project.version]
+
+        String branchName = project.grgit.branch.current.name
+        if (branchName == 'master') {
+            tags << 'latest'
+        } else {
+            tags << "branch-${branchName}"
+        }
+
+        return tags
+    }
+
+    // Generate Docker tags from base repository and project name
+    def getDockerTags = { ->
+        String imageName = project.properties['docker.baseRepository'] + '/' + project.rootProject.name
+        return getTagNames().collect { "${imageName}:$it" }
     }
 
     task runCapsule(type: Exec, description: 'Run Capsule', dependsOn: fatCapsule) {
@@ -339,11 +356,21 @@ project("${rootProject.name}-capsule") {
     }
 
     task dockerBuild(type: Exec, description: 'Build Docker image', dependsOn: fatCapsule) {
-        commandLine 'docker', 'build', '--build-arg', "VERSION=${project.version}", '-t', getDockerTag(), '.'
+        List<String> args = ['docker', 'build', '--build-arg', "VERSION=${project.version}"]
+        args += getDockerTags().collect({ ['-t', it] }).flatten()
+        args << '.'
+
+        commandLine args
     }
 
-    task dockerPush(type: Exec, description: 'Push Docker image', dependsOn: dockerBuild) {
-        commandLine 'docker', 'push', getDockerTag()
+    task dockerPush(description: 'Push Docker image', dependsOn: dockerBuild) {
+        doLast {
+            getDockerTags().forEach({ tag ->
+                project.exec {
+                    commandLine 'docker', 'push', tag
+                }
+            })
+        }
     }
 
 }

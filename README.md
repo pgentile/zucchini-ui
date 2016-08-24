@@ -94,11 +94,36 @@ The fat Capsule JAR is named `zucchini-ui-capsule-VERSION-SNAPSHOT-capsule.jar`.
 java -jar zucchini-ui-capsule-VERSION-SNAPSHOT-capsule.jar server CONFIG.yml
 ```
 
+Don't forget to init your Mongo database !
+
+```
+(cd zucchini-ui-mongo && ./migrate.sh MONGO_HOST/MONGO_DATABASE)
+```
+
+
+Build and deploy a Docker image
+-------------------------------
+
+You can build a Docker image for the Capsule:
+
+```
+./gradlew dockerBuild
+```
+
+The Docker image will be built in repository `pgentile/zucchini-ui`. After that, you can run the
+Docker image with the following command:
+
+```
+docker run -p 8080:8080 -e TC_MONGO_URL=mongodb://MONGO_URI pgentile/zucchini-ui
+```
+
+You can find some pre-built images in [Docker Hub](https://hub.docker.com/r/pgentile/zucchini-ui/).
+
 
 Configuration
 -------------
 
-The configuration file used by the application is a [Dropwizard YAML file](http://www.dropwizard.io/0.9.2/docs/manual/configuration.html).
+The configuration file used by the application is a [Dropwizard YAML file](http://www.dropwizard.io/1.0.0/docs/manual/configuration.html).
 
 You can use in your file environment variable, like `${HOME}` ou `${USER}`. View the [sample configuration file](server-config.yml) for more information.
 
@@ -114,10 +139,12 @@ Used frameworks:
   [Orika](http://orika-mapper.github.io/orika-docs)
 
 
-Validating that a JSOn report can be parsed
+Validating that a JSON report can be parsed
 -------------------------------------------
 
-    ./gradlew runJsonImporter -PjsonFilePath=...
+```
+./gradlew runJsonImporter -PjsonFilePath=...
+```
 
 
 Contributing
