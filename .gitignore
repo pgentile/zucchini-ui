@@ -1,7 +1,9 @@
 .idea/
 *.iml
 
-build/
+/build/
+/buildSrc/build/
+/zucchini-ui-*/build/
 .gradle/
 
 .DS_Store

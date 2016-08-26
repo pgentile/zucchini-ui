@@ -35,6 +35,7 @@ allprojects {
     group = 'io.zucchini-ui'
 
     apply plugin: 'idea'
+    apply plugin: org.zucchini.build.docker.DockerPlugin
 
     repositories {
         mavenLocal()
@@ -309,48 +310,27 @@ project("${rootProject.name}-capsule") {
 
     }
 
-    tasks.assemble.dependsOn fatCapsule
-
-    // Get tag names from project version and Git branch
-    def getTagNames = { ->
-        List<String> tags = [project.version]
-
-        String branchName = project.grgit.branch.current.name
-        if (branchName == 'master') {
-            tags << 'latest'
-        } else {
-            tags << "branch-${branchName}"
-        }
-
-        return tags
-    }
-
-    // Generate Docker tags from base repository and project name
-    def getDockerTags = { ->
-        String imageName = project.properties['docker.baseRepository'] + '/' + project.rootProject.name
-        return getTagNames().collect { "${imageName}:$it" }
-    }
-
     task runCapsule(type: Exec, description: 'Run Capsule', dependsOn: fatCapsule) {
         commandLine 'java', '-jar', fatCapsule.archivePath, 'server', "${rootDir}/server-config.yml"
     }
 
-    task dockerBuild(type: Exec, description: 'Build Docker image', dependsOn: fatCapsule) {
-        List<String> args = ['docker', 'build', '--build-arg', "VERSION=${project.version}"]
-        args += getDockerTags().collect({ ['-t', it] }).flatten()
-        args << '.'
+    tasks.assemble.dependsOn fatCapsule
 
-        commandLine args
-    }
+    docker {
 
-    task dockerPush(description: 'Push Docker image', dependsOn: dockerBuild) {
-        doLast {
-            getDockerTags().forEach({ tag ->
-                project.exec {
-                    commandLine 'docker', 'push', tag
-                }
-            })
+        name = rootProject.name
+
+        // Project version is required as a build arg
+        buildArg 'VERSION', project.version
+
+        // Add tag based on current Git branch
+        String branchName = project.grgit.branch.current.name
+        if (branchName == 'master') {
+            tag 'latest'
+        } else {
+            tag "branch-${branchName}"
         }
+
     }
 
 }
