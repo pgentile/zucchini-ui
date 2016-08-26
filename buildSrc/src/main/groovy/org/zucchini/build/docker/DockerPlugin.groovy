@@ -2,6 +2,7 @@ package org.zucchini.build.docker
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.Task
 
 /**
  * Docker plugin, to build and push images.
@@ -23,14 +24,21 @@ class DockerPlugin implements Plugin<Project> {
     }
 
     private void initTasks(Project project) {
-        project.task('dockerBuild', group: TASK_GROUP, description: 'Build Docker image', dependsOn: 'assemble') << {
-            project.dockerCmd.build(tags: project.docker.fullTagNames, buildArgs: project.docker.buildArgs)
-        }
+        project.afterEvaluate {
 
-        project.task('dockerPush', group: TASK_GROUP, description: 'Push Docker image', dependsOn: 'dockerBuild') << {
-            project.dockerCmd.push(project.docker.fullTagNames)
-        }
+            Task buildTask = project.task('dockerBuild', group: TASK_GROUP, description: 'Build Docker image') << {
+                project.dockerCmd.build(tags: project.docker.fullTagNames, buildArgs: project.docker.buildArgs)
+            }
 
+            if (project.tasks.findByName('assemble') != null) {
+                buildTask.dependsOn 'assemble'
+            }
+
+            project.task('dockerPush', group: TASK_GROUP, description: 'Push Docker image', dependsOn: buildTask) << {
+                project.dockerCmd.push(project.docker.fullTagNames)
+            }
+
+        }
     }
 
 }

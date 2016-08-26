@@ -35,6 +35,7 @@ allprojects {
     group = 'io.zucchini-ui'
 
     apply plugin: 'idea'
+    apply plugin: 'org.ajoberstar.grgit'
     apply plugin: org.zucchini.build.docker.DockerPlugin
 
     repositories {
@@ -58,12 +59,12 @@ allprojects {
         jetty          : '9.3.9.v20160517',
     ]
 
-    // Maven plugin
-
-    project.afterEvaluate {
-
-        project.apply plugin: 'maven'
-
+    ext.getDockerTag = {
+        String branchName = project.grgit.branch.current.name
+        if (branchName == 'master') {
+            return 'latest'
+        }
+        return "branch-${branchName}"
     }
 
     // Plugins to use with the java plugin
@@ -81,6 +82,10 @@ allprojects {
                 testCompile "org.mockito:mockito-core:${project.versions.mockito}"
 
             }
+
+            // Maven plugin
+
+            project.apply plugin: 'maven'
 
             // Versions plugin
 
@@ -288,7 +293,6 @@ project("${rootProject.name}-frontend") {
 project("${rootProject.name}-capsule") {
 
     apply plugin: 'us.kirchmeier.capsule'
-    apply plugin: 'org.ajoberstar.grgit'
 
     dependencies {
 
@@ -324,12 +328,7 @@ project("${rootProject.name}-capsule") {
         buildArg 'VERSION', project.version
 
         // Add tag based on current Git branch
-        String branchName = project.grgit.branch.current.name
-        if (branchName == 'master') {
-            tag 'latest'
-        } else {
-            tag "branch-${branchName}"
-        }
+        tag project.getDockerTag()
 
     }
 
@@ -385,6 +384,14 @@ project("${rootProject.name}-example-features") {
 
         ignoreExitValue true
 
+    }
+
+}
+
+project("${rootProject.name}-mongo") {
+
+    docker {
+        tag project.getDockerTag()
     }
 
 }
