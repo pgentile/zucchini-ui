@@ -13,7 +13,6 @@ class DockerPlugin implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
-        project.extensions.create('dockerCmd', DockerCommandsExtension, project)
         project.extensions.create('docker', DockerExtension, project)
 
         // Add Docker tasks if Dockerfile exists
