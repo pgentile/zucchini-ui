@@ -48,7 +48,7 @@ class NodePlugin implements Plugin<Project> {
     }
 
     private void initGruntTasks(Project project) {
-        project.task('gruntBuild', type: GruntTask, group: TASK_GROUP, description: 'Lauch Grunt build')
+        project.task('gruntBuild', type: GruntTask, group: TASK_GROUP, description: 'Launch Grunt build')
     }
 
 }
