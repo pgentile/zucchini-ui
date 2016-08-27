@@ -3,7 +3,7 @@
 
   angular.module('zucchini-ui-frontend')
     .component('tcStatsDashboard', {
-      templateUrl: 'views/tc-stats-dashboard.html',
+      template: require('../views/tc-stats-dashboard.html'),
       bindings: {
         stats: '<'
       },

@@ -3,7 +3,7 @@
 
   angular.module('zucchini-ui-frontend')
     .component('tcStatus', {
-      templateUrl: 'views/tc-status.html',
+      template: require('../views/tc-status.html'),
       bindings: {
         status: '<'
       }

@@ -3,7 +3,7 @@
 
   angular.module('zucchini-ui-frontend')
     .component('tcStatsLegend', {
-      templateUrl: 'views/tc-stats-legend.html',
+      template: require('../views/tc-stats-legend.html'),
       bindings: {
         stats: '<'
       }

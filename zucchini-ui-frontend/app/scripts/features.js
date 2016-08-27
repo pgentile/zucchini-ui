@@ -126,7 +126,7 @@
     .config(function ($routeProvider) {
       $routeProvider
         .when('/features/:featureId', {
-          templateUrl: 'views/feature.html',
+          template: require('../views/feature.html'),
           controller: 'FeatureCtrl',
           controllerAs: 'ctrl'
         });

@@ -3,7 +3,7 @@
 
   angular.module('zucchini-ui-frontend')
     .component('tcScenarioPieChart', {
-      templateUrl: 'views/tc-scenario-pie-chart.html',
+      template: require('../views/tc-scenario-pie-chart.html'),
       bindings: {
         stats: '<',
         kind: '@',

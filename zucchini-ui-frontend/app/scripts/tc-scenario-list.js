@@ -55,7 +55,7 @@
 
   angular.module('zucchini-ui-frontend')
     .component('tcScenarioList', {
-      templateUrl: 'views/tc-scenario-list.html',
+      template: require('../views/tc-scenario-list.html'),
       bindings: {
         scenarii: '<',
         displayFeature: '@'

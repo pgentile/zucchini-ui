@@ -1,6 +1,8 @@
 (function (angular) {
   'use strict';
 
+  var UUID = require("pure-uuid");
+
 
   var PresenceService = function ($log, $interval, WindowVisibility, ReactiveWebSocket, UrlBuilder, presenceInfos, callbackContainer) {
 

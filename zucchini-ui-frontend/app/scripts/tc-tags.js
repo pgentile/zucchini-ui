@@ -3,7 +3,7 @@
 
   angular.module('zucchini-ui-frontend')
     .component('tcTags', {
-      templateUrl: 'views/tc-tags.html',
+      template: require('../views/tc-tags.html'),
       bindings: {
         tags: '<',
         testRunId: '<'

@@ -408,7 +408,7 @@
     .config(function ($routeProvider) {
       $routeProvider
         .when('/scenarii/:scenarioId', {
-          templateUrl: 'views/scenario.html',
+          template: require('../views/scenario.html'),
           controller: 'ScenarioCtrl',
           controllerAs: 'ctrl'
         });

@@ -1,9 +1,11 @@
 (function (angular) {
   'use strict';
 
+  var Chartist = require('chartist');
+
   angular.module('zucchini-ui-frontend')
     .component('tcPieChart', {
-      templateUrl: 'views/tc-feature-list.html',
+      template: require('../views/tc-feature-list.html'),
       bindings: {
         data: '<',
         total: '<',

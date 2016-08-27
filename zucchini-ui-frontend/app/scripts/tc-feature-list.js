@@ -3,7 +3,7 @@
 
   angular.module('zucchini-ui-frontend')
     .component('tcFeatureList', {
-      templateUrl: 'views/tc-feature-list.html',
+      template: require('../views/tc-feature-list.html'),
       bindings: {
         features: '<'
       },

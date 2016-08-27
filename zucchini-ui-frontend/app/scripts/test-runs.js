@@ -339,17 +339,17 @@
     .config(function ($routeProvider) {
       $routeProvider
         .when('/', {
-          templateUrl: 'views/test-runs.html',
+          template: require('../views/test-runs.html'),
           controller: 'AllTestRunsCtrl',
           controllerAs: 'ctrl'
         })
         .when('/test-runs/:testRunId', {
-          templateUrl: 'views/test-run.html',
+          template: require('../views/test-run.html'),
           controller: 'TestRunCtrl',
           controllerAs: 'ctrl'
         })
         .when('/test-runs/:baseTestRunId/diff', {
-          templateUrl: 'views/test-run-diff.html',
+          template: require('../views/test-run-diff.html'),
           controller: 'TestRunDiffCtrl',
           controllerAs: 'ctrl',
           reloadOnSearch: false

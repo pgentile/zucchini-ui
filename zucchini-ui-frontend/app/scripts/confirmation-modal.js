@@ -11,7 +11,7 @@
           };
         },
         controllerAs: 'ctrl',
-        templateUrl: 'views/confirmation-modal.html'
+        template: require('../views/confirmation-modal.html')
       });
       return modal.result;
     };
