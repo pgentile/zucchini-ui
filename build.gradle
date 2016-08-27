@@ -1,3 +1,8 @@
+import org.zucchini.build.docker.DockerPlugin
+import org.zucchini.build.node.GruntTask
+import org.zucchini.build.node.NodePlugin
+
+
 buildscript {
 
     repositories {
@@ -36,7 +41,8 @@ allprojects {
 
     apply plugin: 'idea'
     apply plugin: 'org.ajoberstar.grgit'
-    apply plugin: org.zucchini.build.docker.DockerPlugin
+    apply plugin: DockerPlugin
+    apply plugin: NodePlugin
 
     repositories {
         mavenLocal()
@@ -206,51 +212,14 @@ project("${rootProject.name}-backend") {
 project("${rootProject.name}-frontend") {
 
     apply plugin: 'java'
-    apply plugin: 'com.google.osdetector'
 
-    // Determine grunt command to lauch based on current OS
-    def gruntCmd = 'grunt'
-    if (osdetector.os == 'windows') {
-        gruntCmd += '.cmd'
-    }
-
-    // Determine npm command to lauch based on current OS
-    def npmCmd = 'npm'
-    if (osdetector.os == 'windows') {
-        npmCmd += '.cmd'
-    }
-
-    // Determine bower command to lauch based on current OS
-    def bowerCmd = 'bower'
-    if (osdetector.os == 'windows') {
-        bowerCmd += '.cmd'
-    }
-
-    task npmUpdate(type: Exec, description: 'NPM Update') {
-        commandLine npmCmd, 'update'
-    }
-
-    task bowerUpdate(type: Exec, description: 'Bower Update') {
-        commandLine bowerCmd, 'update'
-    }
-
-    task npmInstall(type: Exec, description: 'NPM Install') {
-        commandLine npmCmd, 'install'
-    }
-
-    task bowerInstall(type: Exec, description: 'Bower Install') {
-        commandLine bowerCmd, 'install'
-    }
-
-    task uiClean(type: Exec, description: 'Clean UI') {
-        commandLine gruntCmd, 'clean'
+    task uiClean(type: GruntTask, description: 'Clean UI') {
+        command = 'clean'
     }
 
     tasks.clean.dependsOn uiClean
 
-    task uiDist(type: Exec, description: 'Build UI dist') {
-        commandLine gruntCmd
-
+    tasks.gruntBuild {
         inputs.dir('app')
         inputs.dir('test')
         inputs.file('Gruntfile.js')
@@ -258,12 +227,12 @@ project("${rootProject.name}-frontend") {
         outputs.dir('build/dist')
     }
 
-    tasks.processResources.dependsOn uiDist
+    tasks.processResources.dependsOn gruntBuild
 
-    task uiTest(type: Exec, description: 'Run UI tests') {
-        commandLine gruntCmd, 'test'
+    task uiTest(type: GruntTask, description: 'Run UI tests') {
+        command = 'test'
 
-        inputs.file uiDist
+        inputs.file gruntBuild
         outputs.file "${project.buildDir}/tests.flag"
     }
 
