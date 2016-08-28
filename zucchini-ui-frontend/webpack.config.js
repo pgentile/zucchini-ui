@@ -21,10 +21,11 @@ var javascriptConfigMiddleware = function (req, res) {
 module.exports = {
   entry: {
       app: [
-          './app/scripts/app.js',
-          './app/styles/main.css',
+        './app/scripts/app.js',
+        './app/styles/main.css',
       ],
       vendor: [
+        'angular/angular-csp.css',
         'bootstrap/dist/css/bootstrap.css',
         'angular-loading-bar/build/loading-bar.css',
         'chartist/dist/chartist.min.css',
@@ -65,11 +66,11 @@ module.exports = {
     ],
     loaders: [
       {
-          test: /\.js$/,
-          loaders: [
-            'babel?cacheDirectory',
-            'ng-annotate'
-          ],
+        test: /\.js$/,
+        loaders: [
+          'babel?cacheDirectory',
+          'ng-annotate'
+        ],
       },
       {
         test: /\.html$/,
