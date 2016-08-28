@@ -45,7 +45,7 @@ module.exports = {
   output: {
     path: outputDir,
     filename: '[name].js',
-    publicPath: '/ui'
+    publicPath: '/ui/'
   },
   devtool: 'source-map',
   devServer: {
