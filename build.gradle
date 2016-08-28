@@ -1,7 +1,6 @@
 import org.zucchini.build.docker.DockerPlugin
-import org.zucchini.build.node.GruntTask
 import org.zucchini.build.node.NodePlugin
-
+import org.zucchini.build.node.NPMTask
 
 buildscript {
 
@@ -213,48 +212,20 @@ project("${rootProject.name}-frontend") {
 
     apply plugin: 'java'
 
-    task uiClean(type: GruntTask, description: 'Clean UI') {
-        command = 'clean'
-    }
+    project.sourceSets.main.resources.srcDir('build/dist')
 
-    tasks.clean.dependsOn uiClean
+    task webpack(type: NPMTask, description: 'Run Webpack') {
+        command = 'run'
+        args = ['build']
 
-    tasks.gruntBuild {
         inputs.dir('app')
-        inputs.dir('test')
-        inputs.file('Gruntfile.js')
+        inputs.file('package.json')
+        inputs.file('webpack.config.js')
 
         outputs.dir('build/dist')
     }
 
-    tasks.processResources.dependsOn gruntBuild
-
-    task uiTest(type: GruntTask, description: 'Run UI tests') {
-        command = 'test'
-
-        inputs.file gruntBuild
-        outputs.file "${project.buildDir}/tests.flag"
-    }
-
-    tasks.uiTest.doLast {
-        // Create and touch the flag file
-
-        File flagFile = file("${project.buildDir}/tests.flag")
-
-        logger.info("Creating flag file {}", flagFile)
-
-        flagFile.getParentFile().mkdirs()
-        flagFile.createNewFile()
-        flagFile.setLastModified(System.currentTimeMillis())
-    }
-
-    tasks.check.dependsOn uiTest
-
-    project.afterEvaluate {
-
-        project.sourceSets.main.resources.srcDir('build/dist')
-
-    }
+    tasks.processResources.dependsOn webpack
 
 }
 

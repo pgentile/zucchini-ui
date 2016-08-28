@@ -7,11 +7,6 @@ require("angular-ui-bootstrap");
 require("ng-file-upload");
 
 
-var configuration = {
-  angularDebugMode: true
-};
-
-
 (function (angular, customConfig) {
   'use strict';
 

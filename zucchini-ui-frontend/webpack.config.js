@@ -1,7 +1,21 @@
 var path = require('path');
 var webpack = require('webpack');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var NgAnnotatePlugin = require('ng-annotate-webpack-plugin');
+var precss = require('precss');
+var autoprefixer = require('autoprefixer');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+
+
+var outputDir = path.join(__dirname, 'build/dist/ui');
+var config = require('./config.json');
+
+
+// Connect function to serve a Javascript configuration file
+var javascriptConfigMiddleware = function (req, res) {
+  res.writeHead(200, {'Content-Type': 'application/javascript'});
+  res.end('var configuration = ' + JSON.stringify(config.ui) + ';');
+};
+
 
 
 module.exports = {
@@ -16,81 +30,83 @@ module.exports = {
         'chartist/dist/chartist.min.css',
         'bootstrap/dist/js/bootstrap.js',
         'angular',
-        "angular-elastic",
-        "angular-loading-bar",
-        "angular-resource",
-        "angular-route",
-        "angular-ui-bootstrap",
-        "ng-file-upload",
-        "pure-uuid",
+        'angular-elastic',
+        'angular-loading-bar',
+        'angular-resource',
+        'angular-route',
+        'angular-ui-bootstrap',
+        'ng-file-upload',
+        'pure-uuid',
         'chartist',
         'lodash',
         'jquery',
       ],
   },
   output: {
-    path: path.join(__dirname, 'build'),
+    path: outputDir,
     filename: '[name].js',
-    publicPath: '/static/'
+    publicPath: '/ui'
   },
   devtool: 'source-map',
   devServer: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:8080',
-        secure: false
-      }
-    }
+    //contentBase: outputDir,
+    port: config.devServer.port,
+    setup: function(app) {
+      app.get('/ui/config.js', javascriptConfigMiddleware);
+     },
   },
   module: {
     loaders: [
       {
           test: /\.js$/,
-          loader: 'babel',
-          query: {
-            presets: [],
-            cacheDirectory: true
-          }
+          loaders: [
+            'babel?cacheDirectory',
+            'ng-annotate'
+          ],
       },
       {
-        test: /app\/.+\.html$/,
-        loader: 'html'
+        test: /\.html$/,
+        loader: 'html',
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('css-loader?sourceMap')
+        loader: ExtractTextPlugin.extract('css-loader?sourceMap!postcss-loader'),
       },
       {
         test: /\.(ttf|eot|woff2?|svg|png|jpg|gif)$/,
-        loader: 'url-loader?limit=100000'
+        loader: 'url-loader?limit=100000',
       }
     ]
   },
+  postcss: function () {
+      return [autoprefixer, precss];
+  },
   plugins: [
-    /*
     new webpack.DefinePlugin({
-      "process.env": {
-        NODE_ENV: JSON.stringify("production")
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
       }
     }),
-    */
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
-    /*
+    new webpack.NoErrorsPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity,
+    }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       mangle: true
     }),
-    */
     new webpack.optimize.DedupePlugin(),
     new webpack.ProvidePlugin({
       '_': 'lodash',
       '$': 'jquery',
       'jQuery': 'jquery',
     }),
-    new webpack.NoErrorsPlugin(),
     new ExtractTextPlugin('[name].css'),
-    new NgAnnotatePlugin({
-      add: true,
-    }),
+    new CopyWebpackPlugin([
+      {
+        from: 'index.html',
+      }
+    ]),
   ]
 };
