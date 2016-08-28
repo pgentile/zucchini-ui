@@ -11,7 +11,6 @@ Requirements
 
 * JDK 8
 * Node
-* Webpack
 * Mongo
 
 
