@@ -18,7 +18,7 @@ before_install:
 
 install:
   # Install UI dependencies
-  - ./gradlew npmInstall bowerInstall
+  - ./gradlew npmInstall
   # Assemble project
   - ./gradlew assemble
 
