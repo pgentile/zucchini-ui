@@ -56,6 +56,13 @@ module.exports = {
      },
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loader: "eslint-loader",
+        exclude: /node_modules/
+      }
+    ],
     loaders: [
       {
           test: /\.js$/,
@@ -80,6 +87,10 @@ module.exports = {
   },
   postcss: function () {
       return [autoprefixer, precss];
+  },
+  eslint: {
+      failOnWarning: false,
+      failOnError: true,
   },
   plugins: [
     new webpack.DefinePlugin({
