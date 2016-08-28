@@ -1,45 +1,4 @@
-require('angular');
-require('angular-elastic');
-require('angular-loading-bar');
-require('angular-resource');
-require('angular-route');
-require('angular-ui-bootstrap');
-require('ng-file-upload');
-
-
-(function (angular, customConfig) {
-  'use strict';
-
-
-  // Create real configuration by merging default values with configuration
-  var realConfig = _.merge({
-    angularDebugMode: false,
-  }, customConfig);
-
-
-  angular
-    .module('zucchini-ui-frontend', [
-      'ngResource',
-      'ngRoute',
-      'ui.bootstrap',
-      'ngFileUpload',
-      'angular-loading-bar',
-      'monospaced.elastic',
-    ])
-    .constant('config', realConfig)
-    .config(function ($compileProvider, config) {
-      // Enable Angular debug mode if requested
-      $compileProvider.debugInfoEnabled(config.angularDebugMode);
-    })
-    .config(function ($routeProvider) {
-      $routeProvider
-        .otherwise({
-          redirectTo: '/'
-        });
-    });
-
-})(angular, configuration);
-
+'use strict';
 
 require('./browser-storage.js');
 require('./callback-container.js');
@@ -64,3 +23,27 @@ require('./test-runs.js');
 require('./url-builder.js');
 require('./websocket.js');
 require('./window-visibility.js');
+
+
+var zucchiniModule = require('./module');
+
+
+// Create real configuration by merging default values with configuration
+var realConfig = _.merge({
+  angularDebugMode: false,
+}, configuration);
+
+
+zucchiniModule
+  .constant('config', realConfig)
+  .config(function ($compileProvider, config) {
+    // Enable Angular debug mode if requested
+    $compileProvider.debugInfoEnabled(config.angularDebugMode);
+  })
+  .config(function ($routeProvider) {
+    $routeProvider
+      .otherwise({
+        redirectTo: '/'
+      });
+  });
+

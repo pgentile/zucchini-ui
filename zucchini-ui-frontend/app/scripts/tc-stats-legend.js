@@ -1,12 +1,12 @@
-(function (angular) {
-  'use strict';
+'use strict';
 
-  angular.module('zucchini-ui-frontend')
-    .component('tcStatsLegend', {
-      template: require('../views/tc-stats-legend.html'),
-      bindings: {
-        stats: '<'
-      }
-    });
+var zucchiniModule = require('./module');
 
-})(angular);
+
+zucchiniModule
+  .component('tcStatsLegend', {
+    template: require('../views/tc-stats-legend.html'),
+    bindings: {
+      stats: '<'
+    }
+  });

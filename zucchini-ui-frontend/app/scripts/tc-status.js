@@ -1,12 +1,12 @@
-(function (angular) {
-  'use strict';
+'use strict';
 
-  angular.module('zucchini-ui-frontend')
-    .component('tcStatus', {
-      template: require('../views/tc-status.html'),
-      bindings: {
-        status: '<'
-      }
-    });
+var zucchiniModule = require('./module');
 
-})(angular);
+
+zucchiniModule
+  .component('tcStatus', {
+    template: require('../views/tc-status.html'),
+    bindings: {
+      status: '<'
+    }
+  });
