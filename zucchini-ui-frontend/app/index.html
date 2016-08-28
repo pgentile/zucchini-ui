@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width">
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/angular/angular-csp.css" />
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
   <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
   <link rel="stylesheet" href="bower_components/chartist/dist/chartist.min.css" />
@@ -46,7 +47,7 @@
   </div>
 </div>
 
-<div class="container">
+<div class="container" ng-cloak="">
 
   <div ng-controller="ErrorCtrl as ctrl">
     <div ng-if="ctrl.message" class="alert alert-danger" role="alert">

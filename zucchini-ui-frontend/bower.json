@@ -35,6 +35,12 @@
       "main": [
         "lodash.js"
       ]
+    },
+    "angular": {
+      "main": [
+        "angular.js",
+        "angular-csp.css"
+      ]
     }
   }
 }
