@@ -60,7 +60,7 @@ module.exports = {
     preLoaders: [
       {
         test: /\.js$/,
-        loader: "eslint-loader",
+        loader: "eslint",
         exclude: /node_modules/
       }
     ],
@@ -74,24 +74,36 @@ module.exports = {
       },
       {
         test: /\.html$/,
-        loader: 'html',
+        loaders: [
+          'html',
+          'html-minify'
+        ],
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('css-loader?sourceMap!postcss-loader'),
+        loader: ExtractTextPlugin.extract('css?sourceMap!postcss'),
       },
       {
         test: /\.(ttf|eot|woff2?|svg|png|jpg|gif)$/,
-        loader: 'url-loader?limit=100000',
+        loaders: [
+          'url?limit=100000',
+          'img?minimize',
+        ],
       }
     ]
   },
   postcss: function () {
-      return [autoprefixer, precss];
+    return [autoprefixer, precss];
   },
   eslint: {
-      failOnWarning: false,
-      failOnError: true,
+    failOnWarning: false,
+    failOnError: true,
+  },
+  'html-minify-loader': {
+    empty: true,
+    comments: false,
+    conditionals: true,
+    loose: true,
   },
   plugins: [
     new webpack.DefinePlugin({
