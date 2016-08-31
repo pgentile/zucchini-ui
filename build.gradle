@@ -225,7 +225,11 @@ project("${rootProject.name}-frontend") {
         outputs.dir('build/dist')
     }
 
-    tasks.processResources.dependsOn webpack
+    task jsTest(type: NPMTask, description: 'Test JavaScript') {
+        command = 'run'
+        args = ['test']
+    }
+    tasks.check.dependsOn jsTest
 
 }
 

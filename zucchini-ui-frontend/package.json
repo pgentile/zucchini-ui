@@ -3,9 +3,11 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --debug --progress",
-    "build": "webpack --progress --profile --colors"
+    "build": "webpack --progress --profile --colors",
+    "test": "karma start"
   },
   "devDependencies": {
+    "angular-mocks": "^1.5.8",
     "autoprefixer": "^6.4.0",
     "babel-core": "^6.14.0",
     "babel-loader": "^6.2.5",
@@ -22,10 +24,10 @@
     "img-loader": "^1.3.1",
     "jasmine": "^2.4.1",
     "jshint-stylish": "^2.1.0",
-    "karma": "^0.13.0",
-    "karma-jasmine": "^0.3.0",
-    "karma-ng-html2js-preprocessor": "^0.2.0",
+    "karma": "^1.2.0",
+    "karma-jasmine": "^1.0.2",
     "karma-phantomjs-launcher": "^1.0.0",
+    "karma-webpack": "^1.8.0",
     "ng-annotate-loader": "^0.1.1",
     "phantomjs-prebuilt": "^2.1.5",
     "postcss-loader": "^0.11.0",

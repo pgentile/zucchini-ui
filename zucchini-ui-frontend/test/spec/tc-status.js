@@ -1,13 +1,13 @@
 'use strict';
 
+
 describe('Status display', function () {
 
   var $compile, $rootScope;
 
-  beforeEach(module('zucchini-ui-frontend'));
-  beforeEach(module('zucchini-ui-frontend.templates'));
+  beforeEach(angular.mock.module('zucchini-ui-frontend'));
 
-  beforeEach(inject(function (_$compile_, _$rootScope_) {
+  beforeEach(angular.mock.inject(function (_$compile_, _$rootScope_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
   }));
