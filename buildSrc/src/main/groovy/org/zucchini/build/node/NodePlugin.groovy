@@ -4,7 +4,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 /**
- * Node plugin, that integrates Gradle with common Node programs, like: Grunt, Bower, NPM.
+ * Node plugin, that integrates Gradle with NPM.
  */
 class NodePlugin implements Plugin<Project> {
 
@@ -14,26 +14,8 @@ class NodePlugin implements Plugin<Project> {
     void apply(Project project) {
         project.apply plugin: 'com.google.osdetector'
 
-        if (project.file('bower.json').isFile()) {
-            initBowerTasks(project)
-        }
-
         if (project.file('package.json').isFile()) {
             initNPMTasks(project)
-        }
-
-        if (project.file('Gruntfile.js').isFile()) {
-            initGruntTasks(project)
-        }
-    }
-
-    private void initBowerTasks(Project project) {
-        project.task('bowerInstall', type: BowerTask, group: TASK_GROUP, description: 'Install Bower components') {
-            command = 'install'
-        }
-
-        project.task('bowerUpdate', type: BowerTask, group: TASK_GROUP, description: 'Update Bower components') {
-            command = 'update'
         }
     }
 
@@ -45,10 +27,6 @@ class NodePlugin implements Plugin<Project> {
         project.task('npmUpdate', type: NPMTask, group: TASK_GROUP, description: 'Update NPM components') {
             command = 'update'
         }
-    }
-
-    private void initGruntTasks(Project project) {
-        project.task('gruntBuild', type: GruntTask, group: TASK_GROUP, description: 'Launch Grunt build')
     }
 
 }

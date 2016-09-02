@@ -1,13 +1,13 @@
-(function (angular) {
-  'use strict';
+'use strict';
 
-  angular.module('zucchini-ui-frontend')
-    .component('tcTags', {
-      templateUrl: 'views/tc-tags.html',
-      bindings: {
-        tags: '<',
-        testRunId: '<'
-      }
-    });
+var zucchiniModule = require('./module');
 
-})(angular);
+
+zucchiniModule
+  .component('tcTags', {
+    template: require('../views/tc-tags.html'),
+    bindings: {
+      tags: '<',
+      testRunId: '<'
+    }
+  });

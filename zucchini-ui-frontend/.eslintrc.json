@@ -1,0 +1,22 @@
+{
+  "extends": "eslint:recommended",
+  "rules": {
+    "indent": ["warn", 2],
+    "linebreak-style": ["error", "unix"],
+    "semi": ["error", "always"],
+    "comma-dangle": ["warn", "always"],
+    "no-cond-assign": ["warn", "always"],
+    "default-case": ["error"],
+    "eqeqeq": ["error", "always"]
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "globals": {
+    "_": true,
+    "$": true,
+    "angular": true,
+    "configuration": true
+  }
+}

@@ -1,8 +1,6 @@
 {
-  "serve": {
-    "host": "localhost",
-    "port": 9000,
-    "livereload": 35729
+  "devServer": {
+    "port": 9000
   },
   "test": {
     "port": 9001

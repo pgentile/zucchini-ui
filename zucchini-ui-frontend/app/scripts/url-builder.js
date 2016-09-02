@@ -1,36 +1,36 @@
-(function (angular) {
-  'use strict';
+'use strict';
 
-  var UrlBuilder = function ($httpParamSerializer, config) {
+var zucchiniModule = require('./module');
 
-    this.createApiUrl = function (path, queryParams) {
-      var url = _.trimEnd(config.backendBaseUri, '/') + '/api/' + _.trimStart(path, '/');
-      if (!_.isUndefined(queryParams)) {
-        url += '?' + $httpParamSerializer(queryParams);
-      }
-      return url;
-    };
 
-    this.createWebSocketUrl = function (path, queryParams) {
-      var parts = _.split(config.backendBaseUri, '://', 2);
-      var baseProtocol = parts[0];
-      var remainingUrl = parts[1];
+var UrlBuilder = function ($httpParamSerializer, config) {
 
-      var protocol = 'ws';
-      if (baseProtocol === 'https') {
-        protocol = 'wss';
-      }
-
-      var url = protocol + '://' + _.trimEnd(remainingUrl, '/') + '/ws/' + _.trimStart(path, '/');
-      if (!_.isUndefined(queryParams)) {
-        url += '?' + $httpParamSerializer(queryParams);
-      }
-      return url;
-    };
-
+  this.createApiUrl = function (path, queryParams) {
+    var url = _.trimEnd(config.backendBaseUri, '/') + '/api/' + _.trimStart(path, '/');
+    if (!_.isUndefined(queryParams)) {
+      url += '?' + $httpParamSerializer(queryParams);
+    }
+    return url;
   };
 
-  angular.module('zucchini-ui-frontend')
-    .service('UrlBuilder', UrlBuilder);
+  this.createWebSocketUrl = function (path, queryParams) {
+    var parts = _.split(config.backendBaseUri, '://', 2);
+    var baseProtocol = parts[0];
+    var remainingUrl = parts[1];
 
-})(angular);
+    var protocol = 'ws';
+    if (baseProtocol === 'https') {
+      protocol = 'wss';
+    }
+
+    var url = protocol + '://' + _.trimEnd(remainingUrl, '/') + '/ws/' + _.trimStart(path, '/');
+    if (!_.isUndefined(queryParams)) {
+      url += '?' + $httpParamSerializer(queryParams);
+    }
+    return url;
+  };
+
+};
+
+zucchiniModule
+  .service('UrlBuilder', UrlBuilder);

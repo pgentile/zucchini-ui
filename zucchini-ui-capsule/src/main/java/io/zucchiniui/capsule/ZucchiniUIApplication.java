@@ -29,7 +29,7 @@ public class ZucchiniUIApplication extends Application<BackendConfiguration> {
         // Register the servlet that generates the UI Javascript config file
         final String apiRootPath = ((AbstractServerFactory) configuration.getServerFactory()).getJerseyRootPath().orElse("/");
         final ServletHolder uiConfigServletHolder = new ServletHolder(new UIConfigServlet(environment.getObjectMapper(), apiRootPath));
-        environment.getApplicationContext().addServlet(uiConfigServletHolder, "/ui/scripts/config.js");
+        environment.getApplicationContext().addServlet(uiConfigServletHolder, "/ui/config.js");
 
         // Redirect to UI
         final ServletHolder redirectServletHolder = new ServletHolder(new RedirectServlet("/ui/"));

@@ -11,18 +11,16 @@ Requirements
 
 * JDK 8
 * Node
-* Bower
-* Grunt
 * Mongo
 
 
 Build
 -----
 
-First time, install Bower dependencies and init Gradle build for Node component:
+First time, install NPM dependencies:
 
 ```
-./gradlew npmInstall bowerInstall
+./gradlew npmInstall
 ```
 
 Build application with Gradle:
@@ -32,7 +30,7 @@ Build application with Gradle:
 ```
 
 _Warning_: when Gradle is launched with Intellij, the PATH environment variable doesn't
-always contain path to Grunt. If this is the case, relaunch Gradle daemon:
+always contain path to Webpack. If this is the case, relaunch Gradle daemon:
 
 ```
 ./gradlew --stop
@@ -64,7 +62,13 @@ Start Java backend:
 Start frontend:
 
 ```
-(cd zucchini-ui-frontend && grunt serve)
+(cd zucchini-ui-frontend && npm run dev)
+```
+
+Open your browser to :
+
+```
+http://localhost:9000
 ```
 
 You can build sample Cucumber reports from the `zucchini-ui-example-features`:

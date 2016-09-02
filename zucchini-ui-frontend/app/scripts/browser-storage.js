@@ -1,50 +1,50 @@
-(function (angular) {
-  'use strict';
+'use strict';
 
-  var StoredItem = function (storage, itemName, defaultValueFactory, log) {
+var zucchiniModule = require('./module');
 
-    var value = defaultValueFactory();
 
-    this.get = function () {
-      return value;
-    };
+var StoredItem = function (storage, itemName, defaultValueFactory, log) {
 
-    this.save = function (newValue) {
-      value = newValue;
-      storage.setItem(itemName, angular.toJson(value));
-    };
+  var value = defaultValueFactory();
 
-    this.reset = function () {
-      value = defaultValueFactory();
-      storage.removeItem(itemName);
-    };
+  this.get = function () {
+    return value;
+  };
 
-    var storedValue = storage.getItem(itemName);
-    if (_.isString(storedValue)) {
-      try {
-        _.merge(value, angular.fromJson(storedValue));
-      } catch (e) {
-        log.warn('Caught exception when loading filters from local storage item', itemName, ':', e);
-      }
+  this.save = function (newValue) {
+    value = newValue;
+    storage.setItem(itemName, angular.toJson(value));
+  };
+
+  this.reset = function () {
+    value = defaultValueFactory();
+    storage.removeItem(itemName);
+  };
+
+  var storedValue = storage.getItem(itemName);
+  if (_.isString(storedValue)) {
+    try {
+      _.merge(value, angular.fromJson(storedValue));
+    } catch (e) {
+      log.warn('Caught exception when loading filters from local storage item', itemName, ':', e);
     }
-    this.save(value);
+  }
+  this.save(value);
 
+};
+
+var BrowserObjectStorage = function (storage, log) {
+
+  this.getItem = function (itemName, defaultValueFactory) {
+    return new StoredItem(storage, itemName, defaultValueFactory, log);
   };
 
-  var BrowserObjectStorage = function (storage, log) {
+};
 
-    this.getItem = function (itemName, defaultValueFactory) {
-      return new StoredItem(storage, itemName, defaultValueFactory, log);
-    };
-
-  };
-
-  angular.module('zucchini-ui-frontend')
-    .factory('BrowserSessionStorage', function ($window, $log) {
-      return new BrowserObjectStorage($window.sessionStorage, $log);
-    })
-    .factory('BrowserLocalStorage', function ($window, $log) {
-      return new BrowserObjectStorage($window.localStorage, $log);
-    });
-
-})(angular);
+zucchiniModule
+  .factory('BrowserSessionStorage', function ($window, $log) {
+    return new BrowserObjectStorage($window.sessionStorage, $log);
+  })
+  .factory('BrowserLocalStorage', function ($window, $log) {
+    return new BrowserObjectStorage($window.localStorage, $log);
+  });

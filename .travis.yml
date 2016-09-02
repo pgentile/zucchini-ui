@@ -13,12 +13,10 @@ before_install:
   - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
   - nvm install 6.3.1
   - nvm use 6.3.1
-  # Install Grunt and Bower
-  - npm install -g grunt-cli bower
 
 install:
   # Install UI dependencies
-  - ./gradlew npmInstall bowerInstall
+  - ./gradlew npmInstall
   # Assemble project
   - ./gradlew assemble
 

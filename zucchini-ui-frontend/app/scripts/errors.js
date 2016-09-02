@@ -1,55 +1,55 @@
-(function (angular) {
-  'use strict';
+'use strict';
 
-  var ErrorService = function () {
+var zucchiniModule = require('./module');
 
-      /**
-       * Send an error to the service.
-       */
-      this.sendError = function (error) {
-        this.listeners.forEach(function (listener) {
-          listener(error);
-        });
+
+var ErrorService = function () {
+
+    /**
+     * Send an error to the service.
+     */
+    this.sendError = function (error) {
+      this.listeners.forEach(function (listener) {
+        listener(error);
+      });
+    };
+
+    /**
+     * Add an error listener.
+     */
+    this.addListener = function (listener) {
+      this.listeners.push(listener);
+    };
+
+    this.listeners = [];
+
+};
+
+zucchiniModule
+  .controller('ErrorCtrl', function (ErrorService) {
+
+    this.addError = function (message) {
+      this.message = message;
+    };
+
+    this.dismiss = function () {
+      this.message = null;
+    };
+
+    ErrorService.addListener(function (error) {
+      this.addError(error);
+    }.bind(this));
+
+  })
+  .service('ErrorService', ErrorService)
+  .factory('errorHttpInterceptor', function ($q, ErrorService) {
+      return {
+          responseError: function responseError(rejection) {
+              ErrorService.sendError(rejection);
+              return $q.reject(rejection);
+          }
       };
-
-      /**
-       * Add an error listener.
-       */
-      this.addListener = function (listener) {
-        this.listeners.push(listener);
-      };
-
-      this.listeners = [];
-
-  };
-
-  angular.module('zucchini-ui-frontend')
-    .controller('ErrorCtrl', function (ErrorService) {
-
-      this.addError = function (message) {
-        this.message = message;
-      };
-
-      this.dismiss = function () {
-        this.message = null;
-      };
-
-      ErrorService.addListener(function (error) {
-        this.addError(error);
-      }.bind(this));
-
-    })
-    .service('ErrorService', ErrorService)
-    .factory('errorHttpInterceptor', function ($q, ErrorService) {
-        return {
-            responseError: function responseError(rejection) {
-                ErrorService.sendError(rejection);
-                return $q.reject(rejection);
-            }
-        };
-    })
-    .config(function($httpProvider) {
-        $httpProvider.interceptors.push('errorHttpInterceptor');
-    });
-
-})(angular);
+  })
+  .config(function($httpProvider) {
+      $httpProvider.interceptors.push('errorHttpInterceptor');
+  });

@@ -1,27 +1,27 @@
-(function (angular) {
-  'use strict';
+'use strict';
 
-  var WindowVisibility = function ($window, $log, callbackContainer) {
+var zucchiniModule = require('./module');
 
-    this.onVisible = callbackContainer();
-    this.onHidden = callbackContainer();
 
-    this.isVisible = function () {
-      return $window.document.visibilityState === 'visible';
-    };
+var WindowVisibility = function ($window, $log, callbackContainer) {
 
-    this.onVisible.bindToEvent($window.document, 'visibilitychange', function () {
-      return this.isVisible();
-    }.bind(this));
+  this.onVisible = callbackContainer();
+  this.onHidden = callbackContainer();
 
-    this.onHidden.bindToEvent($window.document, 'visibilitychange', function () {
-      return !this.isVisible();
-    }.bind(this));
-
+  this.isVisible = function () {
+    return $window.document.visibilityState === 'visible';
   };
 
+  this.onVisible.bindToEvent($window.document, 'visibilitychange', function () {
+    return this.isVisible();
+  }.bind(this));
 
-  angular.module('zucchini-ui-frontend')
-    .service('WindowVisibility', WindowVisibility);
+  this.onHidden.bindToEvent($window.document, 'visibilitychange', function () {
+    return !this.isVisible();
+  }.bind(this));
 
-})(angular);
+};
+
+
+zucchiniModule
+  .service('WindowVisibility', WindowVisibility);
