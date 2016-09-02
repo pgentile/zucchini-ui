@@ -226,9 +226,9 @@ project("${rootProject.name}-frontend") {
     }
 
     task jsTest(type: NPMTask, description: 'Test JavaScript') {
-        command = 'run'
-        args = ['test']
+        command = 'test'
     }
+
     tasks.check.dependsOn jsTest
 
 }
@@ -331,6 +331,7 @@ project("${rootProject.name}-example-features") {
     }
 
 }
+
 
 project("${rootProject.name}-mongo") {
 
