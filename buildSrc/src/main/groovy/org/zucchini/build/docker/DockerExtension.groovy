@@ -13,6 +13,8 @@ class DockerExtension {
 
     Map<String, String> buildArgs = [:]
 
+    boolean pull = true
+
     DockerExtension(Project project) {
         repository = project.properties['docker.baseRepository']
         name = project.name

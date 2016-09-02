@@ -27,6 +27,7 @@ class DockerPlugin implements Plugin<Project> {
             Task buildTask = project.task('dockerBuild', type: DockerBuildTask, group: TASK_GROUP, description: 'Build Docker image') {
                 tags = project.docker.fullTagNames
                 buildArgs = project.docker.buildArgs
+                pull = project.docker.pull
             }
 
             if (project.tasks.findByName('assemble') != null) {
