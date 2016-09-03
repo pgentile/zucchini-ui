@@ -61,7 +61,7 @@ zucchiniModule
 
     this.openCreateForm = function () {
       var createdModal = $uibModal.open({
-        templateUrl: 'createTestRunForm.html',
+        template: require('../views/test-run-create.html'),
         controller: 'CreateTestRunCtrl',
         controllerAs: 'createCtrl'
       });
@@ -150,7 +150,7 @@ zucchiniModule
 
     this.openImportForm = function () {
       var createdModal = $uibModal.open({
-        templateUrl: 'importCucumberResults.html',
+        template: require('../views/import-cucumber-results.html'),
         controller: 'ImportCucumberResultsCtrl',
         controllerAs: 'importCtrl'
       });
@@ -178,7 +178,7 @@ zucchiniModule
 
     this.openUpdateTestRunForm = function () {
       var createdModal = $uibModal.open({
-        templateUrl: 'updateTestRunForm.html',
+        template: require('../views/test-run-update.html'),
         controller: 'UpdateTestRunCtrl',
         controllerAs: 'updateCtrl',
         size: 'lg',

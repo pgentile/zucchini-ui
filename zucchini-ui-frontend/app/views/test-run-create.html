@@ -1,0 +1,25 @@
+<form name="createForm" ng-submit="createForm.$valid && createCtrl.create()" novalidate>
+
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Fermer">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">Créer un nouveau tir de tests</h4>
+  </div>
+
+  <div class="modal-body">
+
+    <div class="form-group" ng-class="createForm.type.$invalid && createForm.type.$dirty && 'has-error'">
+      <label for="type">Type</label>
+      <input name="type" type="text" class="form-control" id="type" ng-model="createCtrl.testRun.type" required
+             autofocus>
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="$dismiss()">Annuler</button>
+    <button type="submit" class="btn btn-primary" ng-disabled="createForm.$invalid">Créer</button>
+  </div>
+
+</form>
