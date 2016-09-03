@@ -1,5 +1,7 @@
 'use strict';
 
+var moment = require('moment');
+
 var zucchiniModule = require('./module');
 
 
@@ -48,7 +50,7 @@ var TestRunCoreService = function ($httpParamSerializer, TestRunResource, Upload
 };
 
 zucchiniModule
-  .controller('AllTestRunsCtrl', function (TestRunCoreService, $uibModal, $location) {
+  .controller('AllTestRunsCtrl', function (TestRunCoreService, $uibModal, $location, $q, $log) {
 
     this.load = function () {
       TestRunCoreService.getLatests(true)
@@ -72,6 +74,27 @@ zucchiniModule
           $location.path('/test-runs/' + response.id);
         });
     };
+
+    this.openPurgeForm = function () {
+      var createdModal = $uibModal.open({
+        template: require('../views/test-run-purge.html'),
+        controller: 'PurgeTestRunsCtrl',
+        controllerAs: 'purgeCtrl'
+      });
+
+      createdModal.result
+        .then(function (selectedTestRunIds) {
+          var deleteTasks = selectedTestRunIds.map(function (testRunId) {
+            $log.info('Purged test run', testRunId);
+            return TestRunCoreService.delete(testRunId);
+          });
+
+          return $q.all(deleteTasks);
+        })
+        .then(function () {
+          this.load();
+        }.bind(this));
+    }.bind(this);
 
     this.load();
 
@@ -193,6 +216,45 @@ zucchiniModule
     this.create = function () {
       $uibModalInstance.close(this.testRun);
     };
+
+  })
+  .controller('PurgeTestRunsCtrl', function ($uibModalInstance, config, TestRunCoreService) {
+
+    this.testRuns = [];
+    this.testRunTypes = [];
+    this.selectedTestRunType = null;
+    this.selectedTestRunIds = [];
+
+    this.maxDate = moment().add(-config.testRunPurgeDelayInDays, 'day').toDate();
+
+    TestRunCoreService.getLatests(false)
+      .then(function (testRuns) {
+
+        this.testRuns = testRuns;
+
+        testRuns.forEach(function (testRun) {
+          this.testRunTypes.push(testRun.type);
+        }.bind(this));
+
+        this.testRunTypes = _.sortedUniq(this.testRunTypes.sort());
+
+      }.bind(this));
+
+    this.updateSelection = function () {
+      if (this.selectedTestRunType) {
+        this.selectedTestRunIds = this.testRuns
+          .filter(function (testRun) {
+            return testRun.type === this.selectedTestRunType && moment(testRun.date) < this.maxDate;
+          }.bind(this))
+          .map(function (testRun) {
+            return testRun.id;
+          });
+      }
+    }.bind(this);
+
+    this.purge = function () {
+      $uibModalInstance.close(this.selectedTestRunIds);
+    }.bind(this);
 
   })
   .controller('UpdateTestRunCtrl', function ($uibModalInstance, updateRequest) {

@@ -51,6 +51,7 @@
     "chartist": "^0.9.7",
     "jquery": "^3.1.0",
     "lodash": "^4.15.0",
+    "moment": "^2.14.1",
     "ng-file-upload": "^12.2.5",
     "pure-uuid": "^1.4.0"
   }

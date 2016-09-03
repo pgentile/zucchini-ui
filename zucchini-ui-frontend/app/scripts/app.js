@@ -32,6 +32,7 @@ var zucchiniModule = require('./module');
 // Create real configuration by merging default values with configuration
 var realConfig = _.merge({
   angularDebugMode: false,
+  testRunPurgeDelayInDays: 31 * 3, // 3 months
 }, configuration);
 
 

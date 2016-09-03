@@ -41,6 +41,7 @@ module.exports = {
         'chartist',
         'lodash',
         'jquery',
+        'moment',
       ],
   },
   output: {
