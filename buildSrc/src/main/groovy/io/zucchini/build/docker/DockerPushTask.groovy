@@ -1,4 +1,4 @@
-package org.zucchini.build.docker
+package io.zucchini.build.docker
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project

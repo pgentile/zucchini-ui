@@ -1,6 +1,6 @@
-import org.zucchini.build.docker.DockerPlugin
-import org.zucchini.build.node.NodePlugin
-import org.zucchini.build.node.NPMTask
+import io.zucchini.build.docker.DockerPlugin
+import io.zucchini.build.node.NodePlugin
+import io.zucchini.build.node.NPMTask
 
 buildscript {
 
