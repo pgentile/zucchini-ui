@@ -2,6 +2,7 @@ import io.zucchini.build.docker.DockerPlugin
 import io.zucchini.build.node.NodePlugin
 import io.zucchini.build.node.NPMTask
 
+
 buildscript {
 
     repositories {
@@ -11,14 +12,15 @@ buildscript {
         jcenter()
     }
 
-    dependencies {
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
-        classpath 'us.kirchmeier:gradle-capsule-plugin:1.0.2'
-        classpath 'gradle.plugin.com.google.gradle:osdetector-gradle-plugin:1.4.0'
-        classpath 'org.ajoberstar:gradle-git:1.5.1'
-    }
-
 }
+
+plugins {
+    id 'com.github.ben-manes.versions' version '0.11.3' apply false
+    id 'us.kirchmeier.capsule' version '1.0.2' apply false
+    id 'com.google.osdetector' version '1.4.0' apply false
+    id 'org.ajoberstar.grgit' version '1.5.1' apply false
+}
+
 
 /**
  * Replace version used by a group of dependencies.
