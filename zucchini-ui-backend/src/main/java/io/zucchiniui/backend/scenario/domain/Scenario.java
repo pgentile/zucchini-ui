@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -197,6 +198,16 @@ public class Scenario extends BaseEntity<String> {
             changes.add(new ScenarioReviewedStateChange(modifiedAt, this.reviewed, reviewed));
 
             this.reviewed = reviewed;
+        }
+    }
+
+    public void doIgnoringChanges(Consumer<Scenario> consumer) {
+        final int oldSize = changes.size();
+
+        consumer.accept(this);
+
+        if (changes.size() > oldSize) {
+            changes = new ArrayList<>(changes.subList(0, oldSize));
         }
     }
 

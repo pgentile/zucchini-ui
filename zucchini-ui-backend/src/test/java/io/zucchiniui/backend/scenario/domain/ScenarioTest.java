@@ -207,7 +207,7 @@ public class ScenarioTest {
             .addAfterAction(sb -> sb.withStatus(StepStatus.FAILED).withErrorMessage("Error D"))
             .build();
 
-        inputScenario.setReviewed(true);
+        inputScenario.doIgnoringChanges(s -> s.setReviewed(true));
 
         // when
         receivingScenario.mergeWith(inputScenario);

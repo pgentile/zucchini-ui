@@ -85,7 +85,11 @@ class ReportConverterServiceImpl implements ReportConverterService {
         final ConversionResult conversionResult = reportConverter.convert(testRunId, group, reportFeature);
 
         if (dryRun) {
-            conversionResult.getScenarii().forEach(s -> s.setStatus(ScenarioStatus.NOT_RUN));
+            conversionResult.getScenarii().forEach(s -> {
+                s.doIgnoringChanges(ignored -> {
+                    s.setStatus(ScenarioStatus.NOT_RUN);
+                });
+            });
         }
 
         // If feature has been merged to an existing feature, re-link scenarii to this existing feature

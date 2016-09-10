@@ -24,9 +24,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import static java.util.Collections.singletonList;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willAnswer;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -119,6 +122,12 @@ public class ReportConverterServiceImplTest {
         final Scenario scenario = mock(Scenario.class);
         final ConversionResult conversionResult = new ConversionResult(feature, singletonList(scenario));
 
+        willAnswer(invocation -> {
+            final Consumer<Scenario> consumer = (Consumer<Scenario>) invocation.getArgumentAt(0, Consumer.class);
+            consumer.accept((Scenario) invocation.getMock());
+            return null;
+        }).given(scenario).doIgnoringChanges(any());
+
         given(reportConverter.convert(testRunId, group, reportFeature)).willReturn(conversionResult);
         given(featureService.tryToMergeWithExistingFeature(feature)).willReturn(feature);
         given(scenarioService.tryToMergeWithExistingScenario(scenario)).willReturn(scenario);
@@ -132,6 +141,7 @@ public class ReportConverterServiceImplTest {
             scenarioService, reportConverter, feature, scenario);
 
         inOrder.verify(reportConverter).convert(testRunId, group, reportFeature);
+        inOrder.verify(scenario).doIgnoringChanges(any());
         inOrder.verify(scenario).setStatus(ScenarioStatus.NOT_RUN);
         inOrder.verify(featureService).tryToMergeWithExistingFeature(feature);
         inOrder.verify(scenarioService).tryToMergeWithExistingScenario(scenario);
