@@ -212,7 +212,7 @@ public class ScenarioTest {
 
         // then
         assertThat(receivingScenario).isEqualToIgnoringGivenFields(inputScenario, "id", "createdAt", "modifiedAt",
-            "background", "steps", "beforeActions", "afterActions", "reviewed");
+            "background", "steps", "beforeActions", "afterActions", "reviewed", "changes");
 
         assertThat(receivingScenario.getId()).isNotEqualTo(inputScenario.getId());
         assertThat(receivingScenario.getModifiedAt()).isAfter(inputScenario.getModifiedAt());
@@ -226,6 +226,60 @@ public class ScenarioTest {
         assertThat(receivingScenario.getSteps()).usingFieldByFieldElementComparator().isEqualTo(inputScenario.getSteps());
 
         assertThat(receivingScenario.getAfterActions()).usingFieldByFieldElementComparator().isEqualTo(inputScenario.getAfterActions());
+    }
+
+    @Test
+    public void should_add_status_change_on_set_status() throws Exception {
+        // given
+        final Scenario scenario = new StatusTestScenarioBuilder()
+            .withStep(StepStatus.NOT_RUN)
+            .build();
+
+        final ScenarioStatus newStatus = ScenarioStatus.PASSED;
+
+        // when
+        scenario.setStatus(newStatus);
+
+        // then
+        assertThat(scenario.getStatus()).isEqualTo(newStatus);
+
+        assertThat(scenario.getChanges()).hasSize(1);
+
+        final ScenarioChange<?> change = scenario.getChanges().get(0);
+        assertThat(change).isInstanceOf(ScenarioStatusChange.class);
+
+        final ScenarioStatusChange scenarioStatusChange = (ScenarioStatusChange) change;
+        assertThat(scenarioStatusChange.getId()).isNotNull();
+        assertThat(scenarioStatusChange.getType()).isEqualTo(ScenarioChange.ChangeType.STATUS);
+        assertThat(scenarioStatusChange.getDate()).isNotNull();
+        assertThat(scenarioStatusChange.getOldValue()).isEqualTo(ScenarioStatus.NOT_RUN);
+        assertThat(scenarioStatusChange.getNewValue()).isEqualTo(newStatus);
+    }
+
+    @Test
+    public void should_reviewed_state_status_change_on_set_reviewed() throws Exception {
+        // given
+        final Scenario scenario = new StatusTestScenarioBuilder()
+            .withStep(StepStatus.NOT_RUN)
+            .build();
+
+        // when
+        scenario.setReviewed(true);
+
+        // then
+        assertThat(scenario.isReviewed()).isTrue();
+
+        assertThat(scenario.getChanges()).hasSize(1);
+
+        final ScenarioChange<?> change = scenario.getChanges().get(0);
+        assertThat(change).isInstanceOf(ScenarioReviewedStateChange.class);
+
+        final ScenarioReviewedStateChange scenarioReviewedStateChange = (ScenarioReviewedStateChange) change;
+        assertThat(scenarioReviewedStateChange.getId()).isNotNull();
+        assertThat(scenarioReviewedStateChange.getType()).isEqualTo(ScenarioChange.ChangeType.REVIEWED_STATE);
+        assertThat(scenarioReviewedStateChange.getDate()).isNotNull();
+        assertThat(scenarioReviewedStateChange.getOldValue()).isFalse();
+        assertThat(scenarioReviewedStateChange.getNewValue()).isTrue();
     }
 
     private static class StatusTestScenarioBuilder {

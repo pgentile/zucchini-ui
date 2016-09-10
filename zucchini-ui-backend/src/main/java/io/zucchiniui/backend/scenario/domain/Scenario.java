@@ -48,6 +48,8 @@ public class Scenario extends BaseEntity<String> {
 
     private List<AroundAction> afterActions = new ArrayList<>();
 
+    private List<ScenarioChange<?>> changes = new ArrayList<>();
+
     private ZonedDateTime createdAt;
 
     private ZonedDateTime modifiedAt;
@@ -173,14 +175,18 @@ public class Scenario extends BaseEntity<String> {
         steps.forEach(step -> step.setStatus(newStepStatus));
         afterActions.forEach(step -> step.setStatus(newStepStatus));
 
-        status = newStatus;
         modifiedAt = ZonedDateTime.now();
+        changes.add(new ScenarioStatusChange(modifiedAt, status, newStatus));
+
+        status = newStatus;
     }
 
     public void setReviewed(final boolean reviewed) {
         if (this.reviewed != reviewed) {
-            this.reviewed = reviewed;
             modifiedAt = ZonedDateTime.now();
+            changes.add(new ScenarioReviewedStateChange(modifiedAt, this.reviewed, reviewed));
+
+            this.reviewed = reviewed;
         }
     }
 
@@ -253,6 +259,10 @@ public class Scenario extends BaseEntity<String> {
 
     public List<Step> getSteps() {
         return Collections.unmodifiableList(steps);
+    }
+
+    public List<ScenarioChange<?>> getChanges() {
+        return changes;
     }
 
     public ZonedDateTime getCreatedAt() {

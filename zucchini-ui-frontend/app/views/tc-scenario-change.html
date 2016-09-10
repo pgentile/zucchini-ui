@@ -1,0 +1,9 @@
+<span ng-switch="$ctrl.type">
+  <span ng-switch-when="STATUS">
+    <tc-status status="$ctrl.value"></tc-status>
+  </span>
+  <span ng-switch-when="REVIEWED_STATE">
+    {{ $ctrl.value ? 'Oui' : 'Non' }}
+  </span>
+  <span ng-switch-default>{{ $ctrl.value }}</span>
+</span>

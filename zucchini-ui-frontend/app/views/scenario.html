@@ -73,7 +73,7 @@
           <tc-glyphicon name="eye-close"></tc-glyphicon>
           Marquer comme non analysé
         </span>
-        <span ng-switch-default>
+            <span ng-switch-default>
           <tc-glyphicon name="eye-open"></tc-glyphicon>
           Marquer comme analysé
         </span>
@@ -298,6 +298,47 @@
     </form>
 
   </div>
+
+  <hr>
+
+  <!-- Changes -->
+
+  <h2>Changements</h2>
+
+
+  <div ng-if="ctrl.scenario.changes.length == 0">
+    <p class="text-muted text-center">Aucun changement</p>
+  </div>
+
+  <table class="table table-bordered" ng-if="ctrl.scenario.changes.length > 0">
+    <thead>
+    <tr>
+      <th class="col-md-3">Date</th>
+      <th class="col-md-3">Type</th>
+      <th class="col-md-3">Ancienne&nbsp;valeur</th>
+      <th class="col-md-3">Nouvelle&nbsp;valeur</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="change in ctrl.scenario.changes track by change.id">
+      <td>{{ change.date | niceDate }}</td>
+      <td>
+        <span ng-switch="change.type">
+          <b ng-switch-when="STATUS">Statut</b>
+          <b ng-switch-when="REVIEWED_STATE">Analysé&nbsp;?</b>
+          <b ng-switch-default>{{ change.type }}</b>
+        </span>
+      </td>
+      <td>
+        <tc-scenario-change type="change.type" value="change.oldValue"></tc-scenario-change>
+      </td>
+      <td>
+        <tc-scenario-change type="change.type" value="change.newValue"></tc-scenario-change>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
 
   <hr>
 

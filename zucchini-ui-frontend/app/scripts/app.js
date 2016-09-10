@@ -12,6 +12,7 @@ require('./tc-element-info.js');
 require('./tc-feature-list.js');
 require('./tc-glyphicon.js');
 require('./tc-pie-chart.js');
+require('./tc-scenario-change.js');
 require('./tc-scenario-list.js');
 require('./tc-scenario-pie-chart.js');
 require('./tc-simple-text.js');
