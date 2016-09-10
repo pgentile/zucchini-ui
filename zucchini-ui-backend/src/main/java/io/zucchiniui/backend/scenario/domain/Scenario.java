@@ -121,6 +121,9 @@ public class Scenario extends BaseEntity<String> {
             background = other.background.copy();
         }
 
+        final boolean oldReviewed = reviewed;
+        final ScenarioStatus oldStatus = status;
+
         status = other.status;
         info = other.info;
         comment = other.comment;
@@ -141,6 +144,13 @@ public class Scenario extends BaseEntity<String> {
         calculateReviewStateFromStatus();
 
         modifiedAt = ZonedDateTime.now();
+
+        if (oldReviewed != reviewed) {
+            changes.add(new ScenarioReviewedStateChange(modifiedAt, oldReviewed, reviewed));
+        }
+        if (oldStatus != status) {
+            changes.add(new ScenarioStatusChange(modifiedAt, oldStatus, status));
+        }
     }
 
     public void setStatus(final ScenarioStatus newStatus) {
@@ -262,7 +272,7 @@ public class Scenario extends BaseEntity<String> {
     }
 
     public List<ScenarioChange<?>> getChanges() {
-        return changes;
+        return Collections.unmodifiableList(changes);
     }
 
     public ZonedDateTime getCreatedAt() {

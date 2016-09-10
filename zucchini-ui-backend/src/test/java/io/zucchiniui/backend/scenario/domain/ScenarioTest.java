@@ -187,6 +187,7 @@ public class ScenarioTest {
             .withFeatureId(featureId)
             .withScenarioKey(scenarioKey)
             .withInfo(new BasicInfo("Feature A", "Feature name A"))
+            .addStep(sb -> sb.withInfo(new BasicInfo("Step", "Step E")).withStatus(StepStatus.PASSED))
             .build();
 
         final Scenario inputScenario = new ScenarioBuilder()
@@ -205,6 +206,7 @@ public class ScenarioTest {
             .addStep(sb -> sb.withInfo(new BasicInfo("Step", "Step E")).withStatus(StepStatus.FAILED).withErrorMessage("Error C").withComment("Comment B"))
             .addAfterAction(sb -> sb.withStatus(StepStatus.FAILED).withErrorMessage("Error D"))
             .build();
+
         inputScenario.setReviewed(true);
 
         // when
@@ -226,6 +228,36 @@ public class ScenarioTest {
         assertThat(receivingScenario.getSteps()).usingFieldByFieldElementComparator().isEqualTo(inputScenario.getSteps());
 
         assertThat(receivingScenario.getAfterActions()).usingFieldByFieldElementComparator().isEqualTo(inputScenario.getAfterActions());
+
+        // Removing previous changes that must be ignored
+
+        assertThat(receivingScenario.getChanges()).isNotEmpty();
+
+        assertThat(receivingScenario.getChanges())
+            .filteredOn(change -> change instanceof ScenarioStatusChange)
+            .hasSize(1);
+
+        final ScenarioStatusChange scenarioStatusChange = receivingScenario.getChanges().stream()
+            .filter(change -> change instanceof ScenarioStatusChange)
+            .map(ScenarioStatusChange.class::cast)
+            .findFirst()
+            .get();
+
+        assertThat(scenarioStatusChange.getOldValue()).isEqualTo(ScenarioStatus.PASSED);
+        assertThat(scenarioStatusChange.getNewValue()).isEqualTo(ScenarioStatus.FAILED);
+
+        assertThat(receivingScenario.getChanges())
+            .filteredOn(change -> change instanceof ScenarioReviewedStateChange)
+            .hasSize(1);
+
+        final ScenarioReviewedStateChange scenarioReviewedStateChange = receivingScenario.getChanges().stream()
+            .filter(change -> change instanceof ScenarioReviewedStateChange)
+            .map(ScenarioReviewedStateChange.class::cast)
+            .findFirst()
+            .get();
+
+        assertThat(scenarioReviewedStateChange.getOldValue()).isTrue();
+        assertThat(scenarioReviewedStateChange.getNewValue()).isFalse();
     }
 
     @Test
