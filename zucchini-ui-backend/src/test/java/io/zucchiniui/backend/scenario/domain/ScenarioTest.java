@@ -314,6 +314,23 @@ public class ScenarioTest {
         assertThat(scenarioReviewedStateChange.getNewValue()).isTrue();
     }
 
+    @Test
+    public void should_not_add_changes_on_ignore_changes() throws Exception {
+        // given
+        final Scenario scenario = new StatusTestScenarioBuilder()
+            .withStep(StepStatus.NOT_RUN)
+            .build();
+
+        // when
+        scenario.doIgnoringChanges(s -> {
+            s.setStatus(ScenarioStatus.PASSED);
+            s.setReviewed(true);
+        });
+
+        // then
+        assertThat(scenario.getChanges()).isEmpty();
+    }
+
     private static class StatusTestScenarioBuilder {
 
         private final ScenarioBuilder scenarioBuilder = new ScenarioBuilder()
