@@ -2,7 +2,6 @@ package io.zucchiniui.capsule;
 
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
-import io.dropwizard.server.AbstractServerFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.zucchiniui.backend.BackendBundle;
@@ -27,8 +26,7 @@ public class ZucchiniUIApplication extends Application<BackendConfiguration> {
     @Override
     public void run(final BackendConfiguration configuration, final Environment environment) throws Exception {
         // Register the servlet that generates the UI Javascript config file
-        final String apiRootPath = ((AbstractServerFactory) configuration.getServerFactory()).getJerseyRootPath().orElse("/");
-        final ServletHolder uiConfigServletHolder = new ServletHolder(new UIConfigServlet(environment.getObjectMapper(), apiRootPath));
+        final ServletHolder uiConfigServletHolder = new ServletHolder(new UIConfigServlet(environment.getObjectMapper()));
         environment.getApplicationContext().addServlet(uiConfigServletHolder, "/ui/config.js");
 
         // Redirect to UI

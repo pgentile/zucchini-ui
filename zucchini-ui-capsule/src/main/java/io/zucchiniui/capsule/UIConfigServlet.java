@@ -12,11 +12,8 @@ class UIConfigServlet extends HttpServlet {
 
     private final ObjectMapper objectMapper;
 
-    private final String apiRootPath;
-
-    public UIConfigServlet(final ObjectMapper objectMapper, final String apiRootPath) {
+    public UIConfigServlet(final ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
-        this.apiRootPath = apiRootPath;
     }
 
     @Override
