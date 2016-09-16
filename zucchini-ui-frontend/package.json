@@ -2,7 +2,7 @@
   "name": "zucchini-ui-frontend",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --debug --progress",
+    "dev": "webpack-dev-server --inline --debug --progress --open",
     "build": "webpack --progress --profile --colors",
     "test": "karma start"
   },
