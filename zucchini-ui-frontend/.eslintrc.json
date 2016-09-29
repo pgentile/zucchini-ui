@@ -1,12 +1,10 @@
 {
   "extends": "eslint:recommended",
   "rules": {
-    "indent": ["warn", 2],
+    "indent": ["error", 2],
     "linebreak-style": ["error", "unix"],
     "semi": ["error", "always"],
-    "comma-dangle": ["warn", "only-multiline"],
-    "no-cond-assign": ["warn", "always"],
-    "default-case": ["error"],
+    "comma-dangle": ["error", "only-multiline"],
     "eqeqeq": ["error", "always"]
   },
   "env": {
