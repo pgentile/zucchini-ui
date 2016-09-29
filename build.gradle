@@ -51,11 +51,11 @@ allprojects {
     }
 
     ext.versions = [
-        dropwizard     : '1.0.0',
+        dropwizard     : '1.0.2',
         orika          : '1.4.6',
         morphia        : '1.2.1',
         slf4j          : '1.7.21',
-        spring         : '4.3.2.RELEASE',
+        spring         : '4.3.3.RELEASE',
         junit          : '4.12',
         assertj        : '3.5.2',
         mockito        : '1.10.19',
