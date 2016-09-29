@@ -7,7 +7,7 @@ zucchiniModule
   .component('tcStatsDashboard', {
     template: require('../views/tc-stats-dashboard.html'),
     bindings: {
-      stats: '<'
+      stats: '<',
     },
     controller: function (statsDashboardState) {
 
@@ -29,12 +29,12 @@ zucchiniModule
         statsDashboardState.save({ showDetails: newState });
       };
 
-    }
+    },
   })
   .factory('statsDashboardState', function (BrowserLocalStorage) {
     return BrowserLocalStorage.getItem('statsDashboardState', function () {
       return {
-        showDetails: true
+        showDetails: true,
       };
     });
   });

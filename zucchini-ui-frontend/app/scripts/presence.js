@@ -69,7 +69,7 @@ var PresenceService = function ($log, $interval, WindowVisibility, ReactiveWebSo
       this._ws.url = UrlBuilder.createWebSocketUrl('/presence', {
         watcherId: this._watcherId,
         type: this._reference.type,
-        reference: this._reference.reference
+        reference: this._reference.reference,
       });
       this._ws.encoder = angular.toJson;
       this._ws.decoder = angular.fromJson;
@@ -142,7 +142,7 @@ zucchiniModule
   .factory('presenceInfos', function (BrowserLocalStorage) {
     return BrowserLocalStorage.getItem('presenceInfos', function () {
       return {
-        watcherId: new UUID(4).format()
+        watcherId: new UUID(4).format(),
       };
     });
   });

@@ -4,7 +4,9 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --debug --progress --open",
     "build": "webpack --progress --profile --colors",
-    "test": "karma start"
+    "test": "karma start",
+    "lint": "eslint ./app",
+    "fix": "eslint --fix ./app"
   },
   "devDependencies": {
     "angular-mocks": "^1.5.0",

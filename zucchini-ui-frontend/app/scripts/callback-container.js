@@ -59,10 +59,10 @@ var CallbackContainer = function () {
     };
 
     this.onActivate = function () {
-       target.addEventListener(eventName, listener);
+      target.addEventListener(eventName, listener);
     };
     this.onDeactivate = function () {
-       target.removeEventListener(eventName, listener);
+      target.removeEventListener(eventName, listener);
     };
   };
 
@@ -87,7 +87,7 @@ var createSimpleCallbackContainer = function () {
     return {
       remove: function () {
         container.remove(callback);
-      }
+      },
     };
   };
 

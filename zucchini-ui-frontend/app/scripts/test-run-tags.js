@@ -160,15 +160,15 @@ zucchiniModule
     };
   })
   .config(function ($routeProvider) {
-      $routeProvider.when('/test-runs/:testRunId/tags', {
-        template: require('../views/test-run-tags.html'),
-        controller: 'TestRunTagsCtrl',
-        controllerAs: 'ctrl'
-      })
+    $routeProvider.when('/test-runs/:testRunId/tags', {
+      template: require('../views/test-run-tags.html'),
+      controller: 'TestRunTagsCtrl',
+      controllerAs: 'ctrl',
+    })
       .when('/test-runs/:testRunId/tagDetails', {
         template: require('../views/test-run-tag.html'),
         controller: 'TestRunTagCtrl',
         controllerAs: 'ctrl',
-        reloadOnSearch: false
+        reloadOnSearch: false,
       });
   });

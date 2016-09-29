@@ -11,7 +11,7 @@ zucchiniModule
       data: '<',
       total: '<',
       showLabel: '<',
-      donutWidth: '<'
+      donutWidth: '<',
     },
     controller: function ($element) {
 
@@ -46,5 +46,5 @@ zucchiniModule
         }
       };
 
-  }
-});
+    },
+  });

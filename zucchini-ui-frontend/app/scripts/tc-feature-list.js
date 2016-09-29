@@ -7,7 +7,7 @@ zucchiniModule
   .component('tcFeatureList', {
     template: require('../views/tc-feature-list.html'),
     bindings: {
-      features: '<'
+      features: '<',
     },
     controller: function (featureStoredFilters) {
 
@@ -40,16 +40,16 @@ zucchiniModule
 
       this.isFeatureStatusDisplayable = function (feature) {
         switch (feature.status) {
-          case 'PASSED':
-            return this.filters.passed;
-          case 'FAILED':
-            return this.filters.failed;
-          case 'PARTIAL':
-            return this.filters.partial;
-          case 'NOT_RUN':
-            return this.filters.notRun;
-          default:
-            return true;
+        case 'PASSED':
+          return this.filters.passed;
+        case 'FAILED':
+          return this.filters.failed;
+        case 'PARTIAL':
+          return this.filters.partial;
+        case 'NOT_RUN':
+          return this.filters.notRun;
+        default:
+          return true;
         }
       };
 
@@ -64,7 +64,7 @@ zucchiniModule
         return selected;
       };
 
-    }
+    },
   })
   .factory('featureStoredFilters', function (BrowserSessionStorage) {
     return BrowserSessionStorage.getItem('featureFilters', function () {
@@ -74,7 +74,7 @@ zucchiniModule
         partial: true,
         notRun: true,
         reviewed: true,
-        notReviewed: true
+        notReviewed: true,
       };
     });
   });

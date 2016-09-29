@@ -9,11 +9,11 @@ var ConfirmationModalService = function ($uibModal) {
     var modal = $uibModal.open({
       controller: function () {
         return {
-          displayOptions: displayOptions
+          displayOptions: displayOptions,
         };
       },
       controllerAs: 'ctrl',
-      template: require('../views/confirmation-modal.html')
+      template: require('../views/confirmation-modal.html'),
     });
     return modal.result;
   };

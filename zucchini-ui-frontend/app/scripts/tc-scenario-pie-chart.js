@@ -9,7 +9,7 @@ zucchiniModule
     bindings: {
       stats: '<',
       kind: '@',
-      showDetails: '<'
+      showDetails: '<',
     },
     controller: function ($scope) {
 
@@ -21,24 +21,24 @@ zucchiniModule
           var series = [
             {
               value: this.stats[this.kind].passed,
-              className: 'chart-progress-passed'
+              className: 'chart-progress-passed',
             },
             {
               value: this.stats[this.kind].pending,
-              className: 'chart-progress-pending'
+              className: 'chart-progress-pending',
             },
             {
               value: this.stats[this.kind].failed,
-              className: 'chart-progress-failed'
+              className: 'chart-progress-failed',
             },
             {
               value: this.stats[this.kind].notRun,
-              className: 'chart-progress-not-run'
+              className: 'chart-progress-not-run',
             },
             {
               value: this.stats.all.count - this.stats[this.kind].count,
-              className: 'chart-progress-others'
-            }
+              className: 'chart-progress-others',
+            },
           ];
 
           series = series.filter(function (serie) {
@@ -46,11 +46,11 @@ zucchiniModule
           });
 
           this.series = {
-            series: series
+            series: series,
           };
 
         }
       }.bind(this));
 
-    }
+    },
   });

@@ -7,6 +7,6 @@ zucchiniModule
   .component('tcStatus', {
     template: require('../views/tc-status.html'),
     bindings: {
-      status: '<'
-    }
+      status: '<',
+    },
   });

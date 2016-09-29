@@ -79,7 +79,7 @@ zucchiniModule
     return {
       restrict: 'E',
       scope: false,
-      link: link
+      link: link,
     };
 
   });

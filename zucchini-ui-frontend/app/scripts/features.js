@@ -70,7 +70,7 @@ zucchiniModule
         .open({
           title: 'Supprimer la fonctionnalité',
           bodyContent: 'La suppression est irreversible. Êtes-vous sûr de supprimer cette fonctionnnalité ?',
-          confirmTitle: 'Supprimer'
+          confirmTitle: 'Supprimer',
         })
         .then(function () {
           return FeatureCoreService.delete(this.feature.id);
@@ -107,7 +107,7 @@ zucchiniModule
   .factory('historyStoredFilters', function (BrowserSessionStorage) {
     return BrowserSessionStorage.getItem('historyFilters', function () {
       return {
-        sameTestRun: true
+        sameTestRun: true,
       };
     });
   })
@@ -120,8 +120,8 @@ zucchiniModule
         getFeatureHistory: {
           method: 'GET',
           url: UrlBuilder.createApiUrl('/features/:featureId/history'),
-           isArray: true,
-        }
+          isArray: true,
+        },
       }
     );
   })
@@ -130,6 +130,6 @@ zucchiniModule
       .when('/features/:featureId', {
         template: require('../views/feature.html'),
         controller: 'FeatureCtrl',
-        controllerAs: 'ctrl'
+        controllerAs: 'ctrl',
       });
   });

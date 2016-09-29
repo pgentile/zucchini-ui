@@ -35,12 +35,12 @@ var TestRunCoreService = function ($httpParamSerializer, TestRunResource, Upload
     var url = UrlBuilder.createApiUrl('/testRuns/' + testRunId + '/import', importOptions);
 
     return Upload.http({
-       url: url,
-       headers : {
-         'Content-Type': 'application/json'
-       },
-       data: file
-     });
+      url: url,
+      headers : {
+        'Content-Type': 'application/json',
+      },
+      data: file,
+    });
   };
 
   this.delete = function (testRunId) {
@@ -63,7 +63,7 @@ zucchiniModule
       var createdModal = $uibModal.open({
         template: require('../views/test-run-create.html'),
         controller: 'CreateTestRunCtrl',
-        controllerAs: 'createCtrl'
+        controllerAs: 'createCtrl',
       });
 
       createdModal.result
@@ -79,7 +79,7 @@ zucchiniModule
       var createdModal = $uibModal.open({
         template: require('../views/test-run-purge.html'),
         controller: 'PurgeTestRunsCtrl',
-        controllerAs: 'purgeCtrl'
+        controllerAs: 'purgeCtrl',
       });
 
       createdModal.result
@@ -134,7 +134,7 @@ zucchiniModule
         .open({
           title: 'Supprimer le tir de tests',
           bodyContent: 'La suppression est irreversible. Êtes-vous sûr de supprimer ce tir ?',
-          confirmTitle: 'Supprimer'
+          confirmTitle: 'Supprimer',
         })
         .then(function () {
           return TestRunCoreService.delete(this.testRun.id);
@@ -152,7 +152,7 @@ zucchiniModule
       var createdModal = $uibModal.open({
         template: require('../views/import-cucumber-results.html'),
         controller: 'ImportCucumberResultsCtrl',
-        controllerAs: 'importCtrl'
+        controllerAs: 'importCtrl',
       });
 
       createdModal.result
@@ -185,9 +185,9 @@ zucchiniModule
         resolve: {
           updateRequest: {
             type: this.testRun.type,
-            labels: angular.copy(this.testRun.labels)
-          }
-        }
+            labels: angular.copy(this.testRun.labels),
+          },
+        },
       });
 
       createdModal.result
@@ -210,7 +210,7 @@ zucchiniModule
   .controller('CreateTestRunCtrl', function ($uibModalInstance) {
 
     this.testRun = {
-      type: ''
+      type: '',
     };
 
     this.create = function () {
@@ -269,7 +269,7 @@ zucchiniModule
       this.updateRequest.labels.push({
         name: '',
         value: '',
-        url: ''
+        url: '',
       });
     }.bind(this);
 
@@ -284,13 +284,13 @@ zucchiniModule
     this.importOptions = {
       group: null,
       dryRun: false,
-      onlyNewScenarii: true
+      onlyNewScenarii: true,
     };
 
     this.import = function () {
       $uibModalInstance.close({
         file: this.file,
-        importOptions: this.importOptions
+        importOptions: this.importOptions,
       });
     };
 
@@ -384,7 +384,7 @@ zucchiniModule
       {
         create: {
           method: 'POST',
-          url: UrlBuilder.createApiUrl('/testRuns/create')
+          url: UrlBuilder.createApiUrl('/testRuns/create'),
         },
         update: {
           method: 'PATCH',
@@ -392,11 +392,11 @@ zucchiniModule
             // ID must be removed from input data
             delete data.id;
             return angular.toJson(data);
-          }
+          },
         },
         getScenarioDiff: {
-          url: UrlBuilder.createApiUrl('/testRuns/:leftTestRunId/scenarioDiff/:rightTestRunId')
-        }
+          url: UrlBuilder.createApiUrl('/testRuns/:leftTestRunId/scenarioDiff/:rightTestRunId'),
+        },
       }
     );
   })
@@ -405,17 +405,17 @@ zucchiniModule
       .when('/', {
         template: require('../views/test-runs.html'),
         controller: 'AllTestRunsCtrl',
-        controllerAs: 'ctrl'
+        controllerAs: 'ctrl',
       })
       .when('/test-runs/:testRunId', {
         template: require('../views/test-run.html'),
         controller: 'TestRunCtrl',
-        controllerAs: 'ctrl'
+        controllerAs: 'ctrl',
       })
       .when('/test-runs/:baseTestRunId/diff', {
         template: require('../views/test-run-diff.html'),
         controller: 'TestRunDiffCtrl',
         controllerAs: 'ctrl',
-        reloadOnSearch: false
+        reloadOnSearch: false,
       });
   });

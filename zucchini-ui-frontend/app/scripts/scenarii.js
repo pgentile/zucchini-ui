@@ -124,7 +124,7 @@ zucchiniModule
         .open({
           title: 'Supprimer le scénario',
           bodyContent: 'La suppression est irreversible. Êtes-vous sûr de supprimer ce scénario ?',
-          confirmTitle: 'Supprimer'
+          confirmTitle: 'Supprimer',
         })
         .then(function () {
           return ScenarioCoreService.delete(this.scenario.id);
@@ -175,7 +175,7 @@ zucchiniModule
 
     this.presence = {
       otherWatchers: [],
-      known: false
+      known: false,
     };
 
     PresenceService.onOtherWatchersUpdated(function (otherWatchers) {
@@ -193,7 +193,7 @@ zucchiniModule
 
     PresenceService.watchReference({
       type: 'SCENARIO_ID',
-      reference: $routeParams.scenarioId
+      reference: $routeParams.scenarioId,
     });
 
     // Unwatch on controller destruction
@@ -242,7 +242,7 @@ zucchiniModule
         .open({
           title: 'Supprimer le commentaire',
           bodyContent: 'La suppression est irreversible. Êtes-vous sûr de supprimer ce commentaire ?',
-          confirmTitle: 'Supprimer'
+          confirmTitle: 'Supprimer',
         })
         .then(function () {
           return ScenarioCoreService.deleteComment(this.scenario.id, comment.id);
@@ -306,7 +306,7 @@ zucchiniModule
         comments: true,
         context: true,
         beforeAndAfterActions: true,
-        errorDetails: true
+        errorDetails: true,
       };
     });
   })
@@ -329,13 +329,13 @@ zucchiniModule
       {
         scenarioId: '@id',
         status: '@status',
-        commentId: '@commentId'
+        commentId: '@commentId',
       },
       {
         getScenarioHistory: {
           method: 'GET',
           url: UrlBuilder.createApiUrl('/scenarii/:scenarioId/history'),
-          isArray: true
+          isArray: true,
         },
         update: {
           method: 'PATCH',
@@ -343,7 +343,7 @@ zucchiniModule
             // ID must be removed from input data
             delete data.id;
             return angular.toJson(data);
-          }
+          },
         },
         changeStatus: {
           method: 'POST',
@@ -352,7 +352,7 @@ zucchiniModule
             // ID must be removed from input data
             delete data.id;
             return angular.toJson(data);
-          }
+          },
         },
         changeReviewState: {
           method: 'POST',
@@ -361,20 +361,20 @@ zucchiniModule
             // ID must be removed from input data
             delete data.id;
             return angular.toJson(data);
-          }
+          },
         },
         getComments: {
           method: 'GET',
           url: UrlBuilder.createApiUrl('/scenarii/:scenarioId/comments'),
-          isArray: true
+          isArray: true,
         },
         getComment: {
           method: 'GET',
-          url: UrlBuilder.createApiUrl('/scenarii/:scenarioId/comments/:commentId')
+          url: UrlBuilder.createApiUrl('/scenarii/:scenarioId/comments/:commentId'),
         },
         deleteComment: {
           method: 'DELETE',
-          url: UrlBuilder.createApiUrl('/scenarii/:scenarioId/comments/:commentId')
+          url: UrlBuilder.createApiUrl('/scenarii/:scenarioId/comments/:commentId'),
         },
         updateComment: {
           method: 'PATCH',
@@ -384,7 +384,7 @@ zucchiniModule
             delete data.id;
             delete data.commentId;
             return angular.toJson(data);
-          }
+          },
         },
         createComment: {
           method: 'POST',
@@ -393,17 +393,17 @@ zucchiniModule
             // ID must be removed from input data
             delete data.id;
             return angular.toJson(data);
-          }
+          },
         },
         getTags: {
           method: 'GET',
           url: UrlBuilder.createApiUrl('/scenarii/tags'),
-          isArray: true
+          isArray: true,
         },
         getStats: {
           method: 'GET',
-          url: UrlBuilder.createApiUrl('/scenarii/stats')
-        }
+          url: UrlBuilder.createApiUrl('/scenarii/stats'),
+        },
       }
      );
   })
@@ -412,6 +412,6 @@ zucchiniModule
       .when('/scenarii/:scenarioId', {
         template: require('../views/scenario.html'),
         controller: 'ScenarioCtrl',
-        controllerAs: 'ctrl'
+        controllerAs: 'ctrl',
       });
   });

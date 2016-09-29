@@ -59,7 +59,7 @@ zucchiniModule
     template: require('../views/tc-scenario-list.html'),
     bindings: {
       scenarii: '<',
-      displayFeature: '@'
+      displayFeature: '@',
     },
     controller: function (scenarioStoredFilters) {
 
@@ -67,7 +67,7 @@ zucchiniModule
         feature: 4,
         scenario: null,
         status: 1,
-        reviewed: 1
+        reviewed: 1,
       });
 
       this.selectedScenarii = [];
@@ -104,16 +104,16 @@ zucchiniModule
 
       this.isScenarioStatusDisplayable = function (scenario) {
         switch (scenario.status) {
-          case 'PASSED':
-            return this.filters.passed;
-          case 'FAILED':
-            return this.filters.failed;
-          case 'PENDING':
-            return this.filters.pending;
-          case 'NOT_RUN':
-            return this.filters.notRun;
-          default:
-            return true;
+        case 'PASSED':
+          return this.filters.passed;
+        case 'FAILED':
+          return this.filters.failed;
+        case 'PENDING':
+          return this.filters.pending;
+        case 'NOT_RUN':
+          return this.filters.notRun;
+        default:
+          return true;
         }
       };
 
@@ -128,7 +128,7 @@ zucchiniModule
         return selected;
       };
 
-    }
+    },
   })
   .factory('scenarioStoredFilters', function (BrowserSessionStorage) {
     return BrowserSessionStorage.getItem('scenarioFilters', function () {
@@ -138,7 +138,7 @@ zucchiniModule
         pending: true,
         notRun: true,
         reviewed: true,
-        notReviewed: true
+        notReviewed: true,
       };
     });
   });

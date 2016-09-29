@@ -64,37 +64,37 @@ zucchiniModule
     var link = function (scope, element, attrs) {
 
       attrs.$observe('content', function (contentAttr) {
-          scope.$watch(contentAttr, function (content) {
+        scope.$watch(contentAttr, function (content) {
 
-            element.empty();
+          element.empty();
 
-            var tokens = tokenize(content);
-            tokens.forEach(function (token) {
+          var tokens = tokenize(content);
+          tokens.forEach(function (token) {
 
-              switch (token[0]) {
-                case 'text':
-                  var textElement = $window.document.createTextNode(token[1]);
-                  element.append(textElement);
-                  break;
+            switch (token[0]) {
+            case 'text':
+              var textElement = $window.document.createTextNode(token[1]);
+              element.append(textElement);
+              break;
 
-                case 'eol':
-                  var brElement = angular.element('<br>');
-                  element.append(brElement);
-                  break;
+            case 'eol':
+              var brElement = angular.element('<br>');
+              element.append(brElement);
+              break;
 
-                case 'url':
-                  var urlElement = angular.element('<a>');
-                  urlElement.attr('href', token[1]);
-                  urlElement.text(token[1]);
-                  element.append(urlElement);
-                  break;
+            case 'url':
+              var urlElement = angular.element('<a>');
+              urlElement.attr('href', token[1]);
+              urlElement.text(token[1]);
+              element.append(urlElement);
+              break;
 
-                default:
+            default:
                   // Nothing to do
-                  break;
-              }
+              break;
+            }
 
-            });
+          });
 
         });
       });

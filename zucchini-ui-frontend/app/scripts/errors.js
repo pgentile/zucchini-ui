@@ -8,20 +8,20 @@ var ErrorService = function () {
     /**
      * Send an error to the service.
      */
-    this.sendError = function (error) {
-      this.listeners.forEach(function (listener) {
-        listener(error);
-      });
-    };
+  this.sendError = function (error) {
+    this.listeners.forEach(function (listener) {
+      listener(error);
+    });
+  };
 
     /**
      * Add an error listener.
      */
-    this.addListener = function (listener) {
-      this.listeners.push(listener);
-    };
+  this.addListener = function (listener) {
+    this.listeners.push(listener);
+  };
 
-    this.listeners = [];
+  this.listeners = [];
 
 };
 
@@ -43,13 +43,13 @@ zucchiniModule
   })
   .service('ErrorService', ErrorService)
   .factory('errorHttpInterceptor', function ($q, ErrorService) {
-      return {
-          responseError: function responseError(rejection) {
-              ErrorService.sendError(rejection);
-              return $q.reject(rejection);
-          }
-      };
+    return {
+      responseError: function responseError(rejection) {
+        ErrorService.sendError(rejection);
+        return $q.reject(rejection);
+      },
+    };
   })
   .config(function($httpProvider) {
-      $httpProvider.interceptors.push('errorHttpInterceptor');
+    $httpProvider.interceptors.push('errorHttpInterceptor');
   });

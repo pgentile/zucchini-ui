@@ -8,6 +8,6 @@ zucchiniModule
     template: require('../views/tc-tags.html'),
     bindings: {
       tags: '<',
-      testRunId: '<'
-    }
+      testRunId: '<',
+    },
   });

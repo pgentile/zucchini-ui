@@ -4,7 +4,7 @@
     "indent": ["warn", 2],
     "linebreak-style": ["error", "unix"],
     "semi": ["error", "always"],
-    "comma-dangle": ["warn", "always"],
+    "comma-dangle": ["warn", "only-multiline"],
     "no-cond-assign": ["warn", "always"],
     "default-case": ["error"],
     "eqeqeq": ["error", "always"]
