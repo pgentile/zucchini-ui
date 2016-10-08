@@ -6,7 +6,6 @@ var Chartist = require('chartist');
 
 zucchiniModule
   .component('tcPieChart', {
-    template: require('../views/tc-feature-list.html'),
     bindings: {
       data: '<',
       total: '<',
