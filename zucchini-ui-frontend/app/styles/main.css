@@ -43,6 +43,27 @@
 
 
 /**
+ * Trends
+ */
+
+.ct-chart-bar .ct-series.chart-trend-passed .ct-bar {
+  stroke: #5cb85c
+}
+
+.ct-chart-bar .ct-series.chart-trend-failed .ct-bar {
+  stroke: #d9534f
+}
+
+.ct-chart-bar .ct-series.chart-trend-pending .ct-bar {
+  stroke: #f0ad4e
+}
+
+.ct-chart-bar .ct-series.chart-trend-not-run .ct-bar {
+  stroke: #777
+}
+
+
+/**
  * Stats legend
  */
 
