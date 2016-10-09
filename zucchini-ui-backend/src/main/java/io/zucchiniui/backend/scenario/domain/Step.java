@@ -17,6 +17,8 @@ public class Step {
 
     private String comment;
 
+    private String output;
+
     /**
      * Private constructor for Morphia.
      */
@@ -30,6 +32,7 @@ public class Step {
         errorMessage = builder.getErrorMessage();
         table = builder.getTable();
         comment = builder.getComment();
+        output = builder.getOutput();
     }
 
     public BasicInfo getInfo() {
@@ -52,6 +55,10 @@ public class Step {
         return comment;
     }
 
+    public String getOutput() {
+        return output;
+    }
+
     protected Step copy() {
         final Step newStep = new Step();
         newStep.info = info;
@@ -59,6 +66,7 @@ public class Step {
         newStep.errorMessage = errorMessage;
         newStep.table = table;
         newStep.comment = comment;
+        newStep.output = output;
         return newStep;
     }
 
@@ -81,6 +89,10 @@ public class Step {
         if (newStatus != StepStatus.FAILED && newStatus != StepStatus.UNDEFINED) {
             errorMessage = null;
         }
+    }
+
+    protected void clearOutput() {
+        output = null;
     }
 
 }

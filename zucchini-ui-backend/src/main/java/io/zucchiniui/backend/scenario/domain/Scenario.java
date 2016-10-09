@@ -152,6 +152,8 @@ public class Scenario extends BaseEntity<String> {
         if (oldStatus != status) {
             changes.add(new ScenarioStatusChange(modifiedAt, oldStatus, status));
         }
+
+        clearOutputIfNeeded();
     }
 
     public void setStatus(final ScenarioStatus newStatus) {
@@ -190,6 +192,8 @@ public class Scenario extends BaseEntity<String> {
         changes.add(new ScenarioStatusChange(modifiedAt, status, newStatus));
 
         status = newStatus;
+
+        clearOutputIfNeeded();
     }
 
     public void setReviewed(final boolean reviewed) {
@@ -220,6 +224,10 @@ public class Scenario extends BaseEntity<String> {
             allTags = newTags;
             modifiedAt = ZonedDateTime.now();
         }
+    }
+
+    public void clearOutput() {
+        allSteps().forEach(Step::clearOutput);
     }
 
     public void setFeatureId(final String featureId) {
@@ -308,35 +316,35 @@ public class Scenario extends BaseEntity<String> {
 
         if (allStatus.isEmpty()) {
             status = ScenarioStatus.NOT_RUN;
-            return;
-        }
-
-        if (allStatus.contains(StepStatus.FAILED) || allStatus.contains(StepStatus.UNDEFINED)) {
+        } else if (allStatus.contains(StepStatus.FAILED) || allStatus.contains(StepStatus.UNDEFINED)) {
             status = ScenarioStatus.FAILED;
-            return;
-        }
-
-        if (allStatus.contains(StepStatus.PENDING)) {
+        } else if (allStatus.contains(StepStatus.PENDING)) {
             status = ScenarioStatus.PENDING;
-            return;
-        }
-
-        if (allStatus.size() == 1 && allStatus.contains(StepStatus.PASSED)) {
+        } else if (allStatus.size() == 1 && allStatus.contains(StepStatus.PASSED)) {
             status = ScenarioStatus.PASSED;
-            return;
-        }
-
-        if (stepStatus.size() == 1 && stepStatus.contains(StepStatus.SKIPPED)) {
+        } else if (stepStatus.size() == 1 && stepStatus.contains(StepStatus.SKIPPED)) {
             status = ScenarioStatus.NOT_RUN;
-            return;
-        }
-
-        if (stepStatus.size() == 1 && stepStatus.contains(StepStatus.NOT_RUN)) {
+        } else if (stepStatus.size() == 1 && stepStatus.contains(StepStatus.NOT_RUN)) {
             status = ScenarioStatus.NOT_RUN;
-            return;
+        } else {
+            status = ScenarioStatus.FAILED;
         }
 
-        status = ScenarioStatus.FAILED;
+        clearOutputIfNeeded();
+    }
+
+    private void clearOutputIfNeeded() {
+        if (status == ScenarioStatus.PASSED || status == ScenarioStatus.NOT_RUN) {
+            clearOutput();
+        }
+    }
+
+    private Stream<Step> allSteps() {
+        Stream<Step> stream = steps.stream();
+        if (background != null) {
+            stream = Stream.concat(stream, background.getSteps().stream());
+        }
+        return stream;
     }
 
     private Stream<StepStatus> extractAllStepStatus() {

@@ -1,5 +1,6 @@
 package io.zucchiniui.backend.reportconverter.converter;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import io.zucchiniui.backend.feature.domain.Feature;
 import io.zucchiniui.backend.reportconverter.report.ReportAroundAction;
@@ -16,6 +17,7 @@ import io.zucchiniui.backend.scenario.domain.StepBuilder;
 import io.zucchiniui.backend.scenario.domain.StepStatus;
 import io.zucchiniui.backend.shared.domain.Argument;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -25,6 +27,8 @@ import java.util.stream.Collectors;
 
 @Component
 class ReportScenarioConverter {
+
+    private static final Joiner LINE_JOINER = Joiner.on('\n');
 
     public ScenarioBuilder createScenarioBuilder(final Feature parentFeature, final ReportScenario reportScenario) {
 
@@ -97,11 +101,18 @@ class ReportScenarioConverter {
 
         final String[][] table = convertTable(reportStep.getTableRows());
 
+        String output = null;
+        if (!reportStep.getOutput().isEmpty()) {
+            output = LINE_JOINER.join(reportStep.getOutput());
+            output = StringUtils.trimToNull(output);
+        }
+
         stepBuilder
             .withErrorMessage(reportStep.getResult().getErrorMessage())
             .withStatus(convertStepStatus(reportStep.getResult().getStatus()))
             .withInfo(stepInfo)
             .withComment(stepComment)
+            .withOutput(output)
             .withTable(table);
     }
 

@@ -14,6 +14,8 @@ public class StepBuilder {
 
     private String comment;
 
+    private String output;
+
     public StepBuilder withInfo(final BasicInfo info) {
         this.info = info;
         return this;
@@ -39,6 +41,11 @@ public class StepBuilder {
         return this;
     }
 
+    public StepBuilder withOutput(String output) {
+        this.output = output;
+        return this;
+    }
+
     public Step build() {
         return new Step(this);
     }
@@ -61,6 +68,10 @@ public class StepBuilder {
 
     protected String getComment() {
         return comment;
+    }
+
+    public String getOutput() {
+        return output;
     }
 
 }

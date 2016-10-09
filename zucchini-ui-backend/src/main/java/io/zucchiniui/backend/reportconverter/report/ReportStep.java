@@ -12,6 +12,8 @@ public class ReportStep extends CucumberElement {
 
     private Match match;
 
+    private List<String> output = new ArrayList<>();
+
     @JsonProperty("rows")
     private List<TableRow> tableRows = new ArrayList<>();
 
@@ -31,6 +33,14 @@ public class ReportStep extends CucumberElement {
 
     public void setMatch(final Match match) {
         this.match = match;
+    }
+
+    public List<String> getOutput() {
+        return output;
+    }
+
+    public void setOutput(List<String> output) {
+        this.output = output;
     }
 
     public List<TableRow> getTableRows() {

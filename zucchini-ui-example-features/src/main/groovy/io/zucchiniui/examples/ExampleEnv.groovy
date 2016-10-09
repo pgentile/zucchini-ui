@@ -1,6 +1,7 @@
 package io.zucchiniui.examples
 
 import cucumber.api.PendingException
+import cucumber.api.Scenario
 import cucumber.api.groovy.Hooks
 import org.slf4j.LoggerFactory
 
@@ -20,4 +21,9 @@ Before("@wip") {
 
 After {
     LOGGER.info("End")
+}
+
+
+Before { Scenario scenario ->
+    currentScenario = scenario
 }

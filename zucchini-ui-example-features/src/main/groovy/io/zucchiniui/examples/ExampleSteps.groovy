@@ -7,7 +7,6 @@ import cucumber.api.groovy.Hooks
 
 import static org.assertj.core.api.Assertions.assertThat
 
-
 this.metaClass.mixin(Hooks)
 this.metaClass.mixin(FR)
 
@@ -23,6 +22,7 @@ Quand(~/j'additionne (-?[0-9]+) et (-?[0-9]+)/) { int a, int b ->
 
 
 Alors(~/j'obtiens (-?[0-9]+)/) { int resultat ->
+    currentScenario.write("S'assurer que le calcul renvoie bien ${resultat}")
     assertThat(calcul).isEqualTo(resultat)
 }
 
