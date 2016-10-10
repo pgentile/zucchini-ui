@@ -58,7 +58,7 @@ allprojects {
         spring         : '4.3.3.RELEASE',
         junit          : '4.12',
         assertj        : '3.5.2',
-        mockito        : '1.10.19',
+        mockito        : '2.2.0',
         junitQuickcheck: '0.6.1',
         capsule        : '1.0.3',
         groovy         : '2.4.7',

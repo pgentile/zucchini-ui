@@ -123,7 +123,7 @@ public class ReportConverterServiceImplTest {
         final ConversionResult conversionResult = new ConversionResult(feature, singletonList(scenario));
 
         willAnswer(invocation -> {
-            final Consumer<Scenario> consumer = (Consumer<Scenario>) invocation.getArgumentAt(0, Consumer.class);
+            final Consumer<Scenario> consumer = invocation.getArgument(0);
             consumer.accept((Scenario) invocation.getMock());
             return null;
         }).given(scenario).doIgnoringChanges(any());
