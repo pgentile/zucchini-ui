@@ -41,6 +41,7 @@ public class StepTest {
             .withStatus(StepStatus.FAILED)
             .withErrorMessage("error")
             .withComment("comment")
+            .withOutput("output")
             .build();
     }
 

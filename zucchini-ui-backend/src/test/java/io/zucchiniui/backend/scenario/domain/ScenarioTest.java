@@ -201,7 +201,13 @@ public class ScenarioTest {
             .addBeforeAction(sb -> sb.withStatus(StepStatus.FAILED).withErrorMessage("Error A"))
             .withBackground(bb -> {
                 bb.withInfo(new BasicInfo("Background", "Background C"));
-                bb.addStep(sb -> sb.withInfo(new BasicInfo("Step", "Step D")).withStatus(StepStatus.FAILED).withErrorMessage("Error B").withComment("Comment A"));
+                bb.addStep(sb -> {
+                    sb.withInfo(new BasicInfo("Step", "Step D"))
+                        .withStatus(StepStatus.FAILED)
+                        .withErrorMessage("Error B")
+                        .withOutput("Failed output")
+                        .withComment("Comment A");
+                });
             })
             .addStep(sb -> sb.withInfo(new BasicInfo("Step", "Step E")).withStatus(StepStatus.FAILED).withErrorMessage("Error C").withComment("Comment B"))
             .addAfterAction(sb -> sb.withStatus(StepStatus.FAILED).withErrorMessage("Error D"))
