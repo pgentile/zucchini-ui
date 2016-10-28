@@ -1,5 +1,6 @@
 package io.zucchiniui.backend.scenario.domain;
 
+import io.zucchiniui.backend.reportconverter.report.ReportAttachment;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
 import io.zucchiniui.backend.support.ddd.BaseEntity;
 import org.mongodb.morphia.annotations.Entity;

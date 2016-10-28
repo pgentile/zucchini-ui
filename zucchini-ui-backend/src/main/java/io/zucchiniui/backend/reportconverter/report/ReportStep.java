@@ -14,6 +14,8 @@ public class ReportStep extends CucumberElement {
 
     private List<String> output = new ArrayList<>();
 
+    private List<ReportAttachment> embeddings;
+
     @JsonProperty("rows")
     private List<TableRow> tableRows = new ArrayList<>();
 
@@ -41,6 +43,14 @@ public class ReportStep extends CucumberElement {
 
     public void setOutput(List<String> output) {
         this.output = output;
+    }
+
+    public List<ReportAttachment> getEmbeddings() {
+        return embeddings;
+    }
+
+    public void setEmbeddings(List<ReportAttachment> embeddings) {
+        this.embeddings = embeddings;
     }
 
     public List<TableRow> getTableRows() {
