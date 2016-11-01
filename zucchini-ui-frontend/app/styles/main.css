@@ -70,3 +70,26 @@
 .stats-legend-total td {
   font-style: italic;
 }
+
+
+/**
+ * Step error message
+ */
+
+.panel-error-message pre.error-message {
+  background: transparent;
+  border: unset;
+  padding: 0;
+  margin: 0;
+}
+
+/**
+ * Step log
+ */
+
+.panel-log pre.log {
+  background: transparent;
+  border: unset;
+  padding: 0;
+  margin: 0;
+}

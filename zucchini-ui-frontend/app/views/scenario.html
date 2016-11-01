@@ -154,50 +154,13 @@
   <!-- Test background -->
 
   <div ng-if="ctrl.stepFilters.context && ctrl.scenario.background" ng-repeat="step in ctrl.scenario.background.steps">
-
-    <p class="text-muted" ng-if="ctrl.stepFilters.comments && step.comment">
-      <tc-simple-text content="step.comment"></tc-simple-text>
-    </p>
-
-    <p>
-      <i>
-        <tc-element-info info="step.info"></tc-element-info>
-      </i>
-      <tc-status status="step.status"></tc-status>
-    </p>
-
-    <pre ng-if="ctrl.stepFilters.errorDetails && step.errorMessage">{{ step.errorMessage }}</pre>
-
+    <tc-step scenario="ctrl.scenario" step="step" filters="ctrl.stepFilters" special="true"></tc-step>
   </div>
 
   <!-- Test steps -->
 
   <div ng-repeat="step in ctrl.scenario.steps">
-
-    <p class="text-muted" ng-if="ctrl.stepFilters.comments && step.comment">
-      <tc-simple-text content="step.comment"></tc-simple-text>
-    </p>
-
-    <p>
-      <tc-element-info info="step.info"></tc-element-info>
-      <tc-status status="step.status"></tc-status>
-      <p ng-repeat="attachment in step.attachments" ng-if="step.attachments">
-        <a ng-href="{{ctrl.buildUrlForAttachment(attachment.id)}}" target="_blank">
-          Pièce-jointe #{{ $index + 1 }}
-        </a>
-      </p>
-    </p>
-
-    <table ng-if="step.table" class="table table-bordered" style="width: auto">
-      <tbody>
-      <tr ng-repeat="row in step.table">
-        <td ng-repeat="cell in row"><code>{{ cell }}</code></td>
-      </tr>
-      </tbody>
-    </table>
-
-    <pre ng-if="ctrl.stepFilters.errorDetails && step.errorMessage">{{ step.errorMessage }}</pre>
-
+    <tc-step scenario="ctrl.scenario" step="step" filters="ctrl.stepFilters"></tc-step>
   </div>
 
   <!-- After actions -->
@@ -419,6 +382,13 @@
         <label>
           <input type="checkbox" ng-model="ctrl.stepFilters.errorDetails" ng-change="ctrl.updateStoredStepFilters()">
           Le détail des erreurs
+        </label>
+      </div>
+
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="ctrl.stepFilters.logs" ng-change="ctrl.updateStoredStepFilters()">
+          Les logs
         </label>
       </div>
 

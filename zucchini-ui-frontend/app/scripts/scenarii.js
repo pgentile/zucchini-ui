@@ -73,7 +73,7 @@ var ScenarioCoreService = function (ScenarioResource) {
 
 
 zucchiniModule
-  .controller('ScenarioCtrl', function (ScenarioCoreService, FeatureCoreService, TestRunCoreService, ConfirmationModalService, PresenceService, UrlBuilder, $routeParams, $q, $location, $filter, $scope, historyStoredFilters, stepFilters) {
+  .controller('ScenarioCtrl', function (ScenarioCoreService, FeatureCoreService, TestRunCoreService, ConfirmationModalService, PresenceService, $routeParams, $q, $location, $filter, $scope, historyStoredFilters, stepFilters) {
 
     this.load = function () {
 
@@ -154,10 +154,6 @@ zucchiniModule
         return item.testRun.type === this.scenario.testRun.type;
       }
       return true;
-    }.bind(this);
-
-    this.buildUrlForAttachment = function (attachmentId) {
-      return UrlBuilder.createApiUrl('/scenarii/' + this.scenario.id + '/attachments/' + attachmentId);
     }.bind(this);
 
     this.stepFilters = stepFilters.get();
@@ -310,6 +306,7 @@ zucchiniModule
         context: true,
         beforeAndAfterActions: true,
         errorDetails: true,
+        logs: true,
       };
     });
   })

@@ -21,6 +21,7 @@ require('./tc-stats-dashboard.js');
 require('./tc-stats-legend.js');
 require('./tc-test-run-trend-chart.js');
 require('./tc-status.js');
+require('./tc-step.js');
 require('./tc-tags.js');
 require('./test-run-tags.js');
 require('./test-runs.js');
