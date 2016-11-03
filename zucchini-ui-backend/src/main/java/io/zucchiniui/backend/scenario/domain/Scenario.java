@@ -1,6 +1,5 @@
 package io.zucchiniui.backend.scenario.domain;
 
-import io.zucchiniui.backend.reportconverter.report.ReportAttachment;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
 import io.zucchiniui.backend.support.ddd.BaseEntity;
 import org.mongodb.morphia.annotations.Entity;
@@ -12,6 +11,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Consumer;
@@ -229,6 +229,13 @@ public class Scenario extends BaseEntity<String> {
 
     public void clearOutput() {
         allSteps().forEach(Step::clearOutput);
+    }
+
+    public Optional<Attachment> findAttachmentById(String attachmentId) {
+        return steps.stream()
+            .flatMap(step -> step.getAttachments().stream())
+            .filter(attachment -> attachmentId.equals(attachment.getId()))
+            .findFirst();
     }
 
     public void setFeatureId(final String featureId) {

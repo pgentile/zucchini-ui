@@ -14,7 +14,7 @@ public class ReportStep extends CucumberElement {
 
     private List<String> output = new ArrayList<>();
 
-    private List<ReportAttachment> embeddings;
+    private List<ReportAttachment> embeddings = new ArrayList<>();
 
     @JsonProperty("rows")
     private List<TableRow> tableRows = new ArrayList<>();

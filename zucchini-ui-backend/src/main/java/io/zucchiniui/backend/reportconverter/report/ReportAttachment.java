@@ -2,13 +2,7 @@ package io.zucchiniui.backend.reportconverter.report;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.zucchiniui.backend.scenario.domain.Attachment;
 
-import java.util.List;
-
-/**
- * Created by antoine_choimet on 17/10/2016.
- */
 public class ReportAttachment {
 
     private String data;

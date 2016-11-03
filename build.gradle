@@ -293,6 +293,7 @@ project("${rootProject.name}-example-features") {
         compile "info.cukes:cucumber-groovy:${versions.cucumberGroovy}"
         compile "org.slf4j:slf4j-api:${versions.slf4j}"
         compile "org.assertj:assertj-core:${versions.assertj}"
+        compile "com.google.guava:guava:19.0"
 
     }
 

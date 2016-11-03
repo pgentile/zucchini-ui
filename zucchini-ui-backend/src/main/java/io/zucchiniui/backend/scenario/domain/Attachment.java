@@ -1,53 +1,58 @@
 package io.zucchiniui.backend.scenario.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.mongodb.morphia.annotations.Id;
 
 import java.util.UUID;
 
 /**
- * Created by antoine_choimet on 17/10/2016.
+ * Step attachment.
  */
 public class Attachment {
 
     @Id
     private String id = UUID.randomUUID().toString();
 
+    // Don't send attachment content over the wire...
+    @JsonIgnore
     private byte[] data;
 
     private String mimeType;
 
     private String label;
 
-    public String getId() {
-        return id;
+    /**
+     * Private constructor for Morphia.
+     */
+    private Attachment() {
+
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public Attachment(byte[] data, String mimeType) {
+        this(data, mimeType, null);
+    }
+
+    public Attachment(byte[] data, String mimeType, String label) {
+        id = UUID.randomUUID().toString();
+        this.data = data;
+        this.mimeType = mimeType;
+        this.label = label;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getMimeType() {
         return mimeType;
     }
 
-    public void setMimeType(String mimeType) {
-        this.mimeType = mimeType;
-    }
-
     public byte[] getData() {
         return data;
     }
 
-    public void setData(byte[] data) {
-        this.data = data;
-    }
-
     public String getLabel() {
         return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
     }
 
 }

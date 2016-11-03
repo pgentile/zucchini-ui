@@ -1,5 +1,6 @@
 package io.zucchiniui.examples
 
+import com.google.common.io.Resources
 import cucumber.api.DataTable
 import cucumber.api.PendingException
 import cucumber.api.groovy.FR
@@ -37,4 +38,15 @@ Alors(~/j'obtiens le tableau suivant:/) { DataTable expectedTable ->
 
 Soit(~/une tâche en attente/) { ->
     throw new PendingException()
+}
+
+
+Quand(~/j'affiche l'image de Grumpy Cat/) { ->
+    byte[] data = Resources.toByteArray(Resources.getResource("attachments/grumpy-cat.jpg"))
+    currentScenario.embed(data, "image/jpeg")
+}
+
+
+Alors(~/je suis de mauvaise humeur/) { ->
+
 }

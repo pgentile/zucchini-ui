@@ -156,8 +156,8 @@ zucchiniModule
       return true;
     }.bind(this);
 
-    this.buildUrlForAttachment = function (scenarioId, attachmentId) {
-      return UrlBuilder.createApiUrl('/scenarii/' + scenarioId + '/attachments/' + attachmentId);
+    this.buildUrlForAttachment = function (attachmentId) {
+      return UrlBuilder.createApiUrl('/scenarii/' + this.scenario.id + '/attachments/' + attachmentId);
     }.bind(this);
 
     this.stepFilters = stepFilters.get();

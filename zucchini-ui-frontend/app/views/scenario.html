@@ -181,12 +181,11 @@
     <p>
       <tc-element-info info="step.info"></tc-element-info>
       <tc-status status="step.status"></tc-status>
-      <div ng-repeat="attachment in step.attachments">
-        <a ng-href="{{ctrl.buildUrlForAttachment(ctrl.scenario.id, attachment.id)}}">
-          Piece-jointe #{{ $index + 1 }}
-          {{ attachment.url }}
+      <p ng-repeat="attachment in step.attachments" ng-if="step.attachments">
+        <a ng-href="{{ctrl.buildUrlForAttachment(attachment.id)}}" target="_blank">
+          Pièce-jointe #{{ $index + 1 }}
         </a>
-      </div>
+      </p>
     </p>
 
     <table ng-if="step.table" class="table table-bordered" style="width: auto">
