@@ -1,6 +1,9 @@
 package io.zucchiniui.backend.scenario.domain;
 
+import io.zucchiniui.backend.reportconverter.report.ReportAttachment;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
+
+import java.util.List;
 
 public class StepBuilder {
 
@@ -15,6 +18,8 @@ public class StepBuilder {
     private String comment;
 
     private String output;
+
+    private List<Attachment> attachments;
 
     public StepBuilder withInfo(final BasicInfo info) {
         this.info = info;
@@ -46,6 +51,11 @@ public class StepBuilder {
         return this;
     }
 
+    public StepBuilder withAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
+        return this;
+    }
+
     public Step build() {
         return new Step(this);
     }
@@ -72,6 +82,10 @@ public class StepBuilder {
 
     public String getOutput() {
         return output;
+    }
+
+    public List<Attachment> getAttachments() {
+        return attachments;
     }
 
 }

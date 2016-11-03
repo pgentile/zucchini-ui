@@ -73,7 +73,7 @@ var ScenarioCoreService = function (ScenarioResource) {
 
 
 zucchiniModule
-  .controller('ScenarioCtrl', function (ScenarioCoreService, FeatureCoreService, TestRunCoreService, ConfirmationModalService, PresenceService, $routeParams, $q, $location, $filter, $scope, historyStoredFilters, stepFilters) {
+  .controller('ScenarioCtrl', function (ScenarioCoreService, FeatureCoreService, TestRunCoreService, ConfirmationModalService, PresenceService, UrlBuilder, $routeParams, $q, $location, $filter, $scope, historyStoredFilters, stepFilters) {
 
     this.load = function () {
 
@@ -156,6 +156,9 @@ zucchiniModule
       return true;
     }.bind(this);
 
+    this.buildUrlForAttachment = function (scenarioId, attachmentId) {
+      return UrlBuilder.createApiUrl('/scenarii/' + scenarioId + '/attachments/' + attachmentId);
+    }.bind(this);
 
     this.stepFilters = stepFilters.get();
 

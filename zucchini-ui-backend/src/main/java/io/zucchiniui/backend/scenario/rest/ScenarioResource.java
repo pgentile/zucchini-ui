@@ -4,11 +4,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
 import io.dropwizard.jersey.PATCH;
 import io.zucchiniui.backend.comment.rest.CommentResource;
-import io.zucchiniui.backend.scenario.domain.Scenario;
-import io.zucchiniui.backend.scenario.domain.ScenarioQuery;
-import io.zucchiniui.backend.scenario.domain.ScenarioRepository;
-import io.zucchiniui.backend.scenario.domain.ScenarioService;
-import io.zucchiniui.backend.scenario.domain.UpdateScenarioParams;
+import io.zucchiniui.backend.scenario.domain.*;
 import io.zucchiniui.backend.scenario.views.ScenarioHistoryItemView;
 import io.zucchiniui.backend.scenario.views.ScenarioListItemView;
 import io.zucchiniui.backend.scenario.views.ScenarioStats;
@@ -31,8 +27,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -100,6 +98,26 @@ public class ScenarioResource {
     @Path("{scenarioId}")
     public Scenario get(@PathParam("scenarioId") final String scenarioId) {
         return scenarioRepository.getById(scenarioId);
+    }
+
+    @GET
+    @Path("{scenarioId}/attachments/{attachmentId}")
+    public Response getAttachment(@PathParam("scenarioId") final String scenarioId, @PathParam("attachmentId") final String attachmentId) {
+
+        Optional<Attachment> attachment = scenarioRepository.getById(scenarioId).getSteps().stream()
+            .flatMap(step -> step.getAttachments().stream())
+            .filter(a -> a != null)
+            .filter(a -> attachmentId.equals(a.getId()))
+            .findFirst();
+
+        if(attachment.isPresent()) {
+            String mimeType = attachment.get().getMimeType();
+            byte[] attachmentData = attachment.get().getData();
+            return Response.ok(attachmentData, mimeType).build();
+        }
+        else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 
     @PATCH

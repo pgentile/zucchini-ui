@@ -2,24 +2,16 @@ package io.zucchiniui.backend.reportconverter.converter;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
+import com.google.common.io.BaseEncoding;
 import io.zucchiniui.backend.feature.domain.Feature;
-import io.zucchiniui.backend.reportconverter.report.ReportAroundAction;
-import io.zucchiniui.backend.reportconverter.report.ReportBackground;
-import io.zucchiniui.backend.reportconverter.report.ReportComment;
-import io.zucchiniui.backend.reportconverter.report.ReportScenario;
-import io.zucchiniui.backend.reportconverter.report.ReportStep;
-import io.zucchiniui.backend.reportconverter.report.TableRow;
-import io.zucchiniui.backend.reportconverter.report.Tag;
-import io.zucchiniui.backend.scenario.domain.AroundActionBuilder;
-import io.zucchiniui.backend.scenario.domain.BackgroundBuilder;
-import io.zucchiniui.backend.scenario.domain.ScenarioBuilder;
-import io.zucchiniui.backend.scenario.domain.StepBuilder;
-import io.zucchiniui.backend.scenario.domain.StepStatus;
+import io.zucchiniui.backend.reportconverter.report.*;
+import io.zucchiniui.backend.scenario.domain.*;
 import io.zucchiniui.backend.shared.domain.Argument;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -101,6 +93,8 @@ class ReportScenarioConverter {
 
         final String[][] table = convertTable(reportStep.getTableRows());
 
+        final List<Attachment> attachments = convertEmbeddings(reportStep.getEmbeddings());
+
         String output = null;
         if (!reportStep.getOutput().isEmpty()) {
             output = LINE_JOINER.join(reportStep.getOutput());
@@ -113,7 +107,8 @@ class ReportScenarioConverter {
             .withInfo(stepInfo)
             .withComment(stepComment)
             .withOutput(output)
-            .withTable(table);
+            .withTable(table)
+            .withAttachments(attachments);
     }
 
     private static void buildAroundAction(final ReportAroundAction reportAroundAction, final AroundActionBuilder aroundActionBuilder) {
@@ -154,11 +149,28 @@ class ReportScenarioConverter {
             .collect(Collectors.joining("\n"));
     }
 
+
+
     private static StepStatus convertStepStatus(final String source) {
         if (source == null) {
             return null;
         }
         return StepStatus.valueOf(source.toUpperCase());
+    }
+
+    private static List<Attachment> convertEmbeddings(final List<ReportAttachment> source){
+        if (source == null || source.isEmpty()){
+            return null;
+        }
+
+        List<Attachment> attachments = new ArrayList<Attachment>();
+        for (final ReportAttachment reportAttachment : source) {
+            Attachment attachment = new Attachment();
+            attachment.setMimeType(reportAttachment.getMimeType());
+            attachment.setData(BaseEncoding.base64().decode(reportAttachment.getData()));
+            attachments.add(attachment);
+        }
+        return attachments;
     }
 
 }

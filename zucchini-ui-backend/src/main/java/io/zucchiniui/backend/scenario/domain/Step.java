@@ -1,8 +1,11 @@
 package io.zucchiniui.backend.scenario.domain;
 
 import com.google.common.base.MoreObjects;
+import io.zucchiniui.backend.reportconverter.report.ReportAttachment;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Step {
@@ -19,6 +22,8 @@ public class Step {
 
     private String output;
 
+    private List<Attachment> attachments = new ArrayList<>();
+
     /**
      * Private constructor for Morphia.
      */
@@ -33,6 +38,7 @@ public class Step {
         table = builder.getTable();
         comment = builder.getComment();
         output = builder.getOutput();
+        attachments = builder.getAttachments();
     }
 
     public BasicInfo getInfo() {
@@ -59,6 +65,10 @@ public class Step {
         return output;
     }
 
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
+
     protected Step copy() {
         final Step newStep = new Step();
         newStep.info = info;
@@ -67,6 +77,7 @@ public class Step {
         newStep.table = table;
         newStep.comment = comment;
         newStep.output = output;
+        newStep.attachments = attachments;
         return newStep;
     }
 
