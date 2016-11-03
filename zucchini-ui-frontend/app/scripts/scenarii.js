@@ -307,6 +307,7 @@ zucchiniModule
         beforeAndAfterActions: true,
         errorDetails: true,
         logs: true,
+        attachments: true,
       };
     });
   })
