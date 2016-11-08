@@ -4,6 +4,7 @@ Zucchini UI Changelog
 Version 0.0.1-SNAPSHOT
 ----------------------
 
+* [BUG] Fix tag view for scenarios with no tag 
 * Collect and display step logs
 * Save embeddings from Cucumber report (contribution by _achoimet_)
 * Trend chart for a test run

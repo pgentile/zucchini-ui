@@ -14,6 +14,7 @@ import org.mongodb.morphia.query.Query;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -114,7 +115,10 @@ public class ScenarioViewAccess {
                 final boolean reviewed = (Boolean) dbObj.get("reviewed");
 
                 @SuppressWarnings("unchecked")
-                final List<String> scenarioTags = (List) dbObj.get("allTags");
+                List<String> scenarioTags = (List) dbObj.get("allTags");
+                if (scenarioTags == null) {
+                    scenarioTags = Collections.emptyList();
+                }
 
                 scenarioTags.stream()
                     .filter(tagFilter)
