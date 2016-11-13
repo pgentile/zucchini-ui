@@ -1,8 +1,9 @@
 server:
   type: default
+  # Never change the following param!
   rootPath: /api
 
-mongoUri: "${TC_MONGO_URL:-mongodb://mongo/reports?connectTimeoutMS=5000&socketTimeoutMS=90000&w=majority&journal=true&wtimeoutMS=60000}"
+mongoUri: "${ZUCCHINI_MONGO_URL:-mongodb://mongo/zucchini?w=majority&journal=true}"
 
 logging:
-  level: "${TC_LOGGING_LEVEL:-INFO}"
+  level: "${ZUCCHINI_LOGGING_LEVEL:-INFO}"

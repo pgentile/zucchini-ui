@@ -273,7 +273,7 @@ project("${rootProject.name}-capsule") {
         name = rootProject.name
 
         // Project version is required as a build arg
-        buildArg 'VERSION', project.version
+        buildArg 'ZUCCHINI_VERSION', project.version
 
         // Add tag based on current Git branch
         tag project.getDockerTag()
