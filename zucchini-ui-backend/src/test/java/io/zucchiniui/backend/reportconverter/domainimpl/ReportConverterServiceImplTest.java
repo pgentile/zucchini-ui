@@ -14,12 +14,13 @@ import io.zucchiniui.backend.scenario.domain.ScenarioRepository;
 import io.zucchiniui.backend.scenario.domain.ScenarioService;
 import io.zucchiniui.backend.scenario.domain.ScenarioStatus;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
 import java.io.InputStream;
 import java.util.List;
@@ -27,15 +28,17 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 import static java.util.Collections.singletonList;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willAnswer;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ReportConverterServiceImplTest {
+
+    @Rule
+    public final MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Mock
     private FeatureRepository featureRepository;
