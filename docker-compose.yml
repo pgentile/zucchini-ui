@@ -1,8 +1,28 @@
 ---
 
-mongod:
-  container_name: "mongod-cucumber-report"
-  image: "mongo:3"
-  command: mongod --journal --smallfiles
-  ports:
-    - "27017:27017"
+version: "2"
+
+services:
+
+  mongo:
+    image: "mongo:3"
+    ports:
+      - "27017:27017"
+    networks:
+      - mongo
+
+  zucchini-ui:
+    image: pgentile/zucchini-ui
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      ZUCCHINI_MONGO_URL: "mongodb://mongo/zucchini?w=majority&journal=true"
+    links:
+      - mongo
+    networks:
+      - mongo
+
+networks:
+  mongo:
+    driver: bridge

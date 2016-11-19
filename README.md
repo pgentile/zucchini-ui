@@ -118,7 +118,7 @@ The Docker image will be built in repository `pgentile/zucchini-ui`. After that,
 Docker image with the following command:
 
 ```
-docker run -p 8080:8080 -e TC_MONGO_URL=mongodb://MONGO_URI pgentile/zucchini-ui
+docker run -p 8080:8080 -e ZUCCHINI_MONGO_URL=mongodb://MONGO_URI pgentile/zucchini-ui
 ```
 
 You can find some pre-built images in [Docker Hub](https://hub.docker.com/r/pgentile/zucchini-ui/).
