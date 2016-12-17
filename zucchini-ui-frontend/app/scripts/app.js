@@ -46,6 +46,9 @@ zucchiniModule
     // Enable Angular debug mode if requested
     $compileProvider.debugInfoEnabled(config.angularDebugMode);
   })
+  .config(function ($locationProvider) {
+    $locationProvider.hashPrefix('');
+  })
   .config(function ($routeProvider) {
     $routeProvider
       .otherwise({

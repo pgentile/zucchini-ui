@@ -13,7 +13,9 @@ class CommentQueryImpl extends BaseMorphiaQuery<Comment> implements CommentQuery
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public CommentQuery withReference(final ItemReference reference) {
+        // TODO hasThisElement is deprecated, find a way to use another method
         configureQuery(q -> q.field("references").hasThisElement(reference));
         return this;
     }

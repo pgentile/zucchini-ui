@@ -16,11 +16,15 @@ public class MorphiaRawQuery {
     }
 
     public MorphiaRawQuery includeFields(final String... fieldNames) {
-        query.retrievedFields(true, fieldNames);
+        for (final String fieldName: fieldNames) {
+            query.project(fieldName, true);
+        }
         return this;
     }
 
+    @SuppressWarnings("deprecation")
     public Stream<DBObject> stream() {
+        // TODO All methods are deprecated on query object
         final DBCursor cursor = query.getCollection()
             .find(query.getQueryObject(), query.getFieldsObject())
             .sort(query.getSortObject());

@@ -59,7 +59,10 @@ public class FeatureViewAccess {
         }
 
         final Query<Feature> query = featureDAO.prepareTypedQuery(updatedPreparator)
-            .retrievedFields(true, "id", "testRunId", "info", "group", "status");
+            .project("testRunId", true)
+            .project("info", true)
+            .project("group", true)
+            .project("status", true);
 
         return MorphiaUtils.streamQuery(query)
             .map(feature -> {
@@ -80,7 +83,7 @@ public class FeatureViewAccess {
             .stream()
             .flatMap(testRun -> {
                 final Feature feature = featureDAO.prepareTypedQuery(q -> q.withTestRunId(testRun.getId()).withFeatureKey(featureKey))
-                    .retrievedFields(true, "id", "status")
+                    .project("status", true)
                     .get();
 
                 if (feature == null) {

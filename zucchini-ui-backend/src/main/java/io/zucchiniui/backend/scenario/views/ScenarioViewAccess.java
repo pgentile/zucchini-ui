@@ -47,7 +47,11 @@ public class ScenarioViewAccess {
 
     public List<ScenarioListItemView> getScenarioListItems(final Consumer<ScenarioQuery> preparator) {
         final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator)
-            .retrievedFields(true, "id", "info", "status", "testRunId", "featureId", "reviewed");
+            .project("info", true)
+            .project("status", true)
+            .project("testRunId", true)
+            .project("featureId", true)
+            .project("reviewed", true);
 
         return MorphiaUtils.streamQuery(query)
             .map(scenarioToListItemViewMapper::map)
@@ -56,7 +60,12 @@ public class ScenarioViewAccess {
 
     public Map<String, ScenarioListItemView> getScenarioListItemsGroupedByScenarioKey(final Consumer<ScenarioQuery> preparator) {
         final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator)
-            .retrievedFields(true, "id", "info", "status", "testRunId", "featureId", "reviewed", "scenarioKey");
+            .project("info", true)
+            .project("status", true)
+            .project("testRunId", true)
+            .project("featureId", true)
+            .project("reviewed", true)
+            .project("scenarioKey", true);
 
         return MorphiaUtils.streamQuery(query).collect(Collectors.toMap(Scenario::getScenarioKey, scenarioToListItemViewMapper::map));
     }
@@ -66,7 +75,7 @@ public class ScenarioViewAccess {
             .stream()
             .flatMap(testRun -> {
                 final Scenario scenario = scenarioDAO.prepareTypedQuery(q -> q.withTestRunId(testRun.getId()).withScenarioKey(scenarioKey))
-                    .retrievedFields(true, "id", "status")
+                    .project("status", true)
                     .get();
 
                 if (scenario == null) {
