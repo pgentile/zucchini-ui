@@ -10,6 +10,7 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
+        exclude: /chartist\.js/, // Babel can't load Chartist, it must be excluded
         loaders: [
           'babel?cacheDirectory',
         ],

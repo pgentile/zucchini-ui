@@ -9,6 +9,7 @@
   },
   "env": {
     "browser": true,
+    "es6": true,
     "node": true
   },
   "globals": {
@@ -16,5 +17,9 @@
     "$": true,
     "angular": true,
     "configuration": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2015,
+    "sourceType": "module"
   }
 }

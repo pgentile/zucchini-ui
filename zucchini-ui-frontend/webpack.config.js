@@ -70,8 +70,8 @@ module.exports = {
         test: /\.js$/,
         exclude: /chartist\.js/, // Babel can't load Chartist, it must be excluded
         loaders: [
+          'ng-annotate',
           'babel?cacheDirectory',
-          'ng-annotate'
         ],
       },
       {

@@ -9,7 +9,7 @@
     "fix": "eslint --fix ./app"
   },
   "devDependencies": {
-    "angular-mocks": "^1.5.0",
+    "angular-mocks": "1.6.0",
     "autoprefixer": "^6.4.0",
     "babel-core": "^6.14.0",
     "babel-loader": "^6.2.0",
@@ -45,11 +45,11 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "angular": "^1.5.0",
+    "angular": "1.6.0",
     "angular-elastic": "^2.5.0",
     "angular-loading-bar": "^0.9.0",
-    "angular-resource": "^1.5.0",
-    "angular-route": "^1.5.0",
+    "angular-resource": "1.6.0",
+    "angular-route": "1.6.0",
     "angular-ui-bootstrap": "^2.1.0",
     "bootstrap": "^3.3.0",
     "chartist": "^0.10.1",
