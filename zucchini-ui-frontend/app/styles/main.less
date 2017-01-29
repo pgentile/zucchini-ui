@@ -1,3 +1,14 @@
+@import "~bootstrap/less/variables.less";
+
+/**
+ * Important variables
+ */
+@passed-color: @brand-success;
+@failed-color: @brand-danger;
+@pending-color: @brand-warning;
+@not-run-color: #777;
+
+
 /**
  * Brower happy
  */
@@ -16,19 +27,19 @@
  */
 
 .ct-chart-donut .chart-progress-passed .ct-slice-donut {
-  stroke: #5cb85c;
+  stroke: @passed-color;
 }
 
 .ct-chart-donut .chart-progress-failed .ct-slice-donut {
-  stroke: #d9534f;
+  stroke: @failed-color;
 }
 
 .ct-chart-donut .chart-progress-pending .ct-slice-donut {
-  stroke: #f0ad4e;
+  stroke: @pending-color;
 }
 
 .ct-chart-donut .chart-progress-not-run .ct-slice-donut {
-  stroke: #777;
+  stroke: @not-run-color;
 }
 
 .ct-chart-donut .chart-progress-others .ct-slice-donut {
@@ -47,19 +58,19 @@
  */
 
 .ct-chart-bar .ct-series.chart-trend-passed .ct-bar {
-  stroke: #5cb85c
+  stroke: @passed-color;
 }
 
 .ct-chart-bar .ct-series.chart-trend-failed .ct-bar {
-  stroke: #d9534f
+  stroke: @failed-color;
 }
 
 .ct-chart-bar .ct-series.chart-trend-pending .ct-bar {
-  stroke: #f0ad4e
+  stroke: @pending-color;
 }
 
 .ct-chart-bar .ct-series.chart-trend-not-run .ct-bar {
-  stroke: #777
+  stroke: @not-run-color;
 }
 
 

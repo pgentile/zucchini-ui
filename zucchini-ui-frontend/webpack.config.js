@@ -22,7 +22,7 @@ module.exports = {
   entry: {
       app: [
         './app/scripts/app.js',
-        './app/styles/main.css',
+        './app/styles/main.less',
       ],
       vendor: [
         'angular/angular-csp.css',
@@ -84,6 +84,10 @@ module.exports = {
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('css?sourceMap!postcss'),
+      },
+      {
+        test: /\.less$/,
+        loader: ExtractTextPlugin.extract('css?sourceMap!postcss!less'),
       },
       {
         test: /\.(ttf|eot|woff2?|svg|png|jpg|gif)$/,
