@@ -1,6 +1,12 @@
 Zucchini UI Changelog
 =====================
 
+Version 0.0.2-SNAPSHOT
+----------------------
+
+* Use Yarn instead of NPM for Javascript packages management
+
+
 Version 0.0.1-SNAPSHOT
 ----------------------
 

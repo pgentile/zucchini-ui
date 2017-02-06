@@ -1,7 +1,6 @@
 import io.zucchini.build.docker.DockerPlugin
 import io.zucchini.build.node.NodePlugin
-import io.zucchini.build.node.NPMTask
-
+import io.zucchini.build.node.YarnTask
 
 buildscript {
 
@@ -216,7 +215,7 @@ project("${rootProject.name}-frontend") {
 
     project.sourceSets.main.resources.srcDir('build/dist')
 
-    task webpack(type: NPMTask, description: 'Run Webpack') {
+    task webpack(type: YarnTask, description: 'Run Webpack') {
         command = 'run'
         args = ['build']
 
@@ -229,7 +228,7 @@ project("${rootProject.name}-frontend") {
 
     tasks.processResources.dependsOn webpack
 
-    task jsTest(type: NPMTask, description: 'Test JavaScript') {
+    task jsTest(type: YarnTask, description: 'Test JavaScript') {
         command = 'test'
     }
 
