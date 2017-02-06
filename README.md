@@ -33,7 +33,7 @@ Build
 First time, install Javascript dependencies:
 
 ```
-./gradlew npmInstall
+./gradlew yarnInstall
 ```
 
 Build application with Gradle:
@@ -75,10 +75,10 @@ Start Java backend:
 Start frontend:
 
 ```
-(cd zucchini-ui-frontend && npm run dev)
+(cd zucchini-ui-frontend && yarn run dev)
 ```
 
-Open your browser to (although the `npm run dev` should open Zucchini home page) :
+Open your browser to (although the `yarn run dev` should open Zucchini home page) :
 
 ```
 http://localhost:9000

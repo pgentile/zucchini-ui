@@ -18,7 +18,7 @@ before_install:
 
 install:
   # Install UI dependencies
-  - ./gradlew npmInstall
+  - ./gradlew yarnInstall
   # Assemble project
   - ./gradlew assemble
 
