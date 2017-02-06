@@ -23,19 +23,20 @@ class DockerPlugin implements Plugin<Project> {
     }
 
     private void initTasks(Project project) {
+        Task buildTask = project.task('dockerBuild', type: DockerBuildTask, group: TASK_GROUP, description: 'Build Docker image') {
+            tags = project.docker.fullTagNames
+            buildArgs = project.docker.buildArgs
+            pull = project.docker.pull
+        }
+
+        project.task('dockerPush', type: DockerPushTask, group: TASK_GROUP, description: 'Push Docker image', dependsOn: buildTask) {
+            localTags = project.docker.fullTagNames
+        }
+
         project.afterEvaluate {
-            Task buildTask = project.task('dockerBuild', type: DockerBuildTask, group: TASK_GROUP, description: 'Build Docker image') {
-                tags = project.docker.fullTagNames
-                buildArgs = project.docker.buildArgs
-                pull = project.docker.pull
-            }
 
             if (project.tasks.findByName('assemble') != null) {
                 buildTask.dependsOn 'assemble'
-            }
-
-            project.task('dockerPush', type: DockerPushTask, group: TASK_GROUP, description: 'Push Docker image', dependsOn: buildTask) {
-                localTags = project.docker.fullTagNames
             }
 
         }
