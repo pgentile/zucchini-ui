@@ -17,11 +17,7 @@ class DockerBuildTask extends DefaultTask {
 
     @Input
     @Optional
-    List<String> tags = []
-
-    @Input
-    @Optional
-    boolean pull = false
+    boolean pull = true
 
     @Input
     @Optional
@@ -29,13 +25,14 @@ class DockerBuildTask extends DefaultTask {
 
     @TaskAction
     void build() {
+
         List<String> args = ['docker', 'build']
 
         if (dockerFile != null) {
             args += ['-f', dockerFile]
         }
 
-        args += tags.collect({ ['-t', it] }).flatten()
+        args += project.docker.fullTags.collect({ ['-t', it] }).flatten()
 
         args += buildArgs.collect { name, value -> ['--build-arg', "${name}=${value}"] }.flatten()
 
@@ -49,6 +46,10 @@ class DockerBuildTask extends DefaultTask {
         project.exec {
             commandLine args
         }
+    }
+
+    void buildArg(String name, String value) {
+        buildArgs.put(name, value)
     }
 
 }

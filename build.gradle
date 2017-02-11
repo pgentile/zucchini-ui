@@ -273,15 +273,14 @@ project("${rootProject.name}-capsule") {
     tasks.assemble.dependsOn fatCapsule
 
     docker {
-
         name = rootProject.name
-
-        // Project version is required as a build arg
-        buildArg 'ZUCCHINI_VERSION', project.version
-
-        // Add tag based on current Git branch
         tag project.getDockerTag()
+    }
 
+    dockerBuild {
+        buildArgs = [
+            ZUCCHINI_VERSION: project.version,
+        ]
     }
 
 }
