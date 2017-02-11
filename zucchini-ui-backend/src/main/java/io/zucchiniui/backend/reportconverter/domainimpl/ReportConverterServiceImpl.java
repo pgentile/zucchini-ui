@@ -62,13 +62,13 @@ class ReportConverterServiceImpl implements ReportConverterService {
         final InputStream featureStream,
         final Optional<String> group,
         final boolean dryRun,
-        final boolean onlyNewScenarii
-    ) {
+        final boolean onlyNewScenarii,
+        final boolean mergeOnlyNewPassedScenarii) {
         final CollectionType featureListJavaType = objectMapper.getTypeFactory().constructCollectionType(List.class, ReportFeature.class);
         try {
             final List<ReportFeature> reportFeatures = objectMapper.readValue(featureStream, featureListJavaType);
             for (final ReportFeature reportFeature : reportFeatures) {
-                convertAndSaveFeature(testRunId, reportFeature, group, dryRun, onlyNewScenarii);
+                convertAndSaveFeature(testRunId, reportFeature, group, dryRun, onlyNewScenarii, mergeOnlyNewPassedScenarii);
             }
         } catch (final IOException e) {
             throw new IllegalStateException("Can't parse report feature stream", e);
@@ -80,7 +80,8 @@ class ReportConverterServiceImpl implements ReportConverterService {
         final ReportFeature reportFeature,
         final Optional<String> group,
         final boolean dryRun,
-        final boolean onlyNewScenarii
+        final boolean onlyNewScenarii,
+        final boolean mergeOnlyNewPassedScenarii
     ) {
         final ConversionResult conversionResult = reportConverter.convert(testRunId, group, reportFeature);
 
@@ -98,7 +99,7 @@ class ReportConverterServiceImpl implements ReportConverterService {
             conversionResult.getScenarii().forEach(s -> s.setFeatureId(feature.getId()));
         }
 
-        saveScenariiIfNeeded(conversionResult.getScenarii(), onlyNewScenarii);
+        saveScenariiIfNeeded(conversionResult.getScenarii(), onlyNewScenarii, mergeOnlyNewPassedScenarii);
 
         featureService.calculateStatusFromScenarii(feature);
         featureRepository.save(feature);
@@ -106,9 +107,9 @@ class ReportConverterServiceImpl implements ReportConverterService {
         featureService.updateScenariiWithFeatureTags(feature);
     }
 
-    private void saveScenariiIfNeeded(final List<Scenario> allScenarii, final boolean onlyNewScenarii) {
+    private void saveScenariiIfNeeded(final List<Scenario> allScenarii, final boolean onlyNewScenarii, final boolean mergeOnlyNewPassedScenarii) {
         for (final Scenario scenario : allScenarii) {
-            final Scenario mergedScenario = scenarioService.tryToMergeWithExistingScenario(scenario);
+            final Scenario mergedScenario = scenarioService.tryToMergeWithExistingScenario(scenario, mergeOnlyNewPassedScenarii);
             if (!onlyNewScenarii || mergedScenario.equals(scenario)) {
                 scenarioRepository.save(mergedScenario);
             } else {

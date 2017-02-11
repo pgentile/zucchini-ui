@@ -136,11 +136,12 @@ public class TestRunResource {
         @QueryParam("group") final String groupStr,
         @QueryParam("dryRun") @DefaultValue("false") final boolean dryRun,
         @QueryParam("onlyNewScenarii") @DefaultValue("false") final boolean onlyNewScenarii,
+        @QueryParam("mergeOnlyNewPassedScenarii") @DefaultValue("false") final boolean mergeOnlyNewPassedScenarii,
         @NotNull final InputStream inputStream
     ) {
         final TestRun testRun = testRunRepository.getById(testRunId);
         final Optional<String> group = Optional.ofNullable(Strings.emptyToNull(groupStr));
-        reportConverterService.convertAndSaveFeatures(testRun.getId(), inputStream, group, dryRun, onlyNewScenarii);
+        reportConverterService.convertAndSaveFeatures(testRun.getId(), inputStream, group, dryRun, onlyNewScenarii, mergeOnlyNewPassedScenarii);
     }
 
     @GET

@@ -1,10 +1,7 @@
 package io.zucchiniui.backend.scenario.domainimpl;
 
 import io.zucchiniui.backend.feature.domain.FeatureService;
-import io.zucchiniui.backend.scenario.domain.Scenario;
-import io.zucchiniui.backend.scenario.domain.ScenarioRepository;
-import io.zucchiniui.backend.scenario.domain.ScenarioService;
-import io.zucchiniui.backend.scenario.domain.UpdateScenarioParams;
+import io.zucchiniui.backend.scenario.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -47,15 +44,27 @@ class ScenarioServiceImpl implements ScenarioService {
     }
 
     @Override
-    public Scenario tryToMergeWithExistingScenario(final Scenario newScenario) {
+    public Scenario tryToMergeWithExistingScenario(final Scenario newScenario, boolean mergeOnlyNewPassedScenarii) {
         return scenarioRepository.query(q -> q.withFeatureId(newScenario.getFeatureId()).withScenarioKey(newScenario.getScenarioKey()))
             .tryToFindOne()
             .map(existingScenario -> {
-                LOGGER.info("Merging new scenario {} with existing feature {}", newScenario, existingScenario);
-                existingScenario.mergeWith(newScenario);
+                LOGGER.info("Merging new scenario {} with existing feature {}, merge only passed is {}", newScenario, existingScenario, mergeOnlyNewPassedScenarii);
+                if (!mergeOnlyNewPassedScenarii || isNewPassedScenarii(existingScenario, newScenario)) {
+                    existingScenario.mergeWith(newScenario);
+                }
                 return existingScenario;
             })
             .orElse(newScenario);
+    }
+
+    /**
+     * Define if the new scenarii is passed and the existing is not passed.
+     * @param existingScenario
+     * @param newScenario
+     * @return true if the new scenarii is passed and the existing is not passed.
+     */
+    private boolean isNewPassedScenarii(Scenario existingScenario, Scenario newScenario) {
+        return newScenario.getStatus() == ScenarioStatus.PASSED && existingScenario.getStatus() != ScenarioStatus.PASSED;
     }
 
 }
