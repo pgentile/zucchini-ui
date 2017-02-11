@@ -27,7 +27,12 @@
         Limiter l'import aux nouveaux scénarii
       </label>
     </div>
-
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="importCtrl.importOptions.mergeOnlyNewPassedScenarii">
+        Limiter l'import aux scénarii passés avec succès
+      </label>
+    </div>
     <div class="checkbox">
       <label>
         <input type="checkbox" ng-model="importCtrl.importOptions.dryRun">

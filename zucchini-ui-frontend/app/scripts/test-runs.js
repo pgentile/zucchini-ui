@@ -285,6 +285,7 @@ zucchiniModule
       group: null,
       dryRun: false,
       onlyNewScenarii: true,
+      mergeOnlyNewPassedScenarii: false
     };
 
     this.import = function () {

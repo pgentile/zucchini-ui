@@ -4,6 +4,7 @@ Zucchini UI Changelog
 Version 0.0.2-SNAPSHOT
 ----------------------
 
+* Import only passed scenarii (contribution by @pierrick-boule)
 * Use Yarn instead of NPM for Javascript packages management
 
 

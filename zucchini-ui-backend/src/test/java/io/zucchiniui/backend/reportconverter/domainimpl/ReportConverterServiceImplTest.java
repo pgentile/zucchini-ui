@@ -89,10 +89,10 @@ public class ReportConverterServiceImplTest {
 
         given(reportConverter.convert(testRunId, group, reportFeature)).willReturn(conversionResult);
         given(featureService.tryToMergeWithExistingFeature(feature)).willReturn(feature);
-        given(scenarioService.tryToMergeWithExistingScenario(scenario)).willReturn(scenario);
+        given(scenarioService.tryToMergeWithExistingScenario(scenario, false)).willReturn(scenario);
 
         // when
-        service.convertAndSaveFeatures(testRunId, inputStream, group, false, false);
+        service.convertAndSaveFeatures(testRunId, inputStream, group, false, false, false);
 
         // then
 
@@ -101,7 +101,7 @@ public class ReportConverterServiceImplTest {
 
         inOrder.verify(reportConverter).convert(testRunId, group, reportFeature);
         inOrder.verify(featureService).tryToMergeWithExistingFeature(feature);
-        inOrder.verify(scenarioService).tryToMergeWithExistingScenario(scenario);
+        inOrder.verify(scenarioService).tryToMergeWithExistingScenario(scenario, false);
         inOrder.verify(scenarioRepository).save(scenario);
         inOrder.verify(featureService).calculateStatusFromScenarii(feature);
         inOrder.verify(featureRepository).save(feature);
@@ -133,10 +133,10 @@ public class ReportConverterServiceImplTest {
 
         given(reportConverter.convert(testRunId, group, reportFeature)).willReturn(conversionResult);
         given(featureService.tryToMergeWithExistingFeature(feature)).willReturn(feature);
-        given(scenarioService.tryToMergeWithExistingScenario(scenario)).willReturn(scenario);
+        given(scenarioService.tryToMergeWithExistingScenario(scenario, false)).willReturn(scenario);
 
         // when
-        service.convertAndSaveFeatures(testRunId, inputStream, group, true, false);
+        service.convertAndSaveFeatures(testRunId, inputStream, group, true, false,false);
 
         // then
 
@@ -147,7 +147,7 @@ public class ReportConverterServiceImplTest {
         inOrder.verify(scenario).doIgnoringChanges(any());
         inOrder.verify(scenario).setStatus(ScenarioStatus.NOT_RUN);
         inOrder.verify(featureService).tryToMergeWithExistingFeature(feature);
-        inOrder.verify(scenarioService).tryToMergeWithExistingScenario(scenario);
+        inOrder.verify(scenarioService).tryToMergeWithExistingScenario(scenario, false);
         inOrder.verify(scenarioRepository).save(scenario);
         inOrder.verify(featureService).calculateStatusFromScenarii(feature);
         inOrder.verify(featureRepository).save(feature);
@@ -177,10 +177,10 @@ public class ReportConverterServiceImplTest {
 
         given(featureService.tryToMergeWithExistingFeature(feature)).willReturn(existingFeature);
 
-        given(scenarioService.tryToMergeWithExistingScenario(scenario)).willReturn(scenario);
+        given(scenarioService.tryToMergeWithExistingScenario(scenario, false)).willReturn(scenario);
 
         // when
-        service.convertAndSaveFeatures(testRunId, inputStream, group, false, false);
+        service.convertAndSaveFeatures(testRunId, inputStream, group, false, false, false);
 
         // then
 
@@ -189,7 +189,7 @@ public class ReportConverterServiceImplTest {
 
         inOrder.verify(reportConverter).convert(testRunId, group, reportFeature);
         inOrder.verify(featureService).tryToMergeWithExistingFeature(feature);
-        inOrder.verify(scenarioService).tryToMergeWithExistingScenario(scenario);
+        inOrder.verify(scenarioService).tryToMergeWithExistingScenario(scenario, false);
         inOrder.verify(scenarioRepository).save(scenario);
         inOrder.verify(featureService).calculateStatusFromScenarii(existingFeature);
         inOrder.verify(featureRepository).save(existingFeature);
@@ -221,10 +221,10 @@ public class ReportConverterServiceImplTest {
 
         final Scenario existingScenario = mock(Scenario.class, "existingScenario");
 
-        given(scenarioService.tryToMergeWithExistingScenario(scenario)).willReturn(existingScenario);
+        given(scenarioService.tryToMergeWithExistingScenario(scenario, false)).willReturn(existingScenario);
 
         // when
-        service.convertAndSaveFeatures(testRunId, inputStream, group, false, true);
+        service.convertAndSaveFeatures(testRunId, inputStream, group, false, true, false);
 
         // then
 
@@ -233,7 +233,7 @@ public class ReportConverterServiceImplTest {
 
         inOrder.verify(reportConverter).convert(testRunId, group, reportFeature);
         inOrder.verify(featureService).tryToMergeWithExistingFeature(feature);
-        inOrder.verify(scenarioService).tryToMergeWithExistingScenario(scenario);
+        inOrder.verify(scenarioService).tryToMergeWithExistingScenario(scenario, false);
         inOrder.verify(scenarioRepository, never()).save(existingScenario);
         inOrder.verify(featureService).calculateStatusFromScenarii(existingFeature);
         inOrder.verify(featureRepository).save(existingFeature);
