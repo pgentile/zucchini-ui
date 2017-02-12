@@ -278,9 +278,7 @@ project("${rootProject.name}-capsule") {
     }
 
     dockerBuild {
-        buildArgs = [
-            ZUCCHINI_VERSION: project.version,
-        ]
+        buildArg 'ZUCCHINI_VERSION', project.version
     }
 
 }
