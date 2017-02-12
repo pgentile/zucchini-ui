@@ -16,8 +16,9 @@ class DockerPlugin implements Plugin<Project> {
         project.extensions.create('docker', DockerExtension, project)
 
         // Add Docker tasks if Dockerfile exists
-        if (project.file('DockerFile').isFile()) {
-            project.logger.debug('Dockerfile detected in project {}, adding Docker tasks', project.name)
+        File dockerfile = project.file('Dockerfile')
+        if (dockerfile.isFile()) {
+            project.logger.debug('Dockerfile detected in project {} at {}, adding Docker tasks', project.name, dockerfile)
             initTasks(project)
         }
     }
