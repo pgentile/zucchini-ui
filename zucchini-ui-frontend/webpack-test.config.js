@@ -11,31 +11,35 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /chartist\.js/, // Babel can't load Chartist, it must be excluded
-        loaders: [
-          'babel?cacheDirectory',
+        use: [
+          'babel-loader?cacheDirectory',
         ],
       },
       {
         test: /\.html$/,
-        loaders: [
-          'html',
+        use: [
+          'html-loader',
         ],
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('css?sourceMap'),
+        use: ExtractTextPlugin.extract({
+          use: [
+            'css-loader?sourceMap',
+            'postcss-loader',
+          ],
+        }),
       },
       {
         test: /\.(ttf|eot|woff2?|svg|png|jpg|gif)$/,
-        loaders: [
-          'url?limit=100000',
-          'img?minimize',
+        use: [
+          'url-loader?limit=100000',
+          'img-loader?minimize',
         ],
       }
     ]
   },
   plugins: [
-    new webpack.NoErrorsPlugin(),
     new webpack.ProvidePlugin({
       '_': 'lodash',
       '$': 'jquery',

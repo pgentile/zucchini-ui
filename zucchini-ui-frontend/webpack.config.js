@@ -58,61 +58,57 @@ module.exports = {
      },
   },
   module: {
-    preLoaders: [
+    rules: [
       {
         test: /\.js$/,
-        loader: "eslint",
-        exclude: /node_modules/
-      }
-    ],
-    loaders: [
+        enforce: 'pre',
+        use: [
+          'eslint-loader',
+        ],
+      },
       {
         test: /\.js$/,
         exclude: /chartist\.js/, // Babel can't load Chartist, it must be excluded
-        loaders: [
-          'ng-annotate',
-          'babel?cacheDirectory',
+        use: [
+          'ng-annotate-loader',
+          'babel-loader?cacheDirectory',
         ],
       },
       {
         test: /\.html$/,
-        loaders: [
-          'html',
-          'html-minify'
+        use: [
+          'html-loader?minimize',
         ],
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('css?sourceMap!postcss'),
+        use: ExtractTextPlugin.extract({
+          use: [
+            'css-loader?sourceMap',
+            'postcss-loader',
+          ],
+        }),
       },
       {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract('css?sourceMap!postcss!less'),
+        use: ExtractTextPlugin.extract({
+          use: [
+            'css-loader?sourceMap',
+            'postcss-loader',
+            'less-loader',
+          ],
+        }),
       },
       {
         test: /\.(ttf|eot|woff2?|svg|png|jpg|gif)$/,
-        loaders: [
-          'url?limit=100000',
-          'img?minimize',
+        use: [
+          'url-loader?limit=100000',
+          'img-loader?minimize',
         ],
       }
     ]
   },
-  postcss: function () {
-    return [autoprefixer, precss];
-  },
-  eslint: {
-    failOnWarning: false,
-    failOnError: true,
-  },
-  'html-minify-loader': {
-    empty: true,
-    comments: false,
-    conditionals: true,
-    loose: true,
-  },
   plugins: [
-    new webpack.NoErrorsPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity,
@@ -121,7 +117,6 @@ module.exports = {
       sourceMap: true,
       mangle: true
     }),
-    new webpack.optimize.DedupePlugin(),
     new webpack.ProvidePlugin({
       '_': 'lodash',
       '$': 'jquery',

@@ -21,7 +21,7 @@
     "eslint": "^3.5.0",
     "eslint-friendly-formatter": "^2.0.0",
     "eslint-loader": "^1.5.0",
-    "extract-text-webpack-plugin": "^1.0.0",
+    "extract-text-webpack-plugin": "^2.0.0",
     "file-loader": "^0.10.0",
     "html-loader": "^0.4.0",
     "html-minify-loader": "^1.1.0",
@@ -31,7 +31,7 @@
     "karma": "^1.2.0",
     "karma-jasmine": "^1.0.0",
     "karma-phantomjs-launcher": "^1.0.0",
-    "karma-webpack": "^1.8.0",
+    "karma-webpack": "^2.0.2",
     "less": "^2.7.2",
     "less-loader": "^2.2.3",
     "ng-annotate-loader": "^0.1.0",
@@ -40,8 +40,8 @@
     "precss": "^1.4.0",
     "serve-static": "^1.10.0",
     "url-loader": "^0.5.0",
-    "webpack": "^1.13.0",
-    "webpack-dev-server": "^1.15.0"
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1"
   },
   "engines": {
     "node": ">=0.10.0"
