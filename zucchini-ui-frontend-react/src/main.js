@@ -2,18 +2,12 @@
 import 'babel-polyfill';
 import 'jquery';
 
-import React from 'react';
 import ReactDOM from 'react-dom';
 
-
-function Hello() {
-  return (
-    <div>Hello!</div>
-  );
-}
+import AppRouter from './AppRouter';
 
 
 ReactDOM.render(
-  Hello(),
+  AppRouter(),
   document.getElementById('content'),
 );
