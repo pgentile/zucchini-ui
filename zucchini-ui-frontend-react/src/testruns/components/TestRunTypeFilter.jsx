@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import queryString from 'query-string';
 
 
-export default class TestRunTypeFilter extends React.Component {
+export default class TestRunTypeFilter extends React.PureComponent {
 
   render() {
     const { testRunTypes } = this.props;
