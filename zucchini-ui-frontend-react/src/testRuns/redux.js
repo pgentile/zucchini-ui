@@ -1,4 +1,3 @@
-import { LOCATION_CHANGE } from 'react-router-redux';
 import { handleActions } from 'redux-actions';
 
 import * as model from './model'
@@ -49,21 +48,9 @@ export function createTestRun({ type }) {
 
 const initialState = {
   testRuns: [],
-  selectedType: null,
 };
 
 export const testRuns = handleActions({
-
-  [LOCATION_CHANGE]: (state, action) => {
-    if (action.payload.pathname !== '/') {
-      return state;
-    }
-
-    return {
-      ...state,
-      selectedType: action.payload.query.type || null,
-    };
-  },
 
   [GET_LATEST_TEST_RUNS_FULFILLED]: (state, action) => ({
     ...state,

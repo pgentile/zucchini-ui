@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import CreateTestRunDialog from '../components/CreateTestRunDialog';
+import CreateTestRunDialog from './CreateTestRunDialog';
 import { createTestRun } from '../redux';
 
 

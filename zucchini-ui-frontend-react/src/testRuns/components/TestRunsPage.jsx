@@ -27,6 +27,8 @@ export default class TestRunsPage extends React.Component {
   }
 
   render() {
+    const { selectedType } = this.props;
+
     return (
       <BasePage title="Derniers tirs">
         <hr />
@@ -37,7 +39,7 @@ export default class TestRunsPage extends React.Component {
         </ButtonToolbar>
         <hr />
         <TestRunTypeFilterContainer />
-        <TestRunsTableContainer />
+        <TestRunsTableContainer selectedType={selectedType} />
         <CreateTestRunDialogContainer show={this.state.showCreateTestRunDialog} onClose={this.hideCreateTestRunDialog} />
       </BasePage>
     );
@@ -61,4 +63,5 @@ export default class TestRunsPage extends React.Component {
 
 TestRunsPage.propTypes = {
   onLoad: React.PropTypes.func.isRequired,
+  selectedType: React.PropTypes.string,
 };

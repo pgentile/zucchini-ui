@@ -1,17 +1,18 @@
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
-import TestRunsBreadcrum from '../components/TestRunsBreadcrum';
+import TestRunsBreadcrum from './TestRunsBreadcrum';
 
 
 const selectSelectedType = createSelector(
-  state => state.testRuns.selectedType,
+  (state, ownProps) => ownProps.location.query.type || null,
   selectedType => selectedType,
 );
 
+
 const TestRunsBreadcrumContainer = connect(
-  state => ({
-    selectedType: selectSelectedType(state),
+  (state, ownProps) => ({
+    selectedType: selectSelectedType(state, ownProps),
   }),
 )(TestRunsBreadcrum);
 

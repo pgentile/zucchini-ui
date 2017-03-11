@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
-import TestRunTypeFilter from '../components/TestRunTypeFilter';
+import TestRunTypeFilter from './TestRunTypeFilter';
 
 
 const selectTestRunTypes = createSelector(

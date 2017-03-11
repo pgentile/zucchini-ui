@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
-import TestRunsTable from '../components/TestRunsTable';
+import TestRunsTable from './TestRunsTable';
 
 
 const selectTestRuns = createSelector(
   state => state.testRuns.testRuns,
-  state => state.testRuns.selectedType,
+  (state, ownProps) => ownProps.selectedType,
   (testRuns, selectedType) => {
     if (selectedType) {
       return testRuns.filter(testRun => testRun.type === selectedType);
@@ -17,8 +17,8 @@ const selectTestRuns = createSelector(
 
 
 const TestRunsTableContainer = connect(
-  state => ({
-    testRuns: selectTestRuns(state),
+  (state, ownProps) => ({
+    testRuns: selectTestRuns(state, ownProps),
   }),
 )(TestRunsTable);
 
