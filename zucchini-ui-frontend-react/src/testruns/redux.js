@@ -12,6 +12,9 @@ const GET_LATEST_TEST_RUNS_FULFILLED = `${GET_LATEST_TEST_RUNS}_FULFILLED`;
 const GET_LATEST_TEST_RUNS_WITH_STATS = `${PREFIX}/GET_LATEST_TEST_RUNS_WITH_STATS`;
 const GET_LATEST_TEST_RUNS_WITH_STATS_FULFILLED = `${GET_LATEST_TEST_RUNS_WITH_STATS}_FULFILLED`;
 
+const CREATE_TEST_RUN = `${PREFIX}/CREATE_TEST_RUN`;
+const CREATE_TEST_RUN_FULFILLED = `${CREATE_TEST_RUN}_FULFILLED`;
+
 
 export function getLatestTestRuns() {
   return dispatch => {
@@ -26,6 +29,14 @@ export function getLatestTestRuns() {
         payload: model.getLatestsTestRunsWithStats(),
       });
     });
+  };
+}
+
+
+export function createTestRun({ type }) {
+  return {
+    type: CREATE_TEST_RUN,
+    payload: model.createTestRun({ type }),
   };
 }
 
@@ -56,6 +67,14 @@ export const testRuns = handleActions({
   [GET_LATEST_TEST_RUNS_WITH_STATS_FULFILLED]: (state, action) => ({
     ...state,
     testRuns: action.payload,
+  }),
+
+  [CREATE_TEST_RUN_FULFILLED]: (state, action) => ({
+    ...state,
+    testRuns: [
+      action.payload,
+      ...state.testRuns,
+    ],
   }),
 
 }, initialState);

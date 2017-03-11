@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router';
-import queryString from 'query-string';
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 
 import BasePage from '../../ui/components/BasePage';
 import TestRunsTableContainer from './TestRunsTableContainer';
-
+import CreateTestRunButtonContainer from './CreateTestRunButtonContainer';
+import TestRunTypeFilterContainer from './TestRunTypeFilterContainer';
 
 export default class TestRunsPage extends React.Component {
 
@@ -13,30 +13,14 @@ export default class TestRunsPage extends React.Component {
   }
 
   render() {
-    const testRunTypeLinks = this.props.testRunTypes.map(type => {
-
-      const linkTarget = {
-        pathname: '/',
-        search: '?' + queryString.stringify({ type }),
-      };
-
-      return (
-        <span key={type}>
-          <Link to={linkTarget}>{type}</Link>
-          {' '}
-        </span>
-      );
-    });
-
     return (
       <BasePage title="Derniers tirs">
-        <p>
-          Filter par type :
-          {' '}
-          <Link to="/"><i>Tous</i></Link>
-          {' '}
-          {testRunTypeLinks}
-        </p>
+        <hr />
+        <ButtonToolbar>
+          <CreateTestRunButtonContainer />
+        </ButtonToolbar>
+        <hr />
+        <TestRunTypeFilterContainer />
         <TestRunsTableContainer />
       </BasePage>
     );
@@ -46,5 +30,4 @@ export default class TestRunsPage extends React.Component {
 
 TestRunsPage.propTypes = {
   onLoad: React.PropTypes.func.isRequired,
-  testRunTypes: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
 };

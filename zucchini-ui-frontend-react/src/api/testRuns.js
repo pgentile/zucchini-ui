@@ -11,10 +11,42 @@ class TestRunsApi {
 
   getLatests({ withStats }) {
     const queryParams = queryString.stringify({
-      withStats
+      withStats,
     });
 
     return fetch(`${this.baseUri}/api/testRuns?${queryParams}`)
+      .then(response => {
+        return response.json();
+      });
+  }
+
+  getTestRun({ id }) {
+    return fetch(`${this.baseUri}/api/testRuns/${id}`)
+      .then(response => {
+        return response.json();
+      });
+  }
+
+  getTestRunStats({ id }) {
+    const queryParams = queryString.stringify({
+      testRunId: id,
+    });
+
+    return fetch(`${this.baseUri}/api/scenarii/stats?${queryParams}`)
+      .then(response => {
+        return response.json();
+      });
+  }
+
+  createTestRun({ type }) {
+    const fetchParams = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ type }),
+    };
+    return fetch(`${this.baseUri}/api/testRuns/create`, fetchParams)
       .then(response => {
         return response.json();
       });
