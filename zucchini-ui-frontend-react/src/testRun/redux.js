@@ -9,17 +9,19 @@ const PREFIX = 'TEST_RUN';
 
 const GET_TEST_RUN = `${PREFIX}/GET_TEST_RUN`;
 const GET_TEST_RUN_FULFILLED = `${GET_TEST_RUN}_FULFILLED`;
-const GET_TEST_RUN_PENDING = `${GET_TEST_RUN}_PENDING`;
 
 const GET_TEST_RUN_STATS = `${PREFIX}/GET_TEST_RUN_STATS`;
 const GET_TEST_RUN_STATS_FULFILLED = `${GET_TEST_RUN_STATS}_FULFILLED`;
-const GET_TEST_RUN_STATS_PENDING = `${GET_TEST_RUN_STATS}_PENDING`;
+
+const GET_TEST_RUN_HISTORY = `${PREFIX}/GET_TEST_RUN_HISTORY`;
+const GET_TEST_RUN_HISTORY_FULFILLED = `${GET_TEST_RUN_HISTORY}_FULFILLED`;
 
 
 // Action creators
 
 export function getTestRun({ testRunId }) {
   return dispatch => {
+
     dispatch({
       type: GET_TEST_RUN,
       payload: model.getTestRun({ testRunId }),
@@ -35,6 +37,17 @@ export function getTestRun({ testRunId }) {
         testRunId,
       },
     });
+
+  };
+}
+
+export function getTestRunHistoryByType({ testRunType, testRunId }) {
+  return {
+    type: GET_TEST_RUN_HISTORY,
+    payload: model.getTestRunHistoryByType({ type: testRunType }),
+    meta: {
+      testRunId,
+    },
   };
 }
 
@@ -44,33 +57,10 @@ export function getTestRun({ testRunId }) {
 const initialState = {
   testRun: {},
   stats: model.createStatsWithZeros(),
+  history: [],
 };
 
 export const testRun = handleActions({
-
-  [GET_TEST_RUN_PENDING]: (state, action) => {
-    // Same ID ? Erase is not defined then.
-    if (state.testRun.id === action.meta.testRunId) {
-      return state;
-    }
-
-    return {
-      ...state,
-      testRun: {},
-    };
-  },
-
-  [GET_TEST_RUN_STATS_PENDING]: (state, action) => {
-    // Same ID ? Erase is not defined then.
-    if (state.testRun.id === action.meta.testRunId) {
-      return state;
-    }
-
-    return {
-      ...state,
-      stats: model.createStatsWithZeros(),
-    };
-  },
 
   [GET_TEST_RUN_FULFILLED]: (state, action) => ({
     ...state,
@@ -80,6 +70,11 @@ export const testRun = handleActions({
   [GET_TEST_RUN_STATS_FULFILLED]: (state, action) => ({
     ...state,
     stats: action.payload,
+  }),
+
+  [GET_TEST_RUN_HISTORY_FULFILLED]: (state, action) => ({
+    ...state,
+    history: action.payload,
   }),
 
 }, initialState);

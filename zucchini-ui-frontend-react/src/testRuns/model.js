@@ -20,7 +20,7 @@ export function getLatestsTestRunsWithStats() {
 export function createTestRun({ type }) {
   return testRunsApi.createTestRun({ type })
     .then(response => {
-      return testRunsApi.getTestRun({ id: response.id });
+      return testRunsApi.getTestRun({ testRunId: response.id });
     })
     .then(testRun => ({
       ...testRun,

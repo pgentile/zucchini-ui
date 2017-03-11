@@ -2,12 +2,17 @@ import React from 'react';
 
 import BasePage from '../../ui/components/BasePage';
 import toNiceDate from '../../ui/toNiceDate';
+import TestRunHistoryContainer from './TestRunHistoryContainer';
 
 
 export default class TestRunPage extends React.Component {
 
   componentDidMount() {
-    this.props.onLoad({ testRunId: this.props.testRunId });
+    this.loadTestRunIfPossible({});
+  }
+
+  componentDidUpdate(prevProps) {
+    this.loadTestRunIfPossible(prevProps);
   }
 
   render() {
@@ -17,8 +22,18 @@ export default class TestRunPage extends React.Component {
       <BasePage title={`Tir du ${toNiceDate(testRun.date)}`}>
         <p><b>Identifiant du tir :</b> <code>{testRunId}</code></p>
         <hr />
+        <h2>Historique</h2>
+        <TestRunHistoryContainer testRunId={testRunId} testRunType={testRun.type} />
       </BasePage>
     );
+  }
+
+  loadTestRunIfPossible(prevProps) {
+    const { testRunId } = this.props;
+
+    if (testRunId !== prevProps.testRunId) {
+      this.props.onLoad({ testRunId: this.props.testRunId });
+    }
   }
 
 }

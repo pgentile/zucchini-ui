@@ -10,6 +10,10 @@ export function getTestRunStats({ testRunId }) {
   return scenariosApi.getStats({ testRunId });
 }
 
+export function getTestRunHistoryByType({ type }) {
+  return testRunsApi.getLatests({ type, withStats: true });
+}
+
 export function createStatsWithZeros() {
   return {
     all: ZERO_STATS_NUMBERS,

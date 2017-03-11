@@ -13,7 +13,7 @@ export default function RoutePage({ main, breadcrum }) {
       <Navbar inverse staticTop>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">Zucchini UI &mdash; React</Link>
+            <Link to="/">Zucchini UI &mdash; <i>React</i></Link>
           </Navbar.Brand>
         </Navbar.Header>
         <Nav>

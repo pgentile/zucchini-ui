@@ -9,9 +9,10 @@ class TestRunsApi {
     this.baseUri = baseUri;
   }
 
-  getLatests({ withStats }) {
+  getLatests({ withStats, type }) {
     const queryParams = queryString.stringify({
       withStats,
+      type,
     });
 
     return fetch(`${this.baseUri}/api/testRuns?${queryParams}`)
@@ -35,6 +36,7 @@ class TestRunsApi {
       },
       body: JSON.stringify({ type }),
     };
+
     return fetch(`${this.baseUri}/api/testRuns/create`, fetchParams)
       .then(response => {
         return response.json();
