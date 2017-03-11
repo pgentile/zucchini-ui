@@ -1,7 +1,7 @@
 import React from 'react';
 
-import toNiceDate from '../../ui/toNiceDate';
 import BasePage from '../../ui/components/BasePage';
+import toNiceDate from '../../ui/toNiceDate';
 
 
 export default class TestRunPage extends React.Component {

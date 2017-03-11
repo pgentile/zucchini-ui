@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-import queryString from 'query-string';
 
 
 export default class TestRunTypeFilter extends React.PureComponent {
@@ -12,7 +11,9 @@ export default class TestRunTypeFilter extends React.PureComponent {
 
       const linkTarget = {
         pathname: '/',
-        search: '?' + queryString.stringify({ type }),
+        query: {
+          type,
+        },
       };
 
       return (

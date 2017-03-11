@@ -7,10 +7,10 @@ import store, { history } from './store';
 import RootPage from './ui/components/RootPage';
 
 import TestRunsPageContainer from './testRuns/components/TestRunsPageContainer';
-import TestRunsBreadcrumContainer from './testRuns/components/TestRunsBreadcrumContainer';
+import TestRunsBreadcrumbContainer from './testRuns/components/TestRunsBreadcrumbContainer';
 
 import TestRunPageContainer from './testRun/components/TestRunPageContainer';
-import TestRunBreadcrumContainer from './testRun/components/TestRunBreadcrumContainer';
+import TestRunBreadcrumbContainer from './testRun/components/TestRunBreadcrumbContainer';
 
 
 export default function AppRouter() {
@@ -18,10 +18,10 @@ export default function AppRouter() {
     <Provider store={store}>
       <Router history={history}>
         <Route path="/" component={RootPage}>
-          <IndexRoute components={{ main: TestRunsPageContainer, breadcrum: TestRunsBreadcrumContainer }} />
+          <IndexRoute components={{ main: TestRunsPageContainer, breadcrum: TestRunsBreadcrumbContainer }} />
         </Route>
         <Route path="/test-runs/:testRunId" component={RootPage}>
-          <IndexRoute components={{ main: TestRunPageContainer, breadcrum: TestRunBreadcrumContainer }} />
+          <IndexRoute components={{ main: TestRunPageContainer, breadcrum: TestRunBreadcrumbContainer }} />
         </Route>
       </Router>
     </Provider>
