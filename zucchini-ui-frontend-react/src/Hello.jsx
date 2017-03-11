@@ -1,8 +1,12 @@
 import React from 'react';
 
+import BasePage from './ui/components/BasePage';
+
 
 export default function Hello() {
   return (
-    <p>Hello!</p>
+    <BasePage title="Hello!">
+      <p>Hello!</p>
+    </BasePage>
   );
 }

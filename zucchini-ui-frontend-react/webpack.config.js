@@ -8,21 +8,6 @@ const packageContent = require('./package.json');
 const vendorLibs = Object.keys(packageContent.dependencies);
 
 
-// Configuration (TODO externalize config)
-const config = {
-  ui: {
-    backendBaseUri: "http://localhost:8080",
-  },
-};
-
-
-// Connect function to serve a Javascript configuration file
-var javascriptConfigMiddleware = function (req, res) {
-  res.writeHead(200, { 'Content-Type': 'application/javascript' });
-  res.end('var configuration = ' + JSON.stringify(config.ui) + ';');
-};
-
-
 module.exports = {
   entry: {
     app: [
@@ -51,13 +36,6 @@ module.exports = {
     publicPath: '/static/',
   },
   devtool: 'source-map',
-  devServer: {
-    // contentBase: outputDir,
-    // port: config.devServer.port,
-    setup: function (app) {
-      app.get('/ui-react/config.js', javascriptConfigMiddleware);
-    },
-  },
   module: {
     rules: [
       {
