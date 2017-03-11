@@ -5,6 +5,7 @@ import { Router, Route, IndexRoute } from 'react-router';
 import store, { history } from './store';
 import RootPage from './ui/components/RootPage';
 import TestRunsPageContainer from './testruns/components/TestRunsPageContainer';
+import TestRunsBreadcrumContainer from './testruns/components/TestRunsBreadcrumContainer';
 
 
 export default function AppRouter() {
@@ -12,7 +13,7 @@ export default function AppRouter() {
     <Provider store={store}>
       <Router history={history}>
         <Route path="/" component={RootPage}>
-          <IndexRoute component={TestRunsPageContainer} />
+          <IndexRoute components={{ main: TestRunsPageContainer, breadcrum: TestRunsBreadcrumContainer }} />
         </Route>
       </Router>
     </Provider>

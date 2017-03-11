@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 
 
 // TODO Handle NavItem as Link
-export default function RoutePage({ children }) {
+export default function RoutePage({ main, breadcrum }) {
   return (
     <div>
 
@@ -22,7 +22,8 @@ export default function RoutePage({ children }) {
       </Navbar>
 
       <div className="container">
-        {children}
+        {breadcrum}
+        {main}
       </div>
 
     </div>
@@ -30,5 +31,6 @@ export default function RoutePage({ children }) {
 }
 
 RoutePage.propTypes = {
-  children: React.PropTypes.node.isRequired,
+  main: React.PropTypes.node.isRequired,
+  breadcrum: React.PropTypes.node.isRequired,
 };
