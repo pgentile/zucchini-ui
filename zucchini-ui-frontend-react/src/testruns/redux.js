@@ -4,6 +4,8 @@ import { handleActions } from 'redux-actions';
 import * as model from './model'
 
 
+// Actions
+
 const PREFIX = 'TEST_RUNS';
 
 const GET_LATEST_TEST_RUNS = `${PREFIX}/GET_LATEST_TEST_RUNS`;
@@ -15,6 +17,8 @@ const GET_LATEST_TEST_RUNS_WITH_STATS_FULFILLED = `${GET_LATEST_TEST_RUNS_WITH_S
 const CREATE_TEST_RUN = `${PREFIX}/CREATE_TEST_RUN`;
 const CREATE_TEST_RUN_FULFILLED = `${CREATE_TEST_RUN}_FULFILLED`;
 
+
+// Action creators
 
 export function getLatestTestRuns() {
   return dispatch => {
@@ -40,6 +44,8 @@ export function createTestRun({ type }) {
   };
 }
 
+
+// Reducer
 
 const initialState = {
   testRuns: [],
