@@ -13,18 +13,7 @@ export default class TestRunsTable extends React.PureComponent {
     const { testRuns } = this.props;
 
     const rows = testRuns.map(testRun => (
-      <tr key={testRun.id}>
-        <td><Label>{testRun.type}</Label></td>
-        <td>
-          <Link to={`/test-runs/${testRun.id}`}>Tir du {toNiceDate(testRun.date)}</Link>
-        </td>
-        <td><Badge>{nullToDash(testRun.stats.all.count)}</Badge></td>
-        <td><Badge>{nullToDash(testRun.stats.all.passed)}</Badge></td>
-        <td><Badge>{nullToDash(testRun.stats.all.failed)}</Badge></td>
-        <td><Badge>{nullToDash(testRun.stats.all.pending)}</Badge></td>
-        <td><Badge>{nullToDash(testRun.stats.all.notRun)}</Badge></td>
-        <td><Badge>{nullToDash(testRun.stats.reviewed.count)}</Badge></td>
-      </tr>
+      <TestRunTableRow key={testRun.id} testRun={testRun} />
     ));
 
     return (
@@ -50,6 +39,34 @@ export default class TestRunsTable extends React.PureComponent {
 
 TestRunsTable.propTypes = {
   testRuns: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+};
+
+
+class TestRunTableRow extends React.PureComponent {
+
+  render() {
+    const { testRun } = this.props;
+
+    return (
+      <tr>
+        <td><Label>{testRun.type}</Label></td>
+        <td>
+          <Link to={`/test-runs/${testRun.id}`}>Tir du {toNiceDate(testRun.date)}</Link>
+        </td>
+        <td><Badge>{nullToDash(testRun.stats.all.count)}</Badge></td>
+        <td><Badge>{nullToDash(testRun.stats.all.passed)}</Badge></td>
+        <td><Badge>{nullToDash(testRun.stats.all.failed)}</Badge></td>
+        <td><Badge>{nullToDash(testRun.stats.all.pending)}</Badge></td>
+        <td><Badge>{nullToDash(testRun.stats.all.notRun)}</Badge></td>
+        <td><Badge>{nullToDash(testRun.stats.reviewed.count)}</Badge></td>
+      </tr>
+    );
+  }
+
+}
+
+TestRunTableRow.propTypes = {
+  testRun: React.PropTypes.object.isRequired,
 };
 
 
