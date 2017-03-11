@@ -1,6 +1,6 @@
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-import { default as testRunApi } from '../api/testRuns';
+import * as model from './model'
 
 
 const PREFIX = 'TEST_RUNS';
@@ -16,45 +16,16 @@ export function getLatestTestRuns() {
   return dispatch => {
     const latestTestRuns = dispatch({
       type: GET_LATEST_TEST_RUNS,
-      payload: getLatestsTestRuns(),
+      payload: model.getLatestsTestRuns(),
     });
 
     latestTestRuns.then(() => {
       dispatch({
         type: GET_LATEST_TEST_RUNS_WITH_STATS,
-        payload: getLatestsTestRunsWithStats(),
+        payload: model.getLatestsTestRunsWithStats(),
       });
     });
   };
-}
-
-
-function getLatestsTestRuns() {
-  // Fake stats
-  const defaultStats = {
-    count: null,
-    passed: null,
-    failed: null,
-    pending: null,
-    notRun: null,
-  };
-
-  return testRunApi.getLatests({ withStats: false })
-    .then(testRuns => {
-      return testRuns.map(testRun => ({
-        ...testRun,
-        stats: {
-          all: defaultStats,
-          reviewed: defaultStats,
-          nonReviewed: defaultStats,
-        },
-      }))
-    });
-}
-
-
-function getLatestsTestRunsWithStats() {
-  return testRunApi.getLatests({ withStats: true });
 }
 
 
