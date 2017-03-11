@@ -20,8 +20,8 @@ class TestRunsApi {
       });
   }
 
-  getTestRun({ id }) {
-    return fetch(`${this.baseUri}/api/testRuns/${id}`)
+  getTestRun({ testRunId }) {
+    return fetch(`${this.baseUri}/api/testRuns/${testRunId}`)
       .then(response => {
         return response.json();
       });
