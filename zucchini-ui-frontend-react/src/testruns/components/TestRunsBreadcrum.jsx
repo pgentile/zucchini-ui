@@ -7,10 +7,8 @@ export default class TestRunsBreadcrum extends React.PureComponent {
   render() {
     const { selectedType } = this.props;
 
-    const isTypeSelected = (selectedType !== null && selectedType !== undefined && selectedType !== '');
-
     let selectedTypeItem = null;
-    if (isTypeSelected) {
+    if (selectedType) {
       selectedTypeItem = (
         <Breadcrumb.Item active>
           Type {selectedType}
@@ -20,7 +18,7 @@ export default class TestRunsBreadcrum extends React.PureComponent {
 
     return (
       <Breadcrumb>
-        <Breadcrumb.Item active={!isTypeSelected}>
+        <Breadcrumb.Item active={selectedType === null}>
           Derniers tirs
         </Breadcrumb.Item>
         {selectedTypeItem}

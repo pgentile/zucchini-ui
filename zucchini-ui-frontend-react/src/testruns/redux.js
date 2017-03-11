@@ -55,7 +55,7 @@ export const testRuns = handleActions({
 
     return {
       ...state,
-      selectedType: action.payload.query.type,
+      selectedType: action.payload.query.type || null,
     };
   },
 
