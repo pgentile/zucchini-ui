@@ -67,10 +67,26 @@ export const testRun = handleActions({
     testRun: action.payload,
   }),
 
-  [GET_TEST_RUN_STATS_FULFILLED]: (state, action) => ({
-    ...state,
-    stats: action.payload,
-  }),
+  [GET_TEST_RUN_STATS_FULFILLED]: (state, action) => {
+    const stats = action.payload;
+
+    // Refresh stats in history, if needed
+    const history = state.history.map(testRun => {
+      if (testRun.id === action.meta.testRunId) {
+        return {
+          ...testRun,
+          stats,
+        };
+      }
+      return testRun;
+    });
+
+    return {
+      ...state,
+      history,
+      stats,
+    }
+  },
 
   [GET_TEST_RUN_HISTORY_FULFILLED]: (state, action) => ({
     ...state,
