@@ -1,8 +1,8 @@
-import { default as testRunApi } from '../api/testRuns';
+import { default as testRunsApi } from '../api/testRuns';
 
 
 export function getLatestsTestRuns() {
-  return testRunApi.getLatests({ withStats: false })
+  return testRunsApi.getLatests({ withStats: false })
     .then(testRuns => {
       return testRuns.map(testRun => ({
         ...testRun,
@@ -13,14 +13,14 @@ export function getLatestsTestRuns() {
 
 
 export function getLatestsTestRunsWithStats() {
-  return testRunApi.getLatests({ withStats: true });
+  return testRunsApi.getLatests({ withStats: true });
 }
 
 
 export function createTestRun({ type }) {
-  return testRunApi.createTestRun({ type })
+  return testRunsApi.createTestRun({ type })
     .then(response => {
-      return testRunApi.getTestRun({ id: response.id });
+      return testRunsApi.getTestRun({ id: response.id });
     })
     .then(testRun => ({
       ...testRun,

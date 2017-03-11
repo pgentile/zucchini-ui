@@ -27,17 +27,6 @@ class TestRunsApi {
       });
   }
 
-  getTestRunStats({ id }) {
-    const queryParams = queryString.stringify({
-      testRunId: id,
-    });
-
-    return fetch(`${this.baseUri}/api/scenarii/stats?${queryParams}`)
-      .then(response => {
-        return response.json();
-      });
-  }
-
   createTestRun({ type }) {
     const fetchParams = {
       method: 'POST',
