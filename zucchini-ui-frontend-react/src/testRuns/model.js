@@ -46,6 +46,7 @@ const UNDEFINED_STATS_NUMBERS = {
   notRun: null,
 };
 
+
 const ZERO_STATS_NUMBERS = {
   count: 0,
   passed: 0,

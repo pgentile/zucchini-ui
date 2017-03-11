@@ -26,7 +26,7 @@ export default class TestRunTypeFilter extends React.PureComponent {
     return (
       <p>
         Filter par type :
-          {' '}
+        {' '}
         <Link to="/"><i>Tous</i></Link>
         {' '}
         {testRunTypeLinks}

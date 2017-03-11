@@ -4,8 +4,8 @@ import { Router, Route, IndexRoute } from 'react-router';
 
 import store, { history } from './store';
 import RootPage from './ui/components/RootPage';
-import TestRunsPageContainer from './testruns/components/TestRunsPageContainer';
-import TestRunsBreadcrumContainer from './testruns/components/TestRunsBreadcrumContainer';
+import TestRunsPageContainer from './testRuns/components/TestRunsPageContainer';
+import TestRunsBreadcrumContainer from './testRuns/components/TestRunsBreadcrumContainer';
 
 
 export default function AppRouter() {
