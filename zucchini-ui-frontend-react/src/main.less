@@ -1,1 +1,107 @@
 @import "~bootstrap/less/variables.less";
+
+
+/**
+ * Important variables
+ */
+@passed-color: @brand-success;
+@failed-color: @brand-danger;
+@pending-color: @brand-warning;
+@not-run-color: #777;
+
+
+/**
+ * Brower happy
+ */
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+
+/**
+ * Scenario pie charts
+ *
+ * See Bootstrap labels for colors
+ */
+
+.ct-chart-donut .chart-progress-passed .ct-slice-donut {
+  stroke: @passed-color;
+}
+
+.ct-chart-donut .chart-progress-failed .ct-slice-donut {
+  stroke: @failed-color;
+}
+
+.ct-chart-donut .chart-progress-pending .ct-slice-donut {
+  stroke: @pending-color;
+}
+
+.ct-chart-donut .chart-progress-not-run .ct-slice-donut {
+  stroke: @not-run-color;
+}
+
+.ct-chart-donut .chart-progress-others .ct-slice-donut {
+  stroke: #f9f9f9;
+}
+
+.ct-chart-donut .ct-label {
+  color: #fff;
+  fill: #fff;
+  font-size: 1em;
+}
+
+
+/**
+ * Trends
+ */
+
+.ct-chart-bar .ct-series.chart-trend-passed .ct-bar {
+  stroke: @passed-color;
+}
+
+.ct-chart-bar .ct-series.chart-trend-failed .ct-bar {
+  stroke: @failed-color;
+}
+
+.ct-chart-bar .ct-series.chart-trend-pending .ct-bar {
+  stroke: @pending-color;
+}
+
+.ct-chart-bar .ct-series.chart-trend-not-run .ct-bar {
+  stroke: @not-run-color;
+}
+
+
+/**
+ * Stats legend
+ */
+
+.stats-legend-total td {
+  font-style: italic;
+}
+
+
+/**
+ * Step error message
+ */
+
+.panel-error-message pre.error-message {
+  background: transparent;
+  border: unset;
+  padding: 0;
+  margin: 0;
+}
+
+/**
+ * Step log
+ */
+
+.panel-log pre.log {
+  background: transparent;
+  border: unset;
+  padding: 0;
+  margin: 0;
+}

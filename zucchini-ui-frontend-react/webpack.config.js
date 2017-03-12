@@ -17,6 +17,7 @@ module.exports = {
     vendor: [
       'bootstrap/dist/css/bootstrap.css',
       'bootstrap/dist/js/bootstrap.js',
+      'chartist/dist/chartist.min.css',
       ...vendorLibs,
     ],
   },
@@ -47,6 +48,7 @@ module.exports = {
       },
       {
         test: /\.jsx?$/,
+        exclude: /chartist\.js/, // Babel can't load Chartist, it must be excluded
         use: [
           'babel-loader?cacheDirectory',
         ],

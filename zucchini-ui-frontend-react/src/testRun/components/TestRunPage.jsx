@@ -3,6 +3,7 @@ import React from 'react';
 import BasePage from '../../ui/components/BasePage';
 import toNiceDate from '../../ui/toNiceDate';
 import TestRunHistoryContainer from './TestRunHistoryContainer';
+import ScenarioStatsContainer from './ScenarioStatsContainer';
 
 
 export default class TestRunPage extends React.Component {
@@ -20,10 +21,17 @@ export default class TestRunPage extends React.Component {
 
     return (
       <BasePage title={`Tir du ${toNiceDate(testRun.date)}`}>
+
         <p><b>Identifiant du tir :</b> <code>{testRunId}</code></p>
+
+        <hr />
+        <h2>Statistiques</h2>
+        <ScenarioStatsContainer />
+
         <hr />
         <h2>Historique</h2>
         <TestRunHistoryContainer testRunId={testRunId} testRunType={testRun.type} />
+
       </BasePage>
     );
   }

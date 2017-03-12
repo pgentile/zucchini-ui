@@ -37,6 +37,7 @@
   "dependencies": {
     "babel-polyfill": "^6.13.0",
     "bootstrap": "^3.3.7",
+    "chartist": "^0.10.1",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.1.1",
     "lodash": "^4.14.1",
