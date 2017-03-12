@@ -2,6 +2,9 @@ import React from 'react';
 import Alert from 'react-bootstrap/lib/Alert';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
+import InputGroup from 'react-bootstrap/lib/InputGroup';
+import Button from 'react-bootstrap/lib/Button';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 import toNiceDate from '../../ui/toNiceDate';
 
@@ -36,7 +39,14 @@ export default class TestRunSearchPage extends React.Component {
 
         <form onSubmit={this.onSearchFormSubmit}>
           <FormGroup controlId="search">
-            <FormControl type="text" value={this.state.search} onChange={this.onSearchChange} placeholder="Rechercher..." />
+            <InputGroup bsSize="large">
+              <FormControl type="text" value={this.state.search} onChange={this.onSearchChange} placeholder="Rechercher..." />
+              <InputGroup.Button>
+                <Button type="submit">
+                  <Glyphicon glyph="search" />
+                </Button>
+              </InputGroup.Button>
+            </InputGroup>
           </FormGroup>
         </form>
 
