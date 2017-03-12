@@ -6,15 +6,7 @@ import { Link } from 'react-router'
 import toNiceDate from '../../ui/toNiceDate';
 
 
-export default class TestRunHistoryTable extends React.Component {
-
-  componentDidMount() {
-    this.loadHistoryIfPossible({});
-  }
-
-  componentDidUpdate(prevProps) {
-    this.loadHistoryIfPossible(prevProps);
-  }
+export default class TestRunHistoryTable extends React.PureComponent {
 
   render() {
     const { history, testRunId } = this.props;
@@ -44,21 +36,12 @@ export default class TestRunHistoryTable extends React.Component {
     );
   }
 
-  loadHistoryIfPossible(prevProps) {
-    const { testRunType, testRunId } = this.props;
-
-    if (testRunType && testRunType !== prevProps.testRunType) {
-      this.props.onLoad({ testRunType, testRunId });
-    }
-  }
-
 }
 
 TestRunHistoryTable.propTypes = {
   testRunId: React.PropTypes.string.isRequired,
   testRunType: React.PropTypes.string,
-  history: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  onLoad: React.PropTypes.func.isRequired,
+  history: React.PropTypes.arrayOf(React.PropTypes.object),
 };
 
 

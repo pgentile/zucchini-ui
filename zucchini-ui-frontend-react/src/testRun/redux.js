@@ -22,29 +22,44 @@ const GET_FEATURES_FULFILLED = `${GET_FEATURES}_FULFILLED`;
 
 // Action creators
 
-export function getTestRun({ testRunId }) {
+export function loadTestRunPage({ testRunId }) {
   return dispatch => {
+    // Load test run, stats, history
+    const testRun$ = dispatch(getTestRun({ testRunId }));
+    const stats$ = dispatch(getTestRunStats({ testRunId }));
 
-    dispatch({
-      type: GET_TEST_RUN,
-      payload: model.getTestRun({ testRunId }),
-      meta: {
-        testRunId,
-      },
-    });
+    const history$ = testRun$.then(result => {
+      const testRun = result.value;
+      const testRunType = testRun.type;
+      return dispatch(getTestRunHistoryByType({ testRunId, testRunType }));
+    })
 
-    dispatch({
-      type: GET_TEST_RUN_STATS,
-      payload: model.getTestRunStats({ testRunId }),
-      meta: {
-        testRunId,
-      },
-    });
-
+    // Merge results in a promise
+    return Promise.all([testRun$, stats$, history$]);
   };
 }
 
-export function getTestRunHistoryByType({ testRunType, testRunId }) {
+export function getTestRun({ testRunId }) {
+  return {
+    type: GET_TEST_RUN,
+    payload: model.getTestRun({ testRunId }),
+    meta: {
+      testRunId,
+    },
+  };
+}
+
+export function getTestRunStats({ testRunId }) {
+  return {
+    type: GET_TEST_RUN_STATS,
+    payload: model.getTestRunStats({ testRunId }),
+    meta: {
+      testRunId,
+    },
+  };
+}
+
+export function getTestRunHistoryByType({ testRunId, testRunType }) {
   return {
     type: GET_TEST_RUN_HISTORY,
     payload: model.getTestRunHistoryByType({ type: testRunType }),

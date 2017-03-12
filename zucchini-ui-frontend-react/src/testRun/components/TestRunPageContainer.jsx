@@ -3,7 +3,7 @@ import { createSelector, createStructuredSelector } from 'reselect';
 
 import TestRunPage from './TestRunPage';
 
-import { getTestRun } from '../redux';
+import { loadTestRunPage } from '../redux';
 
 
 const selectSelectedFeatureGroup = createSelector(
@@ -31,7 +31,7 @@ const selectProps = createStructuredSelector({
 const TestRunPageContainer = connect(
   selectProps,
   {
-    onLoad: getTestRun,
+    onLoad: loadTestRunPage,
   },
 )(TestRunPage);
 

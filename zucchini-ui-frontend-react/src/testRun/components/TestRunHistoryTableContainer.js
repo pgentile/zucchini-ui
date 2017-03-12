@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 
 import TestRunHistoryTable from './TestRunHistoryTable';
-import { getTestRunHistoryByType } from '../redux';
 
 
 const selectTestRunId = createSelector(
@@ -29,9 +28,6 @@ const selectProps = createStructuredSelector({
 
 const TestRunHistoryTableContainer = connect(
   selectProps,
-  {
-    onLoad: getTestRunHistoryByType,
-  },
 )(TestRunHistoryTable);
 
 export default TestRunHistoryTableContainer;
