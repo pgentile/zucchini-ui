@@ -1,5 +1,6 @@
 import { default as testRunsApi } from '../api/testRuns';
 import { default as scenariosApi } from '../api/scenarios';
+import { default as featuresApi } from '../api/features';
 
 
 export function getTestRun({ testRunId }) {
@@ -12,6 +13,10 @@ export function getTestRunStats({ testRunId }) {
 
 export function getTestRunHistoryByType({ type }) {
   return testRunsApi.getLatests({ type, withStats: true });
+}
+
+export function getFeatures({ testRunId }) {
+  return featuresApi.getFeatures({ testRunId, withStats: true });
 }
 
 export function createStatsWithZeros() {

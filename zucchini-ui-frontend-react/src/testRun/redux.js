@@ -16,6 +16,9 @@ const GET_TEST_RUN_STATS_FULFILLED = `${GET_TEST_RUN_STATS}_FULFILLED`;
 const GET_TEST_RUN_HISTORY = `${PREFIX}/GET_TEST_RUN_HISTORY`;
 const GET_TEST_RUN_HISTORY_FULFILLED = `${GET_TEST_RUN_HISTORY}_FULFILLED`;
 
+const GET_FEATURES = `${PREFIX}/GET_FEATURES`;
+const GET_FEATURES_FULFILLED = `${GET_FEATURES}_FULFILLED`;
+
 
 // Action creators
 
@@ -51,6 +54,16 @@ export function getTestRunHistoryByType({ testRunType, testRunId }) {
   };
 }
 
+export function getFeatures({ testRunId }) {
+  return {
+    type: GET_FEATURES,
+    payload: model.getFeatures({ testRunId }),
+    meta: {
+      testRunId,
+    },
+  };
+}
+
 
 // Reducer
 
@@ -58,6 +71,7 @@ const initialState = {
   testRun: {},
   stats: model.createStatsWithZeros(),
   history: [],
+  features: [],
 };
 
 export const testRun = handleActions({
@@ -91,6 +105,11 @@ export const testRun = handleActions({
   [GET_TEST_RUN_HISTORY_FULFILLED]: (state, action) => ({
     ...state,
     history: action.payload,
+  }),
+
+  [GET_FEATURES_FULFILLED]: (state, action) => ({
+    ...state,
+    features: action.payload,
   }),
 
 }, initialState);

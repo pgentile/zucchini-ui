@@ -6,7 +6,7 @@ import { Link } from 'react-router'
 import toNiceDate from '../../ui/toNiceDate';
 
 
-export default class TestRunHistory extends React.Component {
+export default class TestRunHistoryTable extends React.Component {
 
   componentDidMount() {
     this.loadHistoryIfPossible({});
@@ -22,7 +22,7 @@ export default class TestRunHistory extends React.Component {
     const rows = history.map(testRun => {
       const isActive = (testRun.id === testRunId);
       return (
-        <TestRunHistoryTableRow key={testRun.id} testRun={testRun} isActive={isActive} />
+        <TestRunHistoryTableTableRow key={testRun.id} testRun={testRun} isActive={isActive} />
       )
     });
 
@@ -54,7 +54,7 @@ export default class TestRunHistory extends React.Component {
 
 }
 
-TestRunHistory.propTypes = {
+TestRunHistoryTable.propTypes = {
   testRunId: React.PropTypes.string.isRequired,
   testRunType: React.PropTypes.string,
   history: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
@@ -62,7 +62,7 @@ TestRunHistory.propTypes = {
 };
 
 
-class TestRunHistoryTableRow extends React.PureComponent {
+class TestRunHistoryTableTableRow extends React.PureComponent {
 
   render() {
     const { testRun, isActive } = this.props;
@@ -85,7 +85,7 @@ class TestRunHistoryTableRow extends React.PureComponent {
 
 }
 
-TestRunHistoryTableRow.propTypes = {
+TestRunHistoryTableTableRow.propTypes = {
   testRun: React.PropTypes.object.isRequired,
   isActive: React.PropTypes.bool.isRequired,
 };

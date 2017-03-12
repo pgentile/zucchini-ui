@@ -2,8 +2,9 @@ import React from 'react';
 
 import BasePage from '../../ui/components/BasePage';
 import toNiceDate from '../../ui/toNiceDate';
-import TestRunHistoryContainer from './TestRunHistoryContainer';
+import TestRunHistoryTableContainer from './TestRunHistoryTableContainer';
 import ScenarioStatsContainer from './ScenarioStatsContainer';
+import TestRunFeatureTableContainer from './TestRunFeatureTableContainer';
 
 
 export default class TestRunPage extends React.Component {
@@ -27,8 +28,11 @@ export default class TestRunPage extends React.Component {
         <ScenarioStatsContainer />
 
         <hr />
+        <h2>Fonctionnalités</h2>
+        <TestRunFeatureTableContainer testRunId={testRunId} />
+
         <h2>Historique</h2>
-        <TestRunHistoryContainer testRunId={testRunId} />
+        <TestRunHistoryTableContainer testRunId={testRunId} />
 
       </BasePage>
     );
