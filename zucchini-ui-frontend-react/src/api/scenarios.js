@@ -9,9 +9,10 @@ class ScenariosApi {
     this.baseUri = baseUri;
   }
 
-  getStats({ testRunId }) {
+  getStats({ testRunId, featureId }) {
     const queryParams = queryString.stringify({
       testRunId,
+      featureId,
     });
 
     return fetch(`${this.baseUri}/api/scenarii/stats?${queryParams}`)

@@ -3,7 +3,7 @@ import React from 'react';
 import toNiceDate from '../../ui/toNiceDate';
 import FeatureStateFilterContainer from '../../filters/components/FeatureStateFilterContainer';
 import TestRunHistoryTableContainer from './TestRunHistoryTableContainer';
-import ScenarioStatsContainer from './ScenarioStatsContainer';
+import TestRunStatsContainer from './TestRunStatsContainer';
 import TestRunFeatureTableContainer from './TestRunFeatureTableContainer';
 import FeatureGroupFilterContainer from './FeatureGroupFilterContainer';
 
@@ -27,7 +27,7 @@ export default class TestRunPage extends React.Component {
 
         <hr />
         <h2>Statistiques</h2>
-        <ScenarioStatsContainer />
+        <TestRunStatsContainer />
 
         <hr />
         <h2>Fonctionnalités</h2>

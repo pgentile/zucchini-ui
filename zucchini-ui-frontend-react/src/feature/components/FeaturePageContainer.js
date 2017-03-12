@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 
 import FeaturePage from './FeaturePage';
-import { getFeature } from '../redux';
+import { loadFeaturePage } from '../redux';
 
 
 const selectFeatureId = createSelector(
@@ -24,7 +24,7 @@ const selectProps = createStructuredSelector({
 const FeaturePageContainer = connect(
   selectProps,
   {
-    onLoad: getFeature,
+    onLoad: loadFeaturePage,
   }
 )(FeaturePage);
 

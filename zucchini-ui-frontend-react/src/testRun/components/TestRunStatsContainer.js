@@ -22,11 +22,11 @@ const selectProps = createStructuredSelector({
 })
 
 
-const ScenarioStatsContainer = connect(
+const TestRunStatsContainer = connect(
   selectProps,
   {
     onToggleDetails: updateStatsDashboardFilters,
   },
 )(ScenarioStats);
 
-export default ScenarioStatsContainer;
+export default TestRunStatsContainer;

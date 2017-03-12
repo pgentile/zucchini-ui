@@ -1,5 +1,7 @@
 import React from 'react';
 
+import FeatureStatsContainer from './FeatureStatsContainer';
+
 
 export default class FeaturePage extends React.Component {
 
@@ -26,6 +28,9 @@ export default class FeaturePage extends React.Component {
         </p>
 
         <hr />
+
+        <h2>Statistiques</h2>
+        <FeatureStatsContainer />
 
       </div>
     );

@@ -25,6 +25,7 @@ const GET_FEATURES_FULFILLED = `${GET_FEATURES}_FULFILLED`;
 export function loadTestRunPage({ testRunId }) {
   return dispatch => {
     // Load test run, stats, history
+
     const testRun$ = dispatch(getTestRun({ testRunId }));
     const stats$ = dispatch(getTestRunStats({ testRunId }));
 
