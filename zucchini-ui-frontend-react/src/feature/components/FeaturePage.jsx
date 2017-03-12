@@ -1,6 +1,7 @@
 import React from 'react';
 
 import FeatureStatsContainer from './FeatureStatsContainer';
+import FeatureHistoryTableContainer from './FeatureHistoryTableContainer';
 
 
 export default class FeaturePage extends React.Component {
@@ -14,7 +15,7 @@ export default class FeaturePage extends React.Component {
   }
 
   render() {
-    const { feature } = this.props;
+    const { feature, featureId } = this.props;
 
     return (
       <div>
@@ -31,6 +32,11 @@ export default class FeaturePage extends React.Component {
 
         <h2>Statistiques</h2>
         <FeatureStatsContainer />
+
+        <hr />
+
+        <h2>Historique</h2>
+        <FeatureHistoryTableContainer featureId={featureId} />
 
       </div>
     );

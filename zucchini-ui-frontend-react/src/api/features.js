@@ -28,6 +28,13 @@ class FeaturesApi {
       });
   }
 
+  getFeatureHistory({ featureId }) {
+    return fetch(`${this.baseUri}/api/features/${featureId}/history`)
+      .then(response => {
+        return response.json();
+      });
+  }
+
 }
 
 const features = new FeaturesApi(configuration.ui.backendBaseUri);

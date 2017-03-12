@@ -20,8 +20,8 @@ export default class TestRunsTable extends React.PureComponent {
       <Table bordered striped>
         <thead>
           <tr>
-            <th className="col-md-1">Type</th>
-            <th className="col-md-5">Tir de test</th>
+            <th className="col-md-2">Type</th>
+            <th className="col-md-4">Tir de test</th>
             <th className="col-md-1">Total</th>
             <th className="col-md-1">Succès</th>
             <th className="col-md-1">Échecs</th>
