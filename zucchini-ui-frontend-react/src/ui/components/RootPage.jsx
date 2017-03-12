@@ -1,24 +1,27 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
-import NavItem from 'react-bootstrap/lib/NavItem';
 import { Link } from 'react-router';
 
 
-// TODO Handle NavItem as Link
-export default function RoutePage({ main, breadcrum }) {
+export default function RoutePage({ main, breadcrum, search }) {
   return (
     <div>
-
-      <Navbar inverse staticTop>
+      <Navbar inverse staticTop collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">Zucchini UI &mdash; <i>React</i></Link>
           </Navbar.Brand>
+          <Navbar.Toggle />
         </Navbar.Header>
-        <Nav>
-          <NavItem href="#">Derniers tirs</NavItem>
-        </Nav>
+        <Navbar.Collapse>
+          <Nav>
+            <NavItem>
+              <Link to="/">Derniers tirs</Link>
+            </NavItem>
+          </Nav>
+          {search}
+        </Navbar.Collapse>
       </Navbar>
 
       <div className="container">
@@ -33,4 +36,18 @@ export default function RoutePage({ main, breadcrum }) {
 RoutePage.propTypes = {
   main: React.PropTypes.node.isRequired,
   breadcrum: React.PropTypes.node.isRequired,
+  search: React.PropTypes.node,
+};
+
+
+function NavItem({ children }) {
+  return (
+    <li>
+      {children}
+    </li>
+  );
+}
+
+NavItem.propTypes = {
+  children: React.PropTypes.node,
 };

@@ -6,6 +6,8 @@ import store, { history } from './store';
 
 import RootPage from './ui/components/RootPage';
 
+import NavSearchForm from './search/components/NavSearchForm';
+
 import TestRunsPageContainer from './testRuns/components/TestRunsPageContainer';
 import TestRunsBreadcrumbContainer from './testRuns/components/TestRunsBreadcrumbContainer';
 
@@ -21,7 +23,7 @@ export default function AppRouter() {
           <IndexRoute components={{ main: TestRunsPageContainer, breadcrum: TestRunsBreadcrumbContainer }} />
         </Route>
         <Route path="/test-runs/:testRunId" component={RootPage}>
-          <IndexRoute components={{ main: TestRunPageContainer, breadcrum: TestRunBreadcrumbContainer }} />
+          <IndexRoute components={{ main: TestRunPageContainer, breadcrum: TestRunBreadcrumbContainer, search: NavSearchForm }} />
         </Route>
       </Router>
     </Provider>
