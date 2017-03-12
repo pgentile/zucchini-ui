@@ -62,10 +62,11 @@ StatsLegend.propTypes = {
 
 
 function numberAsPercent(n) {
+  if (n === null || Number.isNaN(n)) {
+    return 'N/A';
+  }
+
   // Number formatting returned a result, this is a valid number
   const formatted = n.toFixed(1);
-  if (formatted) {
-    return `${formatted} %`;
-  }
-  return 'N/A';
+  return `${formatted} %`;
 }
