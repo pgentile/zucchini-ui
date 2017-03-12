@@ -9,7 +9,7 @@ import ScenarioPieChart from './StatsPieChart';
 import StatsLegend from './StatsLegend';
 
 
-export default class ScenarioStats extends React.Component {
+export default class ScenarioStats extends React.PureComponent {
 
   constructor(props) {
     super(props);
