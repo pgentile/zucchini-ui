@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
+import { createSelector, createStructuredSelector } from 'reselect';
 
 import Breadcrumb from '../../ui/components/Breadcrumb';
 import toNiceDate from '../../ui/toNiceDate';
@@ -20,11 +20,13 @@ const selectBreadcumbItems = createSelector(
   },
 );
 
+const selectProps = createStructuredSelector({
+  items: selectBreadcumbItems,
+})
+
 
 const TestRunBreadcrumbContainer = connect(
-  (state, ownProps) => ({
-    items: selectBreadcumbItems(state, ownProps),
-  }),
+  selectProps,
 )(Breadcrumb);
 
 export default TestRunBreadcrumbContainer;

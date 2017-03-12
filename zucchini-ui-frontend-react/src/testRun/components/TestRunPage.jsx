@@ -28,7 +28,7 @@ export default class TestRunPage extends React.Component {
 
         <hr />
         <h2>Historique</h2>
-        <TestRunHistoryContainer testRunId={testRunId} testRunType={testRun.type} />
+        <TestRunHistoryContainer testRunId={testRunId} />
 
       </BasePage>
     );

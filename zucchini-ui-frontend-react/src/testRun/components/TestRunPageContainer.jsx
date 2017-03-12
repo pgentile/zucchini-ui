@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
+import { createSelector, createStructuredSelector } from 'reselect';
 
 import TestRunPage from './TestRunPage';
 
@@ -16,12 +16,14 @@ const selectTestRun = createSelector(
   testRun => testRun,
 );
 
+const selectProps = createStructuredSelector({
+  testRunId: selectTestRunId,
+  testRun: selectTestRun,
+})
+
 
 const TestRunPageContainer = connect(
-  (state, ownProps) => ({
-    testRunId: selectTestRunId(state, ownProps),
-    testRun: selectTestRun(state),
-  }),
+  selectProps,
   {
     onLoad: getTestRun,
   },

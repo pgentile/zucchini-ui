@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
+import { createSelector, createStructuredSelector } from 'reselect';
 
 import TestRunTypeFilter from './TestRunTypeFilter';
 
@@ -14,11 +14,13 @@ const selectTestRunTypes = createSelector(
   }
 );
 
+const selectProps = createStructuredSelector({
+  testRunTypes: selectTestRunTypes,
+})
+
 
 const TestRunTypeFilterContainer = connect(
-  state => ({
-    testRunTypes: selectTestRunTypes(state),
-  }),
+  selectProps,
 )(TestRunTypeFilter);
 
 export default TestRunTypeFilterContainer;

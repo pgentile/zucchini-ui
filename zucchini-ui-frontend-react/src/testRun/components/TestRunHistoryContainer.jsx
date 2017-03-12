@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
+import { createSelector, createStructuredSelector } from 'reselect';
 
 import TestRunHistory from './TestRunHistory';
 import { getTestRunHistoryByType } from '../redux';
@@ -20,13 +20,15 @@ const selectHistory = createSelector(
   history => history,
 );
 
+const selectProps = createStructuredSelector({
+  testRunId: selectTestRunId,
+  testRunType: selectTestRunType,
+  history: selectHistory,
+})
+
 
 const TestRunHistoryContainer = connect(
-  (state, ownProps) => ({
-    testRunId: selectTestRunId(state, ownProps),
-    testRunType: selectTestRunType(state),
-    history: selectHistory(state),
-  }),
+  selectProps,
   {
     onLoad: getTestRunHistoryByType,
   },

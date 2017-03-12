@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
+import { createSelector, createStructuredSelector } from 'reselect';
 
 import TestRunsTable from './TestRunsTable';
 
@@ -15,11 +15,13 @@ const selectTestRuns = createSelector(
   },
 );
 
+const selectProps = createStructuredSelector({
+  testRuns: selectTestRuns,
+})
+
 
 const TestRunsTableContainer = connect(
-  (state, ownProps) => ({
-    testRuns: selectTestRuns(state, ownProps),
-  }),
+  selectProps,
 )(TestRunsTable);
 
 export default TestRunsTableContainer;
