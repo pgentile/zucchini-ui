@@ -3,7 +3,6 @@ import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import Button from 'react-bootstrap/lib/Button';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
-import BasePage from '../../ui/components/BasePage';
 import TestRunsTableContainer from './TestRunsTableContainer';
 import TestRunTypeFilterContainer from './TestRunTypeFilterContainer';
 import CreateTestRunDialogContainer from './CreateTestRunDialogContainer';
@@ -30,7 +29,8 @@ export default class TestRunsPage extends React.Component {
     const { selectedType } = this.props;
 
     return (
-      <BasePage title="Derniers tirs">
+      <div>
+        <h1>Derniers tirs {selectedType && <small>Type {selectedType}</small>}</h1>
         <hr />
         <ButtonToolbar>
           <Button onClick={this.onCreateTestRunButtonClick}>
@@ -41,7 +41,7 @@ export default class TestRunsPage extends React.Component {
         <TestRunTypeFilterContainer />
         <TestRunsTableContainer selectedType={selectedType} />
         <CreateTestRunDialogContainer show={this.state.showCreateTestRunDialog} onClose={this.hideCreateTestRunDialog} />
-      </BasePage>
+      </div>
     );
   }
 

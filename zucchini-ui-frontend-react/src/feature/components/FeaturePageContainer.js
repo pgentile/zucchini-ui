@@ -10,8 +10,14 @@ const selectFeatureId = createSelector(
   featureId => featureId,
 );
 
+const selectFeature = createSelector(
+  state => state.feature.feature,
+  feature => feature,
+);
+
 const selectProps = createStructuredSelector({
   featureId: selectFeatureId,
+  feature: selectFeature,
 });
 
 

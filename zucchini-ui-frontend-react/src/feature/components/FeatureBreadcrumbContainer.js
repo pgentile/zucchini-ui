@@ -9,10 +9,6 @@ const selectBreadcumbItems = createSelector(
   state => state.testRun.testRun,
   state => state.feature.feature,
   (testRun, feature) => {
-    if (feature.info === undefined) {
-      return [];
-    }
-
     return [
       {
         value: `Type ${testRun.type}`,

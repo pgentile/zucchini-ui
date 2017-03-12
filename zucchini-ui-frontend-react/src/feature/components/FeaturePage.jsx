@@ -1,7 +1,5 @@
 import React from 'react';
 
-import BasePage from '../../ui/components/BasePage';
-
 
 export default class FeaturePage extends React.Component {
 
@@ -14,10 +12,13 @@ export default class FeaturePage extends React.Component {
   }
 
   render() {
+    const { feature } = this.props;
+
     return (
-      <BasePage title="Fonctionalité TODO TODO TODO">
+      <div>
+        <h1><b>{feature.info.keyword}</b> {feature.info.name}</h1>
         <hr />
-      </BasePage>
+      </div>
     );
   }
 
@@ -33,4 +34,5 @@ export default class FeaturePage extends React.Component {
 FeaturePage.propTypes = {
   onLoad: React.PropTypes.func.isRequired,
   featureId: React.PropTypes.string.isRequired,
+  feature: React.PropTypes.object,
 };

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import BasePage from '../../ui/components/BasePage';
 import toNiceDate from '../../ui/toNiceDate';
 import FeatureStateFilterContainer from '../../filters/components/FeatureStateFilterContainer';
 import TestRunHistoryTableContainer from './TestRunHistoryTableContainer';
@@ -23,7 +22,8 @@ export default class TestRunPage extends React.Component {
     const { testRunId, testRun, selectedFeatureGroup } = this.props;
 
     return (
-      <BasePage title={`Tir du ${toNiceDate(testRun.date)}`}>
+      <div>
+        <h1>{`Tir du ${toNiceDate(testRun.date)}`}</h1>
 
         <hr />
         <h2>Statistiques</h2>
@@ -38,7 +38,7 @@ export default class TestRunPage extends React.Component {
         <h2>Historique</h2>
         <TestRunHistoryTableContainer testRunId={testRunId} />
 
-      </BasePage>
+      </div>
     );
   }
 

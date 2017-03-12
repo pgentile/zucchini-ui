@@ -39,7 +39,9 @@ export function getFeature({ featureId }) {
 // Reducer
 
 const initialState = {
-  feature: {},
+  feature: {
+    info: {},
+  },
 };
 
 export const feature = handleActions({
