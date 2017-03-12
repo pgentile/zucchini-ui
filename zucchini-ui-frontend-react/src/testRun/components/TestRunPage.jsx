@@ -22,8 +22,6 @@ export default class TestRunPage extends React.Component {
     return (
       <BasePage title={`Tir du ${toNiceDate(testRun.date)}`}>
 
-        <p><b>Identifiant du tir :</b> <code>{testRunId}</code></p>
-
         <hr />
         <h2>Statistiques</h2>
         <ScenarioStatsContainer />
