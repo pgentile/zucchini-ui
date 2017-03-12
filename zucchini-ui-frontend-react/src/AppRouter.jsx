@@ -14,6 +14,9 @@ import TestRunsBreadcrumbContainer from './testRuns/components/TestRunsBreadcrum
 import TestRunPageContainer from './testRun/components/TestRunPageContainer';
 import TestRunBreadcrumbContainer from './testRun/components/TestRunBreadcrumbContainer';
 
+import FeaturePageContainer from './feature/components/FeaturePageContainer';
+import FeatureBreadcrumbContainer from './feature/components/FeatureBreadcrumbContainer';
+
 
 export default function AppRouter() {
   return (
@@ -24,6 +27,9 @@ export default function AppRouter() {
         </Route>
         <Route path="/test-runs/:testRunId" component={RootPage}>
           <IndexRoute components={{ main: TestRunPageContainer, breadcrum: TestRunBreadcrumbContainer, search: NavSearchFormContainer }} />
+        </Route>
+        <Route path="/features/:featureId" component={RootPage}>
+          <IndexRoute components={{ main: FeaturePageContainer, breadcrum: FeatureBreadcrumbContainer, search: NavSearchFormContainer }} />
         </Route>
       </Router>
     </Provider>

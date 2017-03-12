@@ -9,6 +9,13 @@ class FeaturesApi {
     this.baseUri = baseUri;
   }
 
+  getFeature({ featureId }) {
+    return fetch(`${this.baseUri}/api/features/${featureId}`)
+      .then(response => {
+        return response.json();
+      });
+  }
+
   getFeatures({ testRunId, withStats }) {
     const queryParams = queryString.stringify({
       testRunId,
