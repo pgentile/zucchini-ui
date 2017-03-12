@@ -3,7 +3,7 @@ import Table from 'react-bootstrap/lib/Table';
 import Badge from 'react-bootstrap/lib/Badge';
 import { Link } from 'react-router'
 
-import ScenarioStatus from './ScenarioStatus';
+import Status from '../../ui/components/Status';
 
 
 export default class TestRunFeatureTable extends React.Component {
@@ -76,7 +76,7 @@ class TestRunFeatureTableTableRow extends React.PureComponent {
           </Link>
         </td>
         <td>
-          <ScenarioStatus status={feature.status} />
+          <Status status={feature.status} />
         </td>
         <td><Badge>{feature.stats.all.count}</Badge></td>
         <td><Badge>{feature.stats.all.passed}</Badge></td>

@@ -2,6 +2,7 @@ import React from 'react';
 
 import FeatureStatsContainer from './FeatureStatsContainer';
 import FeatureHistoryTableContainer from './FeatureHistoryTableContainer';
+import FeatureScenarioTableContainer from './FeatureScenarioTableContainer';
 
 
 export default class FeaturePage extends React.Component {
@@ -32,6 +33,11 @@ export default class FeaturePage extends React.Component {
 
         <h2>Statistiques</h2>
         <FeatureStatsContainer />
+
+        <hr />
+
+        <h2>Scénarii</h2>
+        <FeatureScenarioTableContainer />
 
         <hr />
 

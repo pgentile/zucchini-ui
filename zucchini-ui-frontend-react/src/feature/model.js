@@ -14,6 +14,10 @@ export function getFeatureHistory({ featureId }) {
   return featuresApi.getFeatureHistory({ featureId });
 }
 
+export function getScenarios({ featureId }) {
+  return scenariosApi.getScenarios({ featureId });
+}
+
 export function createStatsWithZeros() {
   return {
     all: ZERO_STATS_NUMBERS,

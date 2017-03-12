@@ -11,7 +11,7 @@ import FeatureGroupFilterContainer from './FeatureGroupFilterContainer';
 export default class TestRunPage extends React.Component {
 
   componentDidMount() {
-    this.loadTestRunIfPossible({});
+    this.loadTestRunIfPossible();
   }
 
   componentDidUpdate(prevProps) {
@@ -42,7 +42,7 @@ export default class TestRunPage extends React.Component {
     );
   }
 
-  loadTestRunIfPossible(prevProps) {
+  loadTestRunIfPossible(prevProps = {}) {
     const { testRunId } = this.props;
 
     if (testRunId !== prevProps.testRunId) {

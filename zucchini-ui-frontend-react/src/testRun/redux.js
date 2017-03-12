@@ -36,7 +36,7 @@ export function loadTestRunPage({ testRunId }) {
     })
 
     // Merge results in a promise
-    return Promise.all([testRun$, stats$, history$]);
+    return Promise.all([testRun$, stats$, history$]).then(() => null);
   };
 }
 

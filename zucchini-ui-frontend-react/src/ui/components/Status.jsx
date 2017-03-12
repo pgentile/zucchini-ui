@@ -2,7 +2,7 @@ import React from 'react';
 import Label from 'react-bootstrap/lib/Label';
 
 
-export default class ScenarioStatus extends React.PureComponent {
+export default class Status extends React.PureComponent {
 
   render() {
     const { bsStyle, displayLabel } = this.getLabelAndStyle();
@@ -60,6 +60,6 @@ export default class ScenarioStatus extends React.PureComponent {
 
 }
 
-ScenarioStatus.propTypes = {
+Status.propTypes = {
   status: React.PropTypes.string.isRequired,
 };

@@ -17,6 +17,9 @@ import TestRunBreadcrumbContainer from './testRun/components/TestRunBreadcrumbCo
 import FeaturePageContainer from './feature/components/FeaturePageContainer';
 import FeatureBreadcrumbContainer from './feature/components/FeatureBreadcrumbContainer';
 
+import TestRunSearchPageContainer from './search/components/TestRunSearchPageContainer';
+import TestRunSearchBreadcrumbContainer from './search/components/TestRunSearchBreadcrumbContainer';
+
 
 export default function AppRouter() {
   return (
@@ -24,12 +27,13 @@ export default function AppRouter() {
       <Router history={history}>
         <Route path="/" component={RootPage}>
           <IndexRoute components={{ main: TestRunsPageContainer, breadcrum: TestRunsBreadcrumbContainer }} />
-        </Route>
-        <Route path="/test-runs/:testRunId" component={RootPage}>
-          <IndexRoute components={{ main: TestRunPageContainer, breadcrum: TestRunBreadcrumbContainer, search: NavSearchFormContainer }} />
-        </Route>
-        <Route path="/features/:featureId" component={RootPage}>
-          <IndexRoute components={{ main: FeaturePageContainer, breadcrum: FeatureBreadcrumbContainer, search: NavSearchFormContainer }} />
+          <Route path="test-runs/:testRunId">
+            <IndexRoute components={{ main: TestRunPageContainer, breadcrum: TestRunBreadcrumbContainer, search: NavSearchFormContainer }} />
+            <Route path="search" components={{ main: TestRunSearchPageContainer, breadcrum: TestRunSearchBreadcrumbContainer }} />
+          </Route>
+          <Route path="features/:featureId">
+            <IndexRoute components={{ main: FeaturePageContainer, breadcrum: FeatureBreadcrumbContainer, search: NavSearchFormContainer }} />
+          </Route>
         </Route>
       </Router>
     </Provider>

@@ -18,23 +18,27 @@ const GET_FEATURE_STATS_FULFILED = `${GET_FEATURE_STATS}_FULFILLED`;
 const GET_FEATURE_HISTORY = `${PREFIX}/GET_FEATURE_HISTORY`;
 const GET_FEATURE_HISTORY_FULFILED = `${GET_FEATURE_HISTORY}_FULFILLED`;
 
+const GET_SCENARIOS = `${PREFIX}/GET_SCENARIOS`;
+const GET_SCENARIOS_FULFILED = `${GET_SCENARIOS}_FULFILLED`;
+
 
 // Action creators
 
 export function loadFeaturePage({ featureId }) {
   return dispatch => {
-    // Load feature, stats, test run
+    // Load feature, stats, test run, scenarios
 
     const feature$ = dispatch(getFeature({ featureId }));
     const stats$ = dispatch(getFeatureStats({ featureId }));
     const history$ = dispatch(getFeatureHistory({ featureId }));
+    const scenarios$ = dispatch(getScenarios({ featureId }));
 
     const testRun$ = feature$.then(result => {
       const feature = result.value; // Action promise contain results in a value field
       return dispatch(getTestRun({ testRunId: feature.testRunId }));
     });
 
-    return Promise.all([feature$, testRun$, stats$, history$]);
+    return Promise.all([feature$, testRun$, stats$, history$, scenarios$]).then(() => null);
   };
 }
 
@@ -68,6 +72,16 @@ export function getFeatureHistory({ featureId }) {
   };
 }
 
+export function getScenarios({ featureId }) {
+  return {
+    type: GET_SCENARIOS,
+    payload: model.getScenarios({ featureId }),
+    meta: {
+      featureId,
+    },
+  };
+}
+
 
 // Reducer
 
@@ -78,6 +92,7 @@ const initialState = {
   },
   stats: model.createStatsWithZeros(),
   history: [],
+  scenarios: [],
 };
 
 export const feature = handleActions({
@@ -95,6 +110,11 @@ export const feature = handleActions({
   [GET_FEATURE_HISTORY_FULFILED]: (state, action) => ({
     ...state,
     history: action.payload,
+  }),
+
+  [GET_SCENARIOS_FULFILED]: (state, action) => ({
+    ...state,
+    scenarios: action.payload,
   }),
 
 }, initialState);
