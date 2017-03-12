@@ -17,7 +17,16 @@ export default class FeaturePage extends React.Component {
     return (
       <div>
         <h1><b>{feature.info.keyword}</b> {feature.info.name}</h1>
+
+        {feature.group && <p><b>Groupe : </b> {feature.group}</p>}
+
+        <p>
+          <b>Source :</b>{' '}
+          <code>{feature.location.filename}</code>, ligne <code>{feature.location.line}</code>
+        </p>
+
         <hr />
+
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import ScenarioStats from './ScenarioStats';
+import ScenarioStats from '../../stats/components/ScenarioStats';
 import { updateStatsDashboardFilters } from '../../filters/redux';
 
 

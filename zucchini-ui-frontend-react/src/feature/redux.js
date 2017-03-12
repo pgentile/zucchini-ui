@@ -41,6 +41,7 @@ export function getFeature({ featureId }) {
 const initialState = {
   feature: {
     info: {},
+    location: {},
   },
 };
 
