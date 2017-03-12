@@ -5,6 +5,7 @@ import toNiceDate from '../../ui/toNiceDate';
 import TestRunHistoryTableContainer from './TestRunHistoryTableContainer';
 import ScenarioStatsContainer from './ScenarioStatsContainer';
 import TestRunFeatureTableContainer from './TestRunFeatureTableContainer';
+import FeatureGroupFilterContainer from './FeatureGroupFilterContainer';
 
 
 export default class TestRunPage extends React.Component {
@@ -18,7 +19,7 @@ export default class TestRunPage extends React.Component {
   }
 
   render() {
-    const { testRunId, testRun } = this.props;
+    const { testRunId, testRun, selectedFeatureGroup } = this.props;
 
     return (
       <BasePage title={`Tir du ${toNiceDate(testRun.date)}`}>
@@ -29,7 +30,8 @@ export default class TestRunPage extends React.Component {
 
         <hr />
         <h2>Fonctionnalités</h2>
-        <TestRunFeatureTableContainer testRunId={testRunId} />
+        <FeatureGroupFilterContainer testRunId={testRunId} />
+        <TestRunFeatureTableContainer testRunId={testRunId} selectedFeatureGroup={selectedFeatureGroup} />
 
         <h2>Historique</h2>
         <TestRunHistoryTableContainer testRunId={testRunId} />
@@ -50,6 +52,7 @@ export default class TestRunPage extends React.Component {
 
 TestRunPage.propTypes = {
   testRunId: React.PropTypes.string.isRequired,
+  selectedFeatureGroup: React.PropTypes.string,
   testRun: React.PropTypes.object,
   onLoad: React.PropTypes.func.isRequired,
 };

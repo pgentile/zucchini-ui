@@ -6,6 +6,11 @@ import TestRunPage from './TestRunPage';
 import { getTestRun } from '../redux';
 
 
+const selectSelectedFeatureGroup = createSelector(
+  (state, ownProps) => ownProps.location.query.featureGroup || null,
+  selectedFeatureGroup => selectedFeatureGroup,
+);
+
 const selectTestRunId = createSelector(
   (state, ownProps) => ownProps.params.testRunId,
   testRunId => testRunId,
@@ -17,6 +22,7 @@ const selectTestRun = createSelector(
 );
 
 const selectProps = createStructuredSelector({
+  selectedFeatureGroup: selectSelectedFeatureGroup,
   testRunId: selectTestRunId,
   testRun: selectTestRun,
 })

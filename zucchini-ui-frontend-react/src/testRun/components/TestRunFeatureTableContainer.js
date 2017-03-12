@@ -12,7 +12,14 @@ const selectTestRunId = createSelector(
 
 const selectFeatures = createSelector(
   state => state.testRun.features,
-  features => features,
+  (state, ownProps) => ownProps.selectedFeatureGroup,
+  (features, selectedFeatureGroup) => {
+    if (selectedFeatureGroup) {
+      return features.filter(feature => feature.group === selectedFeatureGroup);
+    }
+
+    return features;
+  },
 );
 
 const selectProps = createStructuredSelector({
