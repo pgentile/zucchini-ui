@@ -24,7 +24,7 @@ export default class ScenarioStatus extends React.PureComponent {
       bsStyle = 'success';
       break;
     case 'FAILED':
-      displayLabel = 'Succès';
+      displayLabel = 'Échec';
       bsStyle = 'danger';
       break;
     case 'UNDEFINED':
