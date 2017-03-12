@@ -6,7 +6,7 @@ import PieChart from '../../charts/components/PieChart';
 export default class StatsPieChart extends React.PureComponent {
 
   render() {
-    const { stats, total } = this.props;
+    const { stats, total, showDetails } = this.props;
 
     let series = [
       {
@@ -39,8 +39,13 @@ export default class StatsPieChart extends React.PureComponent {
       series,
     };
 
+    const height = showDetails ? '20rem' : '12rem';
+    const donutWidth = showDetails ? 60 : 30;
+
     return (
-      <PieChart data={data} total={total} showLabel={true} donutWidth={30} />
+      <div style={{ height }}>
+        <PieChart data={data} total={total} showLabel={showDetails} donutWidth={donutWidth} style={{ height }} />
+      </div>
     );
   }
 
@@ -49,4 +54,5 @@ export default class StatsPieChart extends React.PureComponent {
 StatsPieChart.propTypes = {
   stats: React.PropTypes.object.isRequired,
   total: React.PropTypes.number.isRequired,
+  showDetails: React.PropTypes.bool.isRequired,
 };

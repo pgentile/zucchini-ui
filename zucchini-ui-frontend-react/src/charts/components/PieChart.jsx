@@ -28,8 +28,10 @@ export default class PieChart extends React.Component {
   }
 
   render() {
+    const style = this.props.style || {};
+
     return (
-      <div ref={this.setChart} />
+      <div style={style} ref={this.setChart} />
     );
   }
 
@@ -59,4 +61,5 @@ PieChart.propTypes = {
   total: React.PropTypes.number.isRequired,
   showLabel: React.PropTypes.bool.isRequired,
   donutWidth: React.PropTypes.number.isRequired,
+  style: React.PropTypes.object,
 };

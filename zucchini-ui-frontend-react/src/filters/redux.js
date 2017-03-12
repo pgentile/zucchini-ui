@@ -1,6 +1,7 @@
 import { handleActions } from 'redux-actions';
 
 import featureFiltersStorage from './featureFiltersStorage';
+import statsDashboardFiltersStorage from './statsDashboardFiltersStorage';
 
 
 // Actions
@@ -8,6 +9,7 @@ import featureFiltersStorage from './featureFiltersStorage';
 const PREFIX = 'FILTERS';
 
 const UPDATE_FEATURE_FILTERS = `${PREFIX}/UPDATE_FEATURE_FILTERS`;
+const UPDATE_STATS_DASHBOARD_FILTERS = `${PREFIX}/UPDATE_STATS_DASHBOARD_FILTERS`;
 
 
 export function updateFeatureFilters(filters) {
@@ -17,6 +19,15 @@ export function updateFeatureFilters(filters) {
   };
 }
 
+
+export function updateStatsDashboardFilters(statsDashboard) {
+  return {
+    type: UPDATE_STATS_DASHBOARD_FILTERS,
+    payload: statsDashboard,
+  };
+}
+
+
 export const featureFilters = handleActions({
 
   [UPDATE_FEATURE_FILTERS]: (state, action) => ({
@@ -25,3 +36,13 @@ export const featureFilters = handleActions({
   }),
 
 }, featureFiltersStorage.read());
+
+
+export const statsDashboardFilters = handleActions({
+
+  [UPDATE_STATS_DASHBOARD_FILTERS]: (state, action) => ({
+    ...state,
+    ...action.payload,
+  }),
+
+}, statsDashboardFiltersStorage.read());
