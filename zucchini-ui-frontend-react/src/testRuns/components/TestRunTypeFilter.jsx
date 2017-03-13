@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+import ListWithSeparator from '../../ui/components/ListWithSeparator';
+
 
 export default class TestRunTypeFilter extends React.PureComponent {
 
@@ -8,19 +10,8 @@ export default class TestRunTypeFilter extends React.PureComponent {
     const { testRunTypes } = this.props;
 
     const testRunTypeLinks = testRunTypes.map(type => {
-
-      const linkTarget = {
-        pathname: '/',
-        query: {
-          type,
-        },
-      };
-
       return (
-        <span key={type}>
-          <Link to={linkTarget}>{type}</Link>
-          {' '}
-        </span>
+        <Link key={type} to={{ pathname: '/', query: { type } }}>{type}</Link>
       );
     });
 
@@ -28,9 +19,10 @@ export default class TestRunTypeFilter extends React.PureComponent {
       <p>
         Filter par type :
         {' '}
-        <Link to="/"><i>Tous</i></Link>
-        {' '}
-        {testRunTypeLinks}
+        <ListWithSeparator>
+          <Link to="/"><i>Tous</i></Link>
+          {testRunTypeLinks}
+        </ListWithSeparator>
       </p>
     );
   }

@@ -1,26 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+import ListWithSeparator from '../../ui/components/ListWithSeparator';
+
 
 export default class FeatureGroupFilter extends React.PureComponent {
 
   render() {
-
     const { testRunId, featureGroups } = this.props;
 
     const featureGroupLinks = featureGroups.map(featureGroup => {
-
-      const linkTarget = {
-        pathname: `/test-runs/${testRunId}`,
-        query: {
-          featureGroup,
-        },
-      };
-
       return (
         <span key={featureGroup}>
-          <Link to={linkTarget}>{featureGroup}</Link>
-          {' '}
+          <Link to={{ pathname: `/test-runs/${testRunId}`, query: { featureGroup } }}>{featureGroup}</Link>
         </span>
       );
     });
@@ -29,9 +21,10 @@ export default class FeatureGroupFilter extends React.PureComponent {
       <p>
         Filter par groupe :
         {' '}
-        <Link to={`/test-runs/${testRunId}`}><i>Tous</i></Link>
-        {' '}
-        {featureGroupLinks}
+        <ListWithSeparator>
+          <Link to={`/test-runs/${testRunId}`}><i>Tous</i></Link>
+          {featureGroupLinks}
+        </ListWithSeparator>
       </p>
     );
   }
