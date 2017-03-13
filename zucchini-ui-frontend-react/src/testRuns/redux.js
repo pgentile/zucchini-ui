@@ -19,22 +19,32 @@ const CREATE_TEST_RUN_FULFILLED = `${CREATE_TEST_RUN}_FULFILLED`;
 
 // Action creators
 
-export function getLatestTestRuns() {
+export function loadTestRunsPage() {
   return dispatch => {
-    const latestTestRuns = dispatch({
-      type: GET_LATEST_TEST_RUNS,
-      payload: model.getLatestsTestRuns(),
+    const latestTestRuns$ = dispatch(getLatestTestRuns());
+
+    const latestTestRunsWithStats$ = latestTestRuns$.then(() => {
+      return dispatch(getLatestTestRunsWithStats());
     });
 
-    latestTestRuns.then(() => {
-      dispatch({
-        type: GET_LATEST_TEST_RUNS_WITH_STATS,
-        payload: model.getLatestsTestRunsWithStats(),
-      });
-    });
+    // Merge promises
+    return Promise.all([latestTestRuns$, latestTestRunsWithStats$]).then(() => null);
   };
 }
 
+export function getLatestTestRuns() {
+  return {
+    type: GET_LATEST_TEST_RUNS,
+    payload: model.getLatestsTestRuns(),
+  };
+}
+
+export function getLatestTestRunsWithStats() {
+  return {
+    type: GET_LATEST_TEST_RUNS_WITH_STATS,
+    payload: model.getLatestsTestRunsWithStats(),
+  };
+}
 
 export function createTestRun({ type }) {
   return {

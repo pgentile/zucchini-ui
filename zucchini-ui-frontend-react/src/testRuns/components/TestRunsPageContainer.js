@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 
 import TestRunsPage from './TestRunsPage';
-import { getLatestTestRuns } from '../redux';
+import { loadTestRunsPage } from '../redux';
 
 
 const selectSelectedType = createSelector(
@@ -18,7 +18,7 @@ const selectProps = createStructuredSelector({
 const TestRunsPageContainer = connect(
   selectProps,
   {
-    onLoad: getLatestTestRuns,
+    onLoad: loadTestRunsPage,
   }
 )(TestRunsPage);
 
