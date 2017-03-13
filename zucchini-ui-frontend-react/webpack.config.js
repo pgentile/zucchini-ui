@@ -3,9 +3,23 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 
+// Output dir
+const outputDir = path.join(__dirname, 'build/dist/assets');
+
+
 // Load packages names
 const packageContent = require('./package.json');
 const vendorLibs = Object.keys(packageContent.dependencies);
+
+
+// Config
+const config = require('./config.json');
+
+// Connect function to serve a Javascript configuration file
+const javascriptConfigMiddleware = function (req, res) {
+  res.writeHead(200, { 'Content-Type': 'application/javascript' });
+  res.end('var configuration = ' + JSON.stringify({ ui: config.ui }) + ';');
+};
 
 
 module.exports = {
@@ -32,11 +46,20 @@ module.exports = {
     extensions: ['.js', '.jsx', '.less', '.css'],
   },
   output: {
-    path: path.join(__dirname, 'build'),
+    path: outputDir,
     filename: '[name].js',
-    publicPath: '/static/',
+    publicPath: '/assets/',
   },
   devtool: 'source-map',
+  devServer: {
+    port: config.devServer.port,
+    setup: function (app) {
+      app.get('/assets/config.js', javascriptConfigMiddleware);
+    },
+  },
+  externals: {
+    'configuration': 'configuration',
+  },
   module: {
     rules: [
       {

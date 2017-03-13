@@ -1,7 +1,5 @@
 import queryString from 'query-string';
 
-import configuration from '../configuration';
-
 
 class FeaturesApi {
 

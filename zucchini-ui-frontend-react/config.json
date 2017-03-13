@@ -1,0 +1,8 @@
+{
+  "devServer": {
+    "port": 9001
+  },
+  "ui": {
+    "backendBaseUri": "http://localhost:8080"
+  }
+}
