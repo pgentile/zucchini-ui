@@ -89,6 +89,7 @@ const initialState = {
   feature: {
     info: {},
     location: {},
+    tags: [],
   },
   stats: model.createStatsWithZeros(),
   history: [],
