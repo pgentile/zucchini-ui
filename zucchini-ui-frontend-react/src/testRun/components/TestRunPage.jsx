@@ -1,7 +1,7 @@
 import React from 'react';
 
 import toNiceDate from '../../ui/toNiceDate';
-import FeatureStateFilterContainer from '../../filters/components/FeatureStateFilterContainer';
+import FeatureStateFilterContainer from './FeatureStateFilterContainer';
 import TestRunHistoryTableContainer from './TestRunHistoryTableContainer';
 import TestRunStatsContainer from './TestRunStatsContainer';
 import TestRunFeatureTableContainer from './TestRunFeatureTableContainer';

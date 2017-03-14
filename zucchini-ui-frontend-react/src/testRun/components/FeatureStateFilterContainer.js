@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 
 import FeatureStateFilter from './FeatureStateFilter';
-import { updateFeatureFilters } from '../redux';
+import { updateFeatureFilters } from '../../filters/redux';
 
 
 const selectFilters = createSelector(
