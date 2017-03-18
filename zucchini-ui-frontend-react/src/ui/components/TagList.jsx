@@ -14,7 +14,7 @@ export default class TagList extends React.PureComponent {
     ));
 
     return (
-      <ListWithSeparator>{tagElements}</ListWithSeparator>
+      <ListWithSeparator separator=" ">{tagElements}</ListWithSeparator>
     );
   }
 

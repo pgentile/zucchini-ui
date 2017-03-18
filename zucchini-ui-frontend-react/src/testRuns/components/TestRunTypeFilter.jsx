@@ -19,7 +19,7 @@ export default class TestRunTypeFilter extends React.PureComponent {
       <p>
         Filter par type :
         {' '}
-        <ListWithSeparator>
+        <ListWithSeparator separator=", ">
           <Link to="/"><i>Tous</i></Link>
           {testRunTypeLinks}
         </ListWithSeparator>
