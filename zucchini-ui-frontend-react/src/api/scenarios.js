@@ -18,6 +18,13 @@ class ScenariosApi {
       });
   }
 
+  getScenario({ scenarioId }) {
+    return fetch(`${this.baseUri}/api/scenarii/${scenarioId}`)
+      .then(response => {
+        return response.json();
+      });
+  }
+
   getStats({ testRunId, featureId }) {
     const queryParams = queryString.stringify({
       testRunId,

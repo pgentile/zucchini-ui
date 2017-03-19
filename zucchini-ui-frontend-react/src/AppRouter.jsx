@@ -20,6 +20,9 @@ import FeatureBreadcrumbContainer from './feature/components/FeatureBreadcrumbCo
 import TestRunSearchPageContainer from './search/components/TestRunSearchPageContainer';
 import TestRunSearchBreadcrumbContainer from './search/components/TestRunSearchBreadcrumbContainer';
 
+import ScenarioPageContainer from './scenario/components/ScenarioPageContainer';
+import ScenarioBreadcrumbContainer from './scenario/components/ScenarioBreadcrumbContainer';
+
 
 export default function AppRouter() {
   return (
@@ -33,6 +36,9 @@ export default function AppRouter() {
           </Route>
           <Route path="features/:featureId">
             <IndexRoute components={{ main: FeaturePageContainer, breadcrum: FeatureBreadcrumbContainer, search: NavSearchFormContainer }} />
+          </Route>
+          <Route path="scenarios/:scenarioId">
+            <IndexRoute components={{ main: ScenarioPageContainer, breadcrum: ScenarioBreadcrumbContainer, search: NavSearchFormContainer }} />
           </Route>
         </Route>
       </Router>
