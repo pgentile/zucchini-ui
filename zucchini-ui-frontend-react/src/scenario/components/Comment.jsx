@@ -1,6 +1,7 @@
 import React from 'react';
 
 import toNiceDate from '../../ui/toNiceDate';
+import SimpleText from '../../ui/components/SimpleText';
 
 
 export default class Comment extends React.PureComponent {
@@ -17,7 +18,7 @@ export default class Comment extends React.PureComponent {
             (TODO TEST RUN REFERENCE)
           </small>
         </h4>
-        <p>{comment.content}</p>
+        <SimpleText text={comment.content} />
       </div>
     );
   }
