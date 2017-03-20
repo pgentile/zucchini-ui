@@ -7,6 +7,7 @@ import thunkMiddleware from 'redux-thunk';
 import reducer from './reducer';
 import featureFiltersStorage from './filters/featureFiltersStorage';
 import statsDashboardFiltersStorage from './filters/statsDashboardFiltersStorage';
+import historyFiltersStorage from './filters/historyFiltersStorage';
 import { default as createStorageMiddleware } from './browserStorage/createMiddleware';
 
 
@@ -15,6 +16,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const middlewares = [
   createStorageMiddleware(featureFiltersStorage, state => state.featureFilters),
   createStorageMiddleware(statsDashboardFiltersStorage, state => state.statsDashboardFilters),
+  createStorageMiddleware(historyFiltersStorage, state => state.historyFilters),
   routerMiddleware(browserHistory),
   thunkMiddleware,
   promiseMiddleware(),
