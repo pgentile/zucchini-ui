@@ -3,7 +3,7 @@ import React from 'react';
 import FeatureStatsContainer from './FeatureStatsContainer';
 import FeatureHistoryTableContainer from './FeatureHistoryTableContainer';
 import FeatureScenarioTableContainer from './FeatureScenarioTableContainer';
-
+import HistoryFilterContainer from '../../filters/components/HistoryFilterContainer';
 import TagList from '../../ui/components/TagList';
 
 
@@ -56,6 +56,7 @@ export default class FeaturePage extends React.Component {
         <hr />
 
         <h2>Historique</h2>
+        <HistoryFilterContainer/>
         <FeatureHistoryTableContainer featureId={featureId} />
 
       </div>

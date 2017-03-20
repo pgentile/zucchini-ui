@@ -11,7 +11,15 @@ const selectFeatureId = createSelector(
 
 const selectHistory = createSelector(
   state => state.feature.history,
-  history => history,
+  state => state.testRun.testRun.type || null,
+  state => state.historyFilters.sameTestRunType,
+  (history, testRunType, sameTestRunType) => {
+    if (sameTestRunType) {
+      return history.filter(feature => feature.testRun.type === testRunType);
+    }
+
+    return history;
+  },
 );
 
 const selectProps = createStructuredSelector({
