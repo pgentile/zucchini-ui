@@ -82,6 +82,7 @@ const initialState = {
   scenario: {
     info: {},
     tags: [],
+    changes: [],
   },
   history: [],
   comments: [],

@@ -4,6 +4,7 @@ import TagList from '../../ui/components/TagList';
 import HistoryFilterContainer from '../../filters/components/HistoryFilterContainer';
 import ScenarioHistoryTableContainer from './ScenarioHistoryTableContainer';
 import CommentListContainer from './CommentListContainer';
+import ScenarioChangeTable from './ScenarioChangeTable';
 
 
 export default class ScenarioPage extends React.Component {
@@ -47,12 +48,12 @@ export default class ScenarioPage extends React.Component {
         <hr />
 
         <h2>Changements</h2>
-        <p>TODO</p>
+        <ScenarioChangeTable changes={this.props.scenario.changes} />
 
         <hr />
 
         <h2>Historique</h2>
-        <HistoryFilterContainer/>
+        <HistoryFilterContainer />
         <ScenarioHistoryTableContainer scenarioId={this.props.scenarioId} />
 
       </div>
