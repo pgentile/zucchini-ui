@@ -1,6 +1,7 @@
 import React from 'react';
 
 import TagList from '../../ui/components/TagList';
+import HistoryFilterContainer from '../../filters/components/HistoryFilterContainer';
 import ScenarioHistoryTableContainer from './ScenarioHistoryTableContainer';
 
 
@@ -50,6 +51,7 @@ export default class ScenarioPage extends React.Component {
         <hr />
 
         <h2>Historique</h2>
+        <HistoryFilterContainer/>
         <ScenarioHistoryTableContainer scenarioId={this.props.scenarioId} />
 
       </div>

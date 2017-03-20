@@ -11,8 +11,17 @@ const selectScenarioId = createSelector(
 
 const selectHistory = createSelector(
   state => state.scenario.history,
-  history => history,
+  state => state.testRun.testRun.type || null,
+  state => state.historyFilters.sameTestRunType,
+  (history, testRunType, sameTestRunType) => {
+    if (sameTestRunType) {
+      return history.filter(scenario => scenario.testRun.type === testRunType);
+    }
+
+    return history;
+  },
 );
+
 
 const selectProps = createStructuredSelector({
   scenarioId: selectScenarioId,
