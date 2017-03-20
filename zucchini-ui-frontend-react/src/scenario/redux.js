@@ -12,6 +12,9 @@ const PREFIX = 'SCENARIO';
 const GET_SCENARIO = `${PREFIX}/GET_SCENARIO`;
 const GET_SCENARIO_FULFILED = `${GET_SCENARIO}_FULFILLED`;
 
+const GET_SCENARIO_HISTORY = `${PREFIX}/GET_SCENARIO_HISTORY`;
+const GET_SCENARIO_HISTORY_FULFILED = `${GET_SCENARIO_HISTORY}_FULFILLED`;
+
 
 // Action creators
 
@@ -32,7 +35,9 @@ export function loadScenarioPage({ scenarioId }) {
       return dispatch(getFeature({ featureId }));
     });
 
-    return Promise.all([scenario$, testRun$, feature$]).then(() => null);
+    const history$ = dispatch(getScenarioHistory({ scenarioId }));
+
+    return Promise.all([scenario$, testRun$, feature$, history$]).then(() => null);
   };
 }
 
@@ -40,6 +45,16 @@ export function getScenario({ scenarioId }) {
   return {
     type: GET_SCENARIO,
     payload: model.getScenario({ scenarioId }),
+    meta: {
+      scenarioId,
+    },
+  };
+}
+
+export function getScenarioHistory({ scenarioId }) {
+  return {
+    type: GET_SCENARIO_HISTORY,
+    payload: model.getScenarioHistory({ scenarioId }),
     meta: {
       scenarioId,
     },
@@ -54,6 +69,7 @@ const initialState = {
     info: {},
     tags: [],
   },
+  history: [],
 };
 
 export const scenario = handleActions({
@@ -61,6 +77,11 @@ export const scenario = handleActions({
   [GET_SCENARIO_FULFILED]: (state, action) => ({
     ...state,
     scenario: action.payload,
+  }),
+
+  [GET_SCENARIO_HISTORY_FULFILED]: (state, action) => ({
+    ...state,
+    history: action.payload,
   }),
 
 }, initialState);

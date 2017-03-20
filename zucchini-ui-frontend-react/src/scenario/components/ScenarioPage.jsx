@@ -1,6 +1,7 @@
 import React from 'react';
 
 import TagList from '../../ui/components/TagList';
+import ScenarioHistoryTableContainer from './ScenarioHistoryTableContainer';
 
 
 export default class ScenarioPage extends React.Component {
@@ -30,6 +31,27 @@ export default class ScenarioPage extends React.Component {
       <div>
         <h1><b>{scenario.info.keyword}</b> {scenario.info.name}</h1>
         {tagList}
+
+        <hr />
+
+        <h2>Étapes du scénario</h2>
+        <p>TODO</p>
+
+        <hr />
+
+        <h2>Commentaires</h2>
+        <p>TODO</p>
+
+        <hr />
+
+        <h2>Changements</h2>
+        <p>TODO</p>
+
+        <hr />
+
+        <h2>Historique</h2>
+        <ScenarioHistoryTableContainer scenarioId={this.props.scenarioId} />
+
       </div>
     );
   }
