@@ -12,7 +12,7 @@ export default class CommentList extends React.PureComponent {
       return (
         <Comment key={comment.id} comment={comment} />
       );
-    })
+    });
 
     return (
       <div>
