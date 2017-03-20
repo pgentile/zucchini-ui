@@ -44,6 +44,13 @@ class ScenariosApi {
       });
   }
 
+  getComments({ scenarioId }) {
+    return fetch(`${this.baseUri}/api/scenarii/${scenarioId}/comments`)
+      .then(response => {
+        return response.json();
+      });
+  }
+
 }
 
 const scenarios = new ScenariosApi(configuration.ui.backendBaseUri);

@@ -3,6 +3,7 @@ import React from 'react';
 import TagList from '../../ui/components/TagList';
 import HistoryFilterContainer from '../../filters/components/HistoryFilterContainer';
 import ScenarioHistoryTableContainer from './ScenarioHistoryTableContainer';
+import CommentListContainer from './CommentListContainer';
 
 
 export default class ScenarioPage extends React.Component {
@@ -41,7 +42,7 @@ export default class ScenarioPage extends React.Component {
         <hr />
 
         <h2>Commentaires</h2>
-        <p>TODO</p>
+        <CommentListContainer />
 
         <hr />
 
