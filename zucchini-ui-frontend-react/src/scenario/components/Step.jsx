@@ -1,8 +1,8 @@
 import React from 'react';
-import Panel from 'react-bootstrap/lib/Panel';
 
 import SimpleText from '../../ui/components/SimpleText';
 import Status from '../../ui/components/Status';
+import PanelWithTitle from '../../ui/components/PanelWithTitle';
 
 
 export default class Step extends React.PureComponent {
@@ -16,31 +16,19 @@ export default class Step extends React.PureComponent {
 
     let errorMessage = null;
     if (step.errorMessage) {
-      const errorHeader = (
-        <h6>Message d'erreur</h6>
-      );
-
       errorMessage = (
-        <Panel header={errorHeader} bsStyle="danger" className="panel-error-message">
-          <pre className="error-message text-danger">
-            {step.errorMessage}
-          </pre>
-        </Panel>
+        <PanelWithTitle title="Message d'erreur" bsStyle="danger" className="panel-error-message">
+          <pre className="error-message text-danger">{step.errorMessage}</pre>
+        </PanelWithTitle>
       );
     }
 
     let logs = null;
     if (step.output) {
-      const logsHeader = (
-        <h6>Logs</h6>
-      );
-
       logs = (
-        <Panel header={logsHeader} bsStyle="default" className="panel-log">
-          <pre className="log">
-            {step.output}
-          </pre>
-        </Panel>
+        <PanelWithTitle title="Logs" bsStyle="default" className="panel-log">
+          <pre className="log">{step.output}</pre>
+        </PanelWithTitle>
       );
     }
 
