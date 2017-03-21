@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 
 import tokenizeFromInfo from '../tokenizeFromInfo';
 import html from '../html';
@@ -15,7 +14,7 @@ export default class ElementInfo extends React.PureComponent {
       tokenizeFromInfo(info).forEach(({ type, value }) => {
         switch (type) {
         case 'text':
-          output += _.escape(value);
+          output += html`${value}`;
           break;
         case 'arg':
           output += html`<code>${value}</code>`;

@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 
 import tokenizeUrls from '../tokenizeUrls';
 import html from '../html';
@@ -15,7 +14,7 @@ export default class SimpleText extends React.PureComponent {
       tokenizeUrls(text).forEach(([type, value]) => {
         switch (type) {
         case 'text':
-          output += _.escape(value);
+          output += html`${value}`;
           break;
         case 'url':
           output += html`<a href="${value}" target="_blank">${value}</a>`;
