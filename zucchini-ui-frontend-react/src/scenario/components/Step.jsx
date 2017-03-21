@@ -3,6 +3,7 @@ import React from 'react';
 import SimpleText from '../../ui/components/SimpleText';
 import Status from '../../ui/components/Status';
 import PanelWithTitle from '../../ui/components/PanelWithTitle';
+import StepTable from './StepTable';
 
 
 export default class Step extends React.PureComponent {
@@ -10,6 +11,7 @@ export default class Step extends React.PureComponent {
   render() {
     const { step, special } = this.props;
 
+    // FIXME Display arguments...
     const title = (
       <span><b>{step.info.keyword}</b> {step.info.name}</span>
     );
@@ -32,30 +34,30 @@ export default class Step extends React.PureComponent {
       );
     }
 
+    let table = null;
+    if (step.table) {
+      table = (
+        <StepTable table={step.table} />
+      );
+    }
+
     return (
       <div>
 
         {step.comment && <SimpleText className="text-muted" text={step.comment} />}
 
-        {/* FIXME Display arguments... */}
         <p>
           {special ? <i>{title}</i> : title}
           {' '}
           <Status status={step.status} />
         </p>
 
+        {table}
         {errorMessage}
         {logs}
 
         {/* FIXME Display params from table, errors, logs... */}
         {/*
-        <table ng-if="$ctrl.step.table" className="table table-bordered" style="width: auto">
-          <tbody>
-            <tr ng-repeat="row in $ctrl.step.table">
-              <td ng-repeat="cell in row"><code>{{ cell }}</code></td>
-            </tr>
-          </tbody>
-        </table>
 
         <div className="panel panel-default" ng-if="$ctrl.filters.attachments && $ctrl.step.attachments.length > 0">
           <div className="panel-heading">

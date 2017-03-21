@@ -2,6 +2,7 @@ import React from 'react';
 
 import Step from './Step';
 import ActionStep from './ActionStep';
+import SimpleText from '../../ui/components/SimpleText';
 
 
 export default class ScenarioDetails extends React.PureComponent {
@@ -38,6 +39,7 @@ export default class ScenarioDetails extends React.PureComponent {
 
     return (
       <div>
+        {scenario.comment && <SimpleText className="text-muted" text={scenario.comment} />}
         {beforeActions}
         {backgroundSteps}
         {steps}
