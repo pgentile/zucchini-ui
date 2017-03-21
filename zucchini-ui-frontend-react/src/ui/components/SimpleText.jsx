@@ -6,7 +6,7 @@ import tokenizeUrls from '../tokenizeUrls';
 export default class SimpleText extends React.PureComponent {
 
   render() {
-    const { text } = this.props;
+    const { text, ...otherProps } = this.props;
 
     if (text) {
       let html = '';
@@ -27,7 +27,7 @@ export default class SimpleText extends React.PureComponent {
       });
 
       return (
-        <p dangerouslySetInnerHTML={{ __html: html }}/>
+        <p dangerouslySetInnerHTML={{ __html: html }} {...otherProps} />
       );
     }
 
