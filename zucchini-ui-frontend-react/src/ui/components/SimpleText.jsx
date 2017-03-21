@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 import tokenizeUrls from '../tokenizeUrls';
 

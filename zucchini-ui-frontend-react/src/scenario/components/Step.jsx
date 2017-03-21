@@ -3,6 +3,7 @@ import React from 'react';
 import SimpleText from '../../ui/components/SimpleText';
 import Status from '../../ui/components/Status';
 import PanelWithTitle from '../../ui/components/PanelWithTitle';
+import ElementInfo from '../../ui/components/ElementInfo';
 import StepTable from './StepTable';
 
 
@@ -11,9 +12,8 @@ export default class Step extends React.PureComponent {
   render() {
     const { step, special } = this.props;
 
-    // FIXME Display arguments...
     const title = (
-      <span><b>{step.info.keyword}</b> {step.info.name}</span>
+      <ElementInfo info={step.info} />
     );
 
     let errorMessage = null;
