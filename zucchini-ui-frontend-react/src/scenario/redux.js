@@ -81,7 +81,7 @@ export function getScenarioComments({ scenarioId }) {
 const initialState = {
   scenario: {
     info: {},
-    tags: [],
+    allTags: [],
     changes: [],
   },
   history: [],

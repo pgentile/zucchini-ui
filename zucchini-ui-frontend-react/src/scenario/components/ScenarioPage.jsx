@@ -1,6 +1,7 @@
 import React from 'react';
 
 import TagList from '../../ui/components/TagList';
+import Status from '../../ui/components/Status';
 import HistoryFilterContainer from '../../filters/components/HistoryFilterContainer';
 import ScenarioHistoryTableContainer from './ScenarioHistoryTableContainer';
 import CommentListContainer from './CommentListContainer';
@@ -20,20 +21,15 @@ export default class ScenarioPage extends React.Component {
   render() {
     const { scenario } = this.props;
 
-    let tagList = null;
-    if (scenario.tags.length > 0) {
-      tagList = (
-        <p>
-          <b>Tags :</b>{' '}
-          <TagList tags={scenario.tags} />
-        </p>
-      );
-    }
-
     return (
       <div>
-        <h1><b>{scenario.info.keyword}</b> {scenario.info.name}</h1>
-        {tagList}
+        <h1>
+          <b>{scenario.info.keyword}</b> {scenario.info.name}
+          {' '}
+          {scenario.status && <small><Status status={scenario.status} /></small>}
+        </h1>
+
+        {scenario.allTags.length > 0 && <p><b>Tags :</b> <TagList tags={scenario.allTags} /></p>}
 
         <hr />
 
