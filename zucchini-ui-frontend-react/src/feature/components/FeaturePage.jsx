@@ -5,6 +5,7 @@ import FeatureHistoryTableContainer from './FeatureHistoryTableContainer';
 import FeatureScenarioTableContainer from './FeatureScenarioTableContainer';
 import HistoryFilterContainer from '../../filters/components/HistoryFilterContainer';
 import TagList from '../../ui/components/TagList';
+import SimpleText from '../../ui/components/SimpleText';
 
 
 export default class FeaturePage extends React.Component {
@@ -47,6 +48,11 @@ export default class FeaturePage extends React.Component {
 
         <h2>Statistiques</h2>
         <FeatureStatsContainer />
+
+        <hr />
+
+        <h2>Description</h2>
+        <SimpleText text={feature.description} />
 
         <hr />
 
