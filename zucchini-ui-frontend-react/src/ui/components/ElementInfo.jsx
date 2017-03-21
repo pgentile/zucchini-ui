@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import tokenizeFromInfo from '../tokenizeFromInfo';
+import html from '../html';
 
 
 export default class ElementInfo extends React.PureComponent {
@@ -10,14 +11,14 @@ export default class ElementInfo extends React.PureComponent {
     const { info } = this.props;
 
     if (info) {
-      let html = `<b>${_.escape(info.keyword)}</b> `;
+      let output = html`<b>${info.keyword}</b> `;
       tokenizeFromInfo(info).forEach(({ type, value }) => {
         switch (type) {
         case 'text':
-          html += _.escape(value);
+          output += _.escape(value);
           break;
         case 'arg':
-          html += `<code>${_.escape(value)}</code>`;
+          output += html`<code>${value}</code>`;
           break;
         default:
           break;
@@ -25,7 +26,7 @@ export default class ElementInfo extends React.PureComponent {
       });
 
       return (
-        <span dangerouslySetInnerHTML={{ __html: html }} />
+        <span dangerouslySetInnerHTML={{ __html: output }} />
       );
     }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import tokenizeUrls from '../tokenizeUrls';
+import html from '../html';
 
 
 export default class SimpleText extends React.PureComponent {
@@ -10,17 +11,17 @@ export default class SimpleText extends React.PureComponent {
     const { text, ...otherProps } = this.props;
 
     if (text) {
-      let html = '';
+      let output = '';
       tokenizeUrls(text).forEach(([type, value]) => {
         switch (type) {
         case 'text':
-          html += _.escape(value);
+          output += _.escape(value);
           break;
         case 'url':
-          html += `<a href="${_.escape(value)}" target="_blank">${_.escape(value)}</a>`;
+          output += html`<a href="${value}" target="_blank">${value}</a>`;
           break;
         case 'eol':
-          html += '<br/>';
+          output += '<br/>';
           break;
         default:
           break;
@@ -28,7 +29,7 @@ export default class SimpleText extends React.PureComponent {
       });
 
       return (
-        <p dangerouslySetInnerHTML={{ __html: html }} {...otherProps} />
+        <p dangerouslySetInnerHTML={{ __html: output }} {...otherProps} />
       );
     }
 
