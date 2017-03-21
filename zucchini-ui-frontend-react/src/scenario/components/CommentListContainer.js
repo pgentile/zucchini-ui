@@ -9,9 +9,15 @@ const selectComments = createSelector(
   comments => comments,
 );
 
+const selectTestRunId = createSelector(
+  state => state.scenario.scenario.testRunId || null,
+  testRunId => testRunId,
+);
+
 
 const selectProps = createStructuredSelector({
   comments: selectComments,
+  testRunId: selectTestRunId,
 });
 
 

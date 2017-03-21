@@ -6,18 +6,16 @@ import Comment from './Comment';
 export default class CommentList extends React.PureComponent {
 
   render() {
-    const { comments } = this.props;
+    const { comments, testRunId } = this.props;
 
     const commentList = comments.map(comment => {
       return (
-        <Comment key={comment.id} comment={comment} />
+        <Comment key={comment.id} comment={comment} testRunId={testRunId} />
       );
     });
 
     return (
-      <div>
-        {commentList}
-      </div>
+      <div>{commentList}</div>
     );
   }
 
@@ -25,4 +23,5 @@ export default class CommentList extends React.PureComponent {
 
 CommentList.propTypes = {
   comments: React.PropTypes.array.isRequired,
+  testRunId: React.PropTypes.string,
 };
