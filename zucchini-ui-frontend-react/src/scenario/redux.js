@@ -83,6 +83,12 @@ const initialState = {
     info: {},
     allTags: [],
     changes: [],
+    steps: [],
+    background: {
+      steps: [],
+    },
+    beforeActions: [],
+    afterActions: [],
   },
   history: [],
   comments: [],

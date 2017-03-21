@@ -6,6 +6,7 @@ import HistoryFilterContainer from '../../filters/components/HistoryFilterContai
 import ScenarioHistoryTableContainer from './ScenarioHistoryTableContainer';
 import CommentListContainer from './CommentListContainer';
 import ScenarioChangeTable from './ScenarioChangeTable';
+import ScenarioDetails from './ScenarioDetails';
 
 
 export default class ScenarioPage extends React.Component {
@@ -34,7 +35,7 @@ export default class ScenarioPage extends React.Component {
         <hr />
 
         <h2>Étapes du scénario</h2>
-        <p>TODO</p>
+        <ScenarioDetails scenario={scenario} />
 
         <hr />
 
