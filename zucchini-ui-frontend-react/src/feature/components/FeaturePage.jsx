@@ -21,16 +21,6 @@ export default class FeaturePage extends React.Component {
   render() {
     const { feature, featureId } = this.props;
 
-    let tagList = null;
-    if (feature.tags.length > 0) {
-      tagList = (
-        <p>
-          <b>Tags :</b>{' '}
-          <TagList tags={feature.tags} />
-        </p>
-      );
-    }
-
     return (
       <div>
         <h1><b>{feature.info.keyword}</b> {feature.info.name}</h1>
@@ -42,7 +32,7 @@ export default class FeaturePage extends React.Component {
           <code>{feature.location.filename}</code>, ligne <code>{feature.location.line}</code>
         </p>
 
-        {tagList}
+        {feature.tags.length > 0 && <p><b>Tags :</b> <TagList tags={feature.tags} /></p>}
 
         <hr />
 
