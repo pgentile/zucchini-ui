@@ -7,14 +7,14 @@ import FilterCheckboxes from '../../ui/components/FilterCheckboxes';
 const LABELS = {
   passed: 'Succès',
   failed: 'Échecs',
-  partial: 'Partielles',
-  notRun: 'Non jouées',
-  reviewed: 'Analysées',
-  notReviewed: 'Non analysées',
+  pending: 'En attente',
+  notRun: 'Non joués',
+  reviewed: 'Analysés',
+  notReviewed: 'Non analysés',
 };
 
 
-export default class FeatureStateFilter extends React.PureComponent {
+export default class ScenarioStateFilter extends React.PureComponent {
 
   constructor(props) {
     super(props);
@@ -42,7 +42,7 @@ export default class FeatureStateFilter extends React.PureComponent {
 
 }
 
-FeatureStateFilter.propTypes = {
+ScenarioStateFilter.propTypes = {
   filters: React.PropTypes.object.isRequired,
   onFilterChange: React.PropTypes.func.isRequired,
 };

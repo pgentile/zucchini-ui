@@ -8,6 +8,7 @@ import HistoryFilterContainer from '../../filters/components/HistoryFilterContai
 import TagList from '../../ui/components/TagList';
 import SimpleText from '../../ui/components/SimpleText';
 import Status from '../../ui/components/Status';
+import ScenarioStateFilterContainer from './ScenarioStateFilterContainer';
 
 
 export default class FeaturePage extends React.Component {
@@ -53,6 +54,7 @@ export default class FeaturePage extends React.Component {
         <hr />
 
         <h2>Scénarii</h2>
+        <ScenarioStateFilterContainer />
         <FeatureScenarioTableContainer />
 
         <hr />
