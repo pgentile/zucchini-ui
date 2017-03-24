@@ -8,6 +8,7 @@ import reducer from './reducer';
 import featureFiltersStorage from './filters/featureFiltersStorage';
 import statsDashboardFiltersStorage from './filters/statsDashboardFiltersStorage';
 import historyFiltersStorage from './filters/historyFiltersStorage';
+import scenarioFiltersStorage from './filters/scenarioFiltersStorage';
 import { default as createStorageMiddleware } from './browserStorage/createMiddleware';
 
 
@@ -17,6 +18,7 @@ const middlewares = [
   createStorageMiddleware(featureFiltersStorage, state => state.featureFilters),
   createStorageMiddleware(statsDashboardFiltersStorage, state => state.statsDashboardFilters),
   createStorageMiddleware(historyFiltersStorage, state => state.historyFilters),
+  createStorageMiddleware(scenarioFiltersStorage, state => state.scenarioFilters),
   routerMiddleware(browserHistory),
   thunkMiddleware,
   promiseMiddleware(),
