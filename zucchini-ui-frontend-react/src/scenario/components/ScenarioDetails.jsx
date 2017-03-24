@@ -12,7 +12,7 @@ export default class ScenarioDetails extends React.PureComponent {
 
     const steps = scenario.steps.map((step, index) => {
       return (
-        <Step key={index} step={step} />
+        <Step key={index} step={step} scenarioId={scenario.id} />
       );
     });
 
@@ -20,20 +20,20 @@ export default class ScenarioDetails extends React.PureComponent {
     if (scenario.background && scenario.background.steps) {
       backgroundSteps = scenario.background.steps.map((step, index) => {
         return (
-          <Step key={index} step={step} special />
+          <Step key={index} step={step} scenarioId={scenario.id} special />
         );
       });
     }
 
     const beforeActions = scenario.beforeActions.map((action, index) => {
       return (
-        <ActionStep key={index} index={index} name="Pré-action" action={action} />
+        <ActionStep key={index} index={index} name="Pré-action" action={action} scenarioId={scenario.id} />
       );
     })
 
     const afterActions = scenario.afterActions.map((action, index) => {
       return (
-        <ActionStep key={index} index={index} name="Post-action" action={action} />
+        <ActionStep key={index} index={index} name="Post-action" action={action} scenarioId={scenario.id} />
       );
     })
 

@@ -5,12 +5,13 @@ import Status from '../../ui/components/Status';
 import PanelWithTitle from '../../ui/components/PanelWithTitle';
 import ElementInfo from '../../ui/components/ElementInfo';
 import StepTable from './StepTable';
+import StepAttachments from './StepAttachments';
 
 
 export default class Step extends React.PureComponent {
 
   render() {
-    const { step, special } = this.props;
+    const { step, scenarioId, special } = this.props;
 
     const title = (
       <ElementInfo info={step.info} />
@@ -41,6 +42,13 @@ export default class Step extends React.PureComponent {
       );
     }
 
+    let attachments = null;
+    if (step.attachments && step.attachments.length > 0) {
+      attachments = (
+        <StepAttachments scenarioId={scenarioId} attachments={step.attachments} />
+      );
+    }
+
     return (
       <div>
 
@@ -55,23 +63,7 @@ export default class Step extends React.PureComponent {
         {table}
         {errorMessage}
         {logs}
-
-        {/* FIXME Display params from table, errors, logs... */}
-        {/*
-
-        <div className="panel panel-default" ng-if="$ctrl.filters.attachments && $ctrl.step.attachments.length > 0">
-          <div className="panel-heading">
-            <h6 className="panel-title">Pièces jointes</h6>
-          </div>
-          <ul className="list-group">
-            <li className="list-group-item" ng-repeat="attachment in $ctrl.step.attachments">
-              <a ng-href="{{ $ctrl.buildUrlForAttachment(attachment.id) }}" target="_blank">
-                Pièce-jointe #{{ $index + 1 }}
-              </a>
-            </li>
-          </ul>
-        </div>
-       */}
+        {attachments}
 
       </div>
     );
@@ -80,6 +72,7 @@ export default class Step extends React.PureComponent {
 }
 
 Step.propTypes = {
+  scenarioId: React.PropTypes.string.isRequired,
   step: React.PropTypes.object.isRequired,
   special: React.PropTypes.bool.isRequired,
 };

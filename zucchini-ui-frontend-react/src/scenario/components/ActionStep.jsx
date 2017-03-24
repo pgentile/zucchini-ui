@@ -6,7 +6,7 @@ import Step from './Step';
 export default class ActionStep extends React.PureComponent {
 
   render() {
-    const { name, action, index } = this.props;
+    const { name, action, index, scenarioId } = this.props;
 
     const step = {
       info: {
@@ -19,13 +19,14 @@ export default class ActionStep extends React.PureComponent {
     };
 
     return (
-      <Step step={step} special />
+      <Step step={step} scenarioId={scenarioId} special />
     );
   }
 
 }
 
 ActionStep.propTypes = {
+  scenarioId: React.PropTypes.string.isRequired,
   name: React.PropTypes.string.isRequired,
   action: React.PropTypes.object.isRequired,
   index: React.PropTypes.number.isRequired,
