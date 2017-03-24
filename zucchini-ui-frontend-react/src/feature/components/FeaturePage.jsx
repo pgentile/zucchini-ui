@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 
 import FeatureStatsContainer from './FeatureStatsContainer';
 import FeatureHistoryTableContainer from './FeatureHistoryTableContainer';
-import FeatureScenarioTableContainer from './FeatureScenarioTableContainer';
+import ScenarioTableContainer from './ScenarioTableContainer';
 import HistoryFilterContainer from '../../filters/components/HistoryFilterContainer';
 import TagList from '../../ui/components/TagList';
 import SimpleText from '../../ui/components/SimpleText';
@@ -55,7 +55,7 @@ export default class FeaturePage extends React.Component {
 
         <h2>Scénarii</h2>
         <ScenarioStateFilterContainer />
-        <FeatureScenarioTableContainer />
+        <ScenarioTableContainer />
 
         <hr />
 

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import FeatureScenarioTable from './FeatureScenarioTable';
+import ScenarioTable from './ScenarioTable';
 
 
 const selectScenarios = createSelector(
@@ -65,8 +65,8 @@ function createScenarioFilters(scenarioFilters) {
 }
 
 
-const FeatureScenarioTableContainer = connect(
+const ScenarioTableContainer = connect(
   selectProps,
-)(FeatureScenarioTable);
+)(ScenarioTable);
 
-export default FeatureScenarioTableContainer;
+export default ScenarioTableContainer;

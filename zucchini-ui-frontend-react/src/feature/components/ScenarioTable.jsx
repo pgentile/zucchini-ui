@@ -6,14 +6,14 @@ import { Link } from 'react-router'
 import Status from '../../ui/components/Status';
 
 
-export default class FeatureScenarioTable extends React.PureComponent {
+export default class ScenarioTable extends React.PureComponent {
 
   render() {
     const { scenarios } = this.props;
 
     const rows = scenarios.map(scenario => {
       return (
-        <FeatureScenarioTableRow key={scenario.id} scenario={scenario} />
+        <ScenarioTableRow key={scenario.id} scenario={scenario} />
       )
     });
 
@@ -33,15 +33,16 @@ export default class FeatureScenarioTable extends React.PureComponent {
 
 }
 
-FeatureScenarioTable.propTypes = {
+ScenarioTable.propTypes = {
   scenarios: React.PropTypes.arrayOf(React.PropTypes.object),
 };
 
 
-class FeatureScenarioTableRow extends React.PureComponent {
+class ScenarioTableRow extends React.PureComponent {
 
   render() {
-    const { scenario } = this.props;
+    const { scenario, isActive } = this.props;
+    const className = isActive ? 'info' : null;
 
     const reviewedProps = {
       bsStyle: scenario.reviewed ? 'success' : 'default',
@@ -49,7 +50,7 @@ class FeatureScenarioTableRow extends React.PureComponent {
     };
 
     return (
-      <tr>
+      <tr className={className}>
         <td>
           <Link to={{ pathname: `/scenarios/${scenario.id}` }}>
             <b>{scenario.info.keyword}</b> {scenario.info.name}
@@ -67,6 +68,11 @@ class FeatureScenarioTableRow extends React.PureComponent {
 
 }
 
-FeatureScenarioTableRow.propTypes = {
+ScenarioTableRow.propTypes = {
   scenario: React.PropTypes.object.isRequired,
+  isActive: React.PropTypes.bool.isRequired,
+};
+
+ScenarioTableRow.defaultProps = {
+  isActive: false,
 };
