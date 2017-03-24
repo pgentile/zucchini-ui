@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions';
 
 import * as model from './model'
 import { getTestRun } from '../testRun/redux';
-import { getFeature } from '../feature/redux';
+import { getFeature, getScenarios } from '../feature/redux';
 
 
 // Actions
@@ -38,10 +38,16 @@ export function loadScenarioPage({ scenarioId }) {
       return dispatch(getFeature({ featureId }));
     });
 
+    const sameFeatureScenarios$ = scenario$.then(result => {
+      const scenario = result.value;
+      const featureId = scenario.featureId;
+      return dispatch(getScenarios({ featureId }));
+    });
+
     const history$ = dispatch(getScenarioHistory({ scenarioId }));
     const comments$ = dispatch(getScenarioComments({ scenarioId }));
 
-    return Promise.all([scenario$, testRun$, feature$, history$, comments$]).then(() => null);
+    return Promise.all([scenario$, testRun$, feature$, history$, comments$, sameFeatureScenarios$]).then(() => null);
   };
 }
 

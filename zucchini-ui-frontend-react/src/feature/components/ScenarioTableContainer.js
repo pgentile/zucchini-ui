@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import ScenarioTable from './ScenarioTable';
+import ScenarioTable from '../../ui/components/ScenarioTable';
 
 
 const selectScenarios = createSelector(

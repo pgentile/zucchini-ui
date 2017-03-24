@@ -4,6 +4,7 @@ import TagList from '../../ui/components/TagList';
 import Status from '../../ui/components/Status';
 import HistoryFilterContainer from '../../filters/components/HistoryFilterContainer';
 import ScenarioHistoryTableContainer from './ScenarioHistoryTableContainer';
+import SameFeatureScenarioTableContainer from './SameFeatureScenarioTableContainer';
 import CommentListContainer from './CommentListContainer';
 import ScenarioChangeTable from './ScenarioChangeTable';
 import ScenarioDetails from './ScenarioDetails';
@@ -46,6 +47,11 @@ export default class ScenarioPage extends React.Component {
 
         <h2>Changements</h2>
         <ScenarioChangeTable changes={this.props.scenario.changes} />
+
+        <hr />
+
+        <h2>Scénarii de la même fonctionnalité</h2>
+        <SameFeatureScenarioTableContainer scenarioId={this.props.scenarioId} />
 
         <hr />
 

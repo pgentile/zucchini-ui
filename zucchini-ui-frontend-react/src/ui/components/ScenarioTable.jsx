@@ -9,11 +9,12 @@ import Status from '../../ui/components/Status';
 export default class ScenarioTable extends React.PureComponent {
 
   render() {
-    const { scenarios } = this.props;
+    const { scenarios, selectedScenarioId } = this.props;
 
     const rows = scenarios.map(scenario => {
+      const isActive = (scenario.id === selectedScenarioId);
       return (
-        <ScenarioTableRow key={scenario.id} scenario={scenario} />
+        <ScenarioTableRow key={scenario.id} scenario={scenario} isActive={isActive} />
       )
     });
 
@@ -35,6 +36,7 @@ export default class ScenarioTable extends React.PureComponent {
 
 ScenarioTable.propTypes = {
   scenarios: React.PropTypes.arrayOf(React.PropTypes.object),
+  selectedScenarioId: React.PropTypes.string,
 };
 
 
@@ -71,8 +73,4 @@ class ScenarioTableRow extends React.PureComponent {
 ScenarioTableRow.propTypes = {
   scenario: React.PropTypes.object.isRequired,
   isActive: React.PropTypes.bool.isRequired,
-};
-
-ScenarioTableRow.defaultProps = {
-  isActive: false,
 };
