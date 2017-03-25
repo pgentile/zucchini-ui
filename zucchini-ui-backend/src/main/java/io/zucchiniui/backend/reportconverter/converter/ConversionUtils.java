@@ -30,7 +30,7 @@ final class ConversionUtils {
         if (source == null) {
             return null;
         }
-        return CharMatcher.WHITESPACE.trimFrom(source);
+        return CharMatcher.whitespace().trimFrom(source);
     }
 
 }
