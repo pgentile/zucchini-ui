@@ -1,12 +1,16 @@
 import { push } from 'react-router-redux';
-// import { handleActions } from 'redux-actions';
+import { handleActions } from 'redux-actions';
 
 import { getTestRun } from '../testRun/redux';
+import * as model from './model';
 
 
 // Actions
 
-// const PREFIX = 'TEST_RUN_SEARCH';
+const PREFIX = 'SEARCH';
+
+const SEARCH = `${PREFIX}/SEARCH`;
+const SEARCH_FULFILED = `${SEARCH}_FULFILLED`;
 
 
 // Action creators
@@ -22,21 +26,38 @@ export function loadTestRunSearchPage({ testRunId }) {
 }
 
 export function search({ search, testRunId }) {
-  return push({
-    pathname: `/test-runs/${testRunId}/search`,
-    query: {
-      search,
+  return dispatch => {
+    dispatch(push({
+      pathname: `/test-runs/${testRunId}/search`,
+      query: {
+        search,
+      },
+    }));
+
+    dispatch(searchScenarios({ search, testRunId }));
+  };
+}
+
+function searchScenarios({ search, testRunId }) {
+  return {
+    type: SEARCH,
+    payload: model.search({ search, testRunId }),
+    meta: {
+      testRunId,
     },
-  });
+  };
 }
 
 
 // Reducer
 
-/*
-const initialState = {};
+const initialState = {
+  foundScenarios: [],
+};
 
-export const testRun = handleActions({
-
+export const searchResults = handleActions({
+  [SEARCH_FULFILED]: (state, action) => ({
+    ...state,
+    foundScenarios: action.payload,
+  }),
 }, initialState);
-*/

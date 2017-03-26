@@ -10,6 +10,8 @@ public interface ScenarioQuery {
 
     ScenarioQuery withTestRunId(String testRunId);
 
+    ScenarioQuery withSearch(String search);
+
     ScenarioQuery orderedByName();
 
     ScenarioQuery withSelectedTags(TagSelection tagSelection);

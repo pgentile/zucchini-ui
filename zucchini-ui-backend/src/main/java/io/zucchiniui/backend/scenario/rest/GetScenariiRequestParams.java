@@ -12,6 +12,9 @@ public class GetScenariiRequestParams {
     @QueryParam("featureId")
     private String featureId;
 
+    @QueryParam("search")
+    private String search;
+
     @QueryParam("tag")
     private Set<String> tags;
 
@@ -32,6 +35,14 @@ public class GetScenariiRequestParams {
 
     public void setFeatureId(final String featureId) {
         this.featureId = featureId;
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
     }
 
     public Set<String> getTags() {

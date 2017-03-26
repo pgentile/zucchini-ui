@@ -1,5 +1,4 @@
 import React from 'react';
-import Alert from 'react-bootstrap/lib/Alert';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import InputGroup from 'react-bootstrap/lib/InputGroup';
@@ -7,6 +6,7 @@ import Button from 'react-bootstrap/lib/Button';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 import toNiceDate from '../../ui/toNiceDate';
+import FoundScenarioTableContainer from './FoundScenarioTableContainer';
 
 
 export default class TestRunSearchPage extends React.Component {
@@ -24,6 +24,7 @@ export default class TestRunSearchPage extends React.Component {
 
   componentDidMount() {
     this.loadTestRunIfPossible();
+    this.searchOnLoad();
   }
 
   componentDidUpdate(prevProps) {
@@ -50,9 +51,10 @@ export default class TestRunSearchPage extends React.Component {
           </FormGroup>
         </form>
 
-        <Alert bsStyle="warning">
-          La recherche n'est pas encore disponible.
-        </Alert>
+        <hr />
+
+        <h2>Résultats</h2>
+        <FoundScenarioTableContainer />
 
       </div>
     );
@@ -63,6 +65,14 @@ export default class TestRunSearchPage extends React.Component {
 
     if (testRunId !== prevProps.testRunId) {
       this.props.onLoad({ testRunId: this.props.testRunId });
+    }
+  }
+
+  searchOnLoad() {
+    const { testRunId, search } = this.props;
+
+    if (search && testRunId) {
+      this.props.onSearch({ testRunId, search });
     }
   }
 
@@ -85,7 +95,7 @@ export default class TestRunSearchPage extends React.Component {
 TestRunSearchPage.propTypes = {
   onLoad: React.PropTypes.func.isRequired,
   onSearch: React.PropTypes.func.isRequired,
-  search: React.PropTypes.string,
-  testRunId: React.PropTypes.string,
+  search: React.PropTypes.string.isRequired,
+  testRunId: React.PropTypes.string.isRequired,
   testRun: React.PropTypes.object.isRequired,
 };

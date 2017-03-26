@@ -19,6 +19,8 @@ public class ReportFeature extends CucumberElement {
 
     private List<Tag> tags = new ArrayList<>();
 
+    private List<ReportComment> comments = new ArrayList<>();
+
     public String getId() {
         return id;
     }
@@ -57,6 +59,14 @@ public class ReportFeature extends CucumberElement {
 
     public void setTags(final List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public List<ReportComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<ReportComment> comments) {
+        this.comments = comments;
     }
 
     @Override

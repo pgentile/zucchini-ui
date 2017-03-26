@@ -26,7 +26,7 @@ public class FeatureTest {
         final ZonedDateTime testStartDate = ZonedDateTime.now();
 
         // when
-        final Feature feature = new Feature(FEATURE_KEY, TEST_RUN_ID, INFO, LOCATION);
+        final Feature feature = new Feature(FEATURE_KEY, TEST_RUN_ID, INFO, LOCATION, "en");
 
         // then
         assertThat(feature.getId()).isNotEmpty();
@@ -50,7 +50,7 @@ public class FeatureTest {
         // given
         final FeatureStatus newStatus = FeatureStatus.PASSED;
 
-        final Feature feature = new Feature(FEATURE_KEY, TEST_RUN_ID, INFO, LOCATION);
+        final Feature feature = new Feature(FEATURE_KEY, TEST_RUN_ID, INFO, LOCATION, "en");
 
         // when
 
@@ -66,7 +66,7 @@ public class FeatureTest {
         // given
         final String newGroup = "newGroup";
 
-        final Feature feature = new Feature(FEATURE_KEY, TEST_RUN_ID, INFO, LOCATION);
+        final Feature feature = new Feature(FEATURE_KEY, TEST_RUN_ID, INFO, LOCATION, "en");
 
         // when
 
@@ -82,7 +82,7 @@ public class FeatureTest {
         // given
         final String newDescription = "newGroup";
 
-        final Feature feature = new Feature(FEATURE_KEY, TEST_RUN_ID, INFO, LOCATION);
+        final Feature feature = new Feature(FEATURE_KEY, TEST_RUN_ID, INFO, LOCATION, "en");
 
         // when
 
@@ -98,7 +98,7 @@ public class FeatureTest {
         // given
         final Set<String> newTags = Sets.newHashSet("titi", "toto", "tutu");
 
-        final Feature feature = new Feature(FEATURE_KEY, TEST_RUN_ID, INFO, LOCATION);
+        final Feature feature = new Feature(FEATURE_KEY, TEST_RUN_ID, INFO, LOCATION, "en");
 
         // when
 
@@ -112,7 +112,7 @@ public class FeatureTest {
     @Test
     public void should_merge_with_another_feature() throws Exception {
         // given
-        final Feature sourceFeature = new Feature(FEATURE_KEY, TEST_RUN_ID, INFO, LOCATION);
+        final Feature sourceFeature = new Feature(FEATURE_KEY, TEST_RUN_ID, INFO, LOCATION, "en");
         sourceFeature.setGroup("group");
         sourceFeature.setTags(Sets.newHashSet("titi", "toto", "tutu"));
         sourceFeature.setDescription("Description");
@@ -122,7 +122,8 @@ public class FeatureTest {
             FEATURE_KEY,
             TEST_RUN_ID,
             new BasicInfo("Feature", "other"),
-            new Location("other.feature", 1)
+            new Location("other.feature", 1),
+            "en"
         );
 
         // when
