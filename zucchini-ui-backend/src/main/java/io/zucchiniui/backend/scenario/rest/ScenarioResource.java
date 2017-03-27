@@ -76,7 +76,12 @@ public class ScenarioResource {
 
     @GET
     public List<ScenarioListItemView> getScenarii(@BeanParam final GetScenariiRequestParams requestParams) {
-        final Consumer<ScenarioQuery> query = prepareQueryFromRequestParams(requestParams).andThen(ScenarioQuery::orderedByName);
+        Consumer<ScenarioQuery> query = prepareQueryFromRequestParams(requestParams);
+
+        if (Strings.isNullOrEmpty(requestParams.getSearch())) {
+            query = query.andThen(ScenarioQuery::orderedByName);
+        }
+
         return scenarioViewAccess.getScenarioListItems(query);
     }
 
@@ -166,6 +171,9 @@ public class ScenarioResource {
             }
             if (!Strings.isNullOrEmpty(requestParams.getFeatureId())) {
                 q.withFeatureId(requestParams.getFeatureId());
+            }
+            if (!Strings.isNullOrEmpty(requestParams.getSearch())) {
+                q.withSearch(requestParams.getSearch());
             }
 
             final TagSelection tagSelection = new TagSelection(requestParams.getTags(), requestParams.getExcludedTags());

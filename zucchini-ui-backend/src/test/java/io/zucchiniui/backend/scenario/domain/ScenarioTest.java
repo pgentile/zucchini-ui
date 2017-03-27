@@ -186,6 +186,7 @@ public class ScenarioTest {
             .withTestRunId(testRunId)
             .withFeatureId(featureId)
             .withScenarioKey(scenarioKey)
+            .withLanguage("en")
             .withInfo(new BasicInfo("Feature A", "Feature name A"))
             .addStep(sb -> sb.withInfo(new BasicInfo("Step", "Step E")).withStatus(StepStatus.PASSED))
             .build();
@@ -194,6 +195,7 @@ public class ScenarioTest {
             .withTestRunId(testRunId)
             .withFeatureId(featureId)
             .withScenarioKey(scenarioKey)
+            .withLanguage("en")
             .withInfo(new BasicInfo("Feature B", "Feature name B"))
             .withComment("Feature comment")
             .withTags(Collections.singleton("toto"))
@@ -343,6 +345,7 @@ public class ScenarioTest {
             .withTestRunId(UUID.randomUUID().toString())
             .withFeatureId(UUID.randomUUID().toString())
             .withScenarioKey(UUID.randomUUID().toString())
+            .withLanguage("en")
             .withInfo(new BasicInfo("Feature", "Test"));
 
         private Consumer<BackgroundBuilder> backgroundBuilderConsumer;

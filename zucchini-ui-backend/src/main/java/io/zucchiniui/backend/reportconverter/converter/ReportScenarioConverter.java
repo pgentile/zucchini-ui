@@ -51,6 +51,7 @@ class ReportScenarioConverter {
             .withTestRunId(parentFeature.getTestRunId())
             .withFeatureId(parentFeature.getId())
             .withScenarioKey(ConversionUtils.stringToSha1Sum(reportScenario.getId()))
+            .withLanguage(parentFeature.getLanguage())
             .withInfo(scenarioInfo)
             .withTags(scenarioTags)
             .withExtraTags(parentFeature.getTags())

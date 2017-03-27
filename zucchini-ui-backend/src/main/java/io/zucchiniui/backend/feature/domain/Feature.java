@@ -25,6 +25,8 @@ public class Feature extends BaseEntity<String> {
     @Id
     private String id;
 
+    private String language;
+
     /**
      * Feature key, useful for following multiple executions of a same feature over time.
      */
@@ -95,7 +97,7 @@ public class Feature extends BaseEntity<String> {
      * @param info       Basic information
      * @param location   Feature location
      */
-    public Feature(final String featureKey, final String testRunId, final BasicInfo info, final Location location) {
+    public Feature(final String featureKey, final String testRunId, final BasicInfo info, final Location location, final String language) {
         id = UUID.randomUUID().toString();
         status = FeatureStatus.NOT_RUN;
 
@@ -107,6 +109,7 @@ public class Feature extends BaseEntity<String> {
         this.testRunId = testRunId;
         this.info = info;
         this.location = location;
+        this.language = language;
     }
 
     /**
@@ -193,6 +196,10 @@ public class Feature extends BaseEntity<String> {
 
     public BasicInfo getInfo() {
         return info;
+    }
+
+    public String getLanguage() {
+        return language;
     }
 
     public Set<String> getTags() {

@@ -16,6 +16,8 @@ public class ScenarioBuilder {
 
     private String testRunId;
 
+    private String language;
+
     private Set<String> tags = new HashSet<>();
 
     private Set<String> extraTags = new HashSet<>();
@@ -48,6 +50,11 @@ public class ScenarioBuilder {
 
     public ScenarioBuilder withTestRunId(final String testRunId) {
         this.testRunId = testRunId;
+        return this;
+    }
+
+    public ScenarioBuilder withLanguage(String language) {
+        this.language = language;
         return this;
     }
 
@@ -109,6 +116,10 @@ public class ScenarioBuilder {
 
     protected String getTestRunId() {
         return testRunId;
+    }
+
+    protected String getLanguage() {
+        return language;
     }
 
     protected Set<String> getTags() {

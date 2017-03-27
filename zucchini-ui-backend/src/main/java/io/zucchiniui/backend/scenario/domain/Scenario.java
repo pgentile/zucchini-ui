@@ -24,6 +24,8 @@ public class Scenario extends BaseEntity<String> {
     @Id
     private String id;
 
+    private String language;
+
     private String scenarioKey;
 
     private String featureId;
@@ -73,6 +75,7 @@ public class Scenario extends BaseEntity<String> {
         scenarioKey = Objects.requireNonNull(builder.getScenarioKey());
         featureId = Objects.requireNonNull(builder.getFeatureId());
         testRunId = Objects.requireNonNull(builder.getTestRunId());
+        language = Objects.requireNonNull(builder.getLanguage());
 
         tags = new HashSet<>(builder.getTags());
         tags.removeAll(builder.getExtraTags());
@@ -114,6 +117,7 @@ public class Scenario extends BaseEntity<String> {
             throw new IllegalArgumentException("Test run ID must be the same");
         }
 
+        language = other.language;
         tags = new HashSet<>(other.tags);
         allTags = new HashSet<>(other.allTags);
 
@@ -256,6 +260,10 @@ public class Scenario extends BaseEntity<String> {
 
     public String getTestRunId() {
         return testRunId;
+    }
+
+    public String getLanguage() {
+        return language;
     }
 
     public Set<String> getTags() {
