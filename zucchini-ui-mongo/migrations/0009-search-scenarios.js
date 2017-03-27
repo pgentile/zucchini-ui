@@ -1,6 +1,13 @@
 migrate(function () {
 
-  // TODO Grep language from existing scenarios
+  // Update feature languages
+
+  var defaultLanguage = 'fr'; // Use french as default language on existing docs
+
+  db.features.update({ language: { $exists: false } }, { $set: { language: defaultLanguage } }, { multi: true });
+  db.scenarii.update({ language: { $exists: false } }, { $set: { language: defaultLanguage } }, { multi: true });
+
+  // Create search index
 
   db.scenarii.createIndex(
     {
