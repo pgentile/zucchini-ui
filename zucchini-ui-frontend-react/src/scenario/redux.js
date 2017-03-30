@@ -18,6 +18,11 @@ const GET_SCENARIO_HISTORY_FULFILED = `${GET_SCENARIO_HISTORY}_FULFILLED`;
 const GET_SCENARIO_COMMENTS = `${PREFIX}/GET_SCENARIO_COMMENTS`;
 const GET_SCENARIO_COMMENTS_FULFILED = `${GET_SCENARIO_COMMENTS}_FULFILLED`;
 
+const UPDATE_SCENARIO_STATE = `${PREFIX}/UPDATE_SCENARIO_STATE`;
+//const UPDATE_SCENARIO_STATE_FULFILED = `${UPDATE_SCENARIO_STATE}_FULFILLED`;
+
+const ADD_SCENARIO_COMMENT = `${PREFIX}/ADD_SCENARIO_COMMENT`;
+
 
 // Action creators
 
@@ -79,6 +84,44 @@ export function getScenarioComments({ scenarioId }) {
       scenarioId,
     },
   };
+}
+
+export function updateScenarioState({ scenarioId, newState }) {
+  return {
+    type: UPDATE_SCENARIO_STATE,
+    payload: model.updateScenarioState({ scenarioId, newState }),
+    meta: {
+      scenarioId,
+    },
+  };
+}
+
+export function addScenarioComment({ scenarioId, comment }) {
+  return {
+    type: ADD_SCENARIO_COMMENT,
+    payload: model.addScenarioComment({ scenarioId, comment }),
+    meta: {
+      scenarioId,
+    },
+  };
+}
+
+export function updateScenarioStateAndComment({ scenarioId, newState, comment }) {
+  return dispatch => {
+    const updateScenarioState$ = dispatch(updateScenarioState({
+      scenarioId,
+      newState,
+    }));
+
+    let addComment$ = Promise.resolve(null);
+    if (comment) {
+      addComment$ = dispatch(addScenarioComment({ scenarioId, comment }));
+    }
+
+    return Promise.all([updateScenarioState$, addComment$])
+      .then(() => dispatch(loadScenarioPage({ scenarioId })))
+      .then(() => null);
+  }
 }
 
 

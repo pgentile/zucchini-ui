@@ -1,16 +1,32 @@
 import React from 'react';
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
+import Button from 'react-bootstrap/lib/Button';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 import TagList from '../../ui/components/TagList';
 import Status from '../../ui/components/Status';
 import HistoryFilterContainer from '../../filters/components/HistoryFilterContainer';
 import ScenarioHistoryTableContainer from './ScenarioHistoryTableContainer';
 import SameFeatureScenarioTableContainer from './SameFeatureScenarioTableContainer';
+import UpdateScenarioStateDialogContainer from './UpdateScenarioStateDialogContainer';
 import CommentListContainer from './CommentListContainer';
 import ScenarioChangeTable from './ScenarioChangeTable';
 import ScenarioDetails from './ScenarioDetails';
 
 
 export default class ScenarioPage extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.onUpdateStateClick = this.onUpdateStateClick.bind(this);
+    this.showUpdateStateDialog = this.showUpdateStateDialog.bind(this);
+    this.hideUpdateStateDialog = this.hideUpdateStateDialog.bind(this);
+
+    this.state = {
+      showUpdateStateDialog: false,
+    };
+  }
 
   componentDidMount() {
     this.loadScenarioIfNeeded();
@@ -32,6 +48,14 @@ export default class ScenarioPage extends React.Component {
         </h1>
 
         {scenario.allTags.length > 0 && <p><b>Tags :</b> <TagList tags={scenario.allTags} /></p>}
+
+        <hr />
+
+        <ButtonToolbar>
+          <Button onClick={this.onUpdateStateClick}>
+            <Glyphicon glyph="flag" /> Modifier le statut&hellip;
+          </Button>
+        </ButtonToolbar>
 
         <hr />
 
@@ -59,6 +83,8 @@ export default class ScenarioPage extends React.Component {
         <HistoryFilterContainer />
         <ScenarioHistoryTableContainer scenarioId={this.props.scenarioId} />
 
+        <UpdateScenarioStateDialogContainer show={this.state.showUpdateStateDialog} onClose={this.hideUpdateStateDialog} />
+
       </div>
     );
   }
@@ -68,6 +94,22 @@ export default class ScenarioPage extends React.Component {
     if (scenarioId !== prevProps.scenarioId) {
       onLoad({ scenarioId });
     }
+  }
+
+  onUpdateStateClick() {
+    this.showUpdateStateDialog();
+  }
+
+  showUpdateStateDialog() {
+    this.setState({
+      showUpdateStateDialog: true,
+    });
+  }
+
+  hideUpdateStateDialog() {
+    this.setState({
+      showUpdateStateDialog: false,
+    });
   }
 
 }

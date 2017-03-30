@@ -10,6 +10,14 @@ export function getScenarioHistory({ scenarioId }) {
   return scenariosApi.getScenarioHistory({ scenarioId });
 }
 
+export function updateScenarioState({ scenarioId, newState }) {
+  return scenariosApi.updateScenarioState({ scenarioId, newState });
+}
+
+export function addScenarioComment({ scenarioId, comment }) {
+  return scenariosApi.addComment({ scenarioId, comment });
+}
+
 export function getScenarioComments({ scenarioId }) {
   // Load comments, extract references
 

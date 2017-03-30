@@ -53,6 +53,32 @@ class ScenariosApi {
       });
   }
 
+  updateScenarioState({ scenarioId, newState }) {
+    const fetchParams = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newState),
+    };
+
+    return fetch(`${this.baseUri}/api/scenarii/${scenarioId}`, fetchParams)
+      .then(() => null);
+  }
+
+  addComment({ scenarioId, comment }) {
+    const fetchParams = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ content: comment }),
+    };
+
+    return fetch(`${this.baseUri}/api/scenarii/${scenarioId}/comments/create`, fetchParams)
+      .then(() => null);
+  }
+
 }
 
 const scenarios = new ScenariosApi(configuration.ui.backendBaseUri);

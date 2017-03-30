@@ -6,7 +6,7 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 
 
-export default class CreateTestRunDialog extends React.Component {
+export default class CreateTestRunDialog extends React.PureComponent {
 
   constructor(props) {
     super(props);
