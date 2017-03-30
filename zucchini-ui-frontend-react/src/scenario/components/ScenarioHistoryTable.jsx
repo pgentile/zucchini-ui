@@ -15,7 +15,7 @@ export default class ScenarioHistoryTable extends React.PureComponent {
     const rows = history.map(scenario => {
       const isActive = (scenario.id === scenarioId);
       return (
-        <ScenarioHistoryTableRow key={scenario.id} scenario={scenario} isActive={isActive} />
+        <ScenarioHistoryTableRow key={scenario.testRun.id} scenario={scenario} isActive={isActive} />
       )
     });
 
