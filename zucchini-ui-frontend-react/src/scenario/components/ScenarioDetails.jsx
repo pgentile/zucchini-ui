@@ -1,18 +1,21 @@
 import React from 'react';
+import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
+import Button from 'react-bootstrap/lib/Button';
 
-import Step from './Step';
-import ActionStep from './ActionStep';
 import SimpleText from '../../ui/components/SimpleText';
+import ActionStep from './ActionStep';
+import Step from './Step';
+import StepFiltersContainer from './StepFiltersContainer';
 
 
 export default class ScenarioDetails extends React.PureComponent {
 
   render() {
-    const { scenario } = this.props;
+    const { scenario, filters } = this.props;
 
     const steps = scenario.steps.map((step, index) => {
       return (
-        <Step key={index} step={step} scenarioId={scenario.id} />
+        <Step key={index} step={step} scenarioId={scenario.id} filters={filters} />
       );
     });
 
@@ -20,30 +23,40 @@ export default class ScenarioDetails extends React.PureComponent {
     if (scenario.background && scenario.background.steps) {
       backgroundSteps = scenario.background.steps.map((step, index) => {
         return (
-          <Step key={index} step={step} scenarioId={scenario.id} special />
+          <Step key={index} step={step} scenarioId={scenario.id} filters={filters} special />
         );
       });
     }
 
     const beforeActions = scenario.beforeActions.map((action, index) => {
       return (
-        <ActionStep key={index} index={index} name="Pré-action" action={action} scenarioId={scenario.id} />
+        <ActionStep key={index} index={index} name="Pré-action" action={action} scenarioId={scenario.id} filters={filters} />
       );
     })
 
     const afterActions = scenario.afterActions.map((action, index) => {
       return (
-        <ActionStep key={index} index={index} name="Post-action" action={action} scenarioId={scenario.id} />
+        <ActionStep key={index} index={index} name="Post-action" action={action} scenarioId={scenario.id} filters={filters} />
       );
     })
 
+    const stepFilters = (
+      <StepFiltersContainer />
+    );
+
     return (
       <div>
-        {scenario.comment && <SimpleText className="text-muted" text={scenario.comment} />}
-        {beforeActions}
-        {backgroundSteps}
+        <p>
+          <OverlayTrigger rootClose trigger="click" placement="right" overlay={stepFilters}>
+            <Button bsSize="xsmall">Options d'affichage</Button>
+          </OverlayTrigger>
+        </p>
+
+        {filters.comments && scenario.comment && <SimpleText className="text-muted" text={scenario.comment} />}
+        {filters.beforeAndAfterActions && beforeActions}
+        {filters.context && backgroundSteps}
         {steps}
-        {afterActions}
+        {filters.beforeAndAfterActions && afterActions}
       </div>
     );
   }
@@ -52,4 +65,5 @@ export default class ScenarioDetails extends React.PureComponent {
 
 ScenarioDetails.propTypes = {
   scenario: React.PropTypes.object,
+  filters: React.PropTypes.object,
 };

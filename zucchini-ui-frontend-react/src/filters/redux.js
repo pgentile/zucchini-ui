@@ -4,6 +4,7 @@ import featureFiltersStorage from './featureFiltersStorage';
 import statsDashboardFiltersStorage from './statsDashboardFiltersStorage';
 import historyFiltersStorage from './historyFiltersStorage';
 import scenarioFiltersStorage from './scenarioFiltersStorage';
+import stepFiltersStorage from './stepFiltersStorage';
 
 
 // Actions
@@ -14,6 +15,7 @@ const UPDATE_FEATURE_FILTERS = `${PREFIX}/UPDATE_FEATURE_FILTERS`;
 const UPDATE_STATS_DASHBOARD_FILTERS = `${PREFIX}/UPDATE_STATS_DASHBOARD_FILTERS`;
 const UPDATE_HISTORY_FILTERS = `${PREFIX}/UPDATE_HISTORY_FILTERS`;
 const UPDATE_SCENARIO_FILTERS = `${PREFIX}/UPDATE_SCENARIO_FILTERS`;
+const UPDATE_STEP_FILTERS = `${PREFIX}/UPDATE_STEP_FILTERS`;
 
 
 export function updateFeatureFilters(filters) {
@@ -43,6 +45,14 @@ export function updateHistoryFilters(filters) {
 export function updateScenarioFilters(filters) {
   return {
     type: UPDATE_SCENARIO_FILTERS,
+    payload: filters,
+  };
+}
+
+
+export function updateStepFilters(filters) {
+  return {
+    type: UPDATE_STEP_FILTERS,
     payload: filters,
   };
 }
@@ -86,3 +96,13 @@ export const scenarioFilters = handleActions({
   }),
 
 }, scenarioFiltersStorage.read());
+
+
+export const stepFilters = handleActions({
+
+  [UPDATE_STEP_FILTERS]: (state, action) => ({
+    ...state,
+    ...action.payload,
+  }),
+
+}, stepFiltersStorage.read());

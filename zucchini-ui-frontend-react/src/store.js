@@ -9,6 +9,7 @@ import featureFiltersStorage from './filters/featureFiltersStorage';
 import statsDashboardFiltersStorage from './filters/statsDashboardFiltersStorage';
 import historyFiltersStorage from './filters/historyFiltersStorage';
 import scenarioFiltersStorage from './filters/scenarioFiltersStorage';
+import stepFiltersStorage from './filters/stepFiltersStorage';
 import { default as createStorageMiddleware } from './browserStorage/createMiddleware';
 
 
@@ -19,6 +20,7 @@ const middlewares = [
   createStorageMiddleware(statsDashboardFiltersStorage, state => state.statsDashboardFilters),
   createStorageMiddleware(historyFiltersStorage, state => state.historyFilters),
   createStorageMiddleware(scenarioFiltersStorage, state => state.scenarioFilters),
+  createStorageMiddleware(stepFiltersStorage, state => state.stepFilters),
   routerMiddleware(browserHistory),
   thunkMiddleware,
   promiseMiddleware(),

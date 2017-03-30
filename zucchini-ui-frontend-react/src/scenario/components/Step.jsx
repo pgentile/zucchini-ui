@@ -11,7 +11,7 @@ import StepAttachments from './StepAttachments';
 export default class Step extends React.PureComponent {
 
   render() {
-    const { step, scenarioId, special } = this.props;
+    const { step, scenarioId, special, filters } = this.props;
 
     const title = (
       <ElementInfo info={step.info} />
@@ -52,7 +52,7 @@ export default class Step extends React.PureComponent {
     return (
       <div>
 
-        {step.comment && <SimpleText className="text-muted" text={step.comment} />}
+        {filters.comments && step.comment && <SimpleText className="text-muted" text={step.comment} />}
 
         <p>
           {special ? <i>{title}</i> : title}
@@ -61,9 +61,9 @@ export default class Step extends React.PureComponent {
         </p>
 
         {table}
-        {errorMessage}
-        {logs}
-        {attachments}
+        {filters.errorDetails && errorMessage}
+        {filters.logs && logs}
+        {filters.attachments && attachments}
 
       </div>
     );
@@ -75,6 +75,7 @@ Step.propTypes = {
   scenarioId: React.PropTypes.string.isRequired,
   step: React.PropTypes.object.isRequired,
   special: React.PropTypes.bool.isRequired,
+  filters: React.PropTypes.object.isRequired,
 };
 
 Step.defaultProps = {
