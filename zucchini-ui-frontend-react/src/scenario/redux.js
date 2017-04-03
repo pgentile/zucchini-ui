@@ -124,6 +124,16 @@ export function updateScenarioStateAndComment({ scenarioId, newState, comment })
   }
 }
 
+export function addScenarioCommentAndReload({ scenarioId, comment }) {
+  return dispatch => {
+    const addComment$ = dispatch(addScenarioComment({ scenarioId, comment }));
+
+    return addComment$
+      .then(() => dispatch(loadScenarioPage({ scenarioId })))
+      .then(() => null);
+  };
+}
+
 
 // Reducer
 

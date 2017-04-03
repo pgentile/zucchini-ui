@@ -1,0 +1,68 @@
+import React from 'react';
+import Button from 'react-bootstrap/lib/Button';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
+import FormControl from 'react-bootstrap/lib/FormControl';
+
+
+export default class AddCommentForm extends React.PureComponent {
+
+  constructor(props) {
+    super(props);
+
+    this.onAddComment = this.onAddComment.bind(this);
+    this.onCommentChange = this.onCommentChange.bind(this);
+
+    this.state = this.createDefaultState();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { scenarioId } = this.props;
+    if (scenarioId !== prevProps.scenarioId) {
+      this.setState(this.createDefaultState());
+    }
+  }
+
+  createDefaultState() {
+    return {
+      comment: '',
+    };
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.onAddComment}>
+        <FormGroup>
+          <FormControl componentClass="textarea" rows="3" placeholder="Entrez votre commentaire" value={this.state.comment} onChange={this.onCommentChange} />
+        </FormGroup>
+        <Button type="submit" bsStyle="primary">Ajouter le commentaire</Button>
+      </form>
+    )
+  }
+
+  onAddComment(event) {
+    event.preventDefault();
+
+    const { scenarioId } = this.props;
+    const { comment } = this.state;
+    this.props.onAddComment({
+      scenarioId,
+      comment,
+    });
+
+    this.setState(this.createDefaultState());
+  }
+
+  onCommentChange(event) {
+    const comment = event.target.value;
+
+    this.setState({
+      comment,
+    });
+  }
+
+}
+
+AddCommentForm.propTypes = {
+  scenarioId: React.PropTypes.string.isRequired,
+  onAddComment: React.PropTypes.func.isRequired,
+};
