@@ -1,4 +1,5 @@
 import React from 'react';
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 
 import toNiceDate from '../../ui/toNiceDate';
 import FeatureStateFilterContainer from './FeatureStateFilterContainer';
@@ -6,6 +7,7 @@ import TestRunHistoryTableContainer from './TestRunHistoryTableContainer';
 import TestRunStatsContainer from './TestRunStatsContainer';
 import TestRunFeatureTableContainer from './TestRunFeatureTableContainer';
 import FeatureGroupFilterContainer from './FeatureGroupFilterContainer';
+import DeleteTestRunButtonContainer from './DeleteTestRunButtonContainer';
 
 
 export default class TestRunPage extends React.Component {
@@ -30,7 +32,7 @@ export default class TestRunPage extends React.Component {
       }
 
       return (
-        <p>
+        <p key={label.name}>
           <b>{label.name} :</b> {value}
         </p>
       );
@@ -40,6 +42,11 @@ export default class TestRunPage extends React.Component {
       <div>
         <h1>{`Tir du ${toNiceDate(testRun.date)}`}</h1>
         {labels}
+
+        <hr />
+        <ButtonToolbar>
+          <DeleteTestRunButtonContainer testRunId={testRunId} />
+        </ButtonToolbar>
 
         <hr />
         <h2>Statistiques</h2>

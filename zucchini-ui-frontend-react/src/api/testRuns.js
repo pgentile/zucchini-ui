@@ -41,6 +41,17 @@ class TestRunsApi {
       });
   }
 
+  deleteTestRun({ testRunId }) {
+    const fetchParams = {
+      method: 'DELETE',
+    };
+
+    return fetch(`${this.baseUri}/api/testRuns/${testRunId}`, fetchParams)
+      .then(() => {
+        return null;
+      });
+  }
+
 }
 
 const testRuns = new TestRunsApi(configuration.ui.backendBaseUri);

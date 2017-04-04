@@ -1,4 +1,5 @@
 import { handleActions } from 'redux-actions';
+import { replace } from 'react-router-redux'
 
 import * as model from './model'
 
@@ -18,6 +19,8 @@ const GET_TEST_RUN_HISTORY_FULFILLED = `${GET_TEST_RUN_HISTORY}_FULFILLED`;
 
 const GET_FEATURES = `${PREFIX}/GET_FEATURES`;
 const GET_FEATURES_FULFILLED = `${GET_FEATURES}_FULFILLED`;
+
+const DELETE_TEST_RUN = `${PREFIX}/DELETE_TEST_RUN`;
 
 
 // Action creators
@@ -77,6 +80,24 @@ export function getFeatures({ testRunId }) {
     meta: {
       testRunId,
     },
+  };
+}
+
+export function deleteTestRun({ testRunId }) {
+  return {
+    type: DELETE_TEST_RUN,
+    payload: model.deleteTestRun({ testRunId }),
+    meta: {
+      testRunId,
+    },
+  };
+}
+
+export function deleteTestRunThenRedirect({ testRunId }) {
+  return dispatch => {
+    const deleteTestRun$ = dispatch(deleteTestRun({ testRunId }));
+
+    deleteTestRun$.then(dispatch(replace('/')));
   };
 }
 

@@ -27,6 +27,10 @@ export function createStatsWithZeros() {
   };
 }
 
+export function deleteTestRun({ testRunId }) {
+  return testRunsApi.deleteTestRun({ testRunId });
+}
+
 const ZERO_STATS_NUMBERS = {
   count: 0,
   passed: 0,
