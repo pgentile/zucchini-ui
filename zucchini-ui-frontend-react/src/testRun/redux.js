@@ -84,7 +84,9 @@ export function getFeatures({ testRunId }) {
 // Reducer
 
 const initialState = {
-  testRun: {},
+  testRun: {
+    labels: [],
+  },
   stats: model.createStatsWithZeros(),
   history: [],
   features: [],

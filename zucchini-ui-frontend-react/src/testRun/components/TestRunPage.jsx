@@ -21,9 +21,25 @@ export default class TestRunPage extends React.Component {
   render() {
     const { testRunId, testRun, selectedFeatureGroup } = this.props;
 
+    const labels = testRun.labels.map(label => {
+      let value = label.value;
+      if (label.url) {
+        value = (
+          <a href={label.url} target="_blank">{label.value}</a>
+        );
+      }
+
+      return (
+        <p>
+          <b>{label.name} :</b> {value}
+        </p>
+      );
+    });
+
     return (
       <div>
         <h1>{`Tir du ${toNiceDate(testRun.date)}`}</h1>
+        {labels}
 
         <hr />
         <h2>Statistiques</h2>
