@@ -1,4 +1,5 @@
 import { handleActions } from 'redux-actions';
+import { replace } from 'react-router-redux'
 
 import * as model from './model'
 import { getTestRun } from '../testRun/redux';
@@ -22,6 +23,8 @@ const UPDATE_SCENARIO_STATE = `${PREFIX}/UPDATE_SCENARIO_STATE`;
 //const UPDATE_SCENARIO_STATE_FULFILED = `${UPDATE_SCENARIO_STATE}_FULFILLED`;
 
 const ADD_SCENARIO_COMMENT = `${PREFIX}/ADD_SCENARIO_COMMENT`;
+
+const DELETE_SCENARIO = `${PREFIX}/DELETE_SCENARIO`;
 
 
 // Action creators
@@ -106,6 +109,16 @@ export function addScenarioComment({ scenarioId, comment }) {
   };
 }
 
+export function deleteScenario({ scenarioId }) {
+  return {
+    type: DELETE_SCENARIO,
+    payload: model.deleteScenario({ scenarioId }),
+    meta: {
+      scenarioId,
+    },
+  };
+}
+
 export function updateScenarioStateAndComment({ scenarioId, newState, comment }) {
   return dispatch => {
     const updateScenarioState$ = dispatch(updateScenarioState({
@@ -131,6 +144,15 @@ export function addScenarioCommentAndReload({ scenarioId, comment }) {
     return addComment$
       .then(() => dispatch(loadScenarioPage({ scenarioId })))
       .then(() => null);
+  };
+}
+
+export function deleteScenarioThenRedirect({ scenarioId }) {
+  return (dispatch, getState) => {
+    const deleteScenario$ = dispatch(deleteScenario({ scenarioId }));
+
+    const featureId = getState().feature.feature.id;
+    deleteScenario$.then(dispatch(replace(`/features/${featureId}`)));
   };
 }
 

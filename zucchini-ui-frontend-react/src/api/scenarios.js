@@ -79,6 +79,17 @@ class ScenariosApi {
       .then(() => null);
   }
 
+  deleteScenario({ scenarioId }) {
+    const fetchParams = {
+      method: 'DELETE',
+    };
+
+    return fetch(`${this.baseUri}/api/scenarii/${scenarioId}`, fetchParams)
+      .then(() => {
+        return null;
+      });
+  }
+
 }
 
 const scenarios = new ScenariosApi(configuration.ui.backendBaseUri);

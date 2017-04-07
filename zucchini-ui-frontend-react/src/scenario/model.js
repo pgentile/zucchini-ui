@@ -18,6 +18,10 @@ export function addScenarioComment({ scenarioId, comment }) {
   return scenariosApi.addComment({ scenarioId, comment });
 }
 
+export function deleteScenario({ scenarioId }) {
+  return scenariosApi.deleteScenario({ scenarioId });
+}
+
 export function getScenarioComments({ scenarioId }) {
   // Load comments, extract references
 

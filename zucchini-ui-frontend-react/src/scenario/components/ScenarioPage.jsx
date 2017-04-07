@@ -1,6 +1,7 @@
 import React from 'react';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import Button from 'react-bootstrap/lib/Button';
+import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 import TagList from '../../ui/components/TagList';
@@ -12,6 +13,7 @@ import UpdateScenarioStateDialogContainer from './UpdateScenarioStateDialogConta
 import CommentListContainer from './CommentListContainer';
 import ScenarioDetailsContainer from './ScenarioDetailsContainer';
 import AddCommentFormContainer from './AddCommentFormContainer';
+import DeleteScenarioButtonContainer from './DeleteScenarioButtonContainer';
 import ScenarioChangeTable from './ScenarioChangeTable';
 
 
@@ -53,9 +55,14 @@ export default class ScenarioPage extends React.Component {
         <hr />
 
         <ButtonToolbar>
-          <Button onClick={this.onUpdateStateClick}>
-            <Glyphicon glyph="flag" /> Modifier le statut&hellip;
-          </Button>
+          <ButtonGroup>
+            <Button onClick={this.onUpdateStateClick}>
+              <Glyphicon glyph="flag" /> Modifier le statut&hellip;
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup>
+            <DeleteScenarioButtonContainer />
+          </ButtonGroup>
         </ButtonToolbar>
 
         <hr />
