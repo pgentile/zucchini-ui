@@ -18,6 +18,10 @@ export function getScenarios({ featureId }) {
   return scenariosApi.getScenarios({ featureId });
 }
 
+export function deleteFeature({ featureId }) {
+  return featuresApi.deleteFeature({ featureId });
+}
+
 export function createStatsWithZeros() {
   return {
     all: ZERO_STATS_NUMBERS,

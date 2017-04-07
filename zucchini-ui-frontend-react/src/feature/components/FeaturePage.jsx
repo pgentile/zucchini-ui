@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router'
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 
 import FeatureStatsContainer from './FeatureStatsContainer';
 import FeatureHistoryTableContainer from './FeatureHistoryTableContainer';
@@ -9,6 +10,7 @@ import TagList from '../../ui/components/TagList';
 import SimpleText from '../../ui/components/SimpleText';
 import Status from '../../ui/components/Status';
 import ScenarioStateFilterContainer from './ScenarioStateFilterContainer';
+import DeleteFeatureButtonContainer from './DeleteFeatureButtonContainer';
 
 
 export default class FeaturePage extends React.Component {
@@ -41,6 +43,10 @@ export default class FeaturePage extends React.Component {
 
         {feature.tags.length > 0 && <p><b>Tags :</b> <TagList tags={feature.tags} /></p>}
 
+        <hr />
+        <ButtonToolbar>
+          <DeleteFeatureButtonContainer featureId={featureId} />
+        </ButtonToolbar>
         <hr />
 
         <h2>Statistiques</h2>

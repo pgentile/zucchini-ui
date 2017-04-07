@@ -1,4 +1,5 @@
 import { handleActions } from 'redux-actions';
+import { replace } from 'react-router-redux'
 
 import * as model from './model'
 
@@ -21,6 +22,8 @@ const GET_FEATURE_HISTORY_FULFILED = `${GET_FEATURE_HISTORY}_FULFILLED`;
 const GET_SCENARIOS = `${PREFIX}/GET_SCENARIOS`;
 const GET_SCENARIOS_FULFILED = `${GET_SCENARIOS}_FULFILLED`;
 
+const DELETE_FEATURE = `${PREFIX}/DELETE_FEATURE`;
+
 
 // Action creators
 
@@ -39,6 +42,15 @@ export function loadFeaturePage({ featureId }) {
     });
 
     return Promise.all([feature$, testRun$, stats$, history$, scenarios$]).then(() => null);
+  };
+}
+
+export function deleteFeatureThenRedirect({ featureId }) {
+  return (dispatch, getState) => {
+    const deleteFeature$ = dispatch(deleteFeature({ featureId }));
+
+    const testRunId = getState().testRun.testRun.id;
+    deleteFeature$.then(dispatch(replace(`/test-runs/${testRunId}`)));
   };
 }
 
@@ -82,6 +94,15 @@ export function getScenarios({ featureId }) {
   };
 }
 
+export function deleteFeature({ featureId }) {
+  return {
+    type: DELETE_FEATURE,
+    payload: model.deleteFeature({ featureId }),
+    meta: {
+      featureId,
+    },
+  };
+}
 
 // Reducer
 

@@ -33,6 +33,17 @@ class FeaturesApi {
       });
   }
 
+  deleteFeature({ featureId }) {
+    const fetchParams = {
+      method: 'DELETE',
+    };
+
+    return fetch(`${this.baseUri}/api/features/${featureId}`, fetchParams)
+      .then(() => {
+        return null;
+      });
+  }
+
 }
 
 const features = new FeaturesApi(configuration.ui.backendBaseUri);
