@@ -1,55 +1,34 @@
-import queryString from 'query-string';
+import Client from './Client';
 
 
 class TestRunsApi {
 
   constructor(baseUri) {
-    this.baseUri = baseUri;
+    this.client = new Client(`${baseUri}/api/testRuns`);
   }
 
   getLatests({ withStats, type }) {
-    const queryParams = queryString.stringify({
-      withStats,
-      type,
+    return this.client.get({
+      query: { withStats, type },
     });
-
-    return fetch(`${this.baseUri}/api/testRuns?${queryParams}`)
-      .then(response => {
-        return response.json();
-      });
   }
 
   getTestRun({ testRunId }) {
-    return fetch(`${this.baseUri}/api/testRuns/${testRunId}`)
-      .then(response => {
-        return response.json();
-      });
+    return this.client.get({ path: testRunId });
   }
 
   createTestRun({ type }) {
-    const fetchParams = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ type }),
-    };
-
-    return fetch(`${this.baseUri}/api/testRuns/create`, fetchParams)
-      .then(response => {
-        return response.json();
-      });
+    return this.client.post({
+      path: '/create',
+      body: { type },
+    });
   }
 
   deleteTestRun({ testRunId }) {
-    const fetchParams = {
-      method: 'DELETE',
-    };
-
-    return fetch(`${this.baseUri}/api/testRuns/${testRunId}`, fetchParams)
-      .then(() => {
-        return null;
-      });
+    return this.client.delete({
+      path: testRunId,
+      hasOutput: false,
+    });
   }
 
 }

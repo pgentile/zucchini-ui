@@ -1,93 +1,67 @@
-import queryString from 'query-string';
+import Client from './Client';
 
 
 class ScenariosApi {
 
   constructor(baseUri) {
-    this.baseUri = baseUri;
+    this.client = new Client(`${baseUri}/api/scenarii`);
   }
 
   getScenarios({ featureId, testRunId, search }) {
-    const queryParams = queryString.stringify({
-      featureId,
-      testRunId,
-      search,
+    return this.client.get({
+      query: {
+        featureId,
+        testRunId,
+        search,
+      },
     });
-
-    return fetch(`${this.baseUri}/api/scenarii?${queryParams}`)
-      .then(response => {
-        return response.json();
-      });
   }
 
   getScenario({ scenarioId }) {
-    return fetch(`${this.baseUri}/api/scenarii/${scenarioId}`)
-      .then(response => {
-        return response.json();
-      });
+    return this.client.get({
+      path: scenarioId,
+    });
   }
 
   getStats({ testRunId, featureId }) {
-    const queryParams = queryString.stringify({
-      testRunId,
-      featureId,
+    return this.client.get({
+      path: '/stats',
+      query: {
+        testRunId,
+        featureId,
+      },
     });
-
-    return fetch(`${this.baseUri}/api/scenarii/stats?${queryParams}`)
-      .then(response => {
-        return response.json();
-      });
   }
 
   getScenarioHistory({ scenarioId }) {
-    return fetch(`${this.baseUri}/api/scenarii/${scenarioId}/history`)
-      .then(response => {
-        return response.json();
-      });
+    return this.client.get({ path: `/${scenarioId}/history` });
   }
 
   getComments({ scenarioId }) {
-    return fetch(`${this.baseUri}/api/scenarii/${scenarioId}/comments`)
-      .then(response => {
-        return response.json();
-      });
+    return this.client.get({ path: `/${scenarioId}/comments` });
   }
 
   updateScenarioState({ scenarioId, newState }) {
-    const fetchParams = {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newState),
-    };
-
-    return fetch(`${this.baseUri}/api/scenarii/${scenarioId}`, fetchParams)
-      .then(() => null);
+    return this.client.patch({
+      path: scenarioId,
+      body: newState,
+      hasOutput: false,
+    });
   }
 
   addComment({ scenarioId, comment }) {
-    const fetchParams = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ content: comment }),
-    };
-
-    return fetch(`${this.baseUri}/api/scenarii/${scenarioId}/comments/create`, fetchParams)
-      .then(() => null);
+    return this.client.post({
+      path: `/${scenarioId}/comments/create`,
+      body: { content: comment },
+      hasOutput: false,
+    });
   }
 
   deleteScenario({ scenarioId }) {
-    const fetchParams = {
-      method: 'DELETE',
-    };
-
-    return fetch(`${this.baseUri}/api/scenarii/${scenarioId}`, fetchParams)
-      .then(() => {
-        return null;
-      });
+    return this.client.delete({
+      path: scenarioId,
+      hasOutput: false,
+    });
   }
 
 }
