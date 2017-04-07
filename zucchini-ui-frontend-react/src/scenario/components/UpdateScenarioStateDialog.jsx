@@ -72,8 +72,8 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
               {statusRadios}
             </FormGroup>
             <FormGroup>
-              <ControlLabel>Analysé ?</ControlLabel>
-              <Checkbox checked={this.state.scenario.reviewed} onChange={this.onReviewedChange} />
+              <ControlLabel>Analyse du scénario</ControlLabel>
+              <Checkbox checked={this.state.scenario.reviewed} onChange={this.onReviewedChange}>Scénario analysé ?</Checkbox>
             </FormGroup>
             <FormGroup controlId="comment">
               <ControlLabel>Commentaire</ControlLabel>
