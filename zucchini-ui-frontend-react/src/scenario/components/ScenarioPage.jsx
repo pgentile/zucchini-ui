@@ -40,7 +40,7 @@ export default class ScenarioPage extends React.Component {
   }
 
   render() {
-    const { scenario } = this.props;
+    const { scenario, scenarioId } = this.props;
 
     return (
       <div>
@@ -61,7 +61,7 @@ export default class ScenarioPage extends React.Component {
             </Button>
           </ButtonGroup>
           <ButtonGroup>
-            <DeleteScenarioButtonContainer />
+            <DeleteScenarioButtonContainer scenarioId={scenarioId} />
           </ButtonGroup>
         </ButtonToolbar>
 
@@ -76,23 +76,23 @@ export default class ScenarioPage extends React.Component {
         <CommentListContainer />
 
         <h4>Ajouter un nouveau commentaire</h4>
-        <AddCommentFormContainer scenarioId={this.props.scenarioId} />
+        <AddCommentFormContainer scenarioId={scenarioId} />
 
         <hr />
 
         <h2>Changements</h2>
-        <ScenarioChangeTable changes={this.props.scenario.changes} />
+        <ScenarioChangeTable changes={scenario.changes} />
 
         <hr />
 
         <h2>Scénarii de la même fonctionnalité</h2>
-        <SameFeatureScenarioTableContainer scenarioId={this.props.scenarioId} />
+        <SameFeatureScenarioTableContainer scenarioId={scenarioId} />
 
         <hr />
 
         <h2>Historique</h2>
         <HistoryFilterContainer />
-        <ScenarioHistoryTableContainer scenarioId={this.props.scenarioId} />
+        <ScenarioHistoryTableContainer scenarioId={scenarioId} />
 
         <UpdateScenarioStateDialogContainer show={this.state.showUpdateStateDialog} onClose={this.hideUpdateStateDialog} />
 
