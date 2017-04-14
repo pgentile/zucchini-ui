@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Panel from 'react-bootstrap/lib/Panel';
 
@@ -21,7 +22,7 @@ export default class PanelWithTitle extends React.PureComponent {
 }
 
 PanelWithTitle.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  children: React.PropTypes.node.isRequired,
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 

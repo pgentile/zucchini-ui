@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Button from 'react-bootstrap/lib/Button';
@@ -64,6 +65,6 @@ export default class ScenarioDetails extends React.PureComponent {
 }
 
 ScenarioDetails.propTypes = {
-  scenario: React.PropTypes.object,
-  filters: React.PropTypes.object,
+  scenario: PropTypes.object,
+  filters: PropTypes.object,
 };

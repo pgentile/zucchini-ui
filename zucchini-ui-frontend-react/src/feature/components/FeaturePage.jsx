@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router'
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
@@ -83,7 +84,7 @@ export default class FeaturePage extends React.Component {
 }
 
 FeaturePage.propTypes = {
-  onLoad: React.PropTypes.func.isRequired,
-  featureId: React.PropTypes.string.isRequired,
-  feature: React.PropTypes.object,
+  onLoad: PropTypes.func.isRequired,
+  featureId: PropTypes.string.isRequired,
+  feature: PropTypes.object,
 };

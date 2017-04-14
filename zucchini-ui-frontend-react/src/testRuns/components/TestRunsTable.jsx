@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Table from 'react-bootstrap/lib/Table';
 import Badge from 'react-bootstrap/lib/Badge';
@@ -38,7 +39,7 @@ export default class TestRunsTable extends React.PureComponent {
 }
 
 TestRunsTable.propTypes = {
-  testRuns: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  testRuns: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 
@@ -66,7 +67,7 @@ class TestRunTableRow extends React.PureComponent {
 }
 
 TestRunTableRow.propTypes = {
-  testRun: React.PropTypes.object.isRequired,
+  testRun: PropTypes.object.isRequired,
 };
 
 

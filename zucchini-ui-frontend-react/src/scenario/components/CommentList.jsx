@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import CommentContainer from './CommentContainer';
@@ -22,5 +23,5 @@ export default class CommentList extends React.PureComponent {
 }
 
 CommentList.propTypes = {
-  comments: React.PropTypes.array.isRequired,
+  comments: PropTypes.array.isRequired,
 };

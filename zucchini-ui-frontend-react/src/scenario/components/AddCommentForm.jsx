@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -63,6 +64,6 @@ export default class AddCommentForm extends React.PureComponent {
 }
 
 AddCommentForm.propTypes = {
-  scenarioId: React.PropTypes.string.isRequired,
-  onAddComment: React.PropTypes.func.isRequired,
+  scenarioId: PropTypes.string.isRequired,
+  onAddComment: PropTypes.func.isRequired,
 };

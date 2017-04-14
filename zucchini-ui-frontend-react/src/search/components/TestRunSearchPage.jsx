@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -93,9 +94,9 @@ export default class TestRunSearchPage extends React.Component {
 }
 
 TestRunSearchPage.propTypes = {
-  onLoad: React.PropTypes.func.isRequired,
-  onSearch: React.PropTypes.func.isRequired,
-  search: React.PropTypes.string.isRequired,
-  testRunId: React.PropTypes.string.isRequired,
-  testRun: React.PropTypes.object.isRequired,
+  onLoad: PropTypes.func.isRequired,
+  onSearch: PropTypes.func.isRequired,
+  search: PropTypes.string.isRequired,
+  testRunId: PropTypes.string.isRequired,
+  testRun: PropTypes.object.isRequired,
 };

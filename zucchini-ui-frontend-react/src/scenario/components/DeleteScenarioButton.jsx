@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import ConfirmActionButton from '../../ui/components/ConfirmActionButton';
@@ -31,6 +32,6 @@ export default class DeleteScenarioButton extends React.PureComponent {
 }
 
 DeleteScenarioButton.propTypes = {
-  scenarioId: React.PropTypes.string,
-  onDelete: React.PropTypes.func.isRequired,
+  scenarioId: PropTypes.string,
+  onDelete: PropTypes.func.isRequired,
 };

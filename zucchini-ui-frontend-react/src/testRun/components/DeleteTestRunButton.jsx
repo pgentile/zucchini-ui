@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import ConfirmActionButton from '../../ui/components/ConfirmActionButton';
@@ -31,6 +32,6 @@ export default class DeleteTestRunButton extends React.PureComponent {
 }
 
 DeleteTestRunButton.propTypes = {
-  testRunId: React.PropTypes.string,
-  onDelete: React.PropTypes.func.isRequired,
+  testRunId: PropTypes.string,
+  onDelete: PropTypes.func.isRequired,
 };

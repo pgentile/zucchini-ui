@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router';
 
@@ -32,6 +33,6 @@ export default class FeatureGroupFilter extends React.PureComponent {
 }
 
 FeatureGroupFilter.propTypes = {
-  testRunId: React.PropTypes.string.isRequired,
-  featureGroups: React.PropTypes.array.isRequired,
+  testRunId: PropTypes.string.isRequired,
+  featureGroups: PropTypes.array.isRequired,
 };

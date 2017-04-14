@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 import Button from 'react-bootstrap/lib/Button';
@@ -75,10 +76,10 @@ export default class ConfirmActionButton extends React.PureComponent {
 }
 
 ConfirmActionButton.propTypes = {
-  bsStyle: React.PropTypes.string,
-  actionGlyph: React.PropTypes.string,
-  actionLabel: React.PropTypes.string.isRequired,
-  title: React.PropTypes.string.isRequired,
-  message: React.PropTypes.string.isRequired,
-  onConfirm: React.PropTypes.func.isRequired,
+  bsStyle: PropTypes.string,
+  actionGlyph: PropTypes.string,
+  actionLabel: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
+  onConfirm: PropTypes.func.isRequired,
 };

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Table from 'react-bootstrap/lib/Table';
 
@@ -29,5 +30,5 @@ export default class StepTable extends React.PureComponent {
 }
 
 StepTable.propTypes = {
-  table: React.PropTypes.arrayOf(React.PropTypes.array).isRequired,
+  table: PropTypes.arrayOf(PropTypes.array).isRequired,
 };

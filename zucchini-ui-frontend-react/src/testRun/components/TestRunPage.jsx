@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 
@@ -76,8 +77,8 @@ export default class TestRunPage extends React.Component {
 }
 
 TestRunPage.propTypes = {
-  testRunId: React.PropTypes.string.isRequired,
-  selectedFeatureGroup: React.PropTypes.string,
-  testRun: React.PropTypes.object,
-  onLoad: React.PropTypes.func.isRequired,
+  testRunId: PropTypes.string.isRequired,
+  selectedFeatureGroup: PropTypes.string,
+  testRun: PropTypes.object,
+  onLoad: PropTypes.func.isRequired,
 };

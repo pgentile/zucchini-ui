@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import tokenizeFromInfo from '../tokenizeFromInfo';
@@ -35,5 +36,5 @@ export default class ElementInfo extends React.PureComponent {
 }
 
 ElementInfo.propTypes = {
-  info: React.PropTypes.object,
+  info: PropTypes.object,
 };

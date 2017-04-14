@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 
@@ -42,7 +43,7 @@ export default class FilterCheckboxes extends React.PureComponent {
 }
 
 FilterCheckboxes.propTypes = {
-  labels: React.PropTypes.object.isRequired,
-  filters: React.PropTypes.object.isRequired,
-  onFilterChange: React.PropTypes.func.isRequired,
+  labels: PropTypes.object.isRequired,
+  filters: PropTypes.object.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
 };

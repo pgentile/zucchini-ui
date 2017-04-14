@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router'
 
@@ -47,6 +48,6 @@ export default class Comment extends React.PureComponent {
 }
 
 Comment.propTypes = {
-  comment: React.PropTypes.object.isRequired,
-  testRunId: React.PropTypes.string,
+  comment: PropTypes.object.isRequired,
+  testRunId: PropTypes.string,
 };

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 
@@ -22,6 +23,6 @@ export default function ListWithSeparator({ children, separator }) {
 }
 
 ListWithSeparator.propTypes = {
-  separator: React.PropTypes.string.isRequired,
-  children: React.PropTypes.node,
+  separator: PropTypes.string.isRequired,
+  children: PropTypes.node,
 };

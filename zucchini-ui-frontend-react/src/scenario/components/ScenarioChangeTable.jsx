@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Table from 'react-bootstrap/lib/Table';
 
@@ -34,7 +35,7 @@ export default class ScenarioChangeTable extends React.PureComponent {
 }
 
 ScenarioChangeTable.propTypes = {
-  changes: React.PropTypes.arrayOf(React.PropTypes.object),
+  changes: PropTypes.arrayOf(PropTypes.object),
 };
 
 
@@ -91,7 +92,7 @@ class ScenarioChangeTableRow extends React.PureComponent {
 }
 
 ScenarioChangeTableRow.propTypes = {
-  change: React.PropTypes.object.isRequired,
+  change: PropTypes.object.isRequired,
 };
 
 
@@ -107,7 +108,7 @@ class StatusContent extends React.PureComponent {
 }
 
 StatusContent.propTypes = {
-  value: React.PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
 };
 
 
@@ -123,5 +124,5 @@ class ReviewedStateContent extends React.PureComponent {
 }
 
 ReviewedStateContent.propTypes = {
-  value: React.PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
 };

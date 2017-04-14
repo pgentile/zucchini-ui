@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import SimpleText from '../../ui/components/SimpleText';
@@ -72,10 +73,10 @@ export default class Step extends React.PureComponent {
 }
 
 Step.propTypes = {
-  scenarioId: React.PropTypes.string.isRequired,
-  step: React.PropTypes.object.isRequired,
-  special: React.PropTypes.bool.isRequired,
-  filters: React.PropTypes.object.isRequired,
+  scenarioId: PropTypes.string.isRequired,
+  step: PropTypes.object.isRequired,
+  special: PropTypes.bool.isRequired,
+  filters: PropTypes.object.isRequired,
 };
 
 Step.defaultProps = {

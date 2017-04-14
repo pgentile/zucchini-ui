@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 import Button from 'react-bootstrap/lib/Button';
@@ -146,8 +147,8 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
 }
 
 UpdateScenarioStateDialog.propTypes = {
-  show: React.PropTypes.bool.isRequired,
-  scenario: React.PropTypes.object.isRequired,
-  onClose: React.PropTypes.func.isRequired,
-  onUpdateState: React.PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+  scenario: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onUpdateState: PropTypes.func.isRequired,
 };

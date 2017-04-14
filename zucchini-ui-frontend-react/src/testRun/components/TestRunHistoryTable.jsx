@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Table from 'react-bootstrap/lib/Table';
 import Badge from 'react-bootstrap/lib/Badge';
@@ -39,9 +40,9 @@ export default class TestRunHistoryTable extends React.PureComponent {
 }
 
 TestRunHistoryTable.propTypes = {
-  testRunId: React.PropTypes.string.isRequired,
-  testRunType: React.PropTypes.string,
-  history: React.PropTypes.arrayOf(React.PropTypes.object),
+  testRunId: PropTypes.string.isRequired,
+  testRunType: PropTypes.string,
+  history: PropTypes.arrayOf(PropTypes.object),
 };
 
 
@@ -69,6 +70,6 @@ class TestRunHistoryTableTableRow extends React.PureComponent {
 }
 
 TestRunHistoryTableTableRow.propTypes = {
-  testRun: React.PropTypes.object.isRequired,
-  isActive: React.PropTypes.bool.isRequired,
+  testRun: PropTypes.object.isRequired,
+  isActive: PropTypes.bool.isRequired,
 };

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
@@ -88,7 +89,7 @@ export default class ScenarioStats extends React.PureComponent {
 }
 
 ScenarioStats.propTypes = {
-  stats: React.PropTypes.object.isRequired,
-  showDetails: React.PropTypes.bool.isRequired,
-  onToggleDetails: React.PropTypes.func.isRequired,
+  stats: PropTypes.object.isRequired,
+  showDetails: PropTypes.bool.isRequired,
+  onToggleDetails: PropTypes.func.isRequired,
 };

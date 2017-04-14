@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Label from 'react-bootstrap/lib/Label';
 
@@ -21,5 +22,5 @@ export default class TagList extends React.PureComponent {
 }
 
 TagList.propTypes = {
-  tags: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  tags: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

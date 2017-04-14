@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import tokenizeUrls from '../tokenizeUrls';
@@ -38,5 +39,5 @@ export default class SimpleText extends React.PureComponent {
 }
 
 SimpleText.propTypes = {
-  text: React.PropTypes.string,
+  text: PropTypes.string,
 };

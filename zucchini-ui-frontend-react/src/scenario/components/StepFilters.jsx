@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Popover from 'react-bootstrap/lib/Popover';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -48,6 +49,6 @@ export default class StepFilters extends React.PureComponent {
 }
 
 StepFilters.propTypes = {
-  filters: React.PropTypes.object.isRequired,
-  onFilterChange: React.PropTypes.func.isRequired,
+  filters: PropTypes.object.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
 };

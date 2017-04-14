@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import Button from 'react-bootstrap/lib/Button';
@@ -126,7 +127,7 @@ export default class ScenarioPage extends React.Component {
 }
 
 ScenarioPage.propTypes = {
-  onLoad: React.PropTypes.func.isRequired,
-  scenarioId: React.PropTypes.string.isRequired,
-  scenario: React.PropTypes.object,
+  onLoad: PropTypes.func.isRequired,
+  scenarioId: PropTypes.string.isRequired,
+  scenario: PropTypes.object,
 };

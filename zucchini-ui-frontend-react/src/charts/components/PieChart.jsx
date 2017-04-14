@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Chartist from 'chartist';
@@ -57,9 +58,9 @@ export default class PieChart extends React.Component {
 }
 
 PieChart.propTypes = {
-  data: React.PropTypes.any.isRequired,
-  total: React.PropTypes.number.isRequired,
-  showLabel: React.PropTypes.bool.isRequired,
-  donutWidth: React.PropTypes.number.isRequired,
-  style: React.PropTypes.object,
+  data: PropTypes.any.isRequired,
+  total: PropTypes.number.isRequired,
+  showLabel: PropTypes.bool.isRequired,
+  donutWidth: PropTypes.number.isRequired,
+  style: PropTypes.object,
 };

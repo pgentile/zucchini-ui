@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 
@@ -43,6 +44,6 @@ export default class ScenarioStateFilter extends React.PureComponent {
 }
 
 ScenarioStateFilter.propTypes = {
-  filters: React.PropTypes.object.isRequired,
-  onFilterChange: React.PropTypes.func.isRequired,
+  filters: PropTypes.object.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
 };

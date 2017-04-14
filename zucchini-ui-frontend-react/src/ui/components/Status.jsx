@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Label from 'react-bootstrap/lib/Label';
 
@@ -61,5 +62,5 @@ export default class Status extends React.PureComponent {
 }
 
 Status.propTypes = {
-  status: React.PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
 };

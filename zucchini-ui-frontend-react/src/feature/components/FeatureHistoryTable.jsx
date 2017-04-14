@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Table from 'react-bootstrap/lib/Table';
 import Badge from 'react-bootstrap/lib/Badge';
@@ -41,8 +42,8 @@ export default class FeatureHistoryTable extends React.PureComponent {
 }
 
 FeatureHistoryTable.propTypes = {
-  featureId: React.PropTypes.string.isRequired,
-  history: React.PropTypes.arrayOf(React.PropTypes.object),
+  featureId: PropTypes.string.isRequired,
+  history: PropTypes.arrayOf(PropTypes.object),
 };
 
 
@@ -71,6 +72,6 @@ class FeatureHistoryTableRow extends React.PureComponent {
 }
 
 FeatureHistoryTableRow.propTypes = {
-  feature: React.PropTypes.object.isRequired,
-  isActive: React.PropTypes.bool.isRequired,
+  feature: PropTypes.object.isRequired,
+  isActive: PropTypes.bool.isRequired,
 };

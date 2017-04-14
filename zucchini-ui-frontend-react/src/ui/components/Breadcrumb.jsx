@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router';
 
@@ -33,5 +34,5 @@ export default class Breadcrumb extends React.PureComponent {
 }
 
 Breadcrumb.propTypes = {
-  items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+  items: PropTypes.arrayOf(PropTypes.object).isRequired
 };

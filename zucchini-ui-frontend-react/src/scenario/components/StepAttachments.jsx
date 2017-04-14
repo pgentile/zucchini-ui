@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ListGroup from 'react-bootstrap/lib/ListGroup';
 import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
@@ -44,6 +45,6 @@ export default class StepAttachments extends React.PureComponent {
 }
 
 StepAttachments.propTypes = {
-  scenarioId: React.PropTypes.string.isRequired,
-  attachments: React.PropTypes.array.isRequired,
+  scenarioId: PropTypes.string.isRequired,
+  attachments: PropTypes.array.isRequired,
 };

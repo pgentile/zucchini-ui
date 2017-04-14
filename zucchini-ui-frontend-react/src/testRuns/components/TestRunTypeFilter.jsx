@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router';
 
@@ -30,5 +31,5 @@ export default class TestRunTypeFilter extends React.PureComponent {
 }
 
 TestRunTypeFilter.propTypes = {
-  testRunTypes: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  testRunTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

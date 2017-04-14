@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Table from 'react-bootstrap/lib/Table';
 import Label from 'react-bootstrap/lib/Label';
@@ -35,8 +36,8 @@ export default class ScenarioTable extends React.PureComponent {
 }
 
 ScenarioTable.propTypes = {
-  scenarios: React.PropTypes.arrayOf(React.PropTypes.object),
-  selectedScenarioId: React.PropTypes.string,
+  scenarios: PropTypes.arrayOf(PropTypes.object),
+  selectedScenarioId: PropTypes.string,
 };
 
 
@@ -71,6 +72,6 @@ class ScenarioTableRow extends React.PureComponent {
 }
 
 ScenarioTableRow.propTypes = {
-  scenario: React.PropTypes.object.isRequired,
-  isActive: React.PropTypes.bool.isRequired,
+  scenario: PropTypes.object.isRequired,
+  isActive: PropTypes.bool.isRequired,
 };

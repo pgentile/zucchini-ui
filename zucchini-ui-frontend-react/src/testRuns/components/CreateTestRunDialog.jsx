@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 import Button from 'react-bootstrap/lib/Button';
@@ -77,7 +78,7 @@ export default class CreateTestRunDialog extends React.PureComponent {
 }
 
 CreateTestRunDialog.propTypes = {
-  show: React.PropTypes.bool.isRequired,
-  onClose: React.PropTypes.func.isRequired,
-  onCreateTestRun: React.PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onCreateTestRun: PropTypes.func.isRequired,
 };

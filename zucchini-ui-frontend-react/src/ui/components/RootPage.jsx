@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
@@ -34,9 +35,9 @@ export default function RoutePage({ main, breadcrum, search }) {
 }
 
 RoutePage.propTypes = {
-  main: React.PropTypes.node.isRequired,
-  breadcrum: React.PropTypes.node.isRequired,
-  search: React.PropTypes.node,
+  main: PropTypes.node.isRequired,
+  breadcrum: PropTypes.node.isRequired,
+  search: PropTypes.node,
 };
 
 
@@ -49,5 +50,5 @@ function NavItem({ children }) {
 }
 
 NavItem.propTypes = {
-  children: React.PropTypes.node,
+  children: PropTypes.node,
 };

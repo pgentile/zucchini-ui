@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Step from './Step';
@@ -26,9 +27,9 @@ export default class ActionStep extends React.PureComponent {
 }
 
 ActionStep.propTypes = {
-  scenarioId: React.PropTypes.string.isRequired,
-  name: React.PropTypes.string.isRequired,
-  action: React.PropTypes.object.isRequired,
-  index: React.PropTypes.number.isRequired,
-  filters: React.PropTypes.object.isRequired,
+  scenarioId: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  action: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
+  filters: PropTypes.object.isRequired,
 };

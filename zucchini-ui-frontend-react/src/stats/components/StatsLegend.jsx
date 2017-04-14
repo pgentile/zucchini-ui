@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Table from 'react-bootstrap/lib/Table';
 import Label from 'react-bootstrap/lib/Label';
@@ -57,7 +58,7 @@ export default class StatsLegend extends React.PureComponent {
 }
 
 StatsLegend.propTypes = {
-  stats: React.PropTypes.object.isRequired,
+  stats: PropTypes.object.isRequired,
 };
 
 

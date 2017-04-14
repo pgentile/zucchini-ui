@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import PieChart from '../../charts/components/PieChart';
@@ -52,7 +53,7 @@ export default class StatsPieChart extends React.PureComponent {
 }
 
 StatsPieChart.propTypes = {
-  stats: React.PropTypes.object.isRequired,
-  total: React.PropTypes.number.isRequired,
-  showDetails: React.PropTypes.bool.isRequired,
+  stats: PropTypes.object.isRequired,
+  total: PropTypes.number.isRequired,
+  showDetails: PropTypes.bool.isRequired,
 };

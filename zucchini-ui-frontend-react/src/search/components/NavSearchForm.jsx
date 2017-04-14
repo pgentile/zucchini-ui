@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -60,6 +61,6 @@ export default class NavSearchForm extends React.PureComponent {
 }
 
 NavSearchForm.propTypes = {
-  testRunId: React.PropTypes.string,
-  onSearch: React.PropTypes.func.isRequired,
+  testRunId: PropTypes.string,
+  onSearch: PropTypes.func.isRequired,
 };
