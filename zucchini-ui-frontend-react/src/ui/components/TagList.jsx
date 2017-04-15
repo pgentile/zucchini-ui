@@ -8,7 +8,11 @@ import ListWithSeparator from './ListWithSeparator';
 export default class TagList extends React.PureComponent {
 
   render() {
-    const { tags } = this.props;
+    let { tags } = this.props;
+
+    // Sort tag list before display
+    tags = [...tags];
+    tags.sort();
 
     const tagElements = tags.map(tag => (
       <Label key={tag} bsStyle="info">@{tag}</Label>
