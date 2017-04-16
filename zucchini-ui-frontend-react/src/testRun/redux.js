@@ -36,7 +36,7 @@ export function loadTestRunPage({ testRunId }) {
       const testRun = result.value;
       const testRunType = testRun.type;
       return dispatch(getTestRunHistoryByType({ testRunId, testRunType }));
-    })
+    });
 
     // Merge results in a promise
     return Promise.all([testRun$, stats$, history$]).then(() => null);
@@ -98,6 +98,14 @@ export function deleteTestRunThenRedirect({ testRunId }) {
     const deleteTestRun$ = dispatch(deleteTestRun({ testRunId }));
 
     deleteTestRun$.then(dispatch(replace('/')));
+  };
+}
+
+export function importCucumberResult({ testRunId, file, ...options }) {
+  return dispatch => {
+    const import$ = model.importCucumberResult({ testRunId, file, ...options });
+
+    return import$.then(() => dispatch(loadTestRunPage({ testRunId })));
   };
 }
 

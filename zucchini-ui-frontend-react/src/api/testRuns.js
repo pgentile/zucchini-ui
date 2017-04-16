@@ -31,6 +31,25 @@ class TestRunsApi {
     });
   }
 
+  importCucumberResult({ testRunId, file, ...options }) {
+    const url = this.client.createUrl({
+      path: `${testRunId}/import`,
+      query: options,
+    });
+
+    const fetchParams = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: file,
+    };
+
+    return fetch(url, fetchParams)
+      .then(response => this.client.handleError({ url, response }));
+  }
+
 }
 
 const testRuns = new TestRunsApi(configuration.ui.backendBaseUri);

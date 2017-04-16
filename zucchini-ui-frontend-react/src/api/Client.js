@@ -71,11 +71,8 @@ export default class Client {
     const url = this.createUrl({ path, query });
 
     return fetch(url, fetchParams)
+      .then(response => this.handleError({ url, response }))
       .then(response => {
-        if (!response.ok) {
-          throw new ClientError(`Got failed response on ${url}: ${response.status} ${response.statusText}`);
-        }
-
         if (hasOutput !== undefined && !hasOutput) {
           return null;
         }
@@ -100,6 +97,14 @@ export default class Client {
     }
 
     return url;
+  }
+
+  handleError({ url, response }) {
+    if (!response.ok) {
+      throw new ClientError(`Got failed response on ${url}: ${response.status} ${response.statusText}`);
+    }
+
+    return response;
   }
 
 }

@@ -31,6 +31,10 @@ export function deleteTestRun({ testRunId }) {
   return testRunsApi.deleteTestRun({ testRunId });
 }
 
+export function importCucumberResult({ testRunId, file, ...options }) {
+  return testRunsApi.importCucumberResult({ testRunId, file, ...options });
+}
+
 const ZERO_STATS_NUMBERS = {
   count: 0,
   passed: 0,

@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
+import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
+import Button from 'react-bootstrap/lib/Button';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 import toNiceDate from '../../ui/toNiceDate';
 import FeatureStateFilterContainer from './FeatureStateFilterContainer';
@@ -9,9 +12,21 @@ import TestRunStatsContainer from './TestRunStatsContainer';
 import TestRunFeatureTableContainer from './TestRunFeatureTableContainer';
 import FeatureGroupFilterContainer from './FeatureGroupFilterContainer';
 import DeleteTestRunButtonContainer from './DeleteTestRunButtonContainer';
+import ImportCucumberResultsDialogContainer from './ImportCucumberResultsDialogContainer';
 
 
 export default class TestRunPage extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.onImportCucumberResultButtonClick = this.onImportCucumberResultButtonClick.bind(this);
+    this.hideImportCucumberResultDialog = this.hideImportCucumberResultDialog.bind(this);
+
+    this.state = {
+      showImportCucumberResultDialog: false,
+    };
+  }
 
   componentDidMount() {
     this.loadTestRunIfPossible();
@@ -46,7 +61,14 @@ export default class TestRunPage extends React.Component {
 
         <hr />
         <ButtonToolbar>
-          <DeleteTestRunButtonContainer testRunId={testRunId} />
+          <ButtonGroup>
+            <Button onClick={this.onImportCucumberResultButtonClick}>
+              <Glyphicon glyph="upload" /> Importer un résultat de tests Cucumber
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup>
+            <DeleteTestRunButtonContainer testRunId={testRunId} />
+          </ButtonGroup>
         </ButtonToolbar>
 
         <hr />
@@ -62,6 +84,11 @@ export default class TestRunPage extends React.Component {
         <h2>Historique</h2>
         <TestRunHistoryTableContainer testRunId={testRunId} />
 
+        <ImportCucumberResultsDialogContainer
+            testRunId={testRunId}
+            show={this.state.showImportCucumberResultDialog}
+            onClose={this.hideImportCucumberResultDialog}/>
+
       </div>
     );
   }
@@ -72,6 +99,18 @@ export default class TestRunPage extends React.Component {
     if (testRunId !== prevProps.testRunId) {
       this.props.onLoad({ testRunId: this.props.testRunId });
     }
+  }
+
+  onImportCucumberResultButtonClick() {
+    this.setState({
+      showImportCucumberResultDialog: true,
+    });
+  }
+
+  hideImportCucumberResultDialog() {
+    this.setState({
+      showImportCucumberResultDialog: false,
+    });
   }
 
 }
