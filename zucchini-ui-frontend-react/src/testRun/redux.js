@@ -22,6 +22,8 @@ const GET_FEATURES_FULFILLED = `${GET_FEATURES}_FULFILLED`;
 
 const DELETE_TEST_RUN = `${PREFIX}/DELETE_TEST_RUN`;
 
+const IMPORT_CUCUMBER_RESULTS = `${PREFIX}/IMPORT_CUCUMBER_RESULTS`;
+
 
 // Action creators
 
@@ -102,8 +104,18 @@ export function deleteTestRunThenRedirect({ testRunId }) {
 }
 
 export function importCucumberResult({ testRunId, file, ...options }) {
+  return {
+    type: IMPORT_CUCUMBER_RESULTS,
+    payload: model.importCucumberResult({ testRunId, file, ...options }),
+    meta: {
+      testRunId,
+    },
+  };
+}
+
+export function importCucumberResultThenReload({ testRunId, file, ...options }) {
   return dispatch => {
-    const import$ = model.importCucumberResult({ testRunId, file, ...options });
+    const import$ = dispatch(importCucumberResult({ testRunId, file, ...options }));
 
     return import$.then(() => dispatch(loadTestRunPage({ testRunId })));
   };

@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 
 import ImportCucumberResultsDialog from './ImportCucumberResultsDialog';
-import { importCucumberResult } from '../redux';
+import { importCucumberResultThenReload } from '../redux';
 
 
 const ImportCucumberResultsDialogContainer = connect(
   undefined,
   {
-    onImportCucumberResult: importCucumberResult,
+    onImportCucumberResult: importCucumberResultThenReload,
   },
 )(ImportCucumberResultsDialog);
 
