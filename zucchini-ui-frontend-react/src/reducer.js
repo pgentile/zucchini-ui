@@ -7,6 +7,7 @@ import { testRun } from './testRun/redux';
 import { feature } from './feature/redux';
 import { scenario } from './scenario/redux';
 import { searchResults } from './search/redux';
+import { errors } from './errors/redux';
 
 
 const reducer = combineReducers({
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   feature,
   scenario,
   searchResults,
+  errors,
 });
 
 export default reducer;

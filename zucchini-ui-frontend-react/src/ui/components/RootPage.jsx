@@ -4,6 +4,8 @@ import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import { Link } from 'react-router';
 
+import ErrorAlertContainer from '../../errors/components/ErrorAlertContainer';
+
 
 export default function RoutePage({ main, breadcrum, search }) {
   return (
@@ -26,6 +28,7 @@ export default function RoutePage({ main, breadcrum, search }) {
       </Navbar>
 
       <div className="container">
+        <ErrorAlertContainer />
         {breadcrum}
         {main}
       </div>
