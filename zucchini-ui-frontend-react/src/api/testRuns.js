@@ -50,6 +50,17 @@ class TestRunsApi {
       .then(response => this.client.handleError({ url, response }));
   }
 
+  editTestRun({ testRunId, type, labels }) {
+    return this.client.patch({
+      path: testRunId,
+      hasOutput: false,
+      body: {
+        type,
+        labels,
+      },
+    });
+  }
+
 }
 
 const testRuns = new TestRunsApi(configuration.ui.backendBaseUri);

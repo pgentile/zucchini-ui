@@ -13,6 +13,7 @@ import TestRunFeatureTableContainer from './TestRunFeatureTableContainer';
 import FeatureGroupFilterContainer from './FeatureGroupFilterContainer';
 import DeleteTestRunButtonContainer from './DeleteTestRunButtonContainer';
 import ImportCucumberResultsDialogContainer from './ImportCucumberResultsDialogContainer';
+import EditTestRunDialogContainer from './EditTestRunDialogContainer';
 
 
 export default class TestRunPage extends React.Component {
@@ -22,9 +23,12 @@ export default class TestRunPage extends React.Component {
 
     this.onImportCucumberResultButtonClick = this.onImportCucumberResultButtonClick.bind(this);
     this.hideImportCucumberResultDialog = this.hideImportCucumberResultDialog.bind(this);
+    this.onEditButtonClick = this.onEditButtonClick.bind(this);
+    this.hideEditDialog = this.hideEditDialog.bind(this);
 
     this.state = {
       showImportCucumberResultDialog: false,
+      showEditDialog: false,
     };
   }
 
@@ -67,6 +71,11 @@ export default class TestRunPage extends React.Component {
             </Button>
           </ButtonGroup>
           <ButtonGroup>
+            <Button onClick={this.onEditButtonClick}>
+              <Glyphicon glyph="pencil" /> Modifier
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup>
             <DeleteTestRunButtonContainer testRunId={testRunId} />
           </ButtonGroup>
         </ButtonToolbar>
@@ -87,8 +96,12 @@ export default class TestRunPage extends React.Component {
         <ImportCucumberResultsDialogContainer
             testRunId={testRunId}
             show={this.state.showImportCucumberResultDialog}
-            onClose={this.hideImportCucumberResultDialog}/>
+            onClose={this.hideImportCucumberResultDialog} />
 
+        <EditTestRunDialogContainer
+            testRun={testRun}
+            show={this.state.showEditDialog}
+            onClose={this.hideEditDialog} />
       </div>
     );
   }
@@ -110,6 +123,18 @@ export default class TestRunPage extends React.Component {
   hideImportCucumberResultDialog() {
     this.setState({
       showImportCucumberResultDialog: false,
+    });
+  }
+
+  onEditButtonClick() {
+    this.setState({
+      showEditDialog: true,
+    });
+  }
+
+  hideEditDialog() {
+    this.setState({
+      showEditDialog: false,
     });
   }
 

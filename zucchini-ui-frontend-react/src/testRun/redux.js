@@ -24,6 +24,8 @@ const DELETE_TEST_RUN = `${PREFIX}/DELETE_TEST_RUN`;
 
 const IMPORT_CUCUMBER_RESULTS = `${PREFIX}/IMPORT_CUCUMBER_RESULTS`;
 
+const EDIT_TEST_RUN = `${PREFIX}/EDIT_TEST_RUN`;
+
 
 // Action creators
 
@@ -118,6 +120,24 @@ export function importCucumberResultThenReload({ testRunId, file, ...options }) 
     const import$ = dispatch(importCucumberResult({ testRunId, file, ...options }));
 
     return import$.then(() => dispatch(loadTestRunPage({ testRunId })));
+  };
+}
+
+export function editTestRun({ testRunId, type, labels }) {
+  return {
+    type: EDIT_TEST_RUN,
+    payload: model.editTestRun({ testRunId, type, labels }),
+    meta: {
+      testRunId,
+    },
+  };
+}
+
+export function editTestRunThenReload({ testRunId, type, labels }) {
+  return dispatch => {
+    const editTestRun$ = dispatch(editTestRun({ testRunId, type, labels }));
+
+    return editTestRun$.then(() => dispatch(loadTestRunPage({ testRunId })));
   };
 }
 
