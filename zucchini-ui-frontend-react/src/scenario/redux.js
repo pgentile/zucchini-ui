@@ -118,39 +118,39 @@ export function deleteScenario({ scenarioId }) {
 }
 
 export function updateScenarioStateAndComment({ scenarioId, newState, comment }) {
-  return dispatch => {
-    const updateScenarioState$ = dispatch(updateScenarioState({
+  return async dispatch => {
+    await dispatch(updateScenarioState({
       scenarioId,
       newState,
     }));
 
-    let addComment$ = Promise.resolve(null);
     if (comment) {
-      addComment$ = dispatch(addScenarioComment({ scenarioId, comment }));
+      await dispatch(addScenarioComment({ scenarioId, comment }));
     }
 
-    return Promise.all([updateScenarioState$, addComment$])
-      .then(() => dispatch(loadScenarioPage({ scenarioId })))
-      .then(() => null);
+    await dispatch(loadScenarioPage({ scenarioId }));
+
+    return null;
   }
 }
 
 export function addScenarioCommentAndReload({ scenarioId, comment }) {
-  return dispatch => {
-    const addComment$ = dispatch(addScenarioComment({ scenarioId, comment }));
+  return async dispatch => {
+    await dispatch(addScenarioComment({ scenarioId, comment }));
+    await dispatch(loadScenarioPage({ scenarioId }));
 
-    return addComment$
-      .then(() => dispatch(loadScenarioPage({ scenarioId })))
-      .then(() => null);
+    return null;
   };
 }
 
 export function deleteScenarioThenRedirect({ scenarioId }) {
-  return (dispatch, getState) => {
-    const deleteScenario$ = dispatch(deleteScenario({ scenarioId }));
+  return async (dispatch, getState) => {
+    await dispatch(deleteScenario({ scenarioId }));
 
     const featureId = getState().feature.feature.id;
-    deleteScenario$.then(dispatch(replace(`/features/${featureId}`)));
+    await dispatch(replace(`/features/${featureId}`));
+
+    return null;
   };
 }
 
