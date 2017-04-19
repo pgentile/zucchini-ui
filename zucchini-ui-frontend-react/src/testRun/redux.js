@@ -30,20 +30,21 @@ const EDIT_TEST_RUN = `${PREFIX}/EDIT_TEST_RUN`;
 // Action creators
 
 export function loadTestRunPage({ testRunId }) {
-  return dispatch => {
-    // Load test run, stats, history
+  return async dispatch => {
+    const testRunResult$ = dispatch(getTestRun({ testRunId }));
+    const statsResult$ = dispatch(getTestRunStats({ testRunId }));
+    const featuresResult$ = dispatch(getFeatures({ testRunId }));
 
-    const testRun$ = dispatch(getTestRun({ testRunId }));
-    const stats$ = dispatch(getTestRunStats({ testRunId }));
+    const testRunResult = await testRunResult$;
+    const testRunType = testRunResult.value.type;
+    const historyResult$ = dispatch(getTestRunHistoryByType({ testRunId, testRunType }));
 
-    const history$ = testRun$.then(result => {
-      const testRun = result.value;
-      const testRunType = testRun.type;
-      return dispatch(getTestRunHistoryByType({ testRunId, testRunType }));
-    });
+    await testRunResult$;
+    await statsResult$;
+    await historyResult$;
+    await featuresResult$;
 
-    // Merge results in a promise
-    return Promise.all([testRun$, stats$, history$]).then(() => null);
+    return null;
   };
 }
 
