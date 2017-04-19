@@ -30,32 +30,30 @@ const DELETE_SCENARIO = `${PREFIX}/DELETE_SCENARIO`;
 // Action creators
 
 export function loadScenarioPage({ scenarioId }) {
-  return dispatch => {
+  return async dispatch => {
 
-    const scenario$ = dispatch(getScenario({ scenarioId }));
+    const scenarioResult$ = dispatch(getScenario({ scenarioId }));
+    const historyResult$ = dispatch(getScenarioHistory({ scenarioId }));
+    const commentsResult$ = dispatch(getScenarioComments({ scenarioId }));
 
-    const testRun$ = scenario$.then(result => {
-      const scenario = result.value;
-      const testRunId = scenario.testRunId;
-      return dispatch(getTestRun({ testRunId }));
-    });
+    const scenarioResult = await scenarioResult$;
+    const scenario = scenarioResult.value;
+    const { testRunId, featureId } = scenario;
 
-    const feature$ = scenario$.then(result => {
-      const scenario = result.value;
-      const featureId = scenario.featureId;
-      return dispatch(getFeature({ featureId }));
-    });
+    const testRunResult$ = dispatch(getTestRun({ testRunId }));
+    const featureResult$ = dispatch(getFeature({ featureId }));
+    const sameFeatureScenariosResult$ = dispatch(getScenarios({ featureId }));
 
-    const sameFeatureScenarios$ = scenario$.then(result => {
-      const scenario = result.value;
-      const featureId = scenario.featureId;
-      return dispatch(getScenarios({ featureId }));
-    });
+    await Promise.all([
+      scenarioResult$,
+      historyResult$,
+      commentsResult$,
+      testRunResult$,
+      featureResult$,
+      sameFeatureScenariosResult$,
+    ]);
 
-    const history$ = dispatch(getScenarioHistory({ scenarioId }));
-    const comments$ = dispatch(getScenarioComments({ scenarioId }));
-
-    return Promise.all([scenario$, testRun$, feature$, history$, comments$, sameFeatureScenarios$]).then(() => null);
+    return null;
   };
 }
 
