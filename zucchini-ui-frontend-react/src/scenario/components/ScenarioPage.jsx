@@ -15,6 +15,7 @@ import CommentListContainer from './CommentListContainer';
 import ScenarioDetailsContainer from './ScenarioDetailsContainer';
 import AddCommentFormContainer from './AddCommentFormContainer';
 import DeleteScenarioButtonContainer from './DeleteScenarioButtonContainer';
+import UpdateScenarioReviewedStateDialogContainer from './UpdateScenarioReviewedStateDialogContainer';
 import ScenarioChangeTable from './ScenarioChangeTable';
 
 
@@ -24,11 +25,14 @@ export default class ScenarioPage extends React.Component {
     super(props);
 
     this.onUpdateStateClick = this.onUpdateStateClick.bind(this);
+    this.onUpdateReviewedStateClick = this.onUpdateReviewedStateClick.bind(this);
     this.showUpdateStateDialog = this.showUpdateStateDialog.bind(this);
     this.hideUpdateStateDialog = this.hideUpdateStateDialog.bind(this);
+    this.hideSetReviewedStateDialog = this.hideSetReviewedStateDialog.bind(this);
 
     this.state = {
       showUpdateStateDialog: false,
+      showSetReviewedStateDialog: false,
     };
   }
 
@@ -42,6 +46,7 @@ export default class ScenarioPage extends React.Component {
 
   render() {
     const { scenario, scenarioId } = this.props;
+    const { reviewed } = scenario;
 
     return (
       <div>
@@ -59,6 +64,13 @@ export default class ScenarioPage extends React.Component {
           <ButtonGroup>
             <Button onClick={this.onUpdateStateClick}>
               <Glyphicon glyph="flag" /> Modifier le statut&hellip;
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup>
+            <Button onClick={this.onUpdateReviewedStateClick}>
+              <Glyphicon glyph={reviewed ? 'eye-close' : 'eye-open'} />
+              {' '}
+              {reviewed ? 'Marquer comme non analysé' : 'Marquer comme analysé'}
             </Button>
           </ButtonGroup>
           <ButtonGroup>
@@ -95,7 +107,14 @@ export default class ScenarioPage extends React.Component {
         <HistoryFilterContainer />
         <ScenarioHistoryTableContainer scenarioId={scenarioId} />
 
-        <UpdateScenarioStateDialogContainer show={this.state.showUpdateStateDialog} onClose={this.hideUpdateStateDialog} />
+        <UpdateScenarioStateDialogContainer
+          show={this.state.showUpdateStateDialog}
+          onClose={this.hideUpdateStateDialog} />
+
+        <UpdateScenarioReviewedStateDialogContainer
+          scenarioId={scenarioId}
+          show={this.state.showSetReviewedStateDialog}
+          onClose={this.hideSetReviewedStateDialog} />
 
       </div>
     );
@@ -112,6 +131,19 @@ export default class ScenarioPage extends React.Component {
     this.showUpdateStateDialog();
   }
 
+  onUpdateReviewedStateClick() {
+    const { scenarioId, scenario, onSetNonReviewedState } = this.props;
+    const { reviewed } = scenario;
+
+    if (reviewed) {
+      onSetNonReviewedState({ scenarioId });
+    } else {
+      this.setState({
+        showSetReviewedStateDialog: true,
+      });
+    }
+  }
+
   showUpdateStateDialog() {
     this.setState({
       showUpdateStateDialog: true,
@@ -124,10 +156,18 @@ export default class ScenarioPage extends React.Component {
     });
   }
 
+  hideSetReviewedStateDialog() {
+    this.setState({
+      showSetReviewedStateDialog: false,
+    });
+
+  }
+
 }
 
 ScenarioPage.propTypes = {
   onLoad: PropTypes.func.isRequired,
+  onSetNonReviewedState: PropTypes.func.isRequired,
   scenarioId: PropTypes.string.isRequired,
   scenario: PropTypes.object,
 };

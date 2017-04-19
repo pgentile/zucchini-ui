@@ -154,6 +154,25 @@ export function deleteScenarioThenRedirect({ scenarioId }) {
   };
 }
 
+export function setNonReviewedStateThenReload({ scenarioId }) {
+  return updateScenarioStateAndComment({
+    scenarioId,
+    newState: {
+      reviewed: false,
+    },
+  });
+}
+
+export function setScenarioReviewedStateAndComment({ scenarioId, comment }) {
+  return updateScenarioStateAndComment({
+    scenarioId,
+    newState: {
+      reviewed: true,
+    },
+    comment,
+  });
+}
+
 
 // Reducer
 

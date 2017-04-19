@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 
 import ScenarioPage from './ScenarioPage';
-import { loadScenarioPage } from '../redux';
+import { loadScenarioPage, setNonReviewedStateThenReload } from '../redux';
 
 
 const selectScenarioId = createSelector(
@@ -25,6 +25,7 @@ const ScenarioPageContainer = connect(
   selectProps,
   {
     onLoad: loadScenarioPage,
+    onSetNonReviewedState: setNonReviewedStateThenReload,
   },
 )(ScenarioPage);
 
