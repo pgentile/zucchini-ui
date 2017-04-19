@@ -110,7 +110,7 @@ export default class TestRunPage extends React.Component {
     const { testRunId } = this.props;
 
     if (testRunId !== prevProps.testRunId) {
-      this.props.onLoad({ testRunId: this.props.testRunId });
+      this.props.onLoad({ testRunId });
     }
   }
 
