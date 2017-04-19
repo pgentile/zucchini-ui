@@ -9,14 +9,6 @@ import Status from '../../ui/components/Status';
 
 export default class TestRunFeatureTable extends React.Component {
 
-  componentDidMount() {
-    this.loadFeaturesIfPossible({});
-  }
-
-  componentDidUpdate(prevProps) {
-    this.loadFeaturesIfPossible(prevProps);
-  }
-
   render() {
     const { features } = this.props;
 
@@ -46,20 +38,10 @@ export default class TestRunFeatureTable extends React.Component {
     );
   }
 
-  loadFeaturesIfPossible(prevProps) {
-    const { testRunId } = this.props;
-
-    if (testRunId !== prevProps.testRunId) {
-      this.props.onLoad({ testRunId });
-    }
-  }
-
 }
 
 TestRunFeatureTable.propTypes = {
-  testRunId: PropTypes.string.isRequired,
   features: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onLoad: PropTypes.func.isRequired,
 };
 
 
