@@ -5,6 +5,7 @@ import Badge from 'react-bootstrap/lib/Badge';
 import Label from 'react-bootstrap/lib/Label';
 import { Link } from 'react-router'
 
+import Status from '../../ui/components/Status';
 import toNiceDate from '../../ui/toNiceDate';
 
 
@@ -25,7 +26,8 @@ export default class FeatureHistoryTable extends React.PureComponent {
         <thead>
           <tr>
             <th className="col-md-2">Type</th>
-            <th className="col-md-4">Tir de test</th>
+            <th className="col-md-3">Tir de test</th>
+            <th className="col-md-1">Statut</th>
             <th className="col-md-1">Total</th>
             <th className="col-md-1">Succès</th>
             <th className="col-md-1">Échecs</th>
@@ -59,6 +61,7 @@ class FeatureHistoryTableRow extends React.PureComponent {
         <td>
           <Link to={`/features/${feature.id}`}>Tir du {toNiceDate(feature.testRun.date)}</Link>
         </td>
+        <td><Status status={feature.status} /></td>
         <td><Badge>{feature.stats.all.count}</Badge></td>
         <td><Badge>{feature.stats.all.passed}</Badge></td>
         <td><Badge>{feature.stats.all.failed}</Badge></td>
