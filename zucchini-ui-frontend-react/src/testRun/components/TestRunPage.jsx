@@ -14,6 +14,7 @@ import FeatureGroupFilterContainer from './FeatureGroupFilterContainer';
 import DeleteTestRunButtonContainer from './DeleteTestRunButtonContainer';
 import ImportCucumberResultsDialogContainer from './ImportCucumberResultsDialogContainer';
 import EditTestRunDialogContainer from './EditTestRunDialogContainer';
+import TestRunTrendChartContainer from './TestRunTrendChartContainer';
 
 
 export default class TestRunPage extends React.Component {
@@ -80,7 +81,6 @@ export default class TestRunPage extends React.Component {
           </ButtonGroup>
         </ButtonToolbar>
 
-        <hr />
         <h2>Statistiques</h2>
         <TestRunStatsContainer />
 
@@ -89,6 +89,9 @@ export default class TestRunPage extends React.Component {
         <FeatureGroupFilterContainer testRunId={testRunId} />
         <FeatureStateFilterContainer />
         <TestRunFeatureTableContainer testRunId={testRunId} selectedFeatureGroup={selectedFeatureGroup} />
+
+        <h2>Tendance</h2>
+        <TestRunTrendChartContainer />
 
         <h2>Historique</h2>
         <TestRunHistoryTableContainer testRunId={testRunId} />
