@@ -1,24 +1,10 @@
 import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { createStructuredSelector } from 'reselect';
 
 import PurgeDialog from './PurgeDialog';
 import { purgeThenReload } from '../redux';
+import { selectTestRunTypes, selectTestRuns } from '../selectors';
 
-
-const selectTestRunTypes = createSelector(
-  state => state.testRuns.testRuns,
-  testRuns => {
-    const typeSet = new Set(testRuns.map(testRun => testRun.type));
-    const types = Array.from(typeSet);
-    types.sort();
-    return types;
-  }
-);
-
-const selectTestRuns = createSelector(
-  state => state.testRuns.testRuns,
-  testRuns => testRuns,
-);
 
 const selectProps = createStructuredSelector({
   testRunTypes: selectTestRunTypes,
