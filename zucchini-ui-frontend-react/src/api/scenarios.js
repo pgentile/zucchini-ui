@@ -66,6 +66,6 @@ class ScenariosApi {
 
 }
 
-const scenarios = new ScenariosApi(configuration.ui.backendBaseUri);
+const scenarios = new ScenariosApi(configuration.backendBaseUri);
 
 export default scenarios;

@@ -63,6 +63,6 @@ class TestRunsApi {
 
 }
 
-const testRuns = new TestRunsApi(configuration.ui.backendBaseUri);
+const testRuns = new TestRunsApi(configuration.backendBaseUri);
 
 export default testRuns;

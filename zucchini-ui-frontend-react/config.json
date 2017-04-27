@@ -3,6 +3,7 @@
     "port": 9001
   },
   "ui": {
-    "backendBaseUri": "http://localhost:8080"
+    "backendBaseUri": "http://localhost:8080",
+    "testRunPurgeDelayInDays": 30
   }
 }

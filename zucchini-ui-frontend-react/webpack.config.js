@@ -18,7 +18,7 @@ const config = require('./config.json');
 // Connect function to serve a Javascript configuration file
 const javascriptConfigMiddleware = function (req, res) {
   res.writeHead(200, { 'Content-Type': 'application/javascript' });
-  res.end('var configuration = ' + JSON.stringify({ ui: config.ui }) + ';');
+  res.end('var configuration = ' + JSON.stringify(config.ui) + ';');
 };
 
 

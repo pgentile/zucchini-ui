@@ -33,6 +33,6 @@ class FeaturesApi {
 
 }
 
-const features = new FeaturesApi(configuration.ui.backendBaseUri);
+const features = new FeaturesApi(configuration.backendBaseUri);
 
 export default features;
