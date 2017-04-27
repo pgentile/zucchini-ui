@@ -16,9 +16,8 @@ export default class AddCommentForm extends React.PureComponent {
     this.state = this.createDefaultState();
   }
 
-  componentDidUpdate(prevProps) {
-    const { scenarioId } = this.props;
-    if (scenarioId !== prevProps.scenarioId) {
+  componentWillReceiveProps(nextProps) {
+    if (this.props.scenarioId !== nextProps.scenarioId) {
       this.setState(this.createDefaultState());
     }
   }

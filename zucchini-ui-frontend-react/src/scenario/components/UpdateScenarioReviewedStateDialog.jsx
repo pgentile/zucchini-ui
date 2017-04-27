@@ -16,17 +16,16 @@ export default class UpdateScenarioReviewedStateDialog extends React.PureCompone
     this.onSetReviewedState = this.onSetReviewedState.bind(this);
     this.onCommentChange = this.onCommentChange.bind(this);
 
-    this.state = this.createDefaultStateFromProps(props);
+    this.state = this.createDefaultState();
   }
 
-  componentDidUpdate(prevProps) {
-    const { scenarioId } = this.props;
-    if (scenarioId !== prevProps.scenarioId) {
-      this.setState(this.createDefaultStateFromProps(this.props));
+  componentWillReceiveProps(nextProps) {
+    if (this.props.scenarioId !== nextProps.scenarioId) {
+      this.setState(this.createDefaultState());
     }
   }
 
-  createDefaultStateFromProps() {
+  createDefaultState() {
     return {
       comment: '',
     };
@@ -76,9 +75,7 @@ export default class UpdateScenarioReviewedStateDialog extends React.PureCompone
       comment,
     });
 
-    this.setState((prevState, props) => {
-      return this.createDefaultStateFromProps(props);
-    });
+    this.setState(this.createDefaultState());
 
     onClose();
   }

@@ -31,10 +31,9 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
     this.state = this.createDefaultStateFromProps(props);
   }
 
-  componentDidUpdate(prevProps) {
-    const { scenario } = this.props;
-    if (scenario !== prevProps.scenario) {
-      this.setState(this.createDefaultStateFromProps(this.props));
+  componentWillReceiveProps(nextProps) {
+    if (this.props.scenario !== nextProps.scenario) {
+      this.setState(this.createDefaultStateFromProps(nextProps));
     }
   }
 

@@ -24,10 +24,9 @@ export default class EditTestRunDialog extends React.PureComponent {
     this.state = this.createDefaultStateFromProps(props);
   }
 
-  componentDidUpdate(prevProps) {
-    const { testRun } = this.props;
-    if (testRun !== prevProps.testRun) {
-      this.setState(this.createDefaultStateFromProps(this.props));
+  componentWillReceiveProps(nextProps) {
+    if (this.props.testRun !== nextProps.testRun) {
+      this.setState(this.createDefaultStateFromProps(nextProps));
     }
   }
 
