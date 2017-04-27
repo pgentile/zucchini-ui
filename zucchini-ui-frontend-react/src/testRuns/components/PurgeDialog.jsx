@@ -20,6 +20,7 @@ export default class PurgeDialog extends React.PureComponent {
     this.onCloseClick = this.onCloseClick.bind(this);
     this.onTypeChange = this.onTypeChange.bind(this);
     this.onMaxDateChange = this.onMaxDateChange.bind(this);
+    this.onPurge = this.onPurge.bind(this);
 
     const maxDate = moment().add(-configuration.testRunPurgeDelayInDays, 'day').format(LOCAL_DATE_FORMAT);
 
@@ -29,6 +30,19 @@ export default class PurgeDialog extends React.PureComponent {
       selectedTestRunIds: [],
       changed: false,
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.testRuns !== nextProps.testRuns) {
+      this.setState(prevState => {
+        if (prevState.changed) {
+          return {
+            selectedTestRunIds: this.selectTestRunIds(nextProps.testRuns, prevState),
+          };
+        }
+        return {};
+      });
+    }
   }
 
   render() {
@@ -63,7 +77,7 @@ export default class PurgeDialog extends React.PureComponent {
           <Modal.Title>Purger les anciens tirs</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form>
+          <form onSubmit={this.onPurge}>
             <FormGroup controlId="type">
               <ControlLabel>Type</ControlLabel>
               <FormControl componentClass="select" value={this.state.type} onChange={this.onTypeChange}>
@@ -80,7 +94,7 @@ export default class PurgeDialog extends React.PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button bsStyle="primary">Purger</Button>
+          <Button bsStyle="primary" onClick={this.onPurge}>Purger</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -113,6 +127,15 @@ export default class PurgeDialog extends React.PureComponent {
     this.props.onClose();
   }
 
+  onPurge(event) {
+    if (event) {
+      event.preventDefault();
+    }
+
+    this.props.onPurge({ selectedTestRunIds: this.state.selectedTestRunIds });
+    this.props.onClose();
+  }
+
   updateState(newState) {
     this.setState((prevState, props) => {
       return {
@@ -142,4 +165,5 @@ PurgeDialog.propTypes = {
   testRunTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
   testRuns: PropTypes.array.isRequired,
   onClose: PropTypes.func.isRequired,
+  onPurge: PropTypes.func.isRequired,
 };

@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 
 import PurgeDialog from './PurgeDialog';
+import { purgeThenReload } from '../redux';
+
 
 const selectTestRunTypes = createSelector(
   state => state.testRuns.testRuns,
@@ -25,6 +27,9 @@ const selectProps = createStructuredSelector({
 
 const PurgeDialogContainer = connect(
   selectProps,
+  {
+    onPurge: purgeThenReload,
+  },
 )(PurgeDialog);
 
 export default PurgeDialogContainer;

@@ -20,15 +20,10 @@ const CREATE_TEST_RUN_FULFILLED = `${CREATE_TEST_RUN}_FULFILLED`;
 // Action creators
 
 export function loadTestRunsPage() {
-  return dispatch => {
-    const latestTestRuns$ = dispatch(getLatestTestRuns());
-
-    const latestTestRunsWithStats$ = latestTestRuns$.then(() => {
-      return dispatch(getLatestTestRunsWithStats());
-    });
-
-    // Merge promises
-    return Promise.all([latestTestRuns$, latestTestRunsWithStats$]).then(() => null);
+  return async dispatch => {
+    await dispatch(getLatestTestRuns());
+    await dispatch(getLatestTestRunsWithStats());
+    return null;
   };
 }
 
@@ -50,6 +45,14 @@ export function createTestRun({ type }) {
   return {
     type: CREATE_TEST_RUN,
     payload: model.createTestRun({ type }),
+  };
+}
+
+export function purgeThenReload({ selectedTestRunIds }) {
+  return async dispatch => {
+    await model.deleteManyTestRuns({ testRunIds: selectedTestRunIds });
+    await dispatch(loadTestRunsPage());
+    return null;
   };
 }
 
