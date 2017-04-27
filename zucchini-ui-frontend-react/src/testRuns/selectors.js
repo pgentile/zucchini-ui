@@ -10,9 +10,3 @@ export const selectTestRunTypes = createSelector(
     return types;
   }
 );
-
-
-export const selectTestRuns = createSelector(
-  state => state.testRuns.testRuns,
-  testRuns => testRuns,
-);

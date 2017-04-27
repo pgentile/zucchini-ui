@@ -1,9 +1,15 @@
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { createSelector, createStructuredSelector } from 'reselect';
 
 import PurgeDialog from './PurgeDialog';
 import { purgeThenReload } from '../redux';
-import { selectTestRunTypes, selectTestRuns } from '../selectors';
+import { selectTestRunTypes } from '../selectors';
+
+
+export const selectTestRuns = createSelector(
+  state => state.testRuns.testRuns,
+  testRuns => testRuns,
+);
 
 
 const selectProps = createStructuredSelector({
