@@ -255,12 +255,25 @@ project("${rootProject.name}-frontend-react") {
         outputs.dir('build/dist')
     }
 
+    task jsTest(type: YarnTask, description: 'Test JavaScript') {
+        command = 'test'
+
+        inputs.dir('src')
+        inputs.dir('test')
+        inputs.file('package.json')
+    }
+
     // Fake tasks, for project build
     task assemble
     task build
+    task test
+    task check
 
     tasks.assemble.dependsOn webpack
     tasks.build.dependsOn assemble
+
+    tasks.test.dependsOn jsTest
+    tasks.check.dependsOn test
 
 }
 
