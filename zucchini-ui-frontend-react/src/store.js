@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
-import { browserHistory } from 'react-router';
 import promiseMiddleware from 'redux-promise-middleware';
 import thunkMiddleware from 'redux-thunk';
 
+import browserHistory from './browserHistory';
 import reducer from './reducer';
 import featureFiltersStorage from './filters/featureFiltersStorage';
 import statsDashboardFiltersStorage from './filters/statsDashboardFiltersStorage';
