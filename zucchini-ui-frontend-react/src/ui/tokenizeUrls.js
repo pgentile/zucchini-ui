@@ -19,8 +19,7 @@ const urlPattern = new RegExp('(https?://[^ ]+)', 'ig');
 const specialChars = ',.;';
 
 function tokenizeLine(content) {
-  const tokens = [];
-
+  let tokens = [];
 
   let lastIndex = 0;
   let result;
@@ -52,6 +51,21 @@ function tokenizeLine(content) {
   if (lastIndex < content.length) {
     tokens.push(['text', content.substring(lastIndex)]);
   }
+
+  tokens = tokens.reduce((prevTokens, token) => {
+    // Merge text tokens if possible
+    if (prevTokens.length >= 1) {
+      const lastToken = prevTokens[prevTokens.length - 1];
+      if (lastToken[0] === 'text' && token[0] === 'text') {
+        lastToken[1] += token[1];
+        return prevTokens;
+      }
+    }
+
+    // Add token to prev tokens
+    prevTokens.push(token);
+    return prevTokens;
+  }, []);
 
   return tokens;
 }

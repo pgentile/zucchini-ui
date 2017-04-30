@@ -4,8 +4,9 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --debug --progress --open --history-api-fallback",
     "build": "webpack --progress --profile --colors",
-    "lint": "eslint --ext .jsx,.js ./src/",
-    "fix": "eslint --fix --ext .jsx,.js ./src/"
+    "lint": "eslint --ext .jsx,.js ./src/ ./test/",
+    "fix": "eslint --fix --ext .jsx,.js ./src/ ./test/",
+    "test": "mocha --compilers js:babel-core/register --require ./test/helpers.js test/**/*.js test/**/*.jsx"
   },
   "devDependencies": {
     "assert": "^1.4.1",
@@ -18,7 +19,10 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-2": "^6.18.0",
     "babel-register": "^6.14.0",
+    "chai": "^3.5.0",
+    "chai-enzyme": "^0.6.1",
     "css-loader": "^0.28.0",
+    "enzyme": "^2.8.2",
     "eslint": "^3.6.1",
     "eslint-loader": "^1.5.0",
     "eslint-plugin-react": "^6.3.0",
@@ -27,8 +31,11 @@
     "file-loader": "^0.11.0",
     "less": "^2.7.2",
     "less-loader": "^4.0.0",
+    "mocha": "^3.3.0",
     "react-addons-perf": "^15.3.2",
     "react-addons-test-utils": "^15.3.2",
+    "react-test-renderer": "^15.5.4",
+    "sinon": "^2.1.0",
     "style-loader": "^0.16.1",
     "url-loader": "^0.5.7",
     "webpack": "^2.2.1",
