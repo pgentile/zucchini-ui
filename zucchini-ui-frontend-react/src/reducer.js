@@ -6,6 +6,7 @@ import { testRuns } from './testRuns/redux';
 import { testRun } from './testRun/redux';
 import { feature } from './feature/redux';
 import { scenario } from './scenario/redux';
+import { tags } from './tags/redux';
 import { searchResults } from './search/redux';
 import { errors } from './errors/redux';
 
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   testRun,
   feature,
   scenario,
+  tags,
   searchResults,
   errors,
 });

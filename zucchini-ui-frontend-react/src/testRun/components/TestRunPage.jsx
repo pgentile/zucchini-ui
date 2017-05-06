@@ -26,6 +26,7 @@ export default class TestRunPage extends React.Component {
     this.hideImportCucumberResultDialog = this.hideImportCucumberResultDialog.bind(this);
     this.onEditButtonClick = this.onEditButtonClick.bind(this);
     this.hideEditDialog = this.hideEditDialog.bind(this);
+    this.onGoToTags = this.onGoToTags.bind(this);
 
     this.state = {
       showImportCucumberResultDialog: false,
@@ -77,6 +78,11 @@ export default class TestRunPage extends React.Component {
             </Button>
           </ButtonGroup>
           <ButtonGroup>
+            <Button onClick={this.onGoToTags}>
+              <Glyphicon glyph="tags" /> Tags
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup>
             <DeleteTestRunButtonContainer testRunId={testRunId} />
           </ButtonGroup>
         </ButtonToolbar>
@@ -97,14 +103,14 @@ export default class TestRunPage extends React.Component {
         <TestRunHistoryTableContainer testRunId={testRunId} />
 
         <ImportCucumberResultsDialogContainer
-            testRunId={testRunId}
-            show={this.state.showImportCucumberResultDialog}
-            onClose={this.hideImportCucumberResultDialog} />
+          testRunId={testRunId}
+          show={this.state.showImportCucumberResultDialog}
+          onClose={this.hideImportCucumberResultDialog} />
 
         <EditTestRunDialogContainer
-            testRun={testRun}
-            show={this.state.showEditDialog}
-            onClose={this.hideEditDialog} />
+          testRun={testRun}
+          show={this.state.showEditDialog}
+          onClose={this.hideEditDialog} />
       </div>
     );
   }
@@ -141,6 +147,12 @@ export default class TestRunPage extends React.Component {
     });
   }
 
+  onGoToTags() {
+    this.props.onGoToTags({
+      testRunId: this.props.testRunId,
+    });
+  }
+
 }
 
 TestRunPage.propTypes = {
@@ -148,4 +160,5 @@ TestRunPage.propTypes = {
   selectedFeatureGroup: PropTypes.string,
   testRun: PropTypes.object,
   onLoad: PropTypes.func.isRequired,
+  onGoToTags: PropTypes.func.isRequired,
 };

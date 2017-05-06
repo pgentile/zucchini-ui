@@ -23,6 +23,9 @@ import TestRunSearchBreadcrumbContainer from './search/components/TestRunSearchB
 import ScenarioPageContainer from './scenario/components/ScenarioPageContainer';
 import ScenarioBreadcrumbContainer from './scenario/components/ScenarioBreadcrumbContainer';
 
+import TagsPageContainer from './tags/components/TagsPageContainer';
+import TagsBreadcrumbContainer from './tags/components/TagsBreadcrumbContainer';
+
 
 export default function AppRouter() {
   return (
@@ -33,6 +36,7 @@ export default function AppRouter() {
           <Route path="test-runs/:testRunId">
             <IndexRoute components={{ main: TestRunPageContainer, breadcrum: TestRunBreadcrumbContainer, search: NavSearchFormContainer }} />
             <Route path="search" components={{ main: TestRunSearchPageContainer, breadcrum: TestRunSearchBreadcrumbContainer }} />
+            <Route path="tags" components={{ main: TagsPageContainer, breadcrum: TagsBreadcrumbContainer, search: NavSearchFormContainer }} />
           </Route>
           <Route path="features/:featureId">
             <IndexRoute components={{ main: FeaturePageContainer, breadcrum: FeatureBreadcrumbContainer, search: NavSearchFormContainer }} />
