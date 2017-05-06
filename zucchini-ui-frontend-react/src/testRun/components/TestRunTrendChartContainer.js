@@ -12,6 +12,7 @@ const selectTrends = createSelector(
   (testRunId, history, currentTestRunTrend) => {
     let previousTrends = _.takeRightWhile(history, testRun => testRun.id !== testRunId);
     previousTrends = previousTrends.map(testRun => testRun.stats.all);
+    previousTrends.reverse();
 
     return [...previousTrends, currentTestRunTrend];
   },
