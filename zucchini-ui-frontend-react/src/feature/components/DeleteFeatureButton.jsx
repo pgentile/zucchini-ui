@@ -5,13 +5,6 @@ import ConfirmActionButton from '../../ui/components/ConfirmActionButton';
 
 
 export default class DeleteFeatureButton extends React.PureComponent {
-
-  constructor(props) {
-    super(props);
-
-    this.onDelete = this.onDelete.bind(this);
-  }
-
   render() {
     return (
       <ConfirmActionButton
@@ -24,10 +17,10 @@ export default class DeleteFeatureButton extends React.PureComponent {
     );
   }
 
-  onDelete() {
+  onDelete = () => {
     const { featureId, onDelete } = this.props;
     onDelete({ featureId });
-  }
+  };
 
 }
 

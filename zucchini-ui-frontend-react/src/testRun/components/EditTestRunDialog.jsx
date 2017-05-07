@@ -10,16 +10,8 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 
 export default class EditTestRunDialog extends React.PureComponent {
-
   constructor(props) {
     super(props);
-
-    this.onCloseClick = this.onCloseClick.bind(this);
-    this.onEditTestRun = this.onEditTestRun.bind(this);
-    this.onTypeChange = this.onTypeChange.bind(this);
-    this.onAddLabelClick = this.onAddLabelClick.bind(this);
-    this.onLabelFieldChange = this.onLabelFieldChange.bind(this);
-    this.onDeleteLabelClick = this.onDeleteLabelClick.bind(this);
 
     this.state = this.createDefaultStateFromProps(props);
   }
@@ -109,20 +101,20 @@ export default class EditTestRunDialog extends React.PureComponent {
     );
   }
 
-  onCloseClick(event) {
+  onCloseClick = (event) => {
     if (event) {
       event.preventDefault();
     }
     this.props.onClose();
-  }
+  };
 
-  onTypeChange(event) {
+  onTypeChange = (event) => {
     this.setState({
       type: event.target.value,
     });
-  }
+  };
 
-  onEditTestRun(event) {
+  onEditTestRun = (event) => {
     if (event) {
       event.preventDefault();
     }
@@ -133,9 +125,9 @@ export default class EditTestRunDialog extends React.PureComponent {
     });
 
     this.props.onClose();
-  }
+  };
 
-  onAddLabelClick() {
+  onAddLabelClick = () => {
     this.setState(prevState => {
       return {
         labels: [
@@ -148,9 +140,9 @@ export default class EditTestRunDialog extends React.PureComponent {
         ]
       };
     });
-  }
+  };
 
-  onLabelFieldChange(index, fieldName) {
+  onLabelFieldChange = (index, fieldName) => {
     return event => {
       const fieldValue = event.target.value;
 
@@ -173,9 +165,9 @@ export default class EditTestRunDialog extends React.PureComponent {
         };
       });
     };
-  }
+  };
 
-  onDeleteLabelClick(index) {
+  onDeleteLabelClick = (index) => {
     return () => {
       this.setState(prevState => {
         const prevLabels = prevState.labels;
@@ -191,7 +183,7 @@ export default class EditTestRunDialog extends React.PureComponent {
         };
       });
     };
-  }
+  };
 
 }
 

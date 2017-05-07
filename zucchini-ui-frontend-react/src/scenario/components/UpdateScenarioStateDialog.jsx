@@ -17,16 +17,8 @@ const AVAILABLE_STATUS = {
 
 
 export default class UpdateScenarioStateDialog extends React.PureComponent {
-
   constructor(props) {
     super(props);
-
-    this.onCloseClick = this.onCloseClick.bind(this);
-    this.onUpdateState = this.onUpdateState.bind(this);
-    this.isStatusSelected = this.isStatusSelected.bind(this);
-    this.onStatusSelected = this.onStatusSelected.bind(this);
-    this.onReviewedChange = this.onReviewedChange.bind(this);
-    this.onCommentChange = this.onCommentChange.bind(this);
 
     this.state = this.createDefaultStateFromProps(props);
   }
@@ -89,14 +81,14 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
     );
   }
 
-  onCloseClick(event) {
+  onCloseClick = (event) => {
     if (event) {
       event.preventDefault();
     }
     this.props.onClose();
-  }
+  };
 
-  onUpdateState(event) {
+  onUpdateState = (event) => {
     if (event) {
       event.preventDefault();
     }
@@ -106,13 +98,13 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
       comment: this.state.comment,
     });
     this.props.onClose();
-  }
+  };
 
-  isStatusSelected(status) {
+  isStatusSelected = (status) => {
     return this.state.scenario.status === status;
-  }
+  };
 
-  onStatusSelected(status) {
+  onStatusSelected = (status) => {
     return () => {
       this.setState(prevState => {
         return {
@@ -123,9 +115,9 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
         };
       });
     };
-  }
+  };
 
-  onReviewedChange() {
+  onReviewedChange = () => {
     this.setState(prevState => {
       return {
         scenario: {
@@ -134,14 +126,14 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
         },
       };
     });
-  }
+  };
 
-  onCommentChange(event) {
+  onCommentChange = (event) => {
     const comment = event.target.value;
     this.setState({
       comment,
     });
-  }
+  };
 
 }
 

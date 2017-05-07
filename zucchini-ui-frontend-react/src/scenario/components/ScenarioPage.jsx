@@ -20,15 +20,8 @@ import ScenarioChangeTable from './ScenarioChangeTable';
 
 
 export default class ScenarioPage extends React.Component {
-
   constructor(props) {
     super(props);
-
-    this.onUpdateStateClick = this.onUpdateStateClick.bind(this);
-    this.onUpdateReviewedStateClick = this.onUpdateReviewedStateClick.bind(this);
-    this.showUpdateStateDialog = this.showUpdateStateDialog.bind(this);
-    this.hideUpdateStateDialog = this.hideUpdateStateDialog.bind(this);
-    this.hideSetReviewedStateDialog = this.hideSetReviewedStateDialog.bind(this);
 
     this.state = {
       showUpdateStateDialog: false,
@@ -127,11 +120,11 @@ export default class ScenarioPage extends React.Component {
     }
   }
 
-  onUpdateStateClick() {
+  onUpdateStateClick = () => {
     this.showUpdateStateDialog();
-  }
+  };
 
-  onUpdateReviewedStateClick() {
+  onUpdateReviewedStateClick = () => {
     const { scenarioId, scenario, onSetNonReviewedState } = this.props;
     const { reviewed } = scenario;
 
@@ -142,26 +135,25 @@ export default class ScenarioPage extends React.Component {
         showSetReviewedStateDialog: true,
       });
     }
-  }
+  };
 
-  showUpdateStateDialog() {
+  showUpdateStateDialog = () => {
     this.setState({
       showUpdateStateDialog: true,
     });
-  }
+  };
 
-  hideUpdateStateDialog() {
+  hideUpdateStateDialog = () => {
     this.setState({
       showUpdateStateDialog: false,
     });
-  }
+  };
 
-  hideSetReviewedStateDialog() {
+  hideSetReviewedStateDialog = () => {
     this.setState({
       showSetReviewedStateDialog: false,
     });
-
-  }
+  };
 
 }
 

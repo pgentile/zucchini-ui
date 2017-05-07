@@ -6,13 +6,8 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 
 export default class ConfirmActionButton extends React.PureComponent {
-
   constructor(props) {
     super(props);
-
-    this.onShowConfirmation = this.onShowConfirmation.bind(this);
-    this.onConfirm = this.onConfirm.bind(this);
-    this.onCancel = this.onCancel.bind(this);
 
     this.state = {
       show: false,
@@ -54,25 +49,26 @@ export default class ConfirmActionButton extends React.PureComponent {
     );
   }
 
-  onShowConfirmation() {
+  onShowConfirmation = () => {
     this.setState({
       show: true,
     });
-  }
+  };
 
-  onConfirm() {
+  onConfirm = () => {
     this.setState({
       show: false,
     });
 
     this.props.onConfirm();
-  }
+  };
 
-  onCancel() {
+  onCancel = () => {
     this.setState({
       show: false,
     });
-  }
+  };
+
 }
 
 ConfirmActionButton.propTypes = {

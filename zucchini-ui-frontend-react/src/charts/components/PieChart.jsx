@@ -5,11 +5,8 @@ import Chartist from 'chartist';
 
 
 export default class PieChart extends React.Component {
-
   constructor(props) {
     super(props);
-
-    this.setChart = this.setChart.bind(this);
 
     this.chart = null;
   }
@@ -36,11 +33,12 @@ export default class PieChart extends React.Component {
     );
   }
 
-  setChart(element) {
+  setChart = (element) => {
     if (this.chart === null) {
       this.chart = new Chartist.Pie(element);
     }
-  }
+
+  };
 
   updateChart() {
     const { data, total, showLabel, donutWidth } = this.props;
@@ -54,7 +52,6 @@ export default class PieChart extends React.Component {
       }, true);
     }
   }
-
 }
 
 PieChart.propTypes = {

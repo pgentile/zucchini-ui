@@ -12,14 +12,8 @@ import PurgeDialogContainer from './PurgeDialogContainer';
 
 
 export default class TestRunsPage extends React.Component {
-
   constructor(props) {
     super(props);
-
-    this.onCreateTestRunButtonClick = this.onCreateTestRunButtonClick.bind(this);
-    this.hideCreateTestRunDialog = this.hideCreateTestRunDialog.bind(this);
-    this.onPurgeButtonClick = this.onPurgeButtonClick.bind(this);
-    this.hidePurgeDialog = this.hidePurgeDialog.bind(this);
 
     this.state = {
       showCreateTestRunDialog: false,
@@ -59,31 +53,31 @@ export default class TestRunsPage extends React.Component {
     );
   }
 
-  onCreateTestRunButtonClick(event) {
+  onCreateTestRunButtonClick = (event) => {
     event.preventDefault();
 
     this.setState({
       showCreateTestRunDialog: true,
     });
-  }
+  };
 
-  hideCreateTestRunDialog() {
+  hideCreateTestRunDialog = () => {
     this.setState({
       showCreateTestRunDialog: false,
     });
-  }
+  };
 
-  onPurgeButtonClick() {
+  onPurgeButtonClick = () => {
     this.setState({
       showPurgeDialog: true,
     });
-  }
+  };
 
-  hidePurgeDialog() {
+  hidePurgeDialog = () => {
     this.setState({
       showPurgeDialog: false,
     });
-  }
+  };
 
 }
 

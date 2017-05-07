@@ -10,15 +10,8 @@ import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
 
 export default class ImportCucumberResultsDialog extends React.PureComponent {
-
   constructor(props) {
     super(props);
-
-    this.onCloseClick = this.onCloseClick.bind(this);
-    this.onFileChange = this.onFileChange.bind(this);
-    this.onGroupChange = this.onGroupChange.bind(this);
-    this.onOptionChange = this.onOptionChange.bind(this);
-    this.onImportCucumberResult = this.onImportCucumberResult.bind(this);
 
     this.state = {
       file: null,
@@ -73,34 +66,34 @@ export default class ImportCucumberResultsDialog extends React.PureComponent {
     );
   }
 
-  onCloseClick(event) {
+  onCloseClick = (event) => {
     if (event) {
       event.preventDefault();
     }
     this.props.onClose();
-  }
+  };
 
-  onFileChange(event) {
+  onFileChange = (event) => {
     this.setState({
       file: event.target.files[0],
     });
-  }
+  };
 
-  onGroupChange(event) {
+  onGroupChange = (event) => {
     this.setState({
       group: event.target.value,
     });
-  }
+  };
 
-  onOptionChange(name) {
+  onOptionChange = (name) => {
     return event => {
       this.setState({
         [name]: event.target.checked,
       });
     };
-  }
+  };
 
-  onImportCucumberResult(event) {
+  onImportCucumberResult = (event) => {
     if (event) {
       event.preventDefault();
     }
@@ -111,7 +104,7 @@ export default class ImportCucumberResultsDialog extends React.PureComponent {
     });
 
     this.props.onClose();
-  }
+  };
 
 }
 

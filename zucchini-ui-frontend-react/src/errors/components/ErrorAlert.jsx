@@ -4,13 +4,6 @@ import Alert from 'react-bootstrap/lib/Alert';
 
 
 export default class ErrorAlert extends React.PureComponent {
-
-  constructor(props) {
-    super(props);
-
-    this.onClearErrors = this.onClearErrors.bind(this);
-  }
-
   render() {
     const { errors } = this.props;
     const errorCount = errors.length;
@@ -30,9 +23,9 @@ export default class ErrorAlert extends React.PureComponent {
     );
   }
 
-  onClearErrors() {
+  onClearErrors = () => {
     this.props.onClearErrors();
-  }
+  };
 
 }
 

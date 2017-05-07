@@ -8,13 +8,8 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 
 
 export default class CreateTestRunDialog extends React.PureComponent {
-
   constructor(props) {
     super(props);
-
-    this.onCloseClick = this.onCloseClick.bind(this);
-    this.onTypeChange = this.onTypeChange.bind(this);
-    this.onCreateTestRun = this.onCreateTestRun.bind(this);
 
     this.state = {
       newTestRun: {
@@ -47,7 +42,7 @@ export default class CreateTestRunDialog extends React.PureComponent {
     );
   }
 
-  onTypeChange(event) {
+  onTypeChange = (event) => {
     event.preventDefault();
 
     const type = event.target.value;
@@ -58,22 +53,22 @@ export default class CreateTestRunDialog extends React.PureComponent {
         type,
       },
     }));
-  }
+  };
 
-  onCloseClick(event) {
+  onCloseClick = (event) => {
     if (event) {
       event.preventDefault();
     }
     this.props.onClose();
-  }
+  };
 
-  onCreateTestRun(event) {
+  onCreateTestRun = (event) => {
     if (event) {
       event.preventDefault();
     }
     this.props.onCreateTestRun(this.state.newTestRun);
     this.props.onClose();
-  }
+  };
 
 }
 

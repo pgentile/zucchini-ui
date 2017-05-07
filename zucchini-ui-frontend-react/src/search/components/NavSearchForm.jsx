@@ -9,12 +9,8 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 
 export default class NavSearchForm extends React.PureComponent {
-
   constructor(props) {
     super(props);
-
-    this.onSearchFormSubmit = this.onSearchFormSubmit.bind(this);
-    this.onSearchChange = this.onSearchChange.bind(this);
 
     this.state = {
       search: '',
@@ -44,19 +40,19 @@ export default class NavSearchForm extends React.PureComponent {
     );
   }
 
-  onSearchChange(event) {
+  onSearchChange = (event) => {
     this.setState({
       search: event.target.value,
     });
-  }
+  };
 
-  onSearchFormSubmit(event) {
+  onSearchFormSubmit = (event) => {
     event.preventDefault();
     this.props.onSearch({
       search: this.state.search,
       testRunId: this.props.testRunId,
     });
-  }
+  };
 
 }
 

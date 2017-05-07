@@ -13,14 +13,8 @@ const LOCAL_DATE_FORMAT = 'YYYY-MM-DD';
 
 
 export default class PurgeDialog extends React.PureComponent {
-
   constructor(props) {
     super(props);
-
-    this.onCloseClick = this.onCloseClick.bind(this);
-    this.onTypeChange = this.onTypeChange.bind(this);
-    this.onMaxDateChange = this.onMaxDateChange.bind(this);
-    this.onPurge = this.onPurge.bind(this);
 
     const maxDate = moment().add(-configuration.testRunPurgeDelayInDays, 'day').format(LOCAL_DATE_FORMAT);
 
@@ -100,7 +94,7 @@ export default class PurgeDialog extends React.PureComponent {
     );
   }
 
-  onTypeChange(event) {
+  onTypeChange = (event) => {
     event.preventDefault();
 
     const type = event.target.value;
@@ -108,9 +102,9 @@ export default class PurgeDialog extends React.PureComponent {
     this.updateState({
       type,
     });
-  }
+  };
 
-  onMaxDateChange(event) {
+  onMaxDateChange = (event) => {
     event.preventDefault();
 
     const maxDate = event.target.value;
@@ -118,23 +112,23 @@ export default class PurgeDialog extends React.PureComponent {
     this.updateState({
       maxDate,
     });
-  }
+  };
 
-  onCloseClick(event) {
+  onCloseClick = (event) => {
     if (event) {
       event.preventDefault();
     }
     this.props.onClose();
-  }
+  };
 
-  onPurge(event) {
+  onPurge = (event) => {
     if (event) {
       event.preventDefault();
     }
 
     this.props.onPurge({ selectedTestRunIds: this.state.selectedTestRunIds });
     this.props.onClose();
-  }
+  };
 
   updateState(newState) {
     this.setState((prevState, props) => {

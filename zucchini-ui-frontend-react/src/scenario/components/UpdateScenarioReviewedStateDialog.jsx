@@ -8,13 +8,8 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 
 
 export default class UpdateScenarioReviewedStateDialog extends React.PureComponent {
-
   constructor(props) {
     super(props);
-
-    this.onCloseClick = this.onCloseClick.bind(this);
-    this.onSetReviewedState = this.onSetReviewedState.bind(this);
-    this.onCommentChange = this.onCommentChange.bind(this);
 
     this.state = this.createDefaultState();
   }
@@ -55,14 +50,14 @@ export default class UpdateScenarioReviewedStateDialog extends React.PureCompone
     );
   }
 
-  onCloseClick(event) {
+  onCloseClick = (event) => {
     if (event) {
       event.preventDefault();
     }
     this.props.onClose();
-  }
+  };
 
-  onSetReviewedState(event) {
+  onSetReviewedState = (event) => {
     if (event) {
       event.preventDefault();
     }
@@ -78,7 +73,7 @@ export default class UpdateScenarioReviewedStateDialog extends React.PureCompone
     this.setState(this.createDefaultState());
 
     onClose();
-  }
+  };
 
   isStatusSelected(status) {
     return this.state.scenario.status === status;
@@ -97,12 +92,12 @@ export default class UpdateScenarioReviewedStateDialog extends React.PureCompone
     };
   }
 
-  onCommentChange(event) {
+  onCommentChange = (event) => {
     const comment = event.target.value;
     this.setState({
       comment,
     });
-  }
+  };
 
 }
 

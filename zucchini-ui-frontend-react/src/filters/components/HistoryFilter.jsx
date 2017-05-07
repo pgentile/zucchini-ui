@@ -4,13 +4,6 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 
 
 export default class HistoryFilter extends React.PureComponent {
-
-  constructor(props) {
-    super(props);
-
-    this.onFilterChange = this.onFilterChange.bind(this);
-  }
-
   render() {
 
     const { sameTestRunType } = this.props.filters;
@@ -29,13 +22,13 @@ export default class HistoryFilter extends React.PureComponent {
     );
   }
 
-  onFilterChange(name) {
+  onFilterChange = (name) => {
     return event => {
       this.props.onFilterChange({
         [name]: event.target.checked,
       });
     };
-  }
+  };
 
 }
 

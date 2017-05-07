@@ -16,13 +16,6 @@ const LABELS = {
 
 
 export default class ScenarioStateFilter extends React.PureComponent {
-
-  constructor(props) {
-    super(props);
-
-    this.onFilterChange = this.onFilterChange.bind(this);
-  }
-
   render() {
     const { filters } = this.props;
 
@@ -37,9 +30,9 @@ export default class ScenarioStateFilter extends React.PureComponent {
     );
   }
 
-  onFilterChange(filters) {
+  onFilterChange = (filters) => {
     this.props.onFilterChange(filters);
-  }
+  };
 
 }
 

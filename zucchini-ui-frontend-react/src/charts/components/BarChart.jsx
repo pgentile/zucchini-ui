@@ -5,11 +5,8 @@ import Chartist from 'chartist';
 
 
 export default class BarChart extends React.Component {
-
   constructor(props) {
     super(props);
-
-    this.setChart = this.setChart.bind(this);
 
     this.chart = null;
   }
@@ -36,11 +33,11 @@ export default class BarChart extends React.Component {
     );
   }
 
-  setChart(element) {
+  setChart = (element) => {
     if (this.chart === null) {
       this.chart = new Chartist.Bar(element);
     }
-  }
+  };
 
   updateChart() {
     const { data, showLabel, stackBars, seriesBarDistance, fullWidth, axisX, axisY } = this.props;

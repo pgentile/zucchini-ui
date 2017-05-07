@@ -18,15 +18,8 @@ import TestRunTrendChartContainer from './TestRunTrendChartContainer';
 
 
 export default class TestRunPage extends React.Component {
-
   constructor(props) {
     super(props);
-
-    this.onImportCucumberResultButtonClick = this.onImportCucumberResultButtonClick.bind(this);
-    this.hideImportCucumberResultDialog = this.hideImportCucumberResultDialog.bind(this);
-    this.onEditButtonClick = this.onEditButtonClick.bind(this);
-    this.hideEditDialog = this.hideEditDialog.bind(this);
-    this.onGoToTags = this.onGoToTags.bind(this);
 
     this.state = {
       showImportCucumberResultDialog: false,
@@ -123,35 +116,35 @@ export default class TestRunPage extends React.Component {
     }
   }
 
-  onImportCucumberResultButtonClick() {
+  onImportCucumberResultButtonClick = () => {
     this.setState({
       showImportCucumberResultDialog: true,
     });
-  }
+  };
 
-  hideImportCucumberResultDialog() {
+  hideImportCucumberResultDialog = () => {
     this.setState({
       showImportCucumberResultDialog: false,
     });
-  }
+  };
 
-  onEditButtonClick() {
+  onEditButtonClick = () => {
     this.setState({
       showEditDialog: true,
     });
-  }
+  };
 
-  hideEditDialog() {
+  hideEditDialog = () => {
     this.setState({
       showEditDialog: false,
     });
-  }
+  };
 
-  onGoToTags() {
+  onGoToTags = () => {
     this.props.onGoToTags({
       testRunId: this.props.testRunId,
     });
-  }
+  };
 
 }
 

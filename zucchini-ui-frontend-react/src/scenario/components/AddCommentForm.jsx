@@ -6,12 +6,8 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 
 
 export default class AddCommentForm extends React.PureComponent {
-
   constructor(props) {
     super(props);
-
-    this.onAddComment = this.onAddComment.bind(this);
-    this.onCommentChange = this.onCommentChange.bind(this);
 
     this.state = this.createDefaultState();
   }
@@ -39,7 +35,7 @@ export default class AddCommentForm extends React.PureComponent {
     )
   }
 
-  onAddComment(event) {
+  onAddComment = (event) => {
     event.preventDefault();
 
     const { scenarioId } = this.props;
@@ -50,15 +46,15 @@ export default class AddCommentForm extends React.PureComponent {
     });
 
     this.setState(this.createDefaultState());
-  }
+  };
 
-  onCommentChange(event) {
+  onCommentChange = (event) => {
     const comment = event.target.value;
 
     this.setState({
       comment,
     });
-  }
+  };
 
 }
 

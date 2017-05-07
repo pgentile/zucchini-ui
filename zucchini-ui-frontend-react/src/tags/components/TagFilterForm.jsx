@@ -8,13 +8,8 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 
 export default class TagFilterForm extends React.PureComponent {
-
   constructor(props) {
     super(props);
-
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onFilterChange = this.onFilterChange.bind(this);
-    this.onClearFilter = this.onClearFilter.bind(this);
 
     this.state = {
       filter: '',
@@ -38,21 +33,21 @@ export default class TagFilterForm extends React.PureComponent {
     );
   }
 
-  onSubmit(event) {
+  onSubmit = (event) => {
     event.preventDefault();
-  }
+  };
 
-  onFilterChange(event) {
+  onFilterChange = (event) => {
     const filter = event.target.value;
     this.setState({ filter });
     this.props.onFilterChange({ filter });
-  }
+  };
 
-  onClearFilter() {
+  onClearFilter = () => {
     const filter = '';
     this.setState({ filter });
     this.props.onFilterChange({ filter });
-  }
+  };
 
 }
 
