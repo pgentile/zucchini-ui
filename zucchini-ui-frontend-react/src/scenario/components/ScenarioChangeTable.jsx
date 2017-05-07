@@ -42,27 +42,6 @@ ScenarioChangeTable.propTypes = {
 
 class ScenarioChangeTableRow extends React.PureComponent {
 
-  render() {
-    const { change } = this.props;
-
-    const ValueComponent = this.getValueComponent();
-
-    return (
-      <tr>
-        <td>{toNiceDate(change.date)}</td>
-        <td>
-          <b>{this.getChangeTypeName()}</b>
-        </td>
-        <td>
-          <ValueComponent value={change.oldValue} />
-        </td>
-        <td>
-          <ValueComponent value={change.newValue} />
-        </td>
-      </tr>
-    );
-  }
-
   getChangeTypeName() {
     const { change } = this.props;
 
@@ -87,6 +66,27 @@ class ScenarioChangeTableRow extends React.PureComponent {
     default:
       return null;
     }
+  }
+
+  render() {
+    const { change } = this.props;
+
+    const ValueComponent = this.getValueComponent();
+
+    return (
+      <tr>
+        <td>{toNiceDate(change.date)}</td>
+        <td>
+          <b>{this.getChangeTypeName()}</b>
+        </td>
+        <td>
+          <ValueComponent value={change.oldValue} />
+        </td>
+        <td>
+          <ValueComponent value={change.newValue} />
+        </td>
+      </tr>
+    );
   }
 
 }

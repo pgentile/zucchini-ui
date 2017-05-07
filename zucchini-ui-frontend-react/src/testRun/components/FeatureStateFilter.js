@@ -16,6 +16,10 @@ const LABELS = {
 
 
 export default class FeatureStateFilter extends React.PureComponent {
+
+  onFilterChange = (filters) => {
+    this.props.onFilterChange(filters);
+  };
   render() {
     const { filters } = this.props;
 
@@ -29,10 +33,6 @@ export default class FeatureStateFilter extends React.PureComponent {
       </div>
     );
   }
-
-  onFilterChange = (filters) => {
-    this.props.onFilterChange(filters);
-  };
 
 }
 

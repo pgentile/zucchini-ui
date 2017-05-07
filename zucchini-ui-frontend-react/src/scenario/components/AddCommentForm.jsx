@@ -24,17 +24,6 @@ export default class AddCommentForm extends React.PureComponent {
     };
   }
 
-  render() {
-    return (
-      <form onSubmit={this.onAddComment}>
-        <FormGroup>
-          <FormControl componentClass="textarea" rows="3" placeholder="Entrez votre commentaire" value={this.state.comment} onChange={this.onCommentChange} />
-        </FormGroup>
-        <Button type="submit" bsStyle="primary">Ajouter le commentaire</Button>
-      </form>
-    )
-  }
-
   onAddComment = (event) => {
     event.preventDefault();
 
@@ -55,6 +44,17 @@ export default class AddCommentForm extends React.PureComponent {
       comment,
     });
   };
+
+  render() {
+    return (
+      <form onSubmit={this.onAddComment}>
+        <FormGroup>
+          <FormControl componentClass="textarea" rows="3" placeholder="Entrez votre commentaire" value={this.state.comment} onChange={this.onCommentChange} />
+        </FormGroup>
+        <Button type="submit" bsStyle="primary">Ajouter le commentaire</Button>
+      </form>
+    )
+  }
 
 }
 

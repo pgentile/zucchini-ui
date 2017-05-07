@@ -14,6 +14,26 @@ export default class ConfirmActionButton extends React.PureComponent {
     };
   }
 
+  onShowConfirmation = () => {
+    this.setState({
+      show: true,
+    });
+  };
+
+  onConfirm = () => {
+    this.setState({
+      show: false,
+    });
+
+    this.props.onConfirm();
+  };
+
+  onCancel = () => {
+    this.setState({
+      show: false,
+    });
+  };
+
   render() {
     const { actionGlyph, actionLabel, title, message, bsStyle } = this.props;
     const { show } = this.state;
@@ -48,26 +68,6 @@ export default class ConfirmActionButton extends React.PureComponent {
       </span>
     );
   }
-
-  onShowConfirmation = () => {
-    this.setState({
-      show: true,
-    });
-  };
-
-  onConfirm = () => {
-    this.setState({
-      show: false,
-    });
-
-    this.props.onConfirm();
-  };
-
-  onCancel = () => {
-    this.setState({
-      show: false,
-    });
-  };
 
 }
 

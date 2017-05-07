@@ -28,6 +28,36 @@ export default class TestRunSearchPage extends React.Component {
     this.loadTestRunIfPossible(prevProps);
   }
 
+  onSearchChange = (event) => {
+    this.setState({
+      search: event.target.value,
+    });
+  };
+
+  onSearchFormSubmit = (event) => {
+    event.preventDefault();
+    this.props.onSearch({
+      search: this.state.search,
+      testRunId: this.props.testRunId,
+    });
+  };
+
+  loadTestRunIfPossible(prevProps = {}) {
+    const { testRunId } = this.props;
+
+    if (testRunId !== prevProps.testRunId) {
+      this.props.onLoad({ testRunId: this.props.testRunId });
+    }
+  }
+
+  searchOnLoad() {
+    const { testRunId, search } = this.props;
+
+    if (search && testRunId) {
+      this.props.onSearch({ testRunId, search });
+    }
+  }
+
   render() {
     const { testRun } = this.props;
 
@@ -56,37 +86,6 @@ export default class TestRunSearchPage extends React.Component {
       </div>
     );
   }
-
-  loadTestRunIfPossible(prevProps = {}) {
-    const { testRunId } = this.props;
-
-    if (testRunId !== prevProps.testRunId) {
-      this.props.onLoad({ testRunId: this.props.testRunId });
-    }
-  }
-
-  searchOnLoad() {
-    const { testRunId, search } = this.props;
-
-    if (search && testRunId) {
-      this.props.onSearch({ testRunId, search });
-    }
-  }
-
-  onSearchChange = (event) => {
-    this.setState({
-      search: event.target.value,
-    });
-  };
-
-  onSearchFormSubmit = (event) => {
-    event.preventDefault();
-    this.props.onSearch({
-      search: this.state.search,
-      testRunId: this.props.testRunId,
-    });
-  };
-
 }
 
 TestRunSearchPage.propTypes = {

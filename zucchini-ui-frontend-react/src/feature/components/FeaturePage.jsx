@@ -24,6 +24,13 @@ export default class FeaturePage extends React.Component {
     this.loadFeatureIfNeeded(prevProps);
   }
 
+  loadFeatureIfNeeded(prevProps = {}) {
+    const { featureId, onLoad } = this.props;
+    if (featureId !== prevProps.featureId) {
+      onLoad({ featureId });
+    }
+  }
+
   render() {
     const { feature, featureId } = this.props;
 
@@ -72,13 +79,6 @@ export default class FeaturePage extends React.Component {
 
       </div>
     );
-  }
-
-  loadFeatureIfNeeded(prevProps = {}) {
-    const { featureId, onLoad } = this.props;
-    if (featureId !== prevProps.featureId) {
-      onLoad({ featureId });
-    }
   }
 
 }

@@ -17,6 +17,14 @@ const FILTERS = {
 
 export default class StepFilters extends React.PureComponent {
 
+  onFilterChange(name) {
+    return event => {
+      this.props.onFilterChange({
+        [name]: event.target.checked,
+      });
+    };
+  }
+
   render() {
     const { filters } = this.props;
 
@@ -36,14 +44,6 @@ export default class StepFilters extends React.PureComponent {
         {checkboxes}
       </Popover>
     );
-  }
-
-  onFilterChange(name) {
-    return event => {
-      this.props.onFilterChange({
-        [name]: event.target.checked,
-      });
-    };
   }
 
 }

@@ -5,6 +5,12 @@ import ConfirmActionButton from '../../ui/components/ConfirmActionButton';
 
 
 export default class DeleteTestRunButton extends React.PureComponent {
+
+  onDelete = () => {
+    const { testRunId, onDelete } = this.props;
+    onDelete({ testRunId });
+  };
+
   render() {
     return (
       <ConfirmActionButton
@@ -16,11 +22,6 @@ export default class DeleteTestRunButton extends React.PureComponent {
         onConfirm={this.onDelete} />
     );
   }
-
-  onDelete = () => {
-    const { testRunId, onDelete } = this.props;
-    onDelete({ testRunId });
-  };
 
 }
 

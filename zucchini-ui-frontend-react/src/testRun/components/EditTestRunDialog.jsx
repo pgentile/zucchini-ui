@@ -31,76 +31,6 @@ export default class EditTestRunDialog extends React.PureComponent {
     };
   }
 
-  render() {
-    const { show } = this.props;
-
-    const labelRows = this.state.labels.map((label, index) => {
-      return (
-        <tr key={index}>
-          <td>
-            <FormControl required placeholder="Nom" value={label.name} onChange={this.onLabelFieldChange(index, 'name')} />
-          </td>
-          <td>
-            <FormControl required placeholder="Valeur" value={label.value} onChange={this.onLabelFieldChange(index, 'value')} />
-          </td>
-          <td>
-            <FormControl type="url" placeholder="URL" value={label.url} onChange={this.onLabelFieldChange(index, 'url')} />
-          </td>
-          <td>
-            <Button bsStyle="danger" onClick={this.onDeleteLabelClick(index)}>
-              <Glyphicon glyph="remove" />
-            </Button>
-          </td>
-        </tr>
-      );
-    });
-
-    return (
-      <Modal bsSize="large" show={show} onHide={this.onCloseClick}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modifier les informations du tir</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={this.onEditTestRun}>
-            <FormGroup controlId="type">
-              <ControlLabel>Type</ControlLabel>
-              <FormControl required value={this.state.type} onChange={this.onTypeChange} />
-            </FormGroup>
-            <FormGroup>
-              <ControlLabel>Étiquettes</ControlLabel>
-              <Table>
-                <thead>
-                  <tr>
-                    <th className="col-md-4">Nom</th>
-                    <th className="col-md-4">Valeur</th>
-                    <th className="col-md-4">URL</th>
-                    <th>&nbsp;</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {labelRows}
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colSpan={4}>
-                      <Button bsSize="small" onClick={this.onAddLabelClick}>
-                        <Glyphicon glyph="plus-sign" /> Ajouter une étiquette
-                      </Button>
-                    </td>
-                  </tr>
-                </tfoot>
-              </Table>
-            </FormGroup>
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button bsStyle="primary" onClick={this.onEditTestRun}>Modifier</Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  }
-
   onCloseClick = (event) => {
     if (event) {
       event.preventDefault();
@@ -184,6 +114,76 @@ export default class EditTestRunDialog extends React.PureComponent {
       });
     };
   };
+
+  render() {
+    const { show } = this.props;
+
+    const labelRows = this.state.labels.map((label, index) => {
+      return (
+        <tr key={index}>
+          <td>
+            <FormControl required placeholder="Nom" value={label.name} onChange={this.onLabelFieldChange(index, 'name')} />
+          </td>
+          <td>
+            <FormControl required placeholder="Valeur" value={label.value} onChange={this.onLabelFieldChange(index, 'value')} />
+          </td>
+          <td>
+            <FormControl type="url" placeholder="URL" value={label.url} onChange={this.onLabelFieldChange(index, 'url')} />
+          </td>
+          <td>
+            <Button bsStyle="danger" onClick={this.onDeleteLabelClick(index)}>
+              <Glyphicon glyph="remove" />
+            </Button>
+          </td>
+        </tr>
+      );
+    });
+
+    return (
+      <Modal bsSize="large" show={show} onHide={this.onCloseClick}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modifier les informations du tir</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={this.onEditTestRun}>
+            <FormGroup controlId="type">
+              <ControlLabel>Type</ControlLabel>
+              <FormControl required value={this.state.type} onChange={this.onTypeChange} />
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Étiquettes</ControlLabel>
+              <Table>
+                <thead>
+                  <tr>
+                    <th className="col-md-4">Nom</th>
+                    <th className="col-md-4">Valeur</th>
+                    <th className="col-md-4">URL</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {labelRows}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colSpan={4}>
+                      <Button bsSize="small" onClick={this.onAddLabelClick}>
+                        <Glyphicon glyph="plus-sign" /> Ajouter une étiquette
+                      </Button>
+                    </td>
+                  </tr>
+                </tfoot>
+              </Table>
+            </FormGroup>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.onCloseClick}>Annuler</Button>
+          <Button bsStyle="primary" onClick={this.onEditTestRun}>Modifier</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
 
 }
 

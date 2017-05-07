@@ -40,47 +40,6 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
     };
   }
 
-  render() {
-    const { show } = this.props;
-
-    const statusRadios = Object.keys(AVAILABLE_STATUS).map(status => {
-      const label = AVAILABLE_STATUS[status];
-      return (
-        <Radio key={status} checked={this.isStatusSelected(status)} onChange={this.onStatusSelected(status)}>
-          {label}
-        </Radio>
-      );
-    })
-
-    return (
-      <Modal bsSize="large" show={show} onHide={this.onCloseClick}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modifier le statut du scénario&hellip;</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={this.onUpdateState}>
-            <FormGroup>
-              <ControlLabel>Nouveau statut</ControlLabel>
-              {statusRadios}
-            </FormGroup>
-            <FormGroup>
-              <ControlLabel>Analyse du scénario</ControlLabel>
-              <Checkbox checked={this.state.scenario.reviewed} onChange={this.onReviewedChange}>Scénario analysé ?</Checkbox>
-            </FormGroup>
-            <FormGroup controlId="comment">
-              <ControlLabel>Commentaire</ControlLabel>
-              <FormControl componentClass="textarea" rows="3" value={this.state.comment} onChange={this.onCommentChange} />
-            </FormGroup>
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button bsStyle="primary" onClick={this.onUpdateState}>Valider</Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  }
-
   onCloseClick = (event) => {
     if (event) {
       event.preventDefault();
@@ -134,6 +93,47 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
       comment,
     });
   };
+
+  render() {
+    const { show } = this.props;
+
+    const statusRadios = Object.keys(AVAILABLE_STATUS).map(status => {
+      const label = AVAILABLE_STATUS[status];
+      return (
+        <Radio key={status} checked={this.isStatusSelected(status)} onChange={this.onStatusSelected(status)}>
+          {label}
+        </Radio>
+      );
+    })
+
+    return (
+      <Modal bsSize="large" show={show} onHide={this.onCloseClick}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modifier le statut du scénario&hellip;</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={this.onUpdateState}>
+            <FormGroup>
+              <ControlLabel>Nouveau statut</ControlLabel>
+              {statusRadios}
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Analyse du scénario</ControlLabel>
+              <Checkbox checked={this.state.scenario.reviewed} onChange={this.onReviewedChange}>Scénario analysé ?</Checkbox>
+            </FormGroup>
+            <FormGroup controlId="comment">
+              <ControlLabel>Commentaire</ControlLabel>
+              <FormControl componentClass="textarea" rows="3" value={this.state.comment} onChange={this.onCommentChange} />
+            </FormGroup>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.onCloseClick}>Annuler</Button>
+          <Button bsStyle="primary" onClick={this.onUpdateState}>Valider</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
 
 }
 

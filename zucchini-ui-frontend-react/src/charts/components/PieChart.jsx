@@ -25,14 +25,6 @@ export default class PieChart extends React.Component {
     }
   }
 
-  render() {
-    const style = this.props.style || {};
-
-    return (
-      <div style={style} ref={this.setChart} />
-    );
-  }
-
   setChart = (element) => {
     if (this.chart === null) {
       this.chart = new Chartist.Pie(element);
@@ -51,6 +43,14 @@ export default class PieChart extends React.Component {
         donutWidth,
       }, true);
     }
+  }
+
+  render() {
+    const style = this.props.style || {};
+
+    return (
+      <div style={style} ref={this.setChart} />
+    );
   }
 }
 

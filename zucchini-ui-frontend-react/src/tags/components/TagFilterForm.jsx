@@ -16,6 +16,22 @@ export default class TagFilterForm extends React.PureComponent {
     };
   }
 
+  onSubmit = (event) => {
+    event.preventDefault();
+  };
+
+  onFilterChange = (event) => {
+    const filter = event.target.value;
+    this.setState({ filter });
+    this.props.onFilterChange({ filter });
+  };
+
+  onClearFilter = () => {
+    const filter = '';
+    this.setState({ filter });
+    this.props.onFilterChange({ filter });
+  };
+
   render() {
     return (
       <form onSubmit={this.onSubmit}>
@@ -32,22 +48,6 @@ export default class TagFilterForm extends React.PureComponent {
       </form>
     );
   }
-
-  onSubmit = (event) => {
-    event.preventDefault();
-  };
-
-  onFilterChange = (event) => {
-    const filter = event.target.value;
-    this.setState({ filter });
-    this.props.onFilterChange({ filter });
-  };
-
-  onClearFilter = () => {
-    const filter = '';
-    this.setState({ filter });
-    this.props.onFilterChange({ filter });
-  };
 
 }
 

@@ -22,6 +22,46 @@ export default class ImportCucumberResultsDialog extends React.PureComponent {
     };
   }
 
+  onCloseClick = (event) => {
+    if (event) {
+      event.preventDefault();
+    }
+    this.props.onClose();
+  };
+
+  onFileChange = (event) => {
+    this.setState({
+      file: event.target.files[0],
+    });
+  };
+
+  onGroupChange = (event) => {
+    this.setState({
+      group: event.target.value,
+    });
+  };
+
+  onOptionChange = (name) => {
+    return event => {
+      this.setState({
+        [name]: event.target.checked,
+      });
+    };
+  };
+
+  onImportCucumberResult = (event) => {
+    if (event) {
+      event.preventDefault();
+    }
+
+    this.props.onImportCucumberResult({
+      testRunId: this.props.testRunId,
+      ...this.state,
+    });
+
+    this.props.onClose();
+  };
+
   render() {
     const { show } = this.props;
 
@@ -65,46 +105,6 @@ export default class ImportCucumberResultsDialog extends React.PureComponent {
       </Modal>
     );
   }
-
-  onCloseClick = (event) => {
-    if (event) {
-      event.preventDefault();
-    }
-    this.props.onClose();
-  };
-
-  onFileChange = (event) => {
-    this.setState({
-      file: event.target.files[0],
-    });
-  };
-
-  onGroupChange = (event) => {
-    this.setState({
-      group: event.target.value,
-    });
-  };
-
-  onOptionChange = (name) => {
-    return event => {
-      this.setState({
-        [name]: event.target.checked,
-      });
-    };
-  };
-
-  onImportCucumberResult = (event) => {
-    if (event) {
-      event.preventDefault();
-    }
-
-    this.props.onImportCucumberResult({
-      testRunId: this.props.testRunId,
-      ...this.state,
-    });
-
-    this.props.onClose();
-  };
 
 }
 

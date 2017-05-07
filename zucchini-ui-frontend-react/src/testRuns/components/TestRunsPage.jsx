@@ -25,6 +25,32 @@ export default class TestRunsPage extends React.Component {
     this.props.onLoad();
   }
 
+  onCreateTestRunButtonClick = (event) => {
+    event.preventDefault();
+
+    this.setState({
+      showCreateTestRunDialog: true,
+    });
+  };
+
+  onPurgeButtonClick = () => {
+    this.setState({
+      showPurgeDialog: true,
+    });
+  };
+
+  hideCreateTestRunDialog = () => {
+    this.setState({
+      showCreateTestRunDialog: false,
+    });
+  };
+
+  hidePurgeDialog = () => {
+    this.setState({
+      showPurgeDialog: false,
+    });
+  };
+
   render() {
     const { selectedType } = this.props;
 
@@ -52,33 +78,6 @@ export default class TestRunsPage extends React.Component {
       </div>
     );
   }
-
-  onCreateTestRunButtonClick = (event) => {
-    event.preventDefault();
-
-    this.setState({
-      showCreateTestRunDialog: true,
-    });
-  };
-
-  hideCreateTestRunDialog = () => {
-    this.setState({
-      showCreateTestRunDialog: false,
-    });
-  };
-
-  onPurgeButtonClick = () => {
-    this.setState({
-      showPurgeDialog: true,
-    });
-  };
-
-  hidePurgeDialog = () => {
-    this.setState({
-      showPurgeDialog: false,
-    });
-  };
-
 }
 
 TestRunsPage.propTypes = {

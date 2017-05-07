@@ -5,14 +5,6 @@ import Label from 'react-bootstrap/lib/Label';
 
 export default class Status extends React.PureComponent {
 
-  render() {
-    const { bsStyle, displayLabel } = this.getLabelAndStyle();
-
-    return (
-      <Label bsStyle={bsStyle}>{displayLabel}</Label>
-    );
-  }
-
   getLabelAndStyle() {
     const { status } = this.props;
 
@@ -57,6 +49,14 @@ export default class Status extends React.PureComponent {
       displayLabel,
       bsStyle
     };
+  }
+
+  render() {
+    const { bsStyle, displayLabel } = this.getLabelAndStyle();
+
+    return (
+      <Label bsStyle={bsStyle}>{displayLabel}</Label>
+    );
   }
 
 }

@@ -35,6 +35,44 @@ export default class TestRunPage extends React.Component {
     this.loadTestRunIfPossible(prevProps);
   }
 
+  onEditButtonClick = () => {
+    this.setState({
+      showEditDialog: true,
+    });
+  };
+
+  onGoToTags = () => {
+    this.props.onGoToTags({
+      testRunId: this.props.testRunId,
+    });
+  };
+
+  onImportCucumberResultButtonClick = () => {
+    this.setState({
+      showImportCucumberResultDialog: true,
+    });
+  };
+
+  hideEditDialog = () => {
+    this.setState({
+      showEditDialog: false,
+    });
+  };
+
+  hideImportCucumberResultDialog = () => {
+    this.setState({
+      showImportCucumberResultDialog: false,
+    });
+  };
+
+  loadTestRunIfPossible(prevProps = {}) {
+    const { testRunId } = this.props;
+
+    if (testRunId !== prevProps.testRunId) {
+      this.props.onLoad({ testRunId });
+    }
+  }
+
   render() {
     const { testRunId, testRun, selectedFeatureGroup } = this.props;
 
@@ -107,45 +145,6 @@ export default class TestRunPage extends React.Component {
       </div>
     );
   }
-
-  loadTestRunIfPossible(prevProps = {}) {
-    const { testRunId } = this.props;
-
-    if (testRunId !== prevProps.testRunId) {
-      this.props.onLoad({ testRunId });
-    }
-  }
-
-  onImportCucumberResultButtonClick = () => {
-    this.setState({
-      showImportCucumberResultDialog: true,
-    });
-  };
-
-  hideImportCucumberResultDialog = () => {
-    this.setState({
-      showImportCucumberResultDialog: false,
-    });
-  };
-
-  onEditButtonClick = () => {
-    this.setState({
-      showEditDialog: true,
-    });
-  };
-
-  hideEditDialog = () => {
-    this.setState({
-      showEditDialog: false,
-    });
-  };
-
-  onGoToTags = () => {
-    this.props.onGoToTags({
-      testRunId: this.props.testRunId,
-    });
-  };
-
 }
 
 TestRunPage.propTypes = {

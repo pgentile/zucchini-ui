@@ -25,14 +25,6 @@ export default class BarChart extends React.Component {
     }
   }
 
-  render() {
-    const { style } = this.props;
-
-    return (
-      <div style={style} ref={this.setChart} />
-    );
-  }
-
   setChart = (element) => {
     if (this.chart === null) {
       this.chart = new Chartist.Bar(element);
@@ -54,6 +46,13 @@ export default class BarChart extends React.Component {
     }
   }
 
+  render() {
+    const { style } = this.props;
+
+    return (
+      <div style={style} ref={this.setChart} />
+    );
+  }
 }
 
 BarChart.propTypes = {

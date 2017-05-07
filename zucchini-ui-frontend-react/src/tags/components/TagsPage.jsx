@@ -16,6 +16,14 @@ export default class TagsPage extends React.Component {
     this.loadTestRunIfPossible(prevProps);
   }
 
+  loadTestRunIfPossible(prevProps = {}) {
+    const { testRunId } = this.props;
+
+    if (testRunId !== prevProps.testRunId) {
+      this.props.onLoad({ testRunId });
+    }
+  }
+
   render() {
     const { testRun } = this.props;
 
@@ -34,14 +42,6 @@ export default class TagsPage extends React.Component {
 
       </div>
     );
-  }
-
-  loadTestRunIfPossible(prevProps = {}) {
-    const { testRunId } = this.props;
-
-    if (testRunId !== prevProps.testRunId) {
-      this.props.onLoad({ testRunId });
-    }
   }
 
 }

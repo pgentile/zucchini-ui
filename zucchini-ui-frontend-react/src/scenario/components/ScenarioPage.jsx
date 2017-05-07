@@ -37,6 +37,48 @@ export default class ScenarioPage extends React.Component {
     this.loadScenarioIfNeeded(prevProps);
   }
 
+  onUpdateReviewedStateClick = () => {
+    const { scenarioId, scenario, onSetNonReviewedState } = this.props;
+    const { reviewed } = scenario;
+
+    if (reviewed) {
+      onSetNonReviewedState({ scenarioId });
+    } else {
+      this.setState({
+        showSetReviewedStateDialog: true,
+      });
+    }
+  };
+
+  onUpdateStateClick = () => {
+    this.showUpdateStateDialog();
+  };
+
+  hideSetReviewedStateDialog = () => {
+    this.setState({
+      showSetReviewedStateDialog: false,
+    });
+  };
+
+  hideUpdateStateDialog = () => {
+    this.setState({
+      showUpdateStateDialog: false,
+    });
+  };
+
+  loadScenarioIfNeeded(prevProps = {}) {
+    const { scenarioId, onLoad } = this.props;
+    if (scenarioId !== prevProps.scenarioId) {
+      onLoad({ scenarioId });
+    }
+  }
+
+  showUpdateStateDialog = () => {
+    this.setState({
+      showUpdateStateDialog: true,
+    });
+  };
+
   render() {
     const { scenario, scenarioId } = this.props;
     const { reviewed } = scenario;
@@ -112,49 +154,6 @@ export default class ScenarioPage extends React.Component {
       </div>
     );
   }
-
-  loadScenarioIfNeeded(prevProps = {}) {
-    const { scenarioId, onLoad } = this.props;
-    if (scenarioId !== prevProps.scenarioId) {
-      onLoad({ scenarioId });
-    }
-  }
-
-  onUpdateStateClick = () => {
-    this.showUpdateStateDialog();
-  };
-
-  onUpdateReviewedStateClick = () => {
-    const { scenarioId, scenario, onSetNonReviewedState } = this.props;
-    const { reviewed } = scenario;
-
-    if (reviewed) {
-      onSetNonReviewedState({ scenarioId });
-    } else {
-      this.setState({
-        showSetReviewedStateDialog: true,
-      });
-    }
-  };
-
-  showUpdateStateDialog = () => {
-    this.setState({
-      showUpdateStateDialog: true,
-    });
-  };
-
-  hideUpdateStateDialog = () => {
-    this.setState({
-      showUpdateStateDialog: false,
-    });
-  };
-
-  hideSetReviewedStateDialog = () => {
-    this.setState({
-      showSetReviewedStateDialog: false,
-    });
-  };
-
 }
 
 ScenarioPage.propTypes = {

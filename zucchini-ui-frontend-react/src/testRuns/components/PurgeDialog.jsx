@@ -39,61 +39,6 @@ export default class PurgeDialog extends React.PureComponent {
     }
   }
 
-  render() {
-    const { show, testRunTypes } = this.props;
-
-    const testRunTypeOptions = testRunTypes.map(testRunType => {
-      return (
-        <option key={testRunType} value={testRunType}>{testRunType}</option>
-      );
-    });
-
-    let selectionAlert = null;
-    if (this.state.changed) {
-      let aboutChange = '';
-      const selectedTestRunCount = this.state.selectedTestRunIds.length;
-      if (selectedTestRunCount > 0) {
-        aboutChange = `${selectedTestRunCount} tir(s) à purger`;
-      } else {
-        aboutChange = 'Aucun tir à purger';
-      }
-
-      selectionAlert = (
-        <Alert bsStyle="warning">
-          {aboutChange}
-        </Alert>
-      );
-    }
-
-    return (
-      <Modal show={show} onHide={this.onCloseClick}>
-        <Modal.Header closeButton>
-          <Modal.Title>Purger les anciens tirs</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={this.onPurge}>
-            <FormGroup controlId="type">
-              <ControlLabel>Type</ControlLabel>
-              <FormControl componentClass="select" value={this.state.type} onChange={this.onTypeChange}>
-                <option></option>
-                {testRunTypeOptions}
-              </FormControl>
-            </FormGroup>
-            <FormGroup controlId="maxDate">
-              <ControlLabel>Date maximum des tirs à purger</ControlLabel>
-              <FormControl type="date" value={this.state.maxDate} onChange={this.onMaxDateChange} />
-            </FormGroup>
-            {selectionAlert}
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button bsStyle="primary" onClick={this.onPurge}>Purger</Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  }
-
   onTypeChange = (event) => {
     event.preventDefault();
 
@@ -150,6 +95,61 @@ export default class PurgeDialog extends React.PureComponent {
         return testRunDateMoment.isBefore(maxDateMoment);
       })
       .map(testRun => testRun.id);
+  }
+
+  render() {
+    const { show, testRunTypes } = this.props;
+
+    const testRunTypeOptions = testRunTypes.map(testRunType => {
+      return (
+        <option key={testRunType} value={testRunType}>{testRunType}</option>
+      );
+    });
+
+    let selectionAlert = null;
+    if (this.state.changed) {
+      let aboutChange = '';
+      const selectedTestRunCount = this.state.selectedTestRunIds.length;
+      if (selectedTestRunCount > 0) {
+        aboutChange = `${selectedTestRunCount} tir(s) à purger`;
+      } else {
+        aboutChange = 'Aucun tir à purger';
+      }
+
+      selectionAlert = (
+        <Alert bsStyle="warning">
+          {aboutChange}
+        </Alert>
+      );
+    }
+
+    return (
+      <Modal show={show} onHide={this.onCloseClick}>
+        <Modal.Header closeButton>
+          <Modal.Title>Purger les anciens tirs</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={this.onPurge}>
+            <FormGroup controlId="type">
+              <ControlLabel>Type</ControlLabel>
+              <FormControl componentClass="select" value={this.state.type} onChange={this.onTypeChange}>
+                <option></option>
+                {testRunTypeOptions}
+              </FormControl>
+            </FormGroup>
+            <FormGroup controlId="maxDate">
+              <ControlLabel>Date maximum des tirs à purger</ControlLabel>
+              <FormControl type="date" value={this.state.maxDate} onChange={this.onMaxDateChange} />
+            </FormGroup>
+            {selectionAlert}
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.onCloseClick}>Annuler</Button>
+          <Button bsStyle="primary" onClick={this.onPurge}>Purger</Button>
+        </Modal.Footer>
+      </Modal>
+    );
   }
 
 }

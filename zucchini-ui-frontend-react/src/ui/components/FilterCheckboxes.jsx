@@ -3,6 +3,15 @@ import React from 'react';
 
 
 export default class FilterCheckboxes extends React.PureComponent {
+
+  onFilterChange = (name) => {
+    return event => {
+      this.props.onFilterChange({
+        [name]: event.target.checked,
+      });
+    };
+  };
+
   render() {
     const { labels, filters } = this.props;
 
@@ -24,14 +33,6 @@ export default class FilterCheckboxes extends React.PureComponent {
       </span>
     );
   }
-
-  onFilterChange = (name) => {
-    return event => {
-      this.props.onFilterChange({
-        [name]: event.target.checked,
-      });
-    };
-  };
 
 }
 

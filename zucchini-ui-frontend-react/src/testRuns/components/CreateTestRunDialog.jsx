@@ -18,30 +18,6 @@ export default class CreateTestRunDialog extends React.PureComponent {
     };
   }
 
-  render() {
-    const { show } = this.props;
-
-    return (
-      <Modal show={show} onHide={this.onCloseClick}>
-        <Modal.Header closeButton>
-          <Modal.Title>Créer un tir</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={this.onCreateTestRun}>
-            <FormGroup controlId="type">
-              <ControlLabel>Type</ControlLabel>
-              <FormControl type="text" value={this.state.newTestRun.type} onChange={this.onTypeChange} />
-            </FormGroup>
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button bsStyle="primary" onClick={this.onCreateTestRun}>Créer</Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  }
-
   onTypeChange = (event) => {
     event.preventDefault();
 
@@ -69,6 +45,30 @@ export default class CreateTestRunDialog extends React.PureComponent {
     this.props.onCreateTestRun(this.state.newTestRun);
     this.props.onClose();
   };
+
+  render() {
+    const { show } = this.props;
+
+    return (
+      <Modal show={show} onHide={this.onCloseClick}>
+        <Modal.Header closeButton>
+          <Modal.Title>Créer un tir</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={this.onCreateTestRun}>
+            <FormGroup controlId="type">
+              <ControlLabel>Type</ControlLabel>
+              <FormControl type="text" value={this.state.newTestRun.type} onChange={this.onTypeChange} />
+            </FormGroup>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.onCloseClick}>Annuler</Button>
+          <Button bsStyle="primary" onClick={this.onCreateTestRun}>Créer</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
 
 }
 

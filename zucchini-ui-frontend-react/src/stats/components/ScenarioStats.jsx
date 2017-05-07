@@ -11,6 +11,13 @@ import StatsLegend from './StatsLegend';
 
 
 export default class ScenarioStats extends React.PureComponent {
+
+  onToogleDetailsClick = () => {
+    this.props.onToggleDetails({
+      showDetails: !this.props.showDetails,
+    });
+  };
+
   render() {
     const { stats, showDetails } = this.props;
 
@@ -72,12 +79,6 @@ export default class ScenarioStats extends React.PureComponent {
       </Grid>
     );
   }
-
-  onToogleDetailsClick = () => {
-    this.props.onToggleDetails({
-      showDetails: !this.props.showDetails,
-    });
-  };
 
 }
 
