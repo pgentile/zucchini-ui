@@ -91,7 +91,7 @@ export default class ScenarioPage extends React.Component {
           {scenario.status && <small><Status status={scenario.status} /></small>}
         </h1>
 
-        {scenario.allTags.length > 0 && <p><b>Tags :</b> <TagList tags={scenario.allTags} /></p>}
+        {scenario.allTags.length > 0 && <p><b>Tags :</b> <TagList testRunId={scenario.testRunId} tags={scenario.allTags} /></p>}
 
         <hr />
 

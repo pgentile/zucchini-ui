@@ -25,7 +25,7 @@ export default class TagsPage extends React.Component {
   }
 
   render() {
-    const { testRun } = this.props;
+    const { testRunId, testRun } = this.props;
 
     return (
       <div>
@@ -38,7 +38,7 @@ export default class TagsPage extends React.Component {
         <hr />
         <h2>Statistiques sur les scénarios</h2>
         <TagFilterFormContainer />
-        <TagsTableContainer />
+        <TagsTableContainer testRunId={testRunId} />
 
       </div>
     );

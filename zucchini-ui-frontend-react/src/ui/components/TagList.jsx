@@ -1,21 +1,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Label from 'react-bootstrap/lib/Label';
 
 import ListWithSeparator from './ListWithSeparator';
+import Tag from './Tag';
 
 
 export default class TagList extends React.PureComponent {
 
   render() {
-    let { tags } = this.props;
+    const { tags, testRunId } = this.props;
 
     // Sort tag list before display
-    tags = [...tags];
-    tags.sort();
+    const sortedTags = [...tags];
+    sortedTags.sort();
 
-    const tagElements = tags.map(tag => (
-      <Label key={tag} bsStyle="info">@{tag}</Label>
+    const tagElements = sortedTags.map(tag => (
+      <Tag key={tag} testRunId={testRunId} tag={tag} />
     ));
 
     return (
@@ -26,5 +26,6 @@ export default class TagList extends React.PureComponent {
 }
 
 TagList.propTypes = {
+  testRunId: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

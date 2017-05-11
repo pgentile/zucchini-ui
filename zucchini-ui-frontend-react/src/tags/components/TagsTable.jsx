@@ -2,19 +2,19 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Table from 'react-bootstrap/lib/Table';
 import Badge from 'react-bootstrap/lib/Badge';
-import Label from 'react-bootstrap/lib/Label';
 
 import Status from '../../ui/components/Status';
+import Tag from '../../ui/components/Tag';
 
 
 export default class TagsTable extends React.Component {
 
   render() {
-    const { tags } = this.props;
+    const { tags, testRunId } = this.props;
 
     const rows = tags.map(tag => {
       return (
-        <TagsTableRow key={tag.tag} tag={tag} />
+        <TagsTableRow key={tag.tag} tag={tag} testRunId={testRunId} />
       );
     });
 
@@ -40,6 +40,7 @@ export default class TagsTable extends React.Component {
 }
 
 TagsTable.propTypes = {
+  testRunId: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
@@ -47,12 +48,12 @@ TagsTable.propTypes = {
 class TagsTableRow extends React.PureComponent {
 
   render() {
-    const { tag } = this.props;
+    const { tag, testRunId } = this.props;
 
     return (
       <tr>
         <td>
-          <Label bsStyle="info">@{tag.tag}</Label>
+          <Tag testRunId={testRunId} tag={tag.tag} />
         </td>
         <td>
           <Status status={tag.status} />
@@ -70,5 +71,6 @@ class TagsTableRow extends React.PureComponent {
 }
 
 TagsTableRow.propTypes = {
+  testRunId: PropTypes.string.isRequired,
   tag: PropTypes.object.isRequired,
 };

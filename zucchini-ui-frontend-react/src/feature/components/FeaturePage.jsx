@@ -49,7 +49,7 @@ export default class FeaturePage extends React.Component {
           <code>{feature.location.filename}</code>, ligne <code>{feature.location.line}</code>
         </p>
 
-        {feature.tags.length > 0 && <p><b>Tags :</b> <TagList tags={feature.tags} /></p>}
+        {feature.tags.length > 0 && <p><b>Tags :</b> <TagList testRunId={feature.testRunId} tags={feature.tags} /></p>}
 
         <hr />
         <ButtonToolbar>
