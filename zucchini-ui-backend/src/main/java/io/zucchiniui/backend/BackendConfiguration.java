@@ -5,11 +5,14 @@ import io.dropwizard.metrics.MetricsFactory;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Map;
 
 public class BackendConfiguration extends Configuration {
 
     @NotNull
     private String mongoUri;
+
+    private Map<String, String> errorOutputCodesPatterns;
 
     @Valid
     private final MetricsFactory metrics = new MetricsFactory();
@@ -26,4 +29,7 @@ public class BackendConfiguration extends Configuration {
         return metrics;
     }
 
+    public Map<String, String> getErrorOutputCodesPatterns() {
+        return errorOutputCodesPatterns;
+    }
 }

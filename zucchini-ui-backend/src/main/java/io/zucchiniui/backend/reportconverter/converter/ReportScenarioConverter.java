@@ -3,35 +3,40 @@ package io.zucchiniui.backend.reportconverter.converter;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import com.google.common.io.BaseEncoding;
+import io.zucchiniui.backend.BackendConfiguration;
 import io.zucchiniui.backend.feature.domain.Feature;
-import io.zucchiniui.backend.reportconverter.report.ReportAroundAction;
-import io.zucchiniui.backend.reportconverter.report.ReportAttachment;
-import io.zucchiniui.backend.reportconverter.report.ReportBackground;
-import io.zucchiniui.backend.reportconverter.report.ReportComment;
-import io.zucchiniui.backend.reportconverter.report.ReportScenario;
-import io.zucchiniui.backend.reportconverter.report.ReportStep;
-import io.zucchiniui.backend.reportconverter.report.TableRow;
-import io.zucchiniui.backend.reportconverter.report.Tag;
-import io.zucchiniui.backend.scenario.domain.AroundActionBuilder;
-import io.zucchiniui.backend.scenario.domain.Attachment;
-import io.zucchiniui.backend.scenario.domain.BackgroundBuilder;
-import io.zucchiniui.backend.scenario.domain.ScenarioBuilder;
-import io.zucchiniui.backend.scenario.domain.StepBuilder;
-import io.zucchiniui.backend.scenario.domain.StepStatus;
+import io.zucchiniui.backend.reportconverter.report.*;
+import io.zucchiniui.backend.scenario.domain.*;
 import io.zucchiniui.backend.shared.domain.Argument;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Component
 class ReportScenarioConverter {
 
     private static final Joiner LINE_JOINER = Joiner.on('\n');
+
+    private final Map<Pattern, String> errorOutputCodePatterns = new HashMap<>();
+
+    public ReportScenarioConverter(BackendConfiguration configuration) {
+
+        Map<String, String> errorOutputCodeConfig = configuration.getErrorOutputCodesPatterns();
+        if (!CollectionUtils.isEmpty(errorOutputCodeConfig)) {
+            errorOutputCodeConfig.entrySet().forEach(config -> {
+                errorOutputCodePatterns.put(Pattern.compile(config.getValue(), Pattern.MULTILINE), config.getKey());
+            });
+        }
+    }
 
     public ScenarioBuilder createScenarioBuilder(final Feature parentFeature, final ReportScenario reportScenario) {
 
@@ -59,6 +64,7 @@ class ReportScenarioConverter {
 
         for (final ReportStep reportStep : reportScenario.getSteps()) {
             scenarioBuilder.addStep(b -> buildStep(reportStep, b));
+            handleErrorOutputCodes(scenarioBuilder, reportStep.getResult().getErrorMessage());
         }
 
         for (final ReportAroundAction reportAroundAction : reportScenario.getBeforeActions()) {
@@ -176,6 +182,16 @@ class ReportScenarioConverter {
                 return new Attachment(data, mimeType);
             })
             .collect(Collectors.toList());
+    }
+
+    private void handleErrorOutputCodes(ScenarioBuilder scenarioBuilder, String errorMessage) {
+        if(StringUtils.isNotBlank(errorMessage)){
+            List<String> matchingErrorCodes = errorOutputCodePatterns.entrySet().stream()
+                .filter(p -> p.getKey().matcher(errorMessage).find())
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
+            scenarioBuilder.withErrorOutputCodes(matchingErrorCodes);
+        }
     }
 
 }

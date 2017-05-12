@@ -1,26 +1,12 @@
 package io.zucchiniui.backend.scenario.domain;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.MapType;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
 import io.zucchiniui.backend.support.ddd.BaseEntity;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
-import java.io.IOException;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -53,7 +39,7 @@ public class Scenario extends BaseEntity<String> {
 
     private boolean reviewed;
 
-    private String errorOutputCode;
+    private List<String> errorOutputCodes;
 
     private List<Step> steps = new ArrayList<>();
 
@@ -92,6 +78,9 @@ public class Scenario extends BaseEntity<String> {
         allTags = new HashSet<>(tags);
         allTags.addAll(builder.getExtraTags());
 
+        errorOutputCodes = builder.getErrorOutputCodes();
+
+
         if (builder.getBackgroundBuilder() != null) {
             background = builder.getBackgroundBuilder().build();
         }
@@ -129,6 +118,8 @@ public class Scenario extends BaseEntity<String> {
         language = other.language;
         tags = new HashSet<>(other.tags);
         allTags = new HashSet<>(other.allTags);
+        errorOutputCodes = other.errorOutputCodes;
+
 
         if (other.background == null) {
             background = null;
@@ -389,11 +380,8 @@ public class Scenario extends BaseEntity<String> {
         reviewed = (status == ScenarioStatus.PASSED);
     }
 
-    public String getErrorOutputCode() {
-        return errorOutputCode;
+    public List<String> getErrorOutputCodes() {
+        return errorOutputCodes;
     }
 
-    public void setErrorOutputCode(String errorOutputCode) {
-        this.errorOutputCode = errorOutputCode;
-    }
 }

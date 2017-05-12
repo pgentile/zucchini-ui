@@ -178,10 +178,11 @@
 
   <!-- Tests en erreurs associés -->
 
-  <h2>Tests avec la même erreur</h2>
-
-  <div>
-    <tc-scenario-list scenarii="ctrl.associatedFailures"></tc-scenario-list>
+  <div ng-if="ctrl.scenario.status==='FAILED'" >
+    <h2>Echecs Similaires</h2>
+    <div>
+      <tc-scenario-list scenarii="ctrl.associatedFailures"></tc-scenario-list>
+    </div>
   </div>
 
   <!-- Comments -->

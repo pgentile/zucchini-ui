@@ -6,6 +6,8 @@ import io.zucchiniui.backend.shared.domain.TagSelection;
 import io.zucchiniui.backend.support.ddd.morphia.BaseMorphiaQuery;
 import org.mongodb.morphia.query.Query;
 
+import java.util.List;
+
 class ScenarioQueryImpl extends BaseMorphiaQuery<Scenario> implements ScenarioQuery {
 
     protected ScenarioQueryImpl(final Query<Scenario> query) {
@@ -56,8 +58,8 @@ class ScenarioQueryImpl extends BaseMorphiaQuery<Scenario> implements ScenarioQu
     }
 
     @Override
-    public ScenarioQuery withErrorOutputCode(String errorOutputCode) {
-        configureQuery(q -> q.field("errorOutputCode").equal(errorOutputCode));
+    public ScenarioQuery withErrorOutputCodes(List<String> errorOutputCodes) {
+        configureQuery(q -> q.field("errorOutputCodes").hasAnyOf(errorOutputCodes));
         return this;
     }
 

@@ -6,7 +6,6 @@ import io.dropwizard.jersey.PATCH;
 import io.zucchiniui.backend.comment.rest.CommentResource;
 import io.zucchiniui.backend.scenario.domain.Attachment;
 import io.zucchiniui.backend.scenario.domain.Scenario;
-import io.zucchiniui.backend.scenario.domain.ScenarioBuilder;
 import io.zucchiniui.backend.scenario.domain.ScenarioQuery;
 import io.zucchiniui.backend.scenario.domain.ScenarioRepository;
 import io.zucchiniui.backend.scenario.domain.ScenarioService;
@@ -22,6 +21,7 @@ import io.zucchiniui.backend.shared.domain.ItemReferenceType;
 import io.zucchiniui.backend.shared.domain.TagSelection;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -116,13 +116,9 @@ public class ScenarioResource {
     @Path("{scenarioId}/associatedFailures")
     public List<ScenarioListItemView> getAssociatedFailures(@PathParam("scenarioId") final String scenarioId) {
         Scenario current = scenarioRepository.getById(scenarioId);
-        if(ScenarioStatus.FAILED.equals(current.getStatus()) && StringUtils.isNotBlank(current.getErrorOutputCode())){
-            String  errorCode = current.getErrorOutputCode();
-
-            // Récupération des échecs associés
+        if(ScenarioStatus.FAILED.equals(current.getStatus()) && !CollectionUtils.isEmpty(current.getErrorOutputCodes())){
             return scenarioViewAccess.getScenarioListItems(prepareQueryFromCurrentScenario(current));
         }
-
         return Collections.emptyList();
     }
 
@@ -201,7 +197,7 @@ public class ScenarioResource {
     private static Consumer<ScenarioQuery> prepareQueryFromCurrentScenario(final Scenario current) {
         return q -> {
                 q.withTestRunId(current.getTestRunId());
-                q.withErrorOutputCode(current.getErrorOutputCode());
+                q.withErrorOutputCodes(current.getErrorOutputCodes());
         };
     }
 
