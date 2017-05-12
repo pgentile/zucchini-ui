@@ -1,15 +1,22 @@
 package io.zucchiniui.backend.scenario.domain;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.MapType;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
 import io.zucchiniui.backend.support.ddd.BaseEntity;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
+import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -45,6 +52,8 @@ public class Scenario extends BaseEntity<String> {
     private String comment;
 
     private boolean reviewed;
+
+    private String errorOutputCode;
 
     private List<Step> steps = new ArrayList<>();
 
@@ -380,4 +389,11 @@ public class Scenario extends BaseEntity<String> {
         reviewed = (status == ScenarioStatus.PASSED);
     }
 
+    public String getErrorOutputCode() {
+        return errorOutputCode;
+    }
+
+    public void setErrorOutputCode(String errorOutputCode) {
+        this.errorOutputCode = errorOutputCode;
+    }
 }

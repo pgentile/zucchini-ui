@@ -16,4 +16,6 @@ public interface ScenarioQuery {
 
     ScenarioQuery withSelectedTags(TagSelection tagSelection);
 
+    ScenarioQuery withErrorOutputCode(String errorOutputCode);
+
 }

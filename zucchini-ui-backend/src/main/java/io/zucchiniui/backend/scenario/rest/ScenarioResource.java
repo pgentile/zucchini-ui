@@ -6,9 +6,11 @@ import io.dropwizard.jersey.PATCH;
 import io.zucchiniui.backend.comment.rest.CommentResource;
 import io.zucchiniui.backend.scenario.domain.Attachment;
 import io.zucchiniui.backend.scenario.domain.Scenario;
+import io.zucchiniui.backend.scenario.domain.ScenarioBuilder;
 import io.zucchiniui.backend.scenario.domain.ScenarioQuery;
 import io.zucchiniui.backend.scenario.domain.ScenarioRepository;
 import io.zucchiniui.backend.scenario.domain.ScenarioService;
+import io.zucchiniui.backend.scenario.domain.ScenarioStatus;
 import io.zucchiniui.backend.scenario.domain.UpdateScenarioParams;
 import io.zucchiniui.backend.scenario.views.ScenarioHistoryItemView;
 import io.zucchiniui.backend.scenario.views.ScenarioListItemView;
@@ -18,6 +20,7 @@ import io.zucchiniui.backend.scenario.views.ScenarioViewAccess;
 import io.zucchiniui.backend.shared.domain.ItemReference;
 import io.zucchiniui.backend.shared.domain.ItemReferenceType;
 import io.zucchiniui.backend.shared.domain.TagSelection;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
@@ -110,6 +113,20 @@ public class ScenarioResource {
     }
 
     @GET
+    @Path("{scenarioId}/associatedFailures")
+    public List<ScenarioListItemView> getAssociatedFailures(@PathParam("scenarioId") final String scenarioId) {
+        Scenario current = scenarioRepository.getById(scenarioId);
+        if(ScenarioStatus.FAILED.equals(current.getStatus()) && StringUtils.isNotBlank(current.getErrorOutputCode())){
+            String  errorCode = current.getErrorOutputCode();
+
+            // Récupération des échecs associés
+            return scenarioViewAccess.getScenarioListItems(prepareQueryFromCurrentScenario(current));
+        }
+
+        return Collections.emptyList();
+    }
+
+    @GET
     @Path("{scenarioId}/attachments/{attachmentId}")
     public Response getAttachment(@PathParam("scenarioId") final String scenarioId, @PathParam("attachmentId") final String attachmentId) {
         final Optional<Attachment> attachment = scenarioRepository.getById(scenarioId).findAttachmentById(attachmentId);
@@ -180,5 +197,13 @@ public class ScenarioResource {
             q.withSelectedTags(tagSelection);
         };
     }
+
+    private static Consumer<ScenarioQuery> prepareQueryFromCurrentScenario(final Scenario current) {
+        return q -> {
+                q.withTestRunId(current.getTestRunId());
+                q.withErrorOutputCode(current.getErrorOutputCode());
+        };
+    }
+
 
 }

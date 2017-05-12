@@ -55,4 +55,10 @@ class ScenarioQueryImpl extends BaseMorphiaQuery<Scenario> implements ScenarioQu
         return this;
     }
 
+    @Override
+    public ScenarioQuery withErrorOutputCode(String errorOutputCode) {
+        configureQuery(q -> q.field("errorOutputCode").equal(errorOutputCode));
+        return this;
+    }
+
 }
