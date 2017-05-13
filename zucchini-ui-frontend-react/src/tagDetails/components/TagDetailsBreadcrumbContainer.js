@@ -15,10 +15,14 @@ const selectBreadcumbItems = createSelector(
       },
       {
         value: `Tir du ${toNiceDate(testRun.date)}`,
-        link: { pathname: `/test-runs/${testRun.id}` },
+        link: `/test-runs/${testRun.id}`,
       },
       {
         value: 'Tags',
+        link: `/test-runs/${testRun.id}/tags`,
+      },
+      {
+        value: 'Sélection de tags',
       },
     ];
   },
@@ -26,11 +30,11 @@ const selectBreadcumbItems = createSelector(
 
 const selectProps = createStructuredSelector({
   items: selectBreadcumbItems,
-});
+})
 
 
-const TagsBreadcrumbContainer = connect(
+const TestRunBreadcrumbContainer = connect(
   selectProps,
 )(Breadcrumb);
 
-export default TagsBreadcrumbContainer;
+export default TestRunBreadcrumbContainer;

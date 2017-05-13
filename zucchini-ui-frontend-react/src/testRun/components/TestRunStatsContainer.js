@@ -1,9 +1,7 @@
 import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import ScenarioStats from '../../stats/components/ScenarioStats';
-import { updateStatsDashboardFilters } from '../../filters/redux';
-
+import ScenarioStatsContainer from '../../stats/components/ScenarioStatsContainer';
 
 
 const selectStats = createSelector(
@@ -11,22 +9,13 @@ const selectStats = createSelector(
   stats => stats,
 );
 
-const selectShowDetails = createSelector(
-  state => state.statsDashboardFilters.showDetails,
-  showDetails => showDetails,
-);
-
 const selectProps = createStructuredSelector({
   stats: selectStats,
-  showDetails: selectShowDetails,
 })
 
 
 const TestRunStatsContainer = connect(
   selectProps,
-  {
-    onToggleDetails: updateStatsDashboardFilters,
-  },
-)(ScenarioStats);
+)(ScenarioStatsContainer);
 
 export default TestRunStatsContainer;

@@ -7,12 +7,14 @@ class ScenariosApi {
     this.client = new Client(`${baseUri}/api/scenarii`);
   }
 
-  getScenarios({ featureId, testRunId, search }) {
+  getScenarios({ featureId, testRunId, search, tags, excludedTags }) {
     return this.client.get({
       query: {
         featureId,
         testRunId,
         search,
+        tag: tags,
+        excludedTag: excludedTags,
       },
     });
   }
@@ -23,12 +25,14 @@ class ScenariosApi {
     });
   }
 
-  getStats({ testRunId, featureId }) {
+  getStats({ testRunId, featureId, tags, excludedTags }) {
     return this.client.get({
       path: '/stats',
       query: {
         testRunId,
         featureId,
+        tag: tags,
+        excludedTag: excludedTags,
       },
     });
   }

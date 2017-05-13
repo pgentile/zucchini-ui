@@ -11,11 +11,13 @@ class FeaturesApi {
     return this.client.get({ path: featureId });
   }
 
-  getFeatures({ testRunId, withStats }) {
+  getFeatures({ testRunId, withStats, tags, excludedTags }) {
     return this.client.get({
       query: {
         testRunId,
         withStats,
+        tag: tags,
+        excludedTag: excludedTags,
       },
     });
   }

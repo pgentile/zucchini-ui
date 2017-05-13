@@ -5,7 +5,7 @@ import ScenarioStatsContainer from '../../stats/components/ScenarioStatsContaine
 
 
 const selectStats = createSelector(
-  state => state.feature.stats,
+  state => state.tagDetails.stats,
   stats => stats,
 );
 
@@ -14,8 +14,6 @@ const selectProps = createStructuredSelector({
 })
 
 
-const FeatureStatsContainer = connect(
+export default connect(
   selectProps,
 )(ScenarioStatsContainer);
-
-export default FeatureStatsContainer;

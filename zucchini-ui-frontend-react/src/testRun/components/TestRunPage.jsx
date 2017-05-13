@@ -118,6 +118,8 @@ export default class TestRunPage extends React.Component {
           </ButtonGroup>
         </ButtonToolbar>
 
+        <hr />
+
         <h2>Statistiques</h2>
         <TestRunStatsContainer />
 
