@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
-import _ from 'lodash';
 
 import TrendChart from '../../stats/components/TrendChart';
 
@@ -8,13 +7,14 @@ import TrendChart from '../../stats/components/TrendChart';
 const selectTrends = createSelector(
   state => state.testRun.testRun.id,
   state => state.testRun.history,
-  state => state.testRun.stats.all,
-  (testRunId, history, currentTestRunTrend) => {
-    let previousTrends = _.takeRightWhile(history, testRun => testRun.id !== testRunId);
-    previousTrends = previousTrends.map(testRun => testRun.stats.all);
-    previousTrends.reverse();
+  (testRunId, history) => {
+    let trendHistory = [...history];
+    trendHistory.reverse();
 
-    return [...previousTrends, currentTestRunTrend];
+    const testRunIndex = trendHistory.findIndex(item => item.id === testRunId);
+    trendHistory = trendHistory.slice(0, testRunIndex + 1);
+
+    return trendHistory.map(testRun => testRun.stats.all);
   },
 );
 
