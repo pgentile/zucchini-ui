@@ -3,11 +3,8 @@ import { createSelector, createStructuredSelector } from 'reselect';
 
 import Comment from './Comment';
 
+import { deleteComment, updateCommentThenReload } from '../redux';
 
-const selectComment = createSelector(
-  (state, ownProps) => ownProps.comment,
-  comment => comment,
-);
 
 const selectTestRunId = createSelector(
   state => state.scenario.scenario.testRunId || null,
@@ -16,13 +13,16 @@ const selectTestRunId = createSelector(
 
 
 const selectProps = createStructuredSelector({
-  comment: selectComment,
   testRunId: selectTestRunId,
 });
 
 
 const CommentContainer = connect(
   selectProps,
+  {
+    onDelete: deleteComment,
+    onChange: updateCommentThenReload,
+  }
 )(Comment);
 
 export default CommentContainer;

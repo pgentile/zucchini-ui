@@ -76,7 +76,7 @@ export default class ImportCucumberResultsDialog extends React.PureComponent {
               <ControlLabel>Fichier à importer</ControlLabel>
               <FormControl type="file" accept=".json" required
                 onChange={this.onFileChange} />
-              <HelpBlock>Le fichier à importer est un résultat d'exécution Cucumber, au format JSON.</HelpBlock>
+              <HelpBlock>Le fichier à importer est un résultat d&apos;exécution Cucumber, au format JSON.</HelpBlock>
             </FormGroup>
             <FormGroup controlId="group">
               <ControlLabel>Groupe</ControlLabel>
@@ -87,10 +87,10 @@ export default class ImportCucumberResultsDialog extends React.PureComponent {
             </FormGroup>
             <FormGroup>
               <Checkbox checked={this.state.onlyNewScenarii} onChange={this.onOptionChange('onlyNewScenarii')}>
-                Limiter l'import aux nouveaux scénarii
+                Limiter l&apos;import aux nouveaux scénarii
               </Checkbox>
               <Checkbox checked={this.state.mergeOnlyNewPassedScenarii} onChange={this.onOptionChange('mergeOnlyNewPassedScenarii')}>
-                Limiter l'import aux scénarii passés avec succès
+                Limiter l&apos;import aux scénarii passés avec succès
               </Checkbox>
               <Checkbox checked={this.state.dryRun} onChange={this.onOptionChange('dryRun')}>
                 Tir à blanc

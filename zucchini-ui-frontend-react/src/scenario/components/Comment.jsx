@@ -3,10 +3,50 @@ import React from 'react';
 import { Link } from 'react-router'
 
 import toNiceDate from '../../ui/toNiceDate';
-import SimpleText from '../../ui/components/SimpleText';
+import CommentText from './CommentText';
+import CommentEditor from './CommentEditor';
 
 
 export default class Comment extends React.PureComponent {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      editMode: false,
+    };
+  }
+
+  onEdit = () => {
+    this.setState({
+      editMode: true,
+    });
+  };
+
+  onDelete = () => {
+    this.props.onDelete({
+      scenarioId: this.props.comment.scenarioId,
+      commentId: this.props.comment.id,
+    });
+  };
+
+  onSave = ({ newContent }) => {
+    this.props.onChange({
+      scenarioId: this.props.comment.scenarioId,
+      commentId: this.props.comment.id,
+      newContent,
+    });
+
+    this.setState({
+      editMode: false,
+    });
+  };
+
+  onCancelEdit = () => {
+    this.setState({
+      editMode: false,
+    });
+  };
 
   render() {
     const { comment, testRunId } = this.props;
@@ -33,6 +73,17 @@ export default class Comment extends React.PureComponent {
       );
     }
 
+    let commentComponent = null;
+    if (this.state.editMode) {
+      commentComponent = (
+        <CommentEditor comment={comment} onSave={this.onSave} onCancel={this.onCancelEdit} />
+      );
+    } else {
+      commentComponent = (
+        <CommentText comment={comment} onEdit={this.onEdit} onDelete={this.onDelete} />
+      );
+    }
+
     return (
       <div>
         <h4>
@@ -40,7 +91,7 @@ export default class Comment extends React.PureComponent {
           {' '}
           {testRunInfo}
         </h4>
-        <SimpleText text={comment.content} />
+        {commentComponent}
       </div>
     );
   }
@@ -50,4 +101,6 @@ export default class Comment extends React.PureComponent {
 Comment.propTypes = {
   comment: PropTypes.object.isRequired,
   testRunId: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };

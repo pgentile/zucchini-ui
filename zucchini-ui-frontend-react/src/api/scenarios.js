@@ -41,6 +41,23 @@ class ScenariosApi {
     return this.client.get({ path: `/${scenarioId}/comments` });
   }
 
+  deleteComment({ scenarioId, commentId }) {
+    return this.client.delete({
+      path: `/${scenarioId}/comments/${commentId}`,
+      hasOutput: false,
+    });
+  }
+
+  updateComment({ scenarioId, commentId, newContent }) {
+    return this.client.patch({
+      path: `/${scenarioId}/comments/${commentId}`,
+      body: {
+        content: newContent,
+      },
+      hasOutput: false,
+    });
+  }
+
   updateScenarioState({ scenarioId, newState }) {
     return this.client.patch({
       path: scenarioId,

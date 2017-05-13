@@ -35,7 +35,7 @@ export default class ConfirmActionButton extends React.PureComponent {
   };
 
   render() {
-    const { actionGlyph, actionLabel, title, message, bsStyle } = this.props;
+    const { actionGlyph, actionLabel, title, message, bsStyle, bsSize } = this.props;
     const { show } = this.state;
 
     let buttonContent = actionLabel;
@@ -49,7 +49,7 @@ export default class ConfirmActionButton extends React.PureComponent {
 
     return (
       <span>
-        <Button bsStyle={bsStyle} onClick={this.onShowConfirmation}>
+        <Button bsStyle={bsStyle} bsSize={bsSize} onClick={this.onShowConfirmation}>
           {buttonContent}
         </Button>
 
@@ -73,6 +73,7 @@ export default class ConfirmActionButton extends React.PureComponent {
 
 ConfirmActionButton.propTypes = {
   bsStyle: PropTypes.string,
+  bsSize: PropTypes.string,
   actionGlyph: PropTypes.string,
   actionLabel: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,

@@ -60,6 +60,16 @@ export function getScenarioComments({ scenarioId }) {
 }
 
 
+export function deleteComment({ scenarioId, commentId }) {
+  return scenariosApi.deleteComment({ scenarioId, commentId });
+}
+
+
+export function updateComment({ scenarioId, commentId, newContent }) {
+  return scenariosApi.updateComment({ scenarioId, commentId, newContent });
+}
+
+
 function getTestRun({ testRunId }) {
   return testRunsApi.getTestRun({ testRunId }).catch(() => null);
 }

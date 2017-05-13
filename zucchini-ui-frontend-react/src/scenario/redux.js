@@ -26,6 +26,11 @@ const ADD_SCENARIO_COMMENT = `${PREFIX}/ADD_SCENARIO_COMMENT`;
 
 const DELETE_SCENARIO = `${PREFIX}/DELETE_SCENARIO`;
 
+const DELETE_COMMENT = `${PREFIX}/DELETE_COMMENT`;
+const DELETE_COMMENT_FULFILED = `${DELETE_COMMENT}_FULFILLED`;
+
+const UPDATE_COMMENT = `${PREFIX}/UPDATE_COMMENT`;
+// const UPDATE_COMMENT_FULFILED = `${UPDATE_COMMENT}_FULFILLED`;
 
 // Action creators
 
@@ -137,7 +142,7 @@ export function updateScenarioStateAndComment({ scenarioId, newState, comment })
 export function addScenarioCommentAndReload({ scenarioId, comment }) {
   return async dispatch => {
     await dispatch(addScenarioComment({ scenarioId, comment }));
-    await dispatch(loadScenarioPage({ scenarioId }));
+    await dispatch(getScenarioComments({ scenarioId }));
 
     return null;
   };
@@ -171,6 +176,37 @@ export function setScenarioReviewedStateAndComment({ scenarioId, comment }) {
     },
     comment,
   });
+}
+
+export function deleteComment({ scenarioId, commentId }) {
+  return {
+    type: DELETE_COMMENT,
+    payload: model.deleteComment({ scenarioId, commentId }),
+    meta: {
+      scenarioId,
+      commentId,
+    },
+  };
+}
+
+export function updateComment({ scenarioId, commentId, newContent }) {
+  return {
+    type: UPDATE_COMMENT,
+    payload: model.updateComment({ scenarioId, commentId, newContent }),
+    meta: {
+      scenarioId,
+      commentId,
+    },
+  };
+}
+
+export function updateCommentThenReload({ scenarioId, commentId, newContent }) {
+  return async dispatch => {
+    await dispatch(updateComment({ scenarioId, commentId, newContent }));
+    await dispatch(getScenarioComments({ scenarioId }));
+
+    return null;
+  };
 }
 
 
@@ -208,5 +244,15 @@ export const scenario = handleActions({
     ...state,
     comments: action.payload,
   }),
+
+  [DELETE_COMMENT_FULFILED]: (state, action) => {
+    let { comments } = state;
+    comments = comments.filter(comment => comment.id !== action.meta.commentId);
+
+    return {
+      ...state,
+      comments,
+    };
+  },
 
 }, initialState);

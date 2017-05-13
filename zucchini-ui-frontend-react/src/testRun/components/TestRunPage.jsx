@@ -80,7 +80,7 @@ export default class TestRunPage extends React.Component {
       let value = label.value;
       if (label.url) {
         value = (
-          <a href={label.url} target="_blank">{label.value}</a>
+          <a href={label.url}>{label.value}</a>
         );
       }
 

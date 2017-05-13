@@ -49,7 +49,7 @@ export default class ScenarioDetails extends React.PureComponent {
       <div>
         <p>
           <OverlayTrigger rootClose trigger="click" placement="right" overlay={stepFilters}>
-            <Button bsSize="xsmall">Options d'affichage</Button>
+            <Button bsSize="xsmall">Options d&apos;affichage</Button>
           </OverlayTrigger>
         </p>
 

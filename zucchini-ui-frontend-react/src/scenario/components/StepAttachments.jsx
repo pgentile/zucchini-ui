@@ -20,7 +20,7 @@ export default class StepAttachments extends React.PureComponent {
     const items = attachments.map((attachment, index) => {
       return (
         <ListGroupItem key={attachment.id}>
-          <a href={this.buildUrlForAttachment(attachment.id)} target="_blank">
+          <a href={this.buildUrlForAttachment(attachment.id)} download>
             Pièce-jointe #{index + 1}
           </a>
         </ListGroupItem>
