@@ -12,6 +12,7 @@ import SimpleText from '../../ui/components/SimpleText';
 import Status from '../../ui/components/Status';
 import ScenarioStateFilterContainer from './ScenarioStateFilterContainer';
 import DeleteFeatureButtonContainer from './DeleteFeatureButtonContainer';
+import FeatureTrendChartContainer from './FeatureTrendChartContainer';
 
 
 export default class FeaturePage extends React.Component {
@@ -70,6 +71,12 @@ export default class FeaturePage extends React.Component {
         <h2>Scénarii</h2>
         <ScenarioStateFilterContainer />
         <ScenarioTableContainer />
+
+        <hr />
+
+        <h2>Tendance</h2>
+        <HistoryFilterContainer />
+        <FeatureTrendChartContainer />
 
         <hr />
 
