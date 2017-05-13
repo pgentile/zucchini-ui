@@ -15,11 +15,9 @@ const selectProps = createStructuredSelector({
 });
 
 
-const ScenarioStateFilterContainer = connect(
+export default connect(
   selectProps,
   {
     onFilterChange: updateScenarioFilters,
   },
 )(ScenarioStateFilter);
-
-export default ScenarioStateFilterContainer;

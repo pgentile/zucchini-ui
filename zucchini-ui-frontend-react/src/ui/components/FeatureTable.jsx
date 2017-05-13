@@ -7,14 +7,18 @@ import { Link } from 'react-router'
 import Status from '../../ui/components/Status';
 
 
-export default class TestRunFeatureTable extends React.Component {
+export default class FeatureTable extends React.Component {
+
+  static propTypes = {
+    features: PropTypes.arrayOf(PropTypes.object).isRequired,
+  };
 
   render() {
     const { features } = this.props;
 
     const rows = features.map(feature => {
       return (
-        <TestRunFeatureTableTableRow key={feature.id} feature={feature} />
+        <FeatureTableTableRow key={feature.id} feature={feature} />
       )
     });
 
@@ -40,12 +44,12 @@ export default class TestRunFeatureTable extends React.Component {
 
 }
 
-TestRunFeatureTable.propTypes = {
-  features: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
 
+class FeatureTableTableRow extends React.PureComponent {
 
-class TestRunFeatureTableTableRow extends React.PureComponent {
+  static propTypes = {
+    feature: PropTypes.object.isRequired,
+  };
 
   render() {
     const { feature } = this.props;
@@ -72,7 +76,3 @@ class TestRunFeatureTableTableRow extends React.PureComponent {
   }
 
 }
-
-TestRunFeatureTableTableRow.propTypes = {
-  feature: PropTypes.object.isRequired,
-};

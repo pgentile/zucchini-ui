@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/lib/Button';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 import toNiceDate from '../../ui/toNiceDate';
-import FeatureStateFilterContainer from './FeatureStateFilterContainer';
+import FeatureStateFilterContainer from '../../filters/components/FeatureStateFilterContainer';
 import TestRunHistoryTableContainer from './TestRunHistoryTableContainer';
 import TestRunStatsContainer from './TestRunStatsContainer';
 import TestRunFeatureTableContainer from './TestRunFeatureTableContainer';

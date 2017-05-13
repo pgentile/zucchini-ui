@@ -15,11 +15,9 @@ const selectProps = createStructuredSelector({
 });
 
 
-const FeatureStateFilterContainer = connect(
+export default connect(
   selectProps,
   {
     onFilterChange: updateFeatureFilters,
   },
 )(FeatureStateFilter);
-
-export default FeatureStateFilterContainer;

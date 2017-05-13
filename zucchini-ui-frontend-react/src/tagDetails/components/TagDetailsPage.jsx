@@ -2,7 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import toNiceDate from '../../ui/toNiceDate';
+import FeatureStateFilterContainer from '../../filters/components/FeatureStateFilterContainer';
+import ScenarioStateFilterContainer from '../../filters/components/ScenarioStateFilterContainer';
 import TagDetailsStatsContainer from './TagDetailsStatsContainer';
+import TagDetailsFeatureTableContainer from './TagDetailsFeatureTableContainer';
+import TagDetailsScenarioTableContainer from './TagDetailsScenarioTableContainer';
 
 
 export default class TagDetailsPage extends React.Component {
@@ -22,7 +26,6 @@ export default class TagDetailsPage extends React.Component {
       this.props.onLoad({ testRunId, tags, excludedTags });
     }
   }
-
 
   render() {
     const { testRun, tags, excludedTags } = this.props;
@@ -47,6 +50,18 @@ export default class TagDetailsPage extends React.Component {
 
         <h2>Statistiques</h2>
         <TagDetailsStatsContainer />
+
+        <hr />
+
+        <h2>Fonctionnalités</h2>
+        <FeatureStateFilterContainer />
+        <TagDetailsFeatureTableContainer />
+
+        <hr />
+
+        <h2>Scénarios</h2>
+        <ScenarioStateFilterContainer />
+        <TagDetailsScenarioTableContainer />
 
       </div>
     );

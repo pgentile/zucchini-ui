@@ -7,10 +7,10 @@ import FeatureStatsContainer from './FeatureStatsContainer';
 import FeatureHistoryTableContainer from './FeatureHistoryTableContainer';
 import ScenarioTableContainer from './ScenarioTableContainer';
 import HistoryFilterContainer from '../../filters/components/HistoryFilterContainer';
+import ScenarioStateFilterContainer from '../../filters/components/ScenarioStateFilterContainer';
 import TagList from '../../ui/components/TagList';
 import SimpleText from '../../ui/components/SimpleText';
 import Status from '../../ui/components/Status';
-import ScenarioStateFilterContainer from './ScenarioStateFilterContainer';
 import DeleteFeatureButtonContainer from './DeleteFeatureButtonContainer';
 import FeatureTrendChartContainer from './FeatureTrendChartContainer';
 
@@ -68,7 +68,7 @@ export default class FeaturePage extends React.Component {
 
         <hr />
 
-        <h2>Scénarii</h2>
+        <h2>Scénarios</h2>
         <ScenarioStateFilterContainer />
         <ScenarioTableContainer />
 

@@ -5,11 +5,10 @@ import FeatureTable from '../../ui/components/FeatureTable';
 
 
 const selectFeatures = createSelector(
-  state => state.testRun.features,
-  (state, ownProps) => ownProps.selectedFeatureGroup,
+  state => state.tagDetails.features,
   state => state.featureFilters,
-  (features, selectedFeatureGroup, featureFilters) => {
-    const filters = createFeatureFilters(selectedFeatureGroup, featureFilters);
+  (features, featureFilters) => {
+    const filters = createFeatureFilters(featureFilters);
 
     if (filters) {
       let filteredFeatures = features;
@@ -23,13 +22,8 @@ const selectFeatures = createSelector(
   },
 );
 
-function createFeatureFilters(selectedFeatureGroup, featureFilters) {
+function createFeatureFilters(featureFilters) {
   let filters = [];
-
-  if (selectedFeatureGroup) {
-    const filter = feature => feature.group === selectedFeatureGroup;
-    filters = [...filters, filter];
-  }
 
   if (!featureFilters.passed) {
     const filter = feature => feature.status !== 'PASSED';
@@ -70,8 +64,6 @@ const selectProps = createStructuredSelector({
 })
 
 
-const TestRunFeatureTableContainer = connect(
+export default connect(
   selectProps,
 )(FeatureTable);
-
-export default TestRunFeatureTableContainer;
