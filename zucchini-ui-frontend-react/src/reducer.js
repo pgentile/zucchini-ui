@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
+import { reducer as formReducer } from 'redux-form'
 
 import { featureFilters, statsDashboardFilters, historyFilters, scenarioFilters, stepFilters } from './filters/redux';
 import { testRuns } from './testRuns/redux';
@@ -14,6 +15,7 @@ import { errors } from './errors/redux';
 
 const reducer = combineReducers({
   routing: routerReducer,
+  form: formReducer,
   featureFilters,
   statsDashboardFilters,
   historyFilters,

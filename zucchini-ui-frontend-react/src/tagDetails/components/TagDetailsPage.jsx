@@ -1,19 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import InputGroup from 'react-bootstrap/lib/InputGroup';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 
 import toNiceDate from '../../ui/toNiceDate';
-import Button from '../../ui/components/Button';
 import FeatureStateFilterContainer from '../../filters/components/FeatureStateFilterContainer';
 import ScenarioStateFilterContainer from '../../filters/components/ScenarioStateFilterContainer';
 import TagDetailsStatsContainer from './TagDetailsStatsContainer';
 import TagDetailsFeatureTableContainer from './TagDetailsFeatureTableContainer';
 import TagDetailsScenarioTableContainer from './TagDetailsScenarioTableContainer';
+import TagSelectionForm from './TagSelectionForm';
 
 
 export default class TagDetailsPage extends React.Component {
@@ -47,32 +41,11 @@ export default class TagDetailsPage extends React.Component {
     }
   }
 
-  onTagsChange = event => {
-    this.setState({
-      tagsStr: event.target.value,
-    });
-  };
-
-  onExcludedTagsChange = event => {
-    this.setState({
-      excludedTagsStr: event.target.value,
-    });
-  };
-
-  onUpdateTags = event => {
-    event.preventDefault();
-
-    const splitTagStr = str => {
-      if (str.length) {
-        return str.split(' ');
-      }
-      return [];
-    };
-
-    this.props.onUpdate({
+  onUpdateTags = ({ tags, excludedTags }) => {
+    return this.props.onUpdate({
       testRunId: this.props.testRunId,
-      tags: splitTagStr(this.state.tagsStr),
-      excludedTags: splitTagStr(this.state.excludedTagsStr),
+      tags,
+      excludedTags,
     });
   };
 
@@ -104,29 +77,7 @@ export default class TagDetailsPage extends React.Component {
 
         <hr />
 
-        <form onSubmit={this.onUpdateTags}>
-          <Row>
-            <Col md={5}>
-              <FormGroup controlId="tags">
-                <InputGroup>
-                  <ControlLabel className="input-group-addon">Tags inclus</ControlLabel>
-                  <FormControl value={this.state.tagsStr} onChange={this.onTagsChange} />
-                </InputGroup>
-              </FormGroup>
-            </Col>
-            <Col md={5}>
-              <FormGroup controlId="excludedTags">
-                <InputGroup>
-                  <ControlLabel className="input-group-addon">Tags exclus</ControlLabel>
-                  <FormControl value={this.state.excludedTagsStr} onChange={this.onExcludedTagsChange} />
-                </InputGroup>
-              </FormGroup>
-            </Col>
-            <Col md={2}>
-              <Button glyph="refresh" type="submit" block>Actualiser</Button>
-            </Col>
-          </Row>
-        </form>
+        <TagSelectionForm initialValues={{ tags, excludedTags }} onSubmit={this.onUpdateTags} />
 
         <hr />
 
