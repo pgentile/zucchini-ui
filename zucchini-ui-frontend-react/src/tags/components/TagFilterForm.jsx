@@ -48,4 +48,5 @@ class TagFilterForm extends React.PureComponent {
 
 export default reduxForm({
   form: 'tagFilter',
+  onSubmit: () => {},
 })(TagFilterForm);
