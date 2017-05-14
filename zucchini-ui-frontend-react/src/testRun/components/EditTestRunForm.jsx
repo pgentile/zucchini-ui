@@ -16,9 +16,10 @@ class EditTestRunForm extends React.PureComponent {
     initialValues: PropTypes.object.isRequired,
   };
 
-  renderField = ({ input, placeholder }) => {
+  renderField = ({input, meta, ...otherProps}) => {
+    console.debug('Meta on', input.name, ':', meta);
     return (
-      <FormControl {...input} placeholder={placeholder} />
+      <FormControl {...input} {...otherProps} />
     );
   };
 

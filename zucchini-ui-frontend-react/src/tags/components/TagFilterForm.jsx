@@ -20,9 +20,10 @@ class TagFilterForm extends React.PureComponent {
     this.props.reset();
   };
 
-  renderField = ({ input }) => {
+  renderField = ({input, meta, ...otherProps}) => {
+    console.debug('Meta on', input.name, ':', meta);
     return (
-      <FormControl {...input} />
+      <FormControl {...input} {...otherProps} />
     );
   };
 

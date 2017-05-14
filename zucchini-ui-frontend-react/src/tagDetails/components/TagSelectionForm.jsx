@@ -18,9 +18,10 @@ class TagSelectionForm extends React.PureComponent {
     initialValues: PropTypes.object.isRequired,
   };
 
-  renderField = (field) => {
+  renderField = ({input, meta, ...otherProps}) => {
+    console.debug('Meta on', input.name, ':', meta);
     return (
-      <FormControl {...field.input} />
+      <FormControl {...input} {...otherProps} />
     );
   };
 
