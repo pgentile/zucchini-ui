@@ -1,15 +1,51 @@
 import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
+import _ from 'lodash';
 
 import { selectScenarioFilterFunc } from '../../filters/selectors';
-import ScenarioTable from '../../ui/components/ScenarioTable';
+import TagDetailsScenarioTable from './TagDetailsScenarioTable';
+
+
+const selectFeaturesById = createSelector(
+  state => state.tagDetails.features,
+  features => {
+    const featuresById = new Map();
+    features.forEach(feature => {
+      featuresById.set(feature.id, feature);
+    });
+    return featuresById;
+  }
+);
+
+
+const DEFAULT_FEATURE = {
+  info: {
+    name: '',
+  },
+};
 
 
 const selectScenarios = createSelector(
   state => state.tagDetails.scenarios,
+  selectFeaturesById,
   selectScenarioFilterFunc,
-  (scenarios, scenarioFilterFunc) => {
-    return scenarios.filter(scenarioFilterFunc);
+  (scenarios, featuresById, scenarioFilterFunc) => {
+    let selectedScenarios = scenarios
+      .filter(scenarioFilterFunc)
+      .map(scenario => {
+        const feature = featuresById.get(scenario.featureId) || DEFAULT_FEATURE;
+        return {
+          ...scenario,
+          feature,
+        };
+      });
+
+    selectedScenarios = _.sortBy(selectedScenarios, [
+      scenario => scenario.feature.info.name,
+      scenario => scenario.info.name,
+    ]);
+
+    return selectedScenarios;
   },
 );
 
@@ -19,4 +55,4 @@ const selectProps = createStructuredSelector({
 
 export default connect(
   selectProps,
-)(ScenarioTable);
+)(TagDetailsScenarioTable);
