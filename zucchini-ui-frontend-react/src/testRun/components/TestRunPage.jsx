@@ -2,10 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
-import Button from 'react-bootstrap/lib/Button';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 import toNiceDate from '../../ui/toNiceDate';
+import Button from '../../ui/components/Button';
 import FeatureStateFilterContainer from '../../filters/components/FeatureStateFilterContainer';
 import TestRunHistoryTableContainer from './TestRunHistoryTableContainer';
 import TestRunStatsContainer from './TestRunStatsContainer';
@@ -99,18 +98,18 @@ export default class TestRunPage extends React.Component {
         <hr />
         <ButtonToolbar>
           <ButtonGroup>
-            <Button onClick={this.onImportCucumberResultButtonClick}>
-              <Glyphicon glyph="upload" /> Importer un résultat de tests Cucumber
+            <Button glyph="upload" onClick={this.onImportCucumberResultButtonClick}>
+              Importer un résultat de tests Cucumber
             </Button>
           </ButtonGroup>
           <ButtonGroup>
-            <Button onClick={this.onEditButtonClick}>
-              <Glyphicon glyph="pencil" /> Modifier
+            <Button glyph="pencil" onClick={this.onEditButtonClick}>
+              Modifier
             </Button>
           </ButtonGroup>
           <ButtonGroup>
-            <Button onClick={this.onGoToTags}>
-              <Glyphicon glyph="tags" /> Tags
+            <Button glyph="tags" onClick={this.onGoToTags}>
+              Tags
             </Button>
           </ButtonGroup>
           <ButtonGroup>

@@ -3,9 +3,8 @@ import React from 'react';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import InputGroup from 'react-bootstrap/lib/InputGroup';
-import Button from 'react-bootstrap/lib/Button';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
+import Button from '../../ui/components/Button';
 import toNiceDate from '../../ui/toNiceDate';
 import FoundScenarioTableContainer from './FoundScenarioTableContainer';
 
@@ -70,9 +69,7 @@ export default class TestRunSearchPage extends React.Component {
             <InputGroup bsSize="large">
               <FormControl type="text" value={this.state.search} onChange={this.onSearchChange} placeholder="Rechercher..." />
               <InputGroup.Button>
-                <Button type="submit">
-                  <Glyphicon glyph="search" />
-                </Button>
+                <Button glyph="search" type="submit" />
               </InputGroup.Button>
             </InputGroup>
           </FormGroup>

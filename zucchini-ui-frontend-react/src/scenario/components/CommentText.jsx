@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Button from 'react-bootstrap/lib/Button';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
+import Button from '../../ui/components/Button';
 import SimpleText from '../../ui/components/SimpleText';
 import ConfirmActionButton from '../../ui/components/ConfirmActionButton';
 
@@ -24,9 +23,7 @@ export default class CommentText extends React.PureComponent {
       <div>
         <SimpleText text={comment.content} />
         <p>
-          <Button bsSize="xsmall" onClick={this.onEdit}>
-            <Glyphicon glyph="pencil" />
-            {' '}
+          <Button glyph="pencil" bsSize="xsmall" onClick={this.onEdit}>
             Modifier
           </Button>
           {' '}

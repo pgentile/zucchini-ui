@@ -4,8 +4,8 @@ import Navbar from 'react-bootstrap/lib/Navbar';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import InputGroup from 'react-bootstrap/lib/InputGroup';
-import Button from 'react-bootstrap/lib/Button';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+
+import Button from '../../ui/components/Button';
 
 
 export default class NavSearchForm extends React.PureComponent {
@@ -44,9 +44,7 @@ export default class NavSearchForm extends React.PureComponent {
             <InputGroup>
               <FormControl type="text" placeholder="Rechercher..." value={this.state.search} onChange={this.onSearchChange} />
               <InputGroup.Button>
-                <Button type="submit">
-                  <Glyphicon glyph="search" />
-                </Button>
+                <Button glyph="search" type="submit" />
               </InputGroup.Button>
             </InputGroup>
           </FormGroup>

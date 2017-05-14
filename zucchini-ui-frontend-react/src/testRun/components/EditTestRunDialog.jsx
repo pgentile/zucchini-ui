@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
-import Button from 'react-bootstrap/lib/Button';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import Table from 'react-bootstrap/lib/Table';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+
+import Button from '../../ui/components/Button';
 
 
 export default class EditTestRunDialog extends React.PureComponent {
@@ -131,9 +131,7 @@ export default class EditTestRunDialog extends React.PureComponent {
             <FormControl type="url" placeholder="URL" value={label.url} onChange={this.onLabelFieldChange(index, 'url')} />
           </td>
           <td>
-            <Button bsStyle="danger" onClick={this.onDeleteLabelClick(index)}>
-              <Glyphicon glyph="remove" />
-            </Button>
+            <Button glyph="remove" bsStyle="danger" onClick={this.onDeleteLabelClick(index)} />
           </td>
         </tr>
       );
@@ -167,8 +165,8 @@ export default class EditTestRunDialog extends React.PureComponent {
                 <tfoot>
                   <tr>
                     <td colSpan={4}>
-                      <Button bsSize="small" onClick={this.onAddLabelClick}>
-                        <Glyphicon glyph="plus-sign" /> Ajouter une étiquette
+                      <Button glyph="plus-sign" bsSize="small" onClick={this.onAddLabelClick}>
+                        Ajouter une étiquette
                       </Button>
                     </td>
                   </tr>

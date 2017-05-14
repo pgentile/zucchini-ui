@@ -3,9 +3,8 @@ import React from 'react';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
-import Button from 'react-bootstrap/lib/Button';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
+import Button from '../../ui/components/Button';
 import ScenarioPieChart from './StatsPieChart';
 import StatsLegend from './StatsLegend';
 
@@ -47,9 +46,8 @@ export default class ScenarioStats extends React.PureComponent {
       <Grid>
         <Row>
           <p>
-            <Button bsSize="xsmall" onClick={this.onToogleDetailsClick}>
-              <Glyphicon glyph={toggleDetailsButton.glyph} />
-              {` ${toggleDetailsButton.text}`}
+            <Button glyph={toggleDetailsButton.glyph} bsSize="xsmall" onClick={this.onToogleDetailsClick}>
+              {toggleDetailsButton.text}
             </Button>
           </p>
         </Row>

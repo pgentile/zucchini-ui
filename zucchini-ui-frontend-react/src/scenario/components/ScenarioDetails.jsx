@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
-import Button from 'react-bootstrap/lib/Button';
 
+import Button from '../../ui/components/Button';
 import SimpleText from '../../ui/components/SimpleText';
 import ActionStep from './ActionStep';
 import Step from './Step';

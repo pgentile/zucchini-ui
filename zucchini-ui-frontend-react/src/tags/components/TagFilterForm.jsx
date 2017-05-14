@@ -3,8 +3,8 @@ import React from 'react';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import InputGroup from 'react-bootstrap/lib/InputGroup';
-import Button from 'react-bootstrap/lib/Button';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+
+import Button from '../../ui/components/Button';
 
 
 export default class TagFilterForm extends React.PureComponent {
@@ -39,9 +39,7 @@ export default class TagFilterForm extends React.PureComponent {
           <InputGroup>
             <FormControl type="text" placeholder="Filtrer par tag" value={this.state.filter} onChange={this.onFilterChange} />
             <InputGroup.Button>
-              <Button onClick={this.onClearFilter}>
-                <Glyphicon glyph="remove-circle" />
-              </Button>
+              <Button glyph="remove-circle" onClick={this.onClearFilter} />
             </InputGroup.Button>
           </InputGroup>
         </FormGroup>

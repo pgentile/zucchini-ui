@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Button from 'react-bootstrap/lib/Button';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
+
+import Button from '../../ui/components/Button';
 
 
 export default class AddCommentForm extends React.PureComponent {

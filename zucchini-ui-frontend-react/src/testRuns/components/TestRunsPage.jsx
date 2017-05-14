@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
-import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
+import Button from '../../ui/components/Button';
 import TestRunsTableContainer from './TestRunsTableContainer';
 import TestRunTypeFilterContainer from './TestRunTypeFilterContainer';
 import CreateTestRunDialogContainer from './CreateTestRunDialogContainer';
@@ -60,13 +59,13 @@ export default class TestRunsPage extends React.Component {
         <hr />
         <ButtonToolbar>
           <ButtonGroup>
-            <Button onClick={this.onCreateTestRunButtonClick}>
-              <Glyphicon glyph="plus-sign" /> Créer un tir
+            <Button glyph="plus-sign" onClick={this.onCreateTestRunButtonClick}>
+              Créer un tir
             </Button>
           </ButtonGroup>
           <ButtonGroup>
-            <Button onClick={this.onPurgeButtonClick}>
-              <Glyphicon glyph="tree-deciduous" /> Purger les anciens tirs
+            <Button glyph="tree-deciduous" onClick={this.onPurgeButtonClick}>
+              Purger les anciens tirs
             </Button>
           </ButtonGroup>
         </ButtonToolbar>

@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
-import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
+import Button from '../../ui/components/Button';
 import TagList from '../../ui/components/TagList';
 import Status from '../../ui/components/Status';
 import HistoryFilterContainer from '../../filters/components/HistoryFilterContainer';
@@ -97,14 +96,12 @@ export default class ScenarioPage extends React.Component {
 
         <ButtonToolbar>
           <ButtonGroup>
-            <Button onClick={this.onUpdateStateClick}>
-              <Glyphicon glyph="flag" /> Modifier le statut&hellip;
+            <Button glyph="flag" onClick={this.onUpdateStateClick}>
+              Modifier le statut&hellip;
             </Button>
           </ButtonGroup>
           <ButtonGroup>
-            <Button onClick={this.onUpdateReviewedStateClick}>
-              <Glyphicon glyph={reviewed ? 'eye-close' : 'eye-open'} />
-              {' '}
+            <Button glyph={reviewed ? 'eye-close' : 'eye-open'} onClick={this.onUpdateReviewedStateClick}>
               {reviewed ? 'Marquer comme non analysé' : 'Marquer comme analysé'}
             </Button>
           </ButtonGroup>
