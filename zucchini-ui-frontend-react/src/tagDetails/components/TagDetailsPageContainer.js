@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
-///// import { push } from 'react-router-redux';
+import { push } from 'react-router-redux';
 
 import TagDetailsPage from './TagDetailsPage';
 
@@ -17,6 +17,16 @@ function parseTags(tags) {
   return tags;
 }
 
+
+function updatePage({ testRunId, tags, excludedTags }) {
+  return push({
+    pathname: `/test-runs/${testRunId}/tag-details`,
+    query: {
+      tag: tags,
+      excludedTag: excludedTags,
+    },
+  });
+}
 
 const selectTags = createSelector(
   (state, ownProps) => ownProps.location.query.tag,
@@ -51,6 +61,7 @@ const TagDetailsPageContainer = connect(
   selectProps,
   {
     onLoad: loadTagDetailsPage,
+    onUpdate: updatePage,
   },
 )(TagDetailsPage);
 

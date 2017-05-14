@@ -36,7 +36,6 @@ export default class TagsPage extends React.Component {
         </h1>
 
         <hr />
-        <h2>Statistiques sur les scénarios</h2>
         <TagFilterFormContainer />
         <TagsTableContainer testRunId={testRunId} />
 
