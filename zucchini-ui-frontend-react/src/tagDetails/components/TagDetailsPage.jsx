@@ -12,21 +12,8 @@ import TagSelectionForm from './TagSelectionForm';
 
 export default class TagDetailsPage extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = this.computeStateFromProps(props);
-  }
-
   componentDidMount() {
     this.loadPageIfPossible();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { tags, excludedTags } = this.props;
-    if (tags !== nextProps.tags || excludedTags !== nextProps.excludedTags) {
-      this.setState(this.computeStateFromProps(nextProps));
-    }
   }
 
   componentDidUpdate(prevProps) {
@@ -44,17 +31,10 @@ export default class TagDetailsPage extends React.Component {
   onUpdateTags = ({ tags, excludedTags }) => {
     return this.props.onUpdate({
       testRunId: this.props.testRunId,
-      tags,
-      excludedTags,
+      tags: tags.filter(tag => !!tag),
+      excludedTags: excludedTags.filter(tag => !!tag),
     });
   };
-
-  computeStateFromProps(props) {
-    return {
-      tagsStr: props.tags.join(' '),
-      excludedTagsStr: props.excludedTags.join(' '),
-    };
-  }
 
   render() {
     const { testRun, tags, excludedTags } = this.props;
@@ -77,7 +57,10 @@ export default class TagDetailsPage extends React.Component {
 
         <hr />
 
-        <TagSelectionForm initialValues={{ tags, excludedTags }} onSubmit={this.onUpdateTags} />
+        <TagSelectionForm
+          initialValues={{ tags, excludedTags }}
+          enableReinitialize
+          onSubmit={this.onUpdateTags} />
 
         <hr />
 
