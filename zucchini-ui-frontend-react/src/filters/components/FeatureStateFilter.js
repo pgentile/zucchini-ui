@@ -26,7 +26,7 @@ export default class FeatureStateFilter extends React.PureComponent {
     return (
       <div className="form" style={{ marginBottom: '10px' }}>
         <FormGroup>
-          Filtrer les scénarios :
+          Filtrer les fonctionnalités :
           {' '}
           <FilterCheckboxes labels={LABELS} filters={filters} onFilterChange={this.onFilterChange} />
         </FormGroup>
