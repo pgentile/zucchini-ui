@@ -11,7 +11,7 @@ export default class StepAttachments extends React.PureComponent {
   buildUrlForAttachment = (attachmentId) => {
     const { scenarioId } = this.props;
     // TODO Find a better way to build the URL
-    return `${configuration.ui.backendBaseUri}/api/scenarii/${scenarioId}/attachments/${attachmentId}`;
+    return `${configuration.backendBaseUri}/api/scenarii/${scenarioId}/attachments/${attachmentId}`;
   };
 
   render() {
