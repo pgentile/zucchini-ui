@@ -5,6 +5,20 @@ import Chartist from 'chartist';
 
 
 export default class PieChart extends React.Component {
+
+  static propTypes = {
+    data: PropTypes.any.isRequired,
+    total: PropTypes.number.isRequired,
+    showLabel: PropTypes.bool.isRequired,
+    donut: PropTypes.bool.isRequired,
+    donutWidth: PropTypes.number,
+    style: PropTypes.object,
+  };
+
+  static defaultProps = {
+    donut: true,
+  };
+
   constructor(props) {
     super(props);
 
@@ -29,15 +43,14 @@ export default class PieChart extends React.Component {
     if (this.chart === null) {
       this.chart = new Chartist.Pie(element);
     }
-
   };
 
   updateChart() {
-    const { data, total, showLabel, donutWidth } = this.props;
+    const { data, total, showLabel, donut, donutWidth } = this.props;
 
     if (this.chart) {
       this.chart.update(data, {
-        donut: true,
+        donut,
         total,
         showLabel,
         donutWidth,
@@ -53,11 +66,3 @@ export default class PieChart extends React.Component {
     );
   }
 }
-
-PieChart.propTypes = {
-  data: PropTypes.any.isRequired,
-  total: PropTypes.number.isRequired,
-  showLabel: PropTypes.bool.isRequired,
-  donutWidth: PropTypes.number.isRequired,
-  style: PropTypes.object,
-};
