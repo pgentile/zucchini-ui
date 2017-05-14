@@ -1,12 +1,14 @@
 import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
+import { formValueSelector } from 'redux-form';
 
 import TagsTable from './TagsTable';
 
+const tagFilterSelector = formValueSelector('tagFilter');
 
 const selectTags = createSelector(
   state => state.tags.tags,
-  state => state.tags.filter,
+  state => tagFilterSelector(state, 'filter'),
   (tags, filter) => {
     if (filter) {
       return tags.filter(tag => tag.tag.startsWith(filter));

@@ -3,41 +3,37 @@ import React from 'react';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import InputGroup from 'react-bootstrap/lib/InputGroup';
+import { reduxForm, Field } from 'redux-form'
 
 import Button from '../../ui/components/Button';
 
 
-export default class TagFilterForm extends React.PureComponent {
-  constructor(props) {
-    super(props);
+class TagFilterForm extends React.PureComponent {
 
-    this.state = {
-      filter: '',
-    };
-  }
-
-  onSubmit = (event) => {
-    event.preventDefault();
-  };
-
-  onFilterChange = (event) => {
-    const filter = event.target.value;
-    this.setState({ filter });
-    this.props.onFilterChange({ filter });
+  static propTypes = {
+    handleSubmit: PropTypes.func.isRequired,
+    reset: PropTypes.func.isRequired,
+    onFilterChange: PropTypes.func.isRequired,
   };
 
   onClearFilter = () => {
-    const filter = '';
-    this.setState({ filter });
-    this.props.onFilterChange({ filter });
+    this.props.reset();
+  };
+
+  renderField = ({ input }) => {
+    return (
+      <FormControl {...input} />
+    );
   };
 
   render() {
+    const { handleSubmit } = this.props;
+
     return (
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit={handleSubmit}>
         <FormGroup controlId="filter">
           <InputGroup>
-            <FormControl type="text" placeholder="Filtrer par tag" value={this.state.filter} onChange={this.onFilterChange} />
+            <Field name="filter" component={this.renderField} />
             <InputGroup.Button>
               <Button glyph="remove-circle" onClick={this.onClearFilter} />
             </InputGroup.Button>
@@ -49,6 +45,7 @@ export default class TagFilterForm extends React.PureComponent {
 
 }
 
-TagFilterForm.propTypes = {
-  onFilterChange: PropTypes.func.isRequired,
-};
+
+export default reduxForm({
+  form: 'tagFilter',
+})(TagFilterForm);
