@@ -32,12 +32,17 @@ function goToTags({testRunId}) {
   return push(`/test-runs/${testRunId}/tags`);
 }
 
+function goToDiff({testRunId}) {
+  return push(`/test-runs/${testRunId}/diff`);
+}
+
 
 const TestRunPageContainer = connect(
   selectProps,
   {
     onLoad: loadTestRunPage,
     onGoToTags: goToTags,
+    onGoToDiff: goToDiff,
   },
 )(TestRunPage);
 

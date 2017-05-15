@@ -29,6 +29,9 @@ import TagsBreadcrumbContainer from './tags/components/TagsBreadcrumbContainer';
 import TagDetailsPageContainer from './tagDetails/components/TagDetailsPageContainer';
 import TagDetailsBreadcrumbContainer from './tagDetails/components/TagDetailsBreadcrumbContainer';
 
+import TestRunDiffSelectorPageContainer from './testRunDiff/components/TestRunDiffSelectorPageContainer';
+import TestRunDiffSelectorBreadcrumbContainer from './testRunDiff/components/TestRunDiffSelectorBreadcrumbContainer';
+
 
 export default function AppRouter() {
   return (
@@ -41,6 +44,7 @@ export default function AppRouter() {
             <Route path="search" components={{ main: TestRunSearchPageContainer, breadcrum: TestRunSearchBreadcrumbContainer }} />
             <Route path="tags" components={{ main: TagsPageContainer, breadcrum: TagsBreadcrumbContainer, search: NavSearchFormContainer }} />
             <Route path="tag-details" components={{ main: TagDetailsPageContainer, breadcrum: TagDetailsBreadcrumbContainer, search: NavSearchFormContainer }} />
+            <Route path="diff" components={{ main: TestRunDiffSelectorPageContainer, breadcrum: TestRunDiffSelectorBreadcrumbContainer, search: NavSearchFormContainer }} />
           </Route>
           <Route path="features/:featureId">
             <IndexRoute components={{ main: FeaturePageContainer, breadcrum: FeatureBreadcrumbContainer, search: NavSearchFormContainer }} />

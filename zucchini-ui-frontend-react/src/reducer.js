@@ -5,6 +5,7 @@ import { reducer as formReducer } from 'redux-form'
 import { featureFilters, statsDashboardFilters, historyFilters, scenarioFilters, stepFilters } from './filters/redux';
 import { testRuns } from './testRuns/redux';
 import { testRun } from './testRun/redux';
+import { testRunDiff } from './testRunDiff/redux';
 import { feature } from './feature/redux';
 import { scenario } from './scenario/redux';
 import { tags } from './tags/redux';
@@ -23,6 +24,7 @@ const reducer = combineReducers({
   stepFilters,
   testRuns,
   testRun,
+  testRunDiff,
   feature,
   scenario,
   tags,

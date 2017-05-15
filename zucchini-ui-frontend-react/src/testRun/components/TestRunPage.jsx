@@ -46,6 +46,12 @@ export default class TestRunPage extends React.Component {
     });
   };
 
+  onGoToDiff = () => {
+    this.props.onGoToDiff({
+      testRunId: this.props.testRunId,
+    });
+  }
+
   onImportCucumberResultButtonClick = () => {
     this.setState({
       showImportCucumberResultDialog: true,
@@ -113,6 +119,11 @@ export default class TestRunPage extends React.Component {
             </Button>
           </ButtonGroup>
           <ButtonGroup>
+            <Button glyph="list-alt" onClick={this.onGoToDiff}>
+              Comparer avec un autre tir
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup>
             <DeleteTestRunButtonContainer testRunId={testRunId} />
           </ButtonGroup>
         </ButtonToolbar>
@@ -154,4 +165,5 @@ TestRunPage.propTypes = {
   testRun: PropTypes.object,
   onLoad: PropTypes.func.isRequired,
   onGoToTags: PropTypes.func.isRequired,
+  onGoToDiff: PropTypes.func.isRequired,
 };
