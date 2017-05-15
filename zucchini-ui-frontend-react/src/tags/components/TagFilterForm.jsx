@@ -20,7 +20,7 @@ class TagFilterForm extends React.PureComponent {
     this.props.reset();
   };
 
-  renderField = ({input, meta, ...otherProps}) => {
+  renderField = ({ input, meta, ...otherProps }) => {
     console.debug('Meta on', input.name, ':', meta);
     return (
       <FormControl {...input} {...otherProps} />
@@ -34,7 +34,10 @@ class TagFilterForm extends React.PureComponent {
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="filter">
           <InputGroup>
-            <Field name="filter" component={this.renderField} />
+            <Field
+              name="filter"
+              component={this.renderField}
+              placeholder="Entrez les premières lettres d'un tag&hellip;" />
             <InputGroup.Button>
               <Button glyph="remove-circle" onClick={this.onClearFilter} />
             </InputGroup.Button>
@@ -49,5 +52,5 @@ class TagFilterForm extends React.PureComponent {
 
 export default reduxForm({
   form: 'tagFilter',
-  onSubmit: () => {},
+  onSubmit: () => { },
 })(TagFilterForm);
