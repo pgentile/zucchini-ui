@@ -38,6 +38,9 @@
 
       <thead>
       <tr>
+        <th ng-if="$ctrl.columns.isDisplayable('feature')" class="col-md-{{ $ctrl.columns.getDisplaySize('featureGroup') }}">
+          Groupe
+        </th>
         <th ng-if="$ctrl.columns.isDisplayable('feature')" class="col-md-{{ $ctrl.columns.getDisplaySize('feature') }}">
           Fonctionnalité
         </th>
@@ -56,6 +59,9 @@
       <tbody>
       <tr
         ng-repeat="scenario in $ctrl.selectedScenarii track by scenario.id">
+        <td ng-if="$ctrl.columns.isDisplayable('feature')">
+          {{ scenario.feature.group }}
+        </td>
         <td ng-if="$ctrl.columns.isDisplayable('feature')">
           <a ng-href="#/features/{{ scenario.feature.id }}">
             {{ scenario.feature.info.name }}

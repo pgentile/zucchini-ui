@@ -104,11 +104,17 @@ zucchiniModule
           // Sort scenarii by feature name, then scenario name
 
           scenarii.sort(function (left, right) {
-            var featureNameComparison = left.feature.info.name.localeCompare(right.feature.info.name);
-            if (featureNameComparison === 0) {
-              return left.info.name.localeCompare(right.info.name);
+            var featureGroupComparison = left.feature.group.localeCompare(right.feature.group);
+            if (featureGroupComparison !== 0) {
+              return featureGroupComparison;
             }
-            return featureNameComparison;
+
+            var featureNameComparison = left.feature.info.name.localeCompare(right.feature.info.name);
+            if (featureNameComparison !== 0) {
+              return featureNameComparison;
+            }
+            
+            return left.info.name.localeCompare(right.info.name);
           });
 
           this.testRun = testRun;

@@ -64,6 +64,7 @@ zucchiniModule
     controller: function (scenarioStoredFilters) {
 
       this.columns = new ColumnManager({
+        featureGroup: 1,
         feature: 4,
         scenario: null,
         status: 1,
