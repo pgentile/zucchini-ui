@@ -7,8 +7,9 @@ import toNiceDate from '../../ui/toNiceDate';
 
 const selectBreadcumbItems = createSelector(
   state => state.testRun.testRun,
-  testRun => {
-    return [
+  (state, ownProps) => ownProps.location.query.otherTestRunId,
+  (testRun, otherTestRunId) => {
+    const breadcrumb = [
       {
         value: `Type ${testRun.type}`,
         link: { pathname: '/', query: { type: testRun.type } },
@@ -19,8 +20,17 @@ const selectBreadcumbItems = createSelector(
       },
       {
         value: 'Comparaison',
+        link: { pathname: `/test-runs/${testRun.id}/diff` },
       },
     ];
+
+    if (otherTestRunId) {
+      breadcrumb.push({
+        value: 'Résultat',
+      });
+    }
+
+    return breadcrumb;
   },
 );
 

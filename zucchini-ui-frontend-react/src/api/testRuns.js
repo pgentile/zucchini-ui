@@ -61,6 +61,12 @@ class TestRunsApi {
     });
   }
 
+  getTestRunDiff({ testRunId, otherTestRunId }) {
+    return this.client.get({
+      path: `${otherTestRunId}/scenarioDiff/${testRunId}`,
+    });
+  }
+
 }
 
 const testRuns = new TestRunsApi(configuration.backendBaseUri);
