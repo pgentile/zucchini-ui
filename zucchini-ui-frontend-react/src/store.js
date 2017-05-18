@@ -11,11 +11,13 @@ import historyFiltersStorage from './filters/historyFiltersStorage';
 import scenarioFiltersStorage from './filters/scenarioFiltersStorage';
 import stepFiltersStorage from './filters/stepFiltersStorage';
 import { default as createStorageMiddleware } from './browserStorage/createMiddleware';
+import {default as createWebSocketMiddleware} from './websocket/createMiddleware';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const middlewares = [
+  createWebSocketMiddleware('PRESENCE'),
   createStorageMiddleware(featureFiltersStorage, state => state.featureFilters),
   createStorageMiddleware(statsDashboardFiltersStorage, state => state.statsDashboardFilters),
   createStorageMiddleware(historyFiltersStorage, state => state.historyFilters),

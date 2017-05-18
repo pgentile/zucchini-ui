@@ -12,6 +12,7 @@ import { tags } from './tags/redux';
 import { tagDetails } from './tagDetails/redux';
 import { searchResults } from './search/redux';
 import { errors } from './errors/redux';
+import { presence } from './presence/redux';
 
 
 const reducer = combineReducers({
@@ -31,6 +32,7 @@ const reducer = combineReducers({
   tagDetails,
   searchResults,
   errors,
+  presence,
 });
 
 export default reducer;

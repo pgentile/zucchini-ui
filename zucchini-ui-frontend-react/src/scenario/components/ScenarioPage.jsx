@@ -7,6 +7,7 @@ import Button from '../../ui/components/Button';
 import TagList from '../../ui/components/TagList';
 import Status from '../../ui/components/Status';
 import HistoryFilterContainer from '../../filters/components/HistoryFilterContainer';
+import PresenceIndicatorContainer from '../../presence/components/PresenceIndicatorContainer';
 import ScenarioHistoryTableContainer from './ScenarioHistoryTableContainer';
 import SameFeatureScenarioTableContainer from './SameFeatureScenarioTableContainer';
 import UpdateScenarioStateDialogContainer from './UpdateScenarioStateDialogContainer';
@@ -111,6 +112,10 @@ export default class ScenarioPage extends React.Component {
         </ButtonToolbar>
 
         <hr />
+
+        <PresenceIndicatorContainer
+          referenceType="SCENARIO_ID"
+          reference={scenarioId} />
 
         <h2>Étapes du scénario</h2>
         <ScenarioDetailsContainer />

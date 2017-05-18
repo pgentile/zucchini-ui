@@ -18,7 +18,9 @@ export default class BrowserStorage {
 
     const storedValue = this.readInStorage();
     if (storedValue === null) {
-      return defaultState();
+      const state = defaultState();
+      this.write(state);
+      return state;
     }
 
     try {
