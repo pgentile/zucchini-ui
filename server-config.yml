@@ -14,5 +14,4 @@ logging:
 
 errorOutputCodesPatterns:
      NPE: NullPointerException
-     AssertionError: AssertionError
-     ResarailException: TpfNetworkException
+     IllegalArgument: IllegalArgumentException
