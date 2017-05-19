@@ -16,8 +16,7 @@ class EditTestRunForm extends React.PureComponent {
     initialValues: PropTypes.object.isRequired,
   };
 
-  renderField = ({input, meta, ...otherProps}) => {
-    console.debug('Meta on', input.name, ':', meta);
+  renderField = ({input, meta, ...otherProps}) => { // eslint-disable-line no-unused-vars
     return (
       <FormControl {...input} {...otherProps} />
     );
