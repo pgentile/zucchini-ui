@@ -10,6 +10,10 @@ export function getScenarioHistory({ scenarioId }) {
   return scenariosApi.getScenarioHistory({ scenarioId });
 }
 
+export function getSimilarFailureScenarios({ scenarioId }) {
+  return scenariosApi.getSimilarFailureScenarios({ scenarioId });
+}
+
 export function updateScenarioState({ scenarioId, newState }) {
   return scenariosApi.updateScenarioState({ scenarioId, newState });
 }

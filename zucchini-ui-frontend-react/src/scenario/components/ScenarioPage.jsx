@@ -16,6 +16,7 @@ import ScenarioDetailsContainer from './ScenarioDetailsContainer';
 import AddCommentFormContainer from './AddCommentFormContainer';
 import DeleteScenarioButtonContainer from './DeleteScenarioButtonContainer';
 import UpdateScenarioReviewedStateDialogContainer from './UpdateScenarioReviewedStateDialogContainer';
+import SimilarFailureScenarioTableContainer from './SimilarFailureScenarioTableContainer';
 import ScenarioChangeTable from './ScenarioChangeTable';
 
 
@@ -83,6 +84,17 @@ export default class ScenarioPage extends React.Component {
     const { scenario, scenarioId } = this.props;
     const { reviewed } = scenario;
 
+    let similarFailureSection = null;
+    if (scenario.status === 'FAILED') {
+      similarFailureSection = (
+        <div>
+          <hr />
+          <h2>Autres scénarios avec des erreurs similaires</h2>
+          <SimilarFailureScenarioTableContainer />
+        </div>
+      );
+    }
+
     return (
       <div>
         <h1>
@@ -117,6 +129,8 @@ export default class ScenarioPage extends React.Component {
 
         <h2>Étapes du scénario</h2>
         <ScenarioDetailsContainer />
+
+        {similarFailureSection}
 
         <hr />
 

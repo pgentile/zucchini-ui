@@ -16,6 +16,9 @@ const GET_SCENARIO_FULFILED = `${GET_SCENARIO}_FULFILLED`;
 const GET_SCENARIO_HISTORY = `${PREFIX}/GET_SCENARIO_HISTORY`;
 const GET_SCENARIO_HISTORY_FULFILED = `${GET_SCENARIO_HISTORY}_FULFILLED`;
 
+const GET_SIMILAR_FAILURE_SCENARIOS = `${PREFIX}/GET_SIMILAR_FAILURE_SCENARIOS`;
+const GET_SIMILAR_FAILURE_SCENARIOS_FULFILED = `${GET_SIMILAR_FAILURE_SCENARIOS}_FULFILLED`;
+
 const GET_SCENARIO_COMMENTS = `${PREFIX}/GET_SCENARIO_COMMENTS`;
 const GET_SCENARIO_COMMENTS_FULFILED = `${GET_SCENARIO_COMMENTS}_FULFILLED`;
 
@@ -45,6 +48,11 @@ export function loadScenarioPage({ scenarioId }) {
     const scenario = scenarioResult.value;
     const { testRunId, featureId } = scenario;
 
+    let similarFailureScenariosResult$ = null;
+    if (scenario.status === 'FAILED') {
+      similarFailureScenariosResult$ = dispatch(getSimilarFailureScenarios({ scenarioId }));
+    }
+
     const testRunResult$ = dispatch(getTestRun({ testRunId }));
     const featureResult$ = dispatch(getFeature({ featureId }));
     const sameFeatureScenariosResult$ = dispatch(getScenarios({ featureId }));
@@ -53,6 +61,7 @@ export function loadScenarioPage({ scenarioId }) {
       scenarioResult$,
       historyResult$,
       commentsResult$,
+      similarFailureScenariosResult$,
       testRunResult$,
       featureResult$,
       sameFeatureScenariosResult$,
@@ -76,6 +85,16 @@ export function getScenarioHistory({ scenarioId }) {
   return {
     type: GET_SCENARIO_HISTORY,
     payload: model.getScenarioHistory({ scenarioId }),
+    meta: {
+      scenarioId,
+    },
+  };
+}
+
+export function getSimilarFailureScenarios({ scenarioId }) {
+  return {
+    type: GET_SIMILAR_FAILURE_SCENARIOS,
+    payload: model.getSimilarFailureScenarios({ scenarioId }),
     meta: {
       scenarioId,
     },
@@ -224,6 +243,7 @@ const initialState = {
     beforeActions: [],
     afterActions: [],
   },
+  similarFailureScenarios: [],
   history: [],
   comments: [],
 };
@@ -233,6 +253,11 @@ export const scenario = handleActions({
   [GET_SCENARIO_FULFILED]: (state, action) => ({
     ...state,
     scenario: action.payload,
+  }),
+
+  [GET_SIMILAR_FAILURE_SCENARIOS_FULFILED]: (state, action) => ({
+    ...state,
+    similarFailureScenarios: action.payload,
   }),
 
   [GET_SCENARIO_HISTORY_FULFILED]: (state, action) => ({
