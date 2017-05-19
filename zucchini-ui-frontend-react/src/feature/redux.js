@@ -11,16 +11,16 @@ import { getTestRun } from '../testRun/redux';
 const PREFIX = 'FEATURE';
 
 const GET_FEATURE = `${PREFIX}/GET_FEATURE`;
-const GET_FEATURE_FULFILED = `${GET_FEATURE}_FULFILLED`;
+const GET_FEATURE_FULFILLED = `${GET_FEATURE}_FULFILLED`;
 
 const GET_FEATURE_STATS = `${PREFIX}/GET_FEATURE_STATS`;
-const GET_FEATURE_STATS_FULFILED = `${GET_FEATURE_STATS}_FULFILLED`;
+const GET_FEATURE_STATS_FULFILLED = `${GET_FEATURE_STATS}_FULFILLED`;
 
 const GET_FEATURE_HISTORY = `${PREFIX}/GET_FEATURE_HISTORY`;
-const GET_FEATURE_HISTORY_FULFILED = `${GET_FEATURE_HISTORY}_FULFILLED`;
+const GET_FEATURE_HISTORY_FULFILLED = `${GET_FEATURE_HISTORY}_FULFILLED`;
 
 const GET_SCENARIOS = `${PREFIX}/GET_SCENARIOS`;
-const GET_SCENARIOS_FULFILED = `${GET_SCENARIOS}_FULFILLED`;
+const GET_SCENARIOS_FULFILLED = `${GET_SCENARIOS}_FULFILLED`;
 
 const DELETE_FEATURE = `${PREFIX}/DELETE_FEATURE`;
 
@@ -119,22 +119,22 @@ const initialState = {
 
 export const feature = handleActions({
 
-  [GET_FEATURE_FULFILED]: (state, action) => ({
+  [GET_FEATURE_FULFILLED]: (state, action) => ({
     ...state,
     feature: action.payload,
   }),
 
-  [GET_FEATURE_STATS_FULFILED]: (state, action) => ({
+  [GET_FEATURE_STATS_FULFILLED]: (state, action) => ({
     ...state,
     stats: action.payload,
   }),
 
-  [GET_FEATURE_HISTORY_FULFILED]: (state, action) => ({
+  [GET_FEATURE_HISTORY_FULFILLED]: (state, action) => ({
     ...state,
     history: action.payload,
   }),
 
-  [GET_SCENARIOS_FULFILED]: (state, action) => ({
+  [GET_SCENARIOS_FULFILLED]: (state, action) => ({
     ...state,
     scenarios: action.payload,
   }),

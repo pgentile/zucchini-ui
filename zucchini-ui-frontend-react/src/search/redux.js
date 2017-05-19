@@ -10,7 +10,7 @@ import * as model from './model';
 const PREFIX = 'SEARCH';
 
 const SEARCH = `${PREFIX}/SEARCH`;
-const SEARCH_FULFILED = `${SEARCH}_FULFILLED`;
+const SEARCH_FULFILLED = `${SEARCH}_FULFILLED`;
 
 
 // Action creators
@@ -56,7 +56,7 @@ const initialState = {
 };
 
 export const searchResults = handleActions({
-  [SEARCH_FULFILED]: (state, action) => ({
+  [SEARCH_FULFILLED]: (state, action) => ({
     ...state,
     foundScenarios: action.payload,
   }),

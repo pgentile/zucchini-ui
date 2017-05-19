@@ -11,29 +11,29 @@ import { getFeature, getScenarios } from '../feature/redux';
 const PREFIX = 'SCENARIO';
 
 const GET_SCENARIO = `${PREFIX}/GET_SCENARIO`;
-const GET_SCENARIO_FULFILED = `${GET_SCENARIO}_FULFILLED`;
+const GET_SCENARIO_FULFILLED = `${GET_SCENARIO}_FULFILLED`;
 
 const GET_SCENARIO_HISTORY = `${PREFIX}/GET_SCENARIO_HISTORY`;
-const GET_SCENARIO_HISTORY_FULFILED = `${GET_SCENARIO_HISTORY}_FULFILLED`;
+const GET_SCENARIO_HISTORY_FULFILLED = `${GET_SCENARIO_HISTORY}_FULFILLED`;
 
 const GET_SIMILAR_FAILURE_SCENARIOS = `${PREFIX}/GET_SIMILAR_FAILURE_SCENARIOS`;
-const GET_SIMILAR_FAILURE_SCENARIOS_FULFILED = `${GET_SIMILAR_FAILURE_SCENARIOS}_FULFILLED`;
+const GET_SIMILAR_FAILURE_SCENARIOS_FULFILLED = `${GET_SIMILAR_FAILURE_SCENARIOS}_FULFILLED`;
 
 const GET_SCENARIO_COMMENTS = `${PREFIX}/GET_SCENARIO_COMMENTS`;
-const GET_SCENARIO_COMMENTS_FULFILED = `${GET_SCENARIO_COMMENTS}_FULFILLED`;
+const GET_SCENARIO_COMMENTS_FULFILLED = `${GET_SCENARIO_COMMENTS}_FULFILLED`;
 
 const UPDATE_SCENARIO_STATE = `${PREFIX}/UPDATE_SCENARIO_STATE`;
-//const UPDATE_SCENARIO_STATE_FULFILED = `${UPDATE_SCENARIO_STATE}_FULFILLED`;
+//const UPDATE_SCENARIO_STATE_FULFILLED = `${UPDATE_SCENARIO_STATE}_FULFILLED`;
 
 const ADD_SCENARIO_COMMENT = `${PREFIX}/ADD_SCENARIO_COMMENT`;
 
 const DELETE_SCENARIO = `${PREFIX}/DELETE_SCENARIO`;
 
 const DELETE_COMMENT = `${PREFIX}/DELETE_COMMENT`;
-const DELETE_COMMENT_FULFILED = `${DELETE_COMMENT}_FULFILLED`;
+const DELETE_COMMENT_FULFILLED = `${DELETE_COMMENT}_FULFILLED`;
 
 const UPDATE_COMMENT = `${PREFIX}/UPDATE_COMMENT`;
-// const UPDATE_COMMENT_FULFILED = `${UPDATE_COMMENT}_FULFILLED`;
+// const UPDATE_COMMENT_FULFILLED = `${UPDATE_COMMENT}_FULFILLED`;
 
 // Action creators
 
@@ -250,27 +250,27 @@ const initialState = {
 
 export const scenario = handleActions({
 
-  [GET_SCENARIO_FULFILED]: (state, action) => ({
+  [GET_SCENARIO_FULFILLED]: (state, action) => ({
     ...state,
     scenario: action.payload,
   }),
 
-  [GET_SIMILAR_FAILURE_SCENARIOS_FULFILED]: (state, action) => ({
+  [GET_SIMILAR_FAILURE_SCENARIOS_FULFILLED]: (state, action) => ({
     ...state,
     similarFailureScenarios: action.payload,
   }),
 
-  [GET_SCENARIO_HISTORY_FULFILED]: (state, action) => ({
+  [GET_SCENARIO_HISTORY_FULFILLED]: (state, action) => ({
     ...state,
     history: action.payload,
   }),
 
-  [GET_SCENARIO_COMMENTS_FULFILED]: (state, action) => ({
+  [GET_SCENARIO_COMMENTS_FULFILLED]: (state, action) => ({
     ...state,
     comments: action.payload,
   }),
 
-  [DELETE_COMMENT_FULFILED]: (state, action) => {
+  [DELETE_COMMENT_FULFILLED]: (state, action) => {
     let { comments } = state;
     comments = comments.filter(comment => comment.id !== action.meta.commentId);
 
