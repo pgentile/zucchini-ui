@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --debug --progress --open --history-api-fallback",
-    "build": "webpack --progress --profile --colors",
+    "build": "webpack --progress --profile --colors -p",
     "lint": "eslint --ext .jsx,.js ./src/ ./test/",
     "fix": "eslint --fix --ext .jsx,.js ./src/ ./test/",
     "test": "mocha --compilers js:babel-core/register --require ./test/helpers.js test/**/*.js test/**/*.jsx"

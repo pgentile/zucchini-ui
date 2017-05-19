@@ -47,14 +47,14 @@ module.exports = {
   },
   output: {
     path: outputDir,
-    filename: '[name].js',
-    publicPath: '/assets/',
+    filename: 'ui/assets/[name].js',
+    publicPath: '/',
   },
   devtool: 'source-map',
   devServer: {
     port: config.devServer.port,
     setup: function (app) {
-      app.get('/assets/config.js', javascriptConfigMiddleware);
+      app.get('/ui/assets/config.js', javascriptConfigMiddleware);
     },
   },
   externals: {
@@ -103,11 +103,6 @@ module.exports = {
   },
   plugins: [
     /*
-    new webpack.DefinePlugin({
-      "process.env": {
-        NODE_ENV: JSON.stringify("production")
-      }
-    }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       mangle: true
@@ -122,6 +117,6 @@ module.exports = {
       'jQuery': 'jquery',
       'fetch': 'isomorphic-fetch',
     }),
-    new ExtractTextPlugin('[name].css'),
+    new ExtractTextPlugin('ui/assets/[name].css'),
   ],
 };

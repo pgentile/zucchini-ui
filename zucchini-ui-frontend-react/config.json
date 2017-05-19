@@ -4,6 +4,7 @@
   },
   "ui": {
     "backendBaseUri": "http://localhost:8080",
+    "basename": "/ui",
     "testRunPurgeDelayInDays": 30
   }
 }
