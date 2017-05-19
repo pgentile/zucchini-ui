@@ -91,6 +91,7 @@
       </div>
 
     </div>
+
     <div class="col-md-5">
 
       <!-- Présence -->
@@ -174,6 +175,15 @@
   </div>
 
   <hr>
+
+  <!-- Tests en erreurs associés -->
+
+  <div ng-if="ctrl.scenario.status === 'FAILED'" >
+    <h2>Echecs Similaires</h2>
+    <div>
+      <tc-scenario-list scenarii="ctrl.associatedFailures"></tc-scenario-list>
+    </div>
+  </div>
 
   <!-- Comments -->
 

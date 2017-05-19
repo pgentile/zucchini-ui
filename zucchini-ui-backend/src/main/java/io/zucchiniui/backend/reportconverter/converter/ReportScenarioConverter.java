@@ -3,6 +3,7 @@ package io.zucchiniui.backend.reportconverter.converter;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import com.google.common.io.BaseEncoding;
+import io.zucchiniui.backend.BackendConfiguration;
 import io.zucchiniui.backend.feature.domain.Feature;
 import io.zucchiniui.backend.reportconverter.report.ReportAroundAction;
 import io.zucchiniui.backend.reportconverter.report.ReportAttachment;
@@ -23,15 +24,26 @@ import io.zucchiniui.backend.shared.domain.BasicInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Component
 class ReportScenarioConverter {
 
     private static final Joiner LINE_JOINER = Joiner.on('\n');
+
+    private final Map<Pattern, String> errorOutputCodePatterns = new HashMap<>();
+
+    public ReportScenarioConverter(BackendConfiguration configuration) {
+        configuration.getErrorOutputCodesPatterns().forEach((key, value) -> {
+            errorOutputCodePatterns.put(Pattern.compile(key, Pattern.MULTILINE), value);
+        });
+    }
 
     public ScenarioBuilder createScenarioBuilder(final Feature parentFeature, final ReportScenario reportScenario) {
 
@@ -59,6 +71,7 @@ class ReportScenarioConverter {
 
         for (final ReportStep reportStep : reportScenario.getSteps()) {
             scenarioBuilder.addStep(b -> buildStep(reportStep, b));
+            handleErrorOutputCodes(scenarioBuilder, reportStep.getResult().getErrorMessage());
         }
 
         for (final ReportAroundAction reportAroundAction : reportScenario.getBeforeActions()) {
@@ -121,6 +134,16 @@ class ReportScenarioConverter {
             .withOutput(output)
             .withTable(table)
             .withAttachments(attachments);
+    }
+
+    private void handleErrorOutputCodes(ScenarioBuilder scenarioBuilder, String errorMessage) {
+        if (!Strings.isNullOrEmpty(errorMessage)) {
+            final List<String> matchingErrorCodes = errorOutputCodePatterns.entrySet().stream()
+                .filter(p -> p.getKey().matcher(errorMessage).find())
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
+            scenarioBuilder.withErrorOutputCodes(matchingErrorCodes);
+        }
     }
 
     private static void buildAroundAction(final ReportAroundAction reportAroundAction, final AroundActionBuilder aroundActionBuilder) {

@@ -9,6 +9,7 @@ import io.zucchiniui.backend.scenario.domain.Scenario;
 import io.zucchiniui.backend.scenario.domain.ScenarioQuery;
 import io.zucchiniui.backend.scenario.domain.ScenarioRepository;
 import io.zucchiniui.backend.scenario.domain.ScenarioService;
+import io.zucchiniui.backend.scenario.domain.ScenarioStatus;
 import io.zucchiniui.backend.scenario.domain.UpdateScenarioParams;
 import io.zucchiniui.backend.scenario.views.ScenarioHistoryItemView;
 import io.zucchiniui.backend.scenario.views.ScenarioListItemView;
@@ -40,6 +41,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 @Component
 @Path("/scenarii")
@@ -107,6 +109,22 @@ public class ScenarioResource {
     @Path("{scenarioId}")
     public Scenario get(@PathParam("scenarioId") final String scenarioId) {
         return scenarioRepository.getById(scenarioId);
+    }
+
+    @GET
+    @Path("{scenarioId}/associatedFailures")
+    public List<ScenarioListItemView> getAssociatedFailures(@PathParam("scenarioId") final String scenarioId) {
+        final Scenario scenario = scenarioRepository.getById(scenarioId);
+        if (ScenarioStatus.FAILED.equals(scenario.getStatus()) && !scenario.getErrorOutputCodes().isEmpty()) {
+            return scenarioViewAccess
+                .getScenarioListItems(q -> {
+                    q.withTestRunId(scenario.getTestRunId()).withErrorOutputCodes(scenario.getErrorOutputCodes());
+                })
+                .stream()
+                .filter(someScenario -> !scenarioId.equals(someScenario.getId()))
+                .collect(Collectors.toList());
+        }
+        return Collections.emptyList();
     }
 
     @GET

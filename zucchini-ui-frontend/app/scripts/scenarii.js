@@ -21,6 +21,10 @@ var ScenarioCoreService = function (ScenarioResource) {
     return ScenarioResource.getScenarioHistory({ scenarioId: scenarioId }).$promise;
   };
 
+  this.getAssociatedFailures = function (scenarioId) {
+    return ScenarioResource.getAssociatedFailures({ scenarioId: scenarioId }).$promise;
+  };
+
   this.delete = function (scenarioId) {
     return ScenarioResource.delete({ scenarioId: scenarioId }).$promise;
   };
@@ -143,6 +147,13 @@ zucchiniModule
         }.bind(this));
     };
 
+    this.loadAssociatedFailures = function () {
+      return ScenarioCoreService.getAssociatedFailures(this.scenario.id)
+        .then(function (associatedFailures) {
+          this.associatedFailures = associatedFailures;
+        }.bind(this));
+    };
+
     this.historyFilters = historyStoredFilters.get();
 
     this.updateHistoryStoredFilters = function () {
@@ -167,6 +178,7 @@ zucchiniModule
     this.load()
       .then(function () {
         this.loadHistory();
+        this.loadAssociatedFailures();
       }.bind(this));
 
 
@@ -399,6 +411,11 @@ zucchiniModule
         getTags: {
           method: 'GET',
           url: UrlBuilder.createApiUrl('/scenarii/tags'),
+          isArray: true,
+        },
+        getAssociatedFailures: {
+          method: 'GET',
+          url: UrlBuilder.createApiUrl('/scenarii/:scenarioId/associatedFailures'),
           isArray: true,
         },
         getStats: {

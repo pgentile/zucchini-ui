@@ -6,6 +6,8 @@ import io.zucchiniui.backend.shared.domain.TagSelection;
 import io.zucchiniui.backend.support.ddd.morphia.BaseMorphiaQuery;
 import org.mongodb.morphia.query.Query;
 
+import java.util.List;
+
 class ScenarioQueryImpl extends BaseMorphiaQuery<Scenario> implements ScenarioQuery {
 
     protected ScenarioQueryImpl(final Query<Scenario> query) {
@@ -52,6 +54,12 @@ class ScenarioQueryImpl extends BaseMorphiaQuery<Scenario> implements ScenarioQu
                 configureQuery(q -> q.field("allTags").notIn(tagSelection.getExcludedTags()));
             }
         }
+        return this;
+    }
+
+    @Override
+    public ScenarioQuery withErrorOutputCodes(List<String> errorOutputCodes) {
+        configureQuery(q -> q.field("errorOutputCodes").hasAnyOf(errorOutputCodes));
         return this;
     }
 

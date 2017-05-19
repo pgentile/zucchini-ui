@@ -24,6 +24,8 @@ public class ScenarioBuilder {
 
     private BackgroundBuilder backgroundBuilder;
 
+    private List<String> errorOutputCodes = new ArrayList<>();
+
     private BasicInfo info;
 
     private String comment;
@@ -65,6 +67,11 @@ public class ScenarioBuilder {
 
     public ScenarioBuilder withExtraTags(final Set<String> extraTags) {
         this.extraTags = extraTags;
+        return this;
+    }
+
+    public ScenarioBuilder withErrorOutputCodes(final List<String> errorOutputCodes) {
+        this.errorOutputCodes = errorOutputCodes;
         return this;
     }
 
@@ -128,6 +135,10 @@ public class ScenarioBuilder {
 
     public Set<String> getExtraTags() {
         return extraTags;
+    }
+
+    public List<String> getErrorOutputCodes() {
+        return errorOutputCodes;
     }
 
     protected BackgroundBuilder getBackgroundBuilder() {
