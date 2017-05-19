@@ -7,6 +7,7 @@ export default function createWebSocketMiddleware(prefix) {
   const sendActionName = `${prefix}/WS_SEND`;
   const closeActionName = `${prefix}/WS_CLOSE`;
 
+  const closeAction = createAction(closeActionName);
   const openedAction = createAction(`${prefix}/WS_OPENED`);
   const closedAction = createAction(`${prefix}/WS_CLOSED`);
   const messageAction = createAction(`${prefix}/WS_MESSAGE`);
@@ -31,7 +32,7 @@ export default function createWebSocketMiddleware(prefix) {
       case openActionName:
         if (ws) {
           // TODO Action dispatch race condition ?
-          ws.close();
+          next(closeAction());
         }
         ws = createWebSocket(action.payload.url);
         ws.open();

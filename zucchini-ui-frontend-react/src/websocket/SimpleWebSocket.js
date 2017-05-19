@@ -23,12 +23,9 @@ export default class SimpleWebSocket {
   }
 
   open() {
-    console.debug('Opening connection to', this.options.url);
-
     this.ws = new WebSocket(this.options.url);
 
     this.ws.onopen = () => {
-      console.debug('Connected to', this.options.url);
       this.options.onOpen();
     };
 
@@ -38,15 +35,11 @@ export default class SimpleWebSocket {
     };
 
     this.ws.onclose = () => {
-      console.debug('Closing connection to', this.options.url);
-
       this.options.onClose();
       this.ws = null;
     };
 
-    this.ws.onerror = event => {
-      console.error('Got error on connection to', this.options.url, ':', event);
-
+    this.ws.onerror = () => {
       try {
         this.options.onError();
       } finally {
