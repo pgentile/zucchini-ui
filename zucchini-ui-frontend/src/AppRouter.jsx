@@ -33,12 +33,30 @@ import TestRunDiffPageContainer from './testRunDiff/components/TestRunDiffPageCo
 import TestRunDiffBreadcrumbContainer from './testRunDiff/components/TestRunDiffBreadcrumbContainer';
 
 
+// Route old Angular UI URL to new URL
+function routeOldPaths(nextState, replace) {
+  const hash = nextState.location.hash || '';
+
+  if (hash.startsWith('#/')) {
+    const parts = hash.substr(1).split('/');
+    const [emptyPart, basename, ...remaining] = parts;
+
+    if (basename === 'scenarii') {
+      const newPath = [emptyPart, 'scenarios', ...remaining].join('/');
+      replace(newPath);
+    } else {
+      replace(parts.join('/'));
+    }
+  }
+}
+
+
 export default function AppRouter() {
   return (
     <Provider store={store}>
       <Router history={history}>
         <Route path="/" component={RootPage}>
-          <IndexRoute components={{ main: TestRunsPageContainer, breadcrum: TestRunsBreadcrumbContainer }} />
+          <IndexRoute components={{ main: TestRunsPageContainer, breadcrum: TestRunsBreadcrumbContainer }} onEnter={routeOldPaths} />
           <Route path="test-runs/:testRunId">
             <IndexRoute components={{ main: TestRunPageContainer, breadcrum: TestRunBreadcrumbContainer, search: NavSearchFormContainer }} />
             <Route path="search" components={{ main: TestRunSearchPageContainer, breadcrum: TestRunSearchBreadcrumbContainer }} />
