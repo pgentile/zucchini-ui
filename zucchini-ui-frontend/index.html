@@ -1,63 +1,30 @@
 <!doctype html>
-<html>
+<html class="no-js">
+
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>Zucchini UI</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width">
-  <link rel="stylesheet" href="/ui/app.css">
-  <link rel="stylesheet" href="/ui/vendor.css">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/ui/assets/vendor.css">
+  <link rel="stylesheet" href="/ui/assets/app.css">
 </head>
-<body ng-app="zucchini-ui-frontend">
 
-<!--[if lte IE 8]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
-  your browser</a> to improve your experience.</p>
-<![endif]-->
+<body>
 
-<div class="navbar navbar-inverse navbar-static-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
+  <!--[if lte IE 8]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+      your browser</a> to improve your experience.</p>
+    <![endif]-->
 
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+  <div id="content"></div>
 
-      <a class="navbar-brand" ng-href="#/">Zucchini UI</a>
-    </div>
+  <!-- Dynamically generated configuration-->
+  <script src="/ui/assets/config.js"></script>
 
-    <div class="collapse navbar-collapse" id="js-navbar-collapse">
-
-      <ul class="nav navbar-nav">
-        <li><a ng-href="#/">Derniers tirs de tests</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<div class="container" ng-cloak>
-
-  <div ng-controller="ErrorCtrl as ctrl">
-    <div ng-if="ctrl.message" class="alert alert-danger" role="alert">
-      <button type="button" class="close" aria-label="Fermer" ng-click="ctrl.dismiss()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      {{ ctrl.message }}
-    </div>
-  </div>
-
-  <div ng-view=""></div>
-
-</div>
-
-<!-- Dynamically generated configuration-->
-<script src="/ui/config.js"></script>
-
-<script src="/ui/vendor.js"></script>
-<script src="/ui/app.js"></script>
+  <script src="/ui/assets/vendor.js"></script>
+  <script src="/ui/assets/app.js"></script>
 
 </body>
+
 </html>

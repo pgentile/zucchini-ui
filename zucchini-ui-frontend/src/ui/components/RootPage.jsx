@@ -13,7 +13,7 @@ export default function RoutePage({ main, breadcrum, search }) {
       <Navbar inverse staticTop collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">Zucchini UI &mdash; <i>React</i></Link>
+            <Link to="/">Zucchini UI</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

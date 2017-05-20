@@ -1,12 +1,10 @@
 {
   "devServer": {
-    "port": 9000
-  },
-  "test": {
     "port": 9001
   },
   "ui": {
     "backendBaseUri": "http://localhost:8080",
-    "angularDebugMode": true
+    "basename": "/ui",
+    "testRunPurgeDelayInDays": 30
   }
 }

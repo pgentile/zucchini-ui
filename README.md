@@ -154,7 +154,10 @@ Architecture
 
 Used frameworks:
 
-* UI project: [AngularJS 1](https://angularjs.org)
+* UI project: [React](https://facebook.github.io/react/),
+  [Redux](http://redux.js.org/),
+  [Redux-Forms](http://redux-form.com/),
+  [React-Bootstrap](https://react-bootstrap.github.io/)
 * Backend project: [Dropwizard](http://dropwizard.io),
   [Spring](http://spring.io), [Morphia](http://mongodb.github.io/morphia/),
   [Orika](http://orika-mapper.github.io/orika-docs)

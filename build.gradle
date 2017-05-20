@@ -218,38 +218,15 @@ project("${rootProject.name}-frontend") {
 
     apply plugin: 'java'
 
-    project.sourceSets.main.resources.srcDir('build/dist')
-
-    task webpack(type: YarnTask, description: 'Run Webpack') {
-        command = 'run'
-        args = ['build']
-
-        inputs.dir('app')
-        inputs.file('package.json')
-        inputs.file('webpack.config.js')
-
-        outputs.dir('build/dist')
-    }
-
-    tasks.processResources.dependsOn webpack
-
-    task jsTest(type: YarnTask, description: 'Test JavaScript') {
-        command = 'test'
-    }
-
-    tasks.check.dependsOn jsTest
-
-}
-
-
-project("${rootProject.name}-frontend-react") {
+    project.sourceSets.main.resources.srcDir("$project.buildDir/ui-resources")
 
     task webpack(type: YarnTask, description: 'Run Webpack') {
         command = 'run'
         args = ['build']
 
         inputs.dir('src')
-        inputs.file('package.json')
+        inputs.file('yarn.lock')
+        inputs.file('postcss.config.js')
         inputs.file('webpack.config.js')
 
         outputs.dir('build/dist')
@@ -263,17 +240,18 @@ project("${rootProject.name}-frontend-react") {
         inputs.file('package.json')
     }
 
-    // Fake tasks, for project build
-    task assemble
-    task build
-    task test
-    task check
+    task copyAssets(type: Copy, dependsOn: webpack) {
+        from 'build/dist'
+        into "$project.buildDir/ui-resources/ui"
+    }
 
-    tasks.assemble.dependsOn webpack
-    tasks.build.dependsOn assemble
+    task copyIndexHtml(type: Copy) {
+        from 'index.html'
+        into "$project.buildDir/ui-resources/ui"
+    }
 
+    tasks.processResources.dependsOn(copyAssets, copyIndexHtml)
     tasks.test.dependsOn jsTest
-    tasks.check.dependsOn test
 
 }
 

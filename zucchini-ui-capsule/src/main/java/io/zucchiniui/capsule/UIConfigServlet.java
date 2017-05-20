@@ -12,14 +12,18 @@ class UIConfigServlet extends HttpServlet {
 
     private final ObjectMapper objectMapper;
 
-    public UIConfigServlet(final ObjectMapper objectMapper) {
+    private final String basePath;
+
+    public UIConfigServlet(final ObjectMapper objectMapper, String basePath) {
         this.objectMapper = objectMapper;
+        this.basePath = basePath;
     }
 
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
         final UIConfig uiConfig = new UIConfig();
         uiConfig.setBackendBaseUri(getBackendBaseUri(request));
+        uiConfig.setBasename(basePath);
 
         response.setStatus(200);
         response.setContentType("application/javascript");

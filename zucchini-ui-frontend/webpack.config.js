@@ -1,83 +1,80 @@
-var path = require('path');
-var webpack = require('webpack');
-var precss = require('precss');
-var autoprefixer = require('autoprefixer');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 
-var outputDir = path.join(__dirname, 'build/dist/ui');
-var config = require('./config.json');
+// Output dir
+const outputDir = path.join(__dirname, 'build/dist/assets');
 
+
+// Load packages names
+const packageContent = require('./package.json');
+const vendorLibs = Object.keys(packageContent.dependencies);
+
+
+// Config
+const config = require('./config.json');
 
 // Connect function to serve a Javascript configuration file
-var javascriptConfigMiddleware = function (req, res) {
-  res.writeHead(200, {'Content-Type': 'application/javascript'});
-  res.end('var configuration = ' + JSON.stringify(config.ui) + ';');
+const javascriptConfigMiddleware = function (req, res) {
+  res.writeHead(200, { 'Content-Type': 'application/javascript' });
+  res.end(`var configuration = ${JSON.stringify(config.ui)};`);
 };
-
 
 
 module.exports = {
   entry: {
-      app: [
-        './app/scripts/app.js',
-        './app/styles/main.less',
-      ],
-      vendor: [
-        'angular/angular-csp.css',
-        'bootstrap/dist/css/bootstrap.css',
-        'angular-loading-bar/build/loading-bar.css',
-        'chartist/dist/chartist.min.css',
-        'bootstrap/dist/js/bootstrap.js',
-        'angular',
-        'angular-elastic',
-        'angular-loading-bar',
-        'angular-resource',
-        'angular-route',
-        'angular-ui-bootstrap',
-        'ng-file-upload',
-        'pure-uuid',
-        'chartist',
-        'lodash',
-        'jquery',
-        'moment',
-      ],
+    app: [
+      './src/main.js',
+      './src/main.less',
+    ],
+    vendor: [
+      'bootstrap/dist/css/bootstrap.css',
+      'bootstrap/dist/js/bootstrap.js',
+      'chartist/dist/chartist.min.css',
+      ...vendorLibs,
+    ],
+  },
+  resolve: {
+    modules: [
+      path.join(__dirname, 'src'),
+      'node_modules',
+    ],
+    alias: {
+      'jquery': 'jquery/src/jquery',
+    },
+    extensions: ['.js', '.jsx', '.less', '.css'],
   },
   output: {
     path: outputDir,
     filename: '[name].js',
-    publicPath: '/ui/'
+    publicPath: '/',
   },
   devtool: 'source-map',
   devServer: {
-    //contentBase: outputDir,
     port: config.devServer.port,
-    setup: function(app) {
-      app.get('/ui/config.js', javascriptConfigMiddleware);
-     },
+    publicPath: '/ui/assets',
+    setup: function (app) {
+      app.get('/ui/assets/config.js', javascriptConfigMiddleware);
+    },
+  },
+  externals: {
+    'configuration': 'configuration',
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         enforce: 'pre',
         use: [
           'eslint-loader',
         ],
       },
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /chartist\.js/, // Babel can't load Chartist, it must be excluded
         use: [
-          'ng-annotate-loader',
           'babel-loader?cacheDirectory',
-        ],
-      },
-      {
-        test: /\.html$/,
-        use: [
-          'html-loader?minimize',
         ],
       },
       {
@@ -85,7 +82,6 @@ module.exports = {
         use: ExtractTextPlugin.extract({
           use: [
             'css-loader?sourceMap',
-            'postcss-loader',
           ],
         }),
       },
@@ -94,8 +90,7 @@ module.exports = {
         use: ExtractTextPlugin.extract({
           use: [
             'css-loader?sourceMap',
-            'postcss-loader',
-            'less-loader',
+            'less-loader?sourceMap',
           ],
         }),
       },
@@ -103,30 +98,26 @@ module.exports = {
         test: /\.(ttf|eot|woff2?|svg|png|jpg|gif)$/,
         use: [
           'url-loader?limit=100000',
-          'img-loader?minimize',
         ],
-      }
-    ]
+      },
+    ],
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity,
-    }),
+    /*
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       mangle: true
     }),
+    */
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity,
+    }),
     new webpack.ProvidePlugin({
-      '_': 'lodash',
       '$': 'jquery',
       'jQuery': 'jquery',
+      'fetch': 'isomorphic-fetch',
     }),
     new ExtractTextPlugin('[name].css'),
-    new CopyWebpackPlugin([
-      {
-        from: 'index.html',
-      }
-    ]),
-  ]
+  ],
 };
