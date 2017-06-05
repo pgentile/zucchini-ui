@@ -21,7 +21,10 @@ export default function createWebSocketMiddleware(prefix) {
         onOpen: () => store.dispatch(openedAction()),
         onMessage: data => store.dispatch(messageAction(data)),
         onClose: () => store.dispatch(closedAction()),
-        onError: () => store.dispatch(errorAction()),
+        onError: () => {
+          const error = new Error(`Communication failed with WebSocket: ${url}`);
+          store.dispatch(errorAction(error));
+        },
       });
     };
 
