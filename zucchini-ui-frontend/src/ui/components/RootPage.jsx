@@ -5,11 +5,14 @@ import Nav from 'react-bootstrap/lib/Nav';
 import { Link } from 'react-router';
 
 import ErrorAlertContainer from '../../errors/components/ErrorAlertContainer';
+import LoadingIndicatorContainer from '../../loadingIndicator/components/LoadingIndicatorContainer';
 
 
 export default function RoutePage({ main, breadcrum, search }) {
   return (
     <div>
+      <LoadingIndicatorContainer />
+
       <Navbar inverse staticTop collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>

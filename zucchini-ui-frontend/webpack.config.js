@@ -82,6 +82,7 @@ module.exports = {
         use: ExtractTextPlugin.extract({
           use: [
             'css-loader?sourceMap',
+            'postcss-loader?sourceMap',
           ],
         }),
       },
@@ -90,6 +91,7 @@ module.exports = {
         use: ExtractTextPlugin.extract({
           use: [
             'css-loader?sourceMap',
+            'postcss-loader?sourceMap',
             'less-loader?sourceMap',
           ],
         }),

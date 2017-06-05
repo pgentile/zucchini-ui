@@ -13,6 +13,7 @@ import { tagDetails } from './tagDetails/redux';
 import { searchResults } from './search/redux';
 import { errors } from './errors/redux';
 import { presence } from './presence/redux';
+import { loadingIndicator } from './loadingIndicator/redux';
 
 
 const reducer = combineReducers({
@@ -33,6 +34,7 @@ const reducer = combineReducers({
   searchResults,
   errors,
   presence,
+  loadingIndicator,
 });
 
 export default reducer;
