@@ -42,7 +42,7 @@ export default function RoutePage({ main, breadcrum, search }) {
 
 RoutePage.propTypes = {
   main: PropTypes.node.isRequired,
-  breadcrum: PropTypes.node.isRequired,
+  breadcrum: PropTypes.node,
   search: PropTypes.node,
 };
 

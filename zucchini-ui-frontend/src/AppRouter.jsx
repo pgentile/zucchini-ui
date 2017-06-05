@@ -32,6 +32,8 @@ import TagDetailsBreadcrumbContainer from './tagDetails/components/TagDetailsBre
 import TestRunDiffPageContainer from './testRunDiff/components/TestRunDiffPageContainer';
 import TestRunDiffBreadcrumbContainer from './testRunDiff/components/TestRunDiffBreadcrumbContainer';
 
+import NotFoundPage from './notFound/components/NotFoundPage';
+
 
 // Route old Angular UI URL to new URL
 function routeOldPaths(nextState, replace) {
@@ -70,6 +72,7 @@ export default function AppRouter() {
           <Route path="scenarios/:scenarioId">
             <IndexRoute components={{ main: ScenarioPageContainer, breadcrum: ScenarioBreadcrumbContainer, search: NavSearchFormContainer }} />
           </Route>
+          <Route path="*" components={{ main: NotFoundPage }} />
         </Route>
       </Router>
     </Provider>
