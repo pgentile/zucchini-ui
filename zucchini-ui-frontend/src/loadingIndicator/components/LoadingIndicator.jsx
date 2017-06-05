@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import EventScheduler from '../EventScheduler';
+import LoadingBar from './LoadingBar';
 
 
 export default class LoadingIndicator extends React.PureComponent {
@@ -16,7 +17,10 @@ export default class LoadingIndicator extends React.PureComponent {
     this.eventScheduler = new EventScheduler();
 
     this.state = {
-      classNames: ['loading-bar'],
+      start: false,
+      pending: false,
+      ending: false,
+      done: false,
     };
   }
 
@@ -24,59 +28,24 @@ export default class LoadingIndicator extends React.PureComponent {
     const { active } = nextProps;
 
     if (active) {
-      this.eventScheduler.schedule(() => {
-        this.updateClassNames({ add: ['loading-bar-start'] });
-      });
-      this.eventScheduler.schedule(() => {
-        this.updateClassNames({ add: ['loading-bar-pending'] });
-      });
+      this.scheduleState({ start: true });
+      this.scheduleState({ pending: true });
     } else {
-      this.eventScheduler.schedule(() => {
-        this.updateClassNames({ add: ['loading-bar-ending'] });
-      });
-      this.eventScheduler.schedule(() => {
-        this.updateClassNames({ add: ['loading-bar-done'] });
-      }, 200);
-      this.eventScheduler.schedule(() => {
-        this.updateClassNames({ remove: ['loading-bar-start', 'loading-bar-pending', 'loading-bar-ending', 'loading-bar-done'] });
-      }, 100);
+      this.scheduleState({ ending: true });
+      this.scheduleState({ done: true }, 200);
+      this.scheduleState({ start: false, pending: false, ending: false, done: false }, 100);
     }
   }
 
-  updateClassNames({ add, remove }) {
-    this.setState(prevState => {
-      const classNamesSet = new Set(prevState.classNames);
-
-      if (add) {
-        add.forEach(className => classNamesSet.add(className));
-      }
-      if (remove) {
-        remove.forEach(className => classNamesSet.delete(className));
-      }
-
-      return {
-        classNames: Array.from(classNamesSet),
-      };
-    });
-
-  }
-
-  addClassNames(...classNames) {
-    this.setState(prevState => {
-      const classNamesSet = new Set(prevState.classNames);
-      classNames.forEach(className => classNamesSet.add(className));
-
-      return {
-        classNames: Array.from(classNamesSet),
-      };
-    });
+  scheduleState(nextState, timeout) {
+    this.eventScheduler.schedule(() => {
+      this.setState(nextState);
+    }, timeout);
   }
 
   render() {
-    const className = Array.from(this.state.classNames).join(' ');
-
     return (
-      <div className={className}></div>
+      <LoadingBar {...this.state} />
     );
   }
 
