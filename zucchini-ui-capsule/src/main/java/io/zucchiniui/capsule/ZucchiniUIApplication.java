@@ -43,9 +43,6 @@ public class ZucchiniUIApplication extends Application<BackendConfiguration> {
         // Forward 404 pages to index (used for browser history)
         final FilterHolder forwardFilterHolder = new FilterHolder(new ForwardToIndexFilter(BASE_PATH));
         environment.getApplicationContext().addFilter(forwardFilterHolder, BASE_PATH + "/*", EnumSet.allOf(DispatcherType.class));
-
-        // final ServletHolder forwardToIndexServletHolder = new ServletHolder(new ForwardToIndexServlet(BASE_PATH));
-        // environment.getApplicationContext().addServlet(forwardToIndexServletHolder, BASE_PATH + "/test-runs/*");
     }
 
 }
