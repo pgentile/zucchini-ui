@@ -6,10 +6,10 @@ const DEFAULT_OPTIONS = {
   onMessage: () => { },
   onClose: () => { },
   onError: () => { },
-  closeOnError: true,
+  onKeepAlive: null,
+  keepAliveTimeout: 10 * 1000,
 };
 
-// TODO Add keep alive
 // TODO Add reconnect feature
 export default class SimpleWebSocket {
 
@@ -20,6 +20,7 @@ export default class SimpleWebSocket {
     };
 
     this.ws = null;
+    this.keepAliveInterval = null;
   }
 
   open() {
@@ -27,6 +28,12 @@ export default class SimpleWebSocket {
 
     this.ws.onopen = () => {
       this.options.onOpen();
+
+      if (this.options.onKeepAlive) {
+        this.keepAliveInterval = setInterval(() => {
+          this.options.onKeepAlive();
+        }, this.options.keepAliveTimeout);
+      }
     };
 
     this.ws.onmessage = event => {
@@ -35,6 +42,9 @@ export default class SimpleWebSocket {
     };
 
     this.ws.onclose = () => {
+      clearInterval(this.keepAliveInterval);
+      this.keepAliveInterval = null;
+
       this.options.onClose();
       this.ws = null;
     };
@@ -43,9 +53,7 @@ export default class SimpleWebSocket {
       try {
         this.options.onError();
       } finally {
-        if (this.options.closeOnError) {
-          this.options.close();
-        }
+        this.ws.close();
       }
     };
 
@@ -60,7 +68,6 @@ export default class SimpleWebSocket {
     if (this.ws) {
       this.ws.close();
     }
-    this.ws = null;
   }
 
 }

@@ -14,12 +14,24 @@ const watcherId = presenceInfoStorage.read().watcherId;
 
 
 export function watch({ referenceType, reference }) {
-  return {
-    type: `${PREFIX}/WS_OPEN`,
-    payload: {
-      url: createWebSocketUrl(`/ws/presence?reference=${reference}&type=${referenceType}&watcherId=${watcherId}`),
-    },
-  };
+  return dispatch => {
+
+    return dispatch({
+      type: `${PREFIX}/WS_OPEN`,
+      payload: {
+        url: createWebSocketUrl(`/ws/presence?reference=${reference}&type=${referenceType}&watcherId=${watcherId}`),
+        onKeepAlive: () => {
+          dispatch({
+            type: `${PREFIX}/WS_SEND`,
+            payload: {
+              type: 'REFRESH',
+            },
+          });
+        },
+      },
+    });
+
+  }
 }
 
 
@@ -33,7 +45,7 @@ function createWebSocketUrl(targetUrl) {
     protocol = 'wss';
   }
 
-  return `${protocol }://${ _.trimEnd(remainingUrl, '/') }/${ _.trimStart(targetUrl, '/')}`;
+  return `${protocol}://${_.trimEnd(remainingUrl, '/')}/${_.trimStart(targetUrl, '/')}`;
 }
 
 

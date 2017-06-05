@@ -15,9 +15,10 @@ export default function createWebSocketMiddleware(prefix) {
 
   return store => {
 
-    const createWebSocket = url => {
+    const createWebSocket = ({ url, onKeepAlive }) => {
       return new SimpleWebSocket({
         url,
+        onKeepAlive,
         onOpen: () => store.dispatch(openedAction()),
         onMessage: data => store.dispatch(messageAction(data)),
         onClose: () => store.dispatch(closedAction()),
@@ -37,7 +38,7 @@ export default function createWebSocketMiddleware(prefix) {
           // TODO Action dispatch race condition ?
           next(closeAction());
         }
-        ws = createWebSocket(action.payload.url);
+        ws = createWebSocket(action.payload);
         ws.open();
         break;
 
