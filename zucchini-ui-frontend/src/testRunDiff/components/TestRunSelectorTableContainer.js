@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 
+import { selectLatestTestRuns } from '../../testRuns/selectors';
 import TestRunSelectorTable from './TestRunSelectorTable';
 
 
 const selectTestRuns = createSelector(
-  state => state.testRuns.testRuns,
+  state => selectLatestTestRuns(state),
   state => state.testRun.testRun.type || null,
   state => state.historyFilters.sameTestRunType,
   (testRuns, currentTestRunType, sameTestRunTypeFilter) => {

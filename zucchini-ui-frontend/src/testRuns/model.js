@@ -2,13 +2,7 @@ import { default as testRunsApi } from '../api/testRuns';
 
 
 export function getLatestsTestRuns() {
-  return testRunsApi.getLatests({ withStats: false })
-    .then(testRuns => {
-      return testRuns.map(testRun => ({
-        ...testRun,
-        stats: createStats(UNDEFINED_STATS_NUMBERS),
-      }))
-    });
+  return testRunsApi.getLatests({ withStats: false });
 }
 
 
@@ -45,7 +39,7 @@ export async function deleteManyTestRuns({ testRunIds }) {
 }
 
 
-function createStats(numbers) {
+export function createStats(numbers) {
   return {
     all: numbers,
     reviewed: numbers,
@@ -54,7 +48,7 @@ function createStats(numbers) {
 }
 
 
-const UNDEFINED_STATS_NUMBERS = {
+export const UNDEFINED_STATS_NUMBERS = {
   count: null,
   passed: null,
   failed: null,
@@ -63,7 +57,7 @@ const UNDEFINED_STATS_NUMBERS = {
 };
 
 
-const ZERO_STATS_NUMBERS = {
+export const ZERO_STATS_NUMBERS = {
   count: 0,
   passed: 0,
   failed: 0,

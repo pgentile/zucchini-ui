@@ -16,13 +16,17 @@ const GET_LATEST_TEST_RUNS_WITH_STATS_FULFILLED = `${GET_LATEST_TEST_RUNS_WITH_S
 const CREATE_TEST_RUN = `${PREFIX}/CREATE_TEST_RUN`;
 const CREATE_TEST_RUN_FULFILLED = `${CREATE_TEST_RUN}_FULFILLED`;
 
+const DELETE_TEST_RUN = `${PREFIX}/DELETE_TEST_RUN`;
+const DELETE_TEST_RUN_FULFILLED = `${DELETE_TEST_RUN}_FULFILLED`;
 
 // Action creators
 
 export function loadTestRunsPage() {
   return async dispatch => {
-    await dispatch(getLatestTestRuns());
-    await dispatch(getLatestTestRunsWithStats());
+    const latestTestRunsResult$ = dispatch(getLatestTestRuns());
+    const latestTestRunsResultWithStats$ = dispatch(getLatestTestRunsWithStats());
+    await latestTestRunsResult$;
+    await latestTestRunsResultWithStats$;
     return null;
   };
 }
@@ -48,11 +52,21 @@ export function createTestRun({ type }) {
   };
 }
 
-export function purgeThenReload({ selectedTestRunIds }) {
-  return async dispatch => {
-    await model.deleteManyTestRuns({ testRunIds: selectedTestRunIds });
-    await dispatch(loadTestRunsPage());
-    return null;
+export function purgeTestRuns({ selectedTestRunIds }) {
+  return dispatch => {
+    selectedTestRunIds.forEach(testRunId => {
+      dispatch(deleteTestRun({ testRunId }));
+    });
+  };
+}
+
+function deleteTestRun({ testRunId }) {
+  return {
+    type: DELETE_TEST_RUN,
+    payload: model.deleteTestRun({ testRunId }),
+    meta: {
+      testRunId,
+    },
   };
 }
 
@@ -65,15 +79,19 @@ const initialState = {
 
 export const testRuns = handleActions({
 
-  [GET_LATEST_TEST_RUNS_FULFILLED]: (state, action) => ({
-    ...state,
-    testRuns: action.payload,
-  }),
+  [GET_LATEST_TEST_RUNS_FULFILLED]: (state, action) => {
+    return {
+      ...state,
+      testRuns: mergeTestRuns(state.testRuns, action.payload),
+    };
+  },
 
-  [GET_LATEST_TEST_RUNS_WITH_STATS_FULFILLED]: (state, action) => ({
-    ...state,
-    testRuns: action.payload,
-  }),
+  [GET_LATEST_TEST_RUNS_WITH_STATS_FULFILLED]: (state, action) => {
+    return {
+      ...state,
+      testRuns: mergeTestRuns(state.testRuns, action.payload),
+    };
+  },
 
   [CREATE_TEST_RUN_FULFILLED]: (state, action) => ({
     ...state,
@@ -83,4 +101,30 @@ export const testRuns = handleActions({
     ],
   }),
 
+  [DELETE_TEST_RUN_FULFILLED]: (state, action) => {
+    const { testRunId } = action.meta;
+    const testRuns = state.testRuns.filter(testRun => testRun.id !== testRunId);
+
+    return {
+      ...state,
+      testRuns,
+    };
+  },
+
 }, initialState);
+
+
+function mergeTestRuns(testRuns, nextTestRuns) {
+  const testRunsById = new Map();
+  testRuns.forEach(testRun => {
+    testRunsById.set(testRun.id, testRun);
+  });
+
+  return nextTestRuns.map(nextTestRun => {
+    const testRun = testRunsById.get(nextTestRun.id);
+    return {
+      ...testRun,
+      ...nextTestRun,
+    };
+  });
+}
