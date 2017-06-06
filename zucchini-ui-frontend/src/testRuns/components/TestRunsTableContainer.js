@@ -1,13 +1,25 @@
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { createSelector, createStructuredSelector } from 'reselect';
 
 import TestRunsTable from './TestRunsTable';
 
 import { selectLatestTestRuns } from '../selectors';
 
 
+const selectTestRuns = createSelector(
+  state => selectLatestTestRuns(state),
+  (state, ownProps) => ownProps.selectedType,
+  (testRuns, selectedType) => {
+    if (selectedType) {
+      return testRuns.filter(testRun => testRun.type === selectedType);
+    }
+    return testRuns;
+  },
+);
+
+
 const selectProps = createStructuredSelector({
-  testRuns: selectLatestTestRuns,
+  testRuns: selectTestRuns,
 });
 
 
