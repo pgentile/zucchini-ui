@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
+import Tabs from 'react-bootstrap/lib/Tabs';
+import Tab from 'react-bootstrap/lib/Tab';
 
 import Button from '../../ui/components/Button';
 import TagList from '../../ui/components/TagList';
@@ -21,6 +23,14 @@ import ScenarioChangeTable from './ScenarioChangeTable';
 
 
 export default class ScenarioPage extends React.Component {
+
+  static propTypes = {
+    onLoad: PropTypes.func.isRequired,
+    onSetNonReviewedState: PropTypes.func.isRequired,
+    scenarioId: PropTypes.string.isRequired,
+    scenario: PropTypes.object,
+  };
+
   constructor(props) {
     super(props);
 
@@ -87,11 +97,7 @@ export default class ScenarioPage extends React.Component {
     let similarFailureSection = null;
     if (scenario.status === 'FAILED') {
       similarFailureSection = (
-        <div>
-          <hr />
-          <h2>Autres scénarios avec des erreurs similaires</h2>
-          <SimilarFailureScenarioTableContainer />
-        </div>
+        <SimilarFailureScenarioTableContainer />
       );
     }
 
@@ -142,19 +148,25 @@ export default class ScenarioPage extends React.Component {
 
         <hr />
 
-        <h2>Changements</h2>
-        <ScenarioChangeTable changes={scenario.changes} />
-
-        <hr />
-
-        <h2>Scénarii de la même fonctionnalité</h2>
-        <SameFeatureScenarioTableContainer scenarioId={scenarioId} />
-
-        <hr />
-
-        <h2>Historique</h2>
-        <HistoryFilterContainer />
-        <ScenarioHistoryTableContainer scenarioId={scenarioId} />
+        <Tabs defaultActiveKey="changes" id="tabs" animation={false}>
+          <Tab eventKey="changes" title="Changements">
+            <h2>Changements</h2>
+            <ScenarioChangeTable changes={scenario.changes} />
+          </Tab>
+          <Tab eventKey="same-feature" title="Scénarios de la même fonctionnalité">
+            <h2>Scénarios de la même fonctionnalité</h2>
+            <SameFeatureScenarioTableContainer scenarioId={scenarioId} />
+          </Tab>
+          <Tab eventKey="history" title="Historique">
+            <h2>Historique</h2>
+            <HistoryFilterContainer />
+            <ScenarioHistoryTableContainer scenarioId={scenarioId} />
+          </Tab>
+          <Tab eventKey="similar-errors" title="Erreurs similaires" disabled={similarFailureSection === null}>
+            <h2>Autres scénarios avec des erreurs similaires</h2>
+            {similarFailureSection}
+          </Tab>
+        </Tabs>
 
         <UpdateScenarioStateDialogContainer
           show={this.state.showUpdateStateDialog}
@@ -169,10 +181,3 @@ export default class ScenarioPage extends React.Component {
     );
   }
 }
-
-ScenarioPage.propTypes = {
-  onLoad: PropTypes.func.isRequired,
-  onSetNonReviewedState: PropTypes.func.isRequired,
-  scenarioId: PropTypes.string.isRequired,
-  scenario: PropTypes.object,
-};
