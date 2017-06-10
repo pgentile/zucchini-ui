@@ -136,8 +136,6 @@ export default class ScenarioPage extends React.Component {
         <h2>Étapes du scénario</h2>
         <ScenarioDetailsContainer />
 
-        {similarFailureSection}
-
         <hr />
 
         <h2>Commentaires</h2>
@@ -148,7 +146,12 @@ export default class ScenarioPage extends React.Component {
 
         <hr />
 
-        <Tabs defaultActiveKey="changes" id="tabs" animation={false}>
+        <Tabs defaultActiveKey="history" id="tabs" animation={false}>
+          <Tab eventKey="history" title="Historique">
+            <h2>Historique</h2>
+            <HistoryFilterContainer />
+            <ScenarioHistoryTableContainer scenarioId={scenarioId} />
+          </Tab>
           <Tab eventKey="changes" title="Changements">
             <h2>Changements</h2>
             <ScenarioChangeTable changes={scenario.changes} />
@@ -156,11 +159,6 @@ export default class ScenarioPage extends React.Component {
           <Tab eventKey="same-feature" title="Scénarios de la même fonctionnalité">
             <h2>Scénarios de la même fonctionnalité</h2>
             <SameFeatureScenarioTableContainer scenarioId={scenarioId} />
-          </Tab>
-          <Tab eventKey="history" title="Historique">
-            <h2>Historique</h2>
-            <HistoryFilterContainer />
-            <ScenarioHistoryTableContainer scenarioId={scenarioId} />
           </Tab>
           <Tab eventKey="similar-errors" title="Erreurs similaires" disabled={similarFailureSection === null}>
             <h2>Autres scénarios avec des erreurs similaires</h2>
