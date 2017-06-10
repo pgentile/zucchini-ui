@@ -53,13 +53,13 @@ export default class ScenarioStats extends React.PureComponent {
         </Row>
         <Row>
           <Col md={4}>
-            <h5 className="text-center"><b>Tous les scénarii</b></h5>
+            <h5 className="text-center"><b>Tous les scénarios</b></h5>
           </Col>
           <Col md={4}>
-            <h5 className="text-center"><b>Scénarii analysés</b></h5>
+            <h5 className="text-center"><b>Scénarios analysés</b></h5>
           </Col>
           <Col md={4}>
-            <h5 className="text-center"><b>Scénarii non analysés</b></h5>
+            <h5 className="text-center"><b>Scénarios non analysés</b></h5>
           </Col>
         </Row>
         <Row>

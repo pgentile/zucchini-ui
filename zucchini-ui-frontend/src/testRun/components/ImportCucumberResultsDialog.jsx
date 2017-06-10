@@ -88,10 +88,10 @@ export default class ImportCucumberResultsDialog extends React.PureComponent {
             </FormGroup>
             <FormGroup>
               <Checkbox checked={this.state.onlyNewScenarii} onChange={this.onOptionChange('onlyNewScenarii')}>
-                Limiter l&apos;import aux nouveaux scénarii
+                Limiter l&apos;import aux nouveaux scénarios
               </Checkbox>
               <Checkbox checked={this.state.mergeOnlyNewPassedScenarii} onChange={this.onOptionChange('mergeOnlyNewPassedScenarii')}>
-                Limiter l&apos;import aux scénarii passés avec succès
+                Limiter l&apos;import aux scénarios passés avec succès
               </Checkbox>
               <Checkbox checked={this.state.dryRun} onChange={this.onOptionChange('dryRun')}>
                 Tir à blanc
