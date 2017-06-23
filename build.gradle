@@ -14,7 +14,7 @@ buildscript {
 }
 
 plugins {
-    id 'com.github.ben-manes.versions' version '0.14.0' apply false
+    id 'com.github.ben-manes.versions' version '0.15.0' apply false
     id 'us.kirchmeier.capsule' version '1.0.2' apply false
     id 'com.google.osdetector' version '1.4.0' apply false
     id 'org.ajoberstar.grgit' version '1.5.1' apply false
