@@ -82,9 +82,9 @@ export default class ImportCucumberResultsDialog extends React.PureComponent {
             <FormGroup controlId="group">
               <ControlLabel>Groupe</ControlLabel>
               <FormControl type="text"
-                  placeholder="Nom d'un groupe pour les fonctionnalités importées"
-                  value={this.state.group}
-                  onChange={this.onGroupChange} />
+                placeholder="Nom d'un groupe pour les fonctionnalités importées"
+                value={this.state.group}
+                onChange={this.onGroupChange} />
             </FormGroup>
             <FormGroup>
               <Checkbox checked={this.state.onlyNewScenarii} onChange={this.onOptionChange('onlyNewScenarii')}>
