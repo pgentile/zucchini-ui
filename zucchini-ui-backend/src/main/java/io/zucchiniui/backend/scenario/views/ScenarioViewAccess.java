@@ -66,8 +66,8 @@ public class ScenarioViewAccess {
         return MorphiaUtils.streamQuery(query).collect(Collectors.toMap(Scenario::getScenarioKey, scenarioToListItemViewMapper::map));
     }
 
-    public List<ScenarioListItemView> getFailedScenarii(final String testRunId) {
-        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(q -> q.withTestRunId(testRunId).havingErrorMessage());
+    public List<ScenarioListItemView> getFailedScenarii(final Consumer<ScenarioQuery> preparator) {
+        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator);
         return MorphiaUtils.streamQuery(query)
             .map(scenario -> {
                 ScenarioListItemView listItem = scenarioToListItemViewMapper.map(scenario);

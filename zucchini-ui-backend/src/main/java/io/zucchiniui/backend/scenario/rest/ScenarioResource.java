@@ -20,10 +20,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -90,6 +87,22 @@ public class ScenarioResource {
     }
 
     @GET
+    @Path("associatedFailures")
+    public Map<String, List<String>> getAllAssociatedFailures(@BeanParam final GetScenariiRequestParams requestParams) {
+        Consumer<ScenarioQuery> query = q -> {
+            if (!Strings.isNullOrEmpty(requestParams.getTestRunId())) {
+                q.withTestRunId(requestParams.getTestRunId());
+            }
+            if (!Strings.isNullOrEmpty(requestParams.getFeatureId())) {
+                q.withFeatureId(requestParams.getFeatureId());
+            }
+            q.havingErrorMessage();
+        };
+        return ErrorMessageGroupingUtils.computeDistance(scenarioViewAccess.getFailedScenarii(query));
+    }
+
+
+    @GET
     @Path("{scenarioId}")
     public Scenario get(@PathParam("scenarioId") final String scenarioId) {
         return scenarioRepository.getById(scenarioId);
@@ -100,25 +113,12 @@ public class ScenarioResource {
     public List<ScenarioListItemView> getAssociatedFailures(@PathParam("scenarioId") final String scenarioId) {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
         List<ScenarioListItemView> associatedFailures = null;
-        String errorMessage = scenario.getSteps()
-            .stream()
-            .filter(step -> StringUtils.isNotBlank(step.getErrorMessage()))
-            .findFirst()
-            .map(Step::getErrorMessage)
-            .orElse(StringUtils.EMPTY);
-
+        String errorMessage = ErrorMessageGroupingUtils.extractErrorMessage(scenario);
         if(StringUtils.isNotBlank(errorMessage)) {
-            associatedFailures = scenarioViewAccess.getFailedScenarii(
-                scenario.getTestRunId())
+            associatedFailures = scenarioViewAccess.getFailedScenarii(q -> { q.withTestRunId(scenario.getTestRunId()).havingErrorMessage();})
                 .stream()
                 .filter(otherScenario -> !scenarioId.equals(otherScenario.getId()))
-                .filter(otherScenario -> {
-                    int distance = StringUtils.getLevenshteinDistance(errorMessage,
-                        otherScenario.getErrorMessage());
-                    // Max tolerated distance is derived from the current scenario's error message
-                    // The arbitrary "10" means we consider 10% change to be acceptable
-                    return distance < errorMessage.length() / 10;
-                })
+                .filter(otherScenario -> ErrorMessageGroupingUtils.isSimilar(errorMessage, otherScenario.getErrorMessage()))
                 .collect(Collectors.toList());
         }
         return associatedFailures != null ? associatedFailures : Collections.emptyList();
