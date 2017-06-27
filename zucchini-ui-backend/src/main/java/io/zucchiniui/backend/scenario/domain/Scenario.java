@@ -46,8 +46,6 @@ public class Scenario extends BaseEntity<String> {
 
     private boolean reviewed;
 
-    private List<String> errorOutputCodes = new ArrayList<>();
-
     private List<Step> steps = new ArrayList<>();
 
     private List<AroundAction> beforeActions = new ArrayList<>();
@@ -84,8 +82,6 @@ public class Scenario extends BaseEntity<String> {
 
         allTags = new HashSet<>(tags);
         allTags.addAll(builder.getExtraTags());
-
-        errorOutputCodes = builder.getErrorOutputCodes();
 
 
         if (builder.getBackgroundBuilder() != null) {
@@ -125,8 +121,6 @@ public class Scenario extends BaseEntity<String> {
         language = other.language;
         tags = new HashSet<>(other.tags);
         allTags = new HashSet<>(other.allTags);
-        errorOutputCodes = new ArrayList<>(other.errorOutputCodes);
-
 
         if (other.background == null) {
             background = null;
@@ -323,10 +317,6 @@ public class Scenario extends BaseEntity<String> {
 
     public ZonedDateTime getModifiedAt() {
         return modifiedAt;
-    }
-
-    public List<String> getErrorOutputCodes() {
-        return errorOutputCodes;
     }
 
     @Override
