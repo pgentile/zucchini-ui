@@ -2,11 +2,10 @@ package io.zucchiniui.backend.scenario.dao;
 
 import io.zucchiniui.backend.scenario.domain.Scenario;
 import io.zucchiniui.backend.scenario.domain.ScenarioQuery;
+import io.zucchiniui.backend.scenario.domain.ScenarioStatus;
 import io.zucchiniui.backend.shared.domain.TagSelection;
 import io.zucchiniui.backend.support.ddd.morphia.BaseMorphiaQuery;
 import org.mongodb.morphia.query.Query;
-
-import java.util.List;
 
 class ScenarioQueryImpl extends BaseMorphiaQuery<Scenario> implements ScenarioQuery {
 
@@ -58,8 +57,8 @@ class ScenarioQueryImpl extends BaseMorphiaQuery<Scenario> implements ScenarioQu
     }
 
     @Override
-    public ScenarioQuery withErrorOutputCodes(List<String> errorOutputCodes) {
-        configureQuery(q -> q.field("errorOutputCodes").hasAnyOf(errorOutputCodes));
+    public ScenarioQuery havingErrorMessage() {
+        configureQuery(q -> q.field("status").equal(ScenarioStatus.FAILED).field("steps.errorMessage").exists());
         return this;
     }
 

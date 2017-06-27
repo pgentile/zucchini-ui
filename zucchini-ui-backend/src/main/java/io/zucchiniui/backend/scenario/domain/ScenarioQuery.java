@@ -2,8 +2,6 @@ package io.zucchiniui.backend.scenario.domain;
 
 import io.zucchiniui.backend.shared.domain.TagSelection;
 
-import java.util.List;
-
 public interface ScenarioQuery {
 
     ScenarioQuery withFeatureId(String featureId);
@@ -18,6 +16,5 @@ public interface ScenarioQuery {
 
     ScenarioQuery withSelectedTags(TagSelection tagSelection);
 
-    ScenarioQuery withErrorOutputCodes(List<String> errorOutputCodes);
-
+    ScenarioQuery havingErrorMessage();
 }

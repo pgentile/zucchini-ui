@@ -17,6 +17,8 @@ public class ScenarioListItemView {
 
     private String featureId;
 
+    private String errorMessage;
+
     public String getId() {
         return id;
     }
@@ -63,6 +65,14 @@ public class ScenarioListItemView {
 
     public void setFeatureId(final String featureId) {
         this.featureId = featureId;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
 }

@@ -4,33 +4,17 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
 import io.dropwizard.jersey.PATCH;
 import io.zucchiniui.backend.comment.rest.CommentResource;
-import io.zucchiniui.backend.scenario.domain.Attachment;
-import io.zucchiniui.backend.scenario.domain.Scenario;
-import io.zucchiniui.backend.scenario.domain.ScenarioQuery;
-import io.zucchiniui.backend.scenario.domain.ScenarioRepository;
-import io.zucchiniui.backend.scenario.domain.ScenarioService;
-import io.zucchiniui.backend.scenario.domain.ScenarioStatus;
-import io.zucchiniui.backend.scenario.domain.UpdateScenarioParams;
-import io.zucchiniui.backend.scenario.views.ScenarioHistoryItemView;
-import io.zucchiniui.backend.scenario.views.ScenarioListItemView;
-import io.zucchiniui.backend.scenario.views.ScenarioStats;
-import io.zucchiniui.backend.scenario.views.ScenarioTagStats;
-import io.zucchiniui.backend.scenario.views.ScenarioViewAccess;
+import io.zucchiniui.backend.scenario.domain.*;
+import io.zucchiniui.backend.scenario.views.*;
 import io.zucchiniui.backend.shared.domain.ItemReference;
 import io.zucchiniui.backend.shared.domain.ItemReferenceType;
 import io.zucchiniui.backend.shared.domain.TagSelection;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.BadRequestException;
-import javax.ws.rs.BeanParam;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -115,16 +99,29 @@ public class ScenarioResource {
     @Path("{scenarioId}/associatedFailures")
     public List<ScenarioListItemView> getAssociatedFailures(@PathParam("scenarioId") final String scenarioId) {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
-        if (ScenarioStatus.FAILED.equals(scenario.getStatus()) && !scenario.getErrorOutputCodes().isEmpty()) {
-            return scenarioViewAccess
-                .getScenarioListItems(q -> {
-                    q.withTestRunId(scenario.getTestRunId()).withErrorOutputCodes(scenario.getErrorOutputCodes());
-                })
+        List<ScenarioListItemView> associatedFailures = null;
+        String errorMessage = scenario.getSteps()
+            .stream()
+            .filter(step -> StringUtils.isNotBlank(step.getErrorMessage()))
+            .findFirst()
+            .map(Step::getErrorMessage)
+            .orElse(StringUtils.EMPTY);
+
+        if(StringUtils.isNotBlank(errorMessage)) {
+            associatedFailures = scenarioViewAccess.getFailedScenarii(
+                scenario.getTestRunId())
                 .stream()
-                .filter(someScenario -> !scenarioId.equals(someScenario.getId()))
+                .filter(otherScenario -> !scenarioId.equals(otherScenario.getId()))
+                .filter(otherScenario -> {
+                    int distance = StringUtils.getLevenshteinDistance(errorMessage,
+                        otherScenario.getErrorMessage());
+                    // Max tolerated distance is derived from the current scenario's error message
+                    // The arbitrary "10" means we consider 10% change to be acceptable
+                    return distance < errorMessage.length() / 10;
+                })
                 .collect(Collectors.toList());
         }
-        return Collections.emptyList();
+        return associatedFailures != null ? associatedFailures : Collections.emptyList();
     }
 
     @GET

@@ -4,22 +4,18 @@ import io.zucchiniui.backend.scenario.dao.ScenarioDAO;
 import io.zucchiniui.backend.scenario.domain.Scenario;
 import io.zucchiniui.backend.scenario.domain.ScenarioQuery;
 import io.zucchiniui.backend.scenario.domain.ScenarioStatus;
+import io.zucchiniui.backend.scenario.domain.Step;
 import io.zucchiniui.backend.shared.domain.TagSelection;
 import io.zucchiniui.backend.support.ddd.morphia.MorphiaRawQuery;
 import io.zucchiniui.backend.support.ddd.morphia.MorphiaUtils;
 import io.zucchiniui.backend.testrun.domain.TestRunQuery;
 import io.zucchiniui.backend.testrun.domain.TestRunRepository;
 import ma.glasnost.orika.BoundMapperFacade;
+import org.apache.commons.lang3.StringUtils;
 import org.mongodb.morphia.query.Query;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -68,6 +64,23 @@ public class ScenarioViewAccess {
             .project("scenarioKey", true);
 
         return MorphiaUtils.streamQuery(query).collect(Collectors.toMap(Scenario::getScenarioKey, scenarioToListItemViewMapper::map));
+    }
+
+    public List<ScenarioListItemView> getFailedScenarii(final String testRunId) {
+        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(q -> q.withTestRunId(testRunId).havingErrorMessage());
+        return MorphiaUtils.streamQuery(query)
+            .map(scenario -> {
+                ScenarioListItemView listItem = scenarioToListItemViewMapper.map(scenario);
+                String errorMessage = scenario.getSteps()
+                    .stream()
+                    .filter(step -> StringUtils.isNotBlank(step.getErrorMessage()))
+                    .findFirst()
+                    .map(Step::getErrorMessage)
+                    .orElse(StringUtils.EMPTY);
+                listItem.setErrorMessage(errorMessage);
+                return listItem;
+            })
+            .collect(Collectors.toList());
     }
 
     public List<ScenarioHistoryItemView> getScenarioHistory(final String scenarioKey) {
