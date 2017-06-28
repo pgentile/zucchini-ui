@@ -10,11 +10,8 @@ import java.util.*;
  */
 public final class ErrorMessageGroupingUtils {
 
-    // Number of characters to process for computing distances
-    public static final int NB_CHARACTERS_TO_PROCESS = 300;
-
-    // Maximum computed distance to consider 2 error messages as similar
-    private static final int MAX_DISTANCE_FOR_GROUPING = NB_CHARACTERS_TO_PROCESS / 10;
+    // Maximum computed distance ratio to consider 2 error messages as similar
+    private static final float MAX_DISTANCE_DIFF_RATIO = 0.1f;
 
     private ErrorMessageGroupingUtils() {
         // Utils class should not be instantiated
@@ -24,16 +21,14 @@ public final class ErrorMessageGroupingUtils {
      * Method indicating if a message can be considered similar, based on Levenshtein distance calculation with an allowed variation of 10%
      *
      * <b>Note:</b> Max tolerated distance is derived from the current scenario's error message
-     * The arbitrary "10" means we consider 10% change to be acceptable
+     * The arbitrary MAX_DISTANCE_DIFF_RATIO (10%) means we consider 10% change to be acceptable
      *
      * @param referenceText the reference text
      * @param targetText the target text for the comparison
      * @return true if the can be considered similar else false
      */
     public static boolean isSimilar(String referenceText, String targetText) {
-        int distance = StringUtils.getLevenshteinDistance(referenceText, targetText);
-
-        return distance < referenceText.length() / 10;
+        return StringUtils.getLevenshteinDistance(referenceText, targetText, Math.round(MAX_DISTANCE_DIFF_RATIO * referenceText.length())) != -1;
     }
 
     /**
@@ -56,49 +51,27 @@ public final class ErrorMessageGroupingUtils {
      * @param scenarii All scenarii to consider during the computation
      * @return Map containing the error message as key and all similar failedScenarioIds as value
      */
-    public static Map<String, List<String>> computeDistance(List<ScenarioListItemView> scenarii) {
-        Map<String, List<String>> distances = new TreeMap<>();
+    public static Map<String, List<ScenarioListItemView>> computeDistance(List<ScenarioListItemView> scenarii) {
+        Map<String, List<ScenarioListItemView>> distances = new TreeMap<>();
         scenarii.forEach(scenario -> {
-            String currentErrMsgText = StringUtils.left(scenario.getErrorMessage(), NB_CHARACTERS_TO_PROCESS);
-            String closestMatch = computeClosest(distances.keySet(), currentErrMsgText);
+            String closestMatch = null;
+
+
+            for (String current : distances.keySet()) {
+                if(isSimilar(current, scenario.getErrorMessage())){
+                    closestMatch = current;
+                    break;
+                }
+            }
+
             if (closestMatch != null) {
-                distances.get(closestMatch).add(scenario.getId());
+                distances.get(closestMatch).add(scenario);
             } else {
-                List<String> noMatch = new ArrayList<>();
-                noMatch.add(scenario.getId());
-                distances.put(currentErrMsgText, noMatch);
+                List<ScenarioListItemView> noMatch = new ArrayList<>();
+                noMatch.add(scenario);
+                distances.put(scenario.getErrorMessage(), noMatch);
             }
         });
         return distances;
-    }
-
-    /**
-     * Method computing the closest existing errorMessage if it exists
-     *
-     * @param existingMatches already computed error message matches
-     * @param targetText      the text to check against the existing matches
-     * @return the closest key satisfying the MAX_DISTANCE_FOR_GROUPING, or null if none was found
-     */
-    private static String computeClosest(Set<String> existingMatches, String targetText) {
-
-        int closestDistance = Integer.MAX_VALUE;
-        String closestExistingMatchKey = null;
-
-        // FIXME Optimize processing time by avoiding unnecessary calls to the greedy LevenshteinDistance
-        for (String current : existingMatches) {
-
-                int distance = StringUtils.getLevenshteinDistance(current, targetText);
-                if (distance == 0) {
-                    // Exact match
-                    closestExistingMatchKey = current;
-                    break;
-                } else if (distance < MAX_DISTANCE_FOR_GROUPING && distance < closestDistance) {
-                    // Current existingMatchKey is closer to targetText
-                    closestDistance = distance;
-                    closestExistingMatchKey = current;
-                }
-
-        }
-        return closestExistingMatchKey;
     }
 }

@@ -88,7 +88,7 @@ public class ScenarioResource {
 
     @GET
     @Path("associatedFailures")
-    public Map<String, List<String>> getAllAssociatedFailures(@BeanParam final GetScenariiRequestParams requestParams) {
+    public Map<String, List<ScenarioListItemView>> getAllAssociatedFailures(@BeanParam final GetScenariiRequestParams requestParams) {
         Consumer<ScenarioQuery> query = q -> {
             if (!Strings.isNullOrEmpty(requestParams.getTestRunId())) {
                 q.withTestRunId(requestParams.getTestRunId());
