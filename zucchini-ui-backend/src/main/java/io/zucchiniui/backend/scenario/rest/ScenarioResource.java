@@ -5,12 +5,13 @@ import com.google.common.collect.Sets;
 import io.dropwizard.jersey.PATCH;
 import io.zucchiniui.backend.comment.rest.CommentResource;
 import io.zucchiniui.backend.scenario.domain.Attachment;
+import io.zucchiniui.backend.scenario.views.ErrorMessageGroupingUtils;
 import io.zucchiniui.backend.scenario.domain.Scenario;
 import io.zucchiniui.backend.scenario.domain.ScenarioQuery;
 import io.zucchiniui.backend.scenario.domain.ScenarioRepository;
 import io.zucchiniui.backend.scenario.domain.ScenarioService;
-import io.zucchiniui.backend.scenario.domain.ScenarioStatus;
 import io.zucchiniui.backend.scenario.domain.UpdateScenarioParams;
+import io.zucchiniui.backend.scenario.views.FailedScenarioListItemView;
 import io.zucchiniui.backend.scenario.views.ScenarioHistoryItemView;
 import io.zucchiniui.backend.scenario.views.ScenarioListItemView;
 import io.zucchiniui.backend.scenario.views.ScenarioStats;
@@ -113,18 +114,19 @@ public class ScenarioResource {
 
     @GET
     @Path("{scenarioId}/associatedFailures")
-    public List<ScenarioListItemView> getAssociatedFailures(@PathParam("scenarioId") final String scenarioId) {
+    public List<FailedScenarioListItemView> getAssociatedFailures(@PathParam("scenarioId") final String scenarioId) {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
-        if (ScenarioStatus.FAILED.equals(scenario.getStatus()) && !scenario.getErrorOutputCodes().isEmpty()) {
-            return scenarioViewAccess
-                .getScenarioListItems(q -> {
-                    q.withTestRunId(scenario.getTestRunId()).withErrorOutputCodes(scenario.getErrorOutputCodes());
-                })
-                .stream()
-                .filter(someScenario -> !scenarioId.equals(someScenario.getId()))
-                .collect(Collectors.toList());
+        String errorMessage = scenario.getErrorMessage().orElse("");
+
+        if (Strings.isNullOrEmpty(errorMessage)) {
+            return Collections.emptyList();
         }
-        return Collections.emptyList();
+
+        return scenarioViewAccess.getFailedScenarii(q -> q.withTestRunId(scenario.getTestRunId()).havingErrorMessage())
+            .stream()
+            .filter(otherScenario -> !scenarioId.equals(otherScenario.getId()))
+            .filter(otherScenario -> ErrorMessageGroupingUtils.isSimilar(errorMessage, otherScenario.getErrorMessage()))
+            .collect(Collectors.toList());
     }
 
     @GET

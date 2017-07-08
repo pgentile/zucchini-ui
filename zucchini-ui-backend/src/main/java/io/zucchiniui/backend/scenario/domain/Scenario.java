@@ -1,5 +1,6 @@
 package io.zucchiniui.backend.scenario.domain;
 
+import com.google.common.base.Strings;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
 import io.zucchiniui.backend.support.ddd.BaseEntity;
 import org.mongodb.morphia.annotations.Entity;
@@ -46,8 +47,6 @@ public class Scenario extends BaseEntity<String> {
 
     private boolean reviewed;
 
-    private List<String> errorOutputCodes = new ArrayList<>();
-
     private List<Step> steps = new ArrayList<>();
 
     private List<AroundAction> beforeActions = new ArrayList<>();
@@ -84,8 +83,6 @@ public class Scenario extends BaseEntity<String> {
 
         allTags = new HashSet<>(tags);
         allTags.addAll(builder.getExtraTags());
-
-        errorOutputCodes = builder.getErrorOutputCodes();
 
 
         if (builder.getBackgroundBuilder() != null) {
@@ -125,8 +122,6 @@ public class Scenario extends BaseEntity<String> {
         language = other.language;
         tags = new HashSet<>(other.tags);
         allTags = new HashSet<>(other.allTags);
-        errorOutputCodes = new ArrayList<>(other.errorOutputCodes);
-
 
         if (other.background == null) {
             background = null;
@@ -325,8 +320,19 @@ public class Scenario extends BaseEntity<String> {
         return modifiedAt;
     }
 
-    public List<String> getErrorOutputCodes() {
-        return errorOutputCodes;
+    public Optional<String> getErrorMessage() {
+        Stream<String> stream = steps.stream().map(Step::getErrorMessage);
+        stream = Stream.concat(stream, beforeActions.stream().map(AroundAction::getErrorMessage));
+        stream = Stream.concat(stream, afterActions.stream().map(AroundAction::getErrorMessage));
+
+        if (background != null) {
+            stream = Stream.concat(stream, background.getSteps().stream().map(Step::getErrorMessage));
+        }
+
+        // Return the first error message found
+        return stream
+            .filter(errorMessage -> !Strings.isNullOrEmpty(errorMessage))
+            .findFirst();
     }
 
     @Override

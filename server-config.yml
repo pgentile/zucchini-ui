@@ -11,7 +11,3 @@ mongoUri: "mongodb://${MONGO_HOST:-localhost}/${MONGO-DB:-zucchini}?connectTimeo
 
 logging:
   level: INFO
-
-errorOutputCodesPatterns:
-     NPE: NullPointerException
-     IllegalArgument: IllegalArgumentException

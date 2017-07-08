@@ -34,6 +34,8 @@ public class ScenarioViewAccess {
 
     private final BoundMapperFacade<Scenario, ScenarioListItemView> scenarioToListItemViewMapper;
 
+    private final BoundMapperFacade<Scenario, FailedScenarioListItemView> failedScenarioToListItemViewMapper;
+
     private final BoundMapperFacade<Scenario, ScenarioHistoryItemView> scenarioToHistoryItemViewMapper;
 
     public ScenarioViewAccess(final ScenarioDAO scenarioDAO, final TestRunRepository testRunRepository) {
@@ -42,6 +44,7 @@ public class ScenarioViewAccess {
 
         final ScenarioViewMapper mapper = new ScenarioViewMapper();
         scenarioToListItemViewMapper = mapper.dedicatedMapperFor(Scenario.class, ScenarioListItemView.class, false);
+        failedScenarioToListItemViewMapper = mapper.dedicatedMapperFor(Scenario.class, FailedScenarioListItemView.class, false);
         scenarioToHistoryItemViewMapper = mapper.dedicatedMapperFor(Scenario.class, ScenarioHistoryItemView.class, false);
     }
 
@@ -68,6 +71,13 @@ public class ScenarioViewAccess {
             .project("scenarioKey", true);
 
         return MorphiaUtils.streamQuery(query).collect(Collectors.toMap(Scenario::getScenarioKey, scenarioToListItemViewMapper::map));
+    }
+
+    public List<FailedScenarioListItemView> getFailedScenarii(final Consumer<ScenarioQuery> preparator) {
+        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator);
+        return MorphiaUtils.streamQuery(query)
+            .map(failedScenarioToListItemViewMapper::map)
+            .collect(Collectors.toList());
     }
 
     public List<ScenarioHistoryItemView> getScenarioHistory(final String scenarioKey) {
