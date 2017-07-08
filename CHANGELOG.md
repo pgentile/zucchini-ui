@@ -6,12 +6,13 @@ Version 0.0.3-SNAPSHOT
 
 * **New UI with React**
 * Search within a test run
+* Group failed scenarios using Levenshtein Distance (contribution by @jeremiemarc)
 
 
 Version 0.0.2-SNAPSHOT
 ----------------------
 
-* Grouping scenarios by error messages through regex(contribution by @jeremiemarc)
+* Grouping scenarios by error messages through regex (contribution by @jeremiemarc)
 * Search in scenario content
 * Import only passed scenarios (contribution by @pierrick-boule)
 * Use Yarn instead of NPM for Javascript packages management
