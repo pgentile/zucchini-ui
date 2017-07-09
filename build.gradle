@@ -19,6 +19,7 @@ plugins {
     id 'com.google.osdetector' version '1.4.0' apply false
     id 'org.ajoberstar.grgit' version '1.5.1' apply false
     id 'net.ltgt.apt' version '0.9' apply false
+    id 'net.ltgt.errorprone' version '0.0.10' apply false
 }
 
 /**
@@ -131,6 +132,10 @@ allprojects {
                     html.enabled = true
                 }
             }
+
+            // Error prone plugin
+
+            project.apply plugin: 'net.ltgt.errorprone'
 
         }
 
