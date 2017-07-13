@@ -37,10 +37,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -107,6 +104,21 @@ public class ScenarioResource {
     }
 
     @GET
+    @Path("associatedFailures")
+    public Map<String, List<FailedScenarioListItemView>> getAllAssociatedFailures(@BeanParam final GetScenariiRequestParams requestParams) {
+        Consumer<ScenarioQuery> query = q -> {
+            if (!Strings.isNullOrEmpty(requestParams.getTestRunId())) {
+                q.withTestRunId(requestParams.getTestRunId());
+            }
+            if (!Strings.isNullOrEmpty(requestParams.getFeatureId())) {
+                q.withFeatureId(requestParams.getFeatureId());
+            }
+            q.havingErrorMessage();
+        };
+        return ErrorMessageGroupingUtils.computeDistance(scenarioViewAccess.getFailedScenarii(query));
+    }
+
+    @GET
     @Path("{scenarioId}")
     public Scenario get(@PathParam("scenarioId") final String scenarioId) {
         return scenarioRepository.getById(scenarioId);
@@ -116,7 +128,7 @@ public class ScenarioResource {
     @Path("{scenarioId}/associatedFailures")
     public List<FailedScenarioListItemView> getAssociatedFailures(@PathParam("scenarioId") final String scenarioId) {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
-        String errorMessage = scenario.getErrorMessage().orElse("");
+        String errorMessage = scenario.getErrorMessage();
 
         if (Strings.isNullOrEmpty(errorMessage)) {
             return Collections.emptyList();

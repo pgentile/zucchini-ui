@@ -12,6 +12,10 @@ class ScenarioViewMapper extends AbstractConfigurableMapper {
             .byDefault()
             .register();
 
+        factory.classMap(Scenario.class, FailedScenarioListItemView.class)
+            .byDefault()
+            .register();
+
         factory.classMap(Scenario.class, ScenarioHistoryItemView.class)
             .byDefault()
             .register();

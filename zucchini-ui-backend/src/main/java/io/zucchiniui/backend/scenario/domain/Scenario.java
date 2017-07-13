@@ -3,6 +3,7 @@ package io.zucchiniui.backend.scenario.domain;
 import com.google.common.base.Strings;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
 import io.zucchiniui.backend.support.ddd.BaseEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
@@ -320,7 +321,7 @@ public class Scenario extends BaseEntity<String> {
         return modifiedAt;
     }
 
-    public Optional<String> getErrorMessage() {
+    public String getErrorMessage() {
         Stream<String> stream = steps.stream().map(Step::getErrorMessage);
         stream = Stream.concat(stream, beforeActions.stream().map(AroundAction::getErrorMessage));
         stream = Stream.concat(stream, afterActions.stream().map(AroundAction::getErrorMessage));
@@ -332,7 +333,9 @@ public class Scenario extends BaseEntity<String> {
         // Return the first error message found
         return stream
             .filter(errorMessage -> !Strings.isNullOrEmpty(errorMessage))
-            .findFirst();
+            .findFirst()
+            .orElse(StringUtils.EMPTY);
+
     }
 
     @Override
