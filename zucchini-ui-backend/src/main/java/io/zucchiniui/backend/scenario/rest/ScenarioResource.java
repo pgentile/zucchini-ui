@@ -5,12 +5,12 @@ import com.google.common.collect.Sets;
 import io.dropwizard.jersey.PATCH;
 import io.zucchiniui.backend.comment.rest.CommentResource;
 import io.zucchiniui.backend.scenario.domain.Attachment;
-import io.zucchiniui.backend.scenario.views.ErrorMessageGroupingUtils;
 import io.zucchiniui.backend.scenario.domain.Scenario;
 import io.zucchiniui.backend.scenario.domain.ScenarioQuery;
 import io.zucchiniui.backend.scenario.domain.ScenarioRepository;
 import io.zucchiniui.backend.scenario.domain.ScenarioService;
 import io.zucchiniui.backend.scenario.domain.UpdateScenarioParams;
+import io.zucchiniui.backend.scenario.views.ErrorMessageGroupingUtils;
 import io.zucchiniui.backend.scenario.views.FailedScenarioListItemView;
 import io.zucchiniui.backend.scenario.views.ScenarioHistoryItemView;
 import io.zucchiniui.backend.scenario.views.ScenarioListItemView;
@@ -118,14 +118,14 @@ public class ScenarioResource {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
         String errorMessage = scenario.getErrorMessage().orElse("");
 
-        if (Strings.isNullOrEmpty(errorMessage)) {
+        if (errorMessage.isEmpty()) {
             return Collections.emptyList();
         }
 
-        return scenarioViewAccess.getFailedScenarii(q -> q.withTestRunId(scenario.getTestRunId()).havingErrorMessage())
+        return scenarioViewAccess.getFailedScenarii(q -> q.withTestRunId(scenario.getTestRunId()).orderedByName())
             .stream()
-            .filter(otherScenario -> !scenarioId.equals(otherScenario.getId()))
-            .filter(otherScenario -> ErrorMessageGroupingUtils.isSimilar(errorMessage, otherScenario.getErrorMessage()))
+            .filter(someScenario -> !scenarioId.equals(someScenario.getId()))
+            .filter(someScenario -> ErrorMessageGroupingUtils.isSimilar(errorMessage, someScenario.getErrorMessage()))
             .collect(Collectors.toList());
     }
 
