@@ -8,9 +8,6 @@ services:
 jdk:
   - oraclejdk8
 
-env:
-  - TRAVIS=true
-
 before_install:
   # Install a recent node version
   - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
@@ -32,7 +29,16 @@ script:
 after_success:
   # Build, then push image to Docker
   - >-
-    if [ "$DOCKER_USERNAME" != "" && "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]; then
+    if [[ "$DOCKER_USERNAME" != "" && "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]]; then
       docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
       ./gradlew dockerPush
     fi
+
+# Gradle cache : https://docs.travis-ci.com/user/languages/java/#Projects-Using-Gradle
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
