@@ -34,11 +34,16 @@ after_success:
       ./gradlew dockerPush
     fi
 
-# Gradle cache : https://docs.travis-ci.com/user/languages/java/#Projects-Using-Gradle
+# Cache section
+# Gradle: https://docs.travis-ci.com/user/languages/java/#Projects-Using-Gradle
+# YARN: https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#Caching-with-yarn
+
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
 cache:
+  yarn: true
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
