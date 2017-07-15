@@ -1,6 +1,9 @@
 language: java
 
-sudo: false
+sudo: required
+
+services:
+  - docker
 
 jdk:
   - oraclejdk8
@@ -25,3 +28,11 @@ install:
 script:
   - ./gradlew check
   - ./gradlew runCucumber dryRunCucumber
+
+after_success:
+  # Build, then push image to Docker
+  - >-
+    if [ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]; then
+      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      ./gradlew dockerPush
+    fi
