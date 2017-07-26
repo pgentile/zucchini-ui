@@ -68,12 +68,19 @@ allprojects {
         hibernateValidator: '5.2.4.Final',
     ]
 
-    ext.getDockerTag = {
-        String branchName = project.grgit.branch.current.name
+    ext.getDockerTags = {
+        boolean isTravisCI = (System.env.TRAVIS == "true")
+        List<String> dockerTags = []
+
+        // Get branch from Travis env var, otherwise, from Git
+        String branchName = isTravisCI ? System.env.TRAVIS_BRANCH : project.grgit.branch.current.name
+
+        dockerTags << "branch-${branchName}"
         if (branchName == 'master') {
-            return 'latest'
+            dockerTags << 'latest'
         }
-        return "branch-${branchName}"
+
+        return dockerTags
     }
 
     // Plugins to use with the java plugin
@@ -293,7 +300,7 @@ project("${rootProject.name}-capsule") {
 
     docker {
         name = rootProject.name
-        tag project.getDockerTag()
+        tags += project.getDockerTags()
     }
 
     dockerBuild {
@@ -361,7 +368,7 @@ project("${rootProject.name}-example-features") {
 project("${rootProject.name}-mongo") {
 
     docker {
-        tag project.getDockerTag()
+        tags += project.getDockerTags()
     }
 
 }
