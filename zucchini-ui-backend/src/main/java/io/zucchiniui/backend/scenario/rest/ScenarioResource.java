@@ -5,18 +5,12 @@ import com.google.common.collect.Sets;
 import io.dropwizard.jersey.PATCH;
 import io.zucchiniui.backend.comment.rest.CommentResource;
 import io.zucchiniui.backend.scenario.domain.Attachment;
-import io.zucchiniui.backend.scenario.views.ErrorMessageGroupingUtils;
+import io.zucchiniui.backend.scenario.views.*;
 import io.zucchiniui.backend.scenario.domain.Scenario;
 import io.zucchiniui.backend.scenario.domain.ScenarioQuery;
 import io.zucchiniui.backend.scenario.domain.ScenarioRepository;
 import io.zucchiniui.backend.scenario.domain.ScenarioService;
 import io.zucchiniui.backend.scenario.domain.UpdateScenarioParams;
-import io.zucchiniui.backend.scenario.views.FailedScenarioListItemView;
-import io.zucchiniui.backend.scenario.views.ScenarioHistoryItemView;
-import io.zucchiniui.backend.scenario.views.ScenarioListItemView;
-import io.zucchiniui.backend.scenario.views.ScenarioStats;
-import io.zucchiniui.backend.scenario.views.ScenarioTagStats;
-import io.zucchiniui.backend.scenario.views.ScenarioViewAccess;
 import io.zucchiniui.backend.shared.domain.ItemReference;
 import io.zucchiniui.backend.shared.domain.ItemReferenceType;
 import io.zucchiniui.backend.shared.domain.TagSelection;
@@ -104,8 +98,8 @@ public class ScenarioResource {
     }
 
     @GET
-    @Path("associatedFailures")
-    public Map<String, List<FailedScenarioListItemView>> getAllAssociatedFailures(@BeanParam final GetScenariiRequestParams requestParams) {
+    @Path("failures")
+    public List<GroupedFailuresListItemView> getAllAssociatedFailures(@BeanParam final GetScenariiRequestParams requestParams) {
         Consumer<ScenarioQuery> query = q -> {
             if (!Strings.isNullOrEmpty(requestParams.getTestRunId())) {
                 q.withTestRunId(requestParams.getTestRunId());

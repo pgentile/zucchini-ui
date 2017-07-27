@@ -37,6 +37,15 @@ class ScenariosApi {
     });
   }
 
+  getFailures({ testRunId}) {
+    return this.client.get({
+      path: '/failures',
+      query: {
+        testRunId
+      },
+    });
+  }
+
   getSimilarFailureScenarios({ scenarioId }) {
     return this.client.get({ path: `/${scenarioId}/associatedFailures` });
   }

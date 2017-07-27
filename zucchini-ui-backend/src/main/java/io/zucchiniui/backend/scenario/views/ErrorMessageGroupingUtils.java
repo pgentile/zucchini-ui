@@ -2,10 +2,7 @@ package io.zucchiniui.backend.scenario.views;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Utility class for regrouping errorMessages
@@ -37,27 +34,24 @@ public final class ErrorMessageGroupingUtils {
      * Method computing the distances between the error messages output
      *
      * @param scenarii All scenarii to consider during the computation
-     * @return Map containing the error message as key and all similar failedScenarioIds as value
+     * @return List of failed scenarii grouped by their errorMessage
      */
-    public static Map<String, List<FailedScenarioListItemView>> computeDistance(List<FailedScenarioListItemView> scenarii) {
-        Map<String, List<FailedScenarioListItemView>> distances = new TreeMap<>();
+    public static List<GroupedFailuresListItemView> computeDistance(List<FailedScenarioListItemView> scenarii) {
+        List<GroupedFailuresListItemView> distances =  new ArrayList<>();
         scenarii.forEach(scenario -> {
-            String closestMatch = null;
-
-
-            for (String current : distances.keySet()) {
-                if(isSimilar(current, scenario.getErrorMessage())){
-                    closestMatch = current;
+            boolean matchFound = false;
+            for (GroupedFailuresListItemView current : distances) {
+                if(isSimilar(current.getErrorMessage(), scenario.getErrorMessage())){
+                    current.addFailedScenario(scenario);
+                    matchFound = true;
                     break;
                 }
             }
-
-            if (closestMatch != null) {
-                distances.get(closestMatch).add(scenario);
-            } else {
-                List<FailedScenarioListItemView> noMatch = new ArrayList<>();
-                noMatch.add(scenario);
-                distances.put(scenario.getErrorMessage(), noMatch);
+            if (!matchFound) {
+                GroupedFailuresListItemView noMatch = new GroupedFailuresListItemView();
+                noMatch.setErrorMessage(scenario.getErrorMessage());
+                noMatch.addFailedScenario(scenario);
+                distances.add(noMatch);
             }
         });
         return distances;

@@ -36,6 +36,10 @@ function goToDiff({testRunId}) {
   return push(`/test-runs/${testRunId}/diff`);
 }
 
+function goToFailures({testRunId}) {
+  return push(`/test-runs/${testRunId}/failures`);
+}
+
 
 const TestRunPageContainer = connect(
   selectProps,
@@ -43,6 +47,7 @@ const TestRunPageContainer = connect(
     onLoad: loadTestRunPage,
     onGoToTags: goToTags,
     onGoToDiff: goToDiff,
+    onGoToFailures: goToFailures,
   },
 )(TestRunPage);
 
