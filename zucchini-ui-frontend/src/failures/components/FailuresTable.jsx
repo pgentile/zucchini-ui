@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Table from 'react-bootstrap/lib/Table';
+import Label from 'react-bootstrap/lib/Label';
+import { Link } from 'react-router'
+import Status from '../../ui/components/Status';
 
 export default class FailuresTable extends React.Component {
 
@@ -19,16 +22,12 @@ export default class FailuresTable extends React.Component {
     return (
       <Table bordered striped hover style={{ tableLayout: 'fixed' }}>
         <thead>
-        <tr>
-          <th className='col-md-4'>Erreur</th>
-          <th className='col-md-8'>Scénarii</th>
-          {/*<th className='col-md-1'>Total</th>*/}
-          {/*<th className='col-md-1'>Succès</th>*/}
-          {/*<th className='col-md-1'>Échecs</th>*/}
-          {/*<th className='col-md-1'>En attente</th>*/}
-          {/*<th className='col-md-1'>Non joués</th>*/}
-          {/*<th className='col-md-1'>Analysés</th>*/}
-        </tr>
+          <tr>
+            <th className='col-md-4'>Erreur</th>
+            <th className="col-md-6">Scénario</th>
+            <th className="col-md-1">Statut</th>
+            <th className="col-md-1">Analysé</th>
+          </tr>
         </thead>
         <tbody>{rows}</tbody>
       </Table>
@@ -46,6 +45,12 @@ class FailuresTableRow extends React.Component {
 
   render() {
     const {failedScenario, isFirstFailure, nbFailedScenarii} = this.props;
+
+    const reviewedProps = {
+      bsStyle: failedScenario.reviewed ? 'success' : 'default',
+      text: failedScenario.reviewed ? 'Oui' : 'Non',
+    };
+
     let errMsg;
     if(isFirstFailure){
       errMsg = <td rowSpan={nbFailedScenarii} style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>{failedScenario.errorMessage}</td>
@@ -53,7 +58,17 @@ class FailuresTableRow extends React.Component {
     return (
       <tr key={failedScenario}>
         {errMsg}
-        <td>{failedScenario.info.name}</td>
+        <td>
+          <Link to={{ pathname: `/scenarios/${failedScenario.id}` }}>
+            <b>{failedScenario.info.keyword}</b> {failedScenario.info.name}
+          </Link>
+        </td>
+        <td>
+          <Status status={failedScenario.status} />
+        </td>
+        <td>
+          <Label bsStyle={reviewedProps.bsStyle}>{reviewedProps.text}</Label>
+        </td>
       </tr>
     );
   }
