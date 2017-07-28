@@ -14,22 +14,20 @@ export default class FailuresTable extends React.Component {
       const nbFailedScenarii = groupedFailures.failedScenarii.length;
       return (
         groupedFailures.failedScenarii.map((failedScenario, index) => {
-          return <FailuresTableRow key={index} failedScenario={failedScenario} isFirstFailure={index === 0 }
-            nbFailedScenarii={nbFailedScenarii}/>
+          return <FailuresTableRow key={index} failedScenario={failedScenario} isFirstFailure={index === 0 } nbFailedScenarii={nbFailedScenarii}/>
         })
-
       );
     });
 
     return (
       <Table bordered striped hover style={{tableLayout: 'fixed'}}>
         <thead>
-        <tr>
-          <th className='col-md-4'>Erreur</th>
-          <th className='col-md-6'>Scénario</th>
-          <th className='col-md-1'>Statut</th>
-          <th className='col-md-1'>Analysé</th>
-        </tr>
+          <tr>
+            <th className='col-md-4'>Erreur</th>
+            <th className='col-md-6'>Scénario</th>
+            <th className='col-md-1'>Statut</th>
+            <th className='col-md-1'>Analysé</th>
+          </tr>
         </thead>
         <tbody>{rows}</tbody>
       </Table>
@@ -74,8 +72,7 @@ class FailuresTableRow extends React.Component {
     return (
       <td rowSpan={rowSpan} style={cellStyle}>{msg}&hellip;<br/>
         <a onClick={this.onShowErrorMsg}><b>Détails</b></a>
-        <FailuresDetailsDialog errorMessage={scenario.errorMessage} show={this.state.showErrorMsgDetails}
-                               onClose={this.onHideErrorMsg}/>
+        <FailuresDetailsDialog errorMessage={scenario.errorMessage} show={this.state.showErrorMsgDetails} onClose={this.onHideErrorMsg}/>
       </td>
     );
   }
