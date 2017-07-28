@@ -32,7 +32,7 @@ public final class ErrorMessageGroupingUtils {
     }
 
     /**
-     * Method computing the distances between the error messages output
+     * Method computing the distances between error messages outputs of failed scenarii
      *
      * @param scenarii All scenarii to consider during the computation
      * @return List of failed scenarii grouped by their errorMessage

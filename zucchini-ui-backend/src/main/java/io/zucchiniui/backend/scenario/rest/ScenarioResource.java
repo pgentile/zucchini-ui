@@ -115,7 +115,7 @@ public class ScenarioResource {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
         String errorMessage = scenario.getErrorMessage().orElse("");
 
-        if (Strings.isNullOrEmpty(errorMessage)) {
+        if (errorMessage.isEmpty()) {
             return Collections.emptyList();
         }
 
