@@ -1,12 +1,12 @@
 language: java
 
-sudo: false
+sudo: required
+
+services:
+  - docker
 
 jdk:
   - oraclejdk8
-
-env:
-  - TRAVIS=true
 
 before_install:
   # Install a recent node version
@@ -25,3 +25,25 @@ install:
 script:
   - ./gradlew check
   - ./gradlew runCucumber dryRunCucumber
+
+after_success:
+  # Build, then push image to Docker
+  - >-
+    if [[ "$DOCKER_USERNAME" != "" && "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]]; then
+      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      ./gradlew dockerPush
+    fi
+
+# Cache section
+# Gradle: https://docs.travis-ci.com/user/languages/java/#Projects-Using-Gradle
+# YARN: https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#Caching-with-yarn
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  yarn: true
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/

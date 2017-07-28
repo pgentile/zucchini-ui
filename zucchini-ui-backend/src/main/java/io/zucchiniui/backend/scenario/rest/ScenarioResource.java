@@ -4,13 +4,8 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
 import io.dropwizard.jersey.PATCH;
 import io.zucchiniui.backend.comment.rest.CommentResource;
-import io.zucchiniui.backend.scenario.domain.Attachment;
+import io.zucchiniui.backend.scenario.domain.*;
 import io.zucchiniui.backend.scenario.views.*;
-import io.zucchiniui.backend.scenario.domain.Scenario;
-import io.zucchiniui.backend.scenario.domain.ScenarioQuery;
-import io.zucchiniui.backend.scenario.domain.ScenarioRepository;
-import io.zucchiniui.backend.scenario.domain.ScenarioService;
-import io.zucchiniui.backend.scenario.domain.UpdateScenarioParams;
 import io.zucchiniui.backend.shared.domain.ItemReference;
 import io.zucchiniui.backend.shared.domain.ItemReferenceType;
 import io.zucchiniui.backend.shared.domain.TagSelection;
@@ -18,20 +13,16 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.BadRequestException;
-import javax.ws.rs.BeanParam;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -122,16 +113,16 @@ public class ScenarioResource {
     @Path("{scenarioId}/associatedFailures")
     public List<FailedScenarioListItemView> getAssociatedFailures(@PathParam("scenarioId") final String scenarioId) {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
-        String errorMessage = scenario.getErrorMessage();
+        String errorMessage = scenario.getErrorMessage().orElse("");
 
         if (Strings.isNullOrEmpty(errorMessage)) {
             return Collections.emptyList();
         }
 
-        return scenarioViewAccess.getFailedScenarii(q -> q.withTestRunId(scenario.getTestRunId()).havingErrorMessage())
+        return scenarioViewAccess.getFailedScenarii(q -> q.withTestRunId(scenario.getTestRunId()).orderedByName())
             .stream()
-            .filter(otherScenario -> !scenarioId.equals(otherScenario.getId()))
-            .filter(otherScenario -> ErrorMessageGroupingUtils.isSimilar(errorMessage, otherScenario.getErrorMessage()))
+            .filter(someScenario -> !scenarioId.equals(someScenario.getId()))
+            .filter(someScenario -> ErrorMessageGroupingUtils.isSimilar(errorMessage, someScenario.getErrorMessage()))
             .collect(Collectors.toList());
     }
 
