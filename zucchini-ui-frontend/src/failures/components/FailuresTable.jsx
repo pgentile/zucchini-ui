@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import {Link} from 'react-router';
 import Table from 'react-bootstrap/lib/Table';
 import Label from 'react-bootstrap/lib/Label';
-import { Link } from 'react-router'
+import Modal from 'react-bootstrap/lib/Modal';
 import Status from '../../ui/components/Status';
 
 export default class FailuresTable extends React.Component {
@@ -12,22 +13,23 @@ export default class FailuresTable extends React.Component {
     const rows = failures.failures.map(groupedFailures => {
       const nbFailedScenarii = groupedFailures.failedScenarii.length;
       return (
-        groupedFailures.failedScenarii.map((failedScenario, index)=> {
-          return <FailuresTableRow key={index} failedScenario={failedScenario} isFirstFailure={index === 0 } nbFailedScenarii={nbFailedScenarii}/>
+        groupedFailures.failedScenarii.map((failedScenario, index) => {
+          return <FailuresTableRow key={index} failedScenario={failedScenario} isFirstFailure={index === 0 }
+                                   nbFailedScenarii={nbFailedScenarii}/>
         })
 
       );
     });
 
     return (
-      <Table bordered striped hover style={{ tableLayout: 'fixed' }}>
+      <Table bordered striped hover style={{tableLayout: 'fixed'}}>
         <thead>
-          <tr>
-            <th className='col-md-4'>Erreur</th>
-            <th className="col-md-6">Scénario</th>
-            <th className="col-md-1">Statut</th>
-            <th className="col-md-1">Analysé</th>
-          </tr>
+        <tr>
+          <th className='col-md-4'>Erreur</th>
+          <th className='col-md-6'>Scénario</th>
+          <th className='col-md-1'>Statut</th>
+          <th className='col-md-1'>Analysé</th>
+        </tr>
         </thead>
         <tbody>{rows}</tbody>
       </Table>
@@ -43,6 +45,41 @@ FailuresTable.propTypes = {
 
 class FailuresTableRow extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      showErrorMsgDetails: false,
+    };
+  }
+
+  onShowErrorMsg = () => {
+    this.setState({
+      showErrorMsgDetails: true,
+    });
+  };
+
+  onHideErrorMsg = () => {
+    this.setState({
+      showErrorMsgDetails: false,
+    });
+  };
+
+  handleErrorMsgRow(rowSpan, msg, scenario) {
+
+    const cellStyle = {
+      overflow: 'hidden',
+      textOverflow: 'ellipsis'
+    };
+
+    return (
+      <td rowSpan={rowSpan} style={cellStyle}>{msg}&hellip;<br/>
+        <a onClick={this.onShowErrorMsg}><b>Détails</b></a>
+        <FailuresDetailsDialog errorMessage={scenario.errorMessage} show={this.state.showErrorMsgDetails}
+                               onClose={this.onHideErrorMsg}/>
+      </td>
+    );
+  }
+
   render() {
     const {failedScenario, isFirstFailure, nbFailedScenarii} = this.props;
 
@@ -51,20 +88,20 @@ class FailuresTableRow extends React.Component {
       text: failedScenario.reviewed ? 'Oui' : 'Non',
     };
 
-    let errMsg;
-    if(isFirstFailure){
-      errMsg = <td rowSpan={nbFailedScenarii} style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>{failedScenario.errorMessage}</td>
+    let errorMessageRow;
+    if (isFirstFailure) {
+      errorMessageRow = this.handleErrorMsgRow(nbFailedScenarii, failedScenario.errorMessage.substring(0, 300), failedScenario);
     }
     return (
       <tr key={failedScenario}>
-        {errMsg}
+        {errorMessageRow}
         <td>
-          <Link to={{ pathname: `/scenarios/${failedScenario.id}` }}>
+          <Link to={{pathname: `/scenarios/${failedScenario.id}`}}>
             <b>{failedScenario.info.keyword}</b> {failedScenario.info.name}
           </Link>
         </td>
         <td>
-          <Status status={failedScenario.status} />
+          <Status status={failedScenario.status}/>
         </td>
         <td>
           <Label bsStyle={reviewedProps.bsStyle}>{reviewedProps.text}</Label>
@@ -81,3 +118,34 @@ FailuresTableRow.propTypes = {
   nbFailedScenarii: PropTypes.number.isRequired,
 };
 
+
+class FailuresDetailsDialog extends React.PureComponent {
+
+  onCloseClick = (event) => {
+    if (event) {
+      event.preventDefault();
+    }
+    this.props.onClose();
+  };
+
+  render() {
+    const {show, errorMessage} = this.props;
+    return (
+      <Modal bsSize='large' dialogClassName='error-message-modal-dialog' show={show} onHide={this.onCloseClick}>
+        <Modal.Header closeButton>
+          <Modal.Title>{'Détails de l\'erreur'}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <pre>{errorMessage}</pre>
+        </Modal.Body>
+      </Modal>
+    );
+  }
+
+}
+
+FailuresDetailsDialog.propTypes = {
+  show: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
