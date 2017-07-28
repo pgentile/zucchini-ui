@@ -15,7 +15,7 @@ export default class FailuresTable extends React.Component {
       return (
         groupedFailures.failedScenarii.map((failedScenario, index) => {
           return <FailuresTableRow key={index} failedScenario={failedScenario} isFirstFailure={index === 0 }
-                                   nbFailedScenarii={nbFailedScenarii}/>
+            nbFailedScenarii={nbFailedScenarii}/>
         })
 
       );
