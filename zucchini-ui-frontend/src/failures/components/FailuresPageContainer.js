@@ -20,10 +20,16 @@ const selectFailures = createSelector(
   testRun => testRun,
 );
 
+const selectStats = createSelector(
+  state => state.testRun.stats,
+  testRun => testRun,
+);
+
 const selectProps = createStructuredSelector({
   testRunId: selectTestRunId,
   testRun: selectTestRun,
   failures: selectFailures,
+  stats: selectStats,
 });
 
 const FailuresPageContainer = connect(

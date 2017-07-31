@@ -3,6 +3,7 @@ import React from 'react';
 import toNiceDate from '../../ui/toNiceDate';
 
 import FailuresTableContainer from './FailuresTableContainer';
+import StatsProgressBar from '../../stats/components/StatsProgressBar';
 
 export default class FailuresPage extends React.Component {
 
@@ -23,7 +24,7 @@ export default class FailuresPage extends React.Component {
   }
 
   render() {
-    const {testRunId, testRun} = this.props;
+    const {testRun, stats} = this.props;
 
     return (
       <div>
@@ -32,9 +33,9 @@ export default class FailuresPage extends React.Component {
           {' '}
           <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
         </h1>
-
+        <StatsProgressBar stats={stats}/>
         <hr />
-        <FailuresTableContainer testRunId={testRunId}/>
+        <FailuresTableContainer/>
 
       </div>
     );
@@ -46,5 +47,6 @@ FailuresPage.propTypes = {
   testRunId: PropTypes.string.isRequired,
   testRun: PropTypes.object,
   failures: PropTypes.object,
+  stats: PropTypes.object,
   onLoad: PropTypes.func.isRequired,
 };

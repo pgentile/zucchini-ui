@@ -37,7 +37,6 @@ export default class FailuresTable extends React.Component {
 }
 
 FailuresTable.propTypes = {
-  testRunId: PropTypes.string.isRequired,
   failures: PropTypes.object.isRequired,
 };
 

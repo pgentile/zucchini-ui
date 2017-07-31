@@ -1,5 +1,5 @@
 import * as model from './model';
-import {getTestRun} from '../testRun/redux';
+import {getTestRun, getTestRunStats} from '../testRun/redux';
 import {handleActions} from 'redux-actions';
 
 
@@ -15,9 +15,11 @@ export function loadTestRunFailuresPage({testRunId}) {
   return async dispatch => {
     const testRunResult$ = dispatch(getTestRun({testRunId}));
     const failuresResult$ = dispatch(getTestRunFailures({testRunId}));
+    const stats$ = dispatch(getTestRunStats({ testRunId}));
 
     await testRunResult$;
     await failuresResult$;
+    await stats$;
     return null;
   };
 }
@@ -34,7 +36,6 @@ export function getTestRunFailures({testRunId}) {
 }
 
 // Reducer
-
 const initialState = {
   failures: []
 };
