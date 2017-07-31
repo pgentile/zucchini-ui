@@ -90,7 +90,7 @@ public class ScenarioResource {
 
     @GET
     @Path("failures")
-    public List<GroupedFailuresListItemView> getAllAssociatedFailures(@BeanParam final GetScenariiRequestParams requestParams) {
+    public List<GroupedFailuresListItemView> getGroupedFailures(@BeanParam final GetScenariiRequestParams requestParams) {
         Consumer<ScenarioQuery> query = q -> {
             if (!Strings.isNullOrEmpty(requestParams.getTestRunId())) {
                 q.withTestRunId(requestParams.getTestRunId());
@@ -100,7 +100,7 @@ public class ScenarioResource {
             }
             q.havingErrorMessage();
         };
-        return ErrorMessageGroupingUtils.computeDistance(scenarioViewAccess.getFailedScenarii(query));
+        return scenarioViewAccess.getGroupedFailedScenarii(query);
     }
 
     @GET

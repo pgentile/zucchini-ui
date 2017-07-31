@@ -73,6 +73,10 @@ public class ScenarioViewAccess {
         return MorphiaUtils.streamQuery(query).collect(Collectors.toMap(Scenario::getScenarioKey, scenarioToListItemViewMapper::map));
     }
 
+    public List<GroupedFailuresListItemView> getGroupedFailedScenarii(final Consumer<ScenarioQuery> preparator) {
+        return ErrorMessageGroupingUtils.computeDistance(getFailedScenarii(preparator));
+    }
+
     public List<FailedScenarioListItemView> getFailedScenarii(final Consumer<ScenarioQuery> preparator) {
         Consumer<ScenarioQuery> fullPreparator = preparator.andThen(ScenarioQuery::havingErrorMessage);
 
