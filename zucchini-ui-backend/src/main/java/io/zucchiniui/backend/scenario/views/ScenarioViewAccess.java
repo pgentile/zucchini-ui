@@ -94,7 +94,10 @@ public class ScenarioViewAccess {
                 groupedFailures.add(noMatch);
             }
         });
-        return groupedFailures;
+        return groupedFailures
+            .stream()
+            .sorted(Collections.reverseOrder(Comparator.comparingInt(grp -> grp.getFailedScenarii().size())))
+            .collect(Collectors.toList());
     }
 
     public List<FailedScenarioListItemView> getFailedScenarii(final Consumer<ScenarioQuery> preparator) {
