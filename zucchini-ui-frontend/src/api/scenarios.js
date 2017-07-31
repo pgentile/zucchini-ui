@@ -37,7 +37,7 @@ class ScenariosApi {
     });
   }
 
-  getFailures({ testRunId}) {
+  getFailures({ testRunId }) {
     return this.client.get({
       path: '/failures',
       query: {

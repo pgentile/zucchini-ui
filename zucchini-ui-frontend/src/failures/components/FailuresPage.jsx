@@ -7,46 +7,47 @@ import StatsProgressBar from '../../stats/components/StatsProgressBar';
 
 export default class FailuresPage extends React.Component {
 
+  static propTypes = {
+    testRunId: PropTypes.string.isRequired,
+    testRun: PropTypes.object,
+    failures: PropTypes.object,
+    stats: PropTypes.object,
+    onLoad: PropTypes.func.isRequired,
+  };
+
+
   componentDidMount() {
-    this.loadTestRunIfPossible();
+    this.loadTestRunFailuresIfPossible();
   }
 
   componentDidUpdate(prevProps) {
-    this.loadTestRunIfPossible(prevProps);
+    this.loadTestRunFailuresIfPossible(prevProps);
   }
 
-  loadTestRunIfPossible(prevProps = {}) {
-    const {testRunId} = this.props;
+  loadTestRunFailuresIfPossible(prevProps = {}) {
+    const { testRunId } = this.props;
 
     if (testRunId !== prevProps.testRunId) {
-      this.props.onLoad({testRunId});
+      this.props.onLoad({ testRunId });
     }
   }
 
   render() {
-    const {testRun, stats} = this.props;
+    const { testRun, stats } = this.props;
 
     return (
       <div>
         <h1>
-          Échecs du
+          Échecs
           {' '}
           <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
         </h1>
-        <StatsProgressBar stats={stats}/>
+        <StatsProgressBar stats={stats} />
         <hr />
-        <FailuresTableContainer/>
+        <FailuresTableContainer />
 
       </div>
     );
   }
 
 }
-
-FailuresPage.propTypes = {
-  testRunId: PropTypes.string.isRequired,
-  testRun: PropTypes.object,
-  failures: PropTypes.object,
-  stats: PropTypes.object,
-  onLoad: PropTypes.func.isRequired,
-};

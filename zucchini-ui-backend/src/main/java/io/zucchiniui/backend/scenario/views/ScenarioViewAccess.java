@@ -13,6 +13,7 @@ import ma.glasnost.orika.BoundMapperFacade;
 import org.mongodb.morphia.query.Query;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -74,7 +76,25 @@ public class ScenarioViewAccess {
     }
 
     public List<GroupedFailuresListItemView> getGroupedFailedScenarii(final Consumer<ScenarioQuery> preparator) {
-        return ErrorMessageGroupingUtils.computeDistance(getFailedScenarii(preparator));
+        List<GroupedFailuresListItemView> groupedFailures = new ArrayList<>();
+        getFailedScenarii(preparator).forEach(scenario -> {
+            boolean matchFound = false;
+            for (GroupedFailuresListItemView current : groupedFailures) {
+                if (ErrorMessageGroupingUtils.isSimilar(current.getErrorMessage(), scenario.getErrorMessage())) {
+                    current.addFailedScenario(scenario);
+                    matchFound = true;
+                    break;
+                }
+            }
+            if (!matchFound) {
+                GroupedFailuresListItemView noMatch = new GroupedFailuresListItemView();
+                noMatch.setErrorMessage(scenario.getErrorMessage());
+                noMatch.setFailedScenarii(new TreeSet<>(Comparator.comparing(failure -> failure.getInfo().getName())));
+                noMatch.addFailedScenario(scenario);
+                groupedFailures.add(noMatch);
+            }
+        });
+        return groupedFailures;
     }
 
     public List<FailedScenarioListItemView> getFailedScenarii(final Consumer<ScenarioQuery> preparator) {

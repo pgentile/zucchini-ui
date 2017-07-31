@@ -1,18 +1,16 @@
-import {connect} from 'react-redux';
-import {createSelector, createStructuredSelector} from 'reselect';
+import { connect } from 'react-redux';
+import { createSelector, createStructuredSelector } from 'reselect';
 
 import FailuresTable from './FailuresTable';
 
 const selectFailures = createSelector(
-  state => state.failures,
+  state => state.failures.failures,
   failures => failures,
 );
-
 
 const selectProps = createStructuredSelector({
   failures: selectFailures
 });
-
 
 const FailuresTableContainer = connect(
   selectProps,

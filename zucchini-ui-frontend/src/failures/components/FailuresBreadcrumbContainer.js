@@ -1,5 +1,5 @@
-import {connect} from 'react-redux';
-import {createSelector, createStructuredSelector} from 'reselect';
+import { connect } from 'react-redux';
+import { createSelector, createStructuredSelector } from 'reselect';
 
 import Breadcrumb from '../../ui/components/Breadcrumb';
 import toNiceDate from '../../ui/toNiceDate';
@@ -11,11 +11,11 @@ const selectBreadcumbItems = createSelector(
     return [
       {
         value: `Type ${testRun.type}`,
-        link: {pathname: '/', query: {type: testRun.type}},
+        link: { pathname: '/', query: { type: testRun.type } },
       },
       {
         value: `Tir du ${toNiceDate(testRun.date)}`,
-        link: {pathname: `/test-runs/${testRun.id}`},
+        link: { pathname: `/test-runs/${testRun.id}` },
       },
       {
         value: 'Échecs',

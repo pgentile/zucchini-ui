@@ -1,7 +1,7 @@
-import {connect} from 'react-redux';
-import {createSelector, createStructuredSelector} from 'reselect';
+import { connect } from 'react-redux';
+import { createSelector, createStructuredSelector } from 'reselect';
 
-import {loadTestRunFailuresPage} from '../redux';
+import { loadTestRunFailuresPage } from '../redux';
 
 import FailuresPage from './FailuresPage';
 

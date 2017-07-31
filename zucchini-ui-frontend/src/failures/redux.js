@@ -1,6 +1,6 @@
 import * as model from './model';
-import {getTestRun, getTestRunStats} from '../testRun/redux';
-import {handleActions} from 'redux-actions';
+import { getTestRun, getTestRunStats } from '../testRun/redux';
+import { handleActions } from 'redux-actions';
 
 
 // Actions
@@ -11,11 +11,11 @@ const GET_FAILURES_FULFILLED = `${GET_FAILURES}_FULFILLED`;
 
 // Action creators
 
-export function loadTestRunFailuresPage({testRunId}) {
+export function loadTestRunFailuresPage({ testRunId }) {
   return async dispatch => {
-    const testRunResult$ = dispatch(getTestRun({testRunId}));
-    const failuresResult$ = dispatch(getTestRunFailures({testRunId}));
-    const stats$ = dispatch(getTestRunStats({ testRunId}));
+    const testRunResult$ = dispatch(getTestRun({ testRunId }));
+    const failuresResult$ = dispatch(getTestRunFailures({ testRunId }));
+    const stats$ = dispatch(getTestRunStats({ testRunId }));
 
     await testRunResult$;
     await failuresResult$;
@@ -25,10 +25,10 @@ export function loadTestRunFailuresPage({testRunId}) {
 }
 
 
-export function getTestRunFailures({testRunId}) {
+export function getTestRunFailures({ testRunId }) {
   return {
     type: GET_FAILURES,
-    payload: model.getTestRunFailures({testRunId}),
+    payload: model.getTestRunFailures({ testRunId }),
     meta: {
       testRunId,
     },
