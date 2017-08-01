@@ -7,6 +7,7 @@ Version 0.0.3-SNAPSHOT
 * **New UI with React**
 * Search within a test run
 * Group failed scenarios using Levenshtein Distance (contribution by @jeremiemarc)
+* Track testRun failures with a view built upon the Grouped Failed Scenarios feature (contribution by @jeremiemarc)
 
 
 Version 0.0.2-SNAPSHOT
