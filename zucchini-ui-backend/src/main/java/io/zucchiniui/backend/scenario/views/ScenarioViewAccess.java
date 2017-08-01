@@ -96,7 +96,7 @@ public class ScenarioViewAccess {
         });
         return groupedFailures
             .stream()
-            .sorted(Collections.reverseOrder(Comparator.comparingInt(grp -> grp.getFailedScenarii().size())))
+            .sorted(Comparator.comparing((GroupedFailuresListItemView grp) -> grp.getFailedScenarii().size()).reversed())
             .collect(Collectors.toList());
     }
 

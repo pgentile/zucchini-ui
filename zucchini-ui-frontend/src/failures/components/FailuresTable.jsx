@@ -11,7 +11,7 @@ import { truncate } from 'lodash';
 export default class FailuresTable extends React.Component {
 
   static propTypes = {
-    failures: PropTypes.object.isRequired,
+    failures: PropTypes.arrayOf(PropTypes.object).isRequired,
   };
 
   render() {
