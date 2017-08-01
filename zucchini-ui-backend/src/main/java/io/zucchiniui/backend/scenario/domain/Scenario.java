@@ -333,6 +333,7 @@ public class Scenario extends BaseEntity<String> {
         return stream
             .filter(errorMessage -> !Strings.isNullOrEmpty(errorMessage))
             .findFirst();
+
     }
 
     @Override

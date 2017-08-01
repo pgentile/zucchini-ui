@@ -32,6 +32,9 @@ import TagDetailsBreadcrumbContainer from './tagDetails/components/TagDetailsBre
 import TestRunDiffPageContainer from './testRunDiff/components/TestRunDiffPageContainer';
 import TestRunDiffBreadcrumbContainer from './testRunDiff/components/TestRunDiffBreadcrumbContainer';
 
+import FailuresPageContainer from './failures/components/FailuresPageContainer';
+import FailuresBreadcrumbContainer from './failures/components/FailuresBreadcrumbContainer';
+
 import NotFoundPage from './notFound/components/NotFoundPage';
 
 
@@ -63,6 +66,7 @@ export default function AppRouter() {
             <IndexRoute components={{ main: TestRunPageContainer, breadcrum: TestRunBreadcrumbContainer, search: NavSearchFormContainer }} />
             <Route path="search" components={{ main: TestRunSearchPageContainer, breadcrum: TestRunSearchBreadcrumbContainer }} />
             <Route path="tags" components={{ main: TagsPageContainer, breadcrum: TagsBreadcrumbContainer, search: NavSearchFormContainer }} />
+            <Route path="failures" components={{ main: FailuresPageContainer, breadcrum: FailuresBreadcrumbContainer, search: NavSearchFormContainer }} />
             <Route path="tag-details" components={{ main: TagDetailsPageContainer, breadcrum: TagDetailsBreadcrumbContainer, search: NavSearchFormContainer }} />
             <Route path="diff" components={{ main: TestRunDiffPageContainer, breadcrum: TestRunDiffBreadcrumbContainer, search: NavSearchFormContainer }} />
           </Route>

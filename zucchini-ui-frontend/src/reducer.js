@@ -14,6 +14,8 @@ import { searchResults } from './search/redux';
 import { errors } from './errors/redux';
 import { presence } from './presence/redux';
 import { loadingIndicator } from './loadingIndicator/redux';
+import { failures } from './failures/redux';
+
 
 
 const reducer = combineReducers({
@@ -34,6 +36,7 @@ const reducer = combineReducers({
   searchResults,
   errors,
   presence,
+  failures,
   loadingIndicator,
 });
 

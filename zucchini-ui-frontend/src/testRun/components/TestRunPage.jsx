@@ -50,7 +50,13 @@ export default class TestRunPage extends React.Component {
     this.props.onGoToDiff({
       testRunId: this.props.testRunId,
     });
-  }
+  };
+
+  onGoToFailures = () => {
+    this.props.onGoToFailures({
+      testRunId: this.props.testRunId,
+    });
+  };
 
   onImportCucumberResultButtonClick = () => {
     this.setState({
@@ -119,6 +125,11 @@ export default class TestRunPage extends React.Component {
             </Button>
           </ButtonGroup>
           <ButtonGroup>
+            <Button glyph="exclamation-sign" onClick={this.onGoToFailures}>
+              Échecs
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup>
             <Button glyph="list-alt" onClick={this.onGoToDiff}>
               Comparer avec un autre tir
             </Button>
@@ -166,4 +177,5 @@ TestRunPage.propTypes = {
   onLoad: PropTypes.func.isRequired,
   onGoToTags: PropTypes.func.isRequired,
   onGoToDiff: PropTypes.func.isRequired,
+  onGoToFailures: PropTypes.func.isRequired
 };
