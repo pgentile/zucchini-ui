@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/voyages-sncf-technologies/zucchini-ui.svg?branch=master)](https://travis-ci.org/voyages-sncf-technologies/zucchini-ui)
+[![Build Status](https://travis-ci.org/pgentile/zucchini-ui.svg?branch=master)](https://travis-ci.org/pgentile/zucchini-ui)
+[![Docker Stars](https://img.shields.io/docker/stars/pgentile/zucchini-ui.svg)](https://hub.docker.com/r/pgentile/zucchini-ui)
 
 Zucchini UI
 ===========
@@ -137,7 +138,7 @@ Docker image and its dependencies with the following command:
 docker-compose up
 ```
 
-You can find some pre-built images in [Docker Hub](https://hub.docker.com/r/pgentile/zucchini-ui/).
+You can find some pre-built images in [Docker Hub](https://hub.docker.com/r/pgentile/zucchini-ui).
 
 
 Configuration
