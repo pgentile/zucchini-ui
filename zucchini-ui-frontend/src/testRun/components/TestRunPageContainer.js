@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
-import { push } from 'react-router-redux';
 
 import TestRunPage from './TestRunPage';
 
@@ -28,26 +27,11 @@ const selectProps = createStructuredSelector({
   testRun: selectTestRun,
 });
 
-function goToTags({testRunId}) {
-  return push(`/test-runs/${testRunId}/tags`);
-}
-
-function goToDiff({testRunId}) {
-  return push(`/test-runs/${testRunId}/diff`);
-}
-
-function goToFailures({testRunId}) {
-  return push(`/test-runs/${testRunId}/failures`);
-}
-
 
 const TestRunPageContainer = connect(
   selectProps,
   {
     onLoad: loadTestRunPage,
-    onGoToTags: goToTags,
-    onGoToDiff: goToDiff,
-    onGoToFailures: goToFailures,
   },
 )(TestRunPage);
 

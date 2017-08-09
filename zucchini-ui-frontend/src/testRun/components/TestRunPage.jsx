@@ -5,6 +5,7 @@ import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
 
 import toNiceDate from '../../ui/toNiceDate';
 import Button from '../../ui/components/Button';
+import ButtonLink from '../../ui/components/ButtonLink';
 import FeatureStateFilterContainer from '../../filters/components/FeatureStateFilterContainer';
 import TestRunHistoryTableContainer from './TestRunHistoryTableContainer';
 import TestRunStatsContainer from './TestRunStatsContainer';
@@ -37,24 +38,6 @@ export default class TestRunPage extends React.Component {
   onEditButtonClick = () => {
     this.setState({
       showEditDialog: true,
-    });
-  };
-
-  onGoToTags = () => {
-    this.props.onGoToTags({
-      testRunId: this.props.testRunId,
-    });
-  };
-
-  onGoToDiff = () => {
-    this.props.onGoToDiff({
-      testRunId: this.props.testRunId,
-    });
-  };
-
-  onGoToFailures = () => {
-    this.props.onGoToFailures({
-      testRunId: this.props.testRunId,
     });
   };
 
@@ -120,19 +103,19 @@ export default class TestRunPage extends React.Component {
             </Button>
           </ButtonGroup>
           <ButtonGroup>
-            <Button glyph="tags" onClick={this.onGoToTags}>
+            <ButtonLink glyph="tags" to={{ pathname: `/test-runs/${testRunId}/tags` }}>
               Tags
-            </Button>
+            </ButtonLink>
           </ButtonGroup>
           <ButtonGroup>
-            <Button glyph="exclamation-sign" onClick={this.onGoToFailures}>
+            <ButtonLink glyph="exclamation-sign" to={{ pathname: `/test-runs/${testRunId}/failures` }}>
               Échecs
-            </Button>
+            </ButtonLink>
           </ButtonGroup>
           <ButtonGroup>
-            <Button glyph="list-alt" onClick={this.onGoToDiff}>
+            <ButtonLink glyph="list-alt" to={{ pathname: `/test-runs/${testRunId}/diff` }}>
               Comparer avec un autre tir
-            </Button>
+            </ButtonLink>
           </ButtonGroup>
           <ButtonGroup>
             <DeleteTestRunButtonContainer testRunId={testRunId} />
@@ -175,7 +158,4 @@ TestRunPage.propTypes = {
   selectedFeatureGroup: PropTypes.string,
   testRun: PropTypes.object,
   onLoad: PropTypes.func.isRequired,
-  onGoToTags: PropTypes.func.isRequired,
-  onGoToDiff: PropTypes.func.isRequired,
-  onGoToFailures: PropTypes.func.isRequired
 };
