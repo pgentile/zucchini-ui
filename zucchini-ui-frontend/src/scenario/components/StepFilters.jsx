@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Popover from 'react-bootstrap/lib/Popover';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Checkbox from 'react-bootstrap/lib/Checkbox';
 
@@ -40,9 +39,9 @@ export default class StepFilters extends React.PureComponent {
     });
 
     return (
-      <Popover id="step-filters" title="Configurer les options d'affichage">
+      <div id="step-filters" title="Configurer les options d'affichage">
         {checkboxes}
-      </Popover>
+      </div>
     );
   }
 
