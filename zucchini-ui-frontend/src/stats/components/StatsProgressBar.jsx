@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Label, ProgressBar } from 'react-bootstrap';
+import Label from 'react-bootstrap/lib/Label';
+import ProgressBar from 'react-bootstrap/lib/ProgressBar';
+
 
 export default class ProgressBarStats extends React.PureComponent {
 

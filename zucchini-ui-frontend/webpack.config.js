@@ -7,11 +7,6 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const outputDir = path.join(__dirname, 'build/dist/assets');
 
 
-// Load packages names
-const packageContent = require('./package.json');
-const vendorLibs = Object.keys(packageContent.dependencies);
-
-
 // Config
 const config = require('./config.json');
 
@@ -30,9 +25,7 @@ module.exports = {
     ],
     vendor: [
       'bootstrap/dist/css/bootstrap.css',
-      'bootstrap/dist/js/bootstrap.js',
       'chartist/dist/chartist.min.css',
-      ...vendorLibs,
     ],
   },
   resolve: {
@@ -40,9 +33,6 @@ module.exports = {
       path.join(__dirname, 'src'),
       'node_modules',
     ],
-    alias: {
-      'jquery': 'jquery/src/jquery',
-    },
     extensions: ['.js', '.jsx', '.less', '.css'],
   },
   output: {
@@ -116,10 +106,12 @@ module.exports = {
       minChunks: Infinity,
     }),
     new webpack.ProvidePlugin({
-      '$': 'jquery',
-      'jQuery': 'jquery',
       'fetch': 'isomorphic-fetch',
     }),
     new ExtractTextPlugin('[name].css'),
+
+    // Don't import all locales from moment.js
+    // See https://webpack.js.org/plugins/context-replacement-plugin/
+    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en|fr/)
   ],
 };

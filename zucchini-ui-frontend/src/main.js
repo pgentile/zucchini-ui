@@ -1,6 +1,5 @@
 // Basic requirements
 import 'babel-polyfill';
-import 'jquery';
 
 import ReactDOM from 'react-dom';
 
