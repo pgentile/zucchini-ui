@@ -11,6 +11,12 @@ import PurgeDialogContainer from './PurgeDialogContainer';
 
 
 export default class TestRunsPage extends React.Component {
+
+  static propTypes = {
+    onLoad: PropTypes.func.isRequired,
+    selectedType: PropTypes.string,
+  };
+
   constructor(props) {
     super(props);
 
@@ -70,7 +76,7 @@ export default class TestRunsPage extends React.Component {
           </ButtonGroup>
         </ButtonToolbar>
         <hr />
-        <TestRunTypeFilterContainer />
+        <TestRunTypeFilterContainer selectedType={selectedType} />
         <TestRunsTableContainer selectedType={selectedType} />
         <CreateTestRunDialogContainer show={this.state.showCreateTestRunDialog} onClose={this.hideCreateTestRunDialog} />
         <PurgeDialogContainer show={this.state.showPurgeDialog} onClose={this.hidePurgeDialog} />
@@ -78,8 +84,3 @@ export default class TestRunsPage extends React.Component {
     );
   }
 }
-
-TestRunsPage.propTypes = {
-  onLoad: PropTypes.func.isRequired,
-  selectedType: PropTypes.string,
-};
