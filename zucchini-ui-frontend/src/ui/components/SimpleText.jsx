@@ -18,7 +18,7 @@ export default class SimpleText extends React.PureComponent {
           output += html`${value}`;
           break;
         case 'url':
-          output += html`<a href="${value}" target="_blank">${value}</a>`;
+          output += html`<a href="${value}">${value}</a>`;
           break;
         case 'eol':
           output += '<br/>';
