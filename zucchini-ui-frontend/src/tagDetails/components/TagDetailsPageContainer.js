@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 import { push } from 'react-router-redux';
+import isString from 'lodash/isString';
+import isEmpty from 'lodash/isEmpty';
 
 import TagDetailsPage from './TagDetailsPage';
 
@@ -8,10 +10,10 @@ import { loadTagDetailsPage } from '../redux';
 
 
 function parseTags(tags) {
-  if (_.isString(tags)) {
+  if (isString(tags)) {
     return [tags];
   }
-  if (_.isEmpty(tags)) {
+  if (isEmpty(tags)) {
     return [];
   }
   return tags;

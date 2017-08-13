@@ -16,8 +16,6 @@
     }
   },
   "globals": {
-    "_": true,
-    "$": true,
     "configuration": true
   },
   "extends": [

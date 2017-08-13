@@ -96,24 +96,34 @@ module.exports = {
   },
   plugins: [
 
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-
-      // All dependencies in the vendor file
-      minChunks: function (module) {
-        return module.context && module.context.includes('node_modules');
-      }
-
-    }),
-
+    // fetch as standard API
     new webpack.ProvidePlugin({
       'fetch': 'isomorphic-fetch',
     }),
 
+    // All dependencies found in node_modules in the vendor file
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: function (module) {
+        return module.context && module.context.includes('node_modules');
+      },
+    }),
+
+    // CSS in its own file
     new ExtractTextPlugin('[name].css'),
 
     // Don't import all locales from moment.js
     // See https://webpack.js.org/plugins/context-replacement-plugin/
-    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en|fr/)
+    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en|fr/),
+
+    // Replace lodash-es imports by equivalent lodash imports.
+    // Otherwise, same lodash functions can be loaded twice !
+    new webpack.NormalModuleReplacementPlugin(
+      /lodash-es/,
+      function(resource) {
+        resource.request = resource.request.replace('lodash-es', 'lodash');
+      },
+    ),
+
   ],
 };
