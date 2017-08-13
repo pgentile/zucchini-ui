@@ -1,4 +1,4 @@
-import flatten from 'lodash-es/flatten';
+import flatten from 'lodash/flatten';
 
 
 export default function tokenizeUrls(content) {

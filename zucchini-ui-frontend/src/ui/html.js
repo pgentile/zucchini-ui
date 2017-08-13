@@ -1,5 +1,4 @@
-import escape from 'lodash-es/escape';
-
+import escape from 'lodash/escape';
 
 export default function html(strings, ...args) {
   return strings.reduce((prevValue, currentValue, index) => {

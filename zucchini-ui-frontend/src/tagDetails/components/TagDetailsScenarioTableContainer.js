@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
-import sortBy from 'lodash-es/sortBy';
+import sortBy from 'lodash/sortBy';
 
 import { selectScenarioFilterFunc } from '../../filters/selectors';
 import TagDetailsScenarioTable from './TagDetailsScenarioTable';

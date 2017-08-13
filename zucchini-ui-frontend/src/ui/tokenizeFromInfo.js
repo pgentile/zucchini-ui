@@ -1,4 +1,4 @@
-import isString from 'lodash-es/isString';
+import isString from 'lodash/isString';
 
 
 export default function tokenizeFromInfo(info) {

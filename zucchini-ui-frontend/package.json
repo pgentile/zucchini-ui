@@ -49,7 +49,7 @@
     "chartist": "^0.11.0",
     "flux-standard-action": "^1.2.0",
     "isomorphic-fetch": "^2.2.1",
-    "lodash-es": "^4.17.4",
+    "lodash": "^4.17.4",
     "moment": "^2.15.1",
     "pure-uuid": "^1.4.7",
     "query-string": "^5.0.0",
