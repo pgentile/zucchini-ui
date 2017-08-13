@@ -2,6 +2,7 @@ package io.zucchiniui.capsule;
 
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.servlets.assets.AssetServlet;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.zucchiniui.backend.BackendBundle;
@@ -11,6 +12,7 @@ import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletHolder;
 
 import javax.servlet.DispatcherType;
+import java.nio.charset.StandardCharsets;
 import java.util.EnumSet;
 
 public class ZucchiniUIApplication extends Application<BackendConfiguration> {
@@ -37,12 +39,16 @@ public class ZucchiniUIApplication extends Application<BackendConfiguration> {
 
         // Redirect to UI
         final ServletHolder redirectServletHolder = new ServletHolder(new RedirectServlet(BASE_PATH + "/"));
-        environment.getApplicationContext().addServlet(redirectServletHolder, "/");
+        environment.getApplicationContext().addServlet(redirectServletHolder, "");
         environment.getApplicationContext().addServlet(redirectServletHolder, BASE_PATH);
 
         // Forward 404 pages to index (used for browser history)
         final FilterHolder forwardFilterHolder = new FilterHolder(new ForwardToIndexFilter(BASE_PATH));
         environment.getApplicationContext().addFilter(forwardFilterHolder, BASE_PATH + "/*", EnumSet.allOf(DispatcherType.class));
+
+        // Default servlet
+        final ServletHolder defaultServletHolder = new ServletHolder(new AssetServlet("/favicons/", "/", null, StandardCharsets.UTF_8));
+        environment.getApplicationContext().addServlet(defaultServletHolder, "/");
     }
 
 }
