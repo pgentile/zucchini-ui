@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 // Output dir
@@ -95,19 +95,21 @@ module.exports = {
     ],
   },
   plugins: [
-    /*
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      mangle: true
-    }),
-    */
+
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: Infinity,
+
+      // All dependencies in the vendor file
+      minChunks: function (module) {
+        return module.context && module.context.includes('node_modules');
+      }
+
     }),
+
     new webpack.ProvidePlugin({
       'fetch': 'isomorphic-fetch',
     }),
+
     new ExtractTextPlugin('[name].css'),
 
     // Don't import all locales from moment.js

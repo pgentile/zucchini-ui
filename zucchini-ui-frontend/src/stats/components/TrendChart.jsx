@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import _ from 'lodash';
+import kebabCase from 'lodash-es/kebabCase';
 
 import BarChart from '../../charts/components/BarChart';
 
@@ -20,7 +20,7 @@ export default class TrendChart extends React.PureComponent {
       series.push({
         name: type,
         value: serieValues,
-        className: `chart-trend-${_.kebabCase(type)}`,
+        className: `chart-trend-${kebabCase(type)}`,
       });
     });
 

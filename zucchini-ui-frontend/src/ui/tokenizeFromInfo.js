@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import isString from 'lodash-es/isString';
 
 
 export default function tokenizeFromInfo(info) {
@@ -11,7 +11,7 @@ export default function tokenizeFromInfo(info) {
   args
     .filter(arg => {
       // Ignorer les arguments non définis
-      return _.isString(arg.value) && arg.value !== '';
+      return isString(arg.value) && arg.value !== '';
     })
     .forEach(arg => {
       // Ajouter le contenu avant l'argument
