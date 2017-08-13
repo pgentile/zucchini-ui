@@ -47,7 +47,7 @@ export default class TestRunTypeFilter extends React.PureComponent {
       <div style={{ position: 'relative', marginBottom: '10px' }}>
 
         <ButtonGroup bsSize="xsmall">
-          <Button onClick={this.onShowPopoverClick}>
+          <Button active={showSelectableTypes} onClick={this.onShowPopoverClick}>
             Type de tir :
             {' '}
             <b>{selectedType ? selectedType : <i>Tous</i>}</b>

@@ -39,7 +39,7 @@ export default class StepFilters extends React.PureComponent {
     });
 
     return (
-      <div id="step-filters" title="Configurer les options d'affichage">
+      <div>
         {checkboxes}
       </div>
     );
