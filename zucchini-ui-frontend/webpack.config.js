@@ -120,10 +120,10 @@ module.exports = {
     // Otherwise, same lodash functions can be loaded twice !
     new webpack.NormalModuleReplacementPlugin(
       /lodash-es/,
-      function(resource) {
+      resource => {
         resource.request = resource.request.replace('lodash-es', 'lodash');
-      },
-    ),
+      }
+    )
 
   ],
 };
