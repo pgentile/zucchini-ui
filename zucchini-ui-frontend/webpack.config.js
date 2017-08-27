@@ -44,7 +44,7 @@ module.exports = {
   devServer: {
     port: config.devServer.port,
     publicPath: '/ui/assets',
-    setup: function (app) {
+    before: function (app) {
       app.get('/ui/assets/config.js', javascriptConfigMiddleware);
     },
   },
