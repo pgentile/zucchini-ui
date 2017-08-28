@@ -88,6 +88,11 @@ class FailuresTableRow extends React.Component {
   render() {
     const { failedScenario, isFirstFailure, nbFailedScenarii } = this.props;
 
+    const cellStyle = {
+      verticalAlign: 'middle',
+      textAlign: 'center'
+    };
+
     let errorMessageRow;
     if (isFirstFailure) {
       errorMessageRow = this.createErrorMessageCell(nbFailedScenarii, failedScenario.errorMessage);
@@ -100,10 +105,10 @@ class FailuresTableRow extends React.Component {
             <b>{failedScenario.info.keyword}</b> {failedScenario.info.name}
           </Link>
         </td>
-        <td>
+        <td style={cellStyle}>
           <Status status={failedScenario.status} />
         </td>
-        <td>
+        <td style={cellStyle}>
           <Label bsStyle={failedScenario.reviewed ? 'success' : 'default'}>{failedScenario.reviewed ? 'Oui' : 'Non'}</Label>
         </td>
       </tr>
