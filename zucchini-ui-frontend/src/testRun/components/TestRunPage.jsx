@@ -10,6 +10,7 @@ import FeatureStateFilterContainer from '../../filters/components/FeatureStateFi
 import TestRunHistoryTableContainer from './TestRunHistoryTableContainer';
 import TestRunStatsContainer from './TestRunStatsContainer';
 import TestRunFeatureTableContainer from './TestRunFeatureTableContainer';
+import TestRunGroupTableContainer from './TestRunGroupTableContainer';
 import FeatureGroupFilterContainer from './FeatureGroupFilterContainer';
 import DeleteTestRunButtonContainer from './DeleteTestRunButtonContainer';
 import ImportCucumberResultsDialogContainer from './ImportCucumberResultsDialogContainer';
@@ -126,6 +127,10 @@ export default class TestRunPage extends React.Component {
 
         <h2>Statistiques</h2>
         <TestRunStatsContainer />
+
+        <hr />
+        <h2>Bilan</h2>
+        <TestRunGroupTableContainer testRunId={testRunId} />
 
         <hr />
         <h2>Fonctionnalités</h2>
