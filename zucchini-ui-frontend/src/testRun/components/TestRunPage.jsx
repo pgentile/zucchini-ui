@@ -10,7 +10,6 @@ import FeatureStateFilterContainer from '../../filters/components/FeatureStateFi
 import TestRunHistoryTableContainer from './TestRunHistoryTableContainer';
 import TestRunStatsContainer from './TestRunStatsContainer';
 import TestRunFeatureTableContainer from './TestRunFeatureTableContainer';
-import TestRunGroupTableContainer from './TestRunGroupTableContainer';
 import FeatureGroupFilterContainer from './FeatureGroupFilterContainer';
 import DeleteTestRunButtonContainer from './DeleteTestRunButtonContainer';
 import ImportCucumberResultsDialogContainer from './ImportCucumberResultsDialogContainer';
@@ -114,6 +113,11 @@ export default class TestRunPage extends React.Component {
             </ButtonLink>
           </ButtonGroup>
           <ButtonGroup>
+            <ButtonLink glyph="list" to={{ pathname: `/test-runs/${testRunId}/reports` }}>
+              Bilan
+            </ButtonLink>
+          </ButtonGroup>
+          <ButtonGroup>
             <ButtonLink glyph="list-alt" to={{ pathname: `/test-runs/${testRunId}/diff` }}>
               Comparer avec un autre tir
             </ButtonLink>
@@ -127,10 +131,6 @@ export default class TestRunPage extends React.Component {
 
         <h2>Statistiques</h2>
         <TestRunStatsContainer />
-
-        <hr />
-        <h2>Bilan</h2>
-        <TestRunGroupTableContainer testRunId={testRunId} />
 
         <hr />
         <h2>Fonctionnalités</h2>

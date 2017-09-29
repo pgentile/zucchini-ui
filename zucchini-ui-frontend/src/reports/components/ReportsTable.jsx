@@ -3,7 +3,7 @@ import React from 'react';
 import Table from 'react-bootstrap/lib/Table';
 import Badge from 'react-bootstrap/lib/Badge';
 
-export default class TestRunGroupTable extends React.Component {
+export default class ReportsTable extends React.Component {
 
   static propTypes = {
     groups: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -14,7 +14,7 @@ export default class TestRunGroupTable extends React.Component {
 
     const rows = groups.map(group => {
       return (
-        <GroupTableTableRow key={group.id} group={group} />
+        <ReportsTableRow key={group.id} group={group} />
       )
     });
 
@@ -40,7 +40,7 @@ export default class TestRunGroupTable extends React.Component {
 }
 
 
-class GroupTableTableRow extends React.PureComponent {
+class ReportsTableRow extends React.PureComponent {
 
   static propTypes = {
     group: PropTypes.object.isRequired,
