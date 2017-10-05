@@ -1,75 +1,30 @@
-import {connect} from 'react-redux';
-import {createSelector, createStructuredSelector} from 'reselect';
-import {createStatsWithZeros} from '../../testRun/model.js'
+import { connect } from 'react-redux';
+import { createSelector, createStructuredSelector } from 'reselect';
 
-import ReportsTable from './ReportsTable';
+import { loadTestRunReportsPage } from '../redux';
 
+import ReportsPage from './ReportsPage';
 
-const selectGroups = createSelector(
-  state => state.testRun.features,
-  features => {
-    const groupSet = new Set(features.map(feature => feature.group));
-    const groups = [];
-    const allTotal = {
-      count: 0,
-      passed: 0,
-      failed: 0,
-      pending: 0,
-      notRun: 0
-    };
-    for (const tmpGroup of groupSet.values()) {
-      groups.push(
-        {
-          name: tmpGroup,
-          stats: features.filter(feature => feature.group === tmpGroup)
-            .map(feature => feature.stats)
-            .reduce((aggregateStat, stat) => {
-              allTotal.count = allTotal.count + stat.all.count;
-              allTotal.passed = allTotal.passed + stat.all.passed;
-              allTotal.failed = allTotal.failed + stat.all.failed;
-              allTotal.pending = allTotal.pending + stat.all.pending;
-              allTotal.notRun = allTotal.notRun + stat.all.notRun;
-              return {
-                all: {
-                  count: aggregateStat.all.count + stat.all.count,
-                  passed: aggregateStat.all.passed + stat.all.passed,
-                  failed: aggregateStat.all.failed + stat.all.failed,
-                  pending: aggregateStat.all.pending + stat.all.pending,
-                  notRun: aggregateStat.all.notRun + stat.all.notRun,
-                },
-              }
-            }, createStatsWithZeros()),
-        })
-    }
+const selectTestRunId = createSelector(
+  (state, ownProps) => ownProps.params.testRunId,
+  testRunId => testRunId,
+);
 
-
-    // Compute total
-    const total = {
-      id: 'total',
-      name: 'Total',
-      stats: {
-        all: allTotal
-      }
-    }
-    groups.push(total);
-
-    // Compute ratio
-    for (const group of groups) {
-      group.stats.all.faultRate = ((group.stats.all.failed / group.stats.all.count) * 100).toFixed(2);
-      group.stats.all.faultRateRepartition = ((group.stats.all.failed / total.stats.all.failed) * 100).toFixed(2);
-    }
-
-    return groups;
-  }
+const selectTestRun = createSelector(
+  state => state.testRun.testRun,
+  testRun => testRun,
 );
 
 const selectProps = createStructuredSelector({
-  groups: selectGroups,
+  testRunId: selectTestRunId,
+  testRun: selectTestRun,
 });
 
-
-const ReportsTableContainer = connect(
+const ReportsPageContainer = connect(
   selectProps,
-)(ReportsTable);
+  {
+    onLoad: loadTestRunReportsPage,
+  },
+)(ReportsPage);
 
-export default ReportsTableContainer;
+export default ReportsPageContainer;

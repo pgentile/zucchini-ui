@@ -14,7 +14,7 @@ export default class ReportsTable extends React.Component {
 
     const rows = groups.map(group => {
       return (
-        <ReportsTableRow key={group.id} group={group} />
+        <ReportsTableRow key={group.name} group={group} />
       )
     });
 
