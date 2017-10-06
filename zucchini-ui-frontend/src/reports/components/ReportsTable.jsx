@@ -48,17 +48,25 @@ class ReportsTableRow extends React.PureComponent {
 
   render() {
     const { group } = this.props;
+    let style = 'badge';
+    if (group.stats.all.failed === 0) {
+      style = 'badge-success';
+    } else if (group.stats.all.faultRate > 50) {
+      style = 'badge-error';
+    } else if (group.stats.all.faultRate > 10) {
+      style = 'badge-warning';
+    }
 
     return (
       <tr>
         <td>{group.name}</td>
-        <td><Badge>{group.stats.all.count}</Badge></td>
-        <td><Badge>{group.stats.all.passed}</Badge></td>
-        <td><Badge>{group.stats.all.failed}</Badge></td>
-        <td><Badge>{group.stats.all.pending}</Badge></td>
-        <td><Badge>{group.stats.all.notRun}</Badge></td>
-        <td><Badge>{group.stats.all.faultRate} %</Badge></td>
-        <td><Badge>{group.stats.all.faultRateRepartition} %</Badge></td>
+        <td><Badge bsClass={style}>{group.stats.all.count}</Badge></td>
+        <td><Badge bsClass={style}>{group.stats.all.passed}</Badge></td>
+        <td><Badge bsClass={style}>{group.stats.all.failed}</Badge></td>
+        <td><Badge bsClass={style}>{group.stats.all.pending}</Badge></td>
+        <td><Badge bsClass={style}>{group.stats.all.notRun}</Badge></td>
+        <td><Badge bsClass={style}>{group.stats.all.faultRate} %</Badge></td>
+        <td><Badge bsClass={style}>{group.stats.all.faultRateRepartition} %</Badge></td>
       </tr>
     );
   }

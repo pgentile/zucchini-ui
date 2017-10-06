@@ -21,7 +21,7 @@ module.exports = {
   entry: {
     app: [
       './src/main.js',
-      './src/main.less',
+      './src/styles/main.less',
     ],
     vendor: [
       'bootstrap/dist/css/bootstrap.css',
