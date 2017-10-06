@@ -65,6 +65,7 @@ allprojects {
         cucumberGroovy    : '1.2.5',
         jetty             : '9.4.7.v20170914',
         guava             : '23.1-jre',
+        commonsText       : '1.1',
         hibernateValidator: '5.4.1.Final',
     ]
 
@@ -213,6 +214,7 @@ project("${rootProject.name}-backend") {
         compile "org.slf4j:slf4j-api:${versions.slf4j}"
         compile "org.springframework:spring-context:${versions.spring}"
         compile "org.eclipse.jetty.websocket:javax-websocket-server-impl:${versions.jetty}"
+        compile "org.apache.commons:commons-text:${versions.commonsText}"
 
         testCompile "org.assertj:assertj-core:${versions.assertj}"
         testCompile "com.pholser:junit-quickcheck-core:${versions.junitQuickcheck}"
