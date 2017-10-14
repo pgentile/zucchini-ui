@@ -11,7 +11,8 @@ const selectTags = createSelector(
   state => tagFilterSelector(state, 'filter'),
   (tags, filter) => {
     if (filter) {
-      return tags.filter(tag => tag.tag.startsWith(filter));
+      const filterLowerCase = filter.toLowerCase();
+      return tags.filter(tag => tag.tag.toLowerCase().startsWith(filterLowerCase));
     }
     return tags;
   },
