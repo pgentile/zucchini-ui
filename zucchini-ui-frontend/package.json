@@ -46,7 +46,7 @@
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^3.3.7",
     "chartist": "^0.11.0",
-    "flux-standard-action": "^1.2.0",
+    "flux-standard-action": "^2.0.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",
     "moment": "^2.15.1",
