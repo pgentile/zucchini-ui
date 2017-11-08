@@ -1,4 +1,4 @@
-migrate(function () {
+migrate(() => {
 
   db.comments.update(
     {},

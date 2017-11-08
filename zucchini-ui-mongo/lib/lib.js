@@ -1,10 +1,10 @@
-var migrationContext = {
+const migrationContext = {
   filename: null
 };
 
 function migrate(migration) {
 
-  var runMigration = function () {
+  const runMigration = function () {
     try {
       migration(migrationContext);
     } catch (e) {
@@ -12,7 +12,7 @@ function migrate(migration) {
     }
   };
 
-  var previousAppliedMigration = db.appliedMigrations.findOne({ _id: migrationContext.filename });
+  const previousAppliedMigration = db.appliedMigrations.findOne({ _id: migrationContext.filename });
   if (previousAppliedMigration == null) {
     print('Running migration ' + migrationContext.filename + ' for the first time...');
     runMigration();

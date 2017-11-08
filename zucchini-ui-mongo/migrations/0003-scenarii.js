@@ -1,4 +1,4 @@
-migrate(function () {
+migrate(() => {
 
   db.scenarii.createIndex({ scenarioKey: 1 });
   db.scenarii.createIndex({ featureId: 1 });

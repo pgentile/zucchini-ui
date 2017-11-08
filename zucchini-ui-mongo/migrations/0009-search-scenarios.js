@@ -1,8 +1,8 @@
-migrate(function () {
+migrate(() => {
 
   // Update feature languages
 
-  var defaultLanguage = 'fr'; // Use french as default language on existing docs
+  const defaultLanguage = 'fr'; // Use french as default language on existing docs
 
   db.features.update({ language: { $exists: false } }, { $set: { language: defaultLanguage } }, { multi: true });
   db.scenarii.update({ language: { $exists: false } }, { $set: { language: defaultLanguage } }, { multi: true });

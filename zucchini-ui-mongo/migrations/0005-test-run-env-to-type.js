@@ -1,6 +1,6 @@
-migrate(function () {
+migrate(() => {
 
-  db.testRuns.find({ env: { $exists: true } }).forEach(function (testRun) {
+  db.testRuns.find({ env: { $exists: true } }).forEach((testRun) => {
     testRun.type = testRun.env;
     delete testRun.env;
 
