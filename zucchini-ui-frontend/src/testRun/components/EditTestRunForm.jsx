@@ -25,6 +25,7 @@ class EditTestRunForm extends React.PureComponent {
   renderLabelFields = ({ fields }) => {
     const addLabel = () => fields.push({});
 
+    /* eslint-disable react/jsx-no-bind */
     return (
       <Table>
         <thead>
@@ -49,11 +50,13 @@ class EditTestRunForm extends React.PureComponent {
         </tfoot>
       </Table>
     );
+    /* eslint-enable */
   };
 
   renderLabelField = (member, index, fields) => {
     const removeField = () => fields.remove(index);
 
+    /* eslint-disable react/jsx-no-bind */
     return (
       <tr key={index}>
         <td>
@@ -70,6 +73,7 @@ class EditTestRunForm extends React.PureComponent {
         </td>
       </tr>
     );
+    /* eslint-enable */
   };
 
   render() {
