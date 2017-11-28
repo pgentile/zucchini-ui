@@ -39,7 +39,7 @@ export function editTestRun({ testRunId, type, labels }) {
   return testRunsApi.editTestRun({ testRunId, type, labels });
 }
 
-const ZERO_STATS_NUMBERS = {
+export const ZERO_STATS_NUMBERS = {
   count: 0,
   passed: 0,
   failed: 0,

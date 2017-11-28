@@ -113,6 +113,11 @@ export default class TestRunPage extends React.Component {
             </ButtonLink>
           </ButtonGroup>
           <ButtonGroup>
+            <ButtonLink glyph="list" to={{ pathname: `/test-runs/${testRunId}/reports` }}>
+              Bilan
+            </ButtonLink>
+          </ButtonGroup>
+          <ButtonGroup>
             <ButtonLink glyph="list-alt" to={{ pathname: `/test-runs/${testRunId}/diff` }}>
               Comparer avec un autre tir
             </ButtonLink>
