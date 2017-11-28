@@ -28,7 +28,7 @@ const DELETE_FEATURE = `${PREFIX}/DELETE_FEATURE`;
 // Action creators
 
 export function loadFeaturePage({ featureId }) {
-  return dispatch => {
+  return async dispatch => {
     // Load feature, stats, test run, scenarios
 
     const feature$ = dispatch(getFeature({ featureId }));
@@ -36,21 +36,24 @@ export function loadFeaturePage({ featureId }) {
     const history$ = dispatch(getFeatureHistory({ featureId }));
     const scenarios$ = dispatch(getScenarios({ featureId }));
 
-    const testRun$ = feature$.then(result => {
-      const feature = result.value; // Action promise contain results in a value field
-      return dispatch(getTestRun({ testRunId: feature.testRunId }));
-    });
+    const featureResult = await feature$;
+    const feature = featureResult.value; // Action promise contain results in a value field
+    const testRun$ = dispatch(getTestRun({ testRunId: feature.testRunId }));
 
-    return Promise.all([feature$, testRun$, stats$, history$, scenarios$]).then(() => null);
+    await feature$;
+    await stats$;
+    await history$;
+    await scenarios$
+    await testRun$;
   };
 }
 
 export function deleteFeatureThenRedirect({ featureId }) {
-  return (dispatch, getState) => {
-    const deleteFeature$ = dispatch(deleteFeature({ featureId }));
+  return async (dispatch, getState) => {
+    await dispatch(deleteFeature({ featureId }));
 
     const testRunId = getState().testRun.testRun.id;
-    deleteFeature$.then(dispatch(replace(`/test-runs/${testRunId}`)));
+    dispatch(replace(`/test-runs/${testRunId}`));
   };
 }
 

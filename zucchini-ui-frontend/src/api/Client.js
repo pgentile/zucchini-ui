@@ -42,7 +42,7 @@ export default class Client {
     });
   }
 
-  fetchJson(params) {
+  async fetchJson(params) {
     const { path, query, method, body, headers, hasOutput } = {
       method: 'GET',
       hasOutput: true,
@@ -70,15 +70,14 @@ export default class Client {
 
     const url = this.createUrl({ path, query });
 
-    return fetch(url, fetchParams)
-      .then(response => this.handleError({ url, response }))
-      .then(response => {
-        if (hasOutput !== undefined && !hasOutput) {
-          return null;
-        }
+    const response = await fetch(url, fetchParams);
+    this.handleError({ url, response });
 
-        return response.json();
-      });
+    if (hasOutput !== undefined && !hasOutput) {
+      return null;
+    }
+
+    return await response.json();
   }
 
   createUrl({ path, query }) {

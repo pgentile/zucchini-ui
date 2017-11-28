@@ -16,13 +16,7 @@ const SEARCH_FULFILLED = `${SEARCH}_FULFILLED`;
 // Action creators
 
 export function loadTestRunSearchPage({ testRunId }) {
-  return dispatch => {
-    // Load test run
-    const testRun$ = dispatch(getTestRun({ testRunId }));
-
-    // Merge results in a promise
-    return Promise.all([testRun$]).then(() => null);
-  };
+  return getTestRun({ testRunId });
 }
 
 export function search({ search, testRunId }) {
