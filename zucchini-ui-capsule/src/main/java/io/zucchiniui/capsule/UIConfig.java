@@ -1,10 +1,23 @@
 package io.zucchiniui.capsule;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
 class UIConfig {
+
+    @JsonUnwrapped
+    private final FrontendConfig frontendConfig;
 
     private String backendBaseUri;
 
     private String basename;
+
+    public UIConfig(FrontendConfig frontendConfig) {
+        this.frontendConfig = frontendConfig;
+    }
+
+    public FrontendConfig getFrontendConfig() {
+        return frontendConfig;
+    }
 
     public String getBackendBaseUri() {
         return backendBaseUri;

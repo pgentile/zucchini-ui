@@ -1,13 +1,16 @@
 server:
   type: default
-  # Never change the following param!
-  rootPath: /api
   minThreads:  12
   maxThreads: 48
   maxQueuedRequests: 2048
   idleThreadTimeout: 10 seconds
+  # Never change the following param!
+  rootPath: /api
 
 mongoUri: "mongodb://${MONGO_HOST:-localhost}/${MONGO-DB:-zucchini}?connectTimeoutMS=5000&socketTimeoutMS=90000&w=majority&journal=true&wtimeoutMS=60000"
 
 logging:
   level: INFO
+
+frontend:
+  testRunPurgeDelayInDays: 60
