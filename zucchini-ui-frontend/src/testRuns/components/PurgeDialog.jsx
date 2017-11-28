@@ -133,7 +133,7 @@ export default class PurgeDialog extends React.PureComponent {
           <form onSubmit={this.onPurge}>
             <FormGroup controlId="type">
               <ControlLabel>Type</ControlLabel>
-              <FormControl componentClass="select" value={this.state.type} onChange={this.onTypeChange}>
+              <FormControl componentClass="select" autoFocus value={this.state.type} onChange={this.onTypeChange}>
                 <option></option>
                 {testRunTypeOptions}
               </FormControl>

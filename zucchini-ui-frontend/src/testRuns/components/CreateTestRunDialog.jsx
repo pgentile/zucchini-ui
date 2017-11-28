@@ -59,7 +59,7 @@ export default class CreateTestRunDialog extends React.PureComponent {
           <form onSubmit={this.onCreateTestRun}>
             <FormGroup controlId="type">
               <ControlLabel>Type</ControlLabel>
-              <FormControl type="text" value={this.state.newTestRun.type} onChange={this.onTypeChange} />
+              <FormControl type="text" autoFocus value={this.state.newTestRun.type} onChange={this.onTypeChange} />
             </FormGroup>
           </form>
         </Modal.Body>

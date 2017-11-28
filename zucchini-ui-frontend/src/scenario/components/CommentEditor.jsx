@@ -48,6 +48,7 @@ export default class CommentEditor extends React.PureComponent {
           <FormControl
             componentClass="textarea"
             rows="3"
+            autoFocus
             value={comment}
             onChange={this.onCommentChange} />
         </FormGroup>
