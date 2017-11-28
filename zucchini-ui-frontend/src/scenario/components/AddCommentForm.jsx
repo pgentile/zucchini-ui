@@ -7,6 +7,12 @@ import Button from '../../ui/components/Button';
 
 
 export default class AddCommentForm extends React.PureComponent {
+
+  static propTypes = {
+    scenarioId: PropTypes.string.isRequired,
+    onAddComment: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
 
@@ -47,19 +53,21 @@ export default class AddCommentForm extends React.PureComponent {
   };
 
   render() {
+    const { comment } = this.state;
+
     return (
       <form onSubmit={this.onAddComment}>
         <FormGroup>
-          <FormControl componentClass="textarea" rows="3" placeholder="Entrez votre commentaire" value={this.state.comment} onChange={this.onCommentChange} />
+          <FormControl
+            componentClass="textarea"
+            rows="3"
+            placeholder="Entrez votre commentaire"
+            value={comment}
+            onChange={this.onCommentChange} />
         </FormGroup>
-        <Button type="submit" bsStyle="primary">Ajouter le commentaire</Button>
+        <Button type="submit" bsStyle="primary" disabled={!comment}>Ajouter le commentaire</Button>
       </form>
     )
   }
 
 }
-
-AddCommentForm.propTypes = {
-  scenarioId: PropTypes.string.isRequired,
-  onAddComment: PropTypes.func.isRequired,
-};
