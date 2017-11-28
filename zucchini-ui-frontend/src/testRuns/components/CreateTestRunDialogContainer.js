@@ -1,14 +1,12 @@
 import { connect } from 'react-redux';
 
 import CreateTestRunDialog from './CreateTestRunDialog';
-import { createTestRun } from '../redux';
+import { createTestRunThenRedirect } from '../redux';
 
 
-const CreateTestRunDialogContainer = connect(
+export default connect(
   undefined,
   {
-    onCreateTestRun: createTestRun,
+    onCreateTestRun: createTestRunThenRedirect,
   },
 )(CreateTestRunDialog);
-
-export default CreateTestRunDialogContainer;
