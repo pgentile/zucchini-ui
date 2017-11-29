@@ -6,7 +6,7 @@
     "build": "webpack --progress --profile --colors -p",
     "lint": "eslint --ext .jsx,.js ./src/ ./test/",
     "fix": "eslint --fix --ext .jsx,.js ./src/ ./test/",
-    "test": "mocha --require babel-register --require ./test/helpers.js test/**/*.{js,jsx}",
+    "test": "cross-env BABEL_ENV=test mocha --require babel-register --require ./test/helpers.js test/**/*.{js,jsx}",
     "stats": "webpack --profile --json -p >./build/stats.json"
   },
   "devDependencies": {
@@ -20,6 +20,7 @@
     "babel-register": "^6.26.0",
     "chai": "^4.1.1",
     "chai-enzyme": "^1.0.0-beta.0",
+    "cross-env": "^5.1.1",
     "css-loader": "^0.28.5",
     "enzyme": "^3.1.0",
     "enzyme-adapter-react-16": "^1.0.2",

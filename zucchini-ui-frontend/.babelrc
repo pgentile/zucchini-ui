@@ -19,5 +19,22 @@
     ],
     "react",
     "stage-2"
-  ]
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "env",
+          {
+            "modules": "commonjs",
+            "targets": {
+              "node": true
+            }
+          }
+        ],
+        "react",
+        "stage-2"
+      ]
+    }
+  }
 }
