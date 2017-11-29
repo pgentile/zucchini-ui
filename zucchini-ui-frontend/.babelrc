@@ -29,7 +29,8 @@
             "modules": "commonjs",
             "targets": {
               "node": true
-            }
+            },
+            "useBuiltIns": true
           }
         ],
         "react",
