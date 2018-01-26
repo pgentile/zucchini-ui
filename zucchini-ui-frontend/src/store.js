@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import promiseMiddleware from 'redux-promise-middleware';
 import thunkMiddleware from 'redux-thunk';
+import freezeMiddleware from 'redux-freeze';
 
 import browserHistory from './browserHistory';
 import reducer from './reducer';
@@ -29,6 +30,13 @@ const middlewares = [
   thunkMiddleware,
   promiseMiddleware(),
 ];
+
+// eslint-disable-next-line no-undef
+if (process.env.NODE_ENV !== 'production') {
+  // eslint-disable-next-line no-console
+  console.warn('Using the freeze middleware. Bad mutable store updates will be detected! ❄️')
+  middlewares.push(freezeMiddleware);
+}
 
 const initialState = {};
 
