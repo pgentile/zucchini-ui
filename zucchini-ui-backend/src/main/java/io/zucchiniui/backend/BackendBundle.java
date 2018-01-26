@@ -43,7 +43,7 @@ public class BackendBundle implements ConfiguredBundle<BackendConfiguration> {
     }
 
     @Override
-    public void run(final BackendConfiguration configuration, final Environment environment) throws Exception {
+    public void run(final BackendConfiguration configuration, final Environment environment) {
         final FilterRegistration.Dynamic crossOriginFilterRegistration = environment.servlets()
             .addFilter("cors-filter", CrossOriginFilter.class);
         crossOriginFilterRegistration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");

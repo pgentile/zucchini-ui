@@ -14,7 +14,7 @@ class MongoHealthCheck extends HealthCheck {
     }
 
     @Override
-    protected Result check() throws Exception {
+    protected Result check() {
         final BasicDBObject command = new BasicDBObject("buildInfo", 1);
         final CommandResult commandResult = db.command(command);
 

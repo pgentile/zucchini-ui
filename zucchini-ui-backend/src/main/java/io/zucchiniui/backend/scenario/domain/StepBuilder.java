@@ -1,6 +1,5 @@
 package io.zucchiniui.backend.scenario.domain;
 
-import io.zucchiniui.backend.reportconverter.report.ReportAttachment;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
 
 import java.util.List;
