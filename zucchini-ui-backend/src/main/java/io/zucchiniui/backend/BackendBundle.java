@@ -5,8 +5,10 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import io.dropwizard.ConfiguredBundle;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
+import io.dropwizard.jersey.setup.JerseyEnvironment;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.zucchiniui.backend.support.ddd.rest.ConcurrentEntityModificationExceptionMapper;
 import io.zucchiniui.backend.support.ddd.rest.EntityNotFoundExceptionMapper;
 import io.zucchiniui.backend.support.spring.SpringBundle;
 import io.zucchiniui.backend.support.websocket.WebSocketEnablerBundle;
@@ -51,7 +53,9 @@ public class BackendBundle implements ConfiguredBundle<BackendConfiguration> {
 
         configuration.getMetrics().configure(environment.lifecycle(), environment.metrics());
 
-        environment.jersey().register(new EntityNotFoundExceptionMapper());
+        final JerseyEnvironment jerseyEnvironment = environment.jersey();
+        jerseyEnvironment.register(new EntityNotFoundExceptionMapper());
+        jerseyEnvironment.register(new ConcurrentEntityModificationExceptionMapper());
     }
 
 }
