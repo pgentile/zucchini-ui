@@ -1,12 +1,15 @@
 package io.zucchiniui.backend.scenario.domain;
 
 import io.zucchiniui.backend.shared.domain.BasicInfo;
+import io.zucchiniui.backend.shared.domain.Location;
 
 import java.util.List;
 
 public class StepBuilder {
 
     private BasicInfo info;
+
+    private Location stepDefinitionLocation;
 
     private StepStatus status = StepStatus.NOT_RUN;
 
@@ -55,6 +58,11 @@ public class StepBuilder {
         return this;
     }
 
+    public StepBuilder withStepDefinitionLocation(Location stepDefinitionLocation) {
+        this.stepDefinitionLocation = stepDefinitionLocation;
+        return this;
+    }
+
     public Step build() {
         return new Step(this);
     }
@@ -87,4 +95,7 @@ public class StepBuilder {
         return attachments;
     }
 
+    public Location getStepDefinitionLocation() {
+        return stepDefinitionLocation;
+    }
 }

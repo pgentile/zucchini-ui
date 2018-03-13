@@ -20,7 +20,9 @@ import io.zucchiniui.backend.scenario.domain.StepBuilder;
 import io.zucchiniui.backend.scenario.domain.StepStatus;
 import io.zucchiniui.backend.shared.domain.Argument;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
+import io.zucchiniui.backend.shared.domain.Location;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -117,6 +119,7 @@ class ReportScenarioConverter {
             .withErrorMessage(reportStep.getResult().getErrorMessage())
             .withStatus(convertStepStatus(reportStep.getResult().getStatus()))
             .withInfo(stepInfo)
+            .withStepDefinitionLocation(convertLocation(reportStep.getMatch().getLocation(), ":"))
             .withComment(stepComment)
             .withOutput(output)
             .withTable(table)
@@ -178,4 +181,14 @@ class ReportScenarioConverter {
             .collect(Collectors.toList());
     }
 
+    private static Location convertLocation(String rawLocation, String separator) {
+        if(StringUtils.countMatches(rawLocation, separator) == 1) {
+            final String[] location = StringUtils.split(ConversionUtils.trimString(rawLocation), separator);
+            return new Location(
+                location[0],
+                NumberUtils.toInt(location[1])
+            );
+        }
+        return null;
+    }
 }
