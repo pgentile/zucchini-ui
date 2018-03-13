@@ -24,10 +24,10 @@ export default class ProgressBarStats extends React.PureComponent {
           <ProgressBar active bsStyle='danger' now={failed} key={4} />
         </ProgressBar>
         <h5>
-          <Label bsStyle='success' style={{ marginRight: '1em' }}>Succès : {stats.all.passed}</Label>
-          <Label bsStyle='info' style={{ marginRight: '1em' }}>Non Joués : {stats.all.pending}</Label>
-          <Label bsStyle='warning' style={{ marginRight: '1em' }}>En attente : {stats.all.failed}</Label>
-          <Label bsStyle='danger' style={{ marginRight: '1em' }}>Échecs : {stats.all.notRun}</Label>
+          <Label bsStyle='success' style={{ marginRight: '1em' }}>Succès</Label>
+          <Label bsStyle='info' style={{ marginRight: '1em' }}>Non Joués</Label>
+          <Label bsStyle='warning' style={{ marginRight: '1em' }}>En attente</Label>
+          <Label bsStyle='danger' style={{ marginRight: '1em' }}>Échecs</Label>
         </h5>
       </div>
     );
