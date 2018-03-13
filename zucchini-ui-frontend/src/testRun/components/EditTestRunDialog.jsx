@@ -39,10 +39,12 @@ export default class EditTestRunDialog extends React.PureComponent {
     this.formRef = formRef;
   }
 
+  onEditTestRunClick = () => {
+    this.formRef.submit();
+  };
+
   render() {
     const { show, testRun } = this.props;
-
-    const onEditClick = () => this.formRef.submit();
 
     return (
       <Modal bsSize="large" show={show} onHide={this.onCloseClick}>
@@ -58,7 +60,7 @@ export default class EditTestRunDialog extends React.PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button bsStyle="primary" onClick={onEditClick}>Modifier</Button>
+          <Button bsStyle="primary" onClick={this.onEditTestRunClick}>Modifier</Button>
         </Modal.Footer>
       </Modal>
     );

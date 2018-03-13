@@ -19,7 +19,7 @@ public class BackendApplication extends Application<BackendConfiguration> {
     }
 
     @Override
-    public void run(final BackendConfiguration configuration, final Environment environment) throws Exception {
+    public void run(final BackendConfiguration configuration, final Environment environment) {
 
     }
 

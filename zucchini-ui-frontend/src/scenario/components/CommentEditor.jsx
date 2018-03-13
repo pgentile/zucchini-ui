@@ -8,6 +8,13 @@ import Button from '../../ui/components/Button';
 
 export default class CommentEditor extends React.PureComponent {
 
+  static propTypes = {
+    comment: PropTypes.object.isRequired,
+    testRunId: PropTypes.string,
+    onCancel: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
 
@@ -33,13 +40,16 @@ export default class CommentEditor extends React.PureComponent {
   }
 
   render() {
+    const { comment } = this.state;
+
     return (
       <div>
         <FormGroup>
           <FormControl
             componentClass="textarea"
             rows="3"
-            value={this.state.comment}
+            autoFocus
+            value={comment}
             onChange={this.onCommentChange} />
         </FormGroup>
         <p>
@@ -47,7 +57,7 @@ export default class CommentEditor extends React.PureComponent {
             Annuler
           </Button>
           {' '}
-          <Button bsStyle="primary" bsSize="xsmall" onClick={this.onSave}>
+          <Button bsStyle="primary" bsSize="xsmall" onClick={this.onSave} disabled={!comment}>
             Enregistrer
           </Button>
         </p>
@@ -56,10 +66,3 @@ export default class CommentEditor extends React.PureComponent {
   }
 
 }
-
-CommentEditor.propTypes = {
-  comment: PropTypes.object.isRequired,
-  testRunId: PropTypes.string,
-  onCancel: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
-};

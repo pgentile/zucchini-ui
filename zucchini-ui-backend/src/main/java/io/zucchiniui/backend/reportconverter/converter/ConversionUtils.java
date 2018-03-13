@@ -12,10 +12,13 @@ final class ConversionUtils {
     private ConversionUtils() {
     }
 
+    @SuppressWarnings("deprecation")
     public static String stringToSha1Sum(final String source) {
         if (source == null) {
             return null;
         }
+
+        // Can't use another algorithm. It will break links between features and scenarios of different test runs
         return Hashing.sha1().hashString(source, StandardCharsets.UTF_8).toString();
     }
 

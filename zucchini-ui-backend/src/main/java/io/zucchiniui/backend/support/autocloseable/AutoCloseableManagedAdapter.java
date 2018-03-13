@@ -11,7 +11,7 @@ public class AutoCloseableManagedAdapter implements Managed {
     }
 
     @Override
-    public void start() throws Exception {
+    public void start() {
         // Nothing to do
     }
 

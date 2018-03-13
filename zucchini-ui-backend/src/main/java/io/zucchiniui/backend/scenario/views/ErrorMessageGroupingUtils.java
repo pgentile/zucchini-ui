@@ -1,6 +1,6 @@
 package io.zucchiniui.backend.scenario.views;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.similarity.LevenshteinDistance;
 
 /**
  * Utility class for regrouping errorMessages
@@ -25,6 +25,9 @@ public final class ErrorMessageGroupingUtils {
      * @return true if the can be considered similar else false
      */
     public static boolean isSimilar(String referenceText, String targetText) {
-        return StringUtils.getLevenshteinDistance(referenceText, targetText, Math.round(MAX_DISTANCE_DIFF_RATIO * referenceText.length())) != -1;
+        final int threshold = Math.round(MAX_DISTANCE_DIFF_RATIO * referenceText.length());
+        final LevenshteinDistance levenshteinDistance = new LevenshteinDistance(threshold);
+        return levenshteinDistance.apply(referenceText, targetText) != -1;
     }
+
 }

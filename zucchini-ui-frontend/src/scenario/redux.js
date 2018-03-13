@@ -23,17 +23,16 @@ const GET_SCENARIO_COMMENTS = `${PREFIX}/GET_SCENARIO_COMMENTS`;
 const GET_SCENARIO_COMMENTS_FULFILLED = `${GET_SCENARIO_COMMENTS}_FULFILLED`;
 
 const UPDATE_SCENARIO_STATE = `${PREFIX}/UPDATE_SCENARIO_STATE`;
-//const UPDATE_SCENARIO_STATE_FULFILLED = `${UPDATE_SCENARIO_STATE}_FULFILLED`;
 
 const ADD_SCENARIO_COMMENT = `${PREFIX}/ADD_SCENARIO_COMMENT`;
 
 const DELETE_SCENARIO = `${PREFIX}/DELETE_SCENARIO`;
 
 const DELETE_COMMENT = `${PREFIX}/DELETE_COMMENT`;
-const DELETE_COMMENT_FULFILLED = `${DELETE_COMMENT}_FULFILLED`;
+const DELETE_COMMENT_PENDING = `${DELETE_COMMENT}_PENDING`;
 
 const UPDATE_COMMENT = `${PREFIX}/UPDATE_COMMENT`;
-// const UPDATE_COMMENT_FULFILLED = `${UPDATE_COMMENT}_FULFILLED`;
+const UPDATE_COMMENT_PENDING = `${UPDATE_COMMENT}_PENDING`;
 
 // Action creators
 
@@ -57,17 +56,13 @@ export function loadScenarioPage({ scenarioId }) {
     const featureResult$ = dispatch(getFeature({ featureId }));
     const sameFeatureScenariosResult$ = dispatch(getScenarios({ featureId }));
 
-    await Promise.all([
-      scenarioResult$,
-      historyResult$,
-      commentsResult$,
-      similarFailureScenariosResult$,
-      testRunResult$,
-      featureResult$,
-      sameFeatureScenariosResult$,
-    ]);
-
-    return null;
+    await scenarioResult$;
+    await historyResult$;
+    await commentsResult$;
+    await similarFailureScenariosResult$;
+    await testRunResult$;
+    await featureResult$;
+    await sameFeatureScenariosResult$;
   };
 }
 
@@ -215,6 +210,7 @@ export function updateComment({ scenarioId, commentId, newContent }) {
     meta: {
       scenarioId,
       commentId,
+      newContent,
     },
   };
 }
@@ -270,7 +266,28 @@ export const scenario = handleActions({
     comments: action.payload,
   }),
 
-  [DELETE_COMMENT_FULFILLED]: (state, action) => {
+  [UPDATE_COMMENT_PENDING]: (state, action) => {
+    let { comments } = state;
+    const { commentId, newContent } = action.meta;
+
+    comments = comments.map(comment => {
+      if (comment.id !== commentId) {
+        return comment;
+      }
+
+      return {
+        ...comment,
+        content: newContent,
+      };
+    });
+
+    return {
+      ...state,
+      comments,
+    };
+  },
+
+  [DELETE_COMMENT_PENDING]: (state, action) => {
     let { comments } = state;
     comments = comments.filter(comment => comment.id !== action.meta.commentId);
 

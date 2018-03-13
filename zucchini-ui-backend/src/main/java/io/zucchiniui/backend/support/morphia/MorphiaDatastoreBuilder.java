@@ -11,8 +11,6 @@ import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.logging.MorphiaLoggerFactory;
 import org.mongodb.morphia.logging.slf4j.SLF4JLoggerImplFactory;
 
-import java.util.Optional;
-
 public class MorphiaDatastoreBuilder {
 
     static {
@@ -23,12 +21,6 @@ public class MorphiaDatastoreBuilder {
 
     private String uri;
 
-    private Optional<MongoClientOptions> options = Optional.empty();
-
-    private Optional<Morphia> morphia = Optional.empty();
-
-    private Optional<String> healthcheckName = Optional.empty();
-
     public MorphiaDatastoreBuilder(final Environment environment) {
         this.environment = environment;
     }
@@ -38,55 +30,31 @@ public class MorphiaDatastoreBuilder {
         return this;
     }
 
-    public MorphiaDatastoreBuilder withOptions(final MongoClientOptions.Builder optionsBuilder) {
-        return withOptions(optionsBuilder.build());
-    }
-
-    public MorphiaDatastoreBuilder withOptions(final MongoClientOptions options) {
-        this.options = Optional.of(options);
-        return this;
-    }
-
-    public MorphiaDatastoreBuilder withMorphia(final Morphia morphia) {
-        this.morphia = Optional.of(morphia);
-        return this;
-    }
-
-    public MorphiaDatastoreBuilder withHealthcheckName(final String healthcheckName) {
-        this.healthcheckName = Optional.of(healthcheckName);
-        return this;
-    }
-
     public Datastore build(final String name) {
         if (uri == null) {
             throw new IllegalStateException("URI is undefined");
         }
 
         // Init client options
-        final MongoClientOptions activeOptions = options.orElseGet(() -> MongoClientOptions.builder().build());
-        MongoClientOptions.Builder optionsBuilder = MongoClientOptions.builder(activeOptions);
-        if (activeOptions.getDescription() == null) {
-            optionsBuilder = optionsBuilder.description(name);
-        }
+        final MongoClientOptions.Builder optionBuilder = MongoClientOptions.builder().description(name);
 
         // Create client
-        final MongoClientURI clientURI = new MongoClientURI(uri, optionsBuilder);
+        final MongoClientURI clientURI = new MongoClientURI(uri, optionBuilder);
         final MongoClient mongoClient = new MongoClient(clientURI);
         environment.lifecycle().manage(new AutoCloseableManagedAdapter(mongoClient));
 
         // Create datastore
-        final Morphia activeMorphia = morphia.orElseGet(this::createMorphia);
-        final Datastore datastore = activeMorphia.createDatastore(mongoClient, clientURI.getDatabase());
+        final Morphia morphia = createMorphia();
+        final Datastore datastore = morphia.createDatastore(mongoClient, clientURI.getDatabase());
 
         // Add healthcheck
         final DB db = datastore.getDB();
-        final String activeHealthcheckName = healthcheckName.orElse(name);
-        environment.healthChecks().register(activeHealthcheckName, new MongoHealthCheck(db));
+        environment.healthChecks().register(name, new MongoHealthCheck(db));
 
         return datastore;
     }
 
-    protected Morphia createMorphia() {
+    private Morphia createMorphia() {
         final Morphia morphia = new Morphia();
         morphia.getMapper().getConverters().addConverter(ZonedDateTimeConverter.class);
         return morphia;

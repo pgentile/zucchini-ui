@@ -54,22 +54,22 @@ export default class Comment extends React.PureComponent {
     let testRunInfo = null;
     if (comment.testRunId === testRunId) {
       testRunInfo = (
-        <small><i>(tir de test actuel)</i></small>
+        <i>(tir de test actuel)</i>
       );
     } else if (comment.testRun) {
       testRunInfo = (
-        <small>
+        <span>
           (tir du
           {' '}
           <Link to={`/scenarios/${comment.scenarioId}`}>{toNiceDate(comment.testRun.date)}</Link>,
           {' '}
           type <Link to={{ pathname: '/', query: { type: comment.testRun.type } }}>{comment.testRun.type}</Link>
           )
-        </small>
+        </span>
       );
     } else {
       testRunInfo = (
-        <small><i>(tir supprimé)</i></small>
+        <i>(tir supprimé)</i>
       );
     }
 
@@ -89,7 +89,7 @@ export default class Comment extends React.PureComponent {
         <h4>
           Le {toNiceDate(comment.date)}
           {' '}
-          {testRunInfo}
+          <small>{testRunInfo}</small>
         </h4>
         {commentComponent}
       </div>

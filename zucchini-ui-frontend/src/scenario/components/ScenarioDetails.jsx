@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
+import Popover from 'react-bootstrap/lib/Popover';
 
 import Button from '../../ui/components/Button';
 import SimpleText from '../../ui/components/SimpleText';
@@ -41,14 +42,19 @@ export default class ScenarioDetails extends React.PureComponent {
       );
     })
 
+    // For good popover placement :
+    //   - The container prop of the OverlayTrigger must have a CSS relative position
+    //   - The overlay prop of the OverlayTrigger must be the Popover element
     const stepFilters = (
-      <StepFiltersContainer />
+      <Popover id="step-filters" title="Configurer les options d'affichage">
+        <StepFiltersContainer />
+      </Popover>
     );
 
     return (
-      <div>
+      <div style={{ position: 'relative' }}>
         <p>
-          <OverlayTrigger rootClose trigger="click" placement="right" overlay={stepFilters}>
+          <OverlayTrigger container={this} rootClose trigger="click" placement="bottom" overlay={stepFilters}>
             <Button bsSize="xsmall">Options d&apos;affichage</Button>
           </OverlayTrigger>
         </p>

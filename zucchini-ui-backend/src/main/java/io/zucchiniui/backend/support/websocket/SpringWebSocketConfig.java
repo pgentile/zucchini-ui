@@ -72,7 +72,7 @@ public class SpringWebSocketConfig {
                 .configurator(new ServerEndpointConfig.Configurator() {
 
                     @Override
-                    public <T> T getEndpointInstance(final Class<T> endpointClass) throws InstantiationException {
+                    public <T> T getEndpointInstance(final Class<T> endpointClass) {
                         // Use Spring to create the endpoint instance
                         return endpointClass.cast(applicationContext.getBean(beanName));
                     }

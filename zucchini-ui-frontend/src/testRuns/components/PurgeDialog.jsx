@@ -14,30 +14,27 @@ const LOCAL_DATE_FORMAT = 'YYYY-MM-DD';
 
 
 export default class PurgeDialog extends React.PureComponent {
+
+  static propTypes = {
+    currentSelectedType: PropTypes.string,
+    show: PropTypes.bool.isRequired,
+    testRunTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
+    testRuns: PropTypes.array.isRequired,
+    onClose: PropTypes.func.isRequired,
+    onPurge: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
 
     const maxDate = moment().add(-configuration.testRunPurgeDelayInDays, 'day').format(LOCAL_DATE_FORMAT);
 
+    const type = props.currentSelectedType || '';
     this.state = {
-      type: '',
+      type,
       maxDate,
-      selectedTestRunIds: [],
-      changed: false,
+      selectedTestRunIds: this.selectTestRunIds(this.props.testRuns, { type, maxDate }),
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.testRuns !== nextProps.testRuns) {
-      this.setState(prevState => {
-        if (prevState.changed) {
-          return {
-            selectedTestRunIds: this.selectTestRunIds(nextProps.testRuns, prevState),
-          };
-        }
-        return {};
-      });
-    }
   }
 
   onTypeChange = (event) => {
@@ -80,7 +77,6 @@ export default class PurgeDialog extends React.PureComponent {
     this.setState((prevState, props) => {
       return {
         ...newState,
-        changed: true,
         selectedTestRunIds: this.selectTestRunIds(props.testRuns, { ...prevState, ...newState }),
       }
     });
@@ -100,6 +96,7 @@ export default class PurgeDialog extends React.PureComponent {
 
   render() {
     const { show, testRunTypes } = this.props;
+    const { type, maxDate, selectedTestRunIds } = this.state;
 
     const testRunTypeOptions = testRunTypes.map(testRunType => {
       return (
@@ -108,21 +105,20 @@ export default class PurgeDialog extends React.PureComponent {
     });
 
     let selectionAlert = null;
-    if (this.state.changed) {
-      let aboutChange = '';
-      const selectedTestRunCount = this.state.selectedTestRunIds.length;
-      if (selectedTestRunCount > 0) {
-        aboutChange = `${selectedTestRunCount} tir(s) à purger`;
-      } else {
-        aboutChange = 'Aucun tir à purger';
-      }
 
-      selectionAlert = (
-        <Alert bsStyle="warning">
-          {aboutChange}
-        </Alert>
-      );
+    let aboutChange = '';
+    const selectedTestRunCount = selectedTestRunIds.length;
+    if (selectedTestRunCount > 0) {
+      aboutChange = `${selectedTestRunCount} tir(s) à purger`;
+    } else {
+      aboutChange = 'Aucun tir à purger';
     }
+
+    selectionAlert = (
+      <Alert bsStyle="warning">
+        {aboutChange}
+      </Alert>
+    );
 
     return (
       <Modal show={show} onHide={this.onCloseClick}>
@@ -133,14 +129,14 @@ export default class PurgeDialog extends React.PureComponent {
           <form onSubmit={this.onPurge}>
             <FormGroup controlId="type">
               <ControlLabel>Type</ControlLabel>
-              <FormControl componentClass="select" value={this.state.type} onChange={this.onTypeChange}>
+              <FormControl componentClass="select" autoFocus value={type} onChange={this.onTypeChange}>
                 <option></option>
                 {testRunTypeOptions}
               </FormControl>
             </FormGroup>
             <FormGroup controlId="maxDate">
               <ControlLabel>Date maximum des tirs à purger</ControlLabel>
-              <FormControl type="date" value={this.state.maxDate} onChange={this.onMaxDateChange} />
+              <FormControl type="date" value={maxDate} onChange={this.onMaxDateChange} />
             </FormGroup>
             {selectionAlert}
           </form>
@@ -154,11 +150,3 @@ export default class PurgeDialog extends React.PureComponent {
   }
 
 }
-
-PurgeDialog.propTypes = {
-  show: PropTypes.bool.isRequired,
-  testRunTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
-  testRuns: PropTypes.array.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onPurge: PropTypes.func.isRequired,
-};

@@ -7,3 +7,5 @@
 .gradle/
 
 .DS_Store
+
+out/

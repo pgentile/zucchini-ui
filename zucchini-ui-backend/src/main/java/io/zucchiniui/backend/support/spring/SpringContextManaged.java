@@ -12,12 +12,12 @@ class SpringContextManaged implements Managed {
     }
 
     @Override
-    public void start() throws Exception {
+    public void start() {
         // TODO Start ?
     }
 
     @Override
-    public void stop() throws Exception {
+    public void stop() {
         applicationContext.stop();
         applicationContext.close();
     }

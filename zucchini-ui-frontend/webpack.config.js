@@ -1,15 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 // Output dir
 const outputDir = path.join(__dirname, 'build/dist/assets');
-
-
-// Load packages names
-const packageContent = require('./package.json');
-const vendorLibs = Object.keys(packageContent.dependencies);
 
 
 // Config
@@ -26,13 +21,11 @@ module.exports = {
   entry: {
     app: [
       './src/main.js',
-      './src/main.less',
+      './src/styles/main.less',
     ],
     vendor: [
       'bootstrap/dist/css/bootstrap.css',
-      'bootstrap/dist/js/bootstrap.js',
       'chartist/dist/chartist.min.css',
-      ...vendorLibs,
     ],
   },
   resolve: {
@@ -40,9 +33,6 @@ module.exports = {
       path.join(__dirname, 'src'),
       'node_modules',
     ],
-    alias: {
-      'jquery': 'jquery/src/jquery',
-    },
     extensions: ['.js', '.jsx', '.less', '.css'],
   },
   output: {
@@ -54,7 +44,7 @@ module.exports = {
   devServer: {
     port: config.devServer.port,
     publicPath: '/ui/assets',
-    setup: function (app) {
+    before: function (app) {
       app.get('/ui/assets/config.js', javascriptConfigMiddleware);
     },
   },
@@ -65,6 +55,7 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
+        exclude: /node_modules/,
         enforce: 'pre',
         use: [
           'eslint-loader',
@@ -72,7 +63,7 @@ module.exports = {
       },
       {
         test: /\.jsx?$/,
-        exclude: /chartist\.js/, // Babel can't load Chartist, it must be excluded
+        exclude: /node_modules/,
         use: [
           'babel-loader?cacheDirectory',
         ],
@@ -105,21 +96,35 @@ module.exports = {
     ],
   },
   plugins: [
-    /*
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      mangle: true
-    }),
-    */
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity,
-    }),
+
+    // fetch as standard API
     new webpack.ProvidePlugin({
-      '$': 'jquery',
-      'jQuery': 'jquery',
       'fetch': 'isomorphic-fetch',
     }),
+
+    // All dependencies found in node_modules in the vendor file
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: function (module) {
+        return module.context && module.context.includes('node_modules');
+      },
+    }),
+
+    // CSS in its own file
     new ExtractTextPlugin('[name].css'),
+
+    // Don't import all locales from moment.js
+    // See https://webpack.js.org/plugins/context-replacement-plugin/
+    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /fr\.js/),
+
+    // Replace lodash-es imports by equivalent lodash imports.
+    // Otherwise, same lodash functions can be loaded twice !
+    new webpack.NormalModuleReplacementPlugin(
+      /lodash-es/,
+      resource => {
+        resource.request = resource.request.replace('lodash-es', 'lodash');
+      }
+    ),
+
   ],
 };

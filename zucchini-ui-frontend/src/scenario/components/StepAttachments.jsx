@@ -29,7 +29,7 @@ export default class StepAttachments extends React.PureComponent {
 
     return (
       <PanelWithTitle title="Pièces jointes" bsStyle="default">
-        <ListGroup fill>
+        <ListGroup>
           {items}
         </ListGroup>
       </PanelWithTitle>

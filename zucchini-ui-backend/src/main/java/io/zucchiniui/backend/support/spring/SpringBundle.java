@@ -29,7 +29,7 @@ public class SpringBundle implements ConfiguredBundle<Configuration> {
     }
 
     @Override
-    public void run(final Configuration configuration, final Environment environment) throws Exception {
+    public void run(final Configuration configuration, final Environment environment) {
         environment.lifecycle().manage(new SpringContextManaged(applicationContext));
 
         applicationContext.getBeanFactory().registerSingleton("dropwizardConfig", configuration);

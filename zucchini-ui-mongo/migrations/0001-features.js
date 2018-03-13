@@ -1,4 +1,4 @@
-migrate(function () {
+migrate(() => {
 
   db.features.createIndex({ featureKey: 1 });
   db.features.createIndex({ testRunId: 1 });

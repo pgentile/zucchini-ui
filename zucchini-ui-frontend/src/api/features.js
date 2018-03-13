@@ -28,7 +28,7 @@ class FeaturesApi {
 
   deleteFeature({ featureId }) {
     return this.client.delete({
-      path: `${featureId}/history`,
+      path: featureId,
       hasOutput: false,
     });
   }

@@ -10,18 +10,21 @@ import java.io.IOException;
 
 class UIConfigServlet extends HttpServlet {
 
+    private final FrontendConfig frontendConfig;
+
     private final ObjectMapper objectMapper;
 
     private final String basePath;
 
-    public UIConfigServlet(final ObjectMapper objectMapper, String basePath) {
+    public UIConfigServlet(FrontendConfig frontendConfig, ObjectMapper objectMapper, String basePath) {
+        this.frontendConfig = frontendConfig;
         this.objectMapper = objectMapper;
         this.basePath = basePath;
     }
 
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-        final UIConfig uiConfig = new UIConfig();
+        final UIConfig uiConfig = new UIConfig(frontendConfig);
         uiConfig.setBackendBaseUri(getBackendBaseUri(request));
         uiConfig.setBasename(basePath);
 

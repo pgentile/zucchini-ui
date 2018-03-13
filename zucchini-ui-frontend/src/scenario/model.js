@@ -26,41 +26,32 @@ export function deleteScenario({ scenarioId }) {
   return scenariosApi.deleteScenario({ scenarioId });
 }
 
-export function getScenarioComments({ scenarioId }) {
+export async function getScenarioComments({ scenarioId }) {
   // Load comments, extract references
 
-  const comments$ = scenariosApi.getComments({ scenarioId })
-    .then(comments => {
-      return comments.map(comment => {
-        comment.testRunId = getCommentReference(comment.references, 'TEST_RUN_ID');
-        comment.scenarioId = getCommentReference(comment.references, 'SCENARIO_ID');
-        comment.scenarioKey = getCommentReference(comment.references, 'SCENARIO_KEY');
-        return comment;
-      });
-    });
+  let comments = await scenariosApi.getComments({ scenarioId });
+  comments = comments.map(comment => {
+    return {
+      ...comment,
+      testRunId: getCommentReference(comment.references, 'TEST_RUN_ID'),
+      scenarioId: getCommentReference(comment.references, 'SCENARIO_ID'),
+      scenarioKey: getCommentReference(comment.references, 'SCENARIO_KEY'),
+    };
+  });
 
   // Load associated test runs
 
-  const testRunsById = new PromiseMapper({
-    factory: testRunId => getTestRun({ testRunId }),
+  const testRunsById = new PromiseMapper(testRunId => getTestRun({ testRunId }));
+
+  const commentsWithTestRun$ = comments.map(async comment => {
+    const testRun = await testRunsById.get(comment.testRunId);
+    return {
+      ...comment,
+      testRun,
+    };
   });
 
-  return comments$.then(comments => {
-    const commentsWithTestRun$ = comments.map(comment => {
-
-      // Find test run promise, create a new promise if not found
-      const testRunId = comment.testRunId;
-      const testRun$ = testRunsById.get(testRunId);
-
-      // Attach test run to the comment
-      return testRun$.then(testRun => {
-        comment.testRun = testRun;
-        return comment;
-      });
-    });
-
-    return Promise.all(commentsWithTestRun$);
-  });
+  return Promise.all(commentsWithTestRun$);
 }
 
 
@@ -90,7 +81,7 @@ function getCommentReference(references, referenceType) {
 
 class PromiseMapper {
 
-  constructor({ factory }) {
+  constructor(factory) {
     this.factory = factory;
     this.promises$ = new Map();
   }

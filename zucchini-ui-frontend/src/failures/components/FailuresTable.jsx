@@ -5,7 +5,7 @@ import Table from 'react-bootstrap/lib/Table';
 import Label from 'react-bootstrap/lib/Label';
 import Modal from 'react-bootstrap/lib/Modal';
 import Status from '../../ui/components/Status';
-import { truncate } from 'lodash';
+import truncate from 'lodash/truncate';
 
 
 export default class FailuresTable extends React.Component {

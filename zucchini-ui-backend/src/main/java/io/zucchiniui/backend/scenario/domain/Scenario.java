@@ -159,8 +159,6 @@ public class Scenario extends BaseEntity<String> {
         if (oldStatus != status) {
             changes.add(new ScenarioStatusChange(modifiedAt, oldStatus, status));
         }
-
-        clearOutputIfNeeded();
     }
 
     public void setStatus(final ScenarioStatus newStatus) {
@@ -200,7 +198,7 @@ public class Scenario extends BaseEntity<String> {
 
         status = newStatus;
 
-        clearOutputIfNeeded();
+        clearOutputIfPossible();
     }
 
     public void setReviewed(final boolean reviewed) {
@@ -231,10 +229,6 @@ public class Scenario extends BaseEntity<String> {
             allTags = newTags;
             modifiedAt = ZonedDateTime.now();
         }
-    }
-
-    public void clearOutput() {
-        allSteps().forEach(Step::clearOutput);
     }
 
     public Optional<Attachment> findAttachmentById(String attachmentId) {
@@ -363,13 +357,11 @@ public class Scenario extends BaseEntity<String> {
         } else {
             status = ScenarioStatus.FAILED;
         }
-
-        clearOutputIfNeeded();
     }
 
-    private void clearOutputIfNeeded() {
+    private void clearOutputIfPossible() {
         if (status == ScenarioStatus.PASSED || status == ScenarioStatus.NOT_RUN) {
-            clearOutput();
+            allSteps().forEach(Step::clearOutput);
         }
     }
 

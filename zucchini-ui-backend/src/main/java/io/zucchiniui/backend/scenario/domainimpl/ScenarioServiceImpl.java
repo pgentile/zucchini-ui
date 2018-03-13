@@ -59,8 +59,7 @@ class ScenarioServiceImpl implements ScenarioService {
 
     /**
      * Define if the new scenarii is passed and the existing is not passed.
-     * @param existingScenario
-     * @param newScenario
+     *
      * @return true if the new scenarii is passed and the existing is not passed.
      */
     private boolean isNewPassedScenarii(Scenario existingScenario, Scenario newScenario) {

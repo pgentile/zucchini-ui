@@ -5,24 +5,38 @@ import Panel from 'react-bootstrap/lib/Panel';
 
 export default class PanelWithTitle extends React.PureComponent {
 
-  render() {
-    const { title, children, ...otherProps } = this.props;
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    panelBody: PropTypes.bool.isRequired,
+    children: PropTypes.node.isRequired,
+  };
 
-    const header = (
-      <h6>{title}</h6>
-    );
+  static defaultProps = {
+    panelBody: false,
+  };
+
+  render() {
+    const { title, panelBody, children, ...otherProps } = this.props;
+
+    let currentChildren = children;
+    if (panelBody) {
+      currentChildren = (
+        <Panel.Body>
+          {currentChildren}
+        </Panel.Body>
+      );
+    }
 
     return (
-      <Panel header={header} {...otherProps}>
-        {children}
+      <Panel {...otherProps}>
+        <Panel.Heading>
+          <Panel.Title componentClass="h6">
+            {title}
+          </Panel.Title>
+        </Panel.Heading>
+        {currentChildren}
       </Panel>
     );
   }
 
 }
-
-PanelWithTitle.propTypes = {
-  title: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-};
-

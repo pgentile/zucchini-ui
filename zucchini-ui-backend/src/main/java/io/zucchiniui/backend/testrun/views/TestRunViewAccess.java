@@ -12,10 +12,7 @@ import io.zucchiniui.backend.testrun.domain.TestRunRepository;
 import ma.glasnost.orika.BoundMapperFacade;
 import org.springframework.stereotype.Component;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -88,7 +85,7 @@ public class TestRunViewAccess {
 
                 return null;
             })
-            .filter(diff -> diff != null)
+            .filter(Objects::nonNull)
             .sorted(Comparator.comparing(d -> d.getLeft().getInfo().getName()))
             .collect(Collectors.toList());
 

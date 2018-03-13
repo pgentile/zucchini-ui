@@ -1,11 +1,41 @@
 {
   "presets": [
-    "es2015",
+    [
+      "env",
+      {
+        "modules": false,
+        "targets": {
+          "browsers": [
+            "last 3 chrome versions",
+            "last 3 firefox versions",
+            "last 2 safari versions",
+            "last 2 edge versions",
+            "last 1 ie version"
+          ],
+          "uglify": true
+        },
+        "useBuiltIns": true
+      }
+    ],
     "react",
     "stage-2"
   ],
-  "plugins": [
-    "import-asserts",
-    "transform-strict-mode"
-  ]
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "env",
+          {
+            "modules": "commonjs",
+            "targets": {
+              "node": true
+            },
+            "useBuiltIns": true
+          }
+        ],
+        "react",
+        "stage-2"
+      ]
+    }
+  }
 }

@@ -31,7 +31,7 @@ class TestRunsApi {
     });
   }
 
-  importCucumberResult({ testRunId, file, ...options }) {
+  async importCucumberResult({ testRunId, file, ...options }) {
     const url = this.client.createUrl({
       path: `${testRunId}/import`,
       query: options,
@@ -46,8 +46,8 @@ class TestRunsApi {
       body: file,
     };
 
-    return fetch(url, fetchParams)
-      .then(response => this.client.handleError({ url, response }));
+    const response = await fetch(url, fetchParams);
+    this.client.handleError({ url, response });
   }
 
   editTestRun({ testRunId, type, labels }) {

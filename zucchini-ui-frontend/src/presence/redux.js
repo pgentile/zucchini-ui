@@ -1,4 +1,6 @@
 import { handleActions } from 'redux-actions';
+import trimStart from 'lodash/trimStart';
+import trimEnd from 'lodash/trimEnd';
 
 import presenceInfoStorage from './presenceInfoStorage'
 
@@ -36,7 +38,7 @@ export function watch({ referenceType, reference }) {
 
 
 function createWebSocketUrl(targetUrl) {
-  const parts = _.split(configuration.backendBaseUri, '://', 2);
+  const parts = configuration.backendBaseUri.split('://', 2);
   const baseProtocol = parts[0];
   const remainingUrl = parts[1];
 
@@ -45,7 +47,7 @@ function createWebSocketUrl(targetUrl) {
     protocol = 'wss';
   }
 
-  return `${protocol}://${_.trimEnd(remainingUrl, '/')}/${_.trimStart(targetUrl, '/')}`;
+  return `${protocol}://${trimEnd(remainingUrl, '/')}/${trimStart(targetUrl, '/')}`;
 }
 
 

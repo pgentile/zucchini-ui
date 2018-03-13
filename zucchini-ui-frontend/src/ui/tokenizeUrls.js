@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import flatten from 'lodash/flatten';
 
 
 export default function tokenizeUrls(content) {
@@ -7,7 +7,7 @@ export default function tokenizeUrls(content) {
   }
 
   const lines = content.trim().split('\n');
-  const tokens = _.flatten(lines.map(line => {
+  const tokens = flatten(lines.map(line => {
     return tokenizeLine(line).concat([['eol']]);
   }));
 

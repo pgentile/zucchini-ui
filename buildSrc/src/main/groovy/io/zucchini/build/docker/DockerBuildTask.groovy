@@ -48,8 +48,8 @@ class DockerBuildTask extends DefaultTask {
         }
     }
 
-    void buildArg(String name, String value) {
-        buildArgs.put(name, value)
+    void buildArg(Map<String, String> args) {
+        buildArgs.putAll(args)
     }
 
 }

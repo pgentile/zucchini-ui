@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
-import _ from 'lodash';
+import sortBy from 'lodash/sortBy';
 
 import { selectScenarioFilterFunc } from '../../filters/selectors';
 import TagDetailsScenarioTable from './TagDetailsScenarioTable';
@@ -40,7 +40,7 @@ const selectScenarios = createSelector(
         };
       });
 
-    selectedScenarios = _.sortBy(selectedScenarios, [
+    selectedScenarios = sortBy(selectedScenarios, [
       scenario => scenario.feature.info.name,
       scenario => scenario.info.name,
     ]);

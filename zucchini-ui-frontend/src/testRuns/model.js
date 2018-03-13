@@ -11,15 +11,13 @@ export function getLatestsTestRunsWithStats() {
 }
 
 
-export function createTestRun({ type }) {
-  return testRunsApi.createTestRun({ type })
-    .then(response => {
-      return testRunsApi.getTestRun({ testRunId: response.id });
-    })
-    .then(testRun => ({
-      ...testRun,
-      stats: createStats(ZERO_STATS_NUMBERS),
-    }));
+export async function createTestRun({ type }) {
+  const response = await testRunsApi.createTestRun({ type });
+  const testRun = await testRunsApi.getTestRun({ testRunId: response.id });
+  return {
+    ...testRun,
+    stats: createStats(ZERO_STATS_NUMBERS),
+  };
 }
 
 

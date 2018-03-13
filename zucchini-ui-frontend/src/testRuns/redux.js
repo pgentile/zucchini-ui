@@ -1,4 +1,5 @@
 import { handleActions } from 'redux-actions';
+import { push } from 'react-router-redux';
 
 import * as model from './model'
 
@@ -49,6 +50,15 @@ export function createTestRun({ type }) {
   return {
     type: CREATE_TEST_RUN,
     payload: model.createTestRun({ type }),
+  };
+}
+
+export function createTestRunThenRedirect({ type }) {
+  return async dispatch => {
+    const result = await dispatch(createTestRun({ type }));
+    const testRun = result.value;
+
+    dispatch(push(`test-runs/${testRun.id}`));
   };
 }
 
