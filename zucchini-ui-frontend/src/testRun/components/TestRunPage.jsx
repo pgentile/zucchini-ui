@@ -113,6 +113,11 @@ export default class TestRunPage extends React.Component {
             </ButtonLink>
           </ButtonGroup>
           <ButtonGroup>
+            <ButtonLink glyph="book" to={{ pathname: `/test-runs/${testRunId}/stepDefinitions` }}>
+              Glues
+            </ButtonLink>
+          </ButtonGroup>
+          <ButtonGroup>
             <ButtonLink glyph="list" to={{ pathname: `/test-runs/${testRunId}/reports` }}>
               Bilan
             </ButtonLink>

@@ -13,6 +13,7 @@ import io.zucchiniui.backend.scenario.domain.UpdateScenarioParams;
 import io.zucchiniui.backend.scenario.views.ErrorMessageGroupingUtils;
 import io.zucchiniui.backend.scenario.views.FailedScenarioListItemView;
 import io.zucchiniui.backend.scenario.views.GroupedFailuresListItemView;
+import io.zucchiniui.backend.scenario.views.GroupedStepsListItemView;
 import io.zucchiniui.backend.scenario.views.ScenarioHistoryItemView;
 import io.zucchiniui.backend.scenario.views.ScenarioListItemView;
 import io.zucchiniui.backend.scenario.views.ScenarioStats;
@@ -118,6 +119,19 @@ public class ScenarioResource {
                 q.withFeatureId(requestParams.getFeatureId());
             }
             q.havingErrorMessage();
+        });
+    }
+
+    @GET
+    @Path("stepDefinitions")
+    public List<GroupedStepsListItemView> getGroupedStepDefinitions(@BeanParam final GetScenariiRequestParams requestParams) {
+        return scenarioViewAccess.getStepDefinitions(q -> {
+            if (!Strings.isNullOrEmpty(requestParams.getTestRunId())) {
+                q.withTestRunId(requestParams.getTestRunId());
+            }
+            if (!Strings.isNullOrEmpty(requestParams.getFeatureId())) {
+                q.withFeatureId(requestParams.getFeatureId());
+            }
         });
     }
 
