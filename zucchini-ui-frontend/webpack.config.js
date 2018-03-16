@@ -6,15 +6,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // Output dir
 const outputDir = path.join(__dirname, 'build/dist/assets');
 
-
 // Config
 const config = require('./config.json');
-
-// Connect function to serve a Javascript configuration file
-const javascriptConfigMiddleware = function (req, res) {
-  res.writeHead(200, { 'Content-Type': 'application/javascript' });
-  res.end(`var configuration = ${JSON.stringify(config.ui)};`);
-};
 
 
 module.exports = {
@@ -45,7 +38,11 @@ module.exports = {
     port: config.devServer.port,
     publicPath: '/ui/assets',
     before: function (app) {
-      app.get('/ui/assets/config.js', javascriptConfigMiddleware);
+      app.get('/ui/assets/config.js', (req, res) => {
+        // Connect function to serve a Javascript configuration file
+        res.writeHead(200, { 'Content-Type': 'application/javascript' });
+        res.end(`var configuration = ${JSON.stringify(config.ui)};`);
+      });
     },
   },
   externals: {
@@ -64,6 +61,14 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
+        use: [
+          'babel-loader?cacheDirectory',
+        ],
+      },
+      {
+        // Modules distributed as to transpile with Babel
+        test: /\.jsx?$/,
+        include: /node_modules\/(query-string|strict-uri-encode)/,
         use: [
           'babel-loader?cacheDirectory',
         ],
