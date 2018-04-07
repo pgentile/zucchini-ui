@@ -68,7 +68,7 @@ module.exports = {
       {
         // Modules distributed as to transpile with Babel
         test: /\.jsx?$/,
-        include: /node_modules\/(query-string|strict-uri-encode)/,
+        include: /node_modules[/\\](query-string|strict-uri-encode)/,
         use: [
           'babel-loader?cacheDirectory',
         ],
