@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
-import setDisplayName from 'recompose/setDisplayName';
 import wrapDisplayName from 'recompose/wrapDisplayName';
-import compose from 'recompose/compose';
 
 import { watch, unwatch } from '../redux';
 import withWindowVisibility from '../../windowVisibility/components/withWindowVisibility';
@@ -29,10 +27,12 @@ const presenceConnect = connect(
 
 
 export default function withPresenceIndicator(WrappedComponent) {
-  const wrapper = class extends React.Component { // eslint-disable-line react/display-name
+  const wrapper = class extends React.Component {
+
+    static displayName = wrapDisplayName(WrappedComponent, 'withPresenceIndicator');
 
     static propTypes = {
-      windowVisibilityState: PropTypes.string.isRequired,
+      isWindowVisible: PropTypes.bool.isRequired,
       referenceType: PropTypes.string.isRequired,
       reference: PropTypes.string.isRequired,
       otherWatcherIds: PropTypes.array,
@@ -41,9 +41,9 @@ export default function withPresenceIndicator(WrappedComponent) {
     };
 
     componentDidMount() {
-      const { onWatch, referenceType, reference, windowVisibilityState } = this.props;
+      const { onWatch, referenceType, reference, isWindowVisible } = this.props;
 
-      if (windowVisibilityState === 'VISIBLE') {
+      if (isWindowVisible) {
         onWatch({
           referenceType,
           reference,
@@ -51,14 +51,13 @@ export default function withPresenceIndicator(WrappedComponent) {
       }
     }
 
-    componentWillReceiveProps(nextProps) {
-      const { onUnwatch } = this.props;
-      const { onWatch, referenceType, reference, windowVisibilityState } = nextProps;
+    componentDidUpdate(prevProps) {
+      const { onUnwatch, onWatch, referenceType, reference, isWindowVisible } = this.props;
 
-      if (this.hasVisibilityChanged(nextProps) || this.hasReferenceChanged(nextProps)) {
+      if (this.hasVisibilityChanged(prevProps) || this.hasReferenceChanged(prevProps)) {
         onUnwatch();
 
-        if (windowVisibilityState === 'VISIBLE') {
+        if (isWindowVisible) {
           onWatch({
             referenceType,
             reference,
@@ -72,12 +71,12 @@ export default function withPresenceIndicator(WrappedComponent) {
       this.props.onUnwatch();
     }
 
-    hasVisibilityChanged(nextProps) {
-      return this.props.windowVisibilityState !== nextProps.windowVisibilityState;
+    hasVisibilityChanged(prevProps) {
+      return this.props.isWindowVisible !== prevProps.isWindowVisible;
     }
 
-    hasReferenceChanged(nextProps) {
-      return this.props.referenceType !== nextProps.referenceType || this.props.reference !== nextProps.reference;
+    hasReferenceChanged(prevProps) {
+      return this.props.referenceType !== prevProps.referenceType || this.props.reference !== prevProps.reference;
     }
 
     render() {
@@ -89,8 +88,5 @@ export default function withPresenceIndicator(WrappedComponent) {
 
   };
 
-  const displayName = wrapDisplayName(WrappedComponent, 'withPresenceIndicator');
-  const wrapped = setDisplayName(displayName)(wrapper);
-
-  return compose(presenceConnect, withWindowVisibility)(wrapped);
+  return withWindowVisibility(presenceConnect(wrapper));
 }

@@ -1,58 +1,68 @@
 import React from 'react';
-import setDisplayName from 'recompose/setDisplayName';
 import wrapDisplayName from 'recompose/wrapDisplayName';
-
-
-export const VISIBLE_STATE = 'VISIBLE';
-export const HIDDEN_STATE = 'HIDDEN';
-export const UNKNOWN_STATE = 'UNKNOWN';
+import debounce from 'lodash/debounce';
 
 
 export default function withWindowVisibility(WrappedComponent) {
-  const wrapper = class extends React.Component { // eslint-disable-line react/display-name
+  return class extends React.Component {
 
-    constructor(props) {
-      super(props);
+    static displayName = wrapDisplayName(WrappedComponent, 'withWindowVisibility');
 
-      this.state = {
-        windowVisibilityState: UNKNOWN_STATE,
-      };
-    }
+    state = {
+      isWindowVisible: true,
+    };
 
     componentDidMount() {
-      this.setState({
-        windowVisibilityState: this.getVisibilityState(),
-      });
-
       window.document.addEventListener('visibilitychange', this.listenVisibilityChange);
     }
 
     componentWillUnmount() {
-      this.setState({
-        windowVisibilityState: UNKNOWN_STATE,
-      });
+      this.applyHidden.cancel();
 
       window.document.removeEventListener('visibilitychange', this.listenVisibilityChange);
     }
 
     listenVisibilityChange = () => {
-      this.setState({
-        windowVisibilityState: this.getVisibilityState(),
-      });
+      this.isWindowVisible() ? this.applyVisible() : this.applyHidden();
     };
 
-    getVisibilityState() {
-      return window.document.visibilityState === 'visible' ? VISIBLE_STATE : HIDDEN_STATE;
+    applyVisible() {
+      this.applyHidden.cancel();
+
+      this.setState(prevState => {
+        if (prevState.isWindowVisible) {
+          return null;
+        }
+
+        return {
+          isWindowVisible: true,
+        };
+      });
+    }
+
+    // These events are throttled because the full screen mode in chrome
+    // triggers two events : hidden then visible.
+    applyHidden = debounce(() => {
+      this.setState(prevState => {
+        if (!prevState.isWindowVisible) {
+          return null;
+        }
+
+        return {
+          isWindowVisible: false,
+        };
+      });
+    }, 500);
+
+    isWindowVisible() {
+      return window.document.visibilityState !== 'hidden';
     }
 
     render() {
       return (
-        <WrappedComponent {...this.props} windowVisibilityState={this.state.windowVisibilityState} />
+        <WrappedComponent {...this.props} isWindowVisible={this.state.isWindowVisible} />
       );
     }
 
   };
-
-  const displayName = wrapDisplayName(WrappedComponent, 'withWindowVisibility');
-  return setDisplayName(displayName)(wrapper);
 }
