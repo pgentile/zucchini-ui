@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
 // Output dir
@@ -11,16 +11,12 @@ const config = require('./config.json');
 
 
 module.exports = {
-  entry: {
-    app: [
-      './src/main.js',
-      './src/styles/main.less',
-    ],
-    vendor: [
-      'bootstrap/dist/css/bootstrap.css',
-      'chartist/dist/chartist.min.css',
-    ],
-  },
+  entry: [
+    './src/main.js',
+    './src/styles/main.less',
+    'bootstrap/dist/css/bootstrap.css',
+    'chartist/dist/chartist.min.css',
+  ],
   resolve: {
     modules: [
       path.join(__dirname, 'src'),
@@ -75,22 +71,20 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            'css-loader?sourceMap',
-            'postcss-loader?sourceMap',
-          ],
-        }),
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader?sourceMap',
+          'postcss-loader?sourceMap',
+        ],
       },
       {
         test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            'css-loader?sourceMap',
-            'postcss-loader?sourceMap',
-            'less-loader?sourceMap',
-          ],
-        }),
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader?sourceMap',
+          'postcss-loader?sourceMap',
+          'less-loader?sourceMap',
+        ],
       },
       {
         test: /\.(ttf|eot|woff2?|svg|png|jpg|gif)$/,
@@ -100,6 +94,24 @@ module.exports = {
       },
     ],
   },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      name: true,
+      cacheGroups: {
+        vendors: {
+          name: 'vendor',
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        default: {
+          minChunks: 1,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    }
+  },
   plugins: [
 
     // fetch as standard API
@@ -107,16 +119,7 @@ module.exports = {
       'fetch': 'isomorphic-fetch',
     }),
 
-    // All dependencies found in node_modules in the vendor file
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: function (module) {
-        return module.context && module.context.includes('node_modules');
-      },
-    }),
-
-    // CSS in its own file
-    new ExtractTextPlugin('[name].css'),
+    new MiniCssExtractPlugin(),
 
     // Don't import all locales from moment.js
     // See https://webpack.js.org/plugins/context-replacement-plugin/
