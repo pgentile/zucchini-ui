@@ -196,28 +196,28 @@ public class ScenarioViewAccess {
         final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator).project("steps", true);
         List<Step> steps = MorphiaUtils.streamQuery(query)
             .flatMap(scenario -> scenario.getSteps().stream())
+            .filter(step -> step.getDefinitionLocation() != null)
             .collect(Collectors.toList());
 
         List<GroupedStepsListItemView> groupedSteps = new ArrayList<>();
-        steps.stream().filter(step -> step.getStepDefinitionLocation() != null).
-            forEach(step -> {
-                boolean matchFound = false;
-                for (GroupedStepsListItemView current : groupedSteps) {
-                    if (current.getStepDefinitionLocation().equals(step.getStepDefinitionLocation())) {
-                        current.addOccurrence(step);
-                        matchFound = true;
-                        break;
-                    }
-                    matchFound = false;
+        steps.forEach(step -> {
+            boolean matchFound = false;
+            for (GroupedStepsListItemView current : groupedSteps) {
+                if (current.getStepDefinitionLocation().equals(step.getDefinitionLocation())) {
+                    current.addOccurrence(step);
+                    matchFound = true;
+                    break;
                 }
-                if (!matchFound) {
-                    GroupedStepsListItemView noMatch = new GroupedStepsListItemView();
-                    noMatch.setOccurrences(new TreeSet<>(Comparator.comparing(s -> s.getInfo().getName())));
-                    noMatch.addOccurrence(step);
-                    noMatch.setStepDefinitionLocation(step.getStepDefinitionLocation());
-                    groupedSteps.add(noMatch);
-                }
-            });
+                matchFound = false;
+            }
+            if (!matchFound) {
+                GroupedStepsListItemView noMatch = new GroupedStepsListItemView();
+                noMatch.setOccurrences(new TreeSet<>(Comparator.comparing(s -> s.getInfo().getName())));
+                noMatch.addOccurrence(step);
+                noMatch.setStepDefinitionLocation(step.getDefinitionLocation());
+                groupedSteps.add(noMatch);
+            }
+        });
 
         return groupedSteps
             .stream()

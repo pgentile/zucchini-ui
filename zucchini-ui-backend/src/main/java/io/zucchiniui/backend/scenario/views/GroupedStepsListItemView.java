@@ -8,25 +8,25 @@ import java.util.Set;
 public class GroupedStepsListItemView {
 
     private Location stepDefinitionLocation;
-    private Set<Step> occurrences;
+    private Set<StepOccurrence> occurrences;
 
-    public void addOccurrence(Step step) {
-        occurrences.add(step);
+    void addOccurrence(Step step) {
+        occurrences.add(new StepOccurrence(step.getInfo(), step.getStatus()));
     }
 
-    public Location getStepDefinitionLocation() {
+    Location getStepDefinitionLocation() {
         return stepDefinitionLocation;
     }
 
-    public void setStepDefinitionLocation(Location stepDefinitionLocation) {
+    void setStepDefinitionLocation(Location stepDefinitionLocation) {
         this.stepDefinitionLocation = stepDefinitionLocation;
     }
 
-    public Set<Step> getOccurrences() {
+    Set<StepOccurrence> getOccurrences() {
         return occurrences;
     }
 
-    public void setOccurrences(Set<Step> occurrences) {
+    void setOccurrences(Set<StepOccurrence> occurrences) {
         this.occurrences = occurrences;
     }
 }

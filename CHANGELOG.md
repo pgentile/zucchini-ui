@@ -11,6 +11,7 @@ Version 0.0.3-SNAPSHOT
 * Report for a test tun (contribution by @devjiel)
 * Configure the test run purge delay from the server YAML config file
 * UI: Replaced the `yarn run dev` command with the more common `yarn start`
+* Visualize step definitions usage (contribution by @jeremiemarc)
 
 
 Version 0.0.2-SNAPSHOT

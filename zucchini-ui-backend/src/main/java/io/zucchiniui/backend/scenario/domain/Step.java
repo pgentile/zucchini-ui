@@ -24,7 +24,7 @@ public class Step {
 
     private List<Attachment> attachments = new ArrayList<>();
 
-    private Location stepDefinitionLocation;
+    private Location definitionLocation;
 
     /**
      * Private constructor for Morphia.
@@ -41,7 +41,7 @@ public class Step {
         comment = builder.getComment();
         output = builder.getOutput();
         attachments = builder.getAttachments();
-        stepDefinitionLocation = builder.getStepDefinitionLocation();
+        definitionLocation = builder.getDefinitionLocation();
     }
 
     public BasicInfo getInfo() {
@@ -72,8 +72,8 @@ public class Step {
         return attachments;
     }
 
-    public Location getStepDefinitionLocation() {
-        return stepDefinitionLocation;
+    public Location getDefinitionLocation() {
+        return definitionLocation;
     }
 
     protected Step copy() {
@@ -85,7 +85,7 @@ public class Step {
         newStep.comment = comment;
         newStep.output = output;
         newStep.attachments = attachments;
-        newStep.stepDefinitionLocation = stepDefinitionLocation;
+        newStep.definitionLocation = definitionLocation;
         return newStep;
     }
 

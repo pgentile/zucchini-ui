@@ -119,7 +119,7 @@ class ReportScenarioConverter {
             .withErrorMessage(reportStep.getResult().getErrorMessage())
             .withStatus(convertStepStatus(reportStep.getResult().getStatus()))
             .withInfo(stepInfo)
-            .withStepDefinitionLocation(convertLocation(reportStep.getMatch().getLocation(), ":"))
+            .withDefinitionLocation(convertLocation(reportStep.getMatch().getLocation(), ":"))
             .withComment(stepComment)
             .withOutput(output)
             .withTable(table)

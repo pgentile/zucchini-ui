@@ -130,7 +130,7 @@ class FailuresDetailsDialog extends React.PureComponent {
   render() {
     const { show, errorMessage } = this.props;
     return (
-      <Modal bsSize='large' dialogClassName='modal-dialog' show={show} onHide={this.onCloseClick}>
+      <Modal bsSize='large' dialogClassName='details-modal-dialog' show={show} onHide={this.onCloseClick}>
         <Modal.Header closeButton>
           <Modal.Title>{"Détails de l'erreur"}</Modal.Title>
         </Modal.Header>
