@@ -15,8 +15,8 @@ export default class UpdateScenarioReviewedStateDialog extends React.PureCompone
     this.state = this.createDefaultState();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.scenarioId !== nextProps.scenarioId) {
+  componentDidUpdate(prevProps) {
+    if (prevProps.scenarioId !== this.props.scenarioId) {
       this.setState(this.createDefaultState());
     }
   }

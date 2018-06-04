@@ -19,15 +19,16 @@ const AVAILABLE_STATUS = {
 
 
 export default class UpdateScenarioStateDialog extends React.PureComponent {
+
   constructor(props) {
     super(props);
 
     this.state = this.createDefaultStateFromProps(props);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.scenario !== nextProps.scenario) {
-      this.setState(this.createDefaultStateFromProps(nextProps));
+  componentDidUpdate(prevProps) {
+    if (prevProps.scenario !== this.props.scenario) {
+      this.setState(this.createDefaultStateFromProps(this.props));
     }
   }
 

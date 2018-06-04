@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute } from 'react-router';
 
@@ -63,29 +63,31 @@ function routeOldPaths(nextState, replace) {
 
 export default function AppRouter() {
   return (
-    <Provider store={store}>
-      <Router history={history}>
-        <Route path="/" component={RootPage}>
-          <IndexRoute components={{ main: TestRunsPageContainer, breadcrum: TestRunsBreadcrumbContainer }} onEnter={routeOldPaths} />
-          <Route path="test-runs/:testRunId">
-            <IndexRoute components={{ main: TestRunPageContainer, breadcrum: TestRunBreadcrumbContainer, search: NavSearchFormContainer }} />
-            <Route path="search" components={{ main: TestRunSearchPageContainer, breadcrum: TestRunSearchBreadcrumbContainer }} />
-            <Route path="tags" components={{ main: TagsPageContainer, breadcrum: TagsBreadcrumbContainer, search: NavSearchFormContainer }} />
-            <Route path="failures" components={{ main: FailuresPageContainer, breadcrum: FailuresBreadcrumbContainer, search: NavSearchFormContainer }} />
-            <Route path="reports" components={{ main: ReportsPageContainer, breadcrum: ReportsBreadcrumbContainer, search: NavSearchFormContainer }} />
-            <Route path="tag-details" components={{ main: TagDetailsPageContainer, breadcrum: TagDetailsBreadcrumbContainer, search: NavSearchFormContainer }} />
-            <Route path="diff" components={{ main: TestRunDiffPageContainer, breadcrum: TestRunDiffBreadcrumbContainer, search: NavSearchFormContainer }} />
-            <Route path="stepDefinitions" components={{ main: StepDefinitionsPageContainer, breadcrum: StepDefinitionsBreadcrumbContainer, search: NavSearchFormContainer }} />
+    <StrictMode>
+      <Provider store={store}>
+        <Router history={history}>
+          <Route path="/" component={RootPage}>
+            <IndexRoute components={{ main: TestRunsPageContainer, breadcrum: TestRunsBreadcrumbContainer }} onEnter={routeOldPaths} />
+            <Route path="test-runs/:testRunId">
+              <IndexRoute components={{ main: TestRunPageContainer, breadcrum: TestRunBreadcrumbContainer, search: NavSearchFormContainer }} />
+              <Route path="search" components={{ main: TestRunSearchPageContainer, breadcrum: TestRunSearchBreadcrumbContainer }} />
+              <Route path="tags" components={{ main: TagsPageContainer, breadcrum: TagsBreadcrumbContainer, search: NavSearchFormContainer }} />
+              <Route path="failures" components={{ main: FailuresPageContainer, breadcrum: FailuresBreadcrumbContainer, search: NavSearchFormContainer }} />
+              <Route path="reports" components={{ main: ReportsPageContainer, breadcrum: ReportsBreadcrumbContainer, search: NavSearchFormContainer }} />
+              <Route path="tag-details" components={{ main: TagDetailsPageContainer, breadcrum: TagDetailsBreadcrumbContainer, search: NavSearchFormContainer }} />
+              <Route path="diff" components={{ main: TestRunDiffPageContainer, breadcrum: TestRunDiffBreadcrumbContainer, search: NavSearchFormContainer }} />
+              <Route path="stepDefinitions" components={{ main: StepDefinitionsPageContainer, breadcrum: StepDefinitionsBreadcrumbContainer, search: NavSearchFormContainer }} />
+            </Route>
+            <Route path="features/:featureId">
+              <IndexRoute components={{ main: FeaturePageContainer, breadcrum: FeatureBreadcrumbContainer, search: NavSearchFormContainer }} />
+            </Route>
+            <Route path="scenarios/:scenarioId">
+              <IndexRoute components={{ main: ScenarioPageContainer, breadcrum: ScenarioBreadcrumbContainer, search: NavSearchFormContainer }} />
+            </Route>
+            <Route path="*" components={{ main: NotFoundPage }} />
           </Route>
-          <Route path="features/:featureId">
-            <IndexRoute components={{ main: FeaturePageContainer, breadcrum: FeatureBreadcrumbContainer, search: NavSearchFormContainer }} />
-          </Route>
-          <Route path="scenarios/:scenarioId">
-            <IndexRoute components={{ main: ScenarioPageContainer, breadcrum: ScenarioBreadcrumbContainer, search: NavSearchFormContainer }} />
-          </Route>
-          <Route path="*" components={{ main: NotFoundPage }} />
-        </Route>
-      </Router>
-    </Provider>
+        </Router>
+      </Provider>
+    </StrictMode>
   );
 }

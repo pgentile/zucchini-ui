@@ -34,7 +34,7 @@ const middlewares = [
 // eslint-disable-next-line no-undef
 if (process.env.NODE_ENV !== 'production') {
   // eslint-disable-next-line no-console
-  console.warn('Using the freeze middleware. Bad mutable store updates will be detected! ❄️')
+  console.info('%c ❄️ Using the freeze middleware. Bad mutable store updates will be detected!', 'font-weight: bold');
   middlewares.push(freezeMiddleware);
 }
 

@@ -24,9 +24,27 @@ class DockerPlugin implements Plugin<Project> {
     }
 
     private static void initTasks(Project project) {
-        Task buildTask = project.task('dockerBuild', type: DockerBuildTask, group: TASK_GROUP, description: 'Build Docker image')
+        Task buildTask = project.task(
+            'dockerBuild',
+            type: DockerBuildTask,
+            group: TASK_GROUP,
+            description: 'Build Docker image'
+        )
 
-        project.task('dockerPush', type: DockerPushTask, group: TASK_GROUP, description: 'Push Docker image', dependsOn: buildTask)
+        project.task(
+            'dockerPush',
+            type: DockerPushTask,
+            group: TASK_GROUP,
+            description: 'Push Docker image',
+            dependsOn: buildTask
+        )
+
+        project.task(
+            'dockerClean',
+            type: DockerCleanTask,
+            group: TASK_GROUP,
+            description: 'Clean generated Docker images'
+        )
 
         project.afterEvaluate {
 

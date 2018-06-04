@@ -11,29 +11,33 @@ export default class LoadingIndicator extends React.PureComponent {
     active: PropTypes.bool.isRequired,
   };
 
-  constructor(props) {
-    super(props);
+  static defaultProps = {
+    active: false,
+  };
 
-    this.eventScheduler = new EventScheduler();
+  inactiveState = {
+    start: false,
+    pending: false,
+    ending: false,
+    done: false,
+  };
 
-    this.state = {
-      start: false,
-      pending: false,
-      ending: false,
-      done: false,
-    };
-  }
+  state = this.inactiveState;
 
-  componentWillReceiveProps(nextProps) {
-    const { active } = nextProps;
+  eventScheduler = new EventScheduler();
 
-    if (active) {
-      this.scheduleState({ start: true });
-      this.scheduleState({ pending: true });
-    } else {
-      this.scheduleState({ ending: true });
-      this.scheduleState({ done: true }, 200);
-      this.scheduleState({ start: false, pending: false, ending: false, done: false }, 100);
+  componentDidUpdate(prevProps) {
+    const { active } = this.props;
+
+    if (prevProps.active !== active) {
+      if (active) {
+        this.scheduleState({ start: true });
+        this.scheduleState({ pending: true });
+      } else {
+        this.scheduleState({ ending: true });
+        this.scheduleState({ done: true }, 200);
+        this.scheduleState(this.inactiveState, 100);
+      }
     }
   }
 
