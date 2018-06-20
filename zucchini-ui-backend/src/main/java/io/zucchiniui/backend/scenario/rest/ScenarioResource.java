@@ -4,20 +4,8 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
 import io.dropwizard.jersey.PATCH;
 import io.zucchiniui.backend.comment.rest.CommentResource;
-import io.zucchiniui.backend.scenario.domain.Attachment;
-import io.zucchiniui.backend.scenario.domain.Scenario;
-import io.zucchiniui.backend.scenario.domain.ScenarioQuery;
-import io.zucchiniui.backend.scenario.domain.ScenarioRepository;
-import io.zucchiniui.backend.scenario.domain.ScenarioService;
-import io.zucchiniui.backend.scenario.domain.UpdateScenarioParams;
-import io.zucchiniui.backend.scenario.views.ErrorMessageGroupingUtils;
-import io.zucchiniui.backend.scenario.views.FailedScenarioListItemView;
-import io.zucchiniui.backend.scenario.views.GroupedFailuresListItemView;
-import io.zucchiniui.backend.scenario.views.ScenarioHistoryItemView;
-import io.zucchiniui.backend.scenario.views.ScenarioListItemView;
-import io.zucchiniui.backend.scenario.views.ScenarioStats;
-import io.zucchiniui.backend.scenario.views.ScenarioTagStats;
-import io.zucchiniui.backend.scenario.views.ScenarioViewAccess;
+import io.zucchiniui.backend.scenario.domain.*;
+import io.zucchiniui.backend.scenario.views.*;
 import io.zucchiniui.backend.shared.domain.ItemReference;
 import io.zucchiniui.backend.shared.domain.ItemReferenceType;
 import io.zucchiniui.backend.shared.domain.TagSelection;
@@ -25,14 +13,7 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.BadRequestException;
-import javax.ws.rs.BeanParam;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -118,6 +99,16 @@ public class ScenarioResource {
                 q.withFeatureId(requestParams.getFeatureId());
             }
             q.havingErrorMessage();
+        });
+    }
+
+    @GET
+    @Path("stepDefinitions")
+    public List<GroupedStepsListItemView> getGroupedStepDefinitions(@QueryParam("testRunId") final String testRunId) {
+        return scenarioViewAccess.getStepDefinitions(q -> {
+            if (!Strings.isNullOrEmpty(testRunId)) {
+                q.withTestRunId(testRunId);
+            }
         });
     }
 

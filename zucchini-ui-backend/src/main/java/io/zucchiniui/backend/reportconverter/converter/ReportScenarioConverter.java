@@ -4,23 +4,13 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import com.google.common.io.BaseEncoding;
 import io.zucchiniui.backend.feature.domain.Feature;
-import io.zucchiniui.backend.reportconverter.report.ReportAroundAction;
-import io.zucchiniui.backend.reportconverter.report.ReportAttachment;
-import io.zucchiniui.backend.reportconverter.report.ReportBackground;
-import io.zucchiniui.backend.reportconverter.report.ReportComment;
-import io.zucchiniui.backend.reportconverter.report.ReportScenario;
-import io.zucchiniui.backend.reportconverter.report.ReportStep;
-import io.zucchiniui.backend.reportconverter.report.TableRow;
-import io.zucchiniui.backend.reportconverter.report.Tag;
-import io.zucchiniui.backend.scenario.domain.AroundActionBuilder;
-import io.zucchiniui.backend.scenario.domain.Attachment;
-import io.zucchiniui.backend.scenario.domain.BackgroundBuilder;
-import io.zucchiniui.backend.scenario.domain.ScenarioBuilder;
-import io.zucchiniui.backend.scenario.domain.StepBuilder;
-import io.zucchiniui.backend.scenario.domain.StepStatus;
+import io.zucchiniui.backend.reportconverter.report.*;
+import io.zucchiniui.backend.scenario.domain.*;
 import io.zucchiniui.backend.shared.domain.Argument;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
+import io.zucchiniui.backend.shared.domain.Location;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -117,6 +107,7 @@ class ReportScenarioConverter {
             .withErrorMessage(reportStep.getResult().getErrorMessage())
             .withStatus(convertStepStatus(reportStep.getResult().getStatus()))
             .withInfo(stepInfo)
+            .withDefinitionLocation(parseLocation(reportStep.getMatch().getLocation()))
             .withComment(stepComment)
             .withOutput(output)
             .withTable(table)
@@ -176,6 +167,17 @@ class ReportScenarioConverter {
                 return new Attachment(data, mimeType);
             })
             .collect(Collectors.toList());
+    }
+
+    private static Location parseLocation(String rawLocation) {
+        if (StringUtils.countMatches(rawLocation, ':') == 1) {
+            final String[] locationParts = StringUtils.split(ConversionUtils.trimString(rawLocation), ':');
+            return new Location(
+                locationParts[0],
+                NumberUtils.toInt(locationParts[1])
+            );
+        }
+        return null;
     }
 
 }

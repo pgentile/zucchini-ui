@@ -4,6 +4,7 @@ import io.zucchiniui.backend.scenario.dao.ScenarioDAO;
 import io.zucchiniui.backend.scenario.domain.Scenario;
 import io.zucchiniui.backend.scenario.domain.ScenarioQuery;
 import io.zucchiniui.backend.scenario.domain.ScenarioStatus;
+import io.zucchiniui.backend.scenario.domain.Step;
 import io.zucchiniui.backend.shared.domain.TagSelection;
 import io.zucchiniui.backend.support.ddd.morphia.MorphiaRawQuery;
 import io.zucchiniui.backend.support.ddd.morphia.MorphiaUtils;
@@ -188,6 +189,40 @@ public class ScenarioViewAccess {
             .stream()
             .map(dbObj -> (String) dbObj.get("featureId"))
             .collect(Collectors.toSet());
+    }
+
+    public List<GroupedStepsListItemView> getStepDefinitions(final Consumer<ScenarioQuery> preparator) {
+
+        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator).project("steps", true);
+        List<Step> steps = MorphiaUtils.streamQuery(query)
+            .flatMap(scenario -> scenario.getSteps().stream())
+            .filter(step -> step.getDefinitionLocation() != null)
+            .collect(Collectors.toList());
+
+        final List<GroupedStepsListItemView> groupedSteps = new ArrayList<>();
+        steps.forEach(step -> {
+            boolean matchFound = false;
+            for (GroupedStepsListItemView current : groupedSteps) {
+                if (current.getStepDefinitionLocation().equals(step.getDefinitionLocation())) {
+                    current.addOccurrence(step);
+                    matchFound = true;
+                    break;
+                }
+                matchFound = false;
+            }
+            if (!matchFound) {
+                GroupedStepsListItemView noMatch = new GroupedStepsListItemView();
+                noMatch.setOccurrences(new TreeSet<>(Comparator.comparing(s -> s.getInfo().getName())));
+                noMatch.addOccurrence(step);
+                noMatch.setStepDefinitionLocation(step.getDefinitionLocation());
+                groupedSteps.add(noMatch);
+            }
+        });
+
+        return groupedSteps
+            .stream()
+            .sorted(Comparator.comparing((GroupedStepsListItemView grp) -> grp.getOccurrences().size()).reversed())
+            .collect(Collectors.toList());
     }
 
 }

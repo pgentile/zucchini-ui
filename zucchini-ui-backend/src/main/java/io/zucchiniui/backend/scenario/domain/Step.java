@@ -2,6 +2,7 @@ package io.zucchiniui.backend.scenario.domain;
 
 import com.google.common.base.MoreObjects;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
+import io.zucchiniui.backend.shared.domain.Location;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,8 @@ public class Step {
 
     private List<Attachment> attachments = new ArrayList<>();
 
+    private Location definitionLocation;
+
     /**
      * Private constructor for Morphia.
      */
@@ -38,6 +41,7 @@ public class Step {
         comment = builder.getComment();
         output = builder.getOutput();
         attachments = builder.getAttachments();
+        definitionLocation = builder.getDefinitionLocation();
     }
 
     public BasicInfo getInfo() {
@@ -68,6 +72,10 @@ public class Step {
         return attachments;
     }
 
+    public Location getDefinitionLocation() {
+        return definitionLocation;
+    }
+
     protected Step copy() {
         final Step newStep = new Step();
         newStep.info = info;
@@ -77,6 +85,7 @@ public class Step {
         newStep.comment = comment;
         newStep.output = output;
         newStep.attachments = attachments;
+        newStep.definitionLocation = definitionLocation;
         return newStep;
     }
 

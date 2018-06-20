@@ -39,6 +39,8 @@ import ReportsPageContainer from './reports/components/ReportsPageContainer';
 import ReportsBreadcrumbContainer from './reports/components/ReportsBreadcrumbContainer';
 
 import NotFoundPage from './notFound/components/NotFoundPage';
+import StepDefinitionsPageContainer from './stepDefinitions/components/StepDefinitionsPageContainer';
+import StepDefinitionsBreadcrumbContainer from './stepDefinitions/components/StepDefinitionsBreadcrumbContainer';
 
 
 // Route old Angular UI URL to new URL
@@ -74,6 +76,7 @@ export default function AppRouter() {
               <Route path="reports" components={{ main: ReportsPageContainer, breadcrum: ReportsBreadcrumbContainer, search: NavSearchFormContainer }} />
               <Route path="tag-details" components={{ main: TagDetailsPageContainer, breadcrum: TagDetailsBreadcrumbContainer, search: NavSearchFormContainer }} />
               <Route path="diff" components={{ main: TestRunDiffPageContainer, breadcrum: TestRunDiffBreadcrumbContainer, search: NavSearchFormContainer }} />
+              <Route path="stepDefinitions" components={{ main: StepDefinitionsPageContainer, breadcrum: StepDefinitionsBreadcrumbContainer, search: NavSearchFormContainer }} />
             </Route>
             <Route path="features/:featureId">
               <IndexRoute components={{ main: FeaturePageContainer, breadcrum: FeatureBreadcrumbContainer, search: NavSearchFormContainer }} />

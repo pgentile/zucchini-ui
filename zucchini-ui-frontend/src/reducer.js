@@ -15,7 +15,7 @@ import { errors } from './errors/redux';
 import { presence } from './presence/redux';
 import { loadingIndicator } from './loadingIndicator/redux';
 import { failures } from './failures/redux';
-
+import { stepDefinitions } from './stepDefinitions/redux';
 
 
 const reducer = combineReducers({
@@ -38,6 +38,7 @@ const reducer = combineReducers({
   presence,
   failures,
   loadingIndicator,
+  stepDefinitions
 });
 
 export default reducer;

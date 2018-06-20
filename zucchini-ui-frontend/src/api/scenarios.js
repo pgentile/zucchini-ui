@@ -37,6 +37,15 @@ class ScenariosApi {
     });
   }
 
+  getStepDefinitions({ testRunId }) {
+    return this.client.get({
+      path: '/stepDefinitions',
+      query: {
+        testRunId
+      },
+    });
+  }
+
   getFailures({ testRunId }) {
     return this.client.get({
       path: '/failures',
