@@ -2,12 +2,12 @@
   "name": "zucchini-ui-frontend",
   "private": true,
   "scripts": {
-    "start": "webpack-dev-server --inline --debug --progress --open --history-api-fallback",
-    "build": "webpack --progress --profile --colors -p",
+    "start": "webpack-dev-server --inline --debug --progress --open --history-api-fallback --mode=development",
+    "build": "webpack --progress --profile --colors --mode=production",
     "lint": "eslint --ext .jsx,.js ./src/ ./test/",
     "fix": "eslint --fix --ext .jsx,.js ./src/ ./test/",
     "test": "cross-env BABEL_ENV=test mocha --require babel-register --require ./test/helpers.js test/**/*.{js,jsx}",
-    "stats": "webpack --profile --json -p >./build/stats.json"
+    "stats": "webpack --profile --json --mode=production >./build/stats.json"
   },
   "devDependencies": {
     "assert": "^1.4.1",
