@@ -18,7 +18,6 @@ plugins {
     id 'us.kirchmeier.capsule' version '1.0.2' apply false
     id 'com.google.osdetector' version '1.4.0' apply false
     id 'org.ajoberstar.grgit' version '2.2.1' apply false
-    id 'net.ltgt.apt' version '0.16' apply false
     id 'net.ltgt.errorprone' version '0.0.14' apply false
 }
 
@@ -202,11 +201,10 @@ allprojects {
 project("${rootProject.name}-backend") {
 
     apply plugin: 'java'
-    apply plugin: 'net.ltgt.apt'
 
     dependencies {
 
-        apt group: 'org.hibernate', name: 'hibernate-validator-annotation-processor', version: versions.hibernateValidator
+        annotationProcessor group: 'org.hibernate', name: 'hibernate-validator-annotation-processor', version: versions.hibernateValidator
 
         compile "io.dropwizard:dropwizard-core:${versions.dropwizard}"
         compile "ma.glasnost.orika:orika-core:${versions.orika}"
