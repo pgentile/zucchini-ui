@@ -7,11 +7,13 @@ services:
 
 jdk:
   - oraclejdk8
+  # Build not ready for JDK9 (Groovy build error on JAXB, Findbugs errors, migration to https://spotbugs.github.io/ recommanded)
+  # - oraclejdk9
 
 before_install:
   # Install a recent node version
-  - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
-  - nvm install 8.1.2 && nvm use 8.1.2
+  - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+  - nvm install 8.11.3 && nvm use 8.11.3
   # Install Yarn
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH=$HOME/.yarn/bin:$PATH
