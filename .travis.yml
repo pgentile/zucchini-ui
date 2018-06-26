@@ -7,8 +7,7 @@ services:
 
 jdk:
   - oraclejdk8
-  # Build not ready for JDK9 (Groovy build error on JAXB, Findbugs errors, migration to https://spotbugs.github.io/ recommanded)
-  # - oraclejdk9
+  - oraclejdk9
 
 before_install:
   # Install a recent node version
