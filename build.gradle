@@ -60,8 +60,7 @@ allprojects {
         mockito           : '2.19.0',
         junitQuickcheck   : '0.8.1',
         capsule           : '1.0.3',
-        groovy            : '2.5.0',
-        cucumberGroovy    : '1.2.5',
+        cucumber          : '1.2.5',
         jetty             : '9.4.11.v20180605',
         guava             : '24.0-jre',
         commonsText       : '1.4',
@@ -287,6 +286,7 @@ project("${rootProject.name}-frontend") {
 
 project("${rootProject.name}-capsule") {
 
+    apply plugin: 'java'
     apply plugin: 'us.kirchmeier.capsule'
 
     dependencies {
@@ -329,12 +329,11 @@ project("${rootProject.name}-capsule") {
 
 project("${rootProject.name}-example-features") {
 
-    apply plugin: 'groovy'
+    apply plugin: 'java'
 
     dependencies {
 
-        compile "org.codehaus.groovy:groovy:${versions.groovy}"
-        compile "info.cukes:cucumber-groovy:${versions.cucumberGroovy}"
+        compile "info.cukes:cucumber-java:${versions.cucumber}"
         compile "org.slf4j:slf4j-api:${versions.slf4j}"
         compile "org.assertj:assertj-core:${versions.assertj}"
         compile "com.google.guava:guava:${versions.guava}"
@@ -348,7 +347,7 @@ project("${rootProject.name}-example-features") {
         main = 'cucumber.api.cli.Main'
 
         args += [
-            '--glue', 'classpath:io.zucchiniui.examples',
+            '--glue', 'classpath:io.zucchini.examples.glues',
             '--plugin', 'pretty',
             '--plugin', "html:${project.buildDir}/cucumber/html",
             '--plugin', "json:${project.buildDir}/cucumber/report.json",
@@ -367,7 +366,7 @@ project("${rootProject.name}-example-features") {
         main = 'cucumber.api.cli.Main'
 
         args += [
-            '--glue', 'classpath:io.zucchiniui.examples',
+            '--glue', 'classpath:io.zucchini.examples.glues',
             '--plugin', 'pretty',
             '--plugin', "html:${project.buildDir}/cucumber-dry/html",
             '--plugin', "json:${project.buildDir}/cucumber-dry/report.json",
