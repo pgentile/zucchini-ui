@@ -96,21 +96,21 @@ module.exports = {
   },
   optimization: {
     splitChunks: {
-      chunks: 'all',
-      name: true,
       cacheGroups: {
         vendors: {
           name: 'vendor',
+          chunks: 'all',
           test: /[\\/]node_modules[\\/]/,
-          priority: -10
+          priority: -10,
         },
         default: {
-          minChunks: 1,
+          name: 'main',
+          chunks: 'all',
           priority: -20,
-          reuseExistingChunk: true
-        }
-      }
-    }
+          reuseExistingChunk: true,
+        },
+      },
+    },
   },
   plugins: [
 
