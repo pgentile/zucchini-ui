@@ -5,8 +5,8 @@ import LoadingIndicator from './LoadingIndicator';
 
 
 const selectActive = createSelector(
-  state => state.loadingIndicator.counter,
-  counter => (counter > 0),
+  state => state.loadingIndicator.loading,
+  loading => loading,
 );
 
 const selectProps = createStructuredSelector({

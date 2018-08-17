@@ -14,6 +14,7 @@ import stepFiltersStorage from './filters/stepFiltersStorage';
 import { default as createStorageMiddleware } from './browserStorage/createMiddleware';
 import {default as createWebSocketMiddleware} from './websocket/createMiddleware';
 import pageScrollMiddleware from './pageScrollMiddleware';
+import { loadingIndicatorMiddleware } from './loadingIndicator/redux';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -29,6 +30,7 @@ const middlewares = [
   pageScrollMiddleware(),
   thunkMiddleware,
   promiseMiddleware(),
+  loadingIndicatorMiddleware(),
 ];
 
 // eslint-disable-next-line no-undef
