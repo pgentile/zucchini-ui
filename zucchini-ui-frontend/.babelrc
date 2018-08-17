@@ -11,8 +11,7 @@
             "last 2 safari versions",
             "last 2 edge versions",
             "last 1 ie version"
-          ],
-          "uglify": true
+          ]
         },
         "useBuiltIns": true
       }
