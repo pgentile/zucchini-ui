@@ -1,5 +1,4 @@
-import { getTestRun, getFeatures } from '../testRun/redux';
-
+import { getTestRun, getFeatures } from "../testRun/redux";
 
 // Actions
 
@@ -15,6 +14,3 @@ export function loadTestRunReportsPage({ testRunId }) {
     return null;
   };
 }
-
-
-

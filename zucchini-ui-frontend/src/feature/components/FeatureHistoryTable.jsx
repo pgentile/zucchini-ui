@@ -1,24 +1,25 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import Table from 'react-bootstrap/lib/Table';
-import Badge from 'react-bootstrap/lib/Badge';
-import Label from 'react-bootstrap/lib/Label';
-import { Link } from 'react-router'
+import PropTypes from "prop-types";
+import React from "react";
+import Table from "react-bootstrap/lib/Table";
+import Badge from "react-bootstrap/lib/Badge";
+import Label from "react-bootstrap/lib/Label";
+import { Link } from "react-router";
 
-import Status from '../../ui/components/Status';
-import toNiceDate from '../../ui/toNiceDate';
-
+import Status from "../../ui/components/Status";
+import toNiceDate from "../../ui/toNiceDate";
 
 export default class FeatureHistoryTable extends React.PureComponent {
+  static propTypes = {
+    featureId: PropTypes.string.isRequired,
+    history: PropTypes.arrayOf(PropTypes.object)
+  };
 
   render() {
     const { history, featureId } = this.props;
 
     const rows = history.map(feature => {
-      const isActive = (feature.id === featureId);
-      return (
-        <FeatureHistoryTableRow key={feature.id} feature={feature} isActive={isActive} />
-      )
+      const isActive = feature.id === featureId;
+      return <FeatureHistoryTableRow key={feature.id} feature={feature} isActive={isActive} />;
     });
 
     return (
@@ -40,41 +41,48 @@ export default class FeatureHistoryTable extends React.PureComponent {
       </Table>
     );
   }
-
 }
 
-FeatureHistoryTable.propTypes = {
-  featureId: PropTypes.string.isRequired,
-  history: PropTypes.arrayOf(PropTypes.object),
-};
-
-
 class FeatureHistoryTableRow extends React.PureComponent {
+  static propTypes = {
+    feature: PropTypes.object.isRequired,
+    isActive: PropTypes.bool.isRequired
+  };
 
   render() {
     const { feature, isActive } = this.props;
-    const className = isActive ? 'info' : null;
+    const className = isActive ? "info" : null;
 
     return (
       <tr className={className}>
-        <td><Label>{feature.testRun.type}</Label></td>
+        <td>
+          <Label>{feature.testRun.type}</Label>
+        </td>
         <td>
           <Link to={`/features/${feature.id}`}>Tir du {toNiceDate(feature.testRun.date)}</Link>
         </td>
-        <td><Status status={feature.status} /></td>
-        <td><Badge>{feature.stats.all.count}</Badge></td>
-        <td><Badge>{feature.stats.all.passed}</Badge></td>
-        <td><Badge>{feature.stats.all.failed}</Badge></td>
-        <td><Badge>{feature.stats.all.pending}</Badge></td>
-        <td><Badge>{feature.stats.all.notRun}</Badge></td>
-        <td><Badge>{feature.stats.reviewed.count}</Badge></td>
+        <td>
+          <Status status={feature.status} />
+        </td>
+        <td>
+          <Badge>{feature.stats.all.count}</Badge>
+        </td>
+        <td>
+          <Badge>{feature.stats.all.passed}</Badge>
+        </td>
+        <td>
+          <Badge>{feature.stats.all.failed}</Badge>
+        </td>
+        <td>
+          <Badge>{feature.stats.all.pending}</Badge>
+        </td>
+        <td>
+          <Badge>{feature.stats.all.notRun}</Badge>
+        </td>
+        <td>
+          <Badge>{feature.stats.reviewed.count}</Badge>
+        </td>
       </tr>
     );
   }
-
 }
-
-FeatureHistoryTableRow.propTypes = {
-  feature: PropTypes.object.isRequired,
-  isActive: PropTypes.bool.isRequired,
-};

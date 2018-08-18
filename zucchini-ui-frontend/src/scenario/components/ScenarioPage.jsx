@@ -1,34 +1,32 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
-import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
-import Tabs from 'react-bootstrap/lib/Tabs';
-import Tab from 'react-bootstrap/lib/Tab';
+import PropTypes from "prop-types";
+import React from "react";
+import ButtonToolbar from "react-bootstrap/lib/ButtonToolbar";
+import ButtonGroup from "react-bootstrap/lib/ButtonGroup";
+import Tabs from "react-bootstrap/lib/Tabs";
+import Tab from "react-bootstrap/lib/Tab";
 
-import Button from '../../ui/components/Button';
-import TagList from '../../ui/components/TagList';
-import Status from '../../ui/components/Status';
-import HistoryFilterContainer from '../../filters/components/HistoryFilterContainer';
-import ScenarioPresenceIndicator from './ScenarioPresenceIndicator';
-import ScenarioHistoryTableContainer from './ScenarioHistoryTableContainer';
-import SameFeatureScenarioTableContainer from './SameFeatureScenarioTableContainer';
-import UpdateScenarioStateDialogContainer from './UpdateScenarioStateDialogContainer';
-import CommentListContainer from './CommentListContainer';
-import ScenarioDetailsContainer from './ScenarioDetailsContainer';
-import AddCommentFormContainer from './AddCommentFormContainer';
-import DeleteScenarioButtonContainer from './DeleteScenarioButtonContainer';
-import UpdateScenarioReviewedStateDialogContainer from './UpdateScenarioReviewedStateDialogContainer';
-import SimilarFailureScenarioTableContainer from './SimilarFailureScenarioTableContainer';
-import ScenarioChangeTable from './ScenarioChangeTable';
-
+import Button from "../../ui/components/Button";
+import TagList from "../../ui/components/TagList";
+import Status from "../../ui/components/Status";
+import HistoryFilterContainer from "../../filters/components/HistoryFilterContainer";
+import ScenarioPresenceIndicator from "./ScenarioPresenceIndicator";
+import ScenarioHistoryTableContainer from "./ScenarioHistoryTableContainer";
+import SameFeatureScenarioTableContainer from "./SameFeatureScenarioTableContainer";
+import UpdateScenarioStateDialogContainer from "./UpdateScenarioStateDialogContainer";
+import CommentListContainer from "./CommentListContainer";
+import ScenarioDetailsContainer from "./ScenarioDetailsContainer";
+import AddCommentFormContainer from "./AddCommentFormContainer";
+import DeleteScenarioButtonContainer from "./DeleteScenarioButtonContainer";
+import UpdateScenarioReviewedStateDialogContainer from "./UpdateScenarioReviewedStateDialogContainer";
+import SimilarFailureScenarioTableContainer from "./SimilarFailureScenarioTableContainer";
+import ScenarioChangeTable from "./ScenarioChangeTable";
 
 export default class ScenarioPage extends React.Component {
-
   static propTypes = {
     onLoad: PropTypes.func.isRequired,
     onSetNonReviewedState: PropTypes.func.isRequired,
     scenarioId: PropTypes.string.isRequired,
-    scenario: PropTypes.object,
+    scenario: PropTypes.object
   };
 
   constructor(props) {
@@ -36,7 +34,7 @@ export default class ScenarioPage extends React.Component {
 
     this.state = {
       showUpdateStateDialog: false,
-      showSetReviewedStateDialog: false,
+      showSetReviewedStateDialog: false
     };
   }
 
@@ -56,7 +54,7 @@ export default class ScenarioPage extends React.Component {
       onSetNonReviewedState({ scenarioId });
     } else {
       this.setState({
-        showSetReviewedStateDialog: true,
+        showSetReviewedStateDialog: true
       });
     }
   };
@@ -67,13 +65,13 @@ export default class ScenarioPage extends React.Component {
 
   hideSetReviewedStateDialog = () => {
     this.setState({
-      showSetReviewedStateDialog: false,
+      showSetReviewedStateDialog: false
     });
   };
 
   hideUpdateStateDialog = () => {
     this.setState({
-      showUpdateStateDialog: false,
+      showUpdateStateDialog: false
     });
   };
 
@@ -86,7 +84,7 @@ export default class ScenarioPage extends React.Component {
 
   showUpdateStateDialog = () => {
     this.setState({
-      showUpdateStateDialog: true,
+      showUpdateStateDialog: true
     });
   };
 
@@ -95,21 +93,26 @@ export default class ScenarioPage extends React.Component {
     const { reviewed } = scenario;
 
     let similarFailureSection = null;
-    if (scenario.status === 'FAILED') {
-      similarFailureSection = (
-        <SimilarFailureScenarioTableContainer />
-      );
+    if (scenario.status === "FAILED") {
+      similarFailureSection = <SimilarFailureScenarioTableContainer />;
     }
 
     return (
       <div>
         <h1>
-          <b>{scenario.info.keyword}</b> {scenario.info.name}
-          {' '}
-          {scenario.status && <small><Status status={scenario.status} /></small>}
+          <b>{scenario.info.keyword}</b> {scenario.info.name}{" "}
+          {scenario.status && (
+            <small>
+              <Status status={scenario.status} />
+            </small>
+          )}
         </h1>
 
-        {scenario.allTags.length > 0 && <p><b>Tags :</b> <TagList testRunId={scenario.testRunId} tags={scenario.allTags} /></p>}
+        {scenario.allTags.length > 0 && (
+          <p>
+            <b>Tags :</b> <TagList testRunId={scenario.testRunId} tags={scenario.allTags} />
+          </p>
+        )}
 
         <hr />
 
@@ -120,8 +123,8 @@ export default class ScenarioPage extends React.Component {
             </Button>
           </ButtonGroup>
           <ButtonGroup>
-            <Button glyph={reviewed ? 'eye-close' : 'eye-open'} onClick={this.onUpdateReviewedStateClick}>
-              {reviewed ? 'Marquer comme non analysé' : 'Marquer comme analysé'}
+            <Button glyph={reviewed ? "eye-close" : "eye-open"} onClick={this.onUpdateReviewedStateClick}>
+              {reviewed ? "Marquer comme non analysé" : "Marquer comme analysé"}
             </Button>
           </ButtonGroup>
           <ButtonGroup>
@@ -168,13 +171,14 @@ export default class ScenarioPage extends React.Component {
 
         <UpdateScenarioStateDialogContainer
           show={this.state.showUpdateStateDialog}
-          onClose={this.hideUpdateStateDialog} />
+          onClose={this.hideUpdateStateDialog}
+        />
 
         <UpdateScenarioReviewedStateDialogContainer
           scenarioId={scenarioId}
           show={this.state.showSetReviewedStateDialog}
-          onClose={this.hideSetReviewedStateDialog} />
-
+          onClose={this.hideSetReviewedStateDialog}
+        />
       </div>
     );
   }

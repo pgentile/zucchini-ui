@@ -1,14 +1,13 @@
-import { connect } from 'react-redux';
-import TagFilterForm from './TagFilterForm';
+import { connect } from "react-redux";
+import TagFilterForm from "./TagFilterForm";
 
-import { setTagFilter } from '../redux';
-
+import { setTagFilter } from "../redux";
 
 const TagFilterFormContainer = connect(
   undefined,
   {
-    onFilterChange: setTagFilter,
-  },
+    onFilterChange: setTagFilter
+  }
 )(TagFilterForm);
 
 export default TagFilterFormContainer;

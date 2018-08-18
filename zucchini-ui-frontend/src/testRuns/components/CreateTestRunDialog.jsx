@@ -1,25 +1,30 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import Modal from 'react-bootstrap/lib/Modal';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import FormControl from 'react-bootstrap/lib/FormControl';
+import PropTypes from "prop-types";
+import React from "react";
+import Modal from "react-bootstrap/lib/Modal";
+import FormGroup from "react-bootstrap/lib/FormGroup";
+import ControlLabel from "react-bootstrap/lib/ControlLabel";
+import FormControl from "react-bootstrap/lib/FormControl";
 
-import Button from '../../ui/components/Button';
-
+import Button from "../../ui/components/Button";
 
 export default class CreateTestRunDialog extends React.PureComponent {
+  static propTypes = {
+    show: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    onCreateTestRun: PropTypes.func.isRequired
+  };
+
   constructor(props) {
     super(props);
 
     this.state = {
       newTestRun: {
-        type: '',
-      },
+        type: ""
+      }
     };
   }
 
-  onTypeChange = (event) => {
+  onTypeChange = event => {
     event.preventDefault();
 
     const type = event.target.value;
@@ -27,19 +32,19 @@ export default class CreateTestRunDialog extends React.PureComponent {
     this.setState(previousState => ({
       newTestRun: {
         ...previousState.newTestRun,
-        type,
-      },
+        type
+      }
     }));
   };
 
-  onCloseClick = (event) => {
+  onCloseClick = event => {
     if (event) {
       event.preventDefault();
     }
     this.props.onClose();
   };
 
-  onCreateTestRun = (event) => {
+  onCreateTestRun = event => {
     if (event) {
       event.preventDefault();
     }
@@ -65,16 +70,11 @@ export default class CreateTestRunDialog extends React.PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button bsStyle="primary" onClick={this.onCreateTestRun}>Créer</Button>
+          <Button bsStyle="primary" onClick={this.onCreateTestRun}>
+            Créer
+          </Button>
         </Modal.Footer>
       </Modal>
     );
   }
-
 }
-
-CreateTestRunDialog.propTypes = {
-  show: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onCreateTestRun: PropTypes.func.isRequired,
-};

@@ -1,35 +1,29 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
-import wrapDisplayName from 'recompose/wrapDisplayName';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
+import wrapDisplayName from "recompose/wrapDisplayName";
 
-import { watch, unwatch } from '../redux';
-import withWindowVisibility from '../../windowVisibility/components/withWindowVisibility';
+import { watch, unwatch } from "../redux";
+import withWindowVisibility from "../../windowVisibility/components/withWindowVisibility";
 
-
-const selectOtherWatcherIds = createSelector(
-  state => state.presence.otherWatcherIds,
-  watcherIds => watcherIds,
-);
+const selectOtherWatcherIds = createSelector(state => state.presence.otherWatcherIds, watcherIds => watcherIds);
 
 const selectProps = createStructuredSelector({
-  otherWatcherIds: selectOtherWatcherIds,
+  otherWatcherIds: selectOtherWatcherIds
 });
 
 const presenceConnect = connect(
   selectProps,
   {
     onWatch: watch,
-    onUnwatch: unwatch,
+    onUnwatch: unwatch
   }
 );
 
-
 export default function withPresenceIndicator(WrappedComponent) {
   const wrapper = class extends React.Component {
-
-    static displayName = wrapDisplayName(WrappedComponent, 'withPresenceIndicator');
+    static displayName = wrapDisplayName(WrappedComponent, "withPresenceIndicator");
 
     static propTypes = {
       isWindowVisible: PropTypes.bool.isRequired,
@@ -37,7 +31,7 @@ export default function withPresenceIndicator(WrappedComponent) {
       reference: PropTypes.string.isRequired,
       otherWatcherIds: PropTypes.array,
       onWatch: PropTypes.func.isRequired,
-      onUnwatch: PropTypes.func.isRequired,
+      onUnwatch: PropTypes.func.isRequired
     };
 
     componentDidMount() {
@@ -46,7 +40,7 @@ export default function withPresenceIndicator(WrappedComponent) {
       if (isWindowVisible) {
         onWatch({
           referenceType,
-          reference,
+          reference
         });
       }
     }
@@ -60,11 +54,10 @@ export default function withPresenceIndicator(WrappedComponent) {
         if (isWindowVisible) {
           onWatch({
             referenceType,
-            reference,
+            reference
           });
         }
       }
-
     }
 
     componentWillUnmount() {
@@ -81,11 +74,8 @@ export default function withPresenceIndicator(WrappedComponent) {
 
     render() {
       const { otherWatcherIds } = this.props;
-      return (
-        <WrappedComponent otherWatcherIds={otherWatcherIds} />
-      );
+      return <WrappedComponent otherWatcherIds={otherWatcherIds} />;
     }
-
   };
 
   return withWindowVisibility(presenceConnect(wrapper));

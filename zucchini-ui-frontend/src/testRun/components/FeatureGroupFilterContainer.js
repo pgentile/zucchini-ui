@@ -1,8 +1,7 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
 
-import FeatureGroupFilter from './FeatureGroupFilter';
-
+import FeatureGroupFilter from "./FeatureGroupFilter";
 
 const selectFeatureGroups = createSelector(
   state => state.testRun.features,
@@ -15,12 +14,9 @@ const selectFeatureGroups = createSelector(
 );
 
 const selectProps = createStructuredSelector({
-  featureGroups: selectFeatureGroups,
+  featureGroups: selectFeatureGroups
 });
 
-
-const FeatureGroupFilterContainer = connect(
-  selectProps,
-)(FeatureGroupFilter);
+const FeatureGroupFilterContainer = connect(selectProps)(FeatureGroupFilter);
 
 export default FeatureGroupFilterContainer;

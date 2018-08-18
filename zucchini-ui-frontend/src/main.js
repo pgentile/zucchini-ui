@@ -1,12 +1,8 @@
 // Basic requirements
-import 'babel-polyfill';
+import "babel-polyfill";
 
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 
-import AppRouter from './AppRouter';
+import AppRouter from "./AppRouter";
 
-
-ReactDOM.render(
-  AppRouter(),
-  document.getElementById('content'),
-);
+ReactDOM.render(AppRouter(), document.getElementById("content"));

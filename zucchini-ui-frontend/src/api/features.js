@@ -1,8 +1,6 @@
-import Client from './Client';
-
+import Client from "./Client";
 
 class FeaturesApi {
-
   constructor(baseUri) {
     this.client = new Client(`${baseUri}/api/features`);
   }
@@ -17,8 +15,8 @@ class FeaturesApi {
         testRunId,
         withStats,
         tag: tags,
-        excludedTag: excludedTags,
-      },
+        excludedTag: excludedTags
+      }
     });
   }
 
@@ -29,10 +27,9 @@ class FeaturesApi {
   deleteFeature({ featureId }) {
     return this.client.delete({
       path: featureId,
-      hasOutput: false,
+      hasOutput: false
     });
   }
-
 }
 
 const features = new FeaturesApi(configuration.backendBaseUri);

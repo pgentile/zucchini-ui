@@ -1,21 +1,19 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { Link } from 'react-router'
+import PropTypes from "prop-types";
+import React from "react";
+import { Link } from "react-router";
 
-import toNiceDate from '../../ui/toNiceDate';
-import AddedScenarioTableContainer from './AddedScenarioTableContainer';
-import DeletedScenarioTableContainer from './DeletedScenarioTableContainer';
-import DifferentScenarioTableContainer from './DifferentScenarioTableContainer';
-
+import toNiceDate from "../../ui/toNiceDate";
+import AddedScenarioTableContainer from "./AddedScenarioTableContainer";
+import DeletedScenarioTableContainer from "./DeletedScenarioTableContainer";
+import DifferentScenarioTableContainer from "./DifferentScenarioTableContainer";
 
 export default class TestRunDiffResultPage extends React.Component {
-
   static propTypes = {
     testRunId: PropTypes.string.isRequired,
     otherTestRunId: PropTypes.string.isRequired,
     testRun: PropTypes.object,
     otherTestRun: PropTypes.object,
-    onLoad: PropTypes.func.isRequired,
+    onLoad: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -42,12 +40,7 @@ export default class TestRunDiffResultPage extends React.Component {
         <h1>Comparaison contre le tir du {toNiceDate(testRun.date)}</h1>
 
         <p>
-          Comparaison entre les tirs du
-          {' '}
-          <Link to={`/test-runs/${testRun.id}`}>{toNiceDate(testRun.date)}</Link>
-          {' '}
-          et du
-          {' '}
+          Comparaison entre les tirs du <Link to={`/test-runs/${testRun.id}`}>{toNiceDate(testRun.date)}</Link> et du{" "}
           <Link to={`/test-runs/${otherTestRun.id}`}>{toNiceDate(otherTestRun.date)}</Link>
         </p>
 
@@ -63,7 +56,6 @@ export default class TestRunDiffResultPage extends React.Component {
 
         <h3>Scénarios dont le statut a changé</h3>
         <DifferentScenarioTableContainer />
-
       </div>
     );
   }

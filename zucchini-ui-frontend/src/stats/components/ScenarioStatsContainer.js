@@ -1,23 +1,18 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
 
-import ScenarioStats from './ScenarioStats';
-import { updateStatsDashboardFilters } from '../../filters/redux';
+import ScenarioStats from "./ScenarioStats";
+import { updateStatsDashboardFilters } from "../../filters/redux";
 
-
-const selectShowDetails = createSelector(
-  state => state.statsDashboardFilters.showDetails,
-  showDetails => showDetails,
-);
+const selectShowDetails = createSelector(state => state.statsDashboardFilters.showDetails, showDetails => showDetails);
 
 const selectProps = createStructuredSelector({
-  showDetails: selectShowDetails,
-})
-
+  showDetails: selectShowDetails
+});
 
 export default connect(
   selectProps,
   {
-    onToggleDetails: updateStatsDashboardFilters,
-  },
+    onToggleDetails: updateStatsDashboardFilters
+  }
 )(ScenarioStats);

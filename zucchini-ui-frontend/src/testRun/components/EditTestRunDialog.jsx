@@ -1,20 +1,17 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import Modal from 'react-bootstrap/lib/Modal';
+import PropTypes from "prop-types";
+import React from "react";
+import Modal from "react-bootstrap/lib/Modal";
 
-import Button from '../../ui/components/Button';
-import EditTestRunForm from './EditTestRunForm';
-
+import Button from "../../ui/components/Button";
+import EditTestRunForm from "./EditTestRunForm";
 
 export default class EditTestRunDialog extends React.PureComponent {
-
   static propTypes = {
     testRun: PropTypes.object.isRequired,
     show: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
-    onEditTestRun: PropTypes.func.isRequired,
+    onEditTestRun: PropTypes.func.isRequired
   };
-
 
   constructor(props) {
     super(props);
@@ -29,7 +26,7 @@ export default class EditTestRunDialog extends React.PureComponent {
   onEditTestRun = values => {
     this.props.onEditTestRun({
       testRunId: this.props.testRun.id,
-      ...values,
+      ...values
     });
 
     this.props.onClose();
@@ -37,7 +34,7 @@ export default class EditTestRunDialog extends React.PureComponent {
 
   setFormRef = formRef => {
     this.formRef = formRef;
-  }
+  };
 
   onEditTestRunClick = () => {
     this.formRef.submit();
@@ -56,14 +53,16 @@ export default class EditTestRunDialog extends React.PureComponent {
             ref={this.setFormRef}
             initialValues={testRun}
             enableReinitialize
-            onSubmit={this.onEditTestRun} />
+            onSubmit={this.onEditTestRun}
+          />
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button bsStyle="primary" onClick={this.onEditTestRunClick}>Modifier</Button>
+          <Button bsStyle="primary" onClick={this.onEditTestRunClick}>
+            Modifier
+          </Button>
         </Modal.Footer>
       </Modal>
     );
   }
-
 }

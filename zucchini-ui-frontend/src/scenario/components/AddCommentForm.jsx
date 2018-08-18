@@ -1,16 +1,14 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import FormControl from 'react-bootstrap/lib/FormControl';
+import PropTypes from "prop-types";
+import React from "react";
+import FormGroup from "react-bootstrap/lib/FormGroup";
+import FormControl from "react-bootstrap/lib/FormControl";
 
-import Button from '../../ui/components/Button';
-
+import Button from "../../ui/components/Button";
 
 export default class AddCommentForm extends React.PureComponent {
-
   static propTypes = {
     scenarioId: PropTypes.string.isRequired,
-    onAddComment: PropTypes.func.isRequired,
+    onAddComment: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -27,28 +25,28 @@ export default class AddCommentForm extends React.PureComponent {
 
   createDefaultState() {
     return {
-      comment: '',
+      comment: ""
     };
   }
 
-  onAddComment = (event) => {
+  onAddComment = event => {
     event.preventDefault();
 
     const { scenarioId } = this.props;
     const { comment } = this.state;
     this.props.onAddComment({
       scenarioId,
-      comment,
+      comment
     });
 
     this.setState(this.createDefaultState());
   };
 
-  onCommentChange = (event) => {
+  onCommentChange = event => {
     const comment = event.target.value;
 
     this.setState({
-      comment,
+      comment
     });
   };
 
@@ -63,11 +61,13 @@ export default class AddCommentForm extends React.PureComponent {
             rows="3"
             placeholder="Entrez votre commentaire"
             value={comment}
-            onChange={this.onCommentChange} />
+            onChange={this.onCommentChange}
+          />
         </FormGroup>
-        <Button type="submit" bsStyle="primary" disabled={!comment}>Ajouter le commentaire</Button>
+        <Button type="submit" bsStyle="primary" disabled={!comment}>
+          Ajouter le commentaire
+        </Button>
       </form>
-    )
+    );
   }
-
 }

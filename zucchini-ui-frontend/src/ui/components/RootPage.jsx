@@ -1,12 +1,11 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import Navbar from 'react-bootstrap/lib/Navbar';
-import Nav from 'react-bootstrap/lib/Nav';
-import { Link } from 'react-router';
+import PropTypes from "prop-types";
+import React from "react";
+import Navbar from "react-bootstrap/lib/Navbar";
+import Nav from "react-bootstrap/lib/Nav";
+import { Link } from "react-router";
 
-import ErrorAlertContainer from '../../errors/components/ErrorAlertContainer';
-import LoadingIndicatorContainer from '../../loadingIndicator/components/LoadingIndicatorContainer';
-
+import ErrorAlertContainer from "../../errors/components/ErrorAlertContainer";
+import LoadingIndicatorContainer from "../../loadingIndicator/components/LoadingIndicatorContainer";
 
 export default function RoutePage({ main, breadcrum, search }) {
   return (
@@ -35,7 +34,6 @@ export default function RoutePage({ main, breadcrum, search }) {
         {breadcrum}
         {main}
       </div>
-
     </div>
   );
 }
@@ -43,18 +41,13 @@ export default function RoutePage({ main, breadcrum, search }) {
 RoutePage.propTypes = {
   main: PropTypes.node.isRequired,
   breadcrum: PropTypes.node,
-  search: PropTypes.node,
+  search: PropTypes.node
 };
 
-
 function NavItem({ children }) {
-  return (
-    <li>
-      {children}
-    </li>
-  );
+  return <li>{children}</li>;
 }
 
 NavItem.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 };

@@ -1,16 +1,15 @@
-import BrowserLocalStorage from '../browserStorage/BrowserLocalStorage';
-
+import BrowserLocalStorage from "../browserStorage/BrowserLocalStorage";
 
 const scenarioFiltersStorage = new BrowserLocalStorage({
-  entryName: 'scenarioFilters',
+  entryName: "scenarioFilters",
   defaultState: () => ({
     passed: true,
     failed: true,
     pending: true,
     notRun: true,
     reviewed: true,
-    notReviewed: true,
-  }),
+    notReviewed: true
+  })
 });
 
 export default scenarioFiltersStorage;

@@ -1,9 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Alert from 'react-bootstrap/lib/Alert';
-
+import React from "react";
+import PropTypes from "prop-types";
+import Alert from "react-bootstrap/lib/Alert";
 
 export default class ErrorAlert extends React.PureComponent {
+  static propTypes = {
+    errors: PropTypes.array.isRequired,
+    onClearErrors: PropTypes.func.isRequired
+  };
 
   onClearErrors = () => {
     this.props.onClearErrors();
@@ -27,10 +30,4 @@ export default class ErrorAlert extends React.PureComponent {
       </Alert>
     );
   }
-
 }
-
-ErrorAlert.propTypes = {
-  errors: PropTypes.array.isRequired,
-  onClearErrors: PropTypes.func.isRequired,
-};

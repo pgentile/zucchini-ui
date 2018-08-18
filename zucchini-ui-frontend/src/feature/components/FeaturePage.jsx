@@ -1,21 +1,25 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { Link } from 'react-router'
-import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
+import PropTypes from "prop-types";
+import React from "react";
+import { Link } from "react-router";
+import ButtonToolbar from "react-bootstrap/lib/ButtonToolbar";
 
-import FeatureStatsContainer from './FeatureStatsContainer';
-import FeatureHistoryTableContainer from './FeatureHistoryTableContainer';
-import ScenarioTableContainer from './ScenarioTableContainer';
-import HistoryFilterContainer from '../../filters/components/HistoryFilterContainer';
-import ScenarioStateFilterContainer from '../../filters/components/ScenarioStateFilterContainer';
-import TagList from '../../ui/components/TagList';
-import SimpleText from '../../ui/components/SimpleText';
-import Status from '../../ui/components/Status';
-import DeleteFeatureButtonContainer from './DeleteFeatureButtonContainer';
-import FeatureTrendChartContainer from './FeatureTrendChartContainer';
-
+import FeatureStatsContainer from "./FeatureStatsContainer";
+import FeatureHistoryTableContainer from "./FeatureHistoryTableContainer";
+import ScenarioTableContainer from "./ScenarioTableContainer";
+import HistoryFilterContainer from "../../filters/components/HistoryFilterContainer";
+import ScenarioStateFilterContainer from "../../filters/components/ScenarioStateFilterContainer";
+import TagList from "../../ui/components/TagList";
+import SimpleText from "../../ui/components/SimpleText";
+import Status from "../../ui/components/Status";
+import DeleteFeatureButtonContainer from "./DeleteFeatureButtonContainer";
+import FeatureTrendChartContainer from "./FeatureTrendChartContainer";
 
 export default class FeaturePage extends React.Component {
+  static propTypes = {
+    onLoad: PropTypes.func.isRequired,
+    featureId: PropTypes.string.isRequired,
+    feature: PropTypes.object
+  };
 
   componentDidMount() {
     this.loadFeatureIfNeeded();
@@ -38,19 +42,32 @@ export default class FeaturePage extends React.Component {
     return (
       <div>
         <h1>
-          <b>{feature.info.keyword}</b> {feature.info.name}
-          {' '}
-          {feature.status && <small><Status status={feature.status} /></small>}
+          <b>{feature.info.keyword}</b> {feature.info.name}{" "}
+          {feature.status && (
+            <small>
+              <Status status={feature.status} />
+            </small>
+          )}
         </h1>
 
-        {feature.group && <p><b>Groupe : </b> <Link to={{ pathname: `/test-runs/${feature.testRunId}`, query: { featureGroup: feature.group } }}>{feature.group}</Link></p>}
+        {feature.group && (
+          <p>
+            <b>Groupe : </b>{" "}
+            <Link to={{ pathname: `/test-runs/${feature.testRunId}`, query: { featureGroup: feature.group } }}>
+              {feature.group}
+            </Link>
+          </p>
+        )}
 
         <p>
-          <b>Source :</b>{' '}
-          <code>{feature.location.filename}</code>, ligne <code>{feature.location.line}</code>
+          <b>Source :</b> <code>{feature.location.filename}</code>, ligne <code>{feature.location.line}</code>
         </p>
 
-        {feature.tags.length > 0 && <p><b>Tags :</b> <TagList testRunId={feature.testRunId} tags={feature.tags} /></p>}
+        {feature.tags.length > 0 && (
+          <p>
+            <b>Tags :</b> <TagList testRunId={feature.testRunId} tags={feature.tags} />
+          </p>
+        )}
 
         <hr />
         <ButtonToolbar>
@@ -83,15 +100,7 @@ export default class FeaturePage extends React.Component {
         <h2>Historique</h2>
         <HistoryFilterContainer />
         <FeatureHistoryTableContainer featureId={featureId} />
-
       </div>
     );
   }
-
 }
-
-FeaturePage.propTypes = {
-  onLoad: PropTypes.func.isRequired,
-  featureId: PropTypes.string.isRequired,
-  feature: PropTypes.object,
-};

@@ -1,16 +1,15 @@
-import BrowserLocalStorage from '../browserStorage/BrowserLocalStorage';
-
+import BrowserLocalStorage from "../browserStorage/BrowserLocalStorage";
 
 const featureFiltersStorage = new BrowserLocalStorage({
-  entryName: 'featureFilters',
+  entryName: "featureFilters",
   defaultState: () => ({
     passed: true,
     failed: true,
     partial: true,
     notRun: true,
     reviewed: true,
-    notReviewed: true,
-  }),
+    notReviewed: true
+  })
 });
 
 export default featureFiltersStorage;

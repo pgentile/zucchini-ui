@@ -1,9 +1,8 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
 
-import { selectLatestTestRuns } from '../../testRuns/selectors';
-import TestRunSelectorTable from './TestRunSelectorTable';
-
+import { selectLatestTestRuns } from "../../testRuns/selectors";
+import TestRunSelectorTable from "./TestRunSelectorTable";
 
 const selectTestRuns = createSelector(
   state => selectLatestTestRuns(state),
@@ -17,13 +16,11 @@ const selectTestRuns = createSelector(
     }
 
     return selectedTestRuns;
-  },
+  }
 );
 
 const selectProps = createStructuredSelector({
-  testRuns: selectTestRuns,
-})
+  testRuns: selectTestRuns
+});
 
-export default connect(
-  selectProps,
-)(TestRunSelectorTable);
+export default connect(selectProps)(TestRunSelectorTable);

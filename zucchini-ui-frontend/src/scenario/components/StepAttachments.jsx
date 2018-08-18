@@ -1,14 +1,17 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import ListGroup from 'react-bootstrap/lib/ListGroup';
-import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
+import PropTypes from "prop-types";
+import React from "react";
+import ListGroup from "react-bootstrap/lib/ListGroup";
+import ListGroupItem from "react-bootstrap/lib/ListGroupItem";
 
-import PanelWithTitle from '../../ui/components/PanelWithTitle';
-
+import PanelWithTitle from "../../ui/components/PanelWithTitle";
 
 export default class StepAttachments extends React.PureComponent {
+  static propTypes = {
+    scenarioId: PropTypes.string.isRequired,
+    attachments: PropTypes.array.isRequired
+  };
 
-  buildUrlForAttachment = (attachmentId) => {
+  buildUrlForAttachment = attachmentId => {
     const { scenarioId } = this.props;
     // TODO Find a better way to build the URL
     return `${configuration.backendBaseUri}/api/scenarii/${scenarioId}/attachments/${attachmentId}`;
@@ -29,16 +32,8 @@ export default class StepAttachments extends React.PureComponent {
 
     return (
       <PanelWithTitle title="Pièces jointes" bsStyle="default">
-        <ListGroup>
-          {items}
-        </ListGroup>
+        <ListGroup>{items}</ListGroup>
       </PanelWithTitle>
     );
   }
-
 }
-
-StepAttachments.propTypes = {
-  scenarioId: PropTypes.string.isRequired,
-  attachments: PropTypes.array.isRequired,
-};

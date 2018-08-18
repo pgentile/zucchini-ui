@@ -1,10 +1,9 @@
-import * as model from './model';
-import { getTestRun } from '../testRun/redux';
-import { handleActions } from 'redux-actions';
-
+import * as model from "./model";
+import { getTestRun } from "../testRun/redux";
+import { handleActions } from "redux-actions";
 
 // Actions
-const PREFIX = 'STEP_DEFINITIONS';
+const PREFIX = "STEP_DEFINITIONS";
 const GET_STEP_DEFINITIONS = `${PREFIX}/GET_STEP_DEFINITIONS`;
 const GET_STEP_DEFINITIONS_FULFILLED = `${GET_STEP_DEFINITIONS}_FULFILLED`;
 
@@ -25,8 +24,8 @@ export function getTestRunStepDefinitions({ testRunId }) {
     type: GET_STEP_DEFINITIONS,
     payload: model.getStepDefinitions({ testRunId }),
     meta: {
-      testRunId,
-    },
+      testRunId
+    }
   };
 }
 
@@ -35,10 +34,12 @@ const initialState = {
   stepDefinitions: []
 };
 
-export const stepDefinitions = handleActions({
-
-  [GET_STEP_DEFINITIONS_FULFILLED]: (state, action) => ({
-    ...state,
-    stepDefinitions: action.payload,
-  })
-}, initialState);
+export const stepDefinitions = handleActions(
+  {
+    [GET_STEP_DEFINITIONS_FULFILLED]: (state, action) => ({
+      ...state,
+      stepDefinitions: action.payload
+    })
+  },
+  initialState
+);

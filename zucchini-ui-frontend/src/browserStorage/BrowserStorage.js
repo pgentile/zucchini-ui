@@ -1,5 +1,4 @@
 export default class BrowserStorage {
-
   constructor(storage, config) {
     this.storage = storage;
 
@@ -9,7 +8,7 @@ export default class BrowserStorage {
       afterDeserialize: value => value,
       serializer: JSON.stringify,
       deserializer: JSON.parse,
-      ...config,
+      ...config
     };
   }
 
@@ -55,5 +54,4 @@ export default class BrowserStorage {
     const { entryName } = this.config;
     this.storage.removeItem(entryName);
   }
-
 }

@@ -1,22 +1,20 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from "prop-types";
+import React from "react";
 
-import Chartist from 'chartist';
-
+import Chartist from "chartist";
 
 export default class PieChart extends React.Component {
-
   static propTypes = {
     data: PropTypes.any.isRequired,
     total: PropTypes.number.isRequired,
     showLabel: PropTypes.bool.isRequired,
     donut: PropTypes.bool.isRequired,
     donutWidth: PropTypes.number,
-    style: PropTypes.object,
+    style: PropTypes.object
   };
 
   static defaultProps = {
-    donut: true,
+    donut: true
   };
 
   constructor(props) {
@@ -39,7 +37,7 @@ export default class PieChart extends React.Component {
     }
   }
 
-  setChart = (element) => {
+  setChart = element => {
     if (this.chart === null) {
       this.chart = new Chartist.Pie(element);
     }
@@ -49,20 +47,22 @@ export default class PieChart extends React.Component {
     const { data, total, showLabel, donut, donutWidth } = this.props;
 
     if (this.chart) {
-      this.chart.update(data, {
-        donut,
-        total,
-        showLabel,
-        donutWidth,
-      }, true);
+      this.chart.update(
+        data,
+        {
+          donut,
+          total,
+          showLabel,
+          donutWidth
+        },
+        true
+      );
     }
   }
 
   render() {
     const style = this.props.style || {};
 
-    return (
-      <div style={style} ref={this.setChart} />
-    );
+    return <div style={style} ref={this.setChart} />;
   }
 }

@@ -1,28 +1,37 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import Modal from 'react-bootstrap/lib/Modal';
+import PropTypes from "prop-types";
+import React from "react";
+import Modal from "react-bootstrap/lib/Modal";
 
-import Button from '../../ui/components/Button';
-
+import Button from "../../ui/components/Button";
 
 export default class ConfirmActionButton extends React.PureComponent {
+  static propTypes = {
+    bsStyle: PropTypes.string,
+    bsSize: PropTypes.string,
+    actionGlyph: PropTypes.string,
+    actionLabel: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    onConfirm: PropTypes.func.isRequired
+  };
+
   constructor(props) {
     super(props);
 
     this.state = {
-      show: false,
+      show: false
     };
   }
 
   onShowConfirmation = () => {
     this.setState({
-      show: true,
+      show: true
     });
   };
 
   onConfirm = () => {
     this.setState({
-      show: false,
+      show: false
     });
 
     this.props.onConfirm();
@@ -30,7 +39,7 @@ export default class ConfirmActionButton extends React.PureComponent {
 
   onCancel = () => {
     this.setState({
-      show: false,
+      show: false
     });
   };
 
@@ -53,21 +62,12 @@ export default class ConfirmActionButton extends React.PureComponent {
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.onCancel}>Annuler</Button>
-            <Button bsStyle="primary" onClick={this.onConfirm}>{actionLabel}</Button>
+            <Button bsStyle="primary" onClick={this.onConfirm}>
+              {actionLabel}
+            </Button>
           </Modal.Footer>
         </Modal>
       </span>
     );
   }
-
 }
-
-ConfirmActionButton.propTypes = {
-  bsStyle: PropTypes.string,
-  bsSize: PropTypes.string,
-  actionGlyph: PropTypes.string,
-  actionLabel: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  message: PropTypes.string.isRequired,
-  onConfirm: PropTypes.func.isRequired,
-};

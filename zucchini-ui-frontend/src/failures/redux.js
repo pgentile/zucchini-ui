@@ -1,11 +1,10 @@
-import * as model from './model';
-import { getTestRun, getTestRunStats } from '../testRun/redux';
-import { handleActions } from 'redux-actions';
-
+import * as model from "./model";
+import { getTestRun, getTestRunStats } from "../testRun/redux";
+import { handleActions } from "redux-actions";
 
 // Actions
 
-const PREFIX = 'FAILURES';
+const PREFIX = "FAILURES";
 const GET_FAILURES = `${PREFIX}/GET_FAILURES`;
 const GET_FAILURES_FULFILLED = `${GET_FAILURES}_FULFILLED`;
 
@@ -24,14 +23,13 @@ export function loadTestRunFailuresPage({ testRunId }) {
   };
 }
 
-
 export function getTestRunFailures({ testRunId }) {
   return {
     type: GET_FAILURES,
     payload: model.getTestRunFailures({ testRunId }),
     meta: {
-      testRunId,
-    },
+      testRunId
+    }
   };
 }
 
@@ -40,13 +38,12 @@ const initialState = {
   failures: []
 };
 
-export const failures = handleActions({
-
-  [GET_FAILURES_FULFILLED]: (state, action) => ({
-    ...state,
-    failures: action.payload,
-  })
-}, initialState);
-
-
-
+export const failures = handleActions(
+  {
+    [GET_FAILURES_FULFILLED]: (state, action) => ({
+      ...state,
+      failures: action.payload
+    })
+  },
+  initialState
+);

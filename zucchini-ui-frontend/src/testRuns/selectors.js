@@ -1,7 +1,6 @@
-import { createSelector } from 'reselect';
+import { createSelector } from "reselect";
 
-import { createStats, UNDEFINED_STATS_NUMBERS } from './model';
-
+import { createStats, UNDEFINED_STATS_NUMBERS } from "./model";
 
 export const selectTestRunTypes = createSelector(
   state => state.testRuns.testRuns,
@@ -13,7 +12,6 @@ export const selectTestRunTypes = createSelector(
   }
 );
 
-
 export const selectLatestTestRuns = createSelector(
   state => state.testRuns.testRuns,
   testRuns => {
@@ -24,8 +22,8 @@ export const selectLatestTestRuns = createSelector(
 
       return {
         ...testRun,
-        stats: createStats(UNDEFINED_STATS_NUMBERS),
+        stats: createStats(UNDEFINED_STATS_NUMBERS)
       };
-    })
+    });
   }
 );

@@ -1,25 +1,20 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
 
-import UpdateScenarioStateDialog from './UpdateScenarioStateDialog';
-import { updateScenarioStateAndComment } from '../redux';
+import UpdateScenarioStateDialog from "./UpdateScenarioStateDialog";
+import { updateScenarioStateAndComment } from "../redux";
 
-
-const selectScenario = createSelector(
-  state => state.scenario.scenario,
-  scenario => scenario,
-);
+const selectScenario = createSelector(state => state.scenario.scenario, scenario => scenario);
 
 const selectProps = createStructuredSelector({
-  scenario: selectScenario,
+  scenario: selectScenario
 });
-
 
 const UpdateScenarioStateDialogContainer = connect(
   selectProps,
   {
-    onUpdateState: updateScenarioStateAndComment,
-  },
+    onUpdateState: updateScenarioStateAndComment
+  }
 )(UpdateScenarioStateDialog);
 
 export default UpdateScenarioStateDialogContainer;

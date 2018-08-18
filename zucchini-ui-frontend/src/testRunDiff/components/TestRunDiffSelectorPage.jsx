@@ -1,17 +1,15 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from "prop-types";
+import React from "react";
 
-import toNiceDate from '../../ui/toNiceDate';
-import HistoryFilterContainer from '../../filters/components/HistoryFilterContainer';
-import TestRunSelectorTableContainer from './TestRunSelectorTableContainer';
-
+import toNiceDate from "../../ui/toNiceDate";
+import HistoryFilterContainer from "../../filters/components/HistoryFilterContainer";
+import TestRunSelectorTableContainer from "./TestRunSelectorTableContainer";
 
 export default class TestRunDiffSelectorPage extends React.Component {
-
   static propTypes = {
     testRunId: PropTypes.string.isRequired,
     testRun: PropTypes.object,
-    onLoad: PropTypes.func.isRequired,
+    onLoad: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -42,7 +40,6 @@ export default class TestRunDiffSelectorPage extends React.Component {
         <h2>Sélectionner un autre tir</h2>
         <HistoryFilterContainer />
         <TestRunSelectorTableContainer currentTestRunId={testRunId} />
-
       </div>
     );
   }

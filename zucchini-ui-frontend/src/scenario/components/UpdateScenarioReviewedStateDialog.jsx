@@ -1,14 +1,20 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import Modal from 'react-bootstrap/lib/Modal';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import FormControl from 'react-bootstrap/lib/FormControl';
+import PropTypes from "prop-types";
+import React from "react";
+import Modal from "react-bootstrap/lib/Modal";
+import FormGroup from "react-bootstrap/lib/FormGroup";
+import ControlLabel from "react-bootstrap/lib/ControlLabel";
+import FormControl from "react-bootstrap/lib/FormControl";
 
-import Button from '../../ui/components/Button';
-
+import Button from "../../ui/components/Button";
 
 export default class UpdateScenarioReviewedStateDialog extends React.PureComponent {
+  static propTypes = {
+    show: PropTypes.bool.isRequired,
+    scenarioId: PropTypes.string.isRequired,
+    onClose: PropTypes.func.isRequired,
+    onSetReviewedState: PropTypes.func.isRequired
+  };
+
   constructor(props) {
     super(props);
 
@@ -23,18 +29,18 @@ export default class UpdateScenarioReviewedStateDialog extends React.PureCompone
 
   createDefaultState() {
     return {
-      comment: '',
+      comment: ""
     };
   }
 
-  onCloseClick = (event) => {
+  onCloseClick = event => {
     if (event) {
       event.preventDefault();
     }
     this.props.onClose();
   };
 
-  onSetReviewedState = (event) => {
+  onSetReviewedState = event => {
     if (event) {
       event.preventDefault();
     }
@@ -44,7 +50,7 @@ export default class UpdateScenarioReviewedStateDialog extends React.PureCompone
 
     onSetReviewedState({
       scenarioId,
-      comment,
+      comment
     });
 
     this.setState(this.createDefaultState());
@@ -62,17 +68,17 @@ export default class UpdateScenarioReviewedStateDialog extends React.PureCompone
         return {
           scenario: {
             ...prevState.scenario,
-            status,
-          },
+            status
+          }
         };
       });
     };
   }
 
-  onCommentChange = (event) => {
+  onCommentChange = event => {
     const comment = event.target.value;
     this.setState({
-      comment,
+      comment
     });
   };
 
@@ -88,23 +94,22 @@ export default class UpdateScenarioReviewedStateDialog extends React.PureCompone
           <form onSubmit={this.onSetReviewedState}>
             <FormGroup controlId="comment">
               <ControlLabel>Commentaire</ControlLabel>
-              <FormControl componentClass="textarea" rows="3" value={this.state.comment} onChange={this.onCommentChange} />
+              <FormControl
+                componentClass="textarea"
+                rows="3"
+                value={this.state.comment}
+                onChange={this.onCommentChange}
+              />
             </FormGroup>
           </form>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button bsStyle="primary" onClick={this.onSetReviewedState}>Valider</Button>
+          <Button bsStyle="primary" onClick={this.onSetReviewedState}>
+            Valider
+          </Button>
         </Modal.Footer>
       </Modal>
     );
   }
-
 }
-
-UpdateScenarioReviewedStateDialog.propTypes = {
-  show: PropTypes.bool.isRequired,
-  scenarioId: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onSetReviewedState: PropTypes.func.isRequired,
-};

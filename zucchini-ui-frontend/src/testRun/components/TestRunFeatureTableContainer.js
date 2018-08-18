@@ -1,9 +1,8 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
 
-import { selectFeatureFilterFunc } from '../../filters/selectors';
-import FeatureTable from '../../ui/components/FeatureTable';
-
+import { selectFeatureFilterFunc } from "../../filters/selectors";
+import FeatureTable from "../../ui/components/FeatureTable";
 
 const selectFeatures = createSelector(
   state => state.testRun.features,
@@ -18,16 +17,13 @@ const selectFeatures = createSelector(
     }
 
     return filteredFeatures;
-  },
+  }
 );
 
 const selectProps = createStructuredSelector({
-  features: selectFeatures,
-})
+  features: selectFeatures
+});
 
-
-const TestRunFeatureTableContainer = connect(
-  selectProps,
-)(FeatureTable);
+const TestRunFeatureTableContainer = connect(selectProps)(FeatureTable);
 
 export default TestRunFeatureTableContainer;

@@ -1,11 +1,10 @@
-import UUID from 'pure-uuid';
+import UUID from "pure-uuid";
 
-import BrowserLocalStorage from '../browserStorage/BrowserLocalStorage';
-
+import BrowserLocalStorage from "../browserStorage/BrowserLocalStorage";
 
 export default new BrowserLocalStorage({
-  entryName: 'presenceInfo',
+  entryName: "presenceInfo",
   defaultState: () => ({
-    watcherId: new UUID(4).format(),
-  }),
+    watcherId: new UUID(4).format()
+  })
 });

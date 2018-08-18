@@ -1,21 +1,20 @@
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
-import PurgeDialog from './PurgeDialog';
-import { purgeTestRuns } from '../redux';
-import { selectTestRunTypes, selectLatestTestRuns } from '../selectors';
-
+import PurgeDialog from "./PurgeDialog";
+import { purgeTestRuns } from "../redux";
+import { selectTestRunTypes, selectLatestTestRuns } from "../selectors";
 
 const selectProps = createStructuredSelector({
   testRunTypes: selectTestRunTypes,
-  testRuns: selectLatestTestRuns,
+  testRuns: selectLatestTestRuns
 });
 
 const PurgeDialogContainer = connect(
   selectProps,
   {
-    onPurge: purgeTestRuns,
-  },
+    onPurge: purgeTestRuns
+  }
 )(PurgeDialog);
 
 export default PurgeDialogContainer;

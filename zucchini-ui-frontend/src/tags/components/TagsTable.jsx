@@ -1,21 +1,22 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import Table from 'react-bootstrap/lib/Table';
-import Badge from 'react-bootstrap/lib/Badge';
+import PropTypes from "prop-types";
+import React from "react";
+import Table from "react-bootstrap/lib/Table";
+import Badge from "react-bootstrap/lib/Badge";
 
-import Status from '../../ui/components/Status';
-import Tag from '../../ui/components/Tag';
-
+import Status from "../../ui/components/Status";
+import Tag from "../../ui/components/Tag";
 
 export default class TagsTable extends React.Component {
+  static propTypes = {
+    testRunId: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.object).isRequired
+  };
 
   render() {
     const { tags, testRunId } = this.props;
 
     const rows = tags.map(tag => {
-      return (
-        <TagsTableRow key={tag.tag} tag={tag} testRunId={testRunId} />
-      );
+      return <TagsTableRow key={tag.tag} tag={tag} testRunId={testRunId} />;
     });
 
     return (
@@ -36,16 +37,13 @@ export default class TagsTable extends React.Component {
       </Table>
     );
   }
-
 }
 
-TagsTable.propTypes = {
-  testRunId: PropTypes.string.isRequired,
-  tags: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
-
-
 class TagsTableRow extends React.PureComponent {
+  static propTypes = {
+    testRunId: PropTypes.string.isRequired,
+    tag: PropTypes.object.isRequired
+  };
 
   render() {
     const { tag, testRunId } = this.props;
@@ -58,19 +56,25 @@ class TagsTableRow extends React.PureComponent {
         <td>
           <Status status={tag.status} />
         </td>
-        <td><Badge>{tag.stats.all.count}</Badge></td>
-        <td><Badge>{tag.stats.all.passed}</Badge></td>
-        <td><Badge>{tag.stats.all.failed}</Badge></td>
-        <td><Badge>{tag.stats.all.pending}</Badge></td>
-        <td><Badge>{tag.stats.all.notRun}</Badge></td>
-        <td><Badge>{tag.stats.reviewed.count}</Badge></td>
+        <td>
+          <Badge>{tag.stats.all.count}</Badge>
+        </td>
+        <td>
+          <Badge>{tag.stats.all.passed}</Badge>
+        </td>
+        <td>
+          <Badge>{tag.stats.all.failed}</Badge>
+        </td>
+        <td>
+          <Badge>{tag.stats.all.pending}</Badge>
+        </td>
+        <td>
+          <Badge>{tag.stats.all.notRun}</Badge>
+        </td>
+        <td>
+          <Badge>{tag.stats.reviewed.count}</Badge>
+        </td>
       </tr>
     );
   }
-
 }
-
-TagsTableRow.propTypes = {
-  testRunId: PropTypes.string.isRequired,
-  tag: PropTypes.object.isRequired,
-};

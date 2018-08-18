@@ -1,8 +1,7 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
 
-import TrendChart from '../../stats/components/TrendChart';
-
+import TrendChart from "../../stats/components/TrendChart";
 
 const selectTrends = createSelector(
   state => state.feature.history,
@@ -21,16 +20,13 @@ const selectTrends = createSelector(
     trendHistory = trendHistory.slice(0, featureHistoryIndex + 1);
 
     return trendHistory.map(item => item.stats.all);
-  },
+  }
 );
 
 const selectProps = createStructuredSelector({
-  trends: selectTrends,
-})
+  trends: selectTrends
+});
 
-
-const FeatureTrendChartContainer = connect(
-  selectProps,
-)(TrendChart);
+const FeatureTrendChartContainer = connect(selectProps)(TrendChart);
 
 export default FeatureTrendChartContainer;

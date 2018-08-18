@@ -1,6 +1,5 @@
-import SimpleWebSocket from './SimpleWebSocket';
-import { createAction } from 'redux-actions';
-
+import SimpleWebSocket from "./SimpleWebSocket";
+import { createAction } from "redux-actions";
 
 export default function createWebSocketMiddleware(prefix) {
   const openActionName = `${prefix}/WS_OPEN`;
@@ -14,7 +13,6 @@ export default function createWebSocketMiddleware(prefix) {
   const errorAction = createAction(`${prefix}/WS_ERROR`);
 
   return store => {
-
     const createWebSocket = ({ url, onKeepAlive }) => {
       return new SimpleWebSocket({
         url,
@@ -25,7 +23,7 @@ export default function createWebSocketMiddleware(prefix) {
         onError: () => {
           const error = new Error(`Communication failed with WebSocket: ${url}`);
           store.dispatch(errorAction(error));
-        },
+        }
       });
     };
 
@@ -33,34 +31,33 @@ export default function createWebSocketMiddleware(prefix) {
 
     return next => action => {
       switch (action.type) {
-      case openActionName:
-        if (ws) {
-          // TODO Action dispatch race condition ?
-          next(closeAction());
-        }
-        ws = createWebSocket(action.payload);
-        ws.open();
-        break;
+        case openActionName:
+          if (ws) {
+            // TODO Action dispatch race condition ?
+            next(closeAction());
+          }
+          ws = createWebSocket(action.payload);
+          ws.open();
+          break;
 
-      case sendActionName:
-        if (ws) {
-          ws.send(action.payload);
-        }
-        break;
+        case sendActionName:
+          if (ws) {
+            ws.send(action.payload);
+          }
+          break;
 
-      case closeActionName:
-        if (ws) {
-          ws.close();
-        }
-        ws = null;
-        break;
+        case closeActionName:
+          if (ws) {
+            ws.close();
+          }
+          ws = null;
+          break;
 
-      default:
-        break;
+        default:
+          break;
       }
 
       return next(action);
     };
-
   };
 }

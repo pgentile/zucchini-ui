@@ -1,24 +1,20 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
 
-import AddCommentForm from './AddCommentForm';
-import { addScenarioCommentAndReload } from '../redux';
+import AddCommentForm from "./AddCommentForm";
+import { addScenarioCommentAndReload } from "../redux";
 
-const selectScenarioId = createSelector(
-  (state, ownProps) => ownProps.scenarioId,
-  scenarioId => scenarioId,
-);
+const selectScenarioId = createSelector((state, ownProps) => ownProps.scenarioId, scenarioId => scenarioId);
 
 const selectProps = createStructuredSelector({
-  scenarioId: selectScenarioId,
+  scenarioId: selectScenarioId
 });
-
 
 const AddCommentFormContainer = connect(
   selectProps,
   {
-    onAddComment: addScenarioCommentAndReload,
-  },
+    onAddComment: addScenarioCommentAndReload
+  }
 )(AddCommentForm);
 
 export default AddCommentFormContainer;

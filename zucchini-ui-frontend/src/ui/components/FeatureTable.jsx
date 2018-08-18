@@ -1,25 +1,21 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import Table from 'react-bootstrap/lib/Table';
-import Badge from 'react-bootstrap/lib/Badge';
-import { Link } from 'react-router'
+import PropTypes from "prop-types";
+import React from "react";
+import Table from "react-bootstrap/lib/Table";
+import Badge from "react-bootstrap/lib/Badge";
+import { Link } from "react-router";
 
-import Status from '../../ui/components/Status';
-
+import Status from "../../ui/components/Status";
 
 export default class FeatureTable extends React.Component {
-
   static propTypes = {
-    features: PropTypes.arrayOf(PropTypes.object).isRequired,
+    features: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   render() {
     const { features } = this.props;
 
     const rows = features.map(feature => {
-      return (
-        <FeatureTableTableRow key={feature.id} feature={feature} />
-      )
+      return <FeatureTableTableRow key={feature.id} feature={feature} />;
     });
 
     return (
@@ -41,14 +37,11 @@ export default class FeatureTable extends React.Component {
       </Table>
     );
   }
-
 }
 
-
 class FeatureTableTableRow extends React.PureComponent {
-
   static propTypes = {
-    feature: PropTypes.object.isRequired,
+    feature: PropTypes.object.isRequired
   };
 
   render() {
@@ -58,21 +51,30 @@ class FeatureTableTableRow extends React.PureComponent {
       <tr>
         <td>{feature.group}</td>
         <td>
-          <Link to={`/features/${feature.id}`}>
-            {feature.info.name}
-          </Link>
+          <Link to={`/features/${feature.id}`}>{feature.info.name}</Link>
         </td>
         <td>
           <Status status={feature.status} />
         </td>
-        <td><Badge>{feature.stats.all.count}</Badge></td>
-        <td><Badge>{feature.stats.all.passed}</Badge></td>
-        <td><Badge>{feature.stats.all.failed}</Badge></td>
-        <td><Badge>{feature.stats.all.pending}</Badge></td>
-        <td><Badge>{feature.stats.all.notRun}</Badge></td>
-        <td><Badge>{feature.stats.reviewed.count}</Badge></td>
+        <td>
+          <Badge>{feature.stats.all.count}</Badge>
+        </td>
+        <td>
+          <Badge>{feature.stats.all.passed}</Badge>
+        </td>
+        <td>
+          <Badge>{feature.stats.all.failed}</Badge>
+        </td>
+        <td>
+          <Badge>{feature.stats.all.pending}</Badge>
+        </td>
+        <td>
+          <Badge>{feature.stats.all.notRun}</Badge>
+        </td>
+        <td>
+          <Badge>{feature.stats.reviewed.count}</Badge>
+        </td>
       </tr>
     );
   }
-
 }

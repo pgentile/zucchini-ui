@@ -1,7 +1,6 @@
-import { default as testRunsApi } from '../api/testRuns';
-import { default as scenariosApi } from '../api/scenarios';
-import { default as featuresApi } from '../api/features';
-
+import { default as testRunsApi } from "../api/testRuns";
+import { default as scenariosApi } from "../api/scenarios";
+import { default as featuresApi } from "../api/features";
 
 export function getTestRun({ testRunId }) {
   return testRunsApi.getTestRun({ testRunId });
@@ -23,7 +22,7 @@ export function createStatsWithZeros() {
   return {
     all: ZERO_STATS_NUMBERS,
     reviewed: ZERO_STATS_NUMBERS,
-    nonReviewed: ZERO_STATS_NUMBERS,
+    nonReviewed: ZERO_STATS_NUMBERS
   };
 }
 
@@ -44,5 +43,5 @@ export const ZERO_STATS_NUMBERS = {
   passed: 0,
   failed: 0,
   pending: 0,
-  notRun: 0,
+  notRun: 0
 };

@@ -1,24 +1,19 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
 
-import TestRunDiffSelectorPage from './TestRunDiffSelectorPage';
+import TestRunDiffSelectorPage from "./TestRunDiffSelectorPage";
 
-import { loadTestRunDiffSelectorPage } from '../redux';
+import { loadTestRunDiffSelectorPage } from "../redux";
 
-
-const selectTestRun = createSelector(
-  state => state.testRun.testRun,
-  testRun => testRun,
-);
+const selectTestRun = createSelector(state => state.testRun.testRun, testRun => testRun);
 
 const selectProps = createStructuredSelector({
-  testRun: selectTestRun,
+  testRun: selectTestRun
 });
-
 
 export default connect(
   selectProps,
   {
-    onLoad: loadTestRunDiffSelectorPage,
-  },
+    onLoad: loadTestRunDiffSelectorPage
+  }
 )(TestRunDiffSelectorPage);

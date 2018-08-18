@@ -1,11 +1,10 @@
-import BrowserLocalStorage from '../browserStorage/BrowserLocalStorage';
-
+import BrowserLocalStorage from "../browserStorage/BrowserLocalStorage";
 
 const statsDashboardFiltersStorage = new BrowserLocalStorage({
-  entryName: 'statsDashboardState',
+  entryName: "statsDashboardState",
   defaultState: () => ({
-    showDetails: false,
-  }),
+    showDetails: false
+  })
 });
 
 export default statsDashboardFiltersStorage;

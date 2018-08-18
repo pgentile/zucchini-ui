@@ -1,20 +1,27 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import InputGroup from 'react-bootstrap/lib/InputGroup';
+import PropTypes from "prop-types";
+import React from "react";
+import FormControl from "react-bootstrap/lib/FormControl";
+import FormGroup from "react-bootstrap/lib/FormGroup";
+import InputGroup from "react-bootstrap/lib/InputGroup";
 
-import Button from '../../ui/components/Button';
-import toNiceDate from '../../ui/toNiceDate';
-import FoundScenarioTableContainer from './FoundScenarioTableContainer';
-
+import Button from "../../ui/components/Button";
+import toNiceDate from "../../ui/toNiceDate";
+import FoundScenarioTableContainer from "./FoundScenarioTableContainer";
 
 export default class TestRunSearchPage extends React.Component {
+  static propTypes = {
+    onLoad: PropTypes.func.isRequired,
+    onSearch: PropTypes.func.isRequired,
+    search: PropTypes.string.isRequired,
+    testRunId: PropTypes.string.isRequired,
+    testRun: PropTypes.object.isRequired
+  };
+
   constructor(props) {
     super(props);
 
     this.state = {
-      search: props.search,
+      search: props.search
     };
   }
 
@@ -27,17 +34,17 @@ export default class TestRunSearchPage extends React.Component {
     this.loadTestRunIfPossible(prevProps);
   }
 
-  onSearchChange = (event) => {
+  onSearchChange = event => {
     this.setState({
-      search: event.target.value,
+      search: event.target.value
     });
   };
 
-  onSearchFormSubmit = (event) => {
+  onSearchFormSubmit = event => {
     event.preventDefault();
     this.props.onSearch({
       search: this.state.search,
-      testRunId: this.props.testRunId,
+      testRunId: this.props.testRunId
     });
   };
 
@@ -67,7 +74,12 @@ export default class TestRunSearchPage extends React.Component {
         <form onSubmit={this.onSearchFormSubmit}>
           <FormGroup controlId="search">
             <InputGroup bsSize="large">
-              <FormControl type="text" value={this.state.search} onChange={this.onSearchChange} placeholder="Rechercher..." />
+              <FormControl
+                type="text"
+                value={this.state.search}
+                onChange={this.onSearchChange}
+                placeholder="Rechercher..."
+              />
               <InputGroup.Button>
                 <Button glyph="search" type="submit" />
               </InputGroup.Button>
@@ -79,16 +91,7 @@ export default class TestRunSearchPage extends React.Component {
 
         <h2>Résultats</h2>
         <FoundScenarioTableContainer />
-
       </div>
     );
   }
 }
-
-TestRunSearchPage.propTypes = {
-  onLoad: PropTypes.func.isRequired,
-  onSearch: PropTypes.func.isRequired,
-  search: PropTypes.string.isRequired,
-  testRunId: PropTypes.string.isRequired,
-  testRun: PropTypes.object.isRequired,
-};

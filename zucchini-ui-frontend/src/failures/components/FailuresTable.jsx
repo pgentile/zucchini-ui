@@ -1,86 +1,93 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { Link } from 'react-router';
-import Table from 'react-bootstrap/lib/Table';
-import Label from 'react-bootstrap/lib/Label';
-import Modal from 'react-bootstrap/lib/Modal';
-import Status from '../../ui/components/Status';
-import truncate from 'lodash/truncate';
-
+import PropTypes from "prop-types";
+import React from "react";
+import { Link } from "react-router";
+import Table from "react-bootstrap/lib/Table";
+import Label from "react-bootstrap/lib/Label";
+import Modal from "react-bootstrap/lib/Modal";
+import Status from "../../ui/components/Status";
+import truncate from "lodash/truncate";
 
 export default class FailuresTable extends React.Component {
-
   static propTypes = {
-    failures: PropTypes.arrayOf(PropTypes.object).isRequired,
+    failures: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   render() {
     const { failures } = this.props;
     const rows = failures.map(groupedFailures => {
       const nbFailedScenarii = groupedFailures.failedScenarii.length;
-      return (
-        groupedFailures.failedScenarii.map((failedScenario, index) => {
-          return <FailuresTableRow key={index} failedScenario={failedScenario} isFirstFailure={index === 0} nbFailedScenarii={nbFailedScenarii} />
-        })
-      );
+      return groupedFailures.failedScenarii.map((failedScenario, index) => {
+        return (
+          <FailuresTableRow
+            key={index}
+            failedScenario={failedScenario}
+            isFirstFailure={index === 0}
+            nbFailedScenarii={nbFailedScenarii}
+          />
+        );
+      });
     });
 
     return (
-      <Table bordered striped hover style={{ tableLayout: 'fixed' }}>
+      <Table bordered striped hover style={{ tableLayout: "fixed" }}>
         <thead>
           <tr>
-            <th className='col-md-4'>Erreur</th>
-            <th className='col-md-6'>Scénario</th>
-            <th className='col-md-1'>Statut</th>
-            <th className='col-md-1'>Analysé</th>
+            <th className="col-md-4">Erreur</th>
+            <th className="col-md-6">Scénario</th>
+            <th className="col-md-1">Statut</th>
+            <th className="col-md-1">Analysé</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
       </Table>
     );
   }
-
 }
 
-
 class FailuresTableRow extends React.Component {
-
   static propTypes = {
     failedScenario: PropTypes.object.isRequired,
     isFirstFailure: PropTypes.bool.isRequired,
-    nbFailedScenarii: PropTypes.number.isRequired,
+    nbFailedScenarii: PropTypes.number.isRequired
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      showErrorMsgDetails: false,
+      showErrorMsgDetails: false
     };
   }
 
   onShowErrorMsg = () => {
     this.setState({
-      showErrorMsgDetails: true,
+      showErrorMsgDetails: true
     });
   };
 
   onHideErrorMsg = () => {
     this.setState({
-      showErrorMsgDetails: false,
+      showErrorMsgDetails: false
     });
   };
 
   createErrorMessageCell(rowSpan, errorMessage) {
-
     const cellStyle = {
-      overflow: 'hidden',
-      textOverflow: 'ellipsis'
+      overflow: "hidden",
+      textOverflow: "ellipsis"
     };
 
     return (
-      <td rowSpan={rowSpan} style={cellStyle}>{truncate(errorMessage, { 'length': 300 })}<br />
-        <a onClick={this.onShowErrorMsg}><b>Détails</b></a>
-        <FailuresDetailsDialog errorMessage={errorMessage} show={this.state.showErrorMsgDetails} onClose={this.onHideErrorMsg} />
+      <td rowSpan={rowSpan} style={cellStyle}>
+        {truncate(errorMessage, { length: 300 })}
+        <br />
+        <a onClick={this.onShowErrorMsg}>
+          <b>Détails</b>
+        </a>
+        <FailuresDetailsDialog
+          errorMessage={errorMessage}
+          show={this.state.showErrorMsgDetails}
+          onClose={this.onHideErrorMsg}
+        />
       </td>
     );
   }
@@ -104,23 +111,23 @@ class FailuresTableRow extends React.Component {
           <Status status={failedScenario.status} />
         </td>
         <td>
-          <Label bsStyle={failedScenario.reviewed ? 'success' : 'default'}>{failedScenario.reviewed ? 'Oui' : 'Non'}</Label>
+          <Label bsStyle={failedScenario.reviewed ? "success" : "default"}>
+            {failedScenario.reviewed ? "Oui" : "Non"}
+          </Label>
         </td>
       </tr>
     );
   }
-
 }
 
 class FailuresDetailsDialog extends React.PureComponent {
-
   static propTypes = {
     show: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string.isRequired,
-    onClose: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired
   };
 
-  onCloseClick = (event) => {
+  onCloseClick = event => {
     if (event) {
       event.preventDefault();
     }
@@ -130,7 +137,7 @@ class FailuresDetailsDialog extends React.PureComponent {
   render() {
     const { show, errorMessage } = this.props;
     return (
-      <Modal bsSize='large' dialogClassName='details-modal-dialog' show={show} onHide={this.onCloseClick}>
+      <Modal bsSize="large" dialogClassName="details-modal-dialog" show={show} onHide={this.onCloseClick}>
         <Modal.Header closeButton>
           <Modal.Title>{"Détails de l'erreur"}</Modal.Title>
         </Modal.Header>
@@ -140,5 +147,4 @@ class FailuresDetailsDialog extends React.PureComponent {
       </Modal>
     );
   }
-
 }

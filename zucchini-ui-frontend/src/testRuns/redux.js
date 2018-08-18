@@ -1,12 +1,11 @@
-import { handleActions } from 'redux-actions';
-import { push } from 'react-router-redux';
+import { handleActions } from "redux-actions";
+import { push } from "react-router-redux";
 
-import * as model from './model'
-
+import * as model from "./model";
 
 // Actions
 
-const PREFIX = 'TEST_RUNS';
+const PREFIX = "TEST_RUNS";
 
 const GET_LATEST_TEST_RUNS = `${PREFIX}/GET_LATEST_TEST_RUNS`;
 const GET_LATEST_TEST_RUNS_FULFILLED = `${GET_LATEST_TEST_RUNS}_FULFILLED`;
@@ -35,21 +34,21 @@ export function loadTestRunsPage() {
 export function getLatestTestRuns() {
   return {
     type: GET_LATEST_TEST_RUNS,
-    payload: model.getLatestsTestRuns(),
+    payload: model.getLatestsTestRuns()
   };
 }
 
 export function getLatestTestRunsWithStats() {
   return {
     type: GET_LATEST_TEST_RUNS_WITH_STATS,
-    payload: model.getLatestsTestRunsWithStats(),
+    payload: model.getLatestsTestRunsWithStats()
   };
 }
 
 export function createTestRun({ type }) {
   return {
     type: CREATE_TEST_RUN,
-    payload: model.createTestRun({ type }),
+    payload: model.createTestRun({ type })
   };
 }
 
@@ -75,54 +74,50 @@ function deleteTestRun({ testRunId }) {
     type: DELETE_TEST_RUN,
     payload: model.deleteTestRun({ testRunId }),
     meta: {
-      testRunId,
-    },
+      testRunId
+    }
   };
 }
-
 
 // Reducer
 
 const initialState = {
-  testRuns: [],
+  testRuns: []
 };
 
-export const testRuns = handleActions({
+export const testRuns = handleActions(
+  {
+    [GET_LATEST_TEST_RUNS_FULFILLED]: (state, action) => {
+      return {
+        ...state,
+        testRuns: mergeTestRuns(state.testRuns, action.payload)
+      };
+    },
 
-  [GET_LATEST_TEST_RUNS_FULFILLED]: (state, action) => {
-    return {
+    [GET_LATEST_TEST_RUNS_WITH_STATS_FULFILLED]: (state, action) => {
+      return {
+        ...state,
+        testRuns: mergeTestRuns(state.testRuns, action.payload)
+      };
+    },
+
+    [CREATE_TEST_RUN_FULFILLED]: (state, action) => ({
       ...state,
-      testRuns: mergeTestRuns(state.testRuns, action.payload),
-    };
+      testRuns: [action.payload, ...state.testRuns]
+    }),
+
+    [DELETE_TEST_RUN_FULFILLED]: (state, action) => {
+      const { testRunId } = action.meta;
+      const testRuns = state.testRuns.filter(testRun => testRun.id !== testRunId);
+
+      return {
+        ...state,
+        testRuns
+      };
+    }
   },
-
-  [GET_LATEST_TEST_RUNS_WITH_STATS_FULFILLED]: (state, action) => {
-    return {
-      ...state,
-      testRuns: mergeTestRuns(state.testRuns, action.payload),
-    };
-  },
-
-  [CREATE_TEST_RUN_FULFILLED]: (state, action) => ({
-    ...state,
-    testRuns: [
-      action.payload,
-      ...state.testRuns,
-    ],
-  }),
-
-  [DELETE_TEST_RUN_FULFILLED]: (state, action) => {
-    const { testRunId } = action.meta;
-    const testRuns = state.testRuns.filter(testRun => testRun.id !== testRunId);
-
-    return {
-      ...state,
-      testRuns,
-    };
-  },
-
-}, initialState);
-
+  initialState
+);
 
 function mergeTestRuns(testRuns, nextTestRuns) {
   const testRunsById = new Map();
@@ -134,7 +129,7 @@ function mergeTestRuns(testRuns, nextTestRuns) {
     const testRun = testRunsById.get(nextTestRun.id);
     return {
       ...testRun,
-      ...nextTestRun,
+      ...nextTestRun
     };
   });
 }

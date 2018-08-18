@@ -1,14 +1,14 @@
-import { handleActions } from 'redux-actions';
+import { handleActions } from "redux-actions";
 ///// import { replace } from 'react-router-redux'
 
-import { default as scenariosApi } from '../api/scenarios';
-import { default as featuresApi } from '../api/features';
-import { createStatsWithZeros } from '../testRun/model';
-import { getTestRun } from '../testRun/redux';
+import { default as scenariosApi } from "../api/scenarios";
+import { default as featuresApi } from "../api/features";
+import { createStatsWithZeros } from "../testRun/model";
+import { getTestRun } from "../testRun/redux";
 
 // Actions
 
-const PREFIX = 'TAG_DETAILS';
+const PREFIX = "TAG_DETAILS";
 
 const LOAD_SCENARIOS = `${PREFIX}/LOAD_SCENARIOS`;
 const LOAD_SCENARIOS_FULFILLED = `${LOAD_SCENARIOS}_FULFILLED`;
@@ -37,52 +37,51 @@ export function loadTagDetailsPage({ testRunId, tags, excludedTags }) {
   };
 }
 
-
 export function getScenarios({ testRunId, tags, excludedTags }) {
   return {
     type: LOAD_SCENARIOS,
-    payload: scenariosApi.getScenarios({ testRunId, tags, excludedTags }),
+    payload: scenariosApi.getScenarios({ testRunId, tags, excludedTags })
   };
 }
-
 
 export function getFeatures({ testRunId, tags, excludedTags }) {
   return {
     type: LOAD_FEATURES,
-    payload: featuresApi.getFeatures({ testRunId, tags, excludedTags, withStats: true }),
+    payload: featuresApi.getFeatures({ testRunId, tags, excludedTags, withStats: true })
   };
 }
 
 export function getStats({ testRunId, tags, excludedTags }) {
   return {
     type: LOAD_STATS,
-    payload: scenariosApi.getStats({ testRunId, tags, excludedTags }),
+    payload: scenariosApi.getStats({ testRunId, tags, excludedTags })
   };
 }
-
 
 // Reducer
 
 const initialState = {
   scenarios: [],
   features: [],
-  stats: createStatsWithZeros(),
+  stats: createStatsWithZeros()
 };
 
-export const tagDetails = handleActions({
+export const tagDetails = handleActions(
+  {
+    [LOAD_SCENARIOS_FULFILLED]: (state, action) => ({
+      ...state,
+      scenarios: action.payload
+    }),
 
-  [LOAD_SCENARIOS_FULFILLED]: (state, action) => ({
-    ...state,
-    scenarios: action.payload,
-  }),
+    [LOAD_FEATURES_FULFILLED]: (state, action) => ({
+      ...state,
+      features: action.payload
+    }),
 
-  [LOAD_FEATURES_FULFILLED]: (state, action) => ({
-    ...state,
-    features: action.payload,
-  }),
-
-  [LOAD_STATS_FULFILLED]: (state, action) => ({
-    ...state,
-    stats: action.payload,
-  }),
-}, initialState);
+    [LOAD_STATS_FULFILLED]: (state, action) => ({
+      ...state,
+      stats: action.payload
+    })
+  },
+  initialState
+);

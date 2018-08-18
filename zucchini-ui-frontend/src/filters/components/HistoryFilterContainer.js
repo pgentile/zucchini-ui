@@ -1,25 +1,20 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
 
-import HistoryFilter from './HistoryFilter';
-import { updateHistoryFilters } from '../../filters/redux';
+import HistoryFilter from "./HistoryFilter";
+import { updateHistoryFilters } from "../../filters/redux";
 
-
-const selectFilters = createSelector(
-  state => state.historyFilters,
-  historyFilters => historyFilters,
-);
+const selectFilters = createSelector(state => state.historyFilters, historyFilters => historyFilters);
 
 const selectProps = createStructuredSelector({
-  filters: selectFilters,
+  filters: selectFilters
 });
-
 
 const HistoryFilterContainer = connect(
   selectProps,
   {
-    onFilterChange: updateHistoryFilters,
-  },
+    onFilterChange: updateHistoryFilters
+  }
 )(HistoryFilter);
 
 export default HistoryFilterContainer;

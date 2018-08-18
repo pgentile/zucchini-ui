@@ -1,20 +1,20 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import Table from 'react-bootstrap/lib/Table';
+import PropTypes from "prop-types";
+import React from "react";
+import Table from "react-bootstrap/lib/Table";
 
-import Status from '../../ui/components/Status';
-import toNiceDate from '../../ui/toNiceDate';
-
+import Status from "../../ui/components/Status";
+import toNiceDate from "../../ui/toNiceDate";
 
 export default class ScenarioChangeTable extends React.PureComponent {
+  static propTypes = {
+    changes: PropTypes.arrayOf(PropTypes.object)
+  };
 
   render() {
     const { changes } = this.props;
 
     const rows = changes.map(change => {
-      return (
-        <ScenarioChangeTableRow key={change.id} change={change} />
-      )
+      return <ScenarioChangeTableRow key={change.id} change={change} />;
     });
 
     return (
@@ -31,27 +31,23 @@ export default class ScenarioChangeTable extends React.PureComponent {
       </Table>
     );
   }
-
 }
 
-ScenarioChangeTable.propTypes = {
-  changes: PropTypes.arrayOf(PropTypes.object),
-};
-
-
-
 class ScenarioChangeTableRow extends React.PureComponent {
+  static propTypes = {
+    change: PropTypes.object.isRequired
+  };
 
   getChangeTypeName() {
     const { change } = this.props;
 
     switch (change.type) {
-    case 'REVIEWED_STATE':
-      return 'Analysé ?';
-    case 'STATUS':
-      return 'Statut';
-    default:
-      return change.type;
+      case "REVIEWED_STATE":
+        return "Analysé ?";
+      case "STATUS":
+        return "Statut";
+      default:
+        return change.type;
     }
   }
 
@@ -59,12 +55,12 @@ class ScenarioChangeTableRow extends React.PureComponent {
     const { change } = this.props;
 
     switch (change.type) {
-    case 'REVIEWED_STATE':
-      return ReviewedStateContent;
-    case 'STATUS':
-      return StatusContent;
-    default:
-      return null;
+      case "REVIEWED_STATE":
+        return ReviewedStateContent;
+      case "STATUS":
+        return StatusContent;
+      default:
+        return null;
     }
   }
 
@@ -88,41 +84,26 @@ class ScenarioChangeTableRow extends React.PureComponent {
       </tr>
     );
   }
-
 }
-
-ScenarioChangeTableRow.propTypes = {
-  change: PropTypes.object.isRequired,
-};
-
 
 class StatusContent extends React.PureComponent {
+  static propTypes = {
+    value: PropTypes.any.isRequired
+  };
 
   render() {
     const { value } = this.props;
-    return (
-      <Status status={value} />
-    );
+    return <Status status={value} />;
   }
-
 }
-
-StatusContent.propTypes = {
-  value: PropTypes.any.isRequired,
-};
-
 
 class ReviewedStateContent extends React.PureComponent {
+  static propTypes = {
+    value: PropTypes.any.isRequired
+  };
 
   render() {
     const { value } = this.props;
-    return (
-      <span>{value ? 'Oui' : 'Non'}</span>
-    );
+    return <span>{value ? "Oui" : "Non"}</span>;
   }
-
 }
-
-ReviewedStateContent.propTypes = {
-  value: PropTypes.any.isRequired,
-};

@@ -1,25 +1,27 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import Checkbox from 'react-bootstrap/lib/Checkbox';
-
+import PropTypes from "prop-types";
+import React from "react";
+import FormGroup from "react-bootstrap/lib/FormGroup";
+import Checkbox from "react-bootstrap/lib/Checkbox";
 
 const FILTERS = {
-  comments: 'Les commentaires',
-  context: 'Le contexte',
-  beforeAndAfterActions: 'Les actions avant / après',
-  errorDetails: 'Le détail des erreurs',
-  logs: 'Les logs',
-  attachments: 'Les pièces jointes',
+  comments: "Les commentaires",
+  context: "Le contexte",
+  beforeAndAfterActions: "Les actions avant / après",
+  errorDetails: "Le détail des erreurs",
+  logs: "Les logs",
+  attachments: "Les pièces jointes"
 };
 
-
 export default class StepFilters extends React.PureComponent {
+  static propTypes = {
+    filters: PropTypes.object.isRequired,
+    onFilterChange: PropTypes.func.isRequired
+  };
 
   onFilterChange(name) {
     return event => {
       this.props.onFilterChange({
-        [name]: event.target.checked,
+        [name]: event.target.checked
       });
     };
   }
@@ -38,16 +40,6 @@ export default class StepFilters extends React.PureComponent {
       );
     });
 
-    return (
-      <div>
-        {checkboxes}
-      </div>
-    );
+    return <div>{checkboxes}</div>;
   }
-
 }
-
-StepFilters.propTypes = {
-  filters: PropTypes.object.isRequired,
-  onFilterChange: PropTypes.func.isRequired,
-};

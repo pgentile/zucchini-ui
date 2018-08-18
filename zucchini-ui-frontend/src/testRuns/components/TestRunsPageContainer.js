@@ -1,24 +1,22 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
 
-import TestRunsPage from './TestRunsPage';
-import { loadTestRunsPage } from '../redux';
-
+import TestRunsPage from "./TestRunsPage";
+import { loadTestRunsPage } from "../redux";
 
 const selectSelectedType = createSelector(
   (state, ownProps) => ownProps.location.query.type || null,
-  selectedType => selectedType,
+  selectedType => selectedType
 );
 
 const selectProps = createStructuredSelector({
-  selectedType: selectSelectedType,
+  selectedType: selectSelectedType
 });
-
 
 const TestRunsPageContainer = connect(
   selectProps,
   {
-    onLoad: loadTestRunsPage,
+    onLoad: loadTestRunsPage
   }
 )(TestRunsPage);
 

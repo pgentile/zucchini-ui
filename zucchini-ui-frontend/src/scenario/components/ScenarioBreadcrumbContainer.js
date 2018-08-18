@@ -1,9 +1,8 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
 
-import Breadcrumb from '../../ui/components/Breadcrumb';
-import toNiceDate from '../../ui/toNiceDate';
-
+import Breadcrumb from "../../ui/components/Breadcrumb";
+import toNiceDate from "../../ui/toNiceDate";
 
 const selectBreadcumbItems = createSelector(
   state => state.testRun.testRun,
@@ -13,30 +12,27 @@ const selectBreadcumbItems = createSelector(
     return [
       {
         value: `Type ${testRun.type}`,
-        link: { pathname: '/', query: { type: testRun.type } },
+        link: { pathname: "/", query: { type: testRun.type } }
       },
       {
         value: `Tir du ${toNiceDate(testRun.date)}`,
-        link: { pathname: `/test-runs/${testRun.id}` },
+        link: { pathname: `/test-runs/${testRun.id}` }
       },
       {
         value: `${feature.info.keyword} ${feature.info.name}`,
-        link: { pathname: `/features/${feature.id}` },
+        link: { pathname: `/features/${feature.id}` }
       },
       {
-        value: `${scenario.info.keyword} ${scenario.info.name}`,
-      },
+        value: `${scenario.info.keyword} ${scenario.info.name}`
+      }
     ];
-  },
+  }
 );
 
 const selectProps = createStructuredSelector({
-  items: selectBreadcumbItems,
-})
+  items: selectBreadcumbItems
+});
 
-
-const ScenarioBreadcrumbContainer = connect(
-  selectProps,
-)(Breadcrumb);
+const ScenarioBreadcrumbContainer = connect(selectProps)(Breadcrumb);
 
 export default ScenarioBreadcrumbContainer;

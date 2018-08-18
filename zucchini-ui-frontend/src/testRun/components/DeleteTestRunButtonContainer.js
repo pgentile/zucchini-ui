@@ -1,13 +1,12 @@
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import DeleteTestRunButton from './DeleteTestRunButton';
-import { deleteTestRunThenRedirect } from '../redux';
-
+import DeleteTestRunButton from "./DeleteTestRunButton";
+import { deleteTestRunThenRedirect } from "../redux";
 
 const DeleteTestRunButtonContainer = connect(
   undefined,
   {
-    onDelete: deleteTestRunThenRedirect,
+    onDelete: deleteTestRunThenRedirect
   }
 )(DeleteTestRunButton);
 

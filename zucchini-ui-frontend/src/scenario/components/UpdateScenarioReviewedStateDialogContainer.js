@@ -1,14 +1,13 @@
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import UpdateScenarioReviewedStateDialog from './UpdateScenarioReviewedStateDialog';
-import { setScenarioReviewedStateAndComment } from '../redux';
-
+import UpdateScenarioReviewedStateDialog from "./UpdateScenarioReviewedStateDialog";
+import { setScenarioReviewedStateAndComment } from "../redux";
 
 const UpdateScenarioReviewedStateDialogContainer = connect(
   null,
   {
-    onSetReviewedState: setScenarioReviewedStateAndComment,
-  },
+    onSetReviewedState: setScenarioReviewedStateAndComment
+  }
 )(UpdateScenarioReviewedStateDialog);
 
 export default UpdateScenarioReviewedStateDialogContainer;

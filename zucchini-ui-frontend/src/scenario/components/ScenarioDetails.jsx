@@ -1,46 +1,59 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
-import Popover from 'react-bootstrap/lib/Popover';
+import PropTypes from "prop-types";
+import React from "react";
+import OverlayTrigger from "react-bootstrap/lib/OverlayTrigger";
+import Popover from "react-bootstrap/lib/Popover";
 
-import Button from '../../ui/components/Button';
-import SimpleText from '../../ui/components/SimpleText';
-import ActionStep from './ActionStep';
-import Step from './Step';
-import StepFiltersContainer from './StepFiltersContainer';
-
+import Button from "../../ui/components/Button";
+import SimpleText from "../../ui/components/SimpleText";
+import ActionStep from "./ActionStep";
+import Step from "./Step";
+import StepFiltersContainer from "./StepFiltersContainer";
 
 export default class ScenarioDetails extends React.PureComponent {
+  static propTypes = {
+    scenario: PropTypes.object,
+    filters: PropTypes.object
+  };
 
   render() {
     const { scenario, filters } = this.props;
 
     const steps = scenario.steps.map((step, index) => {
-      return (
-        <Step key={index} step={step} scenarioId={scenario.id} filters={filters} />
-      );
+      return <Step key={index} step={step} scenarioId={scenario.id} filters={filters} />;
     });
 
     let backgroundSteps = [];
     if (scenario.background && scenario.background.steps) {
       backgroundSteps = scenario.background.steps.map((step, index) => {
-        return (
-          <Step key={index} step={step} scenarioId={scenario.id} filters={filters} special />
-        );
+        return <Step key={index} step={step} scenarioId={scenario.id} filters={filters} special />;
       });
     }
 
     const beforeActions = scenario.beforeActions.map((action, index) => {
       return (
-        <ActionStep key={index} index={index} name="Pré-action" action={action} scenarioId={scenario.id} filters={filters} />
+        <ActionStep
+          key={index}
+          index={index}
+          name="Pré-action"
+          action={action}
+          scenarioId={scenario.id}
+          filters={filters}
+        />
       );
-    })
+    });
 
     const afterActions = scenario.afterActions.map((action, index) => {
       return (
-        <ActionStep key={index} index={index} name="Post-action" action={action} scenarioId={scenario.id} filters={filters} />
+        <ActionStep
+          key={index}
+          index={index}
+          name="Post-action"
+          action={action}
+          scenarioId={scenario.id}
+          filters={filters}
+        />
       );
-    })
+    });
 
     // For good popover placement :
     //   - The container prop of the OverlayTrigger must have a CSS relative position
@@ -52,7 +65,7 @@ export default class ScenarioDetails extends React.PureComponent {
     );
 
     return (
-      <div style={{ position: 'relative' }}>
+      <div style={{ position: "relative" }}>
         <p>
           <OverlayTrigger container={this} rootClose trigger="click" placement="bottom" overlay={stepFilters}>
             <Button bsSize="xsmall">Options d&apos;affichage</Button>
@@ -67,10 +80,4 @@ export default class ScenarioDetails extends React.PureComponent {
       </div>
     );
   }
-
 }
-
-ScenarioDetails.propTypes = {
-  scenario: PropTypes.object,
-  filters: PropTypes.object,
-};

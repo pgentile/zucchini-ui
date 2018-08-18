@@ -1,23 +1,18 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
 
-import ScenarioStateFilter from './ScenarioStateFilter';
-import { updateScenarioFilters } from '../../filters/redux';
+import ScenarioStateFilter from "./ScenarioStateFilter";
+import { updateScenarioFilters } from "../../filters/redux";
 
-
-const selectFilters = createSelector(
-  state => state.scenarioFilters,
-  scenarioFilters => scenarioFilters,
-);
+const selectFilters = createSelector(state => state.scenarioFilters, scenarioFilters => scenarioFilters);
 
 const selectProps = createStructuredSelector({
-  filters: selectFilters,
+  filters: selectFilters
 });
-
 
 export default connect(
   selectProps,
   {
-    onFilterChange: updateScenarioFilters,
-  },
+    onFilterChange: updateScenarioFilters
+  }
 )(ScenarioStateFilter);

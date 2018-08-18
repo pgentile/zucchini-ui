@@ -1,8 +1,6 @@
-import queryString from 'query-string';
-
+import queryString from "query-string";
 
 export default class Client {
-
   constructor(baseUri) {
     this.baseUri = baseUri;
   }
@@ -10,43 +8,43 @@ export default class Client {
   get(params) {
     return this.fetchJson({
       ...params,
-      method: 'GET',
+      method: "GET"
     });
   }
 
   post(params) {
     return this.fetchJson({
       ...params,
-      method: 'POST',
+      method: "POST"
     });
   }
 
   put(params) {
     return this.fetchJson({
       ...params,
-      method: 'PUT',
+      method: "PUT"
     });
   }
 
   patch(params) {
     return this.fetchJson({
       ...params,
-      method: 'PATCH',
+      method: "PATCH"
     });
   }
 
   delete(params) {
     return this.fetchJson({
       ...params,
-      method: 'DELETE',
+      method: "DELETE"
     });
   }
 
   async fetchJson(params) {
     const { path, query, method, body, headers, hasOutput } = {
-      method: 'GET',
+      method: "GET",
       hasOutput: true,
-      ...params,
+      ...params
     };
 
     let bodyStr = undefined;
@@ -55,17 +53,17 @@ export default class Client {
     }
 
     const realHeaders = {
-      'Accept': 'application/json',
-      ...headers,
+      Accept: "application/json",
+      ...headers
     };
-    if (method === 'POST' || method === 'PUT' || method === 'PATCH') {
-      realHeaders['Content-Type'] = 'application/json';
+    if (method === "POST" || method === "PUT" || method === "PATCH") {
+      realHeaders["Content-Type"] = "application/json";
     }
 
     const fetchParams = {
       method: method,
       headers: realHeaders,
-      body: bodyStr,
+      body: bodyStr
     };
 
     const url = this.createUrl({ path, query });
@@ -81,10 +79,10 @@ export default class Client {
   }
 
   createUrl({ path, query }) {
-    let pathStr = '';
+    let pathStr = "";
     if (path) {
-      if (!path.startsWith('/')) {
-        pathStr += '/';
+      if (!path.startsWith("/")) {
+        pathStr += "/";
       }
       pathStr += path;
     }
@@ -105,12 +103,9 @@ export default class Client {
 
     return response;
   }
-
 }
 
-
 export class ClientError {
-
   constructor(message) {
     this.message = message;
   }
@@ -118,5 +113,4 @@ export class ClientError {
   toString() {
     return `ZucchiniClientError(${this.message})`;
   }
-
 }

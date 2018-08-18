@@ -1,22 +1,22 @@
-import flatten from 'lodash/flatten';
-
+import flatten from "lodash/flatten";
 
 export default function tokenizeUrls(content) {
   if (!content) {
     return [];
   }
 
-  const lines = content.trim().split('\n');
-  const tokens = flatten(lines.map(line => {
-    return tokenizeLine(line).concat([['eol']]);
-  }));
+  const lines = content.trim().split("\n");
+  const tokens = flatten(
+    lines.map(line => {
+      return tokenizeLine(line).concat([["eol"]]);
+    })
+  );
 
   return tokens;
 }
 
-
-const urlPattern = new RegExp('(https?://[^ ]+)', 'ig');
-const specialChars = ',.;';
+const urlPattern = new RegExp("(https?://[^ ]+)", "ig");
+const specialChars = ",.;";
 
 function tokenizeLine(content) {
   let tokens = [];
@@ -25,11 +25,11 @@ function tokenizeLine(content) {
   let result;
   while ((result = urlPattern.exec(content)) !== null) {
     if (result.index > lastIndex) {
-      tokens.push(['text', content.substring(lastIndex, result.index)]);
+      tokens.push(["text", content.substring(lastIndex, result.index)]);
     }
 
     let url = result[1];
-    let remaining = '';
+    let remaining = "";
 
     for (let i = 0; i < specialChars.length; i++) {
       const specialChar = specialChars[i];
@@ -40,23 +40,23 @@ function tokenizeLine(content) {
       }
     }
 
-    tokens.push(['url', url]);
+    tokens.push(["url", url]);
     if (remaining) {
-      tokens.push(['text', remaining]);
+      tokens.push(["text", remaining]);
     }
 
     lastIndex = result.index + result[0].length;
   }
 
   if (lastIndex < content.length) {
-    tokens.push(['text', content.substring(lastIndex)]);
+    tokens.push(["text", content.substring(lastIndex)]);
   }
 
   tokens = tokens.reduce((prevTokens, token) => {
     // Merge text tokens if possible
     if (prevTokens.length >= 1) {
       const lastToken = prevTokens[prevTokens.length - 1];
-      if (lastToken[0] === 'text' && token[0] === 'text') {
+      if (lastToken[0] === "text" && token[0] === "text") {
         lastToken[1] += token[1];
         return prevTokens;
       }

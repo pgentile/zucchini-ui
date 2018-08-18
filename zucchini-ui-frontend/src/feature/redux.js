@@ -1,14 +1,13 @@
-import { handleActions } from 'redux-actions';
-import { replace } from 'react-router-redux'
+import { handleActions } from "redux-actions";
+import { replace } from "react-router-redux";
 
-import * as model from './model'
+import * as model from "./model";
 
-import { getTestRun } from '../testRun/redux';
-
+import { getTestRun } from "../testRun/redux";
 
 // Actions
 
-const PREFIX = 'FEATURE';
+const PREFIX = "FEATURE";
 
 const GET_FEATURE = `${PREFIX}/GET_FEATURE`;
 const GET_FEATURE_FULFILLED = `${GET_FEATURE}_FULFILLED`;
@@ -23,7 +22,6 @@ const GET_SCENARIOS = `${PREFIX}/GET_SCENARIOS`;
 const GET_SCENARIOS_FULFILLED = `${GET_SCENARIOS}_FULFILLED`;
 
 const DELETE_FEATURE = `${PREFIX}/DELETE_FEATURE`;
-
 
 // Action creators
 
@@ -43,7 +41,7 @@ export function loadFeaturePage({ featureId }) {
     await feature$;
     await stats$;
     await history$;
-    await scenarios$
+    await scenarios$;
     await testRun$;
   };
 }
@@ -62,8 +60,8 @@ export function getFeature({ featureId }) {
     type: GET_FEATURE,
     payload: model.getFeature({ featureId }),
     meta: {
-      featureId,
-    },
+      featureId
+    }
   };
 }
 
@@ -72,8 +70,8 @@ export function getFeatureStats({ featureId }) {
     type: GET_FEATURE_STATS,
     payload: model.getFeatureStats({ featureId }),
     meta: {
-      featureId,
-    },
+      featureId
+    }
   };
 }
 
@@ -82,8 +80,8 @@ export function getFeatureHistory({ featureId }) {
     type: GET_FEATURE_HISTORY,
     payload: model.getFeatureHistory({ featureId }),
     meta: {
-      featureId,
-    },
+      featureId
+    }
   };
 }
 
@@ -92,8 +90,8 @@ export function getScenarios({ featureId }) {
     type: GET_SCENARIOS,
     payload: model.getScenarios({ featureId }),
     meta: {
-      featureId,
-    },
+      featureId
+    }
   };
 }
 
@@ -102,8 +100,8 @@ export function deleteFeature({ featureId }) {
     type: DELETE_FEATURE,
     payload: model.deleteFeature({ featureId }),
     meta: {
-      featureId,
-    },
+      featureId
+    }
   };
 }
 
@@ -113,33 +111,34 @@ const initialState = {
   feature: {
     info: {},
     location: {},
-    tags: [],
+    tags: []
   },
   stats: model.createStatsWithZeros(),
   history: [],
-  scenarios: [],
+  scenarios: []
 };
 
-export const feature = handleActions({
+export const feature = handleActions(
+  {
+    [GET_FEATURE_FULFILLED]: (state, action) => ({
+      ...state,
+      feature: action.payload
+    }),
 
-  [GET_FEATURE_FULFILLED]: (state, action) => ({
-    ...state,
-    feature: action.payload,
-  }),
+    [GET_FEATURE_STATS_FULFILLED]: (state, action) => ({
+      ...state,
+      stats: action.payload
+    }),
 
-  [GET_FEATURE_STATS_FULFILLED]: (state, action) => ({
-    ...state,
-    stats: action.payload,
-  }),
+    [GET_FEATURE_HISTORY_FULFILLED]: (state, action) => ({
+      ...state,
+      history: action.payload
+    }),
 
-  [GET_FEATURE_HISTORY_FULFILLED]: (state, action) => ({
-    ...state,
-    history: action.payload,
-  }),
-
-  [GET_SCENARIOS_FULFILLED]: (state, action) => ({
-    ...state,
-    scenarios: action.payload,
-  }),
-
-}, initialState);
+    [GET_SCENARIOS_FULFILLED]: (state, action) => ({
+      ...state,
+      scenarios: action.payload
+    })
+  },
+  initialState
+);

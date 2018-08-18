@@ -1,14 +1,17 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-
+import PropTypes from "prop-types";
+import React from "react";
+import FormGroup from "react-bootstrap/lib/FormGroup";
 
 export default class HistoryFilter extends React.PureComponent {
+  static propTypes = {
+    filters: PropTypes.object.isRequired,
+    onFilterChange: PropTypes.func.isRequired
+  };
 
-  onFilterChange = (name) => {
+  onFilterChange = name => {
     return event => {
       this.props.onFilterChange({
-        [name]: event.target.checked,
+        [name]: event.target.checked
       });
     };
   };
@@ -17,22 +20,15 @@ export default class HistoryFilter extends React.PureComponent {
     const { sameTestRunType } = this.props.filters;
 
     return (
-      <div className="form" style={{ marginBottom: '10px' }}>
+      <div className="form" style={{ marginBottom: "10px" }}>
         <FormGroup>
-          Filtrer :
-          {' '}
+          Filtrer :{" "}
           <label className="checkbox-inline">
-            <input type="checkbox" checked={sameTestRunType} onChange={this.onFilterChange('sameTestRunType')} />
+            <input type="checkbox" checked={sameTestRunType} onChange={this.onFilterChange("sameTestRunType")} />
             Même type de tir
           </label>
         </FormGroup>
       </div>
     );
   }
-
 }
-
-HistoryFilter.propTypes = {
-  filters: PropTypes.object.isRequired,
-  onFilterChange: PropTypes.func.isRequired,
-};

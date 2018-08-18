@@ -1,21 +1,21 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import Table from 'react-bootstrap/lib/Table';
-import Badge from 'react-bootstrap/lib/Badge';
-import Label from 'react-bootstrap/lib/Label';
-import { Link } from 'react-router'
+import PropTypes from "prop-types";
+import React from "react";
+import Table from "react-bootstrap/lib/Table";
+import Badge from "react-bootstrap/lib/Badge";
+import Label from "react-bootstrap/lib/Label";
+import { Link } from "react-router";
 
-import toNiceDate from '../../ui/toNiceDate';
-
+import toNiceDate from "../../ui/toNiceDate";
 
 export default class TestRunsTable extends React.PureComponent {
+  static propTypes = {
+    testRuns: PropTypes.arrayOf(PropTypes.object).isRequired
+  };
 
   render() {
     const { testRuns } = this.props;
 
-    const rows = testRuns.map(testRun => (
-      <TestRunTableRow key={testRun.id} testRun={testRun} />
-    ));
+    const rows = testRuns.map(testRun => <TestRunTableRow key={testRun.id} testRun={testRun} />);
 
     return (
       <Table bordered striped>
@@ -35,42 +35,47 @@ export default class TestRunsTable extends React.PureComponent {
       </Table>
     );
   }
-
 }
 
-TestRunsTable.propTypes = {
-  testRuns: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
-
-
 class TestRunTableRow extends React.PureComponent {
+  static propTypes = {
+    testRun: PropTypes.object.isRequired
+  };
 
   render() {
     const { testRun } = this.props;
 
     return (
       <tr>
-        <td><Label>{testRun.type}</Label></td>
+        <td>
+          <Label>{testRun.type}</Label>
+        </td>
         <td>
           <Link to={`/test-runs/${testRun.id}`}>Tir du {toNiceDate(testRun.date)}</Link>
         </td>
-        <td><Badge>{nullToDash(testRun.stats.all.count)}</Badge></td>
-        <td><Badge>{nullToDash(testRun.stats.all.passed)}</Badge></td>
-        <td><Badge>{nullToDash(testRun.stats.all.failed)}</Badge></td>
-        <td><Badge>{nullToDash(testRun.stats.all.pending)}</Badge></td>
-        <td><Badge>{nullToDash(testRun.stats.all.notRun)}</Badge></td>
-        <td><Badge>{nullToDash(testRun.stats.reviewed.count)}</Badge></td>
+        <td>
+          <Badge>{nullToDash(testRun.stats.all.count)}</Badge>
+        </td>
+        <td>
+          <Badge>{nullToDash(testRun.stats.all.passed)}</Badge>
+        </td>
+        <td>
+          <Badge>{nullToDash(testRun.stats.all.failed)}</Badge>
+        </td>
+        <td>
+          <Badge>{nullToDash(testRun.stats.all.pending)}</Badge>
+        </td>
+        <td>
+          <Badge>{nullToDash(testRun.stats.all.notRun)}</Badge>
+        </td>
+        <td>
+          <Badge>{nullToDash(testRun.stats.reviewed.count)}</Badge>
+        </td>
       </tr>
     );
   }
-
 }
 
-TestRunTableRow.propTypes = {
-  testRun: PropTypes.object.isRequired,
-};
-
-
 function nullToDash(value) {
-  return value === null ? '-' : value;
+  return value === null ? "-" : value;
 }

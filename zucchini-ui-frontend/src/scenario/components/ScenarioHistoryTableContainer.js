@@ -1,13 +1,9 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
 
-import ScenarioHistoryTable from './ScenarioHistoryTable';
+import ScenarioHistoryTable from "./ScenarioHistoryTable";
 
-
-const selectScenarioId = createSelector(
-  (state, ownProps) => ownProps.scenarioId,
-  scenarioId => scenarioId,
-);
+const selectScenarioId = createSelector((state, ownProps) => ownProps.scenarioId, scenarioId => scenarioId);
 
 const selectHistory = createSelector(
   state => state.scenario.history,
@@ -19,18 +15,14 @@ const selectHistory = createSelector(
     }
 
     return history;
-  },
+  }
 );
-
 
 const selectProps = createStructuredSelector({
   scenarioId: selectScenarioId,
-  history: selectHistory,
+  history: selectHistory
 });
 
-
-const ScenarioHistoryTableContainer = connect(
-  selectProps,
-)(ScenarioHistoryTable);
+const ScenarioHistoryTableContainer = connect(selectProps)(ScenarioHistoryTable);
 
 export default ScenarioHistoryTableContainer;

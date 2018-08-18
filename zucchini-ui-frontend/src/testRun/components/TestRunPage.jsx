@@ -1,29 +1,35 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
-import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
+import PropTypes from "prop-types";
+import React from "react";
+import ButtonToolbar from "react-bootstrap/lib/ButtonToolbar";
+import ButtonGroup from "react-bootstrap/lib/ButtonGroup";
 
-import toNiceDate from '../../ui/toNiceDate';
-import Button from '../../ui/components/Button';
-import ButtonLink from '../../ui/components/ButtonLink';
-import FeatureStateFilterContainer from '../../filters/components/FeatureStateFilterContainer';
-import TestRunHistoryTableContainer from './TestRunHistoryTableContainer';
-import TestRunStatsContainer from './TestRunStatsContainer';
-import TestRunFeatureTableContainer from './TestRunFeatureTableContainer';
-import FeatureGroupFilterContainer from './FeatureGroupFilterContainer';
-import DeleteTestRunButtonContainer from './DeleteTestRunButtonContainer';
-import ImportCucumberResultsDialogContainer from './ImportCucumberResultsDialogContainer';
-import EditTestRunDialogContainer from './EditTestRunDialogContainer';
-import TestRunTrendChartContainer from './TestRunTrendChartContainer';
-
+import toNiceDate from "../../ui/toNiceDate";
+import Button from "../../ui/components/Button";
+import ButtonLink from "../../ui/components/ButtonLink";
+import FeatureStateFilterContainer from "../../filters/components/FeatureStateFilterContainer";
+import TestRunHistoryTableContainer from "./TestRunHistoryTableContainer";
+import TestRunStatsContainer from "./TestRunStatsContainer";
+import TestRunFeatureTableContainer from "./TestRunFeatureTableContainer";
+import FeatureGroupFilterContainer from "./FeatureGroupFilterContainer";
+import DeleteTestRunButtonContainer from "./DeleteTestRunButtonContainer";
+import ImportCucumberResultsDialogContainer from "./ImportCucumberResultsDialogContainer";
+import EditTestRunDialogContainer from "./EditTestRunDialogContainer";
+import TestRunTrendChartContainer from "./TestRunTrendChartContainer";
 
 export default class TestRunPage extends React.Component {
+  static propTypes = {
+    testRunId: PropTypes.string.isRequired,
+    selectedFeatureGroup: PropTypes.string,
+    testRun: PropTypes.object,
+    onLoad: PropTypes.func.isRequired
+  };
+
   constructor(props) {
     super(props);
 
     this.state = {
       showImportCucumberResultDialog: false,
-      showEditDialog: false,
+      showEditDialog: false
     };
   }
 
@@ -37,25 +43,25 @@ export default class TestRunPage extends React.Component {
 
   onEditButtonClick = () => {
     this.setState({
-      showEditDialog: true,
+      showEditDialog: true
     });
   };
 
   onImportCucumberResultButtonClick = () => {
     this.setState({
-      showImportCucumberResultDialog: true,
+      showImportCucumberResultDialog: true
     });
   };
 
   hideEditDialog = () => {
     this.setState({
-      showEditDialog: false,
+      showEditDialog: false
     });
   };
 
   hideImportCucumberResultDialog = () => {
     this.setState({
-      showImportCucumberResultDialog: false,
+      showImportCucumberResultDialog: false
     });
   };
 
@@ -73,9 +79,7 @@ export default class TestRunPage extends React.Component {
     const labels = testRun.labels.map(label => {
       let value = label.value;
       if (label.url) {
-        value = (
-          <a href={label.url}>{label.value}</a>
-        );
+        value = <a href={label.url}>{label.value}</a>;
       }
 
       return (
@@ -152,20 +156,11 @@ export default class TestRunPage extends React.Component {
         <ImportCucumberResultsDialogContainer
           testRunId={testRunId}
           show={this.state.showImportCucumberResultDialog}
-          onClose={this.hideImportCucumberResultDialog} />
+          onClose={this.hideImportCucumberResultDialog}
+        />
 
-        <EditTestRunDialogContainer
-          testRun={testRun}
-          show={this.state.showEditDialog}
-          onClose={this.hideEditDialog} />
+        <EditTestRunDialogContainer testRun={testRun} show={this.state.showEditDialog} onClose={this.hideEditDialog} />
       </div>
     );
   }
 }
-
-TestRunPage.propTypes = {
-  testRunId: PropTypes.string.isRequired,
-  selectedFeatureGroup: PropTypes.string,
-  testRun: PropTypes.object,
-  onLoad: PropTypes.func.isRequired,
-};

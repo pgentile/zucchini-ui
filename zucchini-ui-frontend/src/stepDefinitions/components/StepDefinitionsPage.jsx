@@ -1,16 +1,15 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import toNiceDate from '../../ui/toNiceDate';
+import PropTypes from "prop-types";
+import React from "react";
+import toNiceDate from "../../ui/toNiceDate";
 
-import StepDefinitionsTableContainer from './StepDefinitionsTableContainer';
+import StepDefinitionsTableContainer from "./StepDefinitionsTableContainer";
 
 export default class StepDefinitionsPage extends React.Component {
-
   static propTypes = {
     testRunId: PropTypes.string.isRequired,
     testRun: PropTypes.object,
     stepDefinitions: PropTypes.object,
-    onLoad: PropTypes.func.isRequired,
+    onLoad: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -35,13 +34,10 @@ export default class StepDefinitionsPage extends React.Component {
     return (
       <div>
         <h1>
-          Glues
-          {' '}
-          <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
+          Glues <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
         </h1>
         <hr />
         <StepDefinitionsTableContainer />
-
       </div>
     );
   }

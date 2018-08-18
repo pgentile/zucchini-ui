@@ -1,22 +1,20 @@
-
 const DEFAULT_OPTIONS = {
   encoder: JSON.stringify,
   decoder: JSON.parse,
-  onOpen: () => { },
-  onMessage: () => { },
-  onClose: () => { },
-  onError: () => { },
+  onOpen: () => {},
+  onMessage: () => {},
+  onClose: () => {},
+  onError: () => {},
   onKeepAlive: null,
-  keepAliveTimeout: 10 * 1000,
+  keepAliveTimeout: 10 * 1000
 };
 
 // TODO Add reconnect feature
 export default class SimpleWebSocket {
-
   constructor(options = {}) {
     this.options = {
       ...DEFAULT_OPTIONS,
-      ...options,
+      ...options
     };
 
     this.ws = null;
@@ -56,7 +54,6 @@ export default class SimpleWebSocket {
         this.ws.close();
       }
     };
-
   }
 
   send(data) {
@@ -69,5 +66,4 @@ export default class SimpleWebSocket {
       this.ws.close();
     }
   }
-
 }

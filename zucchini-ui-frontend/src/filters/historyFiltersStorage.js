@@ -1,11 +1,10 @@
-import BrowserLocalStorage from '../browserStorage/BrowserLocalStorage';
-
+import BrowserLocalStorage from "../browserStorage/BrowserLocalStorage";
 
 const historyFiltersStorage = new BrowserLocalStorage({
-  entryName: 'historyFilters',
+  entryName: "historyFilters",
   defaultState: () => ({
-    sameTestRunType: true,
-  }),
+    sameTestRunType: true
+  })
 });
 
 export default historyFiltersStorage;

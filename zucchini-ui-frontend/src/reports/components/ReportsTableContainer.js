@@ -1,9 +1,8 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
-import { ZERO_STATS_NUMBERS } from '../../testRun/model.js'
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
+import { ZERO_STATS_NUMBERS } from "../../testRun/model.js";
 
-import ReportsTable from './ReportsTable';
-
+import ReportsTable from "./ReportsTable";
 
 function sumStats(left, right) {
   return {
@@ -11,7 +10,7 @@ function sumStats(left, right) {
     passed: left.passed + right.passed,
     failed: left.failed + right.failed,
     pending: left.pending + right.pending,
-    notRun: left.notRun + right.notRun,
+    notRun: left.notRun + right.notRun
   };
 }
 
@@ -31,21 +30,19 @@ const selectGroups = createSelector(
         .reduce(sumStats, ZERO_STATS_NUMBERS);
 
       return {
-        name: groupName || '',
-        stats,
+        name: groupName || "",
+        stats
       };
     });
 
     // Total stats
 
-    const totalStats = groups
-      .map(group => group.stats)
-      .reduce(sumStats, ZERO_STATS_NUMBERS);
+    const totalStats = groups.map(group => group.stats).reduce(sumStats, ZERO_STATS_NUMBERS);
 
     const total = {
-      name: 'Total',
+      name: "Total",
       total: true,
-      stats: totalStats,
+      stats: totalStats
     };
 
     groups.push(total);
@@ -61,11 +58,8 @@ const selectGroups = createSelector(
   }
 );
 
-
 const selectProps = createStructuredSelector({
-  groups: selectGroups,
+  groups: selectGroups
 });
 
-export default connect(
-  selectProps,
-)(ReportsTable);
+export default connect(selectProps)(ReportsTable);

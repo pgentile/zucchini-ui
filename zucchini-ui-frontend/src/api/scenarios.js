@@ -1,8 +1,6 @@
-import Client from './Client';
-
+import Client from "./Client";
 
 class ScenariosApi {
-
   constructor(baseUri) {
     this.client = new Client(`${baseUri}/api/scenarii`);
   }
@@ -14,44 +12,44 @@ class ScenariosApi {
         testRunId,
         search,
         tag: tags,
-        excludedTag: excludedTags,
-      },
+        excludedTag: excludedTags
+      }
     });
   }
 
   getScenario({ scenarioId }) {
     return this.client.get({
-      path: scenarioId,
+      path: scenarioId
     });
   }
 
   getStats({ testRunId, featureId, tags, excludedTags }) {
     return this.client.get({
-      path: '/stats',
+      path: "/stats",
       query: {
         testRunId,
         featureId,
         tag: tags,
-        excludedTag: excludedTags,
-      },
+        excludedTag: excludedTags
+      }
     });
   }
 
   getStepDefinitions({ testRunId }) {
     return this.client.get({
-      path: '/stepDefinitions',
+      path: "/stepDefinitions",
       query: {
         testRunId
-      },
+      }
     });
   }
 
   getFailures({ testRunId }) {
     return this.client.get({
-      path: '/failures',
+      path: "/failures",
       query: {
         testRunId
-      },
+      }
     });
   }
 
@@ -70,7 +68,7 @@ class ScenariosApi {
   deleteComment({ scenarioId, commentId }) {
     return this.client.delete({
       path: `/${scenarioId}/comments/${commentId}`,
-      hasOutput: false,
+      hasOutput: false
     });
   }
 
@@ -78,9 +76,9 @@ class ScenariosApi {
     return this.client.patch({
       path: `/${scenarioId}/comments/${commentId}`,
       body: {
-        content: newContent,
+        content: newContent
       },
-      hasOutput: false,
+      hasOutput: false
     });
   }
 
@@ -88,7 +86,7 @@ class ScenariosApi {
     return this.client.patch({
       path: scenarioId,
       body: newState,
-      hasOutput: false,
+      hasOutput: false
     });
   }
 
@@ -96,17 +94,16 @@ class ScenariosApi {
     return this.client.post({
       path: `/${scenarioId}/comments/create`,
       body: { content: comment },
-      hasOutput: false,
+      hasOutput: false
     });
   }
 
   deleteScenario({ scenarioId }) {
     return this.client.delete({
       path: scenarioId,
-      hasOutput: false,
+      hasOutput: false
     });
   }
-
 }
 
 const scenarios = new ScenariosApi(configuration.backendBaseUri);

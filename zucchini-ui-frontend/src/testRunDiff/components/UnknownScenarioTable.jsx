@@ -1,24 +1,20 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import Table from 'react-bootstrap/lib/Table';
-import { Link } from 'react-router'
+import PropTypes from "prop-types";
+import React from "react";
+import Table from "react-bootstrap/lib/Table";
+import { Link } from "react-router";
 
-import Status from '../../ui/components/Status';
-
+import Status from "../../ui/components/Status";
 
 export default class UnknownScenarioTable extends React.PureComponent {
-
   static propTypes = {
-    scenarios: PropTypes.arrayOf(PropTypes.object).isRequired,
+    scenarios: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   render() {
     const { scenarios } = this.props;
 
     const rows = scenarios.map(scenario => {
-      return (
-        <UnknownScenarioTableRow key={scenario.id} scenario={scenario} />
-      )
+      return <UnknownScenarioTableRow key={scenario.id} scenario={scenario} />;
     });
 
     return (
@@ -33,11 +29,12 @@ export default class UnknownScenarioTable extends React.PureComponent {
       </Table>
     );
   }
-
 }
 
-
 class UnknownScenarioTableRow extends React.PureComponent {
+  static propTypes = {
+    scenario: PropTypes.object.isRequired
+  };
 
   render() {
     const { scenario } = this.props;
@@ -55,9 +52,4 @@ class UnknownScenarioTableRow extends React.PureComponent {
       </tr>
     );
   }
-
 }
-
-UnknownScenarioTableRow.propTypes = {
-  scenario: PropTypes.object.isRequired,
-};

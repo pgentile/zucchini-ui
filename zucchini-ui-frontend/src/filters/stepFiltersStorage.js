@@ -1,16 +1,15 @@
-import BrowserLocalStorage from '../browserStorage/BrowserLocalStorage';
-
+import BrowserLocalStorage from "../browserStorage/BrowserLocalStorage";
 
 const stepFiltersStorage = new BrowserLocalStorage({
-  entryName: 'stepFilters',
+  entryName: "stepFilters",
   defaultState: () => ({
     comments: true,
     context: true,
     beforeAndAfterActions: true,
     errorDetails: true,
     logs: true,
-    attachments: true,
-  }),
+    attachments: true
+  })
 });
 
 export default stepFiltersStorage;

@@ -1,23 +1,19 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
 
-import NavSearchForm from './NavSearchForm';
-import {search} from '../redux';
+import NavSearchForm from "./NavSearchForm";
+import { search } from "../redux";
 
-
-const selectTestRunId = createSelector(
-  state => state.testRun.testRun.id,
-  testRunId => testRunId || null,
-);
+const selectTestRunId = createSelector(state => state.testRun.testRun.id, testRunId => testRunId || null);
 
 const selectProps = createStructuredSelector({
-  testRunId: selectTestRunId,
+  testRunId: selectTestRunId
 });
 
 const FeatureGroupFilterContainer = connect(
   selectProps,
   {
-    onSearch: search,
+    onSearch: search
   }
 )(NavSearchForm);
 

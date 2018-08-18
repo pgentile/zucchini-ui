@@ -1,25 +1,23 @@
-import React from 'react';
-import wrapDisplayName from 'recompose/wrapDisplayName';
-import debounce from 'lodash/debounce';
-
+import React from "react";
+import wrapDisplayName from "recompose/wrapDisplayName";
+import debounce from "lodash/debounce";
 
 export default function withWindowVisibility(WrappedComponent) {
   return class extends React.Component {
-
-    static displayName = wrapDisplayName(WrappedComponent, 'withWindowVisibility');
+    static displayName = wrapDisplayName(WrappedComponent, "withWindowVisibility");
 
     state = {
-      isWindowVisible: true,
+      isWindowVisible: true
     };
 
     componentDidMount() {
-      window.document.addEventListener('visibilitychange', this.listenVisibilityChange);
+      window.document.addEventListener("visibilitychange", this.listenVisibilityChange);
     }
 
     componentWillUnmount() {
       this.applyHidden.cancel();
 
-      window.document.removeEventListener('visibilitychange', this.listenVisibilityChange);
+      window.document.removeEventListener("visibilitychange", this.listenVisibilityChange);
     }
 
     listenVisibilityChange = () => {
@@ -35,7 +33,7 @@ export default function withWindowVisibility(WrappedComponent) {
         }
 
         return {
-          isWindowVisible: true,
+          isWindowVisible: true
         };
       });
     }
@@ -49,20 +47,17 @@ export default function withWindowVisibility(WrappedComponent) {
         }
 
         return {
-          isWindowVisible: false,
+          isWindowVisible: false
         };
       });
     }, 500);
 
     isWindowVisible() {
-      return window.document.visibilityState !== 'hidden';
+      return window.document.visibilityState !== "hidden";
     }
 
     render() {
-      return (
-        <WrappedComponent {...this.props} isWindowVisible={this.state.isWindowVisible} />
-      );
+      return <WrappedComponent {...this.props} isWindowVisible={this.state.isWindowVisible} />;
     }
-
   };
 }

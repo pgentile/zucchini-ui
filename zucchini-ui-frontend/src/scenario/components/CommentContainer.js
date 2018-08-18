@@ -1,27 +1,21 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
 
-import Comment from './Comment';
+import Comment from "./Comment";
 
-import { deleteComment, updateCommentThenReload } from '../redux';
+import { deleteComment, updateCommentThenReload } from "../redux";
 
-
-const selectTestRunId = createSelector(
-  state => state.scenario.scenario.testRunId || null,
-  testRunId => testRunId,
-);
-
+const selectTestRunId = createSelector(state => state.scenario.scenario.testRunId || null, testRunId => testRunId);
 
 const selectProps = createStructuredSelector({
-  testRunId: selectTestRunId,
+  testRunId: selectTestRunId
 });
-
 
 const CommentContainer = connect(
   selectProps,
   {
     onDelete: deleteComment,
-    onChange: updateCommentThenReload,
+    onChange: updateCommentThenReload
   }
 )(Comment);
 

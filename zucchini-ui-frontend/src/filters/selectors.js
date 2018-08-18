@@ -1,5 +1,4 @@
-import { createSelector } from 'reselect';
-
+import { createSelector } from "reselect";
 
 export const selectFeatureFilterFunc = createSelector(
   state => state.featureFilters,
@@ -25,7 +24,6 @@ export const selectFeatureFilterFunc = createSelector(
   }
 );
 
-
 export const selectScenarioFilterFunc = createSelector(
   state => state.scenarioFilters,
   scenarioFilters => {
@@ -50,64 +48,62 @@ export const selectScenarioFilterFunc = createSelector(
   }
 );
 
-
 function createFeatureFilters(featureFilters) {
   let filters = [];
 
   if (!featureFilters.passed) {
-    const filter = feature => feature.status !== 'PASSED';
+    const filter = feature => feature.status !== "PASSED";
     filters = [...filters, filter];
   }
 
   if (!featureFilters.failed) {
-    const filter = feature => feature.status !== 'FAILED';
+    const filter = feature => feature.status !== "FAILED";
     filters = [...filters, filter];
   }
 
   if (!featureFilters.partial) {
-    const filter = feature => feature.status !== 'PARTIAL';
+    const filter = feature => feature.status !== "PARTIAL";
     filters = [...filters, filter];
   }
 
   if (!featureFilters.notRun) {
-    const filter = feature => feature.status !== 'NOT_RUN';
+    const filter = feature => feature.status !== "NOT_RUN";
     filters = [...filters, filter];
   }
 
   if (!featureFilters.reviewed) {
-    const filter = feature => (feature.stats.nonReviewed.count > 0);
+    const filter = feature => feature.stats.nonReviewed.count > 0;
     filters = [...filters, filter];
   }
 
   if (!featureFilters.notReviewed) {
-    const filter = feature => (feature.stats.nonReviewed.count === 0);
+    const filter = feature => feature.stats.nonReviewed.count === 0;
     filters = [...filters, filter];
   }
 
   return filters;
 }
 
-
 function createScenarioFilters(scenarioFilters) {
   let filters = [];
 
   if (!scenarioFilters.passed) {
-    const filter = scenario => scenario.status !== 'PASSED';
+    const filter = scenario => scenario.status !== "PASSED";
     filters = [...filters, filter];
   }
 
   if (!scenarioFilters.failed) {
-    const filter = scenario => scenario.status !== 'FAILED';
+    const filter = scenario => scenario.status !== "FAILED";
     filters = [...filters, filter];
   }
 
   if (!scenarioFilters.pending) {
-    const filter = scenario => scenario.status !== 'PENDING';
+    const filter = scenario => scenario.status !== "PENDING";
     filters = [...filters, filter];
   }
 
   if (!scenarioFilters.notRun) {
-    const filter = scenario => scenario.status !== 'NOT_RUN';
+    const filter = scenario => scenario.status !== "NOT_RUN";
     filters = [...filters, filter];
   }
 

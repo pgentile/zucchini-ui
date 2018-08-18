@@ -1,13 +1,17 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-
+import PropTypes from "prop-types";
+import React from "react";
 
 export default class FilterCheckboxes extends React.PureComponent {
+  static propTypes = {
+    labels: PropTypes.object.isRequired,
+    filters: PropTypes.object.isRequired,
+    onFilterChange: PropTypes.func.isRequired
+  };
 
-  onFilterChange = (name) => {
+  onFilterChange = name => {
     return event => {
       this.props.onFilterChange({
-        [name]: event.target.checked,
+        [name]: event.target.checked
       });
     };
   };
@@ -25,19 +29,8 @@ export default class FilterCheckboxes extends React.PureComponent {
           {label}
         </label>
       );
-    })
+    });
 
-    return (
-      <span>
-        {checkboxes}
-      </span>
-    );
+    return <span>{checkboxes}</span>;
   }
-
 }
-
-FilterCheckboxes.propTypes = {
-  labels: PropTypes.object.isRequired,
-  filters: PropTypes.object.isRequired,
-  onFilterChange: PropTypes.func.isRequired,
-};

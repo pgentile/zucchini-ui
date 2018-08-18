@@ -1,13 +1,12 @@
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import DeleteFeatureButton from './DeleteFeatureButton';
-import { deleteFeatureThenRedirect } from '../redux';
-
+import DeleteFeatureButton from "./DeleteFeatureButton";
+import { deleteFeatureThenRedirect } from "../redux";
 
 const DeleteFeatureButtonContainer = connect(
   undefined,
   {
-    onDelete: deleteFeatureThenRedirect,
+    onDelete: deleteFeatureThenRedirect
   }
 )(DeleteFeatureButton);
 

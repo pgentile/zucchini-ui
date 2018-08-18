@@ -1,13 +1,11 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import Label from 'react-bootstrap/lib/Label';
-import ProgressBar from 'react-bootstrap/lib/ProgressBar';
-
+import PropTypes from "prop-types";
+import React from "react";
+import Label from "react-bootstrap/lib/Label";
+import ProgressBar from "react-bootstrap/lib/ProgressBar";
 
 export default class ProgressBarStats extends React.PureComponent {
-
   static propTypes = {
-    stats: PropTypes.object.isRequired,
+    stats: PropTypes.object.isRequired
   };
 
   render() {
@@ -19,21 +17,27 @@ export default class ProgressBarStats extends React.PureComponent {
 
     return (
       <div>
-        <ProgressBar style={{ marginBottom: '0' }}>
-          <ProgressBar bsStyle='success' now={success} key={1} label={`${Math.round(success)}%`} />
-          <ProgressBar bsStyle='info' now={notRun} key={2} />
-          <ProgressBar bsStyle='warning' now={pending} key={3} />
-          <ProgressBar active bsStyle='danger' now={failed} key={4} />
+        <ProgressBar style={{ marginBottom: "0" }}>
+          <ProgressBar bsStyle="success" now={success} key={1} label={`${Math.round(success)}%`} />
+          <ProgressBar bsStyle="info" now={notRun} key={2} />
+          <ProgressBar bsStyle="warning" now={pending} key={3} />
+          <ProgressBar active bsStyle="danger" now={failed} key={4} />
         </ProgressBar>
         <h5>
-          <Label bsStyle='success' style={{ marginRight: '1em' }}>Succès</Label>
-          <Label bsStyle='info' style={{ marginRight: '1em' }}>Non Joués</Label>
-          <Label bsStyle='warning' style={{ marginRight: '1em' }}>En attente</Label>
-          <Label bsStyle='danger' style={{ marginRight: '1em' }}>Échecs</Label>
+          <Label bsStyle="success" style={{ marginRight: "1em" }}>
+            Succès
+          </Label>
+          <Label bsStyle="info" style={{ marginRight: "1em" }}>
+            Non Joués
+          </Label>
+          <Label bsStyle="warning" style={{ marginRight: "1em" }}>
+            En attente
+          </Label>
+          <Label bsStyle="danger" style={{ marginRight: "1em" }}>
+            Échecs
+          </Label>
         </h5>
       </div>
     );
   }
 }
-
-

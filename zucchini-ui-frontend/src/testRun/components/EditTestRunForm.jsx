@@ -1,25 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { reduxForm, Field, FieldArray } from 'redux-form'
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import Table from 'react-bootstrap/lib/Table';
+import React from "react";
+import PropTypes from "prop-types";
+import { reduxForm, Field, FieldArray } from "redux-form";
+import FormGroup from "react-bootstrap/lib/FormGroup";
+import ControlLabel from "react-bootstrap/lib/ControlLabel";
+import FormControl from "react-bootstrap/lib/FormControl";
+import Table from "react-bootstrap/lib/Table";
 
-import Button from '../../ui/components/Button';
-
+import Button from "../../ui/components/Button";
 
 class EditTestRunForm extends React.PureComponent {
-
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
-    initialValues: PropTypes.object.isRequired,
+    initialValues: PropTypes.object.isRequired
   };
 
-  renderField = ({input, meta, ...otherProps}) => { // eslint-disable-line no-unused-vars
-    return (
-      <FormControl {...input} {...otherProps} />
-    );
+  renderField = ({ input, meta, ...otherProps }) => {
+    // eslint-disable-line no-unused-vars
+    return <FormControl {...input} {...otherProps} />;
   };
 
   renderLabelFields = ({ fields }) => {
@@ -36,9 +33,7 @@ class EditTestRunForm extends React.PureComponent {
             <th>&nbsp;</th>
           </tr>
         </thead>
-        <tbody>
-          {fields.map(this.renderLabelField)}
-        </tbody>
+        <tbody>{fields.map(this.renderLabelField)}</tbody>
         <tfoot>
           <tr>
             <td colSpan={4}>
@@ -92,10 +87,8 @@ class EditTestRunForm extends React.PureComponent {
       </form>
     );
   }
-
 }
 
-
 export default reduxForm({
-  form: 'editTestRun',
+  form: "editTestRun"
 })(EditTestRunForm);

@@ -1,34 +1,37 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import Navbar from 'react-bootstrap/lib/Navbar';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import InputGroup from 'react-bootstrap/lib/InputGroup';
+import PropTypes from "prop-types";
+import React from "react";
+import Navbar from "react-bootstrap/lib/Navbar";
+import FormGroup from "react-bootstrap/lib/FormGroup";
+import FormControl from "react-bootstrap/lib/FormControl";
+import InputGroup from "react-bootstrap/lib/InputGroup";
 
-import Button from '../../ui/components/Button';
-
+import Button from "../../ui/components/Button";
 
 export default class NavSearchForm extends React.PureComponent {
+  static propTypes = {
+    testRunId: PropTypes.string,
+    onSearch: PropTypes.func.isRequired
+  };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      search: '',
+      search: ""
     };
   }
 
-  onSearchChange = (event) => {
+  onSearchChange = event => {
     this.setState({
-      search: event.target.value,
+      search: event.target.value
     });
   };
 
-  onSearchFormSubmit = (event) => {
+  onSearchFormSubmit = event => {
     event.preventDefault();
     this.props.onSearch({
       search: this.state.search,
-      testRunId: this.props.testRunId,
+      testRunId: this.props.testRunId
     });
   };
 
@@ -42,7 +45,12 @@ export default class NavSearchForm extends React.PureComponent {
         <form onSubmit={this.onSearchFormSubmit}>
           <FormGroup>
             <InputGroup>
-              <FormControl type="text" placeholder="Rechercher..." value={this.state.search} onChange={this.onSearchChange} />
+              <FormControl
+                type="text"
+                placeholder="Rechercher..."
+                value={this.state.search}
+                onChange={this.onSearchChange}
+              />
               <InputGroup.Button>
                 <Button glyph="search" type="submit" />
               </InputGroup.Button>
@@ -52,10 +60,4 @@ export default class NavSearchForm extends React.PureComponent {
       </Navbar.Form>
     );
   }
-
 }
-
-NavSearchForm.propTypes = {
-  testRunId: PropTypes.string,
-  onSearch: PropTypes.func.isRequired,
-};

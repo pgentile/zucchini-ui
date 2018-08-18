@@ -1,18 +1,15 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
 
-import DifferentScenarioTable from './DifferentScenarioTable';
-
+import DifferentScenarioTable from "./DifferentScenarioTable";
 
 const selectDifferentScenarios = createSelector(
   state => state.testRunDiff.diff.differentScenarii,
-  differentScenarios => differentScenarios,
+  differentScenarios => differentScenarios
 );
 
 const selectProps = createStructuredSelector({
-  differentScenarios: selectDifferentScenarios,
-})
+  differentScenarios: selectDifferentScenarios
+});
 
-export default connect(
-  selectProps,
-)(DifferentScenarioTable);
+export default connect(selectProps)(DifferentScenarioTable);

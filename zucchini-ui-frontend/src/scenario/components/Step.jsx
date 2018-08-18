@@ -1,22 +1,29 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from "prop-types";
+import React from "react";
 
-import SimpleText from '../../ui/components/SimpleText';
-import Status from '../../ui/components/Status';
-import PanelWithTitle from '../../ui/components/PanelWithTitle';
-import ElementInfo from '../../ui/components/ElementInfo';
-import StepTable from './StepTable';
-import StepAttachments from './StepAttachments';
-
+import SimpleText from "../../ui/components/SimpleText";
+import Status from "../../ui/components/Status";
+import PanelWithTitle from "../../ui/components/PanelWithTitle";
+import ElementInfo from "../../ui/components/ElementInfo";
+import StepTable from "./StepTable";
+import StepAttachments from "./StepAttachments";
 
 export default class Step extends React.PureComponent {
+  static propTypes = {
+    scenarioId: PropTypes.string.isRequired,
+    step: PropTypes.object.isRequired,
+    special: PropTypes.bool.isRequired,
+    filters: PropTypes.object.isRequired
+  };
+
+  static defaultProps = {
+    special: false
+  };
 
   render() {
     const { step, scenarioId, special, filters } = this.props;
 
-    const title = (
-      <ElementInfo info={step.info} />
-    );
+    const title = <ElementInfo info={step.info} />;
 
     let errorMessage = null;
     if (step.errorMessage) {
@@ -38,47 +45,27 @@ export default class Step extends React.PureComponent {
 
     let table = null;
     if (step.table) {
-      table = (
-        <StepTable table={step.table} />
-      );
+      table = <StepTable table={step.table} />;
     }
 
     let attachments = null;
     if (step.attachments && step.attachments.length > 0) {
-      attachments = (
-        <StepAttachments scenarioId={scenarioId} attachments={step.attachments} />
-      );
+      attachments = <StepAttachments scenarioId={scenarioId} attachments={step.attachments} />;
     }
 
     return (
       <div>
-
         {filters.comments && step.comment && <SimpleText className="text-muted" text={step.comment} />}
 
         <p>
-          {special ? <i>{title}</i> : title}
-          {' '}
-          <Status status={step.status} />
+          {special ? <i>{title}</i> : title} <Status status={step.status} />
         </p>
 
         {table}
         {filters.errorDetails && errorMessage}
         {filters.logs && logs}
         {filters.attachments && attachments}
-
       </div>
     );
   }
-
 }
-
-Step.propTypes = {
-  scenarioId: PropTypes.string.isRequired,
-  step: PropTypes.object.isRequired,
-  special: PropTypes.bool.isRequired,
-  filters: PropTypes.object.isRequired,
-};
-
-Step.defaultProps = {
-  special: false,
-};

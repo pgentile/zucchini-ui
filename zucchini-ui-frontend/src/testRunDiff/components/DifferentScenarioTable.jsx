@@ -1,15 +1,13 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import Table from 'react-bootstrap/lib/Table';
-import { Link } from 'react-router'
+import PropTypes from "prop-types";
+import React from "react";
+import Table from "react-bootstrap/lib/Table";
+import { Link } from "react-router";
 
-import Status from '../../ui/components/Status';
-
+import Status from "../../ui/components/Status";
 
 export default class DifferentScenarioTable extends React.PureComponent {
-
   static propTypes = {
-    differentScenarios: PropTypes.arrayOf(PropTypes.object).isRequired,
+    differentScenarios: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   render() {
@@ -17,9 +15,7 @@ export default class DifferentScenarioTable extends React.PureComponent {
 
     const rows = differentScenarios.map(differentScenario => {
       const { left, right } = differentScenario;
-      return (
-        <DifferentScenarioTableRow key={right.id} leftScenario={left} rightScenario={right} />
-      )
+      return <DifferentScenarioTableRow key={right.id} leftScenario={left} rightScenario={right} />;
     });
 
     return (
@@ -35,11 +31,13 @@ export default class DifferentScenarioTable extends React.PureComponent {
       </Table>
     );
   }
-
 }
 
-
 class DifferentScenarioTableRow extends React.PureComponent {
+  static propTypes = {
+    leftScenario: PropTypes.object.isRequired,
+    rightScenario: PropTypes.object.isRequired
+  };
 
   render() {
     const { leftScenario, rightScenario } = this.props;
@@ -61,10 +59,4 @@ class DifferentScenarioTableRow extends React.PureComponent {
       </tr>
     );
   }
-
 }
-
-DifferentScenarioTableRow.propTypes = {
-  leftScenario: PropTypes.object.isRequired,
-  rightScenario: PropTypes.object.isRequired,
-};

@@ -1,10 +1,9 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
 
-import TestRunsTable from './TestRunsTable';
+import TestRunsTable from "./TestRunsTable";
 
-import { selectLatestTestRuns } from '../selectors';
-
+import { selectLatestTestRuns } from "../selectors";
 
 const selectTestRuns = createSelector(
   state => selectLatestTestRuns(state),
@@ -14,17 +13,13 @@ const selectTestRuns = createSelector(
       return testRuns.filter(testRun => testRun.type === selectedType);
     }
     return testRuns;
-  },
+  }
 );
 
-
 const selectProps = createStructuredSelector({
-  testRuns: selectTestRuns,
+  testRuns: selectTestRuns
 });
 
-
-const TestRunsTableContainer = connect(
-  selectProps,
-)(TestRunsTable);
+const TestRunsTableContainer = connect(selectProps)(TestRunsTable);
 
 export default TestRunsTableContainer;

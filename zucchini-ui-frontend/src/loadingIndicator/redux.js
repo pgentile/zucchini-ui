@@ -1,36 +1,33 @@
-import { PENDING, FULFILLED, REJECTED } from 'redux-promise-middleware';
-
+import { PENDING, FULFILLED, REJECTED } from "redux-promise-middleware";
 
 // Actions
 
-const PREFIX = 'LOADING_INDICATOR';
+const PREFIX = "LOADING_INDICATOR";
 const LOAD = `${PREFIX}/LOAD`;
 const UNLOAD = `${PREFIX}/UNLOAD`;
-
 
 // Reducer
 
 const initialState = {
-  loading: false,
+  loading: false
 };
 
 export function loadingIndicator(state = initialState, action) {
   const { type } = action;
 
   switch (type) {
-  case LOAD:
-    return {
-      loading: true,
-    };
-  case UNLOAD:
-    return {
-      loading: false,
-    };
-  default:
-    return state;
+    case LOAD:
+      return {
+        loading: true
+      };
+    case UNLOAD:
+      return {
+        loading: false
+      };
+    default:
+      return state;
   }
 }
-
 
 export function loadingIndicatorMiddleware() {
   return () => {

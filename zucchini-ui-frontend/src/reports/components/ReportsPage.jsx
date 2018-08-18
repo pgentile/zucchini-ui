@@ -1,17 +1,15 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import toNiceDate from '../../ui/toNiceDate';
+import PropTypes from "prop-types";
+import React from "react";
+import toNiceDate from "../../ui/toNiceDate";
 
-import ReportsTableContainer from './ReportsTableContainer';
+import ReportsTableContainer from "./ReportsTableContainer";
 
 export default class ReportsPage extends React.Component {
-
   static propTypes = {
     testRunId: PropTypes.string.isRequired,
     testRun: PropTypes.object,
-    onLoad: PropTypes.func.isRequired,
+    onLoad: PropTypes.func.isRequired
   };
-
 
   componentDidMount() {
     this.loadTestRunReportsIfPossible();
@@ -35,14 +33,10 @@ export default class ReportsPage extends React.Component {
     return (
       <div>
         <h1>
-          Bilan
-          {' '}
-          <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
+          Bilan <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
         </h1>
         <ReportsTableContainer />
-
       </div>
     );
   }
-
 }

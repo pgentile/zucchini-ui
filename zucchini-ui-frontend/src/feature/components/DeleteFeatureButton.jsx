@@ -1,10 +1,13 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from "prop-types";
+import React from "react";
 
-import ConfirmActionButton from '../../ui/components/ConfirmActionButton';
-
+import ConfirmActionButton from "../../ui/components/ConfirmActionButton";
 
 export default class DeleteFeatureButton extends React.PureComponent {
+  static propTypes = {
+    featureId: PropTypes.string,
+    onDelete: PropTypes.func.isRequired
+  };
 
   onDelete = () => {
     const { featureId, onDelete } = this.props;
@@ -19,13 +22,8 @@ export default class DeleteFeatureButton extends React.PureComponent {
         actionLabel="Supprimer"
         title="Supprimer la fonctionnalité"
         message="La suppression est irreversible. Êtes-vous sûr de supprimer cette fonctionnalité ?"
-        onConfirm={this.onDelete} />
+        onConfirm={this.onDelete}
+      />
     );
   }
-
 }
-
-DeleteFeatureButton.propTypes = {
-  featureId: PropTypes.string,
-  onDelete: PropTypes.func.isRequired,
-};

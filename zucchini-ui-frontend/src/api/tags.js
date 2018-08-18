@@ -1,8 +1,6 @@
-import Client from './Client';
-
+import Client from "./Client";
 
 class TagsApi {
-
   constructor(baseUri) {
     this.client = new Client(`${baseUri}/api/scenarii/tags`);
   }
@@ -10,11 +8,10 @@ class TagsApi {
   getTags({ testRunId }) {
     return this.client.get({
       query: {
-        testRunId,
-      },
+        testRunId
+      }
     });
   }
-
 }
 
 const tags = new TagsApi(configuration.backendBaseUri);

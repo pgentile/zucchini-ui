@@ -1,6 +1,5 @@
-import { default as scenariosApi } from '../api/scenarios';
-import { default as testRunsApi } from '../api/testRuns';
-
+import { default as scenariosApi } from "../api/scenarios";
+import { default as testRunsApi } from "../api/testRuns";
 
 export function getScenario({ scenarioId }) {
   return scenariosApi.getScenario({ scenarioId });
@@ -33,9 +32,9 @@ export async function getScenarioComments({ scenarioId }) {
   comments = comments.map(comment => {
     return {
       ...comment,
-      testRunId: getCommentReference(comment.references, 'TEST_RUN_ID'),
-      scenarioId: getCommentReference(comment.references, 'SCENARIO_ID'),
-      scenarioKey: getCommentReference(comment.references, 'SCENARIO_KEY'),
+      testRunId: getCommentReference(comment.references, "TEST_RUN_ID"),
+      scenarioId: getCommentReference(comment.references, "SCENARIO_ID"),
+      scenarioKey: getCommentReference(comment.references, "SCENARIO_KEY")
     };
   });
 
@@ -47,28 +46,24 @@ export async function getScenarioComments({ scenarioId }) {
     const testRun = await testRunsById.get(comment.testRunId);
     return {
       ...comment,
-      testRun,
+      testRun
     };
   });
 
   return Promise.all(commentsWithTestRun$);
 }
 
-
 export function deleteComment({ scenarioId, commentId }) {
   return scenariosApi.deleteComment({ scenarioId, commentId });
 }
-
 
 export function updateComment({ scenarioId, commentId, newContent }) {
   return scenariosApi.updateComment({ scenarioId, commentId, newContent });
 }
 
-
 function getTestRun({ testRunId }) {
   return testRunsApi.getTestRun({ testRunId }).catch(() => null);
 }
-
 
 function getCommentReference(references, referenceType) {
   const selectedReferences = references.filter(reference => reference.type === referenceType);
@@ -78,9 +73,7 @@ function getCommentReference(references, referenceType) {
   return null;
 }
 
-
 class PromiseMapper {
-
   constructor(factory) {
     this.factory = factory;
     this.promises$ = new Map();
@@ -94,5 +87,4 @@ class PromiseMapper {
     }
     return promise$;
   }
-
 }

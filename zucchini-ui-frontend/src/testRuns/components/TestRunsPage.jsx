@@ -1,20 +1,18 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
-import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
+import PropTypes from "prop-types";
+import React from "react";
+import ButtonToolbar from "react-bootstrap/lib/ButtonToolbar";
+import ButtonGroup from "react-bootstrap/lib/ButtonGroup";
 
-import Button from '../../ui/components/Button';
-import TestRunsTableContainer from './TestRunsTableContainer';
-import TestRunTypeFilterContainer from './TestRunTypeFilterContainer';
-import CreateTestRunDialogContainer from './CreateTestRunDialogContainer';
-import PurgeDialogContainer from './PurgeDialogContainer';
-
+import Button from "../../ui/components/Button";
+import TestRunsTableContainer from "./TestRunsTableContainer";
+import TestRunTypeFilterContainer from "./TestRunTypeFilterContainer";
+import CreateTestRunDialogContainer from "./CreateTestRunDialogContainer";
+import PurgeDialogContainer from "./PurgeDialogContainer";
 
 export default class TestRunsPage extends React.Component {
-
   static propTypes = {
     onLoad: PropTypes.func.isRequired,
-    selectedType: PropTypes.string,
+    selectedType: PropTypes.string
   };
 
   constructor(props) {
@@ -22,7 +20,7 @@ export default class TestRunsPage extends React.Component {
 
     this.state = {
       showCreateTestRunDialog: false,
-      showPurgeDialog: false,
+      showPurgeDialog: false
     };
   }
 
@@ -30,29 +28,29 @@ export default class TestRunsPage extends React.Component {
     this.props.onLoad();
   }
 
-  onCreateTestRunButtonClick = (event) => {
+  onCreateTestRunButtonClick = event => {
     event.preventDefault();
 
     this.setState({
-      showCreateTestRunDialog: true,
+      showCreateTestRunDialog: true
     });
   };
 
   onPurgeButtonClick = () => {
     this.setState({
-      showPurgeDialog: true,
+      showPurgeDialog: true
     });
   };
 
   hideCreateTestRunDialog = () => {
     this.setState({
-      showCreateTestRunDialog: false,
+      showCreateTestRunDialog: false
     });
   };
 
   hidePurgeDialog = () => {
     this.setState({
-      showPurgeDialog: false,
+      showPurgeDialog: false
     });
   };
 
@@ -80,7 +78,13 @@ export default class TestRunsPage extends React.Component {
         <TestRunTypeFilterContainer selectedType={selectedType} />
         <TestRunsTableContainer selectedType={selectedType} />
         <CreateTestRunDialogContainer show={showCreateTestRunDialog} onClose={this.hideCreateTestRunDialog} />
-        {showPurgeDialog && <PurgeDialogContainer currentSelectedType={selectedType} show={showPurgeDialog} onClose={this.hidePurgeDialog} />}
+        {showPurgeDialog && (
+          <PurgeDialogContainer
+            currentSelectedType={selectedType}
+            show={showPurgeDialog}
+            onClose={this.hidePurgeDialog}
+          />
+        )}
       </div>
     );
   }

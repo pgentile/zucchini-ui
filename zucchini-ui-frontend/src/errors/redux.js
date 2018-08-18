@@ -1,37 +1,30 @@
-import { isFSA } from 'flux-standard-action';
-
+import { isFSA } from "flux-standard-action";
 
 // Actions
 
-
-const PREFIX = 'ERRORS';
+const PREFIX = "ERRORS";
 
 const CLEAR_ERRORS = `${PREFIX}/CLEAR_ERRORS`;
-
 
 // Actions creators
 
 export function clearErrors() {
   return {
-    type: CLEAR_ERRORS,
+    type: CLEAR_ERRORS
   };
 }
-
 
 // Reducer
 
 const initialState = {
-  errors: [],
+  errors: []
 };
 
 export function errors(state = initialState, action) {
   if (isFSA(action) && action.error) {
     return {
       ...state,
-      errors: [
-        ...state.errors,
-        `${action.payload}`,
-      ],
+      errors: [...state.errors, `${action.payload}`]
     };
   }
 

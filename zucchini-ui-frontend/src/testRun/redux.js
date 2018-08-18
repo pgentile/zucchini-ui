@@ -1,12 +1,11 @@
-import { handleActions } from 'redux-actions';
-import { replace } from 'react-router-redux'
+import { handleActions } from "redux-actions";
+import { replace } from "react-router-redux";
 
-import * as model from './model'
-
+import * as model from "./model";
 
 // Actions
 
-const PREFIX = 'TEST_RUN';
+const PREFIX = "TEST_RUN";
 
 const GET_TEST_RUN = `${PREFIX}/GET_TEST_RUN`;
 const GET_TEST_RUN_FULFILLED = `${GET_TEST_RUN}_FULFILLED`;
@@ -25,7 +24,6 @@ const DELETE_TEST_RUN = `${PREFIX}/DELETE_TEST_RUN`;
 const IMPORT_CUCUMBER_RESULTS = `${PREFIX}/IMPORT_CUCUMBER_RESULTS`;
 
 const EDIT_TEST_RUN = `${PREFIX}/EDIT_TEST_RUN`;
-
 
 // Action creators
 
@@ -53,8 +51,8 @@ export function getTestRun({ testRunId }) {
     type: GET_TEST_RUN,
     payload: model.getTestRun({ testRunId }),
     meta: {
-      testRunId,
-    },
+      testRunId
+    }
   };
 }
 
@@ -63,8 +61,8 @@ export function getTestRunStats({ testRunId }) {
     type: GET_TEST_RUN_STATS,
     payload: model.getTestRunStats({ testRunId }),
     meta: {
-      testRunId,
-    },
+      testRunId
+    }
   };
 }
 
@@ -73,8 +71,8 @@ export function getTestRunHistoryByType({ testRunId, testRunType }) {
     type: GET_TEST_RUN_HISTORY,
     payload: model.getTestRunHistoryByType({ type: testRunType }),
     meta: {
-      testRunId,
-    },
+      testRunId
+    }
   };
 }
 
@@ -83,8 +81,8 @@ export function getFeatures({ testRunId }) {
     type: GET_FEATURES,
     payload: model.getFeatures({ testRunId }),
     meta: {
-      testRunId,
-    },
+      testRunId
+    }
   };
 }
 
@@ -93,8 +91,8 @@ export function deleteTestRun({ testRunId }) {
     type: DELETE_TEST_RUN,
     payload: model.deleteTestRun({ testRunId }),
     meta: {
-      testRunId,
-    },
+      testRunId
+    }
   };
 }
 
@@ -102,7 +100,7 @@ export function deleteTestRunThenRedirect({ testRunId }) {
   return dispatch => {
     const deleteTestRun$ = dispatch(deleteTestRun({ testRunId }));
 
-    deleteTestRun$.then(dispatch(replace('/')));
+    deleteTestRun$.then(dispatch(replace("/")));
   };
 }
 
@@ -111,8 +109,8 @@ export function importCucumberResult({ testRunId, file, ...options }) {
     type: IMPORT_CUCUMBER_RESULTS,
     payload: model.importCucumberResult({ testRunId, file, ...options }),
     meta: {
-      testRunId,
-    },
+      testRunId
+    }
   };
 }
 
@@ -129,8 +127,8 @@ export function editTestRun({ testRunId, type, labels }) {
     type: EDIT_TEST_RUN,
     payload: model.editTestRun({ testRunId, type, labels }),
     meta: {
-      testRunId,
-    },
+      testRunId
+    }
   };
 }
 
@@ -142,54 +140,54 @@ export function editTestRunThenReload({ testRunId, type, labels }) {
   };
 }
 
-
 // Reducer
 
 const initialState = {
   testRun: {
-    labels: [],
+    labels: []
   },
   stats: model.createStatsWithZeros(),
   history: [],
-  features: [],
+  features: []
 };
 
-export const testRun = handleActions({
-
-  [GET_TEST_RUN_FULFILLED]: (state, action) => ({
-    ...state,
-    testRun: action.payload,
-  }),
-
-  [GET_TEST_RUN_STATS_FULFILLED]: (state, action) => {
-    const stats = action.payload;
-
-    // Refresh stats in history, if needed
-    const history = state.history.map(testRun => {
-      if (testRun.id === action.meta.testRunId) {
-        return {
-          ...testRun,
-          stats,
-        };
-      }
-      return testRun;
-    });
-
-    return {
+export const testRun = handleActions(
+  {
+    [GET_TEST_RUN_FULFILLED]: (state, action) => ({
       ...state,
-      history,
-      stats,
-    }
+      testRun: action.payload
+    }),
+
+    [GET_TEST_RUN_STATS_FULFILLED]: (state, action) => {
+      const stats = action.payload;
+
+      // Refresh stats in history, if needed
+      const history = state.history.map(testRun => {
+        if (testRun.id === action.meta.testRunId) {
+          return {
+            ...testRun,
+            stats
+          };
+        }
+        return testRun;
+      });
+
+      return {
+        ...state,
+        history,
+        stats
+      };
+    },
+
+    [GET_TEST_RUN_HISTORY_FULFILLED]: (state, action) => ({
+      ...state,
+      history: action.payload
+    }),
+
+    [GET_FEATURES_FULFILLED]: (state, action) => ({
+      ...state,
+      features: action.payload
+    })
   },
-
-  [GET_TEST_RUN_HISTORY_FULFILLED]: (state, action) => ({
-    ...state,
-    history: action.payload,
-  }),
-
-  [GET_FEATURES_FULFILLED]: (state, action) => ({
-    ...state,
-    features: action.payload,
-  }),
-
-}, initialState);
+  initialState
+);

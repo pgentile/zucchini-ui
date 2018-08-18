@@ -1,14 +1,13 @@
-import { handleActions } from 'redux-actions';
-import { replace } from 'react-router-redux'
+import { handleActions } from "redux-actions";
+import { replace } from "react-router-redux";
 
-import * as model from './model'
-import { getTestRun } from '../testRun/redux';
-import { getFeature, getScenarios } from '../feature/redux';
-
+import * as model from "./model";
+import { getTestRun } from "../testRun/redux";
+import { getFeature, getScenarios } from "../feature/redux";
 
 // Actions
 
-const PREFIX = 'SCENARIO';
+const PREFIX = "SCENARIO";
 
 const GET_SCENARIO = `${PREFIX}/GET_SCENARIO`;
 const GET_SCENARIO_FULFILLED = `${GET_SCENARIO}_FULFILLED`;
@@ -38,7 +37,6 @@ const UPDATE_COMMENT_PENDING = `${UPDATE_COMMENT}_PENDING`;
 
 export function loadScenarioPage({ scenarioId }) {
   return async dispatch => {
-
     const scenarioResult$ = dispatch(getScenario({ scenarioId }));
     const historyResult$ = dispatch(getScenarioHistory({ scenarioId }));
     const commentsResult$ = dispatch(getScenarioComments({ scenarioId }));
@@ -48,7 +46,7 @@ export function loadScenarioPage({ scenarioId }) {
     const { testRunId, featureId } = scenario;
 
     let similarFailureScenariosResult$ = null;
-    if (scenario.status === 'FAILED') {
+    if (scenario.status === "FAILED") {
       similarFailureScenariosResult$ = dispatch(getSimilarFailureScenarios({ scenarioId }));
     }
 
@@ -71,8 +69,8 @@ export function getScenario({ scenarioId }) {
     type: GET_SCENARIO,
     payload: model.getScenario({ scenarioId }),
     meta: {
-      scenarioId,
-    },
+      scenarioId
+    }
   };
 }
 
@@ -81,8 +79,8 @@ export function getScenarioHistory({ scenarioId }) {
     type: GET_SCENARIO_HISTORY,
     payload: model.getScenarioHistory({ scenarioId }),
     meta: {
-      scenarioId,
-    },
+      scenarioId
+    }
   };
 }
 
@@ -91,8 +89,8 @@ export function getSimilarFailureScenarios({ scenarioId }) {
     type: GET_SIMILAR_FAILURE_SCENARIOS,
     payload: model.getSimilarFailureScenarios({ scenarioId }),
     meta: {
-      scenarioId,
-    },
+      scenarioId
+    }
   };
 }
 
@@ -101,8 +99,8 @@ export function getScenarioComments({ scenarioId }) {
     type: GET_SCENARIO_COMMENTS,
     payload: model.getScenarioComments({ scenarioId }),
     meta: {
-      scenarioId,
-    },
+      scenarioId
+    }
   };
 }
 
@@ -111,8 +109,8 @@ export function updateScenarioState({ scenarioId, newState }) {
     type: UPDATE_SCENARIO_STATE,
     payload: model.updateScenarioState({ scenarioId, newState }),
     meta: {
-      scenarioId,
-    },
+      scenarioId
+    }
   };
 }
 
@@ -121,8 +119,8 @@ export function addScenarioComment({ scenarioId, comment }) {
     type: ADD_SCENARIO_COMMENT,
     payload: model.addScenarioComment({ scenarioId, comment }),
     meta: {
-      scenarioId,
-    },
+      scenarioId
+    }
   };
 }
 
@@ -131,17 +129,19 @@ export function deleteScenario({ scenarioId }) {
     type: DELETE_SCENARIO,
     payload: model.deleteScenario({ scenarioId }),
     meta: {
-      scenarioId,
-    },
+      scenarioId
+    }
   };
 }
 
 export function updateScenarioStateAndComment({ scenarioId, newState, comment }) {
   return async dispatch => {
-    await dispatch(updateScenarioState({
-      scenarioId,
-      newState,
-    }));
+    await dispatch(
+      updateScenarioState({
+        scenarioId,
+        newState
+      })
+    );
 
     if (comment) {
       await dispatch(addScenarioComment({ scenarioId, comment }));
@@ -150,7 +150,7 @@ export function updateScenarioStateAndComment({ scenarioId, newState, comment })
     await dispatch(loadScenarioPage({ scenarioId }));
 
     return null;
-  }
+  };
 }
 
 export function addScenarioCommentAndReload({ scenarioId, comment }) {
@@ -177,8 +177,8 @@ export function setNonReviewedStateThenReload({ scenarioId }) {
   return updateScenarioStateAndComment({
     scenarioId,
     newState: {
-      reviewed: false,
-    },
+      reviewed: false
+    }
   });
 }
 
@@ -186,9 +186,9 @@ export function setScenarioReviewedStateAndComment({ scenarioId, comment }) {
   return updateScenarioStateAndComment({
     scenarioId,
     newState: {
-      reviewed: true,
+      reviewed: true
     },
-    comment,
+    comment
   });
 }
 
@@ -198,8 +198,8 @@ export function deleteComment({ scenarioId, commentId }) {
     payload: model.deleteComment({ scenarioId, commentId }),
     meta: {
       scenarioId,
-      commentId,
-    },
+      commentId
+    }
   };
 }
 
@@ -210,8 +210,8 @@ export function updateComment({ scenarioId, commentId, newContent }) {
     meta: {
       scenarioId,
       commentId,
-      newContent,
-    },
+      newContent
+    }
   };
 }
 
@@ -224,7 +224,6 @@ export function updateCommentThenReload({ scenarioId, commentId, newContent }) {
   };
 }
 
-
 // Reducer
 
 const initialState = {
@@ -234,67 +233,68 @@ const initialState = {
     changes: [],
     steps: [],
     background: {
-      steps: [],
+      steps: []
     },
     beforeActions: [],
-    afterActions: [],
+    afterActions: []
   },
   similarFailureScenarios: [],
   history: [],
-  comments: [],
+  comments: []
 };
 
-export const scenario = handleActions({
+export const scenario = handleActions(
+  {
+    [GET_SCENARIO_FULFILLED]: (state, action) => ({
+      ...state,
+      scenario: action.payload
+    }),
 
-  [GET_SCENARIO_FULFILLED]: (state, action) => ({
-    ...state,
-    scenario: action.payload,
-  }),
+    [GET_SIMILAR_FAILURE_SCENARIOS_FULFILLED]: (state, action) => ({
+      ...state,
+      similarFailureScenarios: action.payload
+    }),
 
-  [GET_SIMILAR_FAILURE_SCENARIOS_FULFILLED]: (state, action) => ({
-    ...state,
-    similarFailureScenarios: action.payload,
-  }),
+    [GET_SCENARIO_HISTORY_FULFILLED]: (state, action) => ({
+      ...state,
+      history: action.payload
+    }),
 
-  [GET_SCENARIO_HISTORY_FULFILLED]: (state, action) => ({
-    ...state,
-    history: action.payload,
-  }),
+    [GET_SCENARIO_COMMENTS_FULFILLED]: (state, action) => ({
+      ...state,
+      comments: action.payload
+    }),
 
-  [GET_SCENARIO_COMMENTS_FULFILLED]: (state, action) => ({
-    ...state,
-    comments: action.payload,
-  }),
+    [UPDATE_COMMENT_PENDING]: (state, action) => {
+      let { comments } = state;
+      const { commentId, newContent } = action.meta;
 
-  [UPDATE_COMMENT_PENDING]: (state, action) => {
-    let { comments } = state;
-    const { commentId, newContent } = action.meta;
+      comments = comments.map(comment => {
+        if (comment.id !== commentId) {
+          return comment;
+        }
 
-    comments = comments.map(comment => {
-      if (comment.id !== commentId) {
-        return comment;
-      }
+        return {
+          ...comment,
+          content: newContent
+        };
+      });
 
       return {
-        ...comment,
-        content: newContent,
+        ...state,
+        comments
       };
-    });
+    },
 
-    return {
-      ...state,
-      comments,
-    };
+    [DELETE_COMMENT_PENDING]: (state, action) => {
+      let { comments } = state;
+      comments = comments.filter(comment => comment.id !== action.meta.commentId);
+
+      return {
+        ...state,
+        comments
+      };
+    }
   },
-
-  [DELETE_COMMENT_PENDING]: (state, action) => {
-    let { comments } = state;
-    comments = comments.filter(comment => comment.id !== action.meta.commentId);
-
-    return {
-      ...state,
-      comments,
-    };
-  },
-
-}, initialState);
+  initialState
+);

@@ -1,10 +1,13 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from "prop-types";
+import React from "react";
 
-import ConfirmActionButton from '../../ui/components/ConfirmActionButton';
-
+import ConfirmActionButton from "../../ui/components/ConfirmActionButton";
 
 export default class DeleteScenarioButton extends React.PureComponent {
+  static propTypes = {
+    scenarioId: PropTypes.string,
+    onDelete: PropTypes.func.isRequired
+  };
 
   onDelete = () => {
     const { scenarioId, onDelete } = this.props;
@@ -19,13 +22,8 @@ export default class DeleteScenarioButton extends React.PureComponent {
         actionLabel="Supprimer"
         title="Supprimer le scénario"
         message="La suppression est irreversible. Êtes-vous sûr de supprimer ce scénario ?"
-        onConfirm={this.onDelete} />
+        onConfirm={this.onDelete}
+      />
     );
   }
-
 }
-
-DeleteScenarioButton.propTypes = {
-  scenarioId: PropTypes.string,
-  onDelete: PropTypes.func.isRequired,
-};

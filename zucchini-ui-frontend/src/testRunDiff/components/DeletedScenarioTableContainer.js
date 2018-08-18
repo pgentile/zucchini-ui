@@ -1,18 +1,12 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
 
-import UnknownScenarioTable from './UnknownScenarioTable';
+import UnknownScenarioTable from "./UnknownScenarioTable";
 
-
-const selectScenarios = createSelector(
-  state => state.testRunDiff.diff.deletedScenarii,
-  scenarios => scenarios,
-);
+const selectScenarios = createSelector(state => state.testRunDiff.diff.deletedScenarii, scenarios => scenarios);
 
 const selectProps = createStructuredSelector({
-  scenarios: selectScenarios,
-})
+  scenarios: selectScenarios
+});
 
-export default connect(
-  selectProps,
-)(UnknownScenarioTable);
+export default connect(selectProps)(UnknownScenarioTable);

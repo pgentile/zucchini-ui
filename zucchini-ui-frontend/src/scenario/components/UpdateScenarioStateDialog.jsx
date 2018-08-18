@@ -1,24 +1,28 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import Modal from 'react-bootstrap/lib/Modal';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import Checkbox from 'react-bootstrap/lib/Checkbox';
-import Radio from 'react-bootstrap/lib/Radio';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import FormControl from 'react-bootstrap/lib/FormControl';
+import PropTypes from "prop-types";
+import React from "react";
+import Modal from "react-bootstrap/lib/Modal";
+import FormGroup from "react-bootstrap/lib/FormGroup";
+import Checkbox from "react-bootstrap/lib/Checkbox";
+import Radio from "react-bootstrap/lib/Radio";
+import ControlLabel from "react-bootstrap/lib/ControlLabel";
+import FormControl from "react-bootstrap/lib/FormControl";
 
-import Button from '../../ui/components/Button';
-
+import Button from "../../ui/components/Button";
 
 const AVAILABLE_STATUS = {
-  PASSED: 'Succès',
-  FAILED: 'Échec',
-  NOT_RUN: 'Non joué',
-  PENDING: 'En attente',
+  PASSED: "Succès",
+  FAILED: "Échec",
+  NOT_RUN: "Non joué",
+  PENDING: "En attente"
 };
 
-
 export default class UpdateScenarioStateDialog extends React.PureComponent {
+  static propTypes = {
+    show: PropTypes.bool.isRequired,
+    scenario: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired,
+    onUpdateState: PropTypes.func.isRequired
+  };
 
   constructor(props) {
     super(props);
@@ -37,43 +41,43 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
     return {
       scenario: {
         status,
-        reviewed: true,
+        reviewed: true
       },
-      comment: '',
+      comment: ""
     };
   }
 
-  onCloseClick = (event) => {
+  onCloseClick = event => {
     if (event) {
       event.preventDefault();
     }
     this.props.onClose();
   };
 
-  onUpdateState = (event) => {
+  onUpdateState = event => {
     if (event) {
       event.preventDefault();
     }
     this.props.onUpdateState({
       scenarioId: this.props.scenario.id,
       newState: this.state.scenario,
-      comment: this.state.comment,
+      comment: this.state.comment
     });
     this.props.onClose();
   };
 
-  isStatusSelected = (status) => {
+  isStatusSelected = status => {
     return this.state.scenario.status === status;
   };
 
-  onStatusSelected = (status) => {
+  onStatusSelected = status => {
     return () => {
       this.setState(prevState => {
         return {
           scenario: {
             ...prevState.scenario,
-            status,
-          },
+            status
+          }
         };
       });
     };
@@ -84,16 +88,16 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
       return {
         scenario: {
           ...prevState.scenario,
-          reviewed: !prevState.scenario.reviewed,
-        },
+          reviewed: !prevState.scenario.reviewed
+        }
       };
     });
   };
 
-  onCommentChange = (event) => {
+  onCommentChange = event => {
     const comment = event.target.value;
     this.setState({
-      comment,
+      comment
     });
   };
 
@@ -107,7 +111,7 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
           {label}
         </Radio>
       );
-    })
+    });
 
     return (
       <Modal bsSize="large" show={show} onHide={this.onCloseClick}>
@@ -122,27 +126,28 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
             </FormGroup>
             <FormGroup>
               <ControlLabel>Analyse du scénario</ControlLabel>
-              <Checkbox checked={this.state.scenario.reviewed} onChange={this.onReviewedChange}>Scénario analysé ?</Checkbox>
+              <Checkbox checked={this.state.scenario.reviewed} onChange={this.onReviewedChange}>
+                Scénario analysé ?
+              </Checkbox>
             </FormGroup>
             <FormGroup controlId="comment">
               <ControlLabel>Commentaire</ControlLabel>
-              <FormControl componentClass="textarea" rows="3" value={this.state.comment} onChange={this.onCommentChange} />
+              <FormControl
+                componentClass="textarea"
+                rows="3"
+                value={this.state.comment}
+                onChange={this.onCommentChange}
+              />
             </FormGroup>
           </form>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button bsStyle="primary" onClick={this.onUpdateState}>Valider</Button>
+          <Button bsStyle="primary" onClick={this.onUpdateState}>
+            Valider
+          </Button>
         </Modal.Footer>
       </Modal>
     );
   }
-
 }
-
-UpdateScenarioStateDialog.propTypes = {
-  show: PropTypes.bool.isRequired,
-  scenario: PropTypes.object.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onUpdateState: PropTypes.func.isRequired,
-};

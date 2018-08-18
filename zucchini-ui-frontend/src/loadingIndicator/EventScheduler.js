@@ -1,5 +1,4 @@
 export default class EventScheduler {
-
   constructor() {
     this.promise = Promise.resolve(null);
   }
@@ -14,7 +13,6 @@ export default class EventScheduler {
           });
         }, timeout);
       });
-    })
+    });
   }
-
 }

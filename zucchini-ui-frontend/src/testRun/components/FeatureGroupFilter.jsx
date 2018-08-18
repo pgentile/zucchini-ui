@@ -1,11 +1,14 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { Link } from 'react-router';
+import PropTypes from "prop-types";
+import React from "react";
+import { Link } from "react-router";
 
-import ListWithSeparator from '../../ui/components/ListWithSeparator';
-
+import ListWithSeparator from "../../ui/components/ListWithSeparator";
 
 export default class FeatureGroupFilter extends React.PureComponent {
+  static propTypes = {
+    testRunId: PropTypes.string.isRequired,
+    featureGroups: PropTypes.array.isRequired
+  };
 
   render() {
     const { testRunId, featureGroups } = this.props;
@@ -20,19 +23,14 @@ export default class FeatureGroupFilter extends React.PureComponent {
 
     return (
       <p>
-        Filter par groupe :
-        {' '}
+        Filter par groupe :{" "}
         <ListWithSeparator separator=", ">
-          <Link to={`/test-runs/${testRunId}`}><i>Tous</i></Link>
+          <Link to={`/test-runs/${testRunId}`}>
+            <i>Tous</i>
+          </Link>
           {featureGroupLinks}
         </ListWithSeparator>
       </p>
     );
   }
-
 }
-
-FeatureGroupFilter.propTypes = {
-  testRunId: PropTypes.string.isRequired,
-  featureGroups: PropTypes.array.isRequired,
-};

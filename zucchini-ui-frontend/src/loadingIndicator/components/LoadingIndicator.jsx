@@ -1,25 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import EventScheduler from '../EventScheduler';
-import LoadingBar from './LoadingBar';
-
+import EventScheduler from "../EventScheduler";
+import LoadingBar from "./LoadingBar";
 
 export default class LoadingIndicator extends React.PureComponent {
-
   static propTypes = {
-    active: PropTypes.bool.isRequired,
+    active: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
-    active: false,
+    active: false
   };
 
   inactiveState = {
     start: false,
     pending: false,
     ending: false,
-    done: false,
+    done: false
   };
 
   state = this.inactiveState;
@@ -48,9 +46,6 @@ export default class LoadingIndicator extends React.PureComponent {
   }
 
   render() {
-    return (
-      <LoadingBar {...this.state} />
-    );
+    return <LoadingBar {...this.state} />;
   }
-
 }

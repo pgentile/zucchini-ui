@@ -1,32 +1,37 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { Link } from 'react-router'
+import PropTypes from "prop-types";
+import React from "react";
+import { Link } from "react-router";
 
-import toNiceDate from '../../ui/toNiceDate';
-import CommentText from './CommentText';
-import CommentEditor from './CommentEditor';
-
+import toNiceDate from "../../ui/toNiceDate";
+import CommentText from "./CommentText";
+import CommentEditor from "./CommentEditor";
 
 export default class Comment extends React.PureComponent {
+  static propTypes = {
+    comment: PropTypes.object.isRequired,
+    testRunId: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired
+  };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      editMode: false,
+      editMode: false
     };
   }
 
   onEdit = () => {
     this.setState({
-      editMode: true,
+      editMode: true
     });
   };
 
   onDelete = () => {
     this.props.onDelete({
       scenarioId: this.props.comment.scenarioId,
-      commentId: this.props.comment.id,
+      commentId: this.props.comment.id
     });
   };
 
@@ -34,17 +39,17 @@ export default class Comment extends React.PureComponent {
     this.props.onChange({
       scenarioId: this.props.comment.scenarioId,
       commentId: this.props.comment.id,
-      newContent,
+      newContent
     });
 
     this.setState({
-      editMode: false,
+      editMode: false
     });
   };
 
   onCancelEdit = () => {
     this.setState({
-      editMode: false,
+      editMode: false
     });
   };
 
@@ -53,54 +58,32 @@ export default class Comment extends React.PureComponent {
 
     let testRunInfo = null;
     if (comment.testRunId === testRunId) {
-      testRunInfo = (
-        <i>(tir de test actuel)</i>
-      );
+      testRunInfo = <i>(tir de test actuel)</i>;
     } else if (comment.testRun) {
       testRunInfo = (
         <span>
-          (tir du
-          {' '}
-          <Link to={`/scenarios/${comment.scenarioId}`}>{toNiceDate(comment.testRun.date)}</Link>,
-          {' '}
-          type <Link to={{ pathname: '/', query: { type: comment.testRun.type } }}>{comment.testRun.type}</Link>
-          )
+          (tir du <Link to={`/scenarios/${comment.scenarioId}`}>{toNiceDate(comment.testRun.date)}</Link>, type{" "}
+          <Link to={{ pathname: "/", query: { type: comment.testRun.type } }}>{comment.testRun.type}</Link>)
         </span>
       );
     } else {
-      testRunInfo = (
-        <i>(tir supprimé)</i>
-      );
+      testRunInfo = <i>(tir supprimé)</i>;
     }
 
     let commentComponent = null;
     if (this.state.editMode) {
-      commentComponent = (
-        <CommentEditor comment={comment} onSave={this.onSave} onCancel={this.onCancelEdit} />
-      );
+      commentComponent = <CommentEditor comment={comment} onSave={this.onSave} onCancel={this.onCancelEdit} />;
     } else {
-      commentComponent = (
-        <CommentText comment={comment} onEdit={this.onEdit} onDelete={this.onDelete} />
-      );
+      commentComponent = <CommentText comment={comment} onEdit={this.onEdit} onDelete={this.onDelete} />;
     }
 
     return (
       <div>
         <h4>
-          Le {toNiceDate(comment.date)}
-          {' '}
-          <small>{testRunInfo}</small>
+          Le {toNiceDate(comment.date)} <small>{testRunInfo}</small>
         </h4>
         {commentComponent}
       </div>
     );
   }
-
 }
-
-Comment.propTypes = {
-  comment: PropTypes.object.isRequired,
-  testRunId: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-};

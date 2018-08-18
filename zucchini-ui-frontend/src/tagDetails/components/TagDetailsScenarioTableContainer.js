@@ -1,10 +1,9 @@
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
-import sortBy from 'lodash/sortBy';
+import { connect } from "react-redux";
+import { createSelector, createStructuredSelector } from "reselect";
+import sortBy from "lodash/sortBy";
 
-import { selectScenarioFilterFunc } from '../../filters/selectors';
-import TagDetailsScenarioTable from './TagDetailsScenarioTable';
-
+import { selectScenarioFilterFunc } from "../../filters/selectors";
+import TagDetailsScenarioTable from "./TagDetailsScenarioTable";
 
 const selectFeaturesById = createSelector(
   state => state.tagDetails.features,
@@ -17,42 +16,36 @@ const selectFeaturesById = createSelector(
   }
 );
 
-
 const DEFAULT_FEATURE = {
   info: {
-    name: '',
-  },
+    name: ""
+  }
 };
-
 
 const selectScenarios = createSelector(
   state => state.tagDetails.scenarios,
   selectFeaturesById,
   selectScenarioFilterFunc,
   (scenarios, featuresById, scenarioFilterFunc) => {
-    let selectedScenarios = scenarios
-      .filter(scenarioFilterFunc)
-      .map(scenario => {
-        const feature = featuresById.get(scenario.featureId) || DEFAULT_FEATURE;
-        return {
-          ...scenario,
-          feature,
-        };
-      });
+    let selectedScenarios = scenarios.filter(scenarioFilterFunc).map(scenario => {
+      const feature = featuresById.get(scenario.featureId) || DEFAULT_FEATURE;
+      return {
+        ...scenario,
+        feature
+      };
+    });
 
     selectedScenarios = sortBy(selectedScenarios, [
       scenario => scenario.feature.info.name,
-      scenario => scenario.info.name,
+      scenario => scenario.info.name
     ]);
 
     return selectedScenarios;
-  },
+  }
 );
 
 const selectProps = createStructuredSelector({
-  scenarios: selectScenarios,
+  scenarios: selectScenarios
 });
 
-export default connect(
-  selectProps,
-)(TagDetailsScenarioTable);
+export default connect(selectProps)(TagDetailsScenarioTable);

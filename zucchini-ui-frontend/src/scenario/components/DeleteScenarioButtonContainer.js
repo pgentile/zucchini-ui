@@ -1,13 +1,12 @@
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import DeleteScenarioButton from './DeleteScenarioButton';
-import { deleteScenarioThenRedirect } from '../redux';
-
+import DeleteScenarioButton from "./DeleteScenarioButton";
+import { deleteScenarioThenRedirect } from "../redux";
 
 const DeleteScenarioButtonContainer = connect(
   undefined,
   {
-    onDelete: deleteScenarioThenRedirect,
+    onDelete: deleteScenarioThenRedirect
   }
 )(DeleteScenarioButton);
 
