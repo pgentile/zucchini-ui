@@ -42,33 +42,13 @@ import NotFoundPage from "./notFound/components/NotFoundPage";
 import StepDefinitionsPageContainer from "./stepDefinitions/components/StepDefinitionsPageContainer";
 import StepDefinitionsBreadcrumbContainer from "./stepDefinitions/components/StepDefinitionsBreadcrumbContainer";
 
-// Route old Angular UI URL to new URL
-function routeOldPaths(nextState, replace) {
-  const hash = nextState.location.hash || "";
-
-  if (hash.startsWith("#/")) {
-    const parts = hash.substr(1).split("/");
-    const [emptyPart, basename, ...remaining] = parts;
-
-    if (basename === "scenarii") {
-      const newPath = [emptyPart, "scenarios", ...remaining].join("/");
-      replace(newPath);
-    } else {
-      replace(parts.join("/"));
-    }
-  }
-}
-
 export default function AppRouter() {
   return (
     <StrictMode>
       <Provider store={store}>
         <Router history={history}>
           <Route path="/" component={RootPage}>
-            <IndexRoute
-              components={{ main: TestRunsPageContainer, breadcrum: TestRunsBreadcrumbContainer }}
-              onEnter={routeOldPaths}
-            />
+            <IndexRoute components={{ main: TestRunsPageContainer, breadcrum: TestRunsBreadcrumbContainer }} />
             <Route path="test-runs/:testRunId">
               <IndexRoute
                 components={{
