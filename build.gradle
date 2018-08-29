@@ -17,8 +17,8 @@ plugins {
     id 'com.github.ben-manes.versions' version '0.20.0' apply false
     id 'us.kirchmeier.capsule' version '1.0.2' apply false
     id 'com.google.osdetector' version '1.4.0' apply false
-    id 'org.ajoberstar.grgit' version '2.2.1' apply false
-    id 'net.ltgt.errorprone' version '0.0.14' apply false
+    id 'org.ajoberstar.grgit' version '2.3.0' apply false
+    id 'com.github.spotbugs' version '1.6.2' apply false
 }
 
 /**
@@ -138,27 +138,21 @@ allprojects {
                 }
             }
 
-            // Findbugs plugin
+            // Spotbugs plugin
 
-            project.apply plugin: 'findbugs'
+            project.apply plugin: 'com.github.spotbugs'
 
-            project.findbugs {
-                effort = "max"
-
+            project.spotbugs {
                 ignoreFailures = true
-
+                effort = 'max'
             }
 
-            tasks.withType(FindBugs) {
+            tasks.withType(com.github.spotbugs.SpotBugsTask) {
                 reports {
                     xml.enabled = false
                     html.enabled = true
                 }
             }
-
-            // Error prone plugin
-
-            project.apply plugin: 'net.ltgt.errorprone'
 
         }
 
