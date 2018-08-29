@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TagList should contain labels with tags 1`] = `
+<span>
+  <a
+    className="label label-info"
+    onClick={[Function]}
+    style={Object {}}
+  >
+    @
+    A
+  </a>
+   
+  <a
+    className="label label-info"
+    onClick={[Function]}
+    style={Object {}}
+  >
+    @
+    B
+  </a>
+   
+  <a
+    className="label label-info"
+    onClick={[Function]}
+    style={Object {}}
+  >
+    @
+    C
+  </a>
+  
+</span>
+`;
