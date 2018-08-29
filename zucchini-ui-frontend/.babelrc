@@ -1,7 +1,21 @@
 {
+  "plugins": [
+    [
+      "@babel/plugin-proposal-class-properties",
+      {
+        "loose": false
+      }
+    ],
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "corejs": 2
+      }
+    ]
+  ],
   "presets": [
     [
-      "env",
+      "@babel/preset-env",
       {
         "modules": false,
         "targets": {
@@ -13,27 +27,25 @@
             "last 1 ie version"
           ]
         },
-        "useBuiltIns": true
+        "useBuiltIns": "usage"
       }
     ],
-    "react",
-    "stage-2"
+    "@babel/preset-react"
   ],
   "env": {
     "test": {
       "presets": [
         [
-          "env",
+          "@babel/preset-env",
           {
             "modules": "commonjs",
             "targets": {
               "node": true
             },
-            "useBuiltIns": true
+            "useBuiltIns": "usage"
           }
         ],
-        "react",
-        "stage-2"
+        "@babel/preset-react"
       ]
     }
   }
