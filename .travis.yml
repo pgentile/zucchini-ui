@@ -8,11 +8,12 @@ services:
 jdk:
   - oraclejdk8
   - oraclejdk9
+  - oraclejdk10
 
 before_install:
   # Install a recent node version
   - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-  - nvm install 8.11.3 && nvm use 8.11.3
+  - nvm install 8.11.4 && nvm use 8.11.4
   # Install Yarn
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH=$HOME/.yarn/bin:$PATH
