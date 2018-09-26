@@ -6,6 +6,7 @@ Version 0.0.4-SNAPSHOT
 
 * **Removed support for IE11**
 * Smaller UI build
+* Build with JDK 11
 
 
 Version 0.0.3-SNAPSHOT
