@@ -2,9 +2,10 @@
 
 const path = require("path");
 const webpack = require("webpack");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 // Output dir
 const outputDir = path.join(__dirname, "build/dist/assets");
@@ -26,12 +27,11 @@ module.exports = {
   output: {
     path: outputDir,
     filename: "[name].js",
-    publicPath: "/"
+    publicPath: "/ui/assets/"
   },
   devtool: "source-map",
   devServer: {
     port: config.devServer.port,
-    publicPath: "/ui/assets",
     before: function(app) {
       app.get("/ui/assets/config.js", (req, res) => {
         // Connect function to serve a Javascript configuration file
@@ -72,17 +72,13 @@ module.exports = {
       },
       {
         test: /\.(ttf|eot|woff2?|svg|png|jpg|gif)$/,
-        use: ["url-loader?limit=100000"]
+        use: ["file-loader"]
       }
     ]
   },
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true
-      }),
+      new TerserPlugin(),
       new OptimizeCSSAssetsPlugin({})
     ],
     splitChunks: {
@@ -118,6 +114,8 @@ module.exports = {
     // Otherwise, same lodash functions can be loaded twice !
     new webpack.NormalModuleReplacementPlugin(/lodash-es/, resource => {
       resource.request = resource.request.replace("lodash-es", "lodash");
-    })
+    }),
+
+    new LodashModuleReplacementPlugin()
   ]
 };

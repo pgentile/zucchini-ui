@@ -1,15 +1,13 @@
 {
   "plugins": [
-    [
-      "@babel/plugin-proposal-class-properties",
-      {
-        "loose": false
-      }
-    ],
+    "@babel/plugin-proposal-class-properties",
+    "babel-plugin-lodash",
     [
       "@babel/plugin-transform-runtime",
       {
-        "corejs": 2
+        "corejs": 2,
+        "helpers": true,
+        "useESModules": true
       }
     ]
   ],
@@ -18,16 +16,7 @@
       "@babel/preset-env",
       {
         "modules": false,
-        "targets": {
-          "browsers": [
-            "last 3 chrome versions",
-            "last 3 firefox versions",
-            "last 2 safari versions",
-            "last 2 edge versions",
-            "last 1 ie version"
-          ]
-        },
-        "useBuiltIns": "usage"
+        "useBuiltIns": "entry"
       }
     ],
     "@babel/preset-react"
@@ -35,6 +24,7 @@
   "env": {
     "test": {
       "presets": [
+        "@babel/preset-react",
         [
           "@babel/preset-env",
           {
@@ -42,10 +32,19 @@
             "targets": {
               "node": true
             },
-            "useBuiltIns": "usage"
+            "useBuiltIns": false
           }
-        ],
-        "@babel/preset-react"
+        ]
+      ],
+      "plugins": [
+        [
+          "@babel/plugin-transform-runtime",
+          {
+            "corejs": 2,
+            "helpers": true,
+            "useESModules": false
+          }
+        ]
       ]
     }
   }
