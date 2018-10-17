@@ -1,3 +1,4 @@
+import com.github.spotbugs.SpotBugsTask
 import io.zucchini.build.docker.DockerPlugin
 import io.zucchini.build.node.NodePlugin
 import io.zucchini.build.node.YarnTask
@@ -139,19 +140,21 @@ allprojects {
             }
 
             // Spotbugs plugin
+            // Only on JDK < 11
+            if (JavaVersion.current() < JavaVersion.VERSION_11) {
+                project.apply plugin: 'com.github.spotbugs'
 
-            project.apply plugin: 'com.github.spotbugs'
-
-            project.spotbugs {
-                ignoreFailures = true
-                effort = 'max'
-            }
-
-            tasks.withType(com.github.spotbugs.SpotBugsTask) {
-                reports {
-                    xml.enabled = false
-                    html.enabled = true
+                project.spotbugs {
+                    ignoreFailures = true
+                    effort = 'max'
                 }
+
+                tasks.withType(SpotBugsTask) {
+                    reports {
+                        xml.enabled = false
+                        html.enabled = true
+                    }
+                }                
             }
 
         }
