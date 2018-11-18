@@ -10,9 +10,15 @@ const selectSelectedFeatureGroup = createSelector(
   selectedFeatureGroup => selectedFeatureGroup
 );
 
-const selectTestRunId = createSelector((state, ownProps) => ownProps.params.testRunId, testRunId => testRunId);
+const selectTestRunId = createSelector(
+  (state, ownProps) => ownProps.params.testRunId,
+  testRunId => testRunId
+);
 
-const selectTestRun = createSelector(state => state.testRun.testRun, testRun => testRun);
+const selectTestRun = createSelector(
+  state => state.testRun.testRun,
+  testRun => testRun
+);
 
 const selectProps = createStructuredSelector({
   selectedFeatureGroup: selectSelectedFeatureGroup,

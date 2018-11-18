@@ -67,8 +67,8 @@ function getClosestOffset(knownOffsets, currentOffset) {
   if (includes(knownOffsets[currentOffset])) {
     return currentOffset;
   }
-  return knownOffsets.reduce(
-    (prev, curr) => (Math.abs(curr - currentOffset) < Math.abs(prev - currentOffset) ? curr : prev)
+  return knownOffsets.reduce((prev, curr) =>
+    Math.abs(curr - currentOffset) < Math.abs(prev - currentOffset) ? curr : prev
   );
 }
 

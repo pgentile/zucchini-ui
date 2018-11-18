@@ -7,7 +7,10 @@ import wrapDisplayName from "recompose/wrapDisplayName";
 import { watch, unwatch } from "../redux";
 import withWindowVisibility from "../../windowVisibility/components/withWindowVisibility";
 
-const selectOtherWatcherIds = createSelector(state => state.presence.otherWatcherIds, watcherIds => watcherIds);
+const selectOtherWatcherIds = createSelector(
+  state => state.presence.otherWatcherIds,
+  watcherIds => watcherIds
+);
 
 const selectProps = createStructuredSelector({
   otherWatcherIds: selectOtherWatcherIds

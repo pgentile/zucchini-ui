@@ -4,9 +4,15 @@ import { createSelector, createStructuredSelector } from "reselect";
 import ScenarioPage from "./ScenarioPage";
 import { loadScenarioPage, setNonReviewedStateThenReload } from "../redux";
 
-const selectScenarioId = createSelector((state, ownProps) => ownProps.params.scenarioId, scenarioId => scenarioId);
+const selectScenarioId = createSelector(
+  (state, ownProps) => ownProps.params.scenarioId,
+  scenarioId => scenarioId
+);
 
-const selectScenario = createSelector(state => state.scenario.scenario, scenario => scenario);
+const selectScenario = createSelector(
+  state => state.scenario.scenario,
+  scenario => scenario
+);
 
 const selectProps = createStructuredSelector({
   scenarioId: selectScenarioId,

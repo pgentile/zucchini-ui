@@ -3,7 +3,10 @@ import { createSelector, createStructuredSelector } from "reselect";
 
 import FailuresTable from "./FailuresTable";
 
-const selectFailures = createSelector(state => state.failures.failures, failures => failures);
+const selectFailures = createSelector(
+  state => state.failures.failures,
+  failures => failures
+);
 
 const selectProps = createStructuredSelector({
   failures: selectFailures

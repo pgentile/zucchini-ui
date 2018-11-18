@@ -3,7 +3,10 @@ import { createSelector, createStructuredSelector } from "reselect";
 
 import ScenarioHistoryTable from "./ScenarioHistoryTable";
 
-const selectScenarioId = createSelector((state, ownProps) => ownProps.scenarioId, scenarioId => scenarioId);
+const selectScenarioId = createSelector(
+  (state, ownProps) => ownProps.scenarioId,
+  scenarioId => scenarioId
+);
 
 const selectHistory = createSelector(
   state => state.scenario.history,

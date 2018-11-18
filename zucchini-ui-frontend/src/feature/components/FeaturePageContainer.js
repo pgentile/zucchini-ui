@@ -4,9 +4,15 @@ import { createSelector, createStructuredSelector } from "reselect";
 import FeaturePage from "./FeaturePage";
 import { loadFeaturePage } from "../redux";
 
-const selectFeatureId = createSelector((state, ownProps) => ownProps.params.featureId, featureId => featureId);
+const selectFeatureId = createSelector(
+  (state, ownProps) => ownProps.params.featureId,
+  featureId => featureId
+);
 
-const selectFeature = createSelector(state => state.feature.feature, feature => feature);
+const selectFeature = createSelector(
+  state => state.feature.feature,
+  feature => feature
+);
 
 const selectProps = createStructuredSelector({
   featureId: selectFeatureId,

@@ -13,17 +13,28 @@ describe("tokenizeUrls", () => {
   });
 
   it("should return URL tokens for URL in line", () => {
-    const line =
-      "Hello, please see our example at http://example.org/test/#123. And see https://example.org/xyz?toto=tutu&titi=tata, or...";
+    const line = removeLineWhitespace(`
+      Hello, please see our example at http://example.org/test/#123.
+      And see https://example.org/xyz?toto=tutu&titi=tata, or...
+    `);
     const result = tokenizeUrls(line);
 
     expect(result).toEqual([
       ["text", "Hello, please see our example at "],
       ["url", "http://example.org/test/#123"],
-      ["text", ". And see "],
+      ["text", "."],
+      ["eol"],
+      ["text", "And see "],
       ["url", "https://example.org/xyz?toto=tutu&titi=tata"],
       ["text", ", or..."],
       ["eol"]
     ]);
   });
 });
+
+function removeLineWhitespace(lines) {
+  return lines
+    .split("\n")
+    .map(line => line.trim())
+    .join("\n");
+}

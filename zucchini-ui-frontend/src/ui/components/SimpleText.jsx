@@ -13,14 +13,19 @@ export default class SimpleText extends React.PureComponent {
     const { text, ...otherProps } = this.props;
 
     if (text) {
+      const tokens = tokenizeUrls(text);
       let output = "";
-      tokenizeUrls(text).forEach(([type, value]) => {
+      tokens.forEach(([type, value]) => {
         switch (type) {
           case "text":
-            output += html`${value}`;
+            output += html`
+              ${value}
+            `;
             break;
           case "url":
-            output += html`<a href="${value}">${value}</a>`;
+            output += html`
+              <a href="${value}">${value}</a>
+            `;
             break;
           case "eol":
             output += "<br/>";
@@ -30,7 +35,7 @@ export default class SimpleText extends React.PureComponent {
         }
       });
 
-      return <p dangerouslySetInnerHTML={{ __html: output }} {...otherProps} />;
+      return <p dangerouslySetInnerHTML={{ __html: output }} {...otherProps} tokens={tokens} />;
     }
 
     return null;

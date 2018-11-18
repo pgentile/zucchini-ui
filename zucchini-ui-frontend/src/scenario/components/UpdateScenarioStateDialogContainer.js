@@ -4,7 +4,10 @@ import { createSelector, createStructuredSelector } from "reselect";
 import UpdateScenarioStateDialog from "./UpdateScenarioStateDialog";
 import { updateScenarioStateAndComment } from "../redux";
 
-const selectScenario = createSelector(state => state.scenario.scenario, scenario => scenario);
+const selectScenario = createSelector(
+  state => state.scenario.scenario,
+  scenario => scenario
+);
 
 const selectProps = createStructuredSelector({
   scenario: selectScenario
