@@ -1,4 +1,4 @@
-package io.zucchiniui.capsule;
+package io.zucchiniui.app;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

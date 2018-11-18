@@ -1,4 +1,4 @@
-FROM openjdk:8-jre
+FROM openjdk:11-jre
 MAINTAINER Pierre Gentile <pierre.gentile.perso@gmail.com>
 
 ARG ZUCCHINI_VERSION
@@ -11,7 +11,7 @@ ADD src/docker/config.yml /zucchini-ui/
 ADD src/docker/docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 
-ADD build/libs/zucchini-ui-capsule-${ZUCCHINI_VERSION}-capsule.jar /zucchini-ui/
+ADD build/libs/zucchini-ui-app-${ZUCCHINI_VERSION}-all.jar /zucchini-ui/
 
 EXPOSE 8080 8081
 

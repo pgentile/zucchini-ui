@@ -3,5 +3,5 @@ rootProject.name = 'zucchini-ui'
 include "${rootProject.name}-backend"
 include "${rootProject.name}-frontend"
 include "${rootProject.name}-example-features"
-include "${rootProject.name}-capsule"
+include "${rootProject.name}-app"
 include "${rootProject.name}-mongo"

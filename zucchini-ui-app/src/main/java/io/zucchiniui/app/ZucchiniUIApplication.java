@@ -1,4 +1,4 @@
-package io.zucchiniui.capsule;
+package io.zucchiniui.app;
 
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;

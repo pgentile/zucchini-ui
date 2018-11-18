@@ -16,10 +16,10 @@ buildscript {
 
 plugins {
     id 'com.github.ben-manes.versions' version '0.20.0' apply false
-    id 'us.kirchmeier.capsule' version '1.0.2' apply false
     id 'com.google.osdetector' version '1.4.0' apply false
     id 'org.ajoberstar.grgit' version '2.3.0' apply false
     id 'com.github.spotbugs' version '1.6.5' apply false
+    id 'com.github.johnrengelman.shadow' version '4.0.2' apply false
 }
 
 /**
@@ -60,12 +60,13 @@ allprojects {
         assertj           : '3.11.1',
         mockito           : '2.23.0',
         junitQuickcheck   : '0.8.1',
-        capsule           : '1.0.3',
         cucumber          : '1.2.5',
         jetty             : '9.4.11.v20180605',
         guava             : '27.0-jre',
         commonsText       : '1.6',
         hibernateValidator: '5.4.2.Final',
+        jaxbVersion       : '2.3.1',
+        javassist         : '3.24.0-GA',
     ]
 
     ext.getDockerTags = {
@@ -211,6 +212,11 @@ project("${rootProject.name}-backend") {
         compile "org.eclipse.jetty.websocket:javax-websocket-server-impl:${versions.jetty}"
         compile "org.apache.commons:commons-text:${versions.commonsText}"
 
+        compile group: 'org.javassist', name: 'javassist', version: versions.javassist
+
+        compile group: 'javax.xml.bind', name: 'jaxb-api', version: versions.jaxbVersion
+        runtime group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: versions.jaxbVersion
+
         testCompile "org.assertj:assertj-core:${versions.assertj}"
         testCompile "com.pholser:junit-quickcheck-core:${versions.junitQuickcheck}"
         testCompile "com.pholser:junit-quickcheck-generators:${versions.junitQuickcheck}"
@@ -281,10 +287,13 @@ project("${rootProject.name}-frontend") {
 }
 
 
-project("${rootProject.name}-capsule") {
+project("${rootProject.name}-app") {
 
     apply plugin: 'java'
-    apply plugin: 'us.kirchmeier.capsule'
+    apply plugin: 'application'
+    apply plugin: 'com.github.johnrengelman.shadow'
+
+    mainClassName = 'io.zucchiniui.app.ZucchiniUIApplication'
 
     dependencies {
 
@@ -294,23 +303,15 @@ project("${rootProject.name}-capsule") {
 
     }
 
-    capsule.version = versions.capsule
-
-    task fatCapsule(type: FatCapsule, description: 'Build Capsule') {
-
-        applicationClass 'io.zucchiniui.capsule.ZucchiniUIApplication'
-
-        capsuleManifest {
-            minJavaVersion = '1.8.0'
-        }
-
+    shadowJar {
+        mergeServiceFiles()
     }
 
-    task runCapsule(type: Exec, description: 'Run Capsule', dependsOn: fatCapsule) {
-        commandLine 'java', '-jar', fatCapsule.archivePath, 'server', "${rootDir}/server-config.yml"
+    runShadow {
+        args 'server', "${rootDir}/server-config.yml"
     }
 
-    tasks.assemble.dependsOn fatCapsule
+    tasks.assemble.dependsOn shadowJar
 
     docker {
         name = rootProject.name

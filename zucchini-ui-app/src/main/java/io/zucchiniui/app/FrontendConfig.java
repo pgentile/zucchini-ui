@@ -1,4 +1,4 @@
-package io.zucchiniui.capsule;
+package io.zucchiniui.app;
 
 /**
  * Configuration injectée sous forme de JSON au chargement de l'UI.
