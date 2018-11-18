@@ -2,7 +2,7 @@
   "name": "zucchini-ui-frontend",
   "private": true,
   "scripts": {
-    "start": "webpack-dev-server --inline --debug --progress --open --history-api-fallback --mode=development",
+    "start": "webpack-dev-server --inline --debug --progress --open --history-api-fallback --compress --mode=development",
     "build": "webpack --progress --profile --colors --mode=production",
     "lint": "eslint --ext .jsx,.js ./src/ ./test/",
     "fix": "eslint --fix --ext .jsx,.js ./src/ ./test/",
