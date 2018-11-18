@@ -1,9 +1,8 @@
-import moment from "moment";
+import format from "date-fns/format";
 
 export default function toNiceDate(dateStr) {
   if (dateStr) {
-    const date = moment(dateStr);
-    return date.format("DD/MM/YYYY à HH:mm");
+    return format(dateStr, "DD/MM/YYYY à HH:mm");
   }
   return null;
 }
