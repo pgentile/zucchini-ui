@@ -1,13 +1,21 @@
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import DeleteScenarioButton from "./DeleteScenarioButton";
-import { deleteScenarioThenRedirect } from "../redux";
+import { deleteScenario } from "../redux";
 
-const DeleteScenarioButtonContainer = connect(
-  undefined,
-  {
-    onDelete: deleteScenarioThenRedirect
-  }
-)(DeleteScenarioButton);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onDelete: async ({ scenarioId, featureId }) => {
+      await dispatch(deleteScenario({ scenarioId }));
+      ownProps.history.replace(`/features/${featureId}`);
+    }
+  };
+};
 
-export default DeleteScenarioButtonContainer;
+export default withRouter(
+  connect(
+    undefined,
+    mapDispatchToProps
+  )(DeleteScenarioButton)
+);

@@ -5,13 +5,14 @@ import ConfirmActionButton from "../../ui/components/ConfirmActionButton";
 
 export default class DeleteScenarioButton extends React.PureComponent {
   static propTypes = {
+    featureId: PropTypes.string,
     scenarioId: PropTypes.string,
     onDelete: PropTypes.func.isRequired
   };
 
   onDelete = () => {
-    const { scenarioId, onDelete } = this.props;
-    onDelete({ scenarioId });
+    const { featureId, scenarioId, onDelete } = this.props;
+    onDelete({ featureId, scenarioId });
   };
 
   render() {

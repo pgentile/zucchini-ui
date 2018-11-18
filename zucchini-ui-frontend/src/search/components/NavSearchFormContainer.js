@@ -1,3 +1,5 @@
+// FIXME A réintégrer
+
 import { connect } from "react-redux";
 import { createSelector, createStructuredSelector } from "reselect";
 

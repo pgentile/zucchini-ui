@@ -1,12 +1,17 @@
 import { connect } from "react-redux";
 import { createSelector, createStructuredSelector } from "reselect";
+import { withRouter } from "react-router-dom";
 
 import Breadcrumb from "../../ui/components/Breadcrumb";
 import toNiceDate from "../../ui/toNiceDate";
+import { selectQueryParams } from "../../history2";
 
 const selectBreadcumbItems = createSelector(
   state => state.testRun.testRun,
-  (state, ownProps) => ownProps.location.query.otherTestRunId,
+  (state, ownProps) => {
+    const queryParams = selectQueryParams(ownProps.location);
+    return queryParams.otherTestRunId;
+  },
   (testRun, otherTestRunId) => {
     const breadcrumb = [
       {
@@ -37,4 +42,4 @@ const selectProps = createStructuredSelector({
   items: selectBreadcumbItems
 });
 
-export default connect(selectProps)(Breadcrumb);
+export default withRouter(connect(selectProps)(Breadcrumb));

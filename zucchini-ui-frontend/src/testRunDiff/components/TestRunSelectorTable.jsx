@@ -3,7 +3,8 @@ import React from "react";
 import Table from "react-bootstrap/lib/Table";
 import Badge from "react-bootstrap/lib/Badge";
 import Label from "react-bootstrap/lib/Label";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
+import queryString from "query-string";
 
 import toNiceDate from "../../ui/toNiceDate";
 
@@ -53,9 +54,9 @@ class TestRunSelectorTableRow extends React.PureComponent {
     if (testRun.id !== currentTestRunId) {
       const target = {
         pathname: `/test-runs/${currentTestRunId}/diff`,
-        query: {
+        search: queryString.stringify({
           otherTestRunId: testRun.id
-        }
+        })
       };
 
       testRunTitle = <Link to={target}>{testRunTitle}</Link>;

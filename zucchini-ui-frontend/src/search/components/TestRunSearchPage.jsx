@@ -7,6 +7,8 @@ import InputGroup from "react-bootstrap/lib/InputGroup";
 import Button from "../../ui/components/Button";
 import toNiceDate from "../../ui/toNiceDate";
 import FoundScenarioTableContainer from "./FoundScenarioTableContainer";
+import Page from "../../ui/components/Page";
+import TestRunSearchBreadcrumbContainer from "./TestRunSearchBreadcrumbContainer";
 
 export default class TestRunSearchPage extends React.Component {
   static propTypes = {
@@ -68,9 +70,10 @@ export default class TestRunSearchPage extends React.Component {
     const { testRun } = this.props;
 
     return (
-      <div>
-        <h1>Rechercher dans le tir du {toNiceDate(testRun.date)}</h1>
-
+      <Page
+        title={"Rechercher dans le tir du " + toNiceDate(testRun.date)}
+        breadcrumb={<TestRunSearchBreadcrumbContainer />}
+      >
         <form onSubmit={this.onSearchFormSubmit}>
           <FormGroup controlId="search">
             <InputGroup bsSize="large">
@@ -91,7 +94,7 @@ export default class TestRunSearchPage extends React.Component {
 
         <h2>Résultats</h2>
         <FoundScenarioTableContainer />
-      </div>
+      </Page>
     );
   }
 }

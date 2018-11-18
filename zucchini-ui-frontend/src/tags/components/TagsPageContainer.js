@@ -6,7 +6,7 @@ import TagsPage from "./TagsPage";
 import { loadTestRunTagsPage } from "../redux";
 
 const selectTestRunId = createSelector(
-  (state, ownProps) => ownProps.params.testRunId,
+  (state, ownProps) => ownProps.match.params.testRunId,
   testRunId => testRunId
 );
 

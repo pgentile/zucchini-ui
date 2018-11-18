@@ -6,7 +6,7 @@ import { loadTestRunStepDefinitionsPage } from "../redux";
 import StepDefinitionsPage from "./StepDefinitionsPage";
 
 const selectTestRunId = createSelector(
-  (state, ownProps) => ownProps.params.testRunId,
+  (state, ownProps) => ownProps.match.params.testRunId,
   testRunId => testRunId
 );
 

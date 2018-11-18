@@ -1,11 +1,13 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 import toNiceDate from "../../ui/toNiceDate";
 import AddedScenarioTableContainer from "./AddedScenarioTableContainer";
 import DeletedScenarioTableContainer from "./DeletedScenarioTableContainer";
 import DifferentScenarioTableContainer from "./DifferentScenarioTableContainer";
+import Page from "../../ui/components/Page";
+import TestRunDiffBreadcrumbContainer from "./TestRunDiffBreadcrumbContainer";
 
 export default class TestRunDiffResultPage extends React.Component {
   static propTypes = {
@@ -36,9 +38,10 @@ export default class TestRunDiffResultPage extends React.Component {
     const { testRun, otherTestRun } = this.props;
 
     return (
-      <div>
-        <h1>Comparaison contre le tir du {toNiceDate(testRun.date)}</h1>
-
+      <Page
+        title={`Comparaison contre le tir du ${toNiceDate(testRun.date)}`}
+        breadcrumb={<TestRunDiffBreadcrumbContainer />}
+      >
         <p>
           Comparaison entre les tirs du <Link to={`/test-runs/${testRun.id}`}>{toNiceDate(testRun.date)}</Link> et du{" "}
           <Link to={`/test-runs/${otherTestRun.id}`}>{toNiceDate(otherTestRun.date)}</Link>
@@ -56,7 +59,7 @@ export default class TestRunDiffResultPage extends React.Component {
 
         <h3>Scénarios dont le statut a changé</h3>
         <DifferentScenarioTableContainer />
-      </div>
+      </Page>
     );
   }
 }

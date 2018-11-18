@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { Fragment } from "react";
 import ButtonToolbar from "react-bootstrap/lib/ButtonToolbar";
 import ButtonGroup from "react-bootstrap/lib/ButtonGroup";
 import Tabs from "react-bootstrap/lib/Tabs";
@@ -20,6 +20,8 @@ import DeleteScenarioButtonContainer from "./DeleteScenarioButtonContainer";
 import UpdateScenarioReviewedStateDialogContainer from "./UpdateScenarioReviewedStateDialogContainer";
 import SimilarFailureScenarioTableContainer from "./SimilarFailureScenarioTableContainer";
 import ScenarioChangeTable from "./ScenarioChangeTable";
+import Page from "../../ui/components/Page";
+import ScenarioBreadcrumbContainer from "./ScenarioBreadcrumbContainer";
 
 export default class ScenarioPage extends React.Component {
   static propTypes = {
@@ -90,7 +92,7 @@ export default class ScenarioPage extends React.Component {
 
   render() {
     const { scenario, scenarioId } = this.props;
-    const { reviewed } = scenario;
+    const { featureId, reviewed } = scenario;
 
     let similarFailureSection = null;
     if (scenario.status === "FAILED") {
@@ -98,16 +100,19 @@ export default class ScenarioPage extends React.Component {
     }
 
     return (
-      <div>
-        <h1>
-          <b>{scenario.info.keyword}</b> {scenario.info.name}{" "}
-          {scenario.status && (
-            <small>
-              <Status status={scenario.status} />
-            </small>
-          )}
-        </h1>
-
+      <Page
+        title={
+          <Fragment>
+            <b>{scenario.info.keyword}</b> {scenario.info.name}{" "}
+            {scenario.status && (
+              <small>
+                <Status status={scenario.status} />
+              </small>
+            )}
+          </Fragment>
+        }
+        breadcrumb={<ScenarioBreadcrumbContainer />}
+      >
         {scenario.allTags.length > 0 && (
           <p>
             <b>Tags :</b> <TagList testRunId={scenario.testRunId} tags={scenario.allTags} />
@@ -128,7 +133,7 @@ export default class ScenarioPage extends React.Component {
             </Button>
           </ButtonGroup>
           <ButtonGroup>
-            <DeleteScenarioButtonContainer scenarioId={scenarioId} />
+            <DeleteScenarioButtonContainer featureId={featureId} scenarioId={scenarioId} />
           </ButtonGroup>
         </ButtonToolbar>
 
@@ -179,7 +184,7 @@ export default class ScenarioPage extends React.Component {
           show={this.state.showSetReviewedStateDialog}
           onClose={this.hideSetReviewedStateDialog}
         />
-      </div>
+      </Page>
     );
   }
 }

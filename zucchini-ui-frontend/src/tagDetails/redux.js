@@ -1,5 +1,4 @@
 import { handleActions } from "redux-actions";
-///// import { replace } from 'react-router-redux'
 
 import { default as scenariosApi } from "../api/scenarios";
 import { default as featuresApi } from "../api/features";

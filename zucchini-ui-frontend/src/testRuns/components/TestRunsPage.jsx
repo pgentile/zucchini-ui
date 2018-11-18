@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { Fragment } from "react";
 import ButtonToolbar from "react-bootstrap/lib/ButtonToolbar";
 import ButtonGroup from "react-bootstrap/lib/ButtonGroup";
 
@@ -8,6 +8,8 @@ import TestRunsTableContainer from "./TestRunsTableContainer";
 import TestRunTypeFilterContainer from "./TestRunTypeFilterContainer";
 import CreateTestRunDialogContainer from "./CreateTestRunDialogContainer";
 import PurgeDialogContainer from "./PurgeDialogContainer";
+import Page from "../../ui/components/Page";
+import TestRunsBreadcrumbContainer from "./TestRunsBreadcrumbContainer";
 
 export default class TestRunsPage extends React.Component {
   static propTypes = {
@@ -59,9 +61,10 @@ export default class TestRunsPage extends React.Component {
     const { showCreateTestRunDialog, showPurgeDialog } = this.state;
 
     return (
-      <div>
-        <h1>Derniers tirs {selectedType && <small>Type {selectedType}</small>}</h1>
-        <hr />
+      <Page
+        title={<Fragment>Derniers tirs {selectedType && <small>Type {selectedType}</small>}</Fragment>}
+        breadcrumb={<TestRunsBreadcrumbContainer />}
+      >
         <ButtonToolbar>
           <ButtonGroup>
             <Button glyph="plus-sign" onClick={this.onCreateTestRunButtonClick}>
@@ -85,7 +88,7 @@ export default class TestRunsPage extends React.Component {
             onClose={this.hidePurgeDialog}
           />
         )}
-      </div>
+      </Page>
     );
   }
 }

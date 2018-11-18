@@ -5,7 +5,7 @@ import ScenarioPage from "./ScenarioPage";
 import { loadScenarioPage, setNonReviewedStateThenReload } from "../redux";
 
 const selectScenarioId = createSelector(
-  (state, ownProps) => ownProps.params.scenarioId,
+  (state, ownProps) => ownProps.match.params.scenarioId,
   scenarioId => scenarioId
 );
 

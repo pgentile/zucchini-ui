@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import Table from "react-bootstrap/lib/Table";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 import Status from "../../ui/components/Status";
 
@@ -46,7 +46,7 @@ class DifferentScenarioTableRow extends React.PureComponent {
     return (
       <tr>
         <td>
-          <Link to={{ pathname: `/scenarios/${scenario.id}` }}>
+          <Link to={`/scenarios/${scenario.id}`}>
             <b>{scenario.info.keyword}</b> {scenario.info.name}
           </Link>
         </td>

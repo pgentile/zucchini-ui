@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { Fragment } from "react";
 
 import toNiceDate from "../../ui/toNiceDate";
 import FeatureStateFilterContainer from "../../filters/components/FeatureStateFilterContainer";
@@ -8,6 +8,8 @@ import TagDetailsStatsContainer from "./TagDetailsStatsContainer";
 import TagDetailsFeatureTableContainer from "./TagDetailsFeatureTableContainer";
 import TagDetailsScenarioTableContainer from "./TagDetailsScenarioTableContainer";
 import TagSelectionForm from "./TagSelectionForm";
+import Page from "../../ui/components/Page";
+import TagDetailsBreadcrumbContainer from "./TagDetailsBreadcrumbContainer";
 
 export default class TagDetailsPage extends React.Component {
   static propTypes = {
@@ -51,13 +53,14 @@ export default class TagDetailsPage extends React.Component {
     const excludedTagsStr = excludedTags.map(tag => `~@${tag}`).join(" ");
 
     return (
-      <div>
-        <h1>
-          Tags {includedTagsStr} {excludedTagsStr} <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
-        </h1>
-
-        <hr />
-
+      <Page
+        title={
+          <Fragment>
+            Tags {includedTagsStr} {excludedTagsStr} <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
+          </Fragment>
+        }
+        breadcrumb={<TagDetailsBreadcrumbContainer />}
+      >
         <TagSelectionForm initialValues={{ tags, excludedTags }} enableReinitialize onSubmit={this.onUpdateTags} />
 
         <hr />
@@ -76,7 +79,7 @@ export default class TagDetailsPage extends React.Component {
         <h2>Scénarios</h2>
         <ScenarioStateFilterContainer />
         <TagDetailsScenarioTableContainer />
-      </div>
+      </Page>
     );
   }
 }

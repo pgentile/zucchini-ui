@@ -1,5 +1,4 @@
 import { handleActions } from "redux-actions";
-import { replace } from "react-router-redux";
 
 import * as model from "./model";
 
@@ -96,14 +95,6 @@ export function deleteTestRun({ testRunId }) {
   };
 }
 
-export function deleteTestRunThenRedirect({ testRunId }) {
-  return dispatch => {
-    const deleteTestRun$ = dispatch(deleteTestRun({ testRunId }));
-
-    deleteTestRun$.then(dispatch(replace("/")));
-  };
-}
-
 export function importCucumberResult({ testRunId, file, ...options }) {
   return {
     type: IMPORT_CUCUMBER_RESULTS,
@@ -115,10 +106,9 @@ export function importCucumberResult({ testRunId, file, ...options }) {
 }
 
 export function importCucumberResultThenReload({ testRunId, file, ...options }) {
-  return dispatch => {
-    const import$ = dispatch(importCucumberResult({ testRunId, file, ...options }));
-
-    return import$.then(() => dispatch(loadTestRunPage({ testRunId })));
+  return async dispatch => {
+    await dispatch(importCucumberResult({ testRunId, file, ...options }));
+    return await dispatch(loadTestRunPage({ testRunId }));
   };
 }
 
@@ -133,10 +123,9 @@ export function editTestRun({ testRunId, type, labels }) {
 }
 
 export function editTestRunThenReload({ testRunId, type, labels }) {
-  return dispatch => {
-    const editTestRun$ = dispatch(editTestRun({ testRunId, type, labels }));
-
-    return editTestRun$.then(() => dispatch(loadTestRunPage({ testRunId })));
+  return async dispatch => {
+    await dispatch(editTestRun({ testRunId, type, labels }));
+    return await dispatch(loadTestRunPage({ testRunId }));
   };
 }
 

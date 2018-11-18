@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
+import queryString from "query-string";
 
 export default class Tag extends React.PureComponent {
   static propTypes = {
@@ -13,9 +14,7 @@ export default class Tag extends React.PureComponent {
 
     const tagLink = {
       pathname: `/test-runs/${testRunId}/tag-details`,
-      query: {
-        tag
-      }
+      query: queryString.stringify({ tag })
     };
 
     return (

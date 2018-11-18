@@ -8,6 +8,7 @@ Version 0.0.5-SNAPSHOT
   **Fat JAR renamed** from `zucchini-ui-capsule-VERSION-capsule.jar` to `zucchini-ui-app-VERSION-all.jar`
 * Docker image using Java 11 instead of Java 8
 * Removed builds on Java 9 and 10
+* Migration to `react-router-dom` (latest version of React Router)
 
 Version 0.0.4-SNAPSHOT
 ----------------------

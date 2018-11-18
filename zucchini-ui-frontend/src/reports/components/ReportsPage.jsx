@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { Fragment } from "react";
 import toNiceDate from "../../ui/toNiceDate";
 
 import ReportsTableContainer from "./ReportsTableContainer";
+import Page from "../../ui/components/Page";
+import ReportsBreadcrumbContainer from "./ReportsBreadcrumbContainer";
 
 export default class ReportsPage extends React.Component {
   static propTypes = {
@@ -31,12 +33,16 @@ export default class ReportsPage extends React.Component {
     const { testRun } = this.props;
 
     return (
-      <div>
-        <h1>
-          Bilan <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
-        </h1>
+      <Page
+        title={
+          <Fragment>
+            Bilan <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
+          </Fragment>
+        }
+        breadcrumb={<ReportsBreadcrumbContainer />}
+      >
         <ReportsTableContainer />
-      </div>
+      </Page>
     );
   }
 }

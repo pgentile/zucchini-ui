@@ -1,13 +1,21 @@
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import DeleteTestRunButton from "./DeleteTestRunButton";
-import { deleteTestRunThenRedirect } from "../redux";
+import { deleteTestRun } from "../redux";
 
-const DeleteTestRunButtonContainer = connect(
-  undefined,
-  {
-    onDelete: deleteTestRunThenRedirect
-  }
-)(DeleteTestRunButton);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onDelete: async ({ testRunId }) => {
+      await dispatch(deleteTestRun({ testRunId }));
+      ownProps.history.replace(`/`);
+    }
+  };
+};
 
-export default DeleteTestRunButtonContainer;
+export default withRouter(
+  connect(
+    undefined,
+    mapDispatchToProps
+  )(DeleteTestRunButton)
+);

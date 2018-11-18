@@ -1,10 +1,8 @@
 import { createStore, applyMiddleware, compose } from "redux";
-import { syncHistoryWithStore, routerMiddleware } from "react-router-redux";
 import promiseMiddleware from "redux-promise-middleware";
 import thunkMiddleware from "redux-thunk";
 import freezeMiddleware from "redux-freeze";
 
-import browserHistory from "./browserHistory";
 import reducer from "./reducer";
 import featureFiltersStorage from "./filters/featureFiltersStorage";
 import statsDashboardFiltersStorage from "./filters/statsDashboardFiltersStorage";
@@ -13,7 +11,6 @@ import scenarioFiltersStorage from "./filters/scenarioFiltersStorage";
 import stepFiltersStorage from "./filters/stepFiltersStorage";
 import { default as createStorageMiddleware } from "./browserStorage/createMiddleware";
 import { default as createWebSocketMiddleware } from "./websocket/createMiddleware";
-import pageScrollMiddleware from "./pageScrollMiddleware";
 import { loadingIndicatorMiddleware } from "./loadingIndicator/redux";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -25,8 +22,6 @@ const middlewares = [
   createStorageMiddleware(historyFiltersStorage, state => state.historyFilters),
   createStorageMiddleware(scenarioFiltersStorage, state => state.scenarioFilters),
   createStorageMiddleware(stepFiltersStorage, state => state.stepFilters),
-  routerMiddleware(browserHistory),
-  pageScrollMiddleware(),
   thunkMiddleware,
   promiseMiddleware(),
   loadingIndicatorMiddleware()
@@ -41,9 +36,4 @@ if (process.env.NODE_ENV !== "production") {
 
 const initialState = {};
 
-const store = createStore(reducer, initialState, composeEnhancers(applyMiddleware(...middlewares)));
-
-const history = syncHistoryWithStore(browserHistory, store);
-
-export default store;
-export { history };
+export default createStore(reducer, initialState, composeEnhancers(applyMiddleware(...middlewares)));

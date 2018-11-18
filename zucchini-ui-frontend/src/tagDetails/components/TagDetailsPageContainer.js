@@ -1,12 +1,14 @@
 import { connect } from "react-redux";
 import { createSelector, createStructuredSelector } from "reselect";
-import { push } from "react-router-redux";
 import isString from "lodash/isString";
 import isEmpty from "lodash/isEmpty";
+import queryString from "query-string";
+import { withRouter } from "react-router-dom";
 
 import TagDetailsPage from "./TagDetailsPage";
 
 import { loadTagDetailsPage } from "../redux";
+import { selectQueryParams } from "../../history2";
 
 function parseTags(tags) {
   if (isString(tags)) {
@@ -18,28 +20,24 @@ function parseTags(tags) {
   return tags;
 }
 
-function updatePage({ testRunId, tags, excludedTags }) {
-  return push({
-    pathname: `/test-runs/${testRunId}/tag-details`,
-    query: {
-      tag: tags,
-      excludedTag: excludedTags
-    }
-  });
-}
-
 const selectTags = createSelector(
-  (state, ownProps) => ownProps.location.query.tag,
+  (state, ownProps) => {
+    const queryParams = selectQueryParams(ownProps.location);
+    return queryParams.tag;
+  },
   parseTags
 );
 
 const selectExcludedTags = createSelector(
-  (state, ownProps) => ownProps.location.query.excludedTag,
+  (state, ownProps) => {
+    const queryParams = selectQueryParams(ownProps.location);
+    return queryParams.excludedTag;
+  },
   parseTags
 );
 
 const selectTestRunId = createSelector(
-  (state, ownProps) => ownProps.params.testRunId,
+  (state, ownProps) => ownProps.match.params.testRunId,
   testRunId => testRunId
 );
 
@@ -55,12 +53,21 @@ const selectProps = createStructuredSelector({
   excludedTags: selectExcludedTags
 });
 
-const TagDetailsPageContainer = connect(
-  selectProps,
-  {
-    onLoad: loadTagDetailsPage,
-    onUpdate: updatePage
-  }
-)(TagDetailsPage);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onLoad: ({ testRunId, tags, excludedTags }) => {
+      dispatch(loadTagDetailsPage({ testRunId, tags, excludedTags }));
+    },
+    onUpdate: ({ testRunId, tags, excludedTags }) => {
+      const q = queryString.stringify({ tag: tags, excludedTag: excludedTags });
+      ownProps.history.push(`/test-runs/${testRunId}/tag-details?${q}`);
+    }
+  };
+};
 
-export default TagDetailsPageContainer;
+export default withRouter(
+  connect(
+    selectProps,
+    mapDispatchToProps
+  )(TagDetailsPage)
+);

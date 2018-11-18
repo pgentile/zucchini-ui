@@ -15,6 +15,8 @@ import DeleteTestRunButtonContainer from "./DeleteTestRunButtonContainer";
 import ImportCucumberResultsDialogContainer from "./ImportCucumberResultsDialogContainer";
 import EditTestRunDialogContainer from "./EditTestRunDialogContainer";
 import TestRunTrendChartContainer from "./TestRunTrendChartContainer";
+import Page from "../../ui/components/Page";
+import TestRunBreadcrumbContainer from "./TestRunBreadcrumbContainer";
 
 export default class TestRunPage extends React.Component {
   static propTypes = {
@@ -90,11 +92,9 @@ export default class TestRunPage extends React.Component {
     });
 
     return (
-      <div>
-        <h1>{`Tir du ${toNiceDate(testRun.date)}`}</h1>
+      <Page title={`Tir du ${toNiceDate(testRun.date)}`} breadcrumb={<TestRunBreadcrumbContainer />}>
         {labels}
 
-        <hr />
         <ButtonToolbar>
           <ButtonGroup>
             <Button glyph="upload" onClick={this.onImportCucumberResultButtonClick}>
@@ -107,27 +107,27 @@ export default class TestRunPage extends React.Component {
             </Button>
           </ButtonGroup>
           <ButtonGroup>
-            <ButtonLink glyph="tags" to={{ pathname: `/test-runs/${testRunId}/tags` }}>
+            <ButtonLink glyph="tags" to={`/test-runs/${testRunId}/tags`}>
               Tags
             </ButtonLink>
           </ButtonGroup>
           <ButtonGroup>
-            <ButtonLink glyph="exclamation-sign" to={{ pathname: `/test-runs/${testRunId}/failures` }}>
+            <ButtonLink glyph="exclamation-sign" to={`/test-runs/${testRunId}/failures`}>
               Échecs
             </ButtonLink>
           </ButtonGroup>
           <ButtonGroup>
-            <ButtonLink glyph="book" to={{ pathname: `/test-runs/${testRunId}/stepDefinitions` }}>
+            <ButtonLink glyph="book" to={`/test-runs/${testRunId}/stepDefinitions`}>
               Glues
             </ButtonLink>
           </ButtonGroup>
           <ButtonGroup>
-            <ButtonLink glyph="list" to={{ pathname: `/test-runs/${testRunId}/reports` }}>
+            <ButtonLink glyph="list" to={`/test-runs/${testRunId}/reports`}>
               Bilan
             </ButtonLink>
           </ButtonGroup>
           <ButtonGroup>
-            <ButtonLink glyph="list-alt" to={{ pathname: `/test-runs/${testRunId}/diff` }}>
+            <ButtonLink glyph="list-alt" to={`/test-runs/${testRunId}/diff`}>
               Comparer avec un autre tir
             </ButtonLink>
           </ButtonGroup>
@@ -160,7 +160,7 @@ export default class TestRunPage extends React.Component {
         />
 
         <EditTestRunDialogContainer testRun={testRun} show={this.state.showEditDialog} onClose={this.hideEditDialog} />
-      </div>
+      </Page>
     );
   }
 }

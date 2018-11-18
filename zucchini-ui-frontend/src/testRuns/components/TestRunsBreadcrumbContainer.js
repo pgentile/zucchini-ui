@@ -1,10 +1,15 @@
 import { connect } from "react-redux";
 import { createSelector, createStructuredSelector } from "reselect";
+import { withRouter } from "react-router-dom";
 
 import Breadcrumb from "../../ui/components/Breadcrumb";
+import { selectQueryParams } from "../../history2";
 
 const selectBreadcumbItems = createSelector(
-  (state, ownProps) => ownProps.location.query.type || null,
+  (state, ownProps) => {
+    const queryParams = selectQueryParams(ownProps.location);
+    return queryParams.type || null;
+  },
   selectedType => {
     const items = [
       {
@@ -28,6 +33,4 @@ const selectProps = createStructuredSelector({
   items: selectBreadcumbItems
 });
 
-const TestRunsBreadcrumbContainer = connect(selectProps)(Breadcrumb);
-
-export default TestRunsBreadcrumbContainer;
+export default withRouter(connect(selectProps)(Breadcrumb));

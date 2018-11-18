@@ -5,7 +5,7 @@ import FeaturePage from "./FeaturePage";
 import { loadFeaturePage } from "../redux";
 
 const selectFeatureId = createSelector(
-  (state, ownProps) => ownProps.params.featureId,
+  (state, ownProps) => ownProps.match.params.featureId,
   featureId => featureId
 );
 

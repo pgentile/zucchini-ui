@@ -27,6 +27,4 @@ const selectProps = createStructuredSelector({
   items: selectBreadcumbItems
 });
 
-const FailuresBreadcrumbContainer = connect(selectProps)(Breadcrumb);
-
-export default FailuresBreadcrumbContainer;
+export default connect(selectProps)(Breadcrumb);

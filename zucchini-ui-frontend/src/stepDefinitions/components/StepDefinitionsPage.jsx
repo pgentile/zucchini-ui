@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { Fragment } from "react";
 import toNiceDate from "../../ui/toNiceDate";
 
 import StepDefinitionsTableContainer from "./StepDefinitionsTableContainer";
+import Page from "../../ui/components/Page";
+import StepDefinitionsBreadcrumbContainer from "./StepDefinitionsBreadcrumbContainer";
 
 export default class StepDefinitionsPage extends React.Component {
   static propTypes = {
@@ -32,13 +34,16 @@ export default class StepDefinitionsPage extends React.Component {
     const { testRun } = this.props;
 
     return (
-      <div>
-        <h1>
-          Glues <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
-        </h1>
-        <hr />
+      <Page
+        title={
+          <Fragment>
+            Glues <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
+          </Fragment>
+        }
+        breadcrumb={<StepDefinitionsBreadcrumbContainer />}
+      >
         <StepDefinitionsTableContainer />
-      </div>
+      </Page>
     );
   }
 }

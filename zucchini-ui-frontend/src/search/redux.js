@@ -1,4 +1,3 @@
-import { push } from "react-router-redux";
 import { handleActions } from "redux-actions";
 
 import { getTestRun } from "../testRun/redux";
@@ -18,18 +17,7 @@ export function loadTestRunSearchPage({ testRunId }) {
 }
 
 export function search({ search, testRunId }) {
-  return dispatch => {
-    dispatch(
-      push({
-        pathname: `/test-runs/${testRunId}/search`,
-        query: {
-          search
-        }
-      })
-    );
-
-    dispatch(searchScenarios({ search, testRunId }));
-  };
+  return searchScenarios({ search, testRunId });
 }
 
 function searchScenarios({ search, testRunId }) {

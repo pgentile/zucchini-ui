@@ -1,17 +1,22 @@
 import { connect } from "react-redux";
 import { createSelector, createStructuredSelector } from "reselect";
+import { withRouter } from "react-router-dom";
 
 import TestRunPage from "./TestRunPage";
 
 import { loadTestRunPage } from "../redux";
+import { selectQueryParams } from "../../history2";
 
 const selectSelectedFeatureGroup = createSelector(
-  (state, ownProps) => ownProps.location.query.featureGroup || null,
+  (state, ownProps) => {
+    const queryParams = selectQueryParams(ownProps.location);
+    return queryParams.featureGroup || null;
+  },
   selectedFeatureGroup => selectedFeatureGroup
 );
 
 const selectTestRunId = createSelector(
-  (state, ownProps) => ownProps.params.testRunId,
+  (state, ownProps) => ownProps.match.params.testRunId,
   testRunId => testRunId
 );
 
@@ -26,11 +31,11 @@ const selectProps = createStructuredSelector({
   testRun: selectTestRun
 });
 
-const TestRunPageContainer = connect(
-  selectProps,
-  {
-    onLoad: loadTestRunPage
-  }
-)(TestRunPage);
-
-export default TestRunPageContainer;
+export default withRouter(
+  connect(
+    selectProps,
+    {
+      onLoad: loadTestRunPage
+    }
+  )(TestRunPage)
+);

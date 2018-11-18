@@ -6,7 +6,7 @@ import { loadTestRunReportsPage } from "../redux";
 import ReportsPage from "./ReportsPage";
 
 const selectTestRunId = createSelector(
-  (state, ownProps) => ownProps.params.testRunId,
+  (state, ownProps) => ownProps.match.params.testRunId,
   testRunId => testRunId
 );
 

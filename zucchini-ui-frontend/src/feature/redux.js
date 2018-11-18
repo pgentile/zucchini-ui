@@ -1,5 +1,4 @@
 import { handleActions } from "redux-actions";
-import { replace } from "react-router-redux";
 
 import * as model from "./model";
 
@@ -43,15 +42,6 @@ export function loadFeaturePage({ featureId }) {
     await history$;
     await scenarios$;
     await testRun$;
-  };
-}
-
-export function deleteFeatureThenRedirect({ featureId }) {
-  return async (dispatch, getState) => {
-    await dispatch(deleteFeature({ featureId }));
-
-    const testRunId = getState().testRun.testRun.id;
-    dispatch(replace(`/test-runs/${testRunId}`));
   };
 }
 

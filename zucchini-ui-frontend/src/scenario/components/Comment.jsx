@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
+import queryString from "query-string";
 
 import toNiceDate from "../../ui/toNiceDate";
 import CommentText from "./CommentText";
@@ -63,7 +64,10 @@ export default class Comment extends React.PureComponent {
       testRunInfo = (
         <span>
           (tir du <Link to={`/scenarios/${comment.scenarioId}`}>{toNiceDate(comment.testRun.date)}</Link>, type{" "}
-          <Link to={{ pathname: "/", query: { type: comment.testRun.type } }}>{comment.testRun.type}</Link>)
+          <Link to={{ pathname: "/", search: queryString.stringify({ type: comment.testRun.type }) }}>
+            {comment.testRun.type}
+          </Link>
+          )
         </span>
       );
     } else {
