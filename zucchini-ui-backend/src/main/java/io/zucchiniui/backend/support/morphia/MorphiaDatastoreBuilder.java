@@ -6,10 +6,10 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import io.dropwizard.setup.Environment;
 import io.zucchiniui.backend.support.autocloseable.AutoCloseableManagedAdapter;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
-import org.mongodb.morphia.logging.MorphiaLoggerFactory;
-import org.mongodb.morphia.logging.slf4j.SLF4JLoggerImplFactory;
+import xyz.morphia.Datastore;
+import xyz.morphia.Morphia;
+import xyz.morphia.logging.MorphiaLoggerFactory;
+import xyz.morphia.logging.slf4j.SLF4JLoggerImplFactory;
 
 public class MorphiaDatastoreBuilder {
 

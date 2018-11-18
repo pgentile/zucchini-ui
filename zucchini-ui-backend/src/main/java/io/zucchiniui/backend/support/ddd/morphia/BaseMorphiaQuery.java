@@ -1,6 +1,6 @@
 package io.zucchiniui.backend.support.ddd.morphia;
 
-import org.mongodb.morphia.query.Query;
+import xyz.morphia.query.Query;
 
 import java.util.function.Function;
 

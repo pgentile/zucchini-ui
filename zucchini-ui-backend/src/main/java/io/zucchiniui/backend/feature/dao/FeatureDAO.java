@@ -3,8 +3,8 @@ package io.zucchiniui.backend.feature.dao;
 import io.zucchiniui.backend.feature.domain.Feature;
 import io.zucchiniui.backend.feature.domain.FeatureQuery;
 import io.zucchiniui.backend.support.ddd.morphia.MorphiaTypedQueryDAO;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.query.Query;
+import xyz.morphia.Datastore;
+import xyz.morphia.query.Query;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Consumer;

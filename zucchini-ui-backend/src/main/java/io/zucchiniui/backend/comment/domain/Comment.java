@@ -3,9 +3,9 @@ package io.zucchiniui.backend.comment.domain;
 import com.google.common.collect.Sets;
 import io.zucchiniui.backend.shared.domain.ItemReference;
 import io.zucchiniui.backend.support.ddd.BaseEntity;
-import org.mongodb.morphia.annotations.Embedded;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
+import xyz.morphia.annotations.Embedded;
+import xyz.morphia.annotations.Entity;
+import xyz.morphia.annotations.Id;
 
 import java.time.ZonedDateTime;
 import java.util.Collections;

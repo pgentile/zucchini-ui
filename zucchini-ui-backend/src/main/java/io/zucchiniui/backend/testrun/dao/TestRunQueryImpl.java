@@ -3,7 +3,7 @@ package io.zucchiniui.backend.testrun.dao;
 import io.zucchiniui.backend.support.ddd.morphia.BaseMorphiaQuery;
 import io.zucchiniui.backend.testrun.domain.TestRun;
 import io.zucchiniui.backend.testrun.domain.TestRunQuery;
-import org.mongodb.morphia.query.Query;
+import xyz.morphia.query.Query;
 
 class TestRunQueryImpl extends BaseMorphiaQuery<TestRun> implements TestRunQuery {
 

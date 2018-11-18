@@ -1,7 +1,7 @@
 package io.zucchiniui.backend.scenario.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.mongodb.morphia.annotations.Id;
+import xyz.morphia.annotations.Id;
 
 import java.util.UUID;
 

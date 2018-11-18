@@ -2,7 +2,7 @@ package io.zucchiniui.backend.support.ddd.morphia;
 
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
-import org.mongodb.morphia.query.Query;
+import xyz.morphia.query.Query;
 
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;

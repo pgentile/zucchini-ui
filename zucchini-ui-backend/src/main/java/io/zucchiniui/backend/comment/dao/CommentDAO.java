@@ -3,8 +3,8 @@ package io.zucchiniui.backend.comment.dao;
 import io.zucchiniui.backend.comment.domain.Comment;
 import io.zucchiniui.backend.comment.domain.CommentQuery;
 import io.zucchiniui.backend.support.ddd.morphia.MorphiaTypedQueryDAO;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.query.Query;
+import xyz.morphia.Datastore;
+import xyz.morphia.query.Query;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Consumer;

@@ -1,8 +1,8 @@
 package io.zucchiniui.backend.testrun.domain;
 
 import io.zucchiniui.backend.support.ddd.BaseEntity;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
+import xyz.morphia.annotations.Entity;
+import xyz.morphia.annotations.Id;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
