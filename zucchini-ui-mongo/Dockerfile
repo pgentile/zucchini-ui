@@ -1,4 +1,4 @@
-FROM mongo:3
+FROM mongo:4
 
 COPY migrate.sh /migrations/
 COPY lib /migrations/lib
