@@ -1,4 +1,4 @@
-FROM openjdk:11-jre
+FROM openjdk:11-jre-slim
 MAINTAINER Pierre Gentile <pierre.gentile.perso@gmail.com>
 
 ARG ZUCCHINI_VERSION
