@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 
 import TestRunsPage from "./TestRunsPage";
 import { loadTestRunsPage } from "../redux";
-import { selectQueryParams } from "../../history2";
+import selectQueryParams from "../../selectQueryParams";
 
 const selectSelectedType = createSelector(
   (state, ownProps) => {

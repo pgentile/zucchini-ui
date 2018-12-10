@@ -8,7 +8,7 @@ import { withRouter } from "react-router-dom";
 import TagDetailsPage from "./TagDetailsPage";
 
 import { loadTagDetailsPage } from "../redux";
-import { selectQueryParams } from "../../history2";
+import selectQueryParams from "../../selectQueryParams";
 
 function parseTags(tags) {
   if (isString(tags)) {

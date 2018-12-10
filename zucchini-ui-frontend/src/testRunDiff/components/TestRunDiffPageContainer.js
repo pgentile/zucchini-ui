@@ -3,7 +3,7 @@ import { createSelector, createStructuredSelector } from "reselect";
 import { withRouter } from "react-router-dom";
 
 import TestRunDiffPage from "./TestRunDiffPage";
-import { selectQueryParams } from "../../history2";
+import selectQueryParams from "../../selectQueryParams";
 
 const selectTestRunId = createSelector(
   (state, ownProps) => ownProps.match.params.testRunId,

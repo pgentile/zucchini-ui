@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import TestRunPage from "./TestRunPage";
 
 import { loadTestRunPage } from "../redux";
-import { selectQueryParams } from "../../history2";
+import selectQueryParams from "../../selectQueryParams";
 
 const selectSelectedFeatureGroup = createSelector(
   (state, ownProps) => {

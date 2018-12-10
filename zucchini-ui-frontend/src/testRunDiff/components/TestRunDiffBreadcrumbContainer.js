@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 
 import Breadcrumb from "../../ui/components/Breadcrumb";
 import toNiceDate from "../../ui/toNiceDate";
-import { selectQueryParams } from "../../history2";
+import selectQueryParams from "../../selectQueryParams";
 
 const selectBreadcumbItems = createSelector(
   state => state.testRun.testRun,

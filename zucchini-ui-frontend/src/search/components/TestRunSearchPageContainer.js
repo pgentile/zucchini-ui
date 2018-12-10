@@ -7,7 +7,7 @@ import queryString from "query-string";
 
 import TestRunSearchPage from "./TestRunSearchPage";
 import { loadTestRunSearchPage, search as doSearch } from "../redux";
-import { selectQueryParams } from "../../history2";
+import selectQueryParams from "../../selectQueryParams";
 
 const selectSearch = createSelector(
   (state, ownProps) => {

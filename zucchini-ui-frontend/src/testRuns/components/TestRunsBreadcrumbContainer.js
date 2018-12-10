@@ -3,7 +3,7 @@ import { createSelector, createStructuredSelector } from "reselect";
 import { withRouter } from "react-router-dom";
 
 import Breadcrumb from "../../ui/components/Breadcrumb";
-import { selectQueryParams } from "../../history2";
+import selectQueryParams from "../../selectQueryParams";
 
 const selectBreadcumbItems = createSelector(
   (state, ownProps) => {
