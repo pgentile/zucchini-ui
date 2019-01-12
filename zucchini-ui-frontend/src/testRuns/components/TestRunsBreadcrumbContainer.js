@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import { createSelector, createStructuredSelector } from "reselect";
 import { withRouter } from "react-router-dom";
+import queryString from "query-string";
 
 import Breadcrumb from "../../ui/components/Breadcrumb";
 import selectQueryParams from "../../selectQueryParams";
@@ -21,7 +22,10 @@ const selectBreadcumbItems = createSelector(
     if (selectedType) {
       items.push({
         value: `Type ${selectedType}`,
-        link: { pathname: "/", query: { type: selectedType } }
+        link: {
+          pathname: "/",
+          search: queryString.stringify({ type: selectedType })
+        }
       });
     }
 

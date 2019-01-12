@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import { connect } from "react-redux";
 import { createSelector, createStructuredSelector } from "reselect";
 import { withRouter } from "react-router-dom";
@@ -34,7 +32,6 @@ const selectProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  console.info("ownProps =", ownProps);
   return {
     onLoad: ({ testRunId }) => {
       return dispatch(loadTestRunSearchPage({ testRunId }));

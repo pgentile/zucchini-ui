@@ -14,7 +14,7 @@ export default class Tag extends React.PureComponent {
 
     const tagLink = {
       pathname: `/test-runs/${testRunId}/tag-details`,
-      query: queryString.stringify({ tag })
+      search: queryString.stringify({ tag })
     };
 
     return (

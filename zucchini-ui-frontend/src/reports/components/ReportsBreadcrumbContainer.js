@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { createSelector, createStructuredSelector } from "reselect";
+import queryString from "query-string";
 
 import Breadcrumb from "../../ui/components/Breadcrumb";
 import toNiceDate from "../../ui/toNiceDate";
@@ -10,11 +11,14 @@ const selectBreadcumbItems = createSelector(
     return [
       {
         value: `Type ${testRun.type}`,
-        link: { pathname: "/", query: { type: testRun.type } }
+        link: {
+          pathname: "/",
+          search: queryString.stringify({ type: testRun.type })
+        }
       },
       {
         value: `Tir du ${toNiceDate(testRun.date)}`,
-        link: { pathname: `/test-runs/${testRun.id}` }
+        link: `/test-runs/${testRun.id}`
       },
       {
         value: "Bilan"

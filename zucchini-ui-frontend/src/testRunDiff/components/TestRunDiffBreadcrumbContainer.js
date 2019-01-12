@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import Breadcrumb from "../../ui/components/Breadcrumb";
 import toNiceDate from "../../ui/toNiceDate";
 import selectQueryParams from "../../selectQueryParams";
+import queryString from "query-string";
 
 const selectBreadcumbItems = createSelector(
   state => state.testRun.testRun,
@@ -16,11 +17,14 @@ const selectBreadcumbItems = createSelector(
     const breadcrumb = [
       {
         value: `Type ${testRun.type}`,
-        link: { pathname: "/", query: { type: testRun.type } }
+        link: {
+          pathname: "/",
+          search: queryString.stringify({ type: testRun.type })
+        }
       },
       {
         value: `Tir du ${toNiceDate(testRun.date)}`,
-        link: { pathname: `/test-runs/${testRun.id}` }
+        link: `/test-runs/${testRun.id}`
       },
       {
         value: "Comparaison",
