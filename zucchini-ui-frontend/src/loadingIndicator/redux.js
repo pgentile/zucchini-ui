@@ -1,4 +1,4 @@
-import { PENDING, FULFILLED, REJECTED } from "redux-promise-middleware";
+import { ActionType } from "redux-promise-middleware";
 
 // Actions
 
@@ -35,13 +35,13 @@ export function loadingIndicatorMiddleware() {
     return next => action => {
       const { type } = action;
 
-      if (type.endsWith(`_${PENDING}`)) {
+      if (type.endsWith(`_${ActionType.Pending}`)) {
         if (count === 0) {
           next({ type: LOAD });
         }
 
         count++;
-      } else if (type.endsWith(`_${FULFILLED}`) || type.endsWith(`_${REJECTED}`)) {
+      } else if (type.endsWith(`_${ActionType.Fulfilled}`) || type.endsWith(`_${ActionType.Rejected}`)) {
         // Add a small delay for better handling of sequential promises
         setTimeout(() => {
           count--;

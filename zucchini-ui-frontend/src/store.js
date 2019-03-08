@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware, compose } from "redux";
-import promiseMiddleware from "redux-promise-middleware";
+import promise from "redux-promise-middleware";
 import thunkMiddleware from "redux-thunk";
 import freezeMiddleware from "redux-freeze";
 
@@ -23,7 +23,7 @@ const middlewares = [
   createStorageMiddleware(scenarioFiltersStorage, state => state.scenarioFilters),
   createStorageMiddleware(stepFiltersStorage, state => state.stepFilters),
   thunkMiddleware,
-  promiseMiddleware(),
+  promise,
   loadingIndicatorMiddleware()
 ];
 

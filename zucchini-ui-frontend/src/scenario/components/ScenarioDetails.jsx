@@ -2,6 +2,9 @@ import PropTypes from "prop-types";
 import React from "react";
 import OverlayTrigger from "react-bootstrap/lib/OverlayTrigger";
 import Popover from "react-bootstrap/lib/Popover";
+import { Provider } from "react-redux";
+
+import store from "../../store";
 
 import Button from "../../ui/components/Button";
 import SimpleText from "../../ui/components/SimpleText";
@@ -60,7 +63,9 @@ export default class ScenarioDetails extends React.PureComponent {
     //   - The overlay prop of the OverlayTrigger must be the Popover element
     const stepFilters = (
       <Popover id="step-filters" title="Configurer les options d'affichage">
-        <StepFiltersContainer />
+        <Provider store={store}>
+          <StepFiltersContainer />
+        </Provider>
       </Popover>
     );
 
