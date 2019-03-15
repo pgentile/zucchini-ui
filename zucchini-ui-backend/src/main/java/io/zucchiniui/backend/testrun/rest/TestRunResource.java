@@ -4,11 +4,7 @@ package io.zucchiniui.backend.testrun.rest;
 import com.google.common.base.Strings;
 import io.dropwizard.jersey.PATCH;
 import io.zucchiniui.backend.reportconverter.domain.ReportConverterService;
-import io.zucchiniui.backend.testrun.domain.Label;
-import io.zucchiniui.backend.testrun.domain.TestRun;
-import io.zucchiniui.backend.testrun.domain.TestRunQuery;
-import io.zucchiniui.backend.testrun.domain.TestRunRepository;
-import io.zucchiniui.backend.testrun.domain.TestRunService;
+import io.zucchiniui.backend.testrun.domain.*;
 import io.zucchiniui.backend.testrun.views.TestRunListItem;
 import io.zucchiniui.backend.testrun.views.TestRunScenarioDiff;
 import io.zucchiniui.backend.testrun.views.TestRunViewAccess;
@@ -18,15 +14,7 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -90,7 +78,7 @@ public class TestRunResource {
     @POST
     @Path("create")
     public Response create(@Valid @NotNull final CreateTestRunRequest request) {
-        final TestRun testRun = new TestRun(request.getType());
+        final TestRun testRun = new TestRun(request.getType(), request.getPlateforme(), request.getNom());
         testRun.setLabels(convertRequestLabels(request.getLabels()));
 
         testRunRepository.save(testRun);
@@ -117,6 +105,12 @@ public class TestRunResource {
 
         if (!Strings.isNullOrEmpty(request.getType())) {
             testRun.setType(request.getType());
+        }
+        if (!Strings.isNullOrEmpty(request.getPlateforme())) {
+            testRun.setType(request.getPlateforme());
+        }
+        if (!Strings.isNullOrEmpty(request.getNom())) {
+            testRun.setType(request.getNom());
         }
         testRun.setLabels(convertRequestLabels(request.getLabels()));
 

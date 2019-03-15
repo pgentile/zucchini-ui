@@ -19,7 +19,9 @@ export default class CreateTestRunDialog extends React.PureComponent {
 
     this.state = {
       newTestRun: {
-        type: ""
+        type: "",
+        plateforme: "",
+        nom: ""
       }
     };
   }
@@ -33,6 +35,32 @@ export default class CreateTestRunDialog extends React.PureComponent {
       newTestRun: {
         ...previousState.newTestRun,
         type
+      }
+    }));
+  };
+
+  onNomChange = event => {
+    event.preventDefault();
+
+    const nom = event.target.value;
+
+    this.setState(previousState => ({
+      newTestRun: {
+        ...previousState.newTestRun,
+        nom
+      }
+    }));
+  };
+
+  onPlateformeChange = event => {
+    event.preventDefault();
+
+    const plateforme = event.target.value;
+
+    this.setState(previousState => ({
+      newTestRun: {
+        ...previousState.newTestRun,
+        plateforme
       }
     }));
   };
@@ -65,6 +93,19 @@ export default class CreateTestRunDialog extends React.PureComponent {
             <FormGroup controlId="type">
               <ControlLabel>Type</ControlLabel>
               <FormControl type="text" autoFocus value={this.state.newTestRun.type} onChange={this.onTypeChange} />
+            </FormGroup>
+            <FormGroup controlId="nom">
+              <ControlLabel>Nom</ControlLabel>
+              <FormControl type="text" autoFocus value={this.state.newTestRun.nom} onChange={this.onNomChange} />
+            </FormGroup>
+            <FormGroup controlId="environnement">
+              <ControlLabel>Environnement</ControlLabel>
+              <FormControl
+                type="text"
+                autoFocus
+                value={this.state.newTestRun.plateforme}
+                onChange={this.onPlateformeChange}
+              />
             </FormGroup>
           </form>
         </Modal.Body>

@@ -10,6 +10,10 @@ public class TestRunListItem {
 
     private String type;
 
+    private String plateforme;
+
+    private String nom;
+
     private ZonedDateTime date;
 
     private ScenarioStats stats;
@@ -28,6 +32,22 @@ public class TestRunListItem {
 
     public void setType(final String type) {
         this.type = type;
+    }
+
+    public String getPlateforme() {
+        return plateforme;
+    }
+
+    public void setPlateforme(final String plateforme) {
+        this.plateforme = plateforme;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(final String nom) {
+        this.nom = nom;
     }
 
     public ZonedDateTime getDate() {

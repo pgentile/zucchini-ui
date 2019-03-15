@@ -8,8 +8,8 @@ export function getLatestsTestRunsWithStats() {
   return testRunsApi.getLatests({ withStats: true });
 }
 
-export async function createTestRun({ type }) {
-  const response = await testRunsApi.createTestRun({ type });
+export async function createTestRun({ type, plateforme, nom }) {
+  const response = await testRunsApi.createTestRun({ type, plateforme, nom });
   const testRun = await testRunsApi.getTestRun({ testRunId: response.id });
   return {
     ...testRun,

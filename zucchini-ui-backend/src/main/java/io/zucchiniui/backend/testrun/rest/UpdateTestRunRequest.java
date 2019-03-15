@@ -7,6 +7,10 @@ public class UpdateTestRunRequest {
 
     private String type;
 
+    private String plateforme;
+
+    private String nom;
+
     @Valid
     private List<RequestLabel> labels;
 
@@ -16,6 +20,21 @@ public class UpdateTestRunRequest {
 
     public void setType(final String type) {
         this.type = type;
+    }
+    public String getPlateforme() {
+        return plateforme;
+    }
+
+    public void setPlateforme(final String plateforme) {
+        this.plateforme = plateforme;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(final String nom) {
+        this.nom = nom;
     }
 
     public List<RequestLabel> getLabels() {

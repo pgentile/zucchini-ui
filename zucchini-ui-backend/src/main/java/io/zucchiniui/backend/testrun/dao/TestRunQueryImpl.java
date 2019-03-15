@@ -18,6 +18,18 @@ class TestRunQueryImpl extends BaseMorphiaQuery<TestRun> implements TestRunQuery
     }
 
     @Override
+    public TestRunQuery withNom(final String nom) {
+        configureQuery(q -> q.field("nom").equal(nom));
+        return this;
+    }
+
+    @Override
+    public TestRunQuery withPlateforme(final String plateforme) {
+        configureQuery(q -> q.field("plateforme").equal(plateforme));
+        return this;
+    }
+
+    @Override
     public TestRunQuery orderByLatestFirst() {
         configureQuery(q -> q.order("-date"));
         return this;
