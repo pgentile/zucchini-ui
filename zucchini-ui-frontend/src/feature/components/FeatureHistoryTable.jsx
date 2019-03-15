@@ -3,7 +3,7 @@ import React from "react";
 import Table from "react-bootstrap/lib/Table";
 import Badge from "react-bootstrap/lib/Badge";
 import Label from "react-bootstrap/lib/Label";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 import Status from "../../ui/components/Status";
 import toNiceDate from "../../ui/toNiceDate";

@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
+import queryString from "query-string";
 
 import ListWithSeparator from "../../ui/components/ListWithSeparator";
 
@@ -16,7 +17,9 @@ export default class FeatureGroupFilter extends React.PureComponent {
     const featureGroupLinks = featureGroups.map(featureGroup => {
       return (
         <span key={featureGroup}>
-          <Link to={{ pathname: `/test-runs/${testRunId}`, query: { featureGroup } }}>{featureGroup}</Link>
+          <Link to={{ pathname: `/test-runs/${testRunId}`, search: queryString.stringify({ featureGroup }) }}>
+            {featureGroup}
+          </Link>
         </span>
       );
     });

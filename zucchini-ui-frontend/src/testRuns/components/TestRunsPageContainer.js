@@ -1,11 +1,16 @@
 import { connect } from "react-redux";
 import { createSelector, createStructuredSelector } from "reselect";
+import { withRouter } from "react-router-dom";
 
 import TestRunsPage from "./TestRunsPage";
 import { loadTestRunsPage } from "../redux";
+import selectQueryParams from "../../selectQueryParams";
 
 const selectSelectedType = createSelector(
-  (state, ownProps) => ownProps.location.query.type || null,
+  (state, ownProps) => {
+    const queryParams = selectQueryParams(ownProps.location);
+    return queryParams.type || null;
+  },
   selectedType => selectedType
 );
 
@@ -13,11 +18,11 @@ const selectProps = createStructuredSelector({
   selectedType: selectSelectedType
 });
 
-const TestRunsPageContainer = connect(
-  selectProps,
-  {
-    onLoad: loadTestRunsPage
-  }
-)(TestRunsPage);
-
-export default TestRunsPageContainer;
+export default withRouter(
+  connect(
+    selectProps,
+    {
+      onLoad: loadTestRunsPage
+    }
+  )(TestRunsPage)
+);

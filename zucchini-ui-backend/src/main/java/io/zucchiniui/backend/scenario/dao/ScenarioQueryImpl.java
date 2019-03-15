@@ -5,7 +5,7 @@ import io.zucchiniui.backend.scenario.domain.ScenarioQuery;
 import io.zucchiniui.backend.scenario.domain.ScenarioStatus;
 import io.zucchiniui.backend.shared.domain.TagSelection;
 import io.zucchiniui.backend.support.ddd.morphia.BaseMorphiaQuery;
-import org.mongodb.morphia.query.Query;
+import xyz.morphia.query.Query;
 
 class ScenarioQueryImpl extends BaseMorphiaQuery<Scenario> implements ScenarioQuery {
 

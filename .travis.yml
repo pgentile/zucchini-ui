@@ -7,14 +7,12 @@ services:
 
 jdk:
   - oraclejdk8
-  - oraclejdk9
-  - openjdk10
   - openjdk11
 
 before_install:
   # Install a recent node version
   - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-  - nvm install 8.11.4 && nvm use 8.11.4
+  - nvm install 10 && nvm use 10
   # Install Yarn
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH=$HOME/.yarn/bin:$PATH
@@ -32,7 +30,7 @@ script:
 after_success:
   # Build, then push image to Docker
   - >-
-    if [[ "$DOCKER_USERNAME" != "" && "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" && "$TRAVIS_JDK_VERSION" == "oraclejdk8" ]]; then
+    if [[ "$DOCKER_USERNAME" != "" && "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" && "$TRAVIS_JDK_VERSION" == "openjdk11" ]]; then
       docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
       ./gradlew dockerPush
     fi

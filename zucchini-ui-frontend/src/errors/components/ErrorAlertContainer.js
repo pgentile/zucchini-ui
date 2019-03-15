@@ -4,7 +4,10 @@ import { createSelector, createStructuredSelector } from "reselect";
 import ErrorAlert from "./ErrorAlert";
 import { clearErrors } from "../redux";
 
-const selectErrors = createSelector(state => state.errors.errors, errors => errors);
+const selectErrors = createSelector(
+  state => state.errors.errors,
+  errors => errors
+);
 
 const selectProps = createStructuredSelector({
   errors: selectErrors

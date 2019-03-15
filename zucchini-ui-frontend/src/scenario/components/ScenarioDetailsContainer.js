@@ -4,9 +4,15 @@ import { createSelector, createStructuredSelector } from "reselect";
 import ScenarioDetails from "./ScenarioDetails";
 import { updateStepFilters } from "../../filters/redux";
 
-const selectScenario = createSelector(state => state.scenario.scenario, scenario => scenario);
+const selectScenario = createSelector(
+  state => state.scenario.scenario,
+  scenario => scenario
+);
 
-const selectFilters = createSelector(state => state.stepFilters, filters => filters);
+const selectFilters = createSelector(
+  state => state.stepFilters,
+  filters => filters
+);
 
 const selectProps = createStructuredSelector({
   scenario: selectScenario,

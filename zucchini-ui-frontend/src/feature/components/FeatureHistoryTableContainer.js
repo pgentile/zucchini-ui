@@ -3,7 +3,10 @@ import { createSelector, createStructuredSelector } from "reselect";
 
 import FeatureHistoryTable from "./FeatureHistoryTable";
 
-const selectFeatureId = createSelector((state, ownProps) => ownProps.featureId, featureId => featureId);
+const selectFeatureId = createSelector(
+  (state, ownProps) => ownProps.featureId,
+  featureId => featureId
+);
 
 const selectHistory = createSelector(
   state => state.feature.history,

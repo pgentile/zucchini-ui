@@ -4,6 +4,8 @@ import React from "react";
 import toNiceDate from "../../ui/toNiceDate";
 import HistoryFilterContainer from "../../filters/components/HistoryFilterContainer";
 import TestRunSelectorTableContainer from "./TestRunSelectorTableContainer";
+import Page from "../../ui/components/Page";
+import TestRunDiffBreadcrumbContainer from "./TestRunDiffBreadcrumbContainer";
 
 export default class TestRunDiffSelectorPage extends React.Component {
   static propTypes = {
@@ -32,15 +34,14 @@ export default class TestRunDiffSelectorPage extends React.Component {
     const { testRun, testRunId } = this.props;
 
     return (
-      <div>
-        <h1>Comparaison contre le tir du {toNiceDate(testRun.date)}</h1>
-
-        <hr />
-
+      <Page
+        title={`Comparaison contre le tir du ${toNiceDate(testRun.date)}`}
+        breadcrumb={<TestRunDiffBreadcrumbContainer />}
+      >
         <h2>Sélectionner un autre tir</h2>
         <HistoryFilterContainer />
         <TestRunSelectorTableContainer currentTestRunId={testRunId} />
-      </div>
+      </Page>
     );
   }
 }

@@ -4,8 +4,8 @@ exports[`TagList should contain labels with tags 1`] = `
 <span>
   <a
     className="label label-info"
+    href="/test-runs/sampleId/tag-details?tag=A"
     onClick={[Function]}
-    style={Object {}}
   >
     @
     A
@@ -13,8 +13,8 @@ exports[`TagList should contain labels with tags 1`] = `
    
   <a
     className="label label-info"
+    href="/test-runs/sampleId/tag-details?tag=B"
     onClick={[Function]}
-    style={Object {}}
   >
     @
     B
@@ -22,8 +22,8 @@ exports[`TagList should contain labels with tags 1`] = `
    
   <a
     className="label label-info"
+    href="/test-runs/sampleId/tag-details?tag=C"
     onClick={[Function]}
-    style={Object {}}
   >
     @
     C

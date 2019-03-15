@@ -1,9 +1,11 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { Fragment } from "react";
 
 import TagFilterFormContainer from "./TagFilterFormContainer";
 import TagsTableContainer from "./TagsTableContainer";
 import toNiceDate from "../../ui/toNiceDate";
+import Page from "../../ui/components/Page";
+import TagsBreadcrumbContainer from "./TagsBreadcrumbContainer";
 
 export default class TagsPage extends React.Component {
   static propTypes = {
@@ -32,15 +34,17 @@ export default class TagsPage extends React.Component {
     const { testRunId, testRun } = this.props;
 
     return (
-      <div>
-        <h1>
-          Tous les tags <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
-        </h1>
-
-        <hr />
+      <Page
+        title={
+          <Fragment>
+            Tous les tags <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
+          </Fragment>
+        }
+        breadcrumb={<TagsBreadcrumbContainer />}
+      >
         <TagFilterFormContainer />
         <TagsTableContainer testRunId={testRunId} />
-      </div>
+      </Page>
     );
   }
 }

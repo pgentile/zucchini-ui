@@ -5,7 +5,9 @@ import FormGroup from "react-bootstrap/lib/FormGroup";
 import ControlLabel from "react-bootstrap/lib/ControlLabel";
 import FormControl from "react-bootstrap/lib/FormControl";
 import Alert from "react-bootstrap/lib/Alert";
-import moment from "moment";
+import format from "date-fns/format";
+import isBefore from "date-fns/is_before";
+import subDays from "date-fns/sub_days";
 
 import Button from "../../ui/components/Button";
 
@@ -24,14 +26,12 @@ export default class PurgeDialog extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const maxDate = moment()
-      .add(-configuration.testRunPurgeDelayInDays, "day")
-      .format(LOCAL_DATE_FORMAT);
+    const maxDate = subDays(new Date(), configuration.testRunPurgeDelayInDays);
 
     const type = props.currentSelectedType || "";
     this.state = {
       type,
-      maxDate,
+      maxDate: format(maxDate, LOCAL_DATE_FORMAT),
       selectedTestRunIds: this.selectTestRunIds(this.props.testRuns, { type, maxDate })
     };
   }
@@ -82,14 +82,9 @@ export default class PurgeDialog extends React.PureComponent {
   }
 
   selectTestRunIds(testRuns, { type, maxDate }) {
-    const maxDateMoment = moment(maxDate, LOCAL_DATE_FORMAT);
-
     return testRuns
       .filter(testRun => testRun.type === type)
-      .filter(testRun => {
-        const testRunDateMoment = moment(testRun.date);
-        return testRunDateMoment.isBefore(maxDateMoment);
-      })
+      .filter(testRun => isBefore(testRun.date, maxDate))
       .map(testRun => testRun.id);
   }
 

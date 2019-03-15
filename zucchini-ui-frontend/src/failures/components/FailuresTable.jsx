@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import Table from "react-bootstrap/lib/Table";
 import Label from "react-bootstrap/lib/Label";
 import Modal from "react-bootstrap/lib/Modal";
@@ -103,7 +103,7 @@ class FailuresTableRow extends React.Component {
       <tr key={failedScenario}>
         {errorMessageRow}
         <td>
-          <Link to={{ pathname: `/scenarios/${failedScenario.id}` }}>
+          <Link to={`/scenarios/${failedScenario.id}`}>
             <b>{failedScenario.info.keyword}</b> {failedScenario.info.name}
           </Link>
         </td>

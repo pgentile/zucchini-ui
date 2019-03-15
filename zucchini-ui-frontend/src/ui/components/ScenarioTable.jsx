@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import Table from "react-bootstrap/lib/Table";
 import Label from "react-bootstrap/lib/Label";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 import Status from "../../ui/components/Status";
 
@@ -53,7 +53,7 @@ class ScenarioTableRow extends React.PureComponent {
     return (
       <tr className={className}>
         <td>
-          <Link to={{ pathname: `/scenarios/${scenario.id}` }}>
+          <Link to={`/scenarios/${scenario.id}`}>
             <b>{scenario.info.keyword}</b> {scenario.info.name}
           </Link>
         </td>

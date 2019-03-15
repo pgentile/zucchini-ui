@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
+import queryString from "query-string";
 import FormGroup from "react-bootstrap/lib/FormGroup";
 import FormControl from "react-bootstrap/lib/FormControl";
 
@@ -59,7 +60,7 @@ export default class TestRunTypeFilterPopover extends React.PureComponent {
     const testRunTypeLinks = testRunTypes.filter(this.createFilter()).map(type => {
       return (
         <p key={type}>
-          <Link to={{ pathname: "/", query: { type } }} onClick={this.onTypeSelected}>
+          <Link to={{ pathname: "/", search: queryString.stringify({ type }) }} onClick={this.onTypeSelected}>
             {type === selectedType ? <b>{type}</b> : type}
           </Link>
         </p>

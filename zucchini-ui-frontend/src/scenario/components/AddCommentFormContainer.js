@@ -4,7 +4,10 @@ import { createSelector, createStructuredSelector } from "reselect";
 import AddCommentForm from "./AddCommentForm";
 import { addScenarioCommentAndReload } from "../redux";
 
-const selectScenarioId = createSelector((state, ownProps) => ownProps.scenarioId, scenarioId => scenarioId);
+const selectScenarioId = createSelector(
+  (state, ownProps) => ownProps.scenarioId,
+  scenarioId => scenarioId
+);
 
 const selectProps = createStructuredSelector({
   scenarioId: selectScenarioId

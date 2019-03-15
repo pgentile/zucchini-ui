@@ -100,19 +100,19 @@ The development UI server runs on port 9000, the backend server runs on ports 80
 Deploy
 ------
 
-The sub-project `zucchini-ui-capsule` builds a fat [Capsule](http://www.capsule.io) that contains
-backend and UI in one JAR. This JAR contains everything needed to run the Zucchini UI app.
+The sub-project `zucchini-ui-app` builds a fat JAR that contains backend and UI in one JAR.
+This JAR contains everything needed to run the Zucchini UI app.
 
 You can run it with the following Gradle command:
 
 ```
-./gradlew runCapsule
+./gradlew runShadow
 ```
 
-The fat Capsule JAR is named `zucchini-ui-capsule-VERSION-capsule.jar`. Run it with this command:
+The fat JAR is named `zucchini-ui-app-VERSION-all.jar`. Run it with this command:
 
 ```
-java -jar zucchini-ui-capsule-VERSION-capsule.jar server CONFIG.yml
+java -jar zucchini-ui-app-VERSION-all.jar server CONFIG.yml
 ```
 
 Don't forget to init your Mongo database !
@@ -125,7 +125,7 @@ Don't forget to init your Mongo database !
 Build and deploy a Docker image
 -------------------------------
 
-You can build a Docker image for the Capsule:
+You can build a Docker image:
 
 ```
 ./gradlew dockerBuild

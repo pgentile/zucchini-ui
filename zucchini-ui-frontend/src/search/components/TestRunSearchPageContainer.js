@@ -1,14 +1,29 @@
 import { connect } from "react-redux";
 import { createSelector, createStructuredSelector } from "reselect";
+import { withRouter } from "react-router-dom";
+import queryString from "query-string";
 
 import TestRunSearchPage from "./TestRunSearchPage";
-import { loadTestRunSearchPage, search } from "../redux";
+import { loadTestRunSearchPage, search as doSearch } from "../redux";
+import selectQueryParams from "../../selectQueryParams";
 
-const selectSearch = createSelector((state, ownProps) => ownProps.location.query.search || "", search => search);
+const selectSearch = createSelector(
+  (state, ownProps) => {
+    const queryParams = selectQueryParams(ownProps.location);
+    return queryParams.search || "";
+  },
+  search => search
+);
 
-const selectTestRunId = createSelector((state, ownProps) => ownProps.params.testRunId, testRunId => testRunId);
+const selectTestRunId = createSelector(
+  (state, ownProps) => ownProps.match.params.testRunId,
+  testRunId => testRunId
+);
 
-const selectTestRun = createSelector(state => state.testRun.testRun, testRun => testRun);
+const selectTestRun = createSelector(
+  state => state.testRun.testRun,
+  testRun => testRun
+);
 
 const selectProps = createStructuredSelector({
   search: selectSearch,
@@ -16,12 +31,23 @@ const selectProps = createStructuredSelector({
   testRun: selectTestRun
 });
 
-const TestRunSearchPageContainer = connect(
-  selectProps,
-  {
-    onLoad: loadTestRunSearchPage,
-    onSearch: search
-  }
-)(TestRunSearchPage);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onLoad: ({ testRunId }) => {
+      return dispatch(loadTestRunSearchPage({ testRunId }));
+    },
+    onSearch: ({ testRunId, search }) => {
+      dispatch(doSearch({ search, testRunId }));
 
-export default TestRunSearchPageContainer;
+      const q = queryString.stringify({ search });
+      ownProps.history.push(`/test-runs/${testRunId}/search?${q}`);
+    }
+  };
+};
+
+export default withRouter(
+  connect(
+    selectProps,
+    mapDispatchToProps
+  )(TestRunSearchPage)
+);

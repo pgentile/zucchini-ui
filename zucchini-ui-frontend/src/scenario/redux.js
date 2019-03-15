@@ -1,5 +1,4 @@
 import { handleActions } from "redux-actions";
-import { replace } from "react-router-redux";
 
 import * as model from "./model";
 import { getTestRun } from "../testRun/redux";
@@ -157,17 +156,6 @@ export function addScenarioCommentAndReload({ scenarioId, comment }) {
   return async dispatch => {
     await dispatch(addScenarioComment({ scenarioId, comment }));
     await dispatch(getScenarioComments({ scenarioId }));
-
-    return null;
-  };
-}
-
-export function deleteScenarioThenRedirect({ scenarioId }) {
-  return async (dispatch, getState) => {
-    await dispatch(deleteScenario({ scenarioId }));
-
-    const featureId = getState().feature.feature.id;
-    await dispatch(replace(`/features/${featureId}`));
 
     return null;
   };

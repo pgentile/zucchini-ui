@@ -1,9 +1,11 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { Fragment } from "react";
 import toNiceDate from "../../ui/toNiceDate";
 
 import FailuresTableContainer from "./FailuresTableContainer";
 import StatsProgressBar from "../../stats/components/StatsProgressBar";
+import Page from "../../ui/components/Page";
+import FailuresBreadcrumbContainer from "../../reports/components/ReportsBreadcrumbContainer";
 
 export default class FailuresPage extends React.Component {
   static propTypes = {
@@ -34,14 +36,18 @@ export default class FailuresPage extends React.Component {
     const { testRun, stats } = this.props;
 
     return (
-      <div>
-        <h1>
-          Échecs <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
-        </h1>
+      <Page
+        title={
+          <Fragment>
+            Échecs <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
+          </Fragment>
+        }
+        breadcrumb={<FailuresBreadcrumbContainer />}
+      >
         <StatsProgressBar stats={stats} />
         <hr />
         <FailuresTableContainer />
-      </div>
+      </Page>
     );
   }
 }

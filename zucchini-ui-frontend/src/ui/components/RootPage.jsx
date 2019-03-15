@@ -1,15 +1,15 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { Fragment } from "react";
 import Navbar from "react-bootstrap/lib/Navbar";
 import Nav from "react-bootstrap/lib/Nav";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
-import ErrorAlertContainer from "../../errors/components/ErrorAlertContainer";
 import LoadingIndicatorContainer from "../../loadingIndicator/components/LoadingIndicatorContainer";
+import ErrorAlertContainer from "../../errors/components/ErrorAlertContainer";
 
-export default function RoutePage({ main, breadcrum, search }) {
+export default function RoutePage({ search, children }) {
   return (
-    <div>
+    <Fragment>
       <LoadingIndicatorContainer />
 
       <Navbar inverse staticTop collapseOnSelect>
@@ -28,19 +28,16 @@ export default function RoutePage({ main, breadcrum, search }) {
           {search}
         </Navbar.Collapse>
       </Navbar>
-
       <div className="container">
         <ErrorAlertContainer />
-        {breadcrum}
-        {main}
+        {children}
       </div>
-    </div>
+    </Fragment>
   );
 }
 
 RoutePage.propTypes = {
-  main: PropTypes.node.isRequired,
-  breadcrum: PropTypes.node,
+  children: PropTypes.node,
   search: PropTypes.node
 };
 

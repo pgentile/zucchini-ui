@@ -3,8 +3,8 @@ package io.zucchiniui.backend.scenario.dao;
 import io.zucchiniui.backend.scenario.domain.Scenario;
 import io.zucchiniui.backend.scenario.domain.ScenarioQuery;
 import io.zucchiniui.backend.support.ddd.morphia.MorphiaTypedQueryDAO;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.query.Query;
+import xyz.morphia.Datastore;
+import xyz.morphia.query.Query;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Consumer;

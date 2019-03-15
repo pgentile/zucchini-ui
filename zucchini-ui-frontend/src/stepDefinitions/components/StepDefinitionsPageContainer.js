@@ -5,11 +5,20 @@ import { loadTestRunStepDefinitionsPage } from "../redux";
 
 import StepDefinitionsPage from "./StepDefinitionsPage";
 
-const selectTestRunId = createSelector((state, ownProps) => ownProps.params.testRunId, testRunId => testRunId);
+const selectTestRunId = createSelector(
+  (state, ownProps) => ownProps.match.params.testRunId,
+  testRunId => testRunId
+);
 
-const selectTestRun = createSelector(state => state.testRun.testRun, testRun => testRun);
+const selectTestRun = createSelector(
+  state => state.testRun.testRun,
+  testRun => testRun
+);
 
-const selectStepDefinitions = createSelector(state => state.stepDefinitions, testRun => testRun);
+const selectStepDefinitions = createSelector(
+  state => state.stepDefinitions,
+  testRun => testRun
+);
 
 const selectProps = createStructuredSelector({
   testRunId: selectTestRunId,

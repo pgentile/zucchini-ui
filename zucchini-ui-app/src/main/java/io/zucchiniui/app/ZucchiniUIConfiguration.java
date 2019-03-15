@@ -1,4 +1,4 @@
-package io.zucchiniui.capsule;
+package io.zucchiniui.app;
 
 import io.zucchiniui.backend.BackendConfiguration;
 

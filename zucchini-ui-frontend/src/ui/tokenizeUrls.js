@@ -1,4 +1,4 @@
-import flatten from "lodash/flatten";
+import "core-js/fn/array/flat-map";
 
 export default function tokenizeUrls(content) {
   if (!content) {
@@ -6,13 +6,8 @@ export default function tokenizeUrls(content) {
   }
 
   const lines = content.trim().split("\n");
-  const tokens = flatten(
-    lines.map(line => {
-      return tokenizeLine(line).concat([["eol"]]);
-    })
-  );
-
-  return tokens;
+  const tokensForLines = lines.map(line => tokenizeLine(line).concat([["eol"]]));
+  return tokensForLines.flatMap(lineTokens => lineTokens);
 }
 
 const urlPattern = new RegExp("(https?://[^ ]+)", "ig");

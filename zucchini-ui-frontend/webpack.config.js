@@ -99,16 +99,7 @@ module.exports = {
     }
   },
   plugins: [
-    // fetch as standard API
-    new webpack.ProvidePlugin({
-      fetch: "isomorphic-fetch"
-    }),
-
     new MiniCssExtractPlugin(),
-
-    // Don't import all locales from moment.js
-    // See https://webpack.js.org/plugins/context-replacement-plugin/
-    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /fr\.js/),
 
     // Replace lodash-es imports by equivalent lodash imports.
     // Otherwise, same lodash functions can be loaded twice !

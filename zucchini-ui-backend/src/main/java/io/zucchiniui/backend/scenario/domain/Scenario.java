@@ -3,8 +3,8 @@ package io.zucchiniui.backend.scenario.domain;
 import com.google.common.base.Strings;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
 import io.zucchiniui.backend.support.ddd.BaseEntity;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
+import xyz.morphia.annotations.Entity;
+import xyz.morphia.annotations.Id;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;

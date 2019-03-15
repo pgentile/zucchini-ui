@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
-import React from "react";
-import { Link } from "react-router";
+import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 import ButtonToolbar from "react-bootstrap/lib/ButtonToolbar";
+import queryString from "query-string";
 
 import FeatureStatsContainer from "./FeatureStatsContainer";
 import FeatureHistoryTableContainer from "./FeatureHistoryTableContainer";
@@ -13,6 +14,8 @@ import SimpleText from "../../ui/components/SimpleText";
 import Status from "../../ui/components/Status";
 import DeleteFeatureButtonContainer from "./DeleteFeatureButtonContainer";
 import FeatureTrendChartContainer from "./FeatureTrendChartContainer";
+import Page from "../../ui/components/Page";
+import FeatureBreadcrumbContainer from "./FeatureBreadcrumbContainer";
 
 export default class FeaturePage extends React.Component {
   static propTypes = {
@@ -40,20 +43,28 @@ export default class FeaturePage extends React.Component {
     const { feature, featureId } = this.props;
 
     return (
-      <div>
-        <h1>
-          <b>{feature.info.keyword}</b> {feature.info.name}{" "}
-          {feature.status && (
-            <small>
-              <Status status={feature.status} />
-            </small>
-          )}
-        </h1>
-
+      <Page
+        title={
+          <Fragment>
+            <b>{feature.info.keyword}</b> {feature.info.name}{" "}
+            {feature.status && (
+              <small>
+                <Status status={feature.status} />
+              </small>
+            )}
+          </Fragment>
+        }
+        breadcrumb={<FeatureBreadcrumbContainer />}
+      >
         {feature.group && (
           <p>
             <b>Groupe : </b>{" "}
-            <Link to={{ pathname: `/test-runs/${feature.testRunId}`, query: { featureGroup: feature.group } }}>
+            <Link
+              to={{
+                pathname: `/test-runs/${feature.testRunId}`,
+                search: queryString.stringify({ featureGroup: feature.group })
+              }}
+            >
               {feature.group}
             </Link>
           </p>
@@ -71,7 +82,7 @@ export default class FeaturePage extends React.Component {
 
         <hr />
         <ButtonToolbar>
-          <DeleteFeatureButtonContainer featureId={featureId} />
+          <DeleteFeatureButtonContainer testRunId={feature.testRunId} featureId={featureId} />
         </ButtonToolbar>
         <hr />
 
@@ -100,7 +111,7 @@ export default class FeaturePage extends React.Component {
         <h2>Historique</h2>
         <HistoryFilterContainer />
         <FeatureHistoryTableContainer featureId={featureId} />
-      </div>
+      </Page>
     );
   }
 }
