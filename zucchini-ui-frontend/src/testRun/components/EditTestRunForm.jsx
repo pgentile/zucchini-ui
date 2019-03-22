@@ -78,7 +78,15 @@ class EditTestRunForm extends React.PureComponent {
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="type">
           <ControlLabel>Type</ControlLabel>
-          <Field name="type" autoFocus required component={this.renderField} />
+          <Field name="type" required component={this.renderField} />
+        </FormGroup>
+        <FormGroup controlId="environment">
+          <ControlLabel>Environnement</ControlLabel>
+          <Field name="environment" required component={this.renderField} />
+        </FormGroup>
+        <FormGroup controlId="name">
+          <ControlLabel>Nom</ControlLabel>
+          <Field name="name" autoFocus required component={this.renderField} />
         </FormGroup>
         <FormGroup>
           <ControlLabel>Étiquettes</ControlLabel>

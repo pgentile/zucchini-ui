@@ -15,10 +15,10 @@ class TestRunsApi {
     return this.client.get({ path: testRunId });
   }
 
-  createTestRun({ type, plateforme, nom }) {
+  createTestRun({ type, environment, name }) {
     return this.client.post({
       path: "/create",
-      body: { type, plateforme, nom }
+      body: { type, environment, name }
     });
   }
 
@@ -48,14 +48,13 @@ class TestRunsApi {
     this.client.handleError({ url, response });
   }
 
-  editTestRun({ testRunId, type, labels }) {
+  editTestRun({ testRunId, type, environment, name, labels }) {
+    // eslint-disable-next-line no-console
+    console.log({ testRunId, type, environment, name, labels });
     return this.client.patch({
       path: testRunId,
       hasOutput: false,
-      body: {
-        type,
-        labels
-      }
+      body: { type, environment, name, labels }
     });
   }
 

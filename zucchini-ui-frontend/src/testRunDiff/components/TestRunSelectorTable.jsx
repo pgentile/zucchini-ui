@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import queryString from "query-string";
 
 import toNiceDate from "../../ui/toNiceDate";
-import * as utils from "../../utils/testRunUtils";
 
 export default class TestRunSelectorTable extends React.PureComponent {
   static propTypes = {
@@ -28,6 +27,7 @@ export default class TestRunSelectorTable extends React.PureComponent {
           <tr>
             <th className="col-md-2">Type</th>
             <th className="col-md-2">Environnement</th>
+            <th className="col-md-2">Nom</th>
             <th className="col-md-4">Tir de test</th>
             <th className="col-md-1">Total</th>
             <th className="col-md-1">Succès</th>
@@ -67,10 +67,13 @@ class TestRunSelectorTableRow extends React.PureComponent {
     return (
       <tr>
         <td>
-          <Label>{utils.getType(testRun.type)}</Label>
+          <Label>{testRun.type}</Label>
         </td>
         <td>
-          <Label>{utils.getPlateforme(testRun.plateforme, testRun.type)}</Label>
+          <Label>{testRun.environment}</Label>
+        </td>
+        <td>
+          <Label>{testRun.name}</Label>
         </td>
         <td>{testRunTitle}</td>
         <td>

@@ -6,7 +6,4 @@ public interface TestRunQuery {
 
     TestRunQuery withType(String type);
 
-    TestRunQuery withNom(String nom);
-
-    TestRunQuery withPlateforme(String plateforme);
 }

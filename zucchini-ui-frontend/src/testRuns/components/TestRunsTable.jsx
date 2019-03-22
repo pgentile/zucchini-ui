@@ -6,7 +6,6 @@ import Label from "react-bootstrap/lib/Label";
 import { Link } from "react-router-dom";
 
 import toNiceDate from "../../ui/toNiceDate";
-import * as utils from "../../utils/testRunUtils";
 
 export default class TestRunsTable extends React.PureComponent {
   static propTypes = {
@@ -22,9 +21,9 @@ export default class TestRunsTable extends React.PureComponent {
       <Table bordered striped>
         <thead>
           <tr>
-            <th className="col-md-1">Nom</th>
-            <th className="col-md-1">Environnement</th>
             <th className="col-md-2">Type</th>
+            <th className="col-md-1">Environnement</th>
+            <th className="col-md-1">Nom</th>
             <th className="col-md-4">Tir de test</th>
             <th className="col-md-1">Total</th>
             <th className="col-md-1">Succès</th>
@@ -51,13 +50,13 @@ class TestRunTableRow extends React.PureComponent {
     return (
       <tr>
         <td>
-          <Label>{utils.getNom(testRun.nom, testRun.type)}</Label>
+          <Label>{testRun.type}</Label>
         </td>
         <td>
-          <Label>{utils.getPlateforme(testRun.plateforme, testRun.type)}</Label>
+          <Label>{testRun.environment}</Label>
         </td>
         <td>
-          <Label>{utils.getType(testRun.type)}</Label>
+          <Label>{testRun.name}</Label>
         </td>
         <td>
           <Link to={`/test-runs/${testRun.id}`}>Tir du {toNiceDate(testRun.date)}</Link>

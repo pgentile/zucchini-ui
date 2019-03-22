@@ -20,8 +20,8 @@ export default class CreateTestRunDialog extends React.PureComponent {
     this.state = {
       newTestRun: {
         type: "",
-        plateforme: "",
-        nom: ""
+        environment: "",
+        name: ""
       }
     };
   }
@@ -39,28 +39,28 @@ export default class CreateTestRunDialog extends React.PureComponent {
     }));
   };
 
-  onNomChange = event => {
+  onNameChange = event => {
     event.preventDefault();
 
-    const nom = event.target.value;
+    const name = event.target.value;
 
     this.setState(previousState => ({
       newTestRun: {
         ...previousState.newTestRun,
-        nom
+        name
       }
     }));
   };
 
-  onPlateformeChange = event => {
+  onEnvironmentChange = event => {
     event.preventDefault();
 
-    const plateforme = event.target.value;
+    const environment = event.target.value;
 
     this.setState(previousState => ({
       newTestRun: {
         ...previousState.newTestRun,
-        plateforme
+        environment
       }
     }));
   };
@@ -94,18 +94,18 @@ export default class CreateTestRunDialog extends React.PureComponent {
               <ControlLabel>Type</ControlLabel>
               <FormControl type="text" autoFocus value={this.state.newTestRun.type} onChange={this.onTypeChange} />
             </FormGroup>
-            <FormGroup controlId="nom">
-              <ControlLabel>Nom</ControlLabel>
-              <FormControl type="text" autoFocus value={this.state.newTestRun.nom} onChange={this.onNomChange} />
-            </FormGroup>
-            <FormGroup controlId="environnement">
+            <FormGroup controlId="environment">
               <ControlLabel>Environnement</ControlLabel>
               <FormControl
                 type="text"
                 autoFocus
-                value={this.state.newTestRun.plateforme}
-                onChange={this.onPlateformeChange}
+                value={this.state.newTestRun.environment}
+                onChange={this.onEnvironmentChange}
               />
+            </FormGroup>
+            <FormGroup controlId="name">
+              <ControlLabel>Nom</ControlLabel>
+              <FormControl type="text" autoFocus value={this.state.newTestRun.name} onChange={this.onNameChange} />
             </FormGroup>
           </form>
         </Modal.Body>

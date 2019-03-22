@@ -4,7 +4,11 @@ package io.zucchiniui.backend.testrun.rest;
 import com.google.common.base.Strings;
 import io.dropwizard.jersey.PATCH;
 import io.zucchiniui.backend.reportconverter.domain.ReportConverterService;
-import io.zucchiniui.backend.testrun.domain.*;
+import io.zucchiniui.backend.testrun.domain.Label;
+import io.zucchiniui.backend.testrun.domain.TestRun;
+import io.zucchiniui.backend.testrun.domain.TestRunQuery;
+import io.zucchiniui.backend.testrun.domain.TestRunRepository;
+import io.zucchiniui.backend.testrun.domain.TestRunService;
 import io.zucchiniui.backend.testrun.views.TestRunListItem;
 import io.zucchiniui.backend.testrun.views.TestRunScenarioDiff;
 import io.zucchiniui.backend.testrun.views.TestRunViewAccess;
@@ -78,7 +82,7 @@ public class TestRunResource {
     @POST
     @Path("create")
     public Response create(@Valid @NotNull final CreateTestRunRequest request) {
-        final TestRun testRun = new TestRun(request.getType(), request.getPlateforme(), request.getNom());
+        final TestRun testRun = new TestRun(request.getType(), request.getEnvironment(), request.getName());
         testRun.setLabels(convertRequestLabels(request.getLabels()));
 
         testRunRepository.save(testRun);
@@ -106,11 +110,11 @@ public class TestRunResource {
         if (!Strings.isNullOrEmpty(request.getType())) {
             testRun.setType(request.getType());
         }
-        if (!Strings.isNullOrEmpty(request.getPlateforme())) {
-            testRun.setType(request.getPlateforme());
+        if (!Strings.isNullOrEmpty(request.getEnvironment())) {
+            testRun.setEnvironment(request.getEnvironment());
         }
-        if (!Strings.isNullOrEmpty(request.getNom())) {
-            testRun.setType(request.getNom());
+        if (!Strings.isNullOrEmpty(request.getName())) {
+            testRun.setName(request.getName());
         }
         testRun.setLabels(convertRequestLabels(request.getLabels()));
 

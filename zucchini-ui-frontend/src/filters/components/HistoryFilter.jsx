@@ -19,7 +19,7 @@ export default class HistoryFilter extends React.PureComponent {
   render() {
     const { sameTestRunType } = this.props.filters;
 
-    const { sameTestRunEnvironnement } = this.props.filters;
+    const { sameTestRunEnvironment } = this.props.filters;
 
     return (
       <div className="form" style={{ marginBottom: "10px" }}>
@@ -32,8 +32,8 @@ export default class HistoryFilter extends React.PureComponent {
           <label className="checkbox-inline">
             <input
               type="checkbox"
-              checked={sameTestRunEnvironnement}
-              onChange={this.onFilterChange("sameTestRunEnvironnement")}
+              checked={sameTestRunEnvironment}
+              onChange={this.onFilterChange("sameTestRunEnvironment")}
             />
             Même environnement de tir
           </label>

@@ -4,7 +4,7 @@ const historyFiltersStorage = new BrowserLocalStorage({
   entryName: "historyFilters",
   defaultState: () => ({
     sameTestRunType: true,
-    sameTestRunEnvironnement: false
+    sameTestRunEnvironment: false
   })
 });
 

@@ -10,9 +10,9 @@ public class TestRunListItem {
 
     private String type;
 
-    private String plateforme;
+    private String environment;
 
-    private String nom;
+    private String name;
 
     private ZonedDateTime date;
 
@@ -34,20 +34,20 @@ public class TestRunListItem {
         this.type = type;
     }
 
-    public String getPlateforme() {
-        return plateforme;
+    public String getEnvironment() {
+        return environment;
     }
 
-    public void setPlateforme(final String plateforme) {
-        this.plateforme = plateforme;
+    public void setEnvironment(final String environment) {
+        this.environment = environment;
     }
 
-    public String getNom() {
-        return nom;
+    public String getName() {
+        return name;
     }
 
-    public void setNom(final String nom) {
-        this.nom = nom;
+    public void setName(final String name) {
+        this.name = name;
     }
 
     public ZonedDateTime getDate() {
