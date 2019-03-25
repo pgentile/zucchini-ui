@@ -11,13 +11,21 @@ const selectFeatureId = createSelector(
 const selectHistory = createSelector(
   state => state.feature.history,
   state => state.testRun.testRun.type || null,
+  state => state.testRun.testRun.environment || null,
   state => state.historyFilters.sameTestRunType,
-  (history, testRunType, sameTestRunType) => {
+  state => state.historyFilters.sameTestRunEnvironment,
+  (history, testRunType, testRunEnvironment, sameTestRunType, sameTestRunEnvironment) => {
+    let selectedTestRuns = history;
+
     if (sameTestRunType) {
-      return history.filter(feature => feature.testRun.type === testRunType);
+      selectedTestRuns = selectedTestRuns.filter(feature => feature.testRun.type === testRunType);
     }
 
-    return history;
+    if (sameTestRunEnvironment) {
+      selectedTestRuns = selectedTestRuns.filter(feature => feature.testRun.environment === testRunEnvironment);
+    }
+
+    return selectedTestRuns;
   }
 );
 

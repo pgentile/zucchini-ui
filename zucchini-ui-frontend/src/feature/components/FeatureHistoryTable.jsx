@@ -26,7 +26,9 @@ export default class FeatureHistoryTable extends React.PureComponent {
       <Table bordered striped hover>
         <thead>
           <tr>
-            <th className="col-md-2">Type</th>
+            <th className="col-md-1">Type</th>
+            <th className="col-md-1">Environnement</th>
+            <th className="col-md-1">Nom</th>
             <th className="col-md-3">Tir de test</th>
             <th className="col-md-1">Statut</th>
             <th className="col-md-1">Total</th>
@@ -57,6 +59,12 @@ class FeatureHistoryTableRow extends React.PureComponent {
       <tr className={className}>
         <td>
           <Label>{feature.testRun.type}</Label>
+        </td>
+        <td>
+          <Label>{feature.testRun.environment}</Label>
+        </td>
+        <td>
+          <Label>{feature.testRun.name}</Label>
         </td>
         <td>
           <Link to={`/features/${feature.id}`}>Tir du {toNiceDate(feature.testRun.date)}</Link>

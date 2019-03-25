@@ -25,10 +25,10 @@ export default class TestRunSelectorTable extends React.PureComponent {
       <Table bordered striped>
         <thead>
           <tr>
-            <th className="col-md-2">Type</th>
-            <th className="col-md-2">Environnement</th>
-            <th className="col-md-2">Nom</th>
-            <th className="col-md-4">Tir de test</th>
+            <th className="col-md-1">Type</th>
+            <th className="col-md-1">Environnement</th>
+            <th className="col-md-1">Nom</th>
+            <th className="col-md-3">Tir de test</th>
             <th className="col-md-1">Total</th>
             <th className="col-md-1">Succès</th>
             <th className="col-md-1">Échecs</th>

@@ -49,8 +49,6 @@ class TestRunsApi {
   }
 
   editTestRun({ testRunId, type, environment, name, labels }) {
-    // eslint-disable-next-line no-console
-    console.log({ testRunId, type, environment, name, labels });
     return this.client.patch({
       path: testRunId,
       hasOutput: false,
