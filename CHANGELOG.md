@@ -9,8 +9,8 @@ Version 0.0.5-SNAPSHOT
 * Docker image using Java 11 instead of Java 8
 * Removed builds on Java 9 and 10
 * Migration to `react-router-dom` (latest version of React Router)
-* Add two new column to identify the type and the environment of the test run
-* Add a new filter by environment
+* Added two new columns to identify the type and the environment of the test run
+* Added a new filter by environment
 
 Version 0.0.4-SNAPSHOT
 ----------------------
