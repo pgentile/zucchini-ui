@@ -18,15 +18,7 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -90,7 +82,7 @@ public class TestRunResource {
     @POST
     @Path("create")
     public Response create(@Valid @NotNull final CreateTestRunRequest request) {
-        final TestRun testRun = new TestRun(request.getType());
+        final TestRun testRun = new TestRun(request.getType(), request.getEnvironment(), request.getName());
         testRun.setLabels(convertRequestLabels(request.getLabels()));
 
         testRunRepository.save(testRun);
@@ -117,6 +109,12 @@ public class TestRunResource {
 
         if (!Strings.isNullOrEmpty(request.getType())) {
             testRun.setType(request.getType());
+        }
+        if (!Strings.isNullOrEmpty(request.getEnvironment())) {
+            testRun.setEnvironment(request.getEnvironment());
+        }
+        if (!Strings.isNullOrEmpty(request.getName())) {
+            testRun.setName(request.getName());
         }
         testRun.setLabels(convertRequestLabels(request.getLabels()));
 

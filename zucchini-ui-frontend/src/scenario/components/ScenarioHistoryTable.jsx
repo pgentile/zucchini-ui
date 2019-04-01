@@ -26,7 +26,9 @@ export default class ScenarioHistoryTable extends React.PureComponent {
         <thead>
           <tr>
             <th className="col-md-2">Type</th>
-            <th className="col-md-9">Tir de test</th>
+            <th className="col-md-2">Environnement</th>
+            <th className="col-md-2">Nom</th>
+            <th className="col-md-5">Tir de test</th>
             <th className="col-md-1">Statut</th>
           </tr>
         </thead>
@@ -50,6 +52,12 @@ class ScenarioHistoryTableRow extends React.PureComponent {
       <tr className={className}>
         <td>
           <Label>{scenario.testRun.type}</Label>
+        </td>
+        <td>
+          <Label>{scenario.testRun.environment}</Label>
+        </td>
+        <td>
+          <Label>{scenario.testRun.name}</Label>
         </td>
         <td>
           <Link to={`/scenarios/${scenario.id}`}>Tir du {toNiceDate(scenario.testRun.date)}</Link>

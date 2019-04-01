@@ -25,8 +25,10 @@ export default class TestRunSelectorTable extends React.PureComponent {
       <Table bordered striped>
         <thead>
           <tr>
-            <th className="col-md-2">Type</th>
-            <th className="col-md-4">Tir de test</th>
+            <th className="col-md-1">Type</th>
+            <th className="col-md-1">Environnement</th>
+            <th className="col-md-1">Nom</th>
+            <th className="col-md-2">Tir de test</th>
             <th className="col-md-1">Total</th>
             <th className="col-md-1">Succès</th>
             <th className="col-md-1">Échecs</th>
@@ -66,6 +68,12 @@ class TestRunSelectorTableRow extends React.PureComponent {
       <tr>
         <td>
           <Label>{testRun.type}</Label>
+        </td>
+        <td>
+          <Label>{testRun.environment}</Label>
+        </td>
+        <td>
+          <Label>{testRun.name}</Label>
         </td>
         <td>{testRunTitle}</td>
         <td>

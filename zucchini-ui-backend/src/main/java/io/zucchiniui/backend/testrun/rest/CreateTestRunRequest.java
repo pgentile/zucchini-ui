@@ -10,6 +10,11 @@ public class CreateTestRunRequest {
     @NotEmpty
     private String type;
 
+    @NotEmpty
+    private String environment;
+
+    private String name;
+
     @Valid
     private List<RequestLabel> labels;
 
@@ -19,6 +24,22 @@ public class CreateTestRunRequest {
 
     public void setType(final String type) {
         this.type = type;
+    }
+
+    public String getEnvironment() {
+        return environment;
+    }
+
+    public void setEnvironment(final String environment) {
+        this.environment = environment;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
     }
 
     public List<RequestLabel> getLabels() {

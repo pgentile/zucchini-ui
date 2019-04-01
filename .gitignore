@@ -4,8 +4,11 @@
 /build/
 /buildSrc/build/
 /zucchini-ui-*/build/
+/zucchini-ui-*/.logs/
 .gradle/
 
 .DS_Store
 
 out/
+
+node_modules/

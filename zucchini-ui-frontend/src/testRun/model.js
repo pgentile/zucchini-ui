@@ -34,8 +34,8 @@ export function importCucumberResult({ testRunId, file, ...options }) {
   return testRunsApi.importCucumberResult({ testRunId, file, ...options });
 }
 
-export function editTestRun({ testRunId, type, labels }) {
-  return testRunsApi.editTestRun({ testRunId, type, labels });
+export function editTestRun({ testRunId, type, environment, name, labels }) {
+  return testRunsApi.editTestRun({ testRunId, type, environment, name, labels });
 }
 
 export const ZERO_STATS_NUMBERS = {

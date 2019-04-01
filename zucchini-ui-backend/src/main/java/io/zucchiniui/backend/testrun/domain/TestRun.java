@@ -5,11 +5,7 @@ import xyz.morphia.annotations.Entity;
 import xyz.morphia.annotations.Id;
 
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @Entity("testRuns")
 public class TestRun extends BaseEntity<String> {
@@ -18,6 +14,10 @@ public class TestRun extends BaseEntity<String> {
     private String id;
 
     private String type;
+
+    private String environment;
+
+    private String name;
 
     private ZonedDateTime date;
 
@@ -35,8 +35,24 @@ public class TestRun extends BaseEntity<String> {
         this.type = Objects.requireNonNull(type);
     }
 
+    public TestRun(final String type, final String environment, final String name) {
+        id = UUID.randomUUID().toString();
+        date = ZonedDateTime.now();
+        this.type = Objects.requireNonNull(type);
+        this.environment = Objects.requireNonNull(environment);
+        this.name = Objects.requireNonNull(name);
+    }
+
     public void setType(final String type) {
         this.type = Objects.requireNonNull(type);
+    }
+
+    public void setEnvironment(final String environment) {
+        this.environment = Objects.requireNonNull(environment);
+    }
+
+    public void setName(final String name) {
+        this.name = Objects.requireNonNull(name);
     }
 
     public void setLabels(final List<Label> labels) {
@@ -49,6 +65,14 @@ public class TestRun extends BaseEntity<String> {
 
     public String getType() {
         return type;
+    }
+
+    public String getEnvironment() {
+        return environment;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public ZonedDateTime getDate() {

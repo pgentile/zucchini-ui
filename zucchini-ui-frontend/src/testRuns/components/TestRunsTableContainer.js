@@ -9,10 +9,11 @@ const selectTestRuns = createSelector(
   state => selectLatestTestRuns(state),
   (state, ownProps) => ownProps.selectedType,
   (testRuns, selectedType) => {
+    var selectedTestRuns = testRuns;
     if (selectedType) {
-      return testRuns.filter(testRun => testRun.type === selectedType);
+      selectedTestRuns = selectedTestRuns.filter(testRun => testRun.type === selectedType);
     }
-    return testRuns;
+    return selectedTestRuns;
   }
 );
 
