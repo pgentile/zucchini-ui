@@ -10,9 +10,11 @@ public class CreateTestRunRequest {
     @NotEmpty
     private String type;
 
+    @NotEmpty
     private String environment;
 
     private String name;
+
     @Valid
     private List<RequestLabel> labels;
 

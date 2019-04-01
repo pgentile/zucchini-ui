@@ -29,7 +29,7 @@ export default class FeatureHistoryTable extends React.PureComponent {
             <th className="col-md-1">Type</th>
             <th className="col-md-1">Environnement</th>
             <th className="col-md-1">Nom</th>
-            <th className="col-md-3">Tir de test</th>
+            <th className="col-md-2">Tir de test</th>
             <th className="col-md-1">Statut</th>
             <th className="col-md-1">Total</th>
             <th className="col-md-1">Succès</th>

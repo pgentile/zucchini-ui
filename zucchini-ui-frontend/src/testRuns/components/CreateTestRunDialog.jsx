@@ -96,16 +96,11 @@ export default class CreateTestRunDialog extends React.PureComponent {
             </FormGroup>
             <FormGroup controlId="environment">
               <ControlLabel>Environnement</ControlLabel>
-              <FormControl
-                type="text"
-                autoFocus
-                value={this.state.newTestRun.environment}
-                onChange={this.onEnvironmentChange}
-              />
+              <FormControl type="text" value={this.state.newTestRun.environment} onChange={this.onEnvironmentChange} />
             </FormGroup>
             <FormGroup controlId="name">
               <ControlLabel>Nom</ControlLabel>
-              <FormControl type="text" autoFocus value={this.state.newTestRun.name} onChange={this.onNameChange} />
+              <FormControl type="text" value={this.state.newTestRun.name} onChange={this.onNameChange} />
             </FormGroup>
           </form>
         </Modal.Body>
