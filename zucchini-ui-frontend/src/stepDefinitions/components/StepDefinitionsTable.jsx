@@ -16,13 +16,20 @@ export default class StepDefinitionsTable extends React.Component {
     const { stepDefinitions } = this.props;
 
     const sortedOccurrences = stepDefinitions.map(definition => {
-      const occurrences = sortBy(definition.occurrences, ["info.keyword", "info.name"]);
+      const occurrences = sortBy(definition.occurrences, [
+        occurrence => occurrence.info.keyword,
+        occurrence => occurrence.info.name
+      ]);
+
       return {
         ...definition,
         occurrences
       };
     });
-    const sortedDefinitions = sortBy(sortedOccurrences, ["occurrences[0].info.keyword", "occurrences[0].info.name"]);
+    const sortedDefinitions = sortBy(sortedOccurrences, [
+      definition => definition.occurrences[0].info.keyword,
+      definition => definition.occurrences[0].info.name
+    ]);
     const rows = sortedDefinitions.map((stepDefinition, index) => {
       return <StepDefinitionsRow key={index} stepDefinition={stepDefinition} />;
     });

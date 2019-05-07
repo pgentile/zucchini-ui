@@ -7,12 +7,18 @@ import TestRunSelectorTable from "./TestRunSelectorTable";
 const selectTestRuns = createSelector(
   state => selectLatestTestRuns(state),
   state => state.testRun.testRun.type || null,
+  state => state.testRun.testRun.environment || null,
   state => state.historyFilters.sameTestRunType,
-  (testRuns, currentTestRunType, sameTestRunTypeFilter) => {
+  state => state.historyFilters.sameTestRunEnvironment,
+  (testRuns, currentTestRunType, currentTestRunEnvironment, sameTestRunTypeFilter, sameTestRunEnvironmentFilter) => {
     let selectedTestRuns = testRuns;
 
     if (sameTestRunTypeFilter) {
       selectedTestRuns = selectedTestRuns.filter(testRun => testRun.type === currentTestRunType);
+    }
+
+    if (sameTestRunEnvironmentFilter) {
+      selectedTestRuns = selectedTestRuns.filter(testRun => testRun.environment === currentTestRunEnvironment);
     }
 
     return selectedTestRuns;

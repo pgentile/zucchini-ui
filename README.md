@@ -22,7 +22,7 @@ Requirements
 ### Development
 
 * JDK 8
-* [Node](https://nodejs.org)
+* [Node](https://nodejs.org) >= 8.0.0
 * [Yarn](https://yarnpkg.com)
 
 Zucchini is built with [Gradle](https://gradle.org/). The Gradle wrapper is provided, no extra download is required.
@@ -34,6 +34,7 @@ Build
 First time, install Javascript dependencies:
 
 ```
+npm install --global yarn
 ./gradlew yarnInstall
 ```
 
@@ -67,6 +68,12 @@ Run Mongo migrations to build database:
 (cd zucchini-ui-mongo && ./migrate.sh MONGO_HOST/MONGO_DATABASE)
 ```
 
+Import project (on IntelliJ)
+* Install gradle plugin
+* Restart IntelliJ
+* You will see "Import gradle project" message on the right bottom (Event log). Click on it. 
+* Select "Use default gradle wrapper". Not "Use local gradle distribution".
+
 Start Java backend:
 
 ```
@@ -96,6 +103,11 @@ Generated reports can be found in `build` directory.
 The development UI server runs on port 9000, the backend server runs on ports 8080 (Zucchini API) and 8081
 (Dropwizard admin API).
 
+Start Java backend in debug mode
+* Open the view "Gradle" > zucchini-ui > other
+* Right-click on runBackend
+* Debug
+
 
 Deploy
 ------
@@ -109,10 +121,11 @@ You can run it with the following Gradle command:
 ./gradlew runShadow
 ```
 
-The fat JAR is named `zucchini-ui-app-VERSION-all.jar`. Run it with this command:
+The fat JAR is named `zucchini-ui-app-VERSION.jar`. You will find it in `zucchini-ui-app/build/install/zucchini-ui-app-shadow/lib`
+Run it with this command:
 
 ```
-java -jar zucchini-ui-app-VERSION-all.jar server CONFIG.yml
+java -jar zucchini-ui-app-VERSION.jar server CONFIG.yml
 ```
 
 Don't forget to init your Mongo database !
