@@ -12,6 +12,7 @@ const outputDir = path.join(__dirname, "build/dist/assets");
 
 // Config
 const config = require("./config.json");
+const baseUiPath = config.ui.basename;
 
 module.exports = {
   entry: [
@@ -27,13 +28,17 @@ module.exports = {
   output: {
     path: outputDir,
     filename: "[name].js",
-    publicPath: "/ui/assets/"
+    publicPath: `${baseUiPath}/assets/`
   },
   devtool: "source-map",
   devServer: {
     port: config.devServer.port,
-    before: function(app) {
-      app.get("/ui/assets/config.js", (req, res) => {
+    before: app => {
+      app.get("/", (req, res) => {
+        res.redirect(`${baseUiPath}/`);
+      });
+
+      app.get(`${baseUiPath}/assets/config.js/`, (req, res) => {
         // Connect function to serve a Javascript configuration file
         res.writeHead(200, { "Content-Type": "application/javascript" });
         res.end(`var configuration = ${JSON.stringify(config.ui)};`);
