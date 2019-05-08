@@ -3,5 +3,8 @@
     "config:base",
     ":preserveSemverRanges",
     ":disableRateLimiting"
-  ]
+  ],
+  "gradle": {
+    "enabled": true
+  }
 }
