@@ -49,7 +49,7 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
-    "bootstrap": "^3.3.7 < 4",
+    "bootstrap": "< 5",
     "chartist": "^0.11.0",
     "core-js": "^3.0.1",
     "date-fns": "^1.30.1",
