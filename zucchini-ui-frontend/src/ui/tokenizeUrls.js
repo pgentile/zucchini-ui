@@ -1,5 +1,3 @@
-import "core-js/fn/array/flat-map";
-
 export default function tokenizeUrls(content) {
   if (!content) {
     return [];
