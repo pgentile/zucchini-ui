@@ -7,7 +7,7 @@ buildscript {
 
     repositories {
         maven {
-            url "https://plugins.gradle.org/m2/"
+            url 'https://plugins.gradle.org/m2/'
         }
         jcenter()
     }
@@ -30,7 +30,7 @@ plugins {
  * @param version Version to set
  */
 void replaceDependencyGroupVersion(DependencyResolveDetails details, String group, String version) {
-    if (details.requested.group == group || details.requested.group.startsWith(group + ".")) {
+    if (details.requested.group == group || details.requested.group.startsWith(group + '.')) {
         details.useVersion version
     }
 }
@@ -50,27 +50,8 @@ allprojects {
         mavenCentral()
     }
 
-    ext.versions = [
-        dropwizard        : '1.3.9',
-        orika             : '1.5.4',
-        morphia           : '1.4.0',
-        slf4j             : '1.7.26',
-        spring            : '5.1.5.RELEASE',
-        junit             : '4.12',
-        assertj           : '3.12.1',
-        mockito           : '2.25.0',
-        junitQuickcheck   : '0.8.2',
-        cucumber          : '1.2.5',
-        jetty             : '9.4.14.v20181114',
-        guava             : '27.1-jre',
-        commonsText       : '1.6',
-        hibernateValidator: '5.4.3.Final',
-        jaxbVersion       : '2.3.1',
-        javassist         : '3.24.1-GA',
-    ]
-
     ext.getDockerTags = {
-        boolean isTravisCI = (System.env.TRAVIS == "true")
+        boolean isTravisCI = (System.env.TRAVIS == 'true')
         List<String> dockerTags = []
 
         // Get branch from Travis env var, otherwise, from Git
@@ -92,15 +73,15 @@ allprojects {
 
     project.afterEvaluate {
 
-        if (project.pluginManager.hasPlugin("java")) {
+        if (project.pluginManager.hasPlugin('java')) {
 
             // Add common dependencies
 
             project.dependencies {
 
-                testCompile "junit:junit:${project.versions.junit}"
-                testCompile "org.assertj:assertj-core:${project.versions.assertj}"
-                testCompile "org.mockito:mockito-core:${project.versions.mockito}"
+                testCompile 'junit:junit:4.12'
+                testCompile 'org.assertj:assertj-core:3.12.1'
+                testCompile 'org.mockito:mockito-core:2.25.0'
 
             }
 
@@ -169,12 +150,12 @@ allprojects {
 
                 // Replace commons logging by slf4j, if present
                 dependencySubstitution {
-                    substitute module('commons-logging:commons-logging') with module("org.slf4j:jcl-over-slf4j:${project.versions.slf4j}")
+                    substitute module('commons-logging:commons-logging') with module('org.slf4j:jcl-over-slf4j:1.7.26')
                 }
 
                 // Override some dependency versions
                 eachDependency { DependencyResolveDetails details ->
-                    replaceDependencyGroupVersion(details, 'org.slf4j', project.versions.slf4j)
+                    replaceDependencyGroupVersion(details, 'org.slf4j', '1.7.26')
                 }
 
             }
@@ -204,25 +185,25 @@ project("${rootProject.name}-backend") {
 
     dependencies {
 
-        annotationProcessor group: 'org.hibernate', name: 'hibernate-validator-annotation-processor', version: versions.hibernateValidator
+        annotationProcessor 'org.hibernate:hibernate-validator-annotation-processor:5.4.3.Final'
 
-        compile "io.dropwizard:dropwizard-core:${versions.dropwizard}"
-        compile "ma.glasnost.orika:orika-core:${versions.orika}"
-        compile "xyz.morphia.morphia:core:${versions.morphia}"
-        compile "xyz.morphia.morphia:logging-slf4j:${versions.morphia}"
-        compile "org.slf4j:slf4j-api:${versions.slf4j}"
-        compile "org.springframework:spring-context:${versions.spring}"
-        compile "org.eclipse.jetty.websocket:javax-websocket-server-impl:${versions.jetty}"
-        compile "org.apache.commons:commons-text:${versions.commonsText}"
+        compile 'io.dropwizard:dropwizard-core:1.3.9'
+        compile 'ma.glasnost.orika:orika-core:1.5.4'
+        compile 'xyz.morphia.morphia:core:1.4.0'
+        compile 'xyz.morphia.morphia:logging-slf4j:1.4.0'
+        compile 'org.slf4j:slf4j-api:1.7.26'
+        compile 'org.springframework:spring-context:5.1.5.RELEASE'
+        compile 'org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.14.v20181114'
+        compile 'org.apache.commons:commons-text:1.6'
 
-        compile group: 'org.javassist', name: 'javassist', version: versions.javassist
+        compile 'org.javassist:javassist:3.24.1-GA'
 
-        compile group: 'javax.xml.bind', name: 'jaxb-api', version: versions.jaxbVersion
-        runtime group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: versions.jaxbVersion
+        compile 'javax.xml.bind:jaxb-api:2.3.1'
+        runtime 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
 
-        testCompile "org.assertj:assertj-core:${versions.assertj}"
-        testCompile "com.pholser:junit-quickcheck-core:${versions.junitQuickcheck}"
-        testCompile "com.pholser:junit-quickcheck-generators:${versions.junitQuickcheck}"
+        testCompile 'org.assertj:assertj-core:3.12.1'
+        testCompile 'com.pholser:junit-quickcheck-core:0.8.2'
+        testCompile 'com.pholser:junit-quickcheck-generators:0.8.2'
 
     }
 
@@ -302,7 +283,7 @@ project("${rootProject.name}-app") {
 
         compile project(":${rootProject.name}-backend")
         compile project(":${rootProject.name}-frontend")
-        compile "io.dropwizard:dropwizard-assets:${versions.dropwizard}"
+        compile 'io.dropwizard:dropwizard-assets:1.3.9'
 
     }
 
@@ -334,10 +315,10 @@ project("${rootProject.name}-example-features") {
 
     dependencies {
 
-        compile "info.cukes:cucumber-java:${versions.cucumber}"
-        compile "org.slf4j:slf4j-api:${versions.slf4j}"
-        compile "org.assertj:assertj-core:${versions.assertj}"
-        compile "com.google.guava:guava:${versions.guava}"
+        compile 'info.cukes:cucumber-java:1.2.5'
+        compile 'org.slf4j:slf4j-api:1.7.26'
+        compile 'org.assertj:assertj-core:3.12.1'
+        compile 'com.google.guava:guava:27.1-jre'
 
     }
 
