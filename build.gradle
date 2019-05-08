@@ -199,7 +199,7 @@ project("${rootProject.name}-backend") {
         compile 'org.javassist:javassist:3.25.0-GA'
 
         compile 'javax.xml.bind:jaxb-api:2.3.1'
-        runtime 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
+        runtime 'org.glassfish.jaxb:jaxb-runtime:2.3.2'
 
         testCompile 'org.assertj:assertj-core:3.12.2'
         testCompile 'com.pholser:junit-quickcheck-core:0.8.2'
