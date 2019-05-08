@@ -243,6 +243,8 @@ project("${rootProject.name}-frontend") {
         inputs.file('yarn.lock')
         inputs.file('postcss.config.js')
         inputs.file('webpack.config.js')
+        inputs.file('babel.config.js')
+        inputs.file('.browserslistrc')
 
         outputs.dir('build/dist')
     }
