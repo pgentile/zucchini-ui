@@ -192,7 +192,7 @@ project("${rootProject.name}-backend") {
         compile 'xyz.morphia.morphia:core:1.4.0'
         compile 'xyz.morphia.morphia:logging-slf4j:1.4.0'
         compile 'org.slf4j:slf4j-api:1.7.26'
-        compile 'org.springframework:spring-context:5.1.6.RELEASE'
+        compile 'org.springframework:spring-context:5.1.7.RELEASE'
         compile 'org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.17.v20190418'
         compile 'org.apache.commons:commons-text:1.6'
 
