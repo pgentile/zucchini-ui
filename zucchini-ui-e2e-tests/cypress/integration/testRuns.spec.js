@@ -12,6 +12,8 @@ describe("Test runs", () => {
   });
 
   it("should create a test run", () => {
+    cy.server();
+
     cy.log("Créer un tir");
 
     cy.get("button").contains("Créer un tir").click();
@@ -30,10 +32,35 @@ describe("Test runs", () => {
 
     cy.log("Importer un fichier de résultats Cucumber");
 
+    cy.route("POST", "/api/testRuns/*/import**").as("importCucumberReport");
+
     cy.get("button").contains("Importer").click();
 
     cy.get("[role=dialog]").within(() => {
-      // cy.get("input#file").click();
+      // Workaround : cucumber-report.json not loaded as base64, even if asked. So... extention change
+      cy.fixture("cucumber-report.json.bin", "base64").then(fileContent => {
+        cy.get("input#file").upload(
+          {
+            fileContent,
+            fileName: "report.json",
+            mimeType: "application/json",
+            encoding: "base64"
+          },
+          {
+            subjectType: "input"
+          }
+        );
+      });
+
+      cy.get("button").contains("Importer").click();
+    });
+
+    cy.log("Validate upload with table size");
+
+    cy.wait("@importCucumberReport");
+
+    cy.get("table").first().within(() => {
+      cy.get("tbody").find("tr").should("have.length.greaterThan", 0);
     });
   });
 });
