@@ -14,4 +14,6 @@
 // ***********************************************************
 
 import "cypress-file-upload";
+
 import "./unfetch";
+import "./zucchiniApi";
