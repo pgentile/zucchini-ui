@@ -1,0 +1,1579 @@
+[
+  {
+    "comments": [
+      {
+        "line": 1,
+        "value": "# language: fr"
+      }
+    ],
+    "line": 6,
+    "elements": [
+      {
+        "comments": [
+          {
+            "line": 12,
+            "value": "# Commentaire sur le premier test"
+          },
+          {
+            "line": 13,
+            "value": "# Exemple de commentaire avec une URL : http://example.org/test/123"
+          }
+        ],
+        "before": [
+          {
+            "result": {
+              "duration": 14642305,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logStartOfTest()"
+            }
+          },
+          {
+            "result": {
+              "duration": 112152,
+              "status": "passed"
+            },
+            "match": {
+              "location": "GrumpyCatSteps.setScenario(Scenario)"
+            }
+          }
+        ],
+        "line": 14,
+        "name": "Premier test",
+        "description": "",
+        "id": "test;premier-test",
+        "after": [
+          {
+            "result": {
+              "duration": 26308,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logEndOfTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 472241572,
+              "status": "passed"
+            },
+            "line": 15,
+            "name": "j\u0027additionne 5 et 8",
+            "match": {
+              "arguments": [
+                {
+                  "val": "5",
+                  "offset": 13
+                },
+                {
+                  "val": "8",
+                  "offset": 18
+                }
+              ],
+              "location": "AdditionSteps.addTwoNumbers(int,int)"
+            },
+            "keyword": "Quand "
+          },
+          {
+            "result": {
+              "duration": 822741,
+              "status": "passed"
+            },
+            "line": 16,
+            "name": "j\u0027obtiens 13",
+            "match": {
+              "arguments": [
+                {
+                  "val": "13",
+                  "offset": 10
+                }
+              ],
+              "location": "AdditionSteps.assertCalcul(int)"
+            },
+            "keyword": "Alors "
+          }
+        ]
+      },
+      {
+        "comments": [
+          {
+            "line": 18,
+            "value": "# Joli test avec un tableau"
+          },
+          {
+            "line": 19,
+            "value": "# Et ça marche !"
+          }
+        ],
+        "before": [
+          {
+            "result": {
+              "duration": 25870,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logStartOfTest()"
+            }
+          },
+          {
+            "result": {
+              "duration": 53928,
+              "status": "passed"
+            },
+            "match": {
+              "location": "GrumpyCatSteps.setScenario(Scenario)"
+            }
+          }
+        ],
+        "line": 21,
+        "name": "Test avec un tableau",
+        "description": "",
+        "id": "test;test-avec-un-tableau",
+        "after": [
+          {
+            "result": {
+              "duration": 22671,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logEndOfTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 67914050,
+              "status": "passed"
+            },
+            "line": 22,
+            "name": "j\u0027obtiens le tableau suivant:",
+            "match": {
+              "location": "ExampleSteps.assertTable(DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "1",
+                  "2",
+                  "3"
+                ],
+                "line": 23
+              },
+              {
+                "cells": [
+                  "4",
+                  "5",
+                  "6"
+                ],
+                "line": 24
+              }
+            ],
+            "keyword": "Alors "
+          }
+        ],
+        "tags": [
+          {
+            "line": 20,
+            "name": "@tata"
+          },
+          {
+            "line": 20,
+            "name": "@titi"
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 40616,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logStartOfTest()"
+            }
+          },
+          {
+            "result": {
+              "duration": 45963,
+              "status": "passed"
+            },
+            "match": {
+              "location": "GrumpyCatSteps.setScenario(Scenario)"
+            }
+          }
+        ],
+        "line": 35,
+        "name": "Second test : additionner 5 et 8",
+        "description": "",
+        "id": "test;second-test-:-additionner-\u003ca\u003e-et-\u003cb\u003e;;2",
+        "after": [
+          {
+            "result": {
+              "duration": 27130,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logEndOfTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Plan du scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 198611,
+              "status": "passed"
+            },
+            "line": 29,
+            "name": "j\u0027additionne 5 et 8",
+            "match": {
+              "arguments": [
+                {
+                  "val": "5",
+                  "offset": 13
+                },
+                {
+                  "val": "8",
+                  "offset": 18
+                }
+              ],
+              "location": "AdditionSteps.addTwoNumbers(int,int)"
+            },
+            "matchedColumns": [
+              0,
+              1
+            ],
+            "keyword": "Quand "
+          },
+          {
+            "result": {
+              "duration": 143168,
+              "status": "passed"
+            },
+            "comments": [
+              {
+                "line": 30,
+                "value": "# Pourriture"
+              }
+            ],
+            "line": 31,
+            "name": "j\u0027obtiens 13",
+            "match": {
+              "arguments": [
+                {
+                  "val": "13",
+                  "offset": 10
+                }
+              ],
+              "location": "AdditionSteps.assertCalcul(int)"
+            },
+            "matchedColumns": [
+              2
+            ],
+            "keyword": "Alors "
+          }
+        ],
+        "tags": [
+          {
+            "line": 4,
+            "name": "@titi"
+          },
+          {
+            "line": 27,
+            "name": "@tata"
+          },
+          {
+            "line": 3,
+            "name": "@toto"
+          },
+          {
+            "line": 5,
+            "name": "@tutu"
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 146432,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logStartOfTest()"
+            }
+          },
+          {
+            "result": {
+              "duration": 56498,
+              "status": "passed"
+            },
+            "match": {
+              "location": "GrumpyCatSteps.setScenario(Scenario)"
+            }
+          }
+        ],
+        "line": 36,
+        "name": "Second test : additionner 104 et -6",
+        "description": "",
+        "id": "test;second-test-:-additionner-\u003ca\u003e-et-\u003cb\u003e;;3",
+        "after": [
+          {
+            "result": {
+              "duration": 37710,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logEndOfTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Plan du scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 193883,
+              "status": "passed"
+            },
+            "line": 29,
+            "name": "j\u0027additionne 104 et -6",
+            "match": {
+              "arguments": [
+                {
+                  "val": "104",
+                  "offset": 13
+                },
+                {
+                  "val": "-6",
+                  "offset": 20
+                }
+              ],
+              "location": "AdditionSteps.addTwoNumbers(int,int)"
+            },
+            "matchedColumns": [
+              0,
+              1
+            ],
+            "keyword": "Quand "
+          },
+          {
+            "result": {
+              "duration": 155652,
+              "status": "passed"
+            },
+            "comments": [
+              {
+                "line": 30,
+                "value": "# Pourriture"
+              }
+            ],
+            "line": 31,
+            "name": "j\u0027obtiens 98",
+            "match": {
+              "arguments": [
+                {
+                  "val": "98",
+                  "offset": 10
+                }
+              ],
+              "location": "AdditionSteps.assertCalcul(int)"
+            },
+            "matchedColumns": [
+              2
+            ],
+            "keyword": "Alors "
+          }
+        ],
+        "tags": [
+          {
+            "line": 4,
+            "name": "@titi"
+          },
+          {
+            "line": 27,
+            "name": "@tata"
+          },
+          {
+            "line": 3,
+            "name": "@toto"
+          },
+          {
+            "line": 5,
+            "name": "@tutu"
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 44256,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logStartOfTest()"
+            }
+          },
+          {
+            "result": {
+              "duration": 45133,
+              "status": "passed"
+            },
+            "match": {
+              "location": "GrumpyCatSteps.setScenario(Scenario)"
+            }
+          }
+        ],
+        "line": 37,
+        "name": "Second test : additionner 1 et 2",
+        "description": "",
+        "id": "test;second-test-:-additionner-\u003ca\u003e-et-\u003cb\u003e;;4",
+        "after": [
+          {
+            "result": {
+              "duration": 175960,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logEndOfTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Plan du scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 244452,
+              "status": "passed"
+            },
+            "line": 29,
+            "name": "j\u0027additionne 1 et 2",
+            "match": {
+              "arguments": [
+                {
+                  "val": "1",
+                  "offset": 13
+                },
+                {
+                  "val": "2",
+                  "offset": 18
+                }
+              ],
+              "location": "AdditionSteps.addTwoNumbers(int,int)"
+            },
+            "matchedColumns": [
+              0,
+              1
+            ],
+            "keyword": "Quand "
+          },
+          {
+            "result": {
+              "duration": 10819816,
+              "error_message": "java.lang.AssertionError: \nExpecting:\n \u003c3\u003e\nto be equal to:\n \u003c10\u003e\nbut was not.\n\tat io.zucchini.examples.glues.AdditionSteps.assertCalcul(AdditionSteps.java:20)\n\tat ✽.Alors j\u0027obtiens 10(test.feature:31)\n",
+              "status": "failed"
+            },
+            "comments": [
+              {
+                "line": 30,
+                "value": "# Pourriture"
+              }
+            ],
+            "line": 31,
+            "name": "j\u0027obtiens 10",
+            "match": {
+              "arguments": [
+                {
+                  "val": "10",
+                  "offset": 10
+                }
+              ],
+              "location": "AdditionSteps.assertCalcul(int)"
+            },
+            "matchedColumns": [
+              2
+            ],
+            "keyword": "Alors "
+          }
+        ],
+        "tags": [
+          {
+            "line": 4,
+            "name": "@titi"
+          },
+          {
+            "line": 27,
+            "name": "@tata"
+          },
+          {
+            "line": 3,
+            "name": "@toto"
+          },
+          {
+            "line": 5,
+            "name": "@tutu"
+          }
+        ]
+      }
+    ],
+    "name": "test",
+    "description": "\nAfin de tester Cucumber\nEn tant que développeur\nJe souhaite écrire des scénarios de tests",
+    "id": "test",
+    "keyword": "Fonctionnalité",
+    "uri": "test.feature",
+    "tags": [
+      {
+        "line": 3,
+        "name": "@toto"
+      },
+      {
+        "line": 4,
+        "name": "@titi"
+      },
+      {
+        "line": 5,
+        "name": "@tutu"
+      }
+    ]
+  },
+  {
+    "comments": [
+      {
+        "line": 1,
+        "value": "# language: fr"
+      }
+    ],
+    "line": 4,
+    "elements": [
+      {
+        "line": 7,
+        "name": "Toto",
+        "description": "",
+        "type": "background",
+        "keyword": "Contexte",
+        "steps": [
+          {
+            "result": {
+              "duration": 70664,
+              "status": "passed"
+            },
+            "comments": [
+              {
+                "line": 8,
+                "value": "# Init de contexte"
+              }
+            ],
+            "line": 9,
+            "name": "un contexte initialisé",
+            "match": {
+              "location": "ExampleSteps.initializedContext()"
+            },
+            "keyword": "Soit "
+          }
+        ]
+      },
+      {
+        "comments": [
+          {
+            "line": 11,
+            "value": "# Exemple de test qui ne marche pas"
+          }
+        ],
+        "before": [
+          {
+            "result": {
+              "duration": 217121,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logStartOfTest()"
+            }
+          },
+          {
+            "result": {
+              "duration": 134858,
+              "status": "passed"
+            },
+            "match": {
+              "location": "GrumpyCatSteps.setScenario(Scenario)"
+            }
+          }
+        ],
+        "line": 12,
+        "name": "Test gauffré",
+        "description": "",
+        "id": "test2;test-gauffré",
+        "after": [
+          {
+            "result": {
+              "duration": 26096,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logEndOfTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 412055,
+              "status": "passed"
+            },
+            "line": 13,
+            "name": "j\u0027additionne -1 et -1",
+            "match": {
+              "arguments": [
+                {
+                  "val": "-1",
+                  "offset": 13
+                },
+                {
+                  "val": "-1",
+                  "offset": 19
+                }
+              ],
+              "location": "AdditionSteps.addTwoNumbers(int,int)"
+            },
+            "keyword": "Quand "
+          },
+          {
+            "result": {
+              "duration": 1186549,
+              "error_message": "java.lang.AssertionError: \nExpecting:\n \u003c-2\u003e\nto be equal to:\n \u003c500\u003e\nbut was not.\n\tat io.zucchini.examples.glues.AdditionSteps.assertCalcul(AdditionSteps.java:20)\n\tat ✽.Alors j\u0027obtiens 500(test2.feature:15)\n",
+              "status": "failed"
+            },
+            "comments": [
+              {
+                "line": 14,
+                "value": "# Mauvais résultat"
+              }
+            ],
+            "line": 15,
+            "name": "j\u0027obtiens 500",
+            "match": {
+              "arguments": [
+                {
+                  "val": "500",
+                  "offset": 10
+                }
+              ],
+              "location": "AdditionSteps.assertCalcul(int)"
+            },
+            "keyword": "Alors "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 16,
+            "name": "j\u0027obtiens 600",
+            "match": {
+              "arguments": [
+                {
+                  "val": "600",
+                  "offset": 10
+                }
+              ],
+              "location": "AdditionSteps.assertCalcul(int)"
+            },
+            "keyword": "Et "
+          }
+        ]
+      },
+      {
+        "line": 7,
+        "name": "Toto",
+        "description": "",
+        "type": "background",
+        "keyword": "Contexte",
+        "steps": [
+          {
+            "result": {
+              "duration": 54121,
+              "status": "passed"
+            },
+            "comments": [
+              {
+                "line": 8,
+                "value": "# Init de contexte"
+              }
+            ],
+            "line": 9,
+            "name": "un contexte initialisé",
+            "match": {
+              "location": "ExampleSteps.initializedContext()"
+            },
+            "keyword": "Soit "
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 34333,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logStartOfTest()"
+            }
+          },
+          {
+            "result": {
+              "duration": 34088,
+              "status": "passed"
+            },
+            "match": {
+              "location": "GrumpyCatSteps.setScenario(Scenario)"
+            }
+          }
+        ],
+        "line": 18,
+        "name": "Test à la con",
+        "description": "",
+        "id": "test2;test-à-la-con",
+        "after": [
+          {
+            "result": {
+              "duration": 18724,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logEndOfTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 192374,
+              "status": "passed"
+            },
+            "line": 19,
+            "name": "j\u0027additionne -1 et 12",
+            "match": {
+              "arguments": [
+                {
+                  "val": "-1",
+                  "offset": 13
+                },
+                {
+                  "val": "12",
+                  "offset": 19
+                }
+              ],
+              "location": "AdditionSteps.addTwoNumbers(int,int)"
+            },
+            "keyword": "Quand "
+          },
+          {
+            "result": {
+              "duration": 107826,
+              "status": "passed"
+            },
+            "line": 20,
+            "name": "j\u0027obtiens 11",
+            "match": {
+              "arguments": [
+                {
+                  "val": "11",
+                  "offset": 10
+                }
+              ],
+              "location": "AdditionSteps.assertCalcul(int)"
+            },
+            "keyword": "Alors "
+          }
+        ]
+      },
+      {
+        "line": 7,
+        "name": "Toto",
+        "description": "",
+        "type": "background",
+        "keyword": "Contexte",
+        "steps": [
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "comments": [
+              {
+                "line": 8,
+                "value": "# Init de contexte"
+              }
+            ],
+            "line": 9,
+            "name": "un contexte initialisé",
+            "match": {
+              "location": "ExampleSteps.initializedContext()"
+            },
+            "keyword": "Soit "
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 39573,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logStartOfTest()"
+            }
+          },
+          {
+            "result": {
+              "duration": 1823886,
+              "error_message": "cucumber.api.PendingException: @wip test\n\tat io.zucchini.examples.glues.ExampleEnv.disableWipTests(ExampleEnv.java:25)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566)\n\tat cucumber.runtime.Utils$1.call(Utils.java:40)\n\tat cucumber.runtime.Timeout.timeout(Timeout.java:16)\n\tat cucumber.runtime.Utils.invoke(Utils.java:34)\n\tat cucumber.runtime.java.JavaHookDefinition.execute(JavaHookDefinition.java:60)\n\tat cucumber.runtime.Runtime.runHookIfTagsMatch(Runtime.java:224)\n\tat cucumber.runtime.Runtime.runHooks(Runtime.java:212)\n\tat cucumber.runtime.Runtime.runBeforeHooks(Runtime.java:202)\n\tat cucumber.runtime.model.CucumberScenario.run(CucumberScenario.java:40)\n\tat cucumber.runtime.model.CucumberFeature.run(CucumberFeature.java:165)\n\tat cucumber.runtime.Runtime.run(Runtime.java:122)\n\tat cucumber.api.cli.Main.run(Main.java:36)\n\tat cucumber.api.cli.Main.main(Main.java:18)\n",
+              "status": "pending"
+            },
+            "match": {
+              "location": "ExampleEnv.disableWipTests()"
+            }
+          },
+          {
+            "result": {
+              "duration": 51324,
+              "status": "passed"
+            },
+            "match": {
+              "location": "GrumpyCatSteps.setScenario(Scenario)"
+            }
+          }
+        ],
+        "line": 23,
+        "name": "En préparation",
+        "description": "",
+        "id": "test2;en-préparation",
+        "after": [
+          {
+            "result": {
+              "duration": 29964,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logEndOfTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scénario",
+        "steps": [
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 24,
+            "name": "j\u0027additionne -1 et 12",
+            "match": {
+              "arguments": [
+                {
+                  "val": "-1",
+                  "offset": 13
+                },
+                {
+                  "val": "12",
+                  "offset": 19
+                }
+              ],
+              "location": "AdditionSteps.addTwoNumbers(int,int)"
+            },
+            "keyword": "Quand "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 25,
+            "name": "j\u0027obtiens 11",
+            "match": {
+              "arguments": [
+                {
+                  "val": "11",
+                  "offset": 10
+                }
+              ],
+              "location": "AdditionSteps.assertCalcul(int)"
+            },
+            "keyword": "Alors "
+          }
+        ],
+        "tags": [
+          {
+            "line": 22,
+            "name": "@wip"
+          }
+        ]
+      },
+      {
+        "line": 7,
+        "name": "Toto",
+        "description": "",
+        "type": "background",
+        "keyword": "Contexte",
+        "steps": [
+          {
+            "result": {
+              "duration": 57740,
+              "status": "passed"
+            },
+            "comments": [
+              {
+                "line": 8,
+                "value": "# Init de contexte"
+              }
+            ],
+            "line": 9,
+            "name": "un contexte initialisé",
+            "match": {
+              "location": "ExampleSteps.initializedContext()"
+            },
+            "keyword": "Soit "
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 47642,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logStartOfTest()"
+            }
+          },
+          {
+            "result": {
+              "duration": 48387,
+              "status": "passed"
+            },
+            "match": {
+              "location": "GrumpyCatSteps.setScenario(Scenario)"
+            }
+          }
+        ],
+        "line": 27,
+        "name": "Non implémenté",
+        "description": "",
+        "id": "test2;non-implémenté",
+        "after": [
+          {
+            "result": {
+              "duration": 27285,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logEndOfTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scénario",
+        "steps": [
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "line": 28,
+            "name": "une tâche non implémentée",
+            "match": {},
+            "keyword": "Soit "
+          }
+        ]
+      },
+      {
+        "line": 7,
+        "name": "Toto",
+        "description": "",
+        "type": "background",
+        "keyword": "Contexte",
+        "steps": [
+          {
+            "result": {
+              "duration": 74491,
+              "status": "passed"
+            },
+            "comments": [
+              {
+                "line": 8,
+                "value": "# Init de contexte"
+              }
+            ],
+            "line": 9,
+            "name": "un contexte initialisé",
+            "match": {
+              "location": "ExampleSteps.initializedContext()"
+            },
+            "keyword": "Soit "
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 164476,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logStartOfTest()"
+            }
+          },
+          {
+            "result": {
+              "duration": 56201,
+              "status": "passed"
+            },
+            "match": {
+              "location": "GrumpyCatSteps.setScenario(Scenario)"
+            }
+          }
+        ],
+        "line": 30,
+        "name": "En attente",
+        "description": "",
+        "id": "test2;en-attente",
+        "after": [
+          {
+            "result": {
+              "duration": 77199,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logEndOfTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 251067,
+              "error_message": "cucumber.api.PendingException: TODO: implement me\n\tat io.zucchini.examples.glues.ExampleSteps.pendingTask(ExampleSteps.java:18)\n\tat ✽.Soit une tâche en attente(test2.feature:31)\n",
+              "status": "pending"
+            },
+            "line": 31,
+            "name": "une tâche en attente",
+            "match": {
+              "location": "ExampleSteps.pendingTask()"
+            },
+            "keyword": "Soit "
+          }
+        ]
+      }
+    ],
+    "name": "test2",
+    "description": "Je souhaite écrire des scénarios de tests",
+    "id": "test2",
+    "keyword": "Fonctionnalité",
+    "uri": "test2.feature",
+    "tags": [
+      {
+        "line": 3,
+        "name": "@toto"
+      }
+    ]
+  },
+  {
+    "comments": [
+      {
+        "line": 1,
+        "value": "# language: fr"
+      }
+    ],
+    "line": 3,
+    "elements": [
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 41885,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logStartOfTest()"
+            }
+          },
+          {
+            "result": {
+              "duration": 45523,
+              "status": "passed"
+            },
+            "match": {
+              "location": "GrumpyCatSteps.setScenario(Scenario)"
+            }
+          }
+        ],
+        "line": 14,
+        "name": "Troisième test : additionner 5 et 8",
+        "description": "",
+        "id": "test3;troisième-test-:-additionner-\u003ca\u003e-et-\u003cb\u003e;;2",
+        "after": [
+          {
+            "result": {
+              "duration": 107083,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logEndOfTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Plan du scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 227392,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "j\u0027additionne 5 et 8",
+            "match": {
+              "arguments": [
+                {
+                  "val": "5",
+                  "offset": 13
+                },
+                {
+                  "val": "8",
+                  "offset": 18
+                }
+              ],
+              "location": "AdditionSteps.addTwoNumbers(int,int)"
+            },
+            "matchedColumns": [
+              0,
+              1
+            ],
+            "keyword": "Quand "
+          },
+          {
+            "result": {
+              "duration": 161604,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "j\u0027obtiens 13",
+            "match": {
+              "arguments": [
+                {
+                  "val": "13",
+                  "offset": 10
+                }
+              ],
+              "location": "AdditionSteps.assertCalcul(int)"
+            },
+            "matchedColumns": [
+              2
+            ],
+            "keyword": "Alors "
+          }
+        ],
+        "tags": [
+          {
+            "line": 7,
+            "name": "@toto"
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 147214,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logStartOfTest()"
+            }
+          },
+          {
+            "result": {
+              "duration": 212828,
+              "status": "passed"
+            },
+            "match": {
+              "location": "GrumpyCatSteps.setScenario(Scenario)"
+            }
+          }
+        ],
+        "line": 15,
+        "name": "Troisième test : additionner 104 et -6",
+        "description": "",
+        "id": "test3;troisième-test-:-additionner-\u003ca\u003e-et-\u003cb\u003e;;3",
+        "after": [
+          {
+            "result": {
+              "duration": 20640,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logEndOfTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Plan du scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 233569,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "j\u0027additionne 104 et -6",
+            "match": {
+              "arguments": [
+                {
+                  "val": "104",
+                  "offset": 13
+                },
+                {
+                  "val": "-6",
+                  "offset": 20
+                }
+              ],
+              "location": "AdditionSteps.addTwoNumbers(int,int)"
+            },
+            "matchedColumns": [
+              0,
+              1
+            ],
+            "keyword": "Quand "
+          },
+          {
+            "result": {
+              "duration": 135666,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "j\u0027obtiens 98",
+            "match": {
+              "arguments": [
+                {
+                  "val": "98",
+                  "offset": 10
+                }
+              ],
+              "location": "AdditionSteps.assertCalcul(int)"
+            },
+            "matchedColumns": [
+              2
+            ],
+            "keyword": "Alors "
+          }
+        ],
+        "tags": [
+          {
+            "line": 7,
+            "name": "@toto"
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 46453,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logStartOfTest()"
+            }
+          },
+          {
+            "result": {
+              "duration": 41779,
+              "status": "passed"
+            },
+            "match": {
+              "location": "GrumpyCatSteps.setScenario(Scenario)"
+            }
+          }
+        ],
+        "line": 16,
+        "name": "Troisième test : additionner 1 et 2",
+        "description": "",
+        "id": "test3;troisième-test-:-additionner-\u003ca\u003e-et-\u003cb\u003e;;4",
+        "after": [
+          {
+            "result": {
+              "duration": 27516,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logEndOfTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Plan du scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 446822,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "j\u0027additionne 1 et 2",
+            "match": {
+              "arguments": [
+                {
+                  "val": "1",
+                  "offset": 13
+                },
+                {
+                  "val": "2",
+                  "offset": 18
+                }
+              ],
+              "location": "AdditionSteps.addTwoNumbers(int,int)"
+            },
+            "matchedColumns": [
+              0,
+              1
+            ],
+            "keyword": "Quand "
+          },
+          {
+            "result": {
+              "duration": 960657,
+              "error_message": "java.lang.AssertionError: \nExpecting:\n \u003c3\u003e\nto be equal to:\n \u003c10\u003e\nbut was not.\n\tat io.zucchini.examples.glues.AdditionSteps.assertCalcul(AdditionSteps.java:20)\n\tat ✽.Alors j\u0027obtiens 10(test3.feature:10)\n",
+              "status": "failed"
+            },
+            "line": 10,
+            "name": "j\u0027obtiens 10",
+            "match": {
+              "arguments": [
+                {
+                  "val": "10",
+                  "offset": 10
+                }
+              ],
+              "location": "AdditionSteps.assertCalcul(int)"
+            },
+            "matchedColumns": [
+              2
+            ],
+            "keyword": "Alors "
+          }
+        ],
+        "tags": [
+          {
+            "line": 7,
+            "name": "@toto"
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 51102,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logStartOfTest()"
+            }
+          },
+          {
+            "result": {
+              "duration": 49449,
+              "status": "passed"
+            },
+            "match": {
+              "location": "GrumpyCatSteps.setScenario(Scenario)"
+            }
+          }
+        ],
+        "line": 17,
+        "name": "Troisième test : additionner 8 et 9",
+        "description": "",
+        "id": "test3;troisième-test-:-additionner-\u003ca\u003e-et-\u003cb\u003e;;5",
+        "after": [
+          {
+            "result": {
+              "duration": 25255,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logEndOfTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Plan du scénario",
+        "steps": [
+          {
+            "result": {
+              "duration": 199039,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "j\u0027additionne 8 et 9",
+            "match": {
+              "arguments": [
+                {
+                  "val": "8",
+                  "offset": 13
+                },
+                {
+                  "val": "9",
+                  "offset": 18
+                }
+              ],
+              "location": "AdditionSteps.addTwoNumbers(int,int)"
+            },
+            "matchedColumns": [
+              0,
+              1
+            ],
+            "keyword": "Quand "
+          },
+          {
+            "result": {
+              "duration": 1024548,
+              "error_message": "java.lang.AssertionError: \nExpecting:\n \u003c17\u003e\nto be equal to:\n \u003c10\u003e\nbut was not.\n\tat io.zucchini.examples.glues.AdditionSteps.assertCalcul(AdditionSteps.java:20)\n\tat ✽.Alors j\u0027obtiens 10(test3.feature:10)\n",
+              "status": "failed"
+            },
+            "line": 10,
+            "name": "j\u0027obtiens 10",
+            "match": {
+              "arguments": [
+                {
+                  "val": "10",
+                  "offset": 10
+                }
+              ],
+              "location": "AdditionSteps.assertCalcul(int)"
+            },
+            "matchedColumns": [
+              2
+            ],
+            "keyword": "Alors "
+          }
+        ],
+        "tags": [
+          {
+            "line": 7,
+            "name": "@toto"
+          }
+        ]
+      }
+    ],
+    "name": "test3",
+    "description": "\nExemple de test",
+    "id": "test3",
+    "keyword": "Fonctionnalité",
+    "uri": "test3.feature"
+  },
+  {
+    "comments": [
+      {
+        "line": 1,
+        "value": "# language: fr"
+      }
+    ],
+    "line": 3,
+    "elements": [
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 39193,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logStartOfTest()"
+            }
+          },
+          {
+            "result": {
+              "duration": 41817,
+              "status": "passed"
+            },
+            "match": {
+              "location": "GrumpyCatSteps.setScenario(Scenario)"
+            }
+          }
+        ],
+        "line": 7,
+        "name": "Grumpy cat",
+        "description": "",
+        "id": "test4;grumpy-cat",
+        "after": [
+          {
+            "result": {
+              "duration": 23569,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ExampleEnv.logEndOfTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scénario",
+        "steps": [
+          {
+            "embeddings": [
+              {
+                "data": "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vmxqzlP8EiZV8Mjm5llhHVCRojbmE4bMeuup7sJCci0zRictmKrxFSUNNERYU8IRVZGthh7jS+ny8X/b/FXXB97D2hImXViSw0OkcTZE4E8DFoNHbfl8xxzDDYmZVbakciYmxd7j7gXvBxOmEuMClPJto2QTaAWwxycW7GghDGlt38oehvgjnrQf1FINk1iTE7Nb0zIwMjSNWdRqEMfWVvTqIUFqdwPRpnICn+g/jdW+C3zCc1Ezo+KFIAEUyRM6uqEOrZmxE7PmhByvqTWOpF6nDU3aacFyIqNFz3DGOUqIWasbGm8+ATV6EPgdT4PudxeYc2OiBe4IlhRUx3DXhy1QJG8hUE04Yl0+g3TJ7K7LoEKMTfbeINCF4VRCVSdExMToQhUkYlAlNBI1MMVGyToTFPodxeZI3JAgh3AjqcjsZJtNlgZhbQVJoKRMXsxJkgTumI2SMEZWv4o6eBCF4FRCyKiohIQqo0EbiVFKMZYJjolWonc+l383RCW9N02Bron1H8mQF7i8mC5cjQCn2DRUN2th9hOAGcqEi1m85o6LyVTIqISokRsLwq4gglsJCqx5qMTcTRlv6vzpiMhGYw7zDNPDHamGeRjPIM9RkAz05rw8x0etDF4EIQhYFkQsDFigsCoVFhC0oxMQhCzR6mhqFSQaCH2O/i//2gAMAwEAAgADAAAAEPPKHmAuHPrP8P8Aznz+Fv8AF+92/wD/AP2H349R/wC58888s30vmx8+wUeQhSxy933c1xLHujDjC9AilJ88884+MkME08A6f5EEBYosYo8Uk8q8s8YIUunc888880Jke88cAD/U88c84o8r8co80s084058f788888wlqP08cUh9ac8w884gZ8UU4U8Js+zB51p88884lebPhTciqjFcM7CseETPlCOad4Bc1hFVb8888otMfzs/wDcj+mPNmsL2/8At7j4627fvfbxS+nzzzyjVZ599z3169WbXswbhiC36J7SbPAfmT++Tzzzyg57+Lp638H3R/WjTFMmP89aiJvyXkPz+4nzzzyiC1T0353n418Nv1qbz7np/n4X/jA5Iz963zzzyhx3znfqE0bZYn2gx/3eiWiPkZfBS2b3753zzzzyfONWUw4/XxuS2Gtb/WyTV936QzqTr3rL/wA88889P9snk9xtF5iF/wAeSPPjvqZ9ZDNvLSeY1/PP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\u003d\u003d",
+                "mime_type": "image/jpeg"
+              }
+            ],
+            "result": {
+              "duration": 43866135,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "j\u0027affiche l\u0027image de Grumpy Cat",
+            "match": {
+              "location": "GrumpyCatSteps.displayGrumpyCat()"
+            },
+            "keyword": "Quand "
+          },
+          {
+            "result": {
+              "duration": 44185,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "je suis de mauvaise humeur",
+            "match": {
+              "location": "GrumpyCatSteps.assertBadMood()"
+            },
+            "keyword": "Alors "
+          }
+        ]
+      }
+    ],
+    "name": "test4",
+    "description": "\nJe veux afficher les pièces jointes à mes étapes de scénario",
+    "id": "test4",
+    "keyword": "Fonctionnalité",
+    "uri": "test4.feature"
+  }
+]

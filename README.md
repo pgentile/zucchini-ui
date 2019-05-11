@@ -22,7 +22,7 @@ Requirements
 ### Development
 
 * JDK 8
-* [Node](https://nodejs.org) >= 8.0.0
+* [Node](https://nodejs.org) >= 10.0.0
 * [Yarn](https://yarnpkg.com)
 
 Zucchini is built with [Gradle](https://gradle.org/). The Gradle wrapper is provided, no extra download is required.
@@ -152,6 +152,18 @@ docker-compose up
 ```
 
 You can find some pre-built images in [Docker Hub](https://hub.docker.com/r/pgentile/zucchini-ui).
+
+
+Cypress E2E tests
+-----------------
+
+You can launch some E2E Cypress tests:
+
+```
+(cd zucchini-ui-e2e-tests && yarn cypress:open)
+```
+
+This test suite is useful to validate basic Zucchini functionalities.
 
 
 Configuration

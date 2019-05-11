@@ -1,0 +1,12 @@
+{
+  "name": "zucchini-ui-e2e-tests",
+  "private": true,
+  "dependencies": {
+    "cypress": "^3.2.0",
+    "cypress-file-upload": "^3.1.1"
+  },
+  "scripts": {
+    "test": "cypress run",
+    "cypress:open": "cypress open"
+  }
+}

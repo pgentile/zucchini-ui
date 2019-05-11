@@ -372,3 +372,12 @@ project("${rootProject.name}-mongo") {
     }
 
 }
+
+
+project("${rootProject.name}-e2e-tests") {
+
+    task jsTest(type: YarnTask, description: 'Test E2E') {
+        command = 'test'
+    }
+
+}
