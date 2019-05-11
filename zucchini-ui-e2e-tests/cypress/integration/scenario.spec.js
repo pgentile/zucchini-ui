@@ -21,7 +21,7 @@ describe("Scenario", () => {
     cy.get("@scenario").then(scenarios => {
       cy.get("h1")
         .should("contain", scenarios.info.keyword)
-        .should("contain", scenarios.info.name);
+        .and("contain", scenarios.info.name);
     });
 
     cy.get("h1 .label").should("have.text", "Succès");

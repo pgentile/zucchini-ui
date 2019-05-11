@@ -17,7 +17,7 @@ describe("Feature", () => {
     cy.get("@feature").then(feature => {
       cy.get("h1")
         .should("contain", feature.info.keyword)
-        .should("contain", feature.info.name);
+        .and("contain", feature.info.name);
     });
   });
 });

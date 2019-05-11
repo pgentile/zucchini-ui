@@ -20,7 +20,8 @@ Cypress.Commands.add("importCucumberReport", ({ testRunId, content }) => {
     .request("POST", `/api/testRuns/${testRunId}/import`, content)
     .should(xhr => {
       expect(xhr.isOkStatusCode).to.be.true;
-    });
+    })
+    .end();
 });
 
 Cypress.Commands.add("createFilledTestRun", ({ type, environment, name } = {}) => {
