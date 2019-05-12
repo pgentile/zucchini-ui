@@ -19,7 +19,7 @@ plugins {
     id 'com.google.osdetector' version '1.4.0' apply false
     id 'org.ajoberstar.grgit' version '2.3.0' apply false
     id 'com.github.spotbugs' version '1.6.5' apply false
-    id 'com.github.johnrengelman.shadow' version '4.0.2' apply false
+    id 'com.github.johnrengelman.shadow' version '5.0.0' apply false
 }
 
 /**
@@ -289,15 +289,30 @@ project("${rootProject.name}-app") {
 
     }
 
-    shadowJar {
-        mergeServiceFiles()
-    }
-
     runShadow {
         args 'server', "${rootDir}/server-config.yml"
     }
 
-    tasks.assemble.dependsOn shadowJar
+    configurations {
+        runtimeWithoutZucchini {
+            extendsFrom(configurations.runtime)
+            exclude(group: "${rootProject.group}")
+        }
+    }
+
+    task copyRuntimeLibs(type: Copy) {
+
+        into "${project.buildDir}/libs/dependencies"
+        from configurations.runtimeWithoutZucchini
+    }
+
+    task copyZucchiniLibs(type: Copy) {
+
+        into "${project.buildDir}/libs/z"
+        from configurations.runtime.filter { it.name.startsWith("zucchini-ui" )}
+    }
+
+   tasks.assemble.dependsOn shadowJar
 
     docker {
         name = rootProject.name
@@ -305,7 +320,7 @@ project("${rootProject.name}-app") {
     }
 
     dockerBuild {
-        buildArg 'ZUCCHINI_VERSION': project.version
+        buildArg 'ZUCCHINI_VERSION': "${project.version}"
     }
 
 }
