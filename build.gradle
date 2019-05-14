@@ -15,11 +15,11 @@ buildscript {
 }
 
 plugins {
-    id 'com.github.ben-manes.versions' version '0.20.0' apply false
-    id 'com.google.osdetector' version '1.4.0' apply false
-    id 'org.ajoberstar.grgit' version '2.3.0' apply false
-    id 'com.github.spotbugs' version '1.6.5' apply false
-    id 'com.github.johnrengelman.shadow' version '4.0.2' apply false
+    id 'com.github.ben-manes.versions' version '0.20.0'
+    id 'com.google.osdetector' version '1.6.2'
+    id 'org.ajoberstar.grgit' version '3.1.1'
+    id 'com.github.spotbugs' version '1.7.1' apply false
+    id 'com.github.johnrengelman.shadow' version '5.0.0' apply false
 }
 
 /**
@@ -41,9 +41,9 @@ allprojects {
     group = 'io.zucchini-ui'
 
     apply plugin: 'idea'
-    apply plugin: 'org.ajoberstar.grgit'
     apply plugin: DockerPlugin
     apply plugin: NodePlugin
+    apply plugin: 'com.github.ben-manes.versions'
 
     repositories {
         mavenLocal()
@@ -71,7 +71,7 @@ allprojects {
 
     // Plugins to use with the java plugin
 
-    project.afterEvaluate {
+    afterEvaluate {
 
         if (project.pluginManager.hasPlugin('java')) {
 
@@ -88,26 +88,6 @@ allprojects {
             // Maven plugin
 
             project.apply plugin: 'maven'
-
-            // Versions plugin
-
-            project.apply plugin: 'com.github.ben-manes.versions'
-
-            project.dependencyUpdates.resolutionStrategy = {
-
-                // Remove milestones, release candidates, etc from dependency updates check
-                componentSelection { rules ->
-                    rules.all { ComponentSelection selection ->
-                        boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm'].any { qualifier ->
-                            selection.candidate.version ==~ /(?i).*-${qualifier}.*/
-                        }
-                        if (rejected) {
-                            selection.reject('Release candidate')
-                        }
-                    }
-                }
-
-            }
 
             // PMD plugin
 
@@ -126,7 +106,7 @@ allprojects {
 
             // Spotbugs plugin
             // Only on JDK < 11
-            if (JavaVersion.current() < JavaVersion.VERSION_11) {
+            if (JavaVersion.current() < JavaVersion.VERSION_12) {
                 project.apply plugin: 'com.github.spotbugs'
 
                 project.spotbugs {
@@ -144,24 +124,6 @@ allprojects {
 
         }
 
-        project.configurations.all {
-
-            resolutionStrategy {
-
-                // Replace commons logging by slf4j, if present
-                dependencySubstitution {
-                    substitute module('commons-logging:commons-logging') with module('org.slf4j:jcl-over-slf4j:1.7.26')
-                }
-
-                // Override some dependency versions
-                eachDependency { DependencyResolveDetails details ->
-                    replaceDependencyGroupVersion(details, 'org.slf4j', '1.7.26')
-                }
-
-            }
-
-        }
-
         // Shared Java compiler config
         project.tasks.withType(JavaCompile) {
 
@@ -175,6 +137,39 @@ allprojects {
         }
 
     }
+
+    configurations.all {
+
+        resolutionStrategy {
+
+            // Replace commons logging by slf4j, if present
+            dependencySubstitution {
+                substitute module('commons-logging:commons-logging') with module('org.slf4j:jcl-over-slf4j:1.7.26')
+            }
+
+            // Override some dependency versions
+            eachDependency { DependencyResolveDetails details ->
+                replaceDependencyGroupVersion(details, 'org.slf4j', '1.7.26')
+            }
+
+        }
+
+    }
+
+    // Remove milestones, release candidates, etc from dependency updates check
+    dependencyUpdates.resolutionStrategy = {
+        componentSelection { rules ->
+            rules.all { ComponentSelection selection ->
+                boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm'].any { qualifier ->
+                    selection.candidate.version ==~ /(?i).*-${qualifier}.*/
+                }
+                if (rejected) {
+                    selection.reject('Release candidate')
+                }
+            }
+        }
+    }
+
 
 }
 
@@ -289,15 +284,11 @@ project("${rootProject.name}-app") {
 
     }
 
-    shadowJar {
-        mergeServiceFiles()
-    }
-
     runShadow {
         args 'server', "${rootDir}/server-config.yml"
     }
 
-    tasks.assemble.dependsOn shadowJar
+   tasks.assemble.dependsOn shadowJar
 
     docker {
         name = rootProject.name
@@ -305,7 +296,7 @@ project("${rootProject.name}-app") {
     }
 
     dockerBuild {
-        buildArg 'ZUCCHINI_VERSION': project.version
+        buildArg 'ZUCCHINI_VERSION': "${project.version}"
     }
 
 }

@@ -22,7 +22,7 @@ Requirements
 ### Development
 
 * JDK 8
-* [Node](https://nodejs.org) >= 10.0.0
+* [Node](https://nodejs.org) 10
 * [Yarn](https://yarnpkg.com)
 
 Zucchini is built with [Gradle](https://gradle.org/). The Gradle wrapper is provided, no extra download is required.
@@ -121,11 +121,11 @@ You can run it with the following Gradle command:
 ./gradlew runShadow
 ```
 
-The fat JAR is named `zucchini-ui-app-VERSION.jar`. You will find it in `zucchini-ui-app/build/install/zucchini-ui-app-shadow/lib`
+The fat JAR is named `zucchini-ui-app-VERSION-all.jar`. You will find it in `zucchini-ui-app/build/libs`.
 Run it with this command:
 
 ```
-java -jar zucchini-ui-app-VERSION.jar server CONFIG.yml
+java -jar zucchini-ui-app-VERSION-all.jar server CONFIG.yml
 ```
 
 Don't forget to init your Mongo database !
