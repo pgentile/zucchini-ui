@@ -288,25 +288,6 @@ project("${rootProject.name}-app") {
         args 'server', "${rootDir}/server-config.yml"
     }
 
-    configurations {
-        runtimeWithoutZucchini {
-            extendsFrom(configurations.runtime)
-            exclude(group: "${rootProject.group}")
-        }
-    }
-
-    task copyRuntimeLibs(type: Copy) {
-
-        into "${project.buildDir}/libs/dependencies"
-        from configurations.runtimeWithoutZucchini
-    }
-
-    task copyZucchiniLibs(type: Copy) {
-
-        into "${project.buildDir}/libs/z"
-        from configurations.runtime.filter { it.name.startsWith("zucchini-ui" )}
-    }
-
    tasks.assemble.dependsOn shadowJar
 
     docker {
