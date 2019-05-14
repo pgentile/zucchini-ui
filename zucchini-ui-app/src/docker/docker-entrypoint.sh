@@ -7,5 +7,5 @@ exec java \
   -showversion \
   -XX:-UseContainerSupport \
   -Djava.awt.headless=true \
-  -jar /zucchini-ui/zucchini-ui-app-${ZUCCHINI_VERSION}.jar \
+  -jar /zucchini-ui/zucchini-ui-app-${ZUCCHINI_VERSION}-all.jar \
   "$@"
