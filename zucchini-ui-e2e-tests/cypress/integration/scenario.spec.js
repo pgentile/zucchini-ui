@@ -49,12 +49,15 @@ describe("Scenario", () => {
     cy.get("button").contains("Modifier le statut").click();
 
     cy.get("[role=dialog]").within(() => {
+      cy.get("label").contains("Scénario analysé ?").find("input").should("be.checked");
+
       cy.get("label").contains("Échec").click();
 
       cy.get("textarea#comment").type("Ca ne marche pas. Encore un bug, dis donc");
       cy.get("button").contains("Valider").click();
     });
 
-    cy.get("h1 .label").should("have.text", "Échec");
+    cy.get("h1 .label").contains("Échec").should("exist");
+    cy.get("button").contains("Marquer comme non analysé").should("exist");
   });
 });
