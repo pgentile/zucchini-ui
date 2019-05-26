@@ -21,7 +21,7 @@ class DockerComposeUpTask extends DefaultTask {
         List<String> args = ['docker-compose', 'up']
 
         if (detach) {
-            args << "--detach"
+            args << "-d"
         }
 
         project.logger.info('Executing Docker build with arguments: {}', args)
