@@ -299,6 +299,11 @@ project("${rootProject.name}-app") {
         buildArg 'ZUCCHINI_VERSION': "${project.version}"
     }
 
+    dockerComposeUp {
+        detach = true
+        environment 'ZUCCHINI_VERSION': "${project.version}"
+    }
+
 }
 
 

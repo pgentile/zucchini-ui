@@ -19,11 +19,18 @@ class DockerPlugin implements Plugin<Project> {
         File dockerfile = project.file('Dockerfile')
         if (dockerfile.isFile()) {
             project.logger.debug('Dockerfile detected in project {} at {}, adding Docker tasks', project.name, dockerfile)
-            initTasks(project)
+            initDockerTasks(project)
+        }
+
+        // Add Docker Compose tasks if docker-compose.yml exists
+        File dockerComposeFile = project.file("docker-compose.yml")
+        if (dockerComposeFile.isFile()) {
+            project.logger.debug('Docker Compose detected in project {} at {}, adding Docker Compose tasks', project.name, dockerComposeFile)
+            initDockerComposeTasks(project)
         }
     }
 
-    private static void initTasks(Project project) {
+    private static void initDockerTasks(Project project) {
         Task buildTask = project.task(
             'dockerBuild',
             type: DockerBuildTask,
@@ -53,6 +60,15 @@ class DockerPlugin implements Plugin<Project> {
             }
 
         }
+    }
+
+    private static void initDockerComposeTasks(Project project) {
+        project.task(
+            'dockerComposeUp',
+            type: DockerComposeUpTask,
+            group: TASK_GROUP,
+            description: 'Docker Compose up'
+        )
     }
 
 }
