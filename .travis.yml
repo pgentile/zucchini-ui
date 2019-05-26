@@ -5,6 +5,13 @@ sudo: required
 services:
   - docker
 
+addons:
+  apt:
+    packages:
+      # Cypress integration with Travis : https://docs.cypress.io/guides/guides/continuous-integration.html#Travis
+      # Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
+      - libgconf-2-4
+
 jdk:
   - oraclejdk8
   - openjdk11
@@ -27,6 +34,9 @@ install:
 script:
   - ./gradlew check
   - ./gradlew runCucumber dryRunCucumber
+  - ./gradlew dockerBuild
+  - ./gradlew dockerComposeUp
+  - "(cd zucchini-ui-e2e-tests && yarn test)"
 
 after_success:
   # Build, then push image to Docker
