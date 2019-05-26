@@ -46,6 +46,8 @@ describe("Scenario", () => {
   });
 
   it("should change scenario status", () => {
+    cy.route("GET", "/api/scenarii/*").as("scenarioRefresh");
+
     cy.get("button").contains("Modifier le statut").click();
 
     cy.get("[role=dialog]").within(() => {
@@ -56,6 +58,8 @@ describe("Scenario", () => {
       cy.get("textarea#comment").type("Ca ne marche pas. Encore un bug, dis donc");
       cy.get("button").contains("Valider").click();
     });
+
+    cy.wait("@scenarioRefresh");
 
     cy.get("h1 .label").contains("Échec").should("exist");
     cy.get("button").contains("Marquer comme non analysé").should("exist");
