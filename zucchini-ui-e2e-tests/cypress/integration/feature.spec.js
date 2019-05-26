@@ -20,4 +20,18 @@ describe("Feature", () => {
         .and("contain", feature.info.name);
     });
   });
+
+  it("should delete a feature", () => {
+    cy.route("DELETE", "/api/features/*").as("deleteFeature");
+
+    cy.get("button").contains("Supprimer").click();
+
+    cy.get("[role=dialog]").within(() => {
+      cy.get("button").contains("Supprimer").click();
+    });
+
+    cy.wait("@deleteFeature");
+
+    cy.location("pathname").should("satisfy", url => url.startsWith("/ui/test-runs/"));
+  });
 });

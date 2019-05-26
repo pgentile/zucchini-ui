@@ -64,4 +64,18 @@ describe("Scenario", () => {
     cy.get("h1 .label").contains("Échec").should("exist");
     cy.get("button").contains("Marquer comme non analysé").should("exist");
   });
+
+  it("should delete a scenario", () => {
+    cy.route("DELETE", "/api/scenarii/*").as("deleteScenario");
+
+    cy.get("button").contains("Supprimer").click();
+
+    cy.get("[role=dialog]").within(() => {
+      cy.get("button").contains("Supprimer").click();
+    });
+
+    cy.wait("@deleteScenario");
+
+    cy.location("pathname").should("satisfy", url => url.startsWith("/ui/features/"));
+  });
 });

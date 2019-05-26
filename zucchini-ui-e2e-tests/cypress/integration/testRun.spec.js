@@ -49,4 +49,18 @@ describe("Test run", () => {
       cy.get("tbody").find("tr").should("have.length.greaterThan", 0);
     });
   });
+
+  it("should delete a test run", () => {
+    cy.route("DELETE", "/api/testRuns/*").as("deleteTestRun");
+
+    cy.get("button").contains("Supprimer").click();
+
+    cy.get("[role=dialog]").within(() => {
+      cy.get("button").contains("Supprimer").click();
+    });
+
+    cy.wait("@deleteTestRun");
+
+    cy.location("pathname").should("equal", "/ui/");
+  });
 });
