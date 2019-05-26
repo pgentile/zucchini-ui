@@ -57,5 +57,6 @@ before_cache:
 cache:
   yarn: true
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+    - ~/.gradle/caches/
+    - ~/.gradle/wrapper/
+    - ~/.cache
