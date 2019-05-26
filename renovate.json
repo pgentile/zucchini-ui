@@ -1,10 +1,10 @@
 {
   "extends": [
     "config:base",
-    ":preserveSemverRanges",
     ":disableRateLimiting"
   ],
   "gradle": {
     "enabled": true
-  }
+  },
+  "rangeStrategy": "update-lockfile"
 }
