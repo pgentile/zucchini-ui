@@ -1,5 +1,3 @@
-import { isFSA } from "flux-standard-action";
-
 // Actions
 
 const PREFIX = "ERRORS";
@@ -21,7 +19,7 @@ const initialState = {
 };
 
 export function errors(state = initialState, action) {
-  if (isFSA(action) && action.error) {
+  if (action && action.error) {
     return {
       ...state,
       errors: [...state.errors, `${action.payload}`]
