@@ -15,12 +15,9 @@ const config = require("./config.json");
 const baseUiPath = config.ui.basename;
 
 module.exports = {
-  entry: [
-    "./src/main.js",
-    "./src/styles/main.less",
-    "bootstrap/dist/css/bootstrap.css",
-    "chartist/dist/chartist.min.css"
-  ],
+  entry: {
+    main: "./src/main.js"
+  },
   resolve: {
     modules: [path.join(__dirname, "src"), "node_modules"],
     extensions: [".js", ".jsx", ".less", ".css"]
@@ -62,12 +59,6 @@ module.exports = {
         use: ["babel-loader?cacheDirectory"]
       },
       {
-        // Modules distributed as to transpile with Babel
-        test: /\.jsx?$/,
-        include: /node_modules[/\\](query-string|strict-uri-encode)/,
-        use: ["babel-loader?cacheDirectory"]
-      },
-      {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, "css-loader?sourceMap", "postcss-loader?sourceMap"]
       },
@@ -87,20 +78,7 @@ module.exports = {
       new OptimizeCSSAssetsPlugin({})
     ],
     splitChunks: {
-      cacheGroups: {
-        vendors: {
-          name: "vendor",
-          chunks: "all",
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10
-        },
-        default: {
-          name: "main",
-          chunks: "all",
-          priority: -20,
-          reuseExistingChunk: true
-        }
-      }
+      chunks: "all"
     }
   },
   plugins: [
