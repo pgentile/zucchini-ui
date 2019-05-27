@@ -11,6 +11,3 @@ mongoUri: "mongodb://${MONGO_HOST:-localhost}/${MONGO-DB:-zucchini}?connectTimeo
 
 logging:
   level: INFO
-
-frontend:
-  testRunPurgeDelayInDays: 60

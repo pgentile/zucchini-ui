@@ -6,6 +6,7 @@ import io.dropwizard.servlets.assets.AssetServlet;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.zucchiniui.backend.BackendBundle;
+import io.zucchiniui.backend.BackendConfiguration;
 import io.zucchiniui.backend.support.exceptionhandler.ExitExceptionHandler;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -14,7 +15,7 @@ import javax.servlet.DispatcherType;
 import java.nio.charset.StandardCharsets;
 import java.util.EnumSet;
 
-public class ZucchiniUIApplication extends Application<ZucchiniUIConfiguration> {
+public class ZucchiniUIApplication extends Application<BackendConfiguration> {
 
     private static final String BASE_PATH = "/ui";
 
@@ -25,17 +26,13 @@ public class ZucchiniUIApplication extends Application<ZucchiniUIConfiguration> 
     }
 
     @Override
-    public void initialize(final Bootstrap<ZucchiniUIConfiguration> bootstrap) {
+    public void initialize(final Bootstrap<BackendConfiguration> bootstrap) {
         bootstrap.addBundle(new BackendBundle());
         bootstrap.addBundle(new AssetsBundle("/ui", BASE_PATH, "index.html", "ui-assets"));
     }
 
     @Override
-    public void run(final ZucchiniUIConfiguration configuration, final Environment environment) throws Exception {
-        // Register the servlet that generates the UI Javascript config file
-        final ServletHolder uiConfigServletHolder = new ServletHolder(new UIConfigServlet(configuration.getFrontend(), environment.getObjectMapper(), BASE_PATH));
-        environment.getApplicationContext().addServlet(uiConfigServletHolder, BASE_PATH + "/assets/config.js");
-
+    public void run(final BackendConfiguration configuration, final Environment environment) {
         // Redirect to UI
         final ServletHolder redirectServletHolder = new ServletHolder(new RedirectServlet(BASE_PATH + "/"));
         environment.getApplicationContext().addServlet(redirectServletHolder, "");

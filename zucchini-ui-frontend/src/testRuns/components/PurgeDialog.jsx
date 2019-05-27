@@ -19,14 +19,19 @@ export default class PurgeDialog extends React.PureComponent {
     show: PropTypes.bool.isRequired,
     testRunTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
     testRuns: PropTypes.array.isRequired,
+    purgeDelayInDays: PropTypes.number,
     onClose: PropTypes.func.isRequired,
     onPurge: PropTypes.func.isRequired
+  };
+
+  static defaultProps = {
+    purgeDelayInDays: 90
   };
 
   constructor(props) {
     super(props);
 
-    const maxDate = subDays(new Date(), configuration.testRunPurgeDelayInDays);
+    const maxDate = subDays(new Date(), props.purgeDelayInDays);
 
     const type = props.currentSelectedType || "";
     this.state = {

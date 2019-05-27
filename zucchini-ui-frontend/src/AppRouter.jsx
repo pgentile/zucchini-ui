@@ -24,7 +24,7 @@ export default function AppRouter() {
   return (
     <StrictMode>
       <Provider store={store}>
-        <BrowserRouter basename={configuration.basename}>
+        <BrowserRouter basename="/ui">
           <RootPage>
             <ScrollToTop />
             <Suspense fallback={<div>Loading...</div>}>

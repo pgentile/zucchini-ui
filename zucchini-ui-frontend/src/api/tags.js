@@ -1,8 +1,8 @@
 import Client from "./Client";
 
 class TagsApi {
-  constructor(baseUri) {
-    this.client = new Client(`${baseUri}/api/scenarii/tags`);
+  constructor() {
+    this.client = new Client("/api/scenarii/tags");
   }
 
   getTags({ testRunId }) {
@@ -14,6 +14,6 @@ class TagsApi {
   }
 }
 
-const tags = new TagsApi(configuration.backendBaseUri);
+const tags = new TagsApi();
 
 export default tags;
