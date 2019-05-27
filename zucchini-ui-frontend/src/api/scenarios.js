@@ -1,8 +1,8 @@
 import Client from "./Client";
 
 class ScenariosApi {
-  constructor(baseUri) {
-    this.client = new Client(`${baseUri}/api/scenarii`);
+  constructor() {
+    this.client = new Client("/api/scenarii");
   }
 
   getScenarios({ featureId, testRunId, search, tags, excludedTags }) {
@@ -106,6 +106,6 @@ class ScenariosApi {
   }
 }
 
-const scenarios = new ScenariosApi(configuration.backendBaseUri);
+const scenarios = new ScenariosApi();
 
 export default scenarios;

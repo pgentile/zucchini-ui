@@ -16,9 +16,6 @@
       "jsx": true
     }
   },
-  "globals": {
-    "configuration": true
-  },
   "settings": {
     "react": {
       "version": "16.8.6"

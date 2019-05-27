@@ -1,8 +1,8 @@
 import Client from "./Client";
 
 class TestRunsApi {
-  constructor(baseUri) {
-    this.client = new Client(`${baseUri}/api/testRuns`);
+  constructor() {
+    this.client = new Client("/api/testRuns");
   }
 
   getLatests({ withStats, type }) {
@@ -63,6 +63,6 @@ class TestRunsApi {
   }
 }
 
-const testRuns = new TestRunsApi(configuration.backendBaseUri);
+const testRuns = new TestRunsApi();
 
 export default testRuns;

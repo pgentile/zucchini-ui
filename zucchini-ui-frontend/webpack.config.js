@@ -11,8 +11,8 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const outputDir = path.join(__dirname, "build/dist/assets");
 
 // Config
-const config = require("./config.json");
-const baseUiPath = config.ui.basename;
+const devServerPort = parseInt(process.env.DEV_SERVER_PORT || 9000);
+const apiUrl = process.env.API_URL || "http://localhost:8080";
 
 module.exports = {
   entry: {
@@ -25,25 +25,25 @@ module.exports = {
   output: {
     path: outputDir,
     filename: "[name].js",
-    publicPath: `${baseUiPath}/assets/`
+    publicPath: "/ui/assets/"
   },
   devtool: "source-map",
   devServer: {
-    port: config.devServer.port,
+    port: devServerPort,
     before: app => {
       app.get("/", (req, res) => {
-        res.redirect(`${baseUiPath}/`);
+        res.redirect("/ui/");
       });
-
-      app.get(`${baseUiPath}/assets/config.js/`, (req, res) => {
-        // Connect function to serve a Javascript configuration file
-        res.writeHead(200, { "Content-Type": "application/javascript" });
-        res.end(`var configuration = ${JSON.stringify(config.ui)};`);
-      });
+    },
+    proxy: {
+      "/api": {
+        target: apiUrl
+      },
+      "/ws": {
+        target: apiUrl.replace(/^http/, "ws"),
+        ws: true
+      }
     }
-  },
-  externals: {
-    configuration: "configuration"
   },
   module: {
     rules: [

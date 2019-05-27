@@ -1,8 +1,8 @@
 import Client from "./Client";
 
 class FeaturesApi {
-  constructor(baseUri) {
-    this.client = new Client(`${baseUri}/api/features`);
+  constructor() {
+    this.client = new Client("/api/features");
   }
 
   getFeature({ featureId }) {
@@ -32,6 +32,6 @@ class FeaturesApi {
   }
 }
 
-const features = new FeaturesApi(configuration.backendBaseUri);
+const features = new FeaturesApi();
 
 export default features;
