@@ -19,7 +19,7 @@ Version 0.0.5-SNAPSHOT
 * Added two new columns to identify the type and the environment of the test run
 * Added a new filter by environment
 * E2E tests with Cypress
-*** Required Node version: 10**
+** **Required Node version: 10**
 
 Version 0.0.4-SNAPSHOT
 ----------------------
