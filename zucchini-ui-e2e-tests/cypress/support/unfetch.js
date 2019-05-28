@@ -15,5 +15,3 @@ Cypress.on("window:before:load", win => {
   delete win.fetch;
   win.eval(polyfill);
 });
-
-console.info("Unfetch installed");

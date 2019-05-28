@@ -1,17 +1,14 @@
 {
-  "root": true,
+  "root": false,
   "env": {
     "browser": true,
     "es6": true
   },
-  "parser": "babel-eslint",
   "plugins": [
-    "react",
-    "prettier"
+    "react"
   ],
   "parserOptions": {
     "sourceType": "module",
-    "ecmaVersion": 2015,
     "ecmaFeatures": {
       "jsx": true
     }
@@ -22,16 +19,6 @@
     }
   },
   "extends": [
-    "eslint:recommended",
-    "plugin:prettier/recommended",
     "plugin:react/recommended"
-  ],
-  "rules": {
-    "no-unused-vars": [
-      "error",
-      {
-        "ignoreRestSiblings": true
-      }
-    ]
-  }
+  ]
 }

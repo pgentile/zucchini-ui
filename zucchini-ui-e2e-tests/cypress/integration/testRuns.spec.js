@@ -15,19 +15,25 @@ describe("Test runs", () => {
     });
 
     cy.get("table").within(() => {
-      cy.get("tbody").find("tr").should("have.length.greaterThan", 0);
+      cy.get("tbody")
+        .find("tr")
+        .should("have.length.greaterThan", 0);
     });
   });
 
   it("should create a test run", () => {
-    cy.get("button").contains("Créer un tir").click();
+    cy.get("button")
+      .contains("Créer un tir")
+      .click();
 
     cy.get("[role=dialog]").within(() => {
       cy.get("input#type").type("TYPE");
       cy.get("input#environment").type("ENV");
       cy.get("input#name").type("NAME");
 
-      cy.get("button").contains("Créer").click();
+      cy.get("button")
+        .contains("Créer")
+        .click();
     });
 
     cy.url().should("include", "/ui/test-runs/");

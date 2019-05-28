@@ -1,17 +1,20 @@
-Cypress.Commands.add("createTestRun", ({ type = "TYPE", environment = "ENV", name = "NAME" } = {}) => {
-  cy.server();
+Cypress.Commands.add(
+  "createTestRun",
+  ({ type = "TYPE", environment = "ENV", name = "NAME" } = {}) => {
+    cy.server();
 
-  return cy
-    .request("POST", "/api/testRuns/create", {
-      type,
-      environment,
-      name
-    })
-    .should(xhr => {
-      expect(xhr.isOkStatusCode).to.be.true;
-    })
-    .then(xhr => xhr.body);
-});
+    return cy
+      .request("POST", "/api/testRuns/create", {
+        type,
+        environment,
+        name
+      })
+      .should(xhr => {
+        expect(xhr.isOkStatusCode).to.be.true;
+      })
+      .then(xhr => xhr.body);
+  }
+);
 
 Cypress.Commands.add("importCucumberReport", ({ testRunId, content }) => {
   cy.server();
@@ -24,18 +27,21 @@ Cypress.Commands.add("importCucumberReport", ({ testRunId, content }) => {
     .end();
 });
 
-Cypress.Commands.add("createFilledTestRun", ({ type, environment, name } = {}) => {
-  return cy.createTestRun({ type, environment, name }).then(({ id }) => {
-    return cy.fixture("cucumber-report.json").then(cucumberReport => {
-      return cy
-        .importCucumberReport({
-          testRunId: id,
-          content: cucumberReport
-        })
-        .then(() => ({ id }));
+Cypress.Commands.add(
+  "createFilledTestRun",
+  ({ type, environment, name } = {}) => {
+    return cy.createTestRun({ type, environment, name }).then(({ id }) => {
+      return cy.fixture("cucumber-report.json").then(cucumberReport => {
+        return cy
+          .importCucumberReport({
+            testRunId: id,
+            content: cucumberReport
+          })
+          .then(() => ({ id }));
+      });
     });
-  });
-});
+  }
+);
 
 Cypress.Commands.add("getFeaturesForTestRun", ({ testRunId }) => {
   cy.server();
