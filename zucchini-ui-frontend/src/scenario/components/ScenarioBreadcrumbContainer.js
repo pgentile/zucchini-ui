@@ -12,7 +12,7 @@ const selectBreadcumbItems = createSelector(
   (testRun, feature, scenario) => {
     return [
       {
-        value: `Type ${testRun.type}`,
+        value: `Type ${testRun.type}/   ${testRun.environment}/   ${testRun.name}`,
         link: {
           pathname: "/",
           search: queryString.stringify({ type: testRun.type })
