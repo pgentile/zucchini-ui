@@ -79,9 +79,7 @@ class StepDefinitionsRow extends React.Component {
 
   render() {
     const { stepDefinition } = this.props;
-    const stepLocation = `${stepDefinition.stepDefinitionLocation.filename}:${
-      stepDefinition.stepDefinitionLocation.line
-    }`;
+    const stepLocation = `${stepDefinition.stepDefinitionLocation.filename}:${stepDefinition.stepDefinitionLocation.line}`;
 
     const nbSuccesses = stepDefinition.occurrences.filter(step => {
       return step.status === "PASSED";
