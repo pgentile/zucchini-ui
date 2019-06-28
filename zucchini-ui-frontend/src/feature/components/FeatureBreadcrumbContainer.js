@@ -4,6 +4,7 @@ import queryString from "query-string";
 
 import Breadcrumb from "../../ui/components/Breadcrumb";
 import toNiceDate from "../../ui/toNiceDate";
+import getTypeEnvName from "../../utils/testRunUtils";
 
 const selectBreadcumbItems = createSelector(
   state => state.testRun.testRun,
@@ -11,7 +12,7 @@ const selectBreadcumbItems = createSelector(
   (testRun, feature) => {
     return [
       {
-        value: `Type ${testRun.type}`,
+        value: getTypeEnvName(testRun),
         link: {
           pathname: "/",
           search: queryString.stringify({ type: testRun.type })

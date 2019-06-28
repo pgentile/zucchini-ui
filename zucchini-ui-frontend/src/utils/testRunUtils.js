@@ -99,3 +99,14 @@ export function getPlateformeFromNomRapportZucchini(value) {
   });
   return env;
 }
+//Fonction peremttant de récupérer  le type, nom et environnement du tir
+export default function getTypeEnvName(testRun) {
+  var separateur = " _";
+  if (testRun.environment == undefined && testRun.name !== undefined) {
+    return testRun.type + separateur + testRun.name;
+  } else if (testRun.environment !== undefined && testRun.name == undefined) {
+    return testRun.type + separateur + testRun.environment;
+  } else if (testRun.environment == undefined && testRun.name == undefined) {
+    return testRun.type;
+  } else return testRun.type + separateur + testRun.name + separateur + testRun.environment;
+}
