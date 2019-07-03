@@ -12,6 +12,8 @@ public interface ScenarioQuery {
 
     ScenarioQuery withSearch(String search);
 
+    ScenarioQuery withName(String name);
+
     ScenarioQuery orderedByName();
 
     ScenarioQuery withSelectedTags(TagSelection tagSelection);
