@@ -10,7 +10,9 @@
     "test": "jest",
     "stats": "webpack --profile --json --mode=production >./build/stats.json",
     "babel": "babel",
-    "babel:test": "babel --env-name test"
+    "babel:test": "babel --env-name test",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -68,6 +70,8 @@
     "redux-promise-middleware": "^6.1.0",
     "redux-thunk": "^2.2.0",
     "regenerator-runtime": "^0.13.2",
-    "reselect": "^4.0.0"
-  }
+    "reselect": "^4.0.0",
+    "snyk": "^1.189.0"
+  },
+  "snyk": true
 }
