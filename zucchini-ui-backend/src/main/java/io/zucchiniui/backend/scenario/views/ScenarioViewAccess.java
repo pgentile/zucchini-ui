@@ -129,6 +129,16 @@ public class ScenarioViewAccess {
             .collect(Collectors.toList());
     }
 
+    public ScenarioHistoryItemView getLastScenariiTested(final Consumer<ScenarioQuery> preparator) {
+        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator);
+        final Scenario scenario = MorphiaUtils.streamQuery(query).findFirst().orElse(null);
+        if(scenario == null) {
+            return new ScenarioHistoryItemView(); // empty object
+        }
+        List<ScenarioHistoryItemView> scenariosHistory = getScenarioHistory(scenario.getScenarioKey());
+        return scenariosHistory.get(0);
+    }
+
     public ScenarioStats getStats(final Consumer<ScenarioQuery> preparator) {
         final ScenarioStats stats = new ScenarioStats();
 

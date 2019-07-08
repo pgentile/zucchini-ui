@@ -71,6 +71,13 @@ public class ScenarioResource {
     }
 
     @GET
+    @Path("exact")
+    public ScenarioHistoryItemView getLastScenariiTested(@BeanParam final GetScenariiRequestParams requestParams) {
+        final Consumer<ScenarioQuery> query = prepareQueryFromRequestParams(requestParams);
+        return scenarioViewAccess.getLastScenariiTested(query);
+    }
+
+    @GET
     @Path("tags")
     public List<ScenarioTagStats> getTagStats(@BeanParam final GetScenariiRequestParams requestParams) {
         if (!requestParams.getExcludedTags().isEmpty()) {
@@ -201,7 +208,9 @@ public class ScenarioResource {
             if (!Strings.isNullOrEmpty(requestParams.getSearch())) {
                 q.withSearch(requestParams.getSearch());
             }
-
+            if (!Strings.isNullOrEmpty(requestParams.getName())) {
+                q.withName(requestParams.getName());
+            }
             final TagSelection tagSelection = new TagSelection(requestParams.getTags(), requestParams.getExcludedTags());
             q.withSelectedTags(tagSelection);
         };

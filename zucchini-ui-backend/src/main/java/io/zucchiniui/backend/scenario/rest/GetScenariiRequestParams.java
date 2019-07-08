@@ -15,6 +15,9 @@ public class GetScenariiRequestParams {
     @QueryParam("search")
     private String search;
 
+    @QueryParam("name")
+    private String name;
+
     @QueryParam("tag")
     private Set<String> tags;
 
@@ -43,6 +46,14 @@ public class GetScenariiRequestParams {
 
     public void setSearch(String search) {
         this.search = search;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Set<String> getTags() {
