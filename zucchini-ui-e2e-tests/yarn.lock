@@ -423,9 +423,9 @@ cross-spawn@^6.0.0, cross-spawn@^6.0.5:
     which "^1.2.9"
 
 cypress-file-upload@^3.1.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/cypress-file-upload/-/cypress-file-upload-3.2.1.tgz#12befbd5f685883b2ce39133d675173f60caae5b"
-  integrity sha512-Wx9+DVon1Sc8HhiNpWaCYvjn5q8izYg9+Es0MhwlRj2APRToaihtM0EJgS/om9gA9HeKbU0ReTpv+xk/0VCUjw==
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/cypress-file-upload/-/cypress-file-upload-3.3.2.tgz#d9bb00cac756fd4b5f68079f19745fe40d97fdd4"
+  integrity sha512-39CW6/rTmn7AGa+ZrD37R+ANnnWAesbUj2RpBfbpRzV+KTAlF+m9Djbd2f325w0JGY0A2eO0w6TYYo+NvBTnoA==
 
 cypress@^3.2.0:
   version "3.4.0"
