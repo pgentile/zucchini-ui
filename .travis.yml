@@ -38,7 +38,7 @@ script:
   - ./gradlew runCucumber dryRunCucumber
   - ./gradlew dockerBuild
   - ./gradlew dockerComposeUp
-  - "(cd zucchini-ui-e2e-tests && env CYPRESS_VIDEO=false CYPRESS_DEFAULT_COMMAND_TIMEOUT=15000 yarn test)"
+  - "(cd zucchini-ui-e2e-tests && env CYPRESS_VIDEO=false CYPRESS_DEFAULT_COMMAND_TIMEOUT=15000 travis_retry yarn test)"
 
 after_success:
   # Build, then push image to Docker
