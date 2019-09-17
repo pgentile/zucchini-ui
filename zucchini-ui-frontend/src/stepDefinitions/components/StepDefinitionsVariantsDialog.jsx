@@ -102,7 +102,7 @@ function formatStepDefinitionVariants(occurrences) {
   let startIdx = 0;
   for (const offset in groupedArgs) {
     const position = parseInt(offset);
-    if (groupedArgs.hasOwnProperty(position)) {
+    if (Object.prototype.hasOwnProperty.call(groupedArgs, position)) {
       const variants = groupedArgs[position];
       formattedText.push(
         <div className="step-definition-variant-details" key={startIdx}>
