@@ -17,7 +17,7 @@ module.exports = api => {
   }
 
   return {
-    plugins: ["@babel/plugin-syntax-dynamic-import", "@babel/plugin-proposal-class-properties", "babel-plugin-lodash"],
+    plugins: ["@babel/plugin-proposal-class-properties", "babel-plugin-lodash"],
     presets: [
       "@babel/preset-react",
       [
