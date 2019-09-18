@@ -6,12 +6,13 @@ import ControlLabel from "react-bootstrap/lib/ControlLabel";
 import FormControl from "react-bootstrap/lib/FormControl";
 import Alert from "react-bootstrap/lib/Alert";
 import format from "date-fns/format";
-import isBefore from "date-fns/is_before";
-import subDays from "date-fns/sub_days";
+import isBefore from "date-fns/isBefore";
+import subDays from "date-fns/subDays";
+import parseISO from "date-fns/parseISO";
 
 import Button from "../../ui/components/Button";
 
-const LOCAL_DATE_FORMAT = "YYYY-MM-DD";
+const LOCAL_DATE_FORMAT = "yyyy-MM-dd";
 
 export default class PurgeDialog extends React.PureComponent {
   static propTypes = {
@@ -89,7 +90,7 @@ export default class PurgeDialog extends React.PureComponent {
   selectTestRunIds(testRuns, { type, maxDate }) {
     return testRuns
       .filter(testRun => testRun.type === type)
-      .filter(testRun => isBefore(testRun.date, maxDate))
+      .filter(testRun => isBefore(parseISO(testRun.date), parseISO(maxDate)))
       .map(testRun => testRun.id);
   }
 
