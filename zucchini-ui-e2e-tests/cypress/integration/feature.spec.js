@@ -24,13 +24,10 @@ describe("Feature", () => {
   it("should delete a feature", () => {
     cy.route("DELETE", "/api/features/*").as("deleteFeature");
 
-    cy.get("button")
-      .contains("Supprimer")
-      .click();
+    cy.contains("button", "Supprimer").click();
 
     cy.get("[role=dialog]").within(() => {
-      cy.get("button")
-        .contains("Supprimer")
+      cy.contains("button", "Supprimer")
         .click();
     });
 

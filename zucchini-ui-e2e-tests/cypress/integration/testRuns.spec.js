@@ -6,7 +6,7 @@ describe("Test runs", () => {
   });
 
   it("should display test runs", () => {
-    cy.get("h1").contains("Derniers tirs");
+    cy.get("h1").should("contain", "Derniers tirs");
 
     cy.createTestRun({
       type: "Display test runs",
@@ -22,18 +22,14 @@ describe("Test runs", () => {
   });
 
   it("should create a test run", () => {
-    cy.get("button")
-      .contains("Créer un tir")
-      .click();
+    cy.contains("button", "Créer un tir").click();
 
     cy.get("[role=dialog]").within(() => {
       cy.get("input#type").type("TYPE");
       cy.get("input#environment").type("ENV");
       cy.get("input#name").type("NAME");
 
-      cy.get("button")
-        .contains("Créer")
-        .click();
+      cy.contains("button", "Créer").click();
     });
 
     cy.url().should("include", "/ui/test-runs/");
