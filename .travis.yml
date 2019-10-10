@@ -13,7 +13,7 @@ addons:
       - libgconf-2-4
 
 jdk:
-  - oraclejdk8
+  - openjdk8
   - openjdk11
   - openjdk12
 
