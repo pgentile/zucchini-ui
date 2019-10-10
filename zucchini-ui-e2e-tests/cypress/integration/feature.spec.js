@@ -27,8 +27,7 @@ describe("Feature", () => {
     cy.contains("button", "Supprimer").click();
 
     cy.get("[role=dialog]").within(() => {
-      cy.contains("button", "Supprimer")
-        .click();
+      cy.contains("button", "Supprimer").click();
     });
 
     cy.wait("@deleteFeature");

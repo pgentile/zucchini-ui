@@ -30,36 +30,31 @@ describe("Scenario", () => {
   });
 
   it("should change the reviewed status to not analyzed", () => {
-    cy.contains("button", "Marquer comme non analysé")
-      .click();
+    cy.contains("button", "Marquer comme non analysé").click();
 
-    cy.contains("button", "Marquer comme analysé")
-      .should("exist");
+    cy.contains("button", "Marquer comme analysé").should("exist");
   });
 
   it("should change the reviewed status to analyzed", () => {
-    cy.contains("button", "Marquer comme non analysé")
-      .click();
-    cy.contains("button", "Marquer comme analysé")
-      .click();
+    cy.contains("button", "Marquer comme non analysé").click();
+    cy.contains("button", "Marquer comme analysé").click();
 
     cy.get("[role=dialog]").within(() => {
       cy.get("textarea#comment").type(
         "Coucou{enter}Voir https://example.org pour plus d'infos"
       );
-      cy.contains("button", "Valider")
-        .click();
+      cy.contains("button", "Valider").click();
     });
 
-    cy.contains("button", "Marquer comme non analysé")
-      .should("exist");
+    cy.contains("button", "Marquer comme non analysé").should("exist");
   });
 
   it("should change scenario status", () => {
+    cy.route("PATCH", "/api/scenarii/*").as("updateScenario");
+    cy.route("POST", "/api/scenarii/*/comments/create").as("addComment");
     cy.route("GET", "/api/scenarii/*").as("scenarioRefresh");
 
-    cy.contains("button", "Modifier le statut")
-      .click();
+    cy.contains("button", "Modifier le statut").click();
 
     cy.get("[role=dialog]").within(() => {
       cy.contains("label", "Scénario analysé ?")
@@ -74,9 +69,11 @@ describe("Scenario", () => {
       cy.contains("button", "Valider").click();
     });
 
+    cy.wait("@updateScenario");
+    cy.wait("@addComment");
     cy.wait("@scenarioRefresh");
 
-    cy.contains("h1 .label", "Échec").should("exist");
+    cy.get("h1 .label").should("contain.text", "Échec");
     cy.contains("button", "Marquer comme non analysé").should("exist");
   });
 
