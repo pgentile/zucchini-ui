@@ -19,7 +19,7 @@ jdk:
 
 before_install:
   # Install a recent node version
-  - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.O/install.sh | bash
+  - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.0/install.sh | bash
   - nvm install 12 && nvm use 12
   # Install Yarn
   - curl -o- -L https://yarnpkg.com/install.sh | bash
