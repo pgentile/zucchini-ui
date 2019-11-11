@@ -14,9 +14,6 @@ const selectProps = createStructuredSelector({
   testRun: selectTestRun
 });
 
-export default connect(
-  selectProps,
-  {
-    onLoad: loadTestRunDiffSelectorPage
-  }
-)(TestRunDiffSelectorPage);
+export default connect(selectProps, {
+  onLoad: loadTestRunDiffSelectorPage
+})(TestRunDiffSelectorPage);

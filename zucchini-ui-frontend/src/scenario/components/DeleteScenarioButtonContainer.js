@@ -13,9 +13,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default withRouter(
-  connect(
-    undefined,
-    mapDispatchToProps
-  )(DeleteScenarioButton)
-);
+export default withRouter(connect(undefined, mapDispatchToProps)(DeleteScenarioButton));

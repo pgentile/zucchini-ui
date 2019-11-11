@@ -32,10 +32,7 @@ const selectProps = createStructuredSelector({
 });
 
 export default withRouter(
-  connect(
-    selectProps,
-    {
-      onLoad: loadTestRunPage
-    }
-  )(TestRunPage)
+  connect(selectProps, {
+    onLoad: loadTestRunPage
+  })(TestRunPage)
 );

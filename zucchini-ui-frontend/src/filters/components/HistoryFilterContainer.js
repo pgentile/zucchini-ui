@@ -13,11 +13,8 @@ const selectProps = createStructuredSelector({
   filters: selectFilters
 });
 
-const HistoryFilterContainer = connect(
-  selectProps,
-  {
-    onFilterChange: updateHistoryFilters
-  }
-)(HistoryFilter);
+const HistoryFilterContainer = connect(selectProps, {
+  onFilterChange: updateHistoryFilters
+})(HistoryFilter);
 
 export default HistoryFilterContainer;

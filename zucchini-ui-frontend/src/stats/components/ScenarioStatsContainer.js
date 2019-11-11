@@ -13,9 +13,6 @@ const selectProps = createStructuredSelector({
   showDetails: selectShowDetails
 });
 
-export default connect(
-  selectProps,
-  {
-    onToggleDetails: updateStatsDashboardFilters
-  }
-)(ScenarioStats);
+export default connect(selectProps, {
+  onToggleDetails: updateStatsDashboardFilters
+})(ScenarioStats);

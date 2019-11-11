@@ -13,11 +13,8 @@ const selectProps = createStructuredSelector({
   filters: selectFilters
 });
 
-const StepFiltersContainer = connect(
-  selectProps,
-  {
-    onFilterChange: updateStepFilters
-  }
-)(StepFilters);
+const StepFiltersContainer = connect(selectProps, {
+  onFilterChange: updateStepFilters
+})(StepFilters);
 
 export default StepFiltersContainer;

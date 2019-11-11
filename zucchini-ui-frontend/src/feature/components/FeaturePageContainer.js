@@ -19,11 +19,8 @@ const selectProps = createStructuredSelector({
   feature: selectFeature
 });
 
-const FeaturePageContainer = connect(
-  selectProps,
-  {
-    onLoad: loadFeaturePage
-  }
-)(FeaturePage);
+const FeaturePageContainer = connect(selectProps, {
+  onLoad: loadFeaturePage
+})(FeaturePage);
 
 export default FeaturePageContainer;

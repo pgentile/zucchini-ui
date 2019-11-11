@@ -13,11 +13,8 @@ const selectProps = createStructuredSelector({
   scenario: selectScenario
 });
 
-const UpdateScenarioStateDialogContainer = connect(
-  selectProps,
-  {
-    onUpdateState: updateScenarioStateAndComment
-  }
-)(UpdateScenarioStateDialog);
+const UpdateScenarioStateDialogContainer = connect(selectProps, {
+  onUpdateState: updateScenarioStateAndComment
+})(UpdateScenarioStateDialog);
 
 export default UpdateScenarioStateDialogContainer;
