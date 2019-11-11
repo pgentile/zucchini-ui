@@ -16,13 +16,10 @@ const selectProps = createStructuredSelector({
   otherWatcherIds: selectOtherWatcherIds
 });
 
-const presenceConnect = connect(
-  selectProps,
-  {
-    onWatch: watch,
-    onUnwatch: unwatch
-  }
-);
+const presenceConnect = connect(selectProps, {
+  onWatch: watch,
+  onUnwatch: unwatch
+});
 
 export default function withPresenceIndicator(WrappedComponent) {
   const wrapper = class extends React.Component {
