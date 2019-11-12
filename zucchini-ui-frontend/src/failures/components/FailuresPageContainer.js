@@ -32,11 +32,8 @@ const selectProps = createStructuredSelector({
   stats: selectStats
 });
 
-const FailuresPageContainer = connect(
-  selectProps,
-  {
-    onLoad: loadTestRunFailuresPage
-  }
-)(FailuresPage);
+const FailuresPageContainer = connect(selectProps, {
+  onLoad: loadTestRunFailuresPage
+})(FailuresPage);
 
 export default FailuresPageContainer;

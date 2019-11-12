@@ -20,21 +20,15 @@ function parseTags(tags) {
   return tags;
 }
 
-const selectTags = createSelector(
-  (state, ownProps) => {
-    const queryParams = selectQueryParams(ownProps.location);
-    return queryParams.tag;
-  },
-  parseTags
-);
+const selectTags = createSelector((state, ownProps) => {
+  const queryParams = selectQueryParams(ownProps.location);
+  return queryParams.tag;
+}, parseTags);
 
-const selectExcludedTags = createSelector(
-  (state, ownProps) => {
-    const queryParams = selectQueryParams(ownProps.location);
-    return queryParams.excludedTag;
-  },
-  parseTags
-);
+const selectExcludedTags = createSelector((state, ownProps) => {
+  const queryParams = selectQueryParams(ownProps.location);
+  return queryParams.excludedTag;
+}, parseTags);
 
 const selectTestRunId = createSelector(
   (state, ownProps) => ownProps.match.params.testRunId,
@@ -65,9 +59,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default withRouter(
-  connect(
-    selectProps,
-    mapDispatchToProps
-  )(TagDetailsPage)
-);
+export default withRouter(connect(selectProps, mapDispatchToProps)(TagDetailsPage));

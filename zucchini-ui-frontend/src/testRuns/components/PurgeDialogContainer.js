@@ -10,11 +10,8 @@ const selectProps = createStructuredSelector({
   testRuns: selectLatestTestRuns
 });
 
-const PurgeDialogContainer = connect(
-  selectProps,
-  {
-    onPurge: purgeTestRuns
-  }
-)(PurgeDialog);
+const PurgeDialogContainer = connect(selectProps, {
+  onPurge: purgeTestRuns
+})(PurgeDialog);
 
 export default PurgeDialogContainer;

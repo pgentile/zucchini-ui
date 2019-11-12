@@ -15,11 +15,8 @@ const selectProps = createStructuredSelector({
   testRunId: selectTestRunId
 });
 
-const FeatureGroupFilterContainer = connect(
-  selectProps,
-  {
-    onSearch: search
-  }
-)(NavSearchForm);
+const FeatureGroupFilterContainer = connect(selectProps, {
+  onSearch: search
+})(NavSearchForm);
 
 export default FeatureGroupFilterContainer;

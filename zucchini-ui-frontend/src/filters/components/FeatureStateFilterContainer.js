@@ -13,9 +13,6 @@ const selectProps = createStructuredSelector({
   filters: selectFilters
 });
 
-export default connect(
-  selectProps,
-  {
-    onFilterChange: updateFeatureFilters
-  }
-)(FeatureStateFilter);
+export default connect(selectProps, {
+  onFilterChange: updateFeatureFilters
+})(FeatureStateFilter);

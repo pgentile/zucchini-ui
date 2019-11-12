@@ -13,11 +13,8 @@ const selectProps = createStructuredSelector({
   errors: selectErrors
 });
 
-const ErrorAlertContainer = connect(
-  selectProps,
-  {
-    onClearErrors: clearErrors
-  }
-)(ErrorAlert);
+const ErrorAlertContainer = connect(selectProps, {
+  onClearErrors: clearErrors
+})(ErrorAlert);
 
 export default ErrorAlertContainer;

@@ -14,12 +14,9 @@ const selectProps = createStructuredSelector({
   testRunId: selectTestRunId
 });
 
-const CommentContainer = connect(
-  selectProps,
-  {
-    onDelete: deleteComment,
-    onChange: updateCommentThenReload
-  }
-)(Comment);
+const CommentContainer = connect(selectProps, {
+  onDelete: deleteComment,
+  onChange: updateCommentThenReload
+})(Comment);
 
 export default CommentContainer;

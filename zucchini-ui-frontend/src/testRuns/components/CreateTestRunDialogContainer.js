@@ -14,9 +14,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default withRouter(
-  connect(
-    undefined,
-    mapDispatchToProps
-  )(CreateTestRunDialog)
-);
+export default withRouter(connect(undefined, mapDispatchToProps)(CreateTestRunDialog));

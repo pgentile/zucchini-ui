@@ -45,9 +45,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default withRouter(
-  connect(
-    selectProps,
-    mapDispatchToProps
-  )(TestRunSearchPage)
-);
+export default withRouter(connect(selectProps, mapDispatchToProps)(TestRunSearchPage));

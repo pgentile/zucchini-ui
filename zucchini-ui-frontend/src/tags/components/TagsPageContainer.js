@@ -20,11 +20,8 @@ const selectProps = createStructuredSelector({
   testRun: selectTestRun
 });
 
-const TagsPageContainer = connect(
-  selectProps,
-  {
-    onLoad: loadTestRunTagsPage
-  }
-)(TagsPage);
+const TagsPageContainer = connect(selectProps, {
+  onLoad: loadTestRunTagsPage
+})(TagsPage);
 
 export default TagsPageContainer;

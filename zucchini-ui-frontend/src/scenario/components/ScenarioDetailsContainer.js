@@ -19,11 +19,8 @@ const selectProps = createStructuredSelector({
   filters: selectFilters
 });
 
-const ScenarioDetailsContainer = connect(
-  selectProps,
-  {
-    onFilterChange: updateStepFilters
-  }
-)(ScenarioDetails);
+const ScenarioDetailsContainer = connect(selectProps, {
+  onFilterChange: updateStepFilters
+})(ScenarioDetails);
 
 export default ScenarioDetailsContainer;

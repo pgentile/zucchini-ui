@@ -26,11 +26,8 @@ const selectProps = createStructuredSelector({
   stepDefinitions: selectStepDefinitions
 });
 
-const StepDefinitionsPageContainer = connect(
-  selectProps,
-  {
-    onLoad: loadTestRunStepDefinitionsPage
-  }
-)(StepDefinitionsPage);
+const StepDefinitionsPageContainer = connect(selectProps, {
+  onLoad: loadTestRunStepDefinitionsPage
+})(StepDefinitionsPage);
 
 export default StepDefinitionsPageContainer;

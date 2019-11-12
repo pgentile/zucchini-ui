@@ -20,9 +20,6 @@ const selectProps = createStructuredSelector({
   testRun: selectTestRun
 });
 
-export default connect(
-  selectProps,
-  {
-    onLoad: loadTestRunReportsPage
-  }
-)(ReportsPage);
+export default connect(selectProps, {
+  onLoad: loadTestRunReportsPage
+})(ReportsPage);

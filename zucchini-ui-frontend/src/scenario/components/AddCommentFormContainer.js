@@ -13,11 +13,8 @@ const selectProps = createStructuredSelector({
   scenarioId: selectScenarioId
 });
 
-const AddCommentFormContainer = connect(
-  selectProps,
-  {
-    onAddComment: addScenarioCommentAndReload
-  }
-)(AddCommentForm);
+const AddCommentFormContainer = connect(selectProps, {
+  onAddComment: addScenarioCommentAndReload
+})(AddCommentForm);
 
 export default AddCommentFormContainer;
