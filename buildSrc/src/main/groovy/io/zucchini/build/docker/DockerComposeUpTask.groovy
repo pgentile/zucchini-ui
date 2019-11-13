@@ -8,7 +8,6 @@ import org.gradle.api.tasks.TaskAction
 class DockerComposeUpTask extends DefaultTask {
 
     @Input
-    @Optional
     boolean detach = false
 
     @Input

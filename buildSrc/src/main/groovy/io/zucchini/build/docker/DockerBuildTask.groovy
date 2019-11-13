@@ -16,7 +16,6 @@ class DockerBuildTask extends DefaultTask {
     String dockerFile = null
 
     @Input
-    @Optional
     boolean pull = true
 
     @Input
