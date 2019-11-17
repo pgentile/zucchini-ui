@@ -15,7 +15,7 @@ addons:
 jdk:
   - openjdk8
   - openjdk11
-  - openjdk12
+  - openjdk13
 
 before_install:
   # Install a recent node version
