@@ -760,9 +760,9 @@
     "@babel/helper-plugin-utils" "^7.0.0"
 
 "@babel/preset-env@^7.3.1":
-  version "7.7.5"
-  resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.7.5.tgz#f28573ed493edb4ba763b37fb4fbb85601469370"
-  integrity sha512-wDPbiaZdGzsJuTWlpLHJxmwslwHGLZ8F5v69zX3oAWeTOFWdy4OJHoTKg26oAnFg052v+/LAPY5os9KB0LrOEA==
+  version "7.7.6"
+  resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.7.6.tgz#39ac600427bbb94eec6b27953f1dfa1d64d457b2"
+  integrity sha512-k5hO17iF/Q7tR9Jv8PdNBZWYW6RofxhnxKjBMc0nG4JTaWvOTiPoO/RLFwAKcA4FpmuBFm6jkoqaRJLGi0zdaQ==
   dependencies:
     "@babel/helper-module-imports" "^7.7.4"
     "@babel/helper-plugin-utils" "^7.0.0"
@@ -2018,7 +2018,7 @@ browserslist@^4.0.0:
     electron-to-chromium "^1.3.164"
     node-releases "^1.1.23"
 
-browserslist@^4.6.0:
+browserslist@^4.6.0, browserslist@^4.8.0:
   version "4.8.2"
   resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.8.2.tgz#b45720ad5fbc8713b7253c20766f701c9a694289"
   integrity sha512-+M4oeaTplPm/f1pXDw84YohEv7B1i/2Aisei8s4s6k3QsoSHa7i5sz8u/cGQkkatCPxMASKxPualR4wwYgVboA==
@@ -2026,15 +2026,6 @@ browserslist@^4.6.0:
     caniuse-lite "^1.0.30001015"
     electron-to-chromium "^1.3.322"
     node-releases "^1.1.42"
-
-browserslist@^4.8.0:
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.8.0.tgz#6f06b0f974a7cc3a84babc2ccc56493668e3c789"
-  integrity sha512-HYnxc/oLRWvJ3TsGegR0SRL/UDnknGq2s/a8dYYEO+kOQ9m9apKoS5oiathLKZdh/e9uE+/J3j92qPlGD/vTqA==
-  dependencies:
-    caniuse-lite "^1.0.30001012"
-    electron-to-chromium "^1.3.317"
-    node-releases "^1.1.41"
 
 bser@^2.0.0:
   version "2.1.0"
@@ -3129,7 +3120,7 @@ electron-to-chromium@^1.3.164:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.280.tgz#5f8950c8329e3e11b59c705fd59b4b8d9b3de5b9"
   integrity sha512-qYWNMjKLEfQAWZF2Sarvo+ahigu0EArnpCFSoUuZJS3W5wIeVfeEvsgmT2mgIrieQkeQ0+xFmykK3nx2ezekPQ==
 
-electron-to-chromium@^1.3.317, electron-to-chromium@^1.3.322:
+electron-to-chromium@^1.3.322:
   version "1.3.322"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.322.tgz#a6f7e1c79025c2b05838e8e344f6e89eb83213a8"
   integrity sha512-Tc8JQEfGQ1MzfSzI/bTlSr7btJv/FFO7Yh6tanqVmIWOuNCu6/D1MilIEgLtmWqIrsv+o4IjpLAhgMBr/ncNAA==
@@ -6071,7 +6062,7 @@ node-releases@^1.1.23:
   dependencies:
     semver "^6.3.0"
 
-node-releases@^1.1.41, node-releases@^1.1.42:
+node-releases@^1.1.42:
   version "1.1.42"
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.42.tgz#a999f6a62f8746981f6da90627a8d2fc090bbad7"
   integrity sha512-OQ/ESmUqGawI2PRX+XIRao44qWYBBfN54ImQYdWVTQqUckuejOg76ysSqDBK8NG3zwySRVnX36JwDQ6x+9GxzA==
