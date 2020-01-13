@@ -47,8 +47,6 @@ public class TestRunResource {
 
     private final ReportConverterService reportConverterService;
 
-    private UriInfo uriInfo;
-
     public TestRunResource(
         final TestRunRepository testRunRepository,
         final TestRunService testRunService,
@@ -59,11 +57,6 @@ public class TestRunResource {
         this.testRunService = testRunService;
         this.testRunViewAccess = testRunViewAccess;
         this.reportConverterService = reportConverterService;
-    }
-
-    @Context
-    public void setUriInfo(final UriInfo uriInfo) {
-        this.uriInfo = uriInfo;
     }
 
     @GET
@@ -81,7 +74,7 @@ public class TestRunResource {
 
     @POST
     @Path("create")
-    public Response create(@Valid @NotNull final CreateTestRunRequest request) {
+    public Response create(@Context final UriInfo uriInfo, @Valid @NotNull final CreateTestRunRequest request) {
         final TestRun testRun = new TestRun(request.getType(), request.getEnvironment(), request.getName());
         testRun.setLabels(convertRequestLabels(request.getLabels()));
 

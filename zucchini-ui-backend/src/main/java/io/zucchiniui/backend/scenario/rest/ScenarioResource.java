@@ -40,8 +40,6 @@ public class ScenarioResource {
 
     private final CommentResource.Factory commentResourceFactory;
 
-    private UriInfo uriInfo;
-
     public ScenarioResource(
         final ScenarioViewAccess scenarioViewAccess,
         final ScenarioRepository scenarioRepository,
@@ -52,11 +50,6 @@ public class ScenarioResource {
         this.scenarioRepository = scenarioRepository;
         this.scenarioService = scenarioService;
         this.commentResourceFactory = commentResourceFactory;
-    }
-
-    @Context
-    public void setUriInfo(final UriInfo uriInfo) {
-        this.uriInfo = uriInfo;
     }
 
     @GET
@@ -178,7 +171,7 @@ public class ScenarioResource {
     }
 
     @Path("{scenarioId}/comments")
-    public CommentResource getComments(@PathParam("scenarioId") final String scenarioId) {
+    public CommentResource getComments(@Context final UriInfo uriInfo, @PathParam("scenarioId") final String scenarioId) {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
 
         final Set<ItemReference> mainReferences = Collections.singleton(

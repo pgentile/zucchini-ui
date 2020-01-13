@@ -2,8 +2,9 @@ package io.zucchiniui.backend.testrun.rest;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
+
+import javax.validation.constraints.NotEmpty;
 
 public class RequestLabel {
 
