@@ -198,7 +198,7 @@ project("${rootProject.name}-backend") {
 
         testImplementation 'org.assertj:assertj-core:3.12.2'
         testImplementation 'com.pholser:junit-quickcheck-core:0.9.1'
-        testImplementation 'com.pholser:junit-quickcheck-generators:0.9'
+        testImplementation 'com.pholser:junit-quickcheck-generators:0.9.1'
 
     }
 
