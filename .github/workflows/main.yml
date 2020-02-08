@@ -1,0 +1,29 @@
+name: Build
+
+on:
+  - push
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: "11"
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+      - name: Check Gradle
+        uses: gradle/wrapper-validation-action@v1
+      - name: Install JS dependencies
+        run: ./gradlew yarnInstall
+      - name: Build
+        run: ./gradlew build
+      - name: Build Docker image
+        run: ./gradlew dockerBuild 
