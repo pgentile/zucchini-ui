@@ -14,8 +14,16 @@ jobs:
       - name: Gradle cache
         uses: actions/cache@v1
         with:
-          path: /github/home/.gradle/caches/modules-2
-          key: ${{ hashFiles('*.gradle') }}
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Yarn cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
@@ -24,8 +32,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12"
-      - name: About env
-        run: "env | sort"
       - name: Check Gradle
         uses: gradle/wrapper-validation-action@v1
       - name: Install JS dependencies
