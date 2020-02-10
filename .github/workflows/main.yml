@@ -11,6 +11,8 @@ jobs:
     env:
       GRADLE_OPTS: "-Dorg.gradle.caching=false -Dorg.gradle.daemon=false"
       DOCKER_USERNAME: pgentile
+      CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
+      CYPRESS_VIDEO: "false"
 
     steps:
       - name: Checkout
@@ -34,6 +36,14 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+
+      - name: Cypress cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.CYPRESS_CACHE_FOLDER }}
+          key: ${{ runner.os }}-cypress-${{ hashFiles('zucchini-ui-e2e-tests/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cypress-
 
       - name: Setup Java
         uses: actions/setup-java@v1
@@ -59,6 +69,10 @@ jobs:
 
       - name: Build Docker image
         run: ./gradlew dockerBuild
+
+      - name: Run Cypress tests
+        working-directory: ./zucchini-ui-e2e-tests
+        run: yarn test
 
       # Not used for now (migrate from Travis CI first)
       - name: Push Docker image
