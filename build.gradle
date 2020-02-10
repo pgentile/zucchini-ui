@@ -106,7 +106,7 @@ allprojects {
 
             // Spotbugs plugin
             // Only on JDK < 11
-            if (JavaVersion.current() < JavaVersion.VERSION_12) {
+            if (JavaVersion.current() <= JavaVersion.VERSION_11) {
                 project.apply plugin: 'com.github.spotbugs'
 
                 project.spotbugs {
@@ -127,7 +127,8 @@ allprojects {
         // Shared Java compiler config
         project.tasks.withType(JavaCompile) {
 
-            project.sourceCompatibility = '1.8'
+            project.sourceCompatibility = '11'
+            project.targetCompatibility = '11'
 
             options.encoding = 'UTF-8'
             options.deprecation = true
