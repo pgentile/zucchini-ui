@@ -72,7 +72,9 @@ jobs:
 
       - name: Run Cypress tests
         working-directory: ./zucchini-ui-e2e-tests
-        run: yarn test
+        run: |
+          ./gradlew dockerComposeUp
+          yarn test
 
       # Not used for now (migrate from Travis CI first)
       - name: Push Docker image
