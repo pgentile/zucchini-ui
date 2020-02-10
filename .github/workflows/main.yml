@@ -8,9 +8,13 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      GRADLE_OPTS: "-Dorg.gradle.caching=false -Dorg.gradle.daemon=false"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Gradle cache
         uses: actions/cache@v1
         with:
@@ -18,6 +22,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+
       - name: Get yarn cache
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -28,19 +33,38 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
           java-version: "11"
+
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
           node-version: "12"
+
       - name: Check Gradle
         uses: gradle/wrapper-validation-action@v1
+
       - name: Install JS dependencies
         run: ./gradlew yarnInstall
-      - name: Build
-        run: ./gradlew build
+
+      - name: Assemble project
+        run: ./gradlew assemble
+
+      - name: Test and check project
+        run: ./gradlew check
+
       - name: Build Docker image
         run: ./gradlew dockerBuild
+
+      # Not used for now (migrate from Travis CI first)
+      - name: Push Docker image
+        if: false && github.ref == 'master'
+        run: |
+          docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+          ./gradlew dockerPush
+        env:
+          DOCKER_USERNAME: ${{ secrets.$DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.$DOCKER_PASSWORD }}
