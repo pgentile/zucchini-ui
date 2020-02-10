@@ -70,11 +70,12 @@ jobs:
       - name: Build Docker image
         run: ./gradlew dockerBuild
 
+      - name: Start server with Docker
+        run: ./gradlew dockerComposeUp
+
       - name: Run Cypress tests
         working-directory: ./zucchini-ui-e2e-tests
-        run: |
-          ./gradlew dockerComposeUp
-          yarn test
+        run: yarn test
 
       # Not used for now (migrate from Travis CI first)
       - name: Push Docker image
