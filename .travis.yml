@@ -37,13 +37,14 @@ script:
   - ./gradlew dockerComposeUp
   - "(cd zucchini-ui-e2e-tests && env CYPRESS_VIDEO=false CYPRESS_DEFAULT_COMMAND_TIMEOUT=15000 yarn test)"
 
-after_success:
-  # Build, then push image to Docker
-  - >-
-    if [[ "$DOCKER_USERNAME" != "" && "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" && "$TRAVIS_JDK_VERSION" == "openjdk11" ]]; then
-      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-      ./gradlew dockerPush
-    fi
+# Publish with Github Actions
+# after_success:
+#   # Build, then push image to Docker
+#   - >-
+#     if [[ "$DOCKER_USERNAME" != "" && "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" && "$TRAVIS_JDK_VERSION" == "openjdk11" ]]; then
+#       docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+#       ./gradlew dockerPush
+#     fi
 
 # Cache section
 # Gradle: https://docs.travis-ci.com/user/languages/java/#Projects-Using-Gradle

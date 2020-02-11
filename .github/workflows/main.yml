@@ -8,11 +8,18 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        java:
+          - "11"
+          - "13"
+
+      fail-fast: true
+
     env:
       GRADLE_OPTS: "-Dorg.gradle.caching=false -Dorg.gradle.daemon=false"
       DOCKER_USERNAME: pgentile
       CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
-      CYPRESS_VIDEO: "false"
 
     steps:
       - name: Checkout
@@ -48,7 +55,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
-          java-version: "11"
+          java-version: ${{ matrix.java }}
 
       - name: Setup Node
         uses: actions/setup-node@v1
@@ -77,9 +84,16 @@ jobs:
         working-directory: ./zucchini-ui-e2e-tests
         run: yarn test
 
+      - name: Collect Cypress videos
+        uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: Cypress videos for Java ${{ matrix.java }}
+          path: ./zucchini-ui-e2e-tests/cypress/videos
+
       # Not used for now (migrate from Travis CI first)
       - name: Push Docker image
-        if: false && github.ref == 'master'
+        if: github.ref == 'master' && matrix.java == '11'
         run: |
           docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
           ./gradlew dockerPush
