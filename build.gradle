@@ -51,13 +51,10 @@ allprojects {
     }
 
     ext.getDockerTags = {
-        boolean isTravisCI = (System.env.TRAVIS == 'true')
         List<String> dockerTags = []
 
-        // Get branch from Travis env var, otherwise, from Git
-        String branchName = isTravisCI ? System.env.TRAVIS_BRANCH : project.grgit.branch.current.name
-
         // Branch slug, without special characters
+        String branchName = project.grgit.branch.current.name
         String branchSlug = branchName.replace('/', '-')
 
         // If the Git branch is the master branch, then the Docker image will be tagged "latest"
