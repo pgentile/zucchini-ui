@@ -101,7 +101,7 @@ jobs:
           path: ./zucchini-ui-e2e-tests/cypress/videos
 
       - name: Push Docker image
-        if: github.ref == 'master' && matrix.java == '11'
+        if: github.ref == 'refs/heads/master' && matrix.java == '11'
         run: |
           docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
           ./gradlew dockerPush
