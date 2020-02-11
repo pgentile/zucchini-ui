@@ -24,6 +24,10 @@ jobs:
     steps:
       - name: About env
         run: |
+          echo "Env"
+          env | sort
+          echo
+          echo "Github Action vars"
           echo "github.ref = ${{ github.ref  }}"
           echo "matrix.java = ${{ matrix.java }}"
 
