@@ -15,14 +15,14 @@ Requirements
 
 ### Runtime
 
-* Java JRE 8
+* Java JRE 11
 * [Mongo 3](https://www.mongodb.com)
 
 
 ### Development
 
-* JDK 8
-* [Node](https://nodejs.org) 10
+* JDK 11
+* [Node](https://nodejs.org) 12
 * [Yarn](https://yarnpkg.com)
 
 Zucchini is built with [Gradle](https://gradle.org/). The Gradle wrapper is provided, no extra download is required.
@@ -169,7 +169,7 @@ This test suite is useful to validate basic Zucchini functionalities.
 Configuration
 -------------
 
-The configuration file used by the application is a [Dropwizard YAML file](http://www.dropwizard.io/1.0.5/docs/manual/configuration.html).
+The configuration file used by the application is a [Dropwizard YAML file](https://www.dropwizard.io/en/stable/manual/configuration.html).
 
 You can use in your file environment variable, like `${HOME}` or `${USER}`.
 View the [sample configuration file](server-config.yml) for more information.
