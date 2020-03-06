@@ -1,4 +1,4 @@
-import com.github.spotbugs.SpotBugsTask
+import com.github.spotbugs.snom.SpotBugsTask
 import io.zucchini.build.docker.DockerPlugin
 import io.zucchini.build.node.NodePlugin
 import io.zucchini.build.node.YarnTask
