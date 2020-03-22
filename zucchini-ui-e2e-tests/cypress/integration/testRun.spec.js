@@ -23,20 +23,7 @@ describe("Test run", () => {
 
     cy.get("[role=dialog]").within(() => {
       // Workaround : cucumber-report.json not loaded as base64, even if asked. So... extention change
-      cy.fixture("cucumber-report.json.bin", "base64").then(fileContent => {
-        cy.get("input#file").upload(
-          {
-            fileContent,
-            fileName: "report.json",
-            mimeType: "application/json",
-            encoding: "base64"
-          },
-          {
-            subjectType: "input"
-          }
-        );
-      });
-
+      cy.get("input#file").attachFile("cucumber-report.json.bin");
       cy.contains("button", "Importer").click();
     });
 
