@@ -180,7 +180,7 @@ project("${rootProject.name}-backend") {
 
         annotationProcessor 'org.hibernate:hibernate-validator-annotation-processor:6.1.2.Final'
 
-        implementation 'io.dropwizard:dropwizard-core:2.0.3'
+        implementation 'io.dropwizard:dropwizard-core:2.0.4'
         implementation 'ma.glasnost.orika:orika-core:1.5.4'
         implementation 'xyz.morphia.morphia:core:1.4.0'
         implementation 'xyz.morphia.morphia:logging-slf4j:1.4.0'
@@ -278,7 +278,7 @@ project("${rootProject.name}-app") {
 
         implementation project(":${rootProject.name}-backend")
         implementation project(":${rootProject.name}-frontend")
-        implementation 'io.dropwizard:dropwizard-assets:2.0.3'
+        implementation 'io.dropwizard:dropwizard-assets:2.0.4'
 
     }
 
