@@ -560,9 +560,9 @@ cross-spawn@^6.0.0, cross-spawn@^6.0.5:
     which "^1.2.9"
 
 cypress-file-upload@^4.0.0:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/cypress-file-upload/-/cypress-file-upload-4.0.4.tgz#21863212267b2c31f5e824fc57e5cd445aa3635f"
-  integrity sha512-q04HoVb8OQTpusHOadGER+9Dvif7kfoM8MjVAF37O+X5VEZlUARbXrKECH6pUH0vKmWRGcrsoB6mKah9ZJa4Pw==
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/cypress-file-upload/-/cypress-file-upload-4.0.5.tgz#f8cbec6748366190d7999e5dc6b2025d6c4aefe8"
+  integrity sha512-HSZ6TO/D/dWzCf/flDi1k4YoA2s26ModrbXy3nja6YnhM6r6ZSnYDzcUZzlpvluWhOUcpHi6nBrjuurMdyt3Bw==
   dependencies:
     mime "^2.4.4"
 
