@@ -7693,9 +7693,9 @@ redux-actions@^2.2.1:
     to-camel-case "^1.0.0"
 
 redux-form@^8.1.0:
-  version "8.3.3"
-  resolved "https://registry.yarnpkg.com/redux-form/-/redux-form-8.3.3.tgz#9fc5e02731ab94b01f515870f2709b51d750b21c"
-  integrity sha512-wTb8KFFwNryzs5wpDNZBBSPvUjgzR+JR/TcgetpEEW+Bvmt3K/F5WyLDHr45/y/6gB7fb7izwivogu3IEig2nw==
+  version "8.3.5"
+  resolved "https://registry.yarnpkg.com/redux-form/-/redux-form-8.3.5.tgz#937629401d9249ecc557f385818a5095ca5898a8"
+  integrity sha512-GSpi9pbEor2wmL2cie+svP8QCylbwjlpAFegOHPaxSrQQm2Mk8ZHVWVObJUfF9cXcczIzB/bH/xOdIqeNl1OCA==
   dependencies:
     "@babel/runtime" "^7.8.4"
     es6-error "^4.1.1"
