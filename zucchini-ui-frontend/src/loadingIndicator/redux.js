@@ -32,7 +32,7 @@ export function loadingIndicator(state = initialState, action) {
 export function loadingIndicatorMiddleware() {
   return () => {
     let count = 0;
-    return next => action => {
+    return (next) => (action) => {
       const { type } = action;
 
       if (type.endsWith(`_${ActionType.Pending}`)) {

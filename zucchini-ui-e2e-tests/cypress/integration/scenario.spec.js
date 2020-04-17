@@ -5,9 +5,9 @@ describe("Scenario", () => {
     cy.log("Créer une feature");
 
     cy.createFilledTestRun().then(({ id }) => {
-      cy.getScenariosForTestRun({ testRunId: id }).then(scenarios => {
+      cy.getScenariosForTestRun({ testRunId: id }).then((scenarios) => {
         const firstScenario = scenarios.find(
-          scenario => scenario.status === "PASSED"
+          (scenario) => scenario.status === "PASSED"
         );
         if (!firstScenario) {
           throw new Error("No scenario found");
@@ -20,7 +20,7 @@ describe("Scenario", () => {
   });
 
   it("should display scenario info", () => {
-    cy.get("@scenario").then(scenarios => {
+    cy.get("@scenario").then((scenarios) => {
       cy.get("h1")
         .should("contain", scenarios.info.keyword)
         .and("contain", scenarios.info.name);
@@ -88,7 +88,7 @@ describe("Scenario", () => {
 
     cy.wait("@deleteScenario");
 
-    cy.location("pathname").should("satisfy", url =>
+    cy.location("pathname").should("satisfy", (url) =>
       url.startsWith("/ui/features/")
     );
   });

@@ -6,7 +6,7 @@ import { createTestRun } from "../redux";
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onCreateTestRun: async newTestRun => {
+    onCreateTestRun: async (newTestRun) => {
       const result = await dispatch(createTestRun(newTestRun));
       const createdTestRun = result.value;
       ownProps.history.push(`/test-runs/${createdTestRun.id}`);

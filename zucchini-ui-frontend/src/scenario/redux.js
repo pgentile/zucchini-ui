@@ -35,7 +35,7 @@ const UPDATE_COMMENT_PENDING = `${UPDATE_COMMENT}_PENDING`;
 // Action creators
 
 export function loadScenarioPage({ scenarioId }) {
-  return async dispatch => {
+  return async (dispatch) => {
     const scenarioResult$ = dispatch(getScenario({ scenarioId }));
     const historyResult$ = dispatch(getScenarioHistory({ scenarioId }));
     const commentsResult$ = dispatch(getScenarioComments({ scenarioId }));
@@ -134,7 +134,7 @@ export function deleteScenario({ scenarioId }) {
 }
 
 export function updateScenarioStateAndComment({ scenarioId, newState, comment }) {
-  return async dispatch => {
+  return async (dispatch) => {
     await dispatch(
       updateScenarioState({
         scenarioId,
@@ -153,7 +153,7 @@ export function updateScenarioStateAndComment({ scenarioId, newState, comment })
 }
 
 export function addScenarioCommentAndReload({ scenarioId, comment }) {
-  return async dispatch => {
+  return async (dispatch) => {
     await dispatch(addScenarioComment({ scenarioId, comment }));
     await dispatch(getScenarioComments({ scenarioId }));
 
@@ -204,7 +204,7 @@ export function updateComment({ scenarioId, commentId, newContent }) {
 }
 
 export function updateCommentThenReload({ scenarioId, commentId, newContent }) {
-  return async dispatch => {
+  return async (dispatch) => {
     await dispatch(updateComment({ scenarioId, commentId, newContent }));
     await dispatch(getScenarioComments({ scenarioId }));
 
@@ -257,7 +257,7 @@ export const scenario = handleActions(
       let { comments } = state;
       const { commentId, newContent } = action.meta;
 
-      comments = comments.map(comment => {
+      comments = comments.map((comment) => {
         if (comment.id !== commentId) {
           return comment;
         }
@@ -276,7 +276,7 @@ export const scenario = handleActions(
 
     [DELETE_COMMENT_PENDING]: (state, action) => {
       let { comments } = state;
-      comments = comments.filter(comment => comment.id !== action.meta.commentId);
+      comments = comments.filter((comment) => comment.id !== action.meta.commentId);
 
       return {
         ...state,

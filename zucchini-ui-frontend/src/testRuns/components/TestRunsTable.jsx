@@ -15,7 +15,7 @@ export default class TestRunsTable extends React.PureComponent {
   render() {
     const { testRuns } = this.props;
 
-    const rows = testRuns.map(testRun => <TestRunTableRow key={testRun.id} testRun={testRun} />);
+    const rows = testRuns.map((testRun) => <TestRunTableRow key={testRun.id} testRun={testRun} />);
 
     return (
       <Table bordered striped>

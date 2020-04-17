@@ -15,7 +15,7 @@ export default class TagDetailsScenarioTable extends React.PureComponent {
   render() {
     const { scenarios, selectedScenarioId } = this.props;
 
-    const rows = scenarios.map(scenario => {
+    const rows = scenarios.map((scenario) => {
       const isActive = scenario.id === selectedScenarioId;
       return <TagDetailsScenarioTableRow key={scenario.id} scenario={scenario} isActive={isActive} />;
     });

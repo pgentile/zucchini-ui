@@ -11,7 +11,7 @@ export default class LoadingBar extends React.PureComponent {
 
   render() {
     let classNames = "loading-bar";
-    ["start", "pending", "ending", "done"].forEach(flagName => {
+    ["start", "pending", "ending", "done"].forEach((flagName) => {
       if (this.props[flagName]) {
         classNames += ` loading-bar-${flagName}`;
       }

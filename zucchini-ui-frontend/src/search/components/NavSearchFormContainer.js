@@ -7,8 +7,8 @@ import NavSearchForm from "./NavSearchForm";
 import { search } from "../redux";
 
 const selectTestRunId = createSelector(
-  state => state.testRun.testRun.id,
-  testRunId => testRunId || null
+  (state) => state.testRun.testRun.id,
+  (testRunId) => testRunId || null
 );
 
 const selectProps = createStructuredSelector({

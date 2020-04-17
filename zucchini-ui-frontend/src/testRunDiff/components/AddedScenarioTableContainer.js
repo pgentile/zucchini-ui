@@ -4,8 +4,8 @@ import { createSelector, createStructuredSelector } from "reselect";
 import UnknownScenarioTable from "./UnknownScenarioTable";
 
 const selectScenarios = createSelector(
-  state => state.testRunDiff.diff.newScenarii,
-  scenarios => scenarios
+  (state) => state.testRunDiff.diff.newScenarii,
+  (scenarios) => scenarios
 );
 
 const selectProps = createStructuredSelector({

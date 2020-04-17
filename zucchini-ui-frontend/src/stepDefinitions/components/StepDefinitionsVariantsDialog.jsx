@@ -12,7 +12,7 @@ export default class StepDefinitionsVariantsDialog extends React.PureComponent {
     onClose: PropTypes.func.isRequired
   };
 
-  onCloseClick = event => {
+  onCloseClick = (event) => {
     if (event) {
       event.preventDefault();
     }
@@ -38,13 +38,13 @@ export default class StepDefinitionsVariantsDialog extends React.PureComponent {
 
 function groupDistinctArgumentsByOffset(occurrences) {
   const groupedArgs = {};
-  const knownOffsets = occurrences[0].info.arguments.map(arg => {
+  const knownOffsets = occurrences[0].info.arguments.map((arg) => {
     return arg.offset;
   });
 
   if (knownOffsets.length > 0) {
-    occurrences.forEach(occurrence => {
-      occurrence.info.arguments.map(argument => {
+    occurrences.forEach((occurrence) => {
+      occurrence.info.arguments.map((argument) => {
         const key = getClosestOffset(knownOffsets, argument.offset);
         const value = argument.value;
         if (groupedArgs[key] === undefined) {
@@ -73,7 +73,7 @@ function getClosestOffset(knownOffsets, currentOffset) {
 }
 
 function formatVariantsBlock(variants, variantStyle) {
-  return variants.map(variant => {
+  return variants.map((variant) => {
     return <StepDefinitionsHighlightedTerm key={variant} text={variant} styleClass={variantStyle} />;
   });
 }
@@ -85,7 +85,7 @@ function formatStepDefinitionVariants(occurrences) {
 
   const keywords = Array.from(
     new Set(
-      occurrences.map(occurrence => {
+      occurrences.map((occurrence) => {
         return occurrence.info.keyword;
       })
     )

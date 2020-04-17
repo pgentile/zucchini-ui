@@ -25,7 +25,7 @@ const DELETE_FEATURE = `${PREFIX}/DELETE_FEATURE`;
 // Action creators
 
 export function loadFeaturePage({ featureId }) {
-  return async dispatch => {
+  return async (dispatch) => {
     // Load feature, stats, test run, scenarios
 
     const feature$ = dispatch(getFeature({ featureId }));

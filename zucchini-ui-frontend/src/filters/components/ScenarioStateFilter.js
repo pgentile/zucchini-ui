@@ -14,7 +14,7 @@ const LABELS = {
 };
 
 export default class ScenarioStateFilter extends React.PureComponent {
-  onFilterChange = filters => {
+  onFilterChange = (filters) => {
     this.props.onFilterChange(filters);
   };
 

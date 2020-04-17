@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 export default function ListWithSeparator({ children, separator }) {
-  let items = React.Children.map(children, child => [child, separator]);
+  let items = React.Children.map(children, (child) => [child, separator]);
 
   if (items.length > 0) {
     const begining = items.slice(0, items.length - 1);

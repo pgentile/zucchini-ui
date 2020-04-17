@@ -5,24 +5,24 @@ import ScenarioHistoryTable from "./ScenarioHistoryTable";
 
 const selectScenarioId = createSelector(
   (state, ownProps) => ownProps.scenarioId,
-  scenarioId => scenarioId
+  (scenarioId) => scenarioId
 );
 
 const selectHistory = createSelector(
-  state => state.scenario.history,
-  state => state.testRun.testRun.type || null,
-  state => state.testRun.testRun.environment || null,
-  state => state.historyFilters.sameTestRunType,
-  state => state.historyFilters.sameTestRunEnvironment,
+  (state) => state.scenario.history,
+  (state) => state.testRun.testRun.type || null,
+  (state) => state.testRun.testRun.environment || null,
+  (state) => state.historyFilters.sameTestRunType,
+  (state) => state.historyFilters.sameTestRunEnvironment,
   (history, testRunType, testRunEnvironment, sameTestRunType, sameTestRunEnvironment) => {
     let selectedTestRuns = history;
 
     if (sameTestRunType) {
-      selectedTestRuns = selectedTestRuns.filter(scenario => scenario.testRun.type === testRunType);
+      selectedTestRuns = selectedTestRuns.filter((scenario) => scenario.testRun.type === testRunType);
     }
 
     if (sameTestRunEnvironment) {
-      selectedTestRuns = selectedTestRuns.filter(scenario => scenario.testRun.environment === testRunEnvironment);
+      selectedTestRuns = selectedTestRuns.filter((scenario) => scenario.testRun.environment === testRunEnvironment);
     }
 
     return selectedTestRuns;

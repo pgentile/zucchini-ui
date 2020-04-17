@@ -13,7 +13,7 @@ export default class UnknownScenarioTable extends React.PureComponent {
   render() {
     const { scenarios } = this.props;
 
-    const rows = scenarios.map(scenario => {
+    const rows = scenarios.map((scenario) => {
       return <UnknownScenarioTableRow key={scenario.id} scenario={scenario} />;
     });
 

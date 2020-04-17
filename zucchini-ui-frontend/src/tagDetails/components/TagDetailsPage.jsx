@@ -40,17 +40,17 @@ export default class TagDetailsPage extends React.Component {
   onUpdateTags = ({ tags, excludedTags }) => {
     return this.props.onUpdate({
       testRunId: this.props.testRunId,
-      tags: tags.filter(tag => !!tag),
-      excludedTags: excludedTags.filter(tag => !!tag)
+      tags: tags.filter((tag) => !!tag),
+      excludedTags: excludedTags.filter((tag) => !!tag)
     });
   };
 
   render() {
     const { testRun, tags, excludedTags } = this.props;
 
-    const includedTagsStr = tags.map(tag => `@${tag}`).join(" ");
+    const includedTagsStr = tags.map((tag) => `@${tag}`).join(" ");
 
-    const excludedTagsStr = excludedTags.map(tag => `~@${tag}`).join(" ");
+    const excludedTagsStr = excludedTags.map((tag) => `~@${tag}`).join(" ");
 
     return (
       <Page

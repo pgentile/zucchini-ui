@@ -40,13 +40,13 @@ export function getNom(valueNom, valueType) {
    */
   if (valueNom == null) {
     //Pour chaque environnement, on vérifie s'il est défini dans le type. Si c'est le cas, on l'enlève
-    types.forEach(function(element) {
+    types.forEach(function (element) {
       if (valueType.includes(element)) {
         nom = nom.replace(element, "");
       }
     });
     //Pour chaque environnement, on vérifie qu'il est défini dans le type. Si c'est le cas, on l'enlève
-    environnments.forEach(function(element) {
+    environnments.forEach(function (element) {
       if (valueType.includes(element)) {
         nom = nom.replace(element, "");
       }
@@ -78,7 +78,7 @@ export function getType(value) {
   var type = "NON DEFINI";
 
   //Pour chaque environnement, on vérifie qu'il est défini dans le type
-  types.forEach(function(element) {
+  types.forEach(function (element) {
     if (value.includes(element)) {
       type = element;
     }
@@ -92,7 +92,7 @@ export function getPlateformeFromNomRapportZucchini(value) {
   var env = "NON DEFINI";
 
   //Pour chaque environnement, on vérifie qu'il est défini dans le type
-  environnments.forEach(function(element) {
+  environnments.forEach(function (element) {
     if (value.includes(element)) {
       env = element;
     }

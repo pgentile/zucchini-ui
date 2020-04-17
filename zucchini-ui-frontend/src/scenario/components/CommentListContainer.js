@@ -4,8 +4,8 @@ import { createSelector, createStructuredSelector } from "reselect";
 import CommentList from "./CommentList";
 
 const selectComments = createSelector(
-  state => state.scenario.comments,
-  comments => comments
+  (state) => state.scenario.comments,
+  (comments) => comments
 );
 
 const selectProps = createStructuredSelector({

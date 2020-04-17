@@ -16,7 +16,7 @@ export default class TestRunHistoryTable extends React.PureComponent {
   render() {
     const { history, testRunId } = this.props;
 
-    const rows = history.map(testRun => {
+    const rows = history.map((testRun) => {
       const isActive = testRun.id === testRunId;
       return <TestRunHistoryTableTableRow key={testRun.id} testRun={testRun} isActive={isActive} />;
     });

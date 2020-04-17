@@ -12,7 +12,7 @@ export const PREFIX = "PRESENCE";
 const watcherId = presenceInfoStorage.read().watcherId;
 
 export function watch({ referenceType, reference }) {
-  return dispatch => {
+  return (dispatch) => {
     return dispatch({
       type: `${PREFIX}/WS_OPEN`,
       payload: {
@@ -66,7 +66,7 @@ export const presence = handleActions(
       return state;
     },
 
-    [`${PREFIX}/WS_CLOSED`]: state => {
+    [`${PREFIX}/WS_CLOSED`]: (state) => {
       return {
         ...state,
         otherWatcherIds: null

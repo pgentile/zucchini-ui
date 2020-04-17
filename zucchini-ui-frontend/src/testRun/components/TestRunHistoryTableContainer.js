@@ -5,17 +5,17 @@ import TestRunHistoryTable from "./TestRunHistoryTable";
 
 const selectTestRunId = createSelector(
   (state, ownProps) => ownProps.testRunId,
-  testRunId => testRunId
+  (testRunId) => testRunId
 );
 
 const selectTestRunType = createSelector(
-  state => state.testRun.testRun.type,
-  testRunType => testRunType || null
+  (state) => state.testRun.testRun.type,
+  (testRunType) => testRunType || null
 );
 
 const selectHistory = createSelector(
-  state => state.testRun.history,
-  history => history
+  (state) => state.testRun.history,
+  (history) => history
 );
 
 const selectProps = createStructuredSelector({

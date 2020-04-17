@@ -13,7 +13,7 @@ export default class ScenarioChangeTable extends React.PureComponent {
   render() {
     const { changes } = this.props;
 
-    const rows = changes.map(change => {
+    const rows = changes.map((change) => {
       return <ScenarioChangeTableRow key={change.id} change={change} />;
     });
 

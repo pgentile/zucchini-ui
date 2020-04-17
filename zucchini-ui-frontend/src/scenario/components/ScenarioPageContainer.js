@@ -6,12 +6,12 @@ import { loadScenarioPage, setNonReviewedStateThenReload } from "../redux";
 
 const selectScenarioId = createSelector(
   (state, ownProps) => ownProps.match.params.scenarioId,
-  scenarioId => scenarioId
+  (scenarioId) => scenarioId
 );
 
 const selectScenario = createSelector(
-  state => state.scenario.scenario,
-  scenario => scenario
+  (state) => state.scenario.scenario,
+  (scenario) => scenario
 );
 
 const selectProps = createStructuredSelector({

@@ -5,8 +5,8 @@ import ScenarioStateFilter from "./ScenarioStateFilter";
 import { updateScenarioFilters } from "../../filters/redux";
 
 const selectFilters = createSelector(
-  state => state.scenarioFilters,
-  scenarioFilters => scenarioFilters
+  (state) => state.scenarioFilters,
+  (scenarioFilters) => scenarioFilters
 );
 
 const selectProps = createStructuredSelector({

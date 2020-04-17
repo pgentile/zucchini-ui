@@ -17,11 +17,11 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const middlewares = [
   createWebSocketMiddleware("PRESENCE"),
-  createStorageMiddleware(featureFiltersStorage, state => state.featureFilters),
-  createStorageMiddleware(statsDashboardFiltersStorage, state => state.statsDashboardFilters),
-  createStorageMiddleware(historyFiltersStorage, state => state.historyFilters),
-  createStorageMiddleware(scenarioFiltersStorage, state => state.scenarioFilters),
-  createStorageMiddleware(stepFiltersStorage, state => state.stepFilters),
+  createStorageMiddleware(featureFiltersStorage, (state) => state.featureFilters),
+  createStorageMiddleware(statsDashboardFiltersStorage, (state) => state.statsDashboardFilters),
+  createStorageMiddleware(historyFiltersStorage, (state) => state.historyFilters),
+  createStorageMiddleware(scenarioFiltersStorage, (state) => state.scenarioFilters),
+  createStorageMiddleware(stepFiltersStorage, (state) => state.stepFilters),
   thunkMiddleware,
   promise,
   loadingIndicatorMiddleware()

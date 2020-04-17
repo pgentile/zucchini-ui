@@ -36,13 +36,13 @@ export default class TestRunSearchPage extends React.Component {
     this.loadTestRunIfPossible(prevProps);
   }
 
-  onSearchChange = event => {
+  onSearchChange = (event) => {
     this.setState({
       search: event.target.value
     });
   };
 
-  onSearchFormSubmit = event => {
+  onSearchFormSubmit = (event) => {
     event.preventDefault();
     this.props.onSearch({
       search: this.state.search,

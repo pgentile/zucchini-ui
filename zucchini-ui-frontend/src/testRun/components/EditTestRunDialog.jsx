@@ -23,7 +23,7 @@ export default class EditTestRunDialog extends React.PureComponent {
     this.props.onClose();
   };
 
-  onEditTestRun = values => {
+  onEditTestRun = (values) => {
     this.props.onEditTestRun({
       testRunId: this.props.testRun.id,
       ...values
@@ -32,7 +32,7 @@ export default class EditTestRunDialog extends React.PureComponent {
     this.props.onClose();
   };
 
-  setFormRef = formRef => {
+  setFormRef = (formRef) => {
     this.formRef = formRef;
   };
 

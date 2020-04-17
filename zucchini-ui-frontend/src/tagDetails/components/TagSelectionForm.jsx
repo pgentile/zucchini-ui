@@ -21,14 +21,14 @@ class TagSelectionForm extends React.PureComponent {
     return <FormControl {...input} {...otherProps} />;
   };
 
-  formatTags = tags => {
+  formatTags = (tags) => {
     if (tags) {
       return tags.join(" ");
     }
     return "";
   };
 
-  parseTags = tagsStr => {
+  parseTags = (tagsStr) => {
     if (tagsStr && tagsStr.length) {
       return tagsStr.split(" ");
     }

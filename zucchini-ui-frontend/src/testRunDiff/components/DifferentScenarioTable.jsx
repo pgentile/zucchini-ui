@@ -13,7 +13,7 @@ export default class DifferentScenarioTable extends React.PureComponent {
   render() {
     const { differentScenarios } = this.props;
 
-    const rows = differentScenarios.map(differentScenario => {
+    const rows = differentScenarios.map((differentScenario) => {
       const { left, right } = differentScenario;
       return <DifferentScenarioTableRow key={right.id} leftScenario={left} rightScenario={right} />;
     });

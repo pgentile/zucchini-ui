@@ -4,8 +4,8 @@ export default function tokenizeUrls(content) {
   }
 
   const lines = content.trim().split("\n");
-  const tokensForLines = lines.map(line => tokenizeLine(line).concat([["eol"]]));
-  return tokensForLines.flatMap(lineTokens => lineTokens);
+  const tokensForLines = lines.map((line) => tokenizeLine(line).concat([["eol"]]));
+  return tokensForLines.flatMap((lineTokens) => lineTokens);
 }
 
 const urlPattern = new RegExp("(https?://[^ ]+)", "ig");

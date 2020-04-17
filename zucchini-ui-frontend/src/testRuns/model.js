@@ -22,7 +22,7 @@ export function deleteTestRun({ testRunId }) {
 }
 
 export async function deleteManyTestRuns({ testRunIds }) {
-  const results = testRunIds.map(testRunId => {
+  const results = testRunIds.map((testRunId) => {
     testRunsApi.deleteTestRun({ testRunId });
   });
 

@@ -42,7 +42,7 @@ export default class PurgeDialog extends React.PureComponent {
     };
   }
 
-  onTypeChange = event => {
+  onTypeChange = (event) => {
     event.preventDefault();
 
     const type = event.target.value;
@@ -52,7 +52,7 @@ export default class PurgeDialog extends React.PureComponent {
     });
   };
 
-  onMaxDateChange = event => {
+  onMaxDateChange = (event) => {
     event.preventDefault();
 
     const maxDate = event.target.value;
@@ -62,14 +62,14 @@ export default class PurgeDialog extends React.PureComponent {
     });
   };
 
-  onCloseClick = event => {
+  onCloseClick = (event) => {
     if (event) {
       event.preventDefault();
     }
     this.props.onClose();
   };
 
-  onPurge = event => {
+  onPurge = (event) => {
     if (event) {
       event.preventDefault();
     }
@@ -89,16 +89,16 @@ export default class PurgeDialog extends React.PureComponent {
 
   selectTestRunIds(testRuns, { type, maxDate }) {
     return testRuns
-      .filter(testRun => testRun.type === type)
-      .filter(testRun => isBefore(parseISO(testRun.date), parseISO(maxDate)))
-      .map(testRun => testRun.id);
+      .filter((testRun) => testRun.type === type)
+      .filter((testRun) => isBefore(parseISO(testRun.date), parseISO(maxDate)))
+      .map((testRun) => testRun.id);
   }
 
   render() {
     const { show, testRunTypes } = this.props;
     const { type, maxDate, selectedTestRunIds } = this.state;
 
-    const testRunTypeOptions = testRunTypes.map(testRunType => {
+    const testRunTypeOptions = testRunTypes.map((testRunType) => {
       return (
         <option key={testRunType} value={testRunType}>
           {testRunType}

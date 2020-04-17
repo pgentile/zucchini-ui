@@ -11,13 +11,11 @@ describe("Test runs", () => {
     cy.createTestRun({
       type: "Display test runs",
       environment: "PREP",
-      name: "Test à afficher"
+      name: "Test à afficher",
     });
 
     cy.get("table").within(() => {
-      cy.get("tbody")
-        .find("tr")
-        .should("have.length.greaterThan", 0);
+      cy.get("tbody").find("tr").should("have.length.greaterThan", 0);
     });
   });
 

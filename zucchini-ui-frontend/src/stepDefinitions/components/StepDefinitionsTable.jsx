@@ -15,10 +15,10 @@ export default class StepDefinitionsTable extends React.Component {
   render() {
     const { stepDefinitions } = this.props;
 
-    const sortedOccurrences = stepDefinitions.map(definition => {
+    const sortedOccurrences = stepDefinitions.map((definition) => {
       const occurrences = sortBy(definition.occurrences, [
-        occurrence => occurrence.info.keyword,
-        occurrence => occurrence.info.name
+        (occurrence) => occurrence.info.keyword,
+        (occurrence) => occurrence.info.name
       ]);
 
       return {
@@ -27,8 +27,8 @@ export default class StepDefinitionsTable extends React.Component {
       };
     });
     const sortedDefinitions = sortBy(sortedOccurrences, [
-      definition => definition.occurrences[0].info.keyword,
-      definition => definition.occurrences[0].info.name
+      (definition) => definition.occurrences[0].info.keyword,
+      (definition) => definition.occurrences[0].info.name
     ]);
     const rows = sortedDefinitions.map((stepDefinition, index) => {
       return <StepDefinitionsRow key={index} stepDefinition={stepDefinition} />;
@@ -81,7 +81,7 @@ class StepDefinitionsRow extends React.Component {
     const { stepDefinition } = this.props;
     const stepLocation = `${stepDefinition.stepDefinitionLocation.filename}:${stepDefinition.stepDefinitionLocation.line}`;
 
-    const nbSuccesses = stepDefinition.occurrences.filter(step => {
+    const nbSuccesses = stepDefinition.occurrences.filter((step) => {
       return step.status === "PASSED";
     }).length;
     const successRate = Math.floor((nbSuccesses / stepDefinition.occurrences.length) * 100);

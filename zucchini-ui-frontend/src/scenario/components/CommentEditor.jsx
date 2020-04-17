@@ -31,7 +31,7 @@ export default class CommentEditor extends React.PureComponent {
     });
   };
 
-  onCommentChange = event => {
+  onCommentChange = (event) => {
     this.setState({
       comment: event.target.value
     });

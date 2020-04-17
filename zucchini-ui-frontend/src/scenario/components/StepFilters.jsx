@@ -19,7 +19,7 @@ export default class StepFilters extends React.PureComponent {
   };
 
   onFilterChange(name) {
-    return event => {
+    return (event) => {
       this.props.onFilterChange({
         [name]: event.target.checked
       });
@@ -29,7 +29,7 @@ export default class StepFilters extends React.PureComponent {
   render() {
     const { filters } = this.props;
 
-    const checkboxes = Object.keys(FILTERS).map(name => {
+    const checkboxes = Object.keys(FILTERS).map((name) => {
       const label = FILTERS[name];
       return (
         <FormGroup key={name}>

@@ -5,8 +5,8 @@ import FeatureStateFilter from "./FeatureStateFilter";
 import { updateFeatureFilters } from "../../filters/redux";
 
 const selectFilters = createSelector(
-  state => state.featureFilters,
-  featureFilters => featureFilters
+  (state) => state.featureFilters,
+  (featureFilters) => featureFilters
 );
 
 const selectProps = createStructuredSelector({

@@ -5,8 +5,8 @@ import StepFilters from "./StepFilters";
 import { updateStepFilters } from "../../filters/redux";
 
 const selectFilters = createSelector(
-  state => state.stepFilters,
-  filters => filters
+  (state) => state.stepFilters,
+  (filters) => filters
 );
 
 const selectProps = createStructuredSelector({

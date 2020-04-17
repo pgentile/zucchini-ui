@@ -5,8 +5,8 @@ import UpdateScenarioStateDialog from "./UpdateScenarioStateDialog";
 import { updateScenarioStateAndComment } from "../redux";
 
 const selectScenario = createSelector(
-  state => state.scenario.scenario,
-  scenario => scenario
+  (state) => state.scenario.scenario,
+  (scenario) => scenario
 );
 
 const selectProps = createStructuredSelector({

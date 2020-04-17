@@ -7,7 +7,7 @@ import selectQueryParams from "../../selectQueryParams";
 
 const selectTestRunId = createSelector(
   (state, ownProps) => ownProps.match.params.testRunId,
-  testRunId => testRunId
+  (testRunId) => testRunId
 );
 
 const selectOtherTestRunId = createSelector(
@@ -15,7 +15,7 @@ const selectOtherTestRunId = createSelector(
     const queryParams = selectQueryParams(ownProps.location);
     return queryParams.otherTestRunId;
   },
-  otherTestRunId => otherTestRunId
+  (otherTestRunId) => otherTestRunId
 );
 
 const selectProps = createStructuredSelector({

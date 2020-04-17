@@ -26,12 +26,12 @@ export default class CreateTestRunDialog extends React.PureComponent {
     };
   }
 
-  onTypeChange = event => {
+  onTypeChange = (event) => {
     event.preventDefault();
 
     const type = event.target.value;
 
-    this.setState(previousState => ({
+    this.setState((previousState) => ({
       newTestRun: {
         ...previousState.newTestRun,
         type
@@ -39,12 +39,12 @@ export default class CreateTestRunDialog extends React.PureComponent {
     }));
   };
 
-  onNameChange = event => {
+  onNameChange = (event) => {
     event.preventDefault();
 
     const name = event.target.value;
 
-    this.setState(previousState => ({
+    this.setState((previousState) => ({
       newTestRun: {
         ...previousState.newTestRun,
         name
@@ -52,12 +52,12 @@ export default class CreateTestRunDialog extends React.PureComponent {
     }));
   };
 
-  onEnvironmentChange = event => {
+  onEnvironmentChange = (event) => {
     event.preventDefault();
 
     const environment = event.target.value;
 
-    this.setState(previousState => ({
+    this.setState((previousState) => ({
       newTestRun: {
         ...previousState.newTestRun,
         environment
@@ -65,14 +65,14 @@ export default class CreateTestRunDialog extends React.PureComponent {
     }));
   };
 
-  onCloseClick = event => {
+  onCloseClick = (event) => {
     if (event) {
       event.preventDefault();
     }
     this.props.onClose();
   };
 
-  onCreateTestRun = event => {
+  onCreateTestRun = (event) => {
     if (event) {
       event.preventDefault();
     }

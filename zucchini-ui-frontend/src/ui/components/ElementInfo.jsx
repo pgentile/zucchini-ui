@@ -13,20 +13,14 @@ export default class ElementInfo extends React.PureComponent {
     const { info } = this.props;
 
     if (info) {
-      let output = html`
-        <b>${info.keyword}</b>
-      `;
+      let output = html` <b>${info.keyword}</b> `;
       tokenizeFromInfo(info).forEach(({ type, value }) => {
         switch (type) {
           case "text":
-            output += html`
-              ${value}
-            `;
+            output += html` ${value} `;
             break;
           case "arg":
-            output += html`
-              <code>${value}</code>
-            `;
+            output += html` <code>${value}</code> `;
             break;
           default:
             break;

@@ -5,8 +5,8 @@ import ScenarioStats from "./ScenarioStats";
 import { updateStatsDashboardFilters } from "../../filters/redux";
 
 const selectShowDetails = createSelector(
-  state => state.statsDashboardFilters.showDetails,
-  showDetails => showDetails
+  (state) => state.statsDashboardFilters.showDetails,
+  (showDetails) => showDetails
 );
 
 const selectProps = createStructuredSelector({

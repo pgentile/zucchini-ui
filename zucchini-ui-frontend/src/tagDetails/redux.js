@@ -21,7 +21,7 @@ const LOAD_STATS_FULFILLED = `${LOAD_STATS}_FULFILLED`;
 // Action creators
 
 export function loadTagDetailsPage({ testRunId, tags, excludedTags }) {
-  return async dispatch => {
+  return async (dispatch) => {
     const testRunResult$ = dispatch(getTestRun({ testRunId }));
     const scenariosResult$ = dispatch(getScenarios({ testRunId, tags, excludedTags }));
     const featuresResult$ = dispatch(getFeatures({ testRunId, tags, excludedTags }));

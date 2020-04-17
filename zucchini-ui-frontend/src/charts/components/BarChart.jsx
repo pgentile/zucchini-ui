@@ -48,7 +48,7 @@ export default class BarChart extends React.Component {
     }
   }
 
-  setChart = element => {
+  setChart = (element) => {
     if (this.chart === null) {
       this.chart = new Chartist.Bar(element);
     }

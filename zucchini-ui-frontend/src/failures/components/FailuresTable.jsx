@@ -14,7 +14,7 @@ export default class FailuresTable extends React.Component {
 
   render() {
     const { failures } = this.props;
-    const rows = failures.map(groupedFailures => {
+    const rows = failures.map((groupedFailures) => {
       const nbFailedScenarii = groupedFailures.failedScenarii.length;
       return groupedFailures.failedScenarii.map((failedScenario, index) => {
         return (
@@ -127,7 +127,7 @@ class FailuresDetailsDialog extends React.PureComponent {
     onClose: PropTypes.func.isRequired
   };
 
-  onCloseClick = event => {
+  onCloseClick = (event) => {
     if (event) {
       event.preventDefault();
     }

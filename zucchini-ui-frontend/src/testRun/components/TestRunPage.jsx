@@ -78,7 +78,7 @@ export default class TestRunPage extends React.Component {
   render() {
     const { testRunId, testRun, selectedFeatureGroup } = this.props;
 
-    const labels = testRun.labels.map(label => {
+    const labels = testRun.labels.map((label) => {
       let value = label.value;
       if (label.url) {
         value = <a href={label.url}>{label.value}</a>;

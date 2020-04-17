@@ -47,14 +47,14 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
     };
   }
 
-  onCloseClick = event => {
+  onCloseClick = (event) => {
     if (event) {
       event.preventDefault();
     }
     this.props.onClose();
   };
 
-  onUpdateState = event => {
+  onUpdateState = (event) => {
     if (event) {
       event.preventDefault();
     }
@@ -66,13 +66,13 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
     this.props.onClose();
   };
 
-  isStatusSelected = status => {
+  isStatusSelected = (status) => {
     return this.state.scenario.status === status;
   };
 
-  onStatusSelected = status => {
+  onStatusSelected = (status) => {
     return () => {
-      this.setState(prevState => {
+      this.setState((prevState) => {
         return {
           scenario: {
             ...prevState.scenario,
@@ -84,7 +84,7 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
   };
 
   onReviewedChange = () => {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return {
         scenario: {
           ...prevState.scenario,
@@ -94,7 +94,7 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
     });
   };
 
-  onCommentChange = event => {
+  onCommentChange = (event) => {
     const comment = event.target.value;
     this.setState({
       comment
@@ -104,7 +104,7 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
   render() {
     const { show } = this.props;
 
-    const statusRadios = Object.keys(AVAILABLE_STATUS).map(status => {
+    const statusRadios = Object.keys(AVAILABLE_STATUS).map((status) => {
       const label = AVAILABLE_STATUS[status];
       return (
         <Radio key={status} checked={this.isStatusSelected(status)} onChange={this.onStatusSelected(status)}>
