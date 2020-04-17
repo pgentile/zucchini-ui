@@ -8,8 +8,8 @@ export default class FilterCheckboxes extends React.PureComponent {
     onFilterChange: PropTypes.func.isRequired
   };
 
-  onFilterChange = name => {
-    return event => {
+  onFilterChange = (name) => {
+    return (event) => {
       this.props.onFilterChange({
         [name]: event.target.checked
       });
@@ -19,7 +19,7 @@ export default class FilterCheckboxes extends React.PureComponent {
   render() {
     const { labels, filters } = this.props;
 
-    const checkboxes = Object.keys(labels).map(name => {
+    const checkboxes = Object.keys(labels).map((name) => {
       const label = labels[name];
       const checked = filters[name];
 

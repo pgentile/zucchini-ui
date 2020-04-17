@@ -15,18 +15,18 @@ function sumStats(left, right) {
 }
 
 const selectGroups = createSelector(
-  state => state.testRun.features,
-  features => {
+  (state) => state.testRun.features,
+  (features) => {
     // Unique group names, sorted
-    let groupNames = new Set(features.map(feature => feature.group));
+    let groupNames = new Set(features.map((feature) => feature.group));
     groupNames = Array.from(groupNames.values()).sort();
 
     // Stats by group
 
-    const groups = groupNames.map(groupName => {
+    const groups = groupNames.map((groupName) => {
       const stats = features
-        .filter(feature => feature.group === groupName)
-        .map(feature => feature.stats.all)
+        .filter((feature) => feature.group === groupName)
+        .map((feature) => feature.stats.all)
         .reduce(sumStats, ZERO_STATS_NUMBERS);
 
       return {
@@ -37,7 +37,7 @@ const selectGroups = createSelector(
 
     // Total stats
 
-    const totalStats = groups.map(group => group.stats).reduce(sumStats, ZERO_STATS_NUMBERS);
+    const totalStats = groups.map((group) => group.stats).reduce(sumStats, ZERO_STATS_NUMBERS);
 
     const total = {
       name: "Total",
@@ -49,7 +49,7 @@ const selectGroups = createSelector(
 
     // Compute ratio
 
-    groups.forEach(group => {
+    groups.forEach((group) => {
       group.stats.faultRate = ((group.stats.failed / group.stats.count) * 100).toFixed(2);
       group.stats.faultRateRepartition = ((group.stats.failed / total.stats.failed) * 100).toFixed(2);
     });

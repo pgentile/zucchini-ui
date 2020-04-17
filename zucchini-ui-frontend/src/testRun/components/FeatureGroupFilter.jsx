@@ -14,7 +14,7 @@ export default class FeatureGroupFilter extends React.PureComponent {
   render() {
     const { testRunId, featureGroups } = this.props;
 
-    const featureGroupLinks = featureGroups.map(featureGroup => {
+    const featureGroupLinks = featureGroups.map((featureGroup) => {
       return (
         <span key={featureGroup}>
           <Link to={{ pathname: `/test-runs/${testRunId}`, search: queryString.stringify({ featureGroup }) }}>

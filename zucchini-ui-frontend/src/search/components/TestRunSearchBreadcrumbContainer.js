@@ -7,8 +7,8 @@ import toNiceDate from "../../ui/toNiceDate";
 import getTypeEnvName from "../../utils/testRunUtils";
 
 const selectBreadcumbItems = createSelector(
-  state => state.testRun.testRun,
-  testRun => {
+  (state) => state.testRun.testRun,
+  (testRun) => {
     return [
       {
         value: getTypeEnvName(testRun),

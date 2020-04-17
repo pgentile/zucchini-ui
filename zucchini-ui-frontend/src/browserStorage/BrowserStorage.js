@@ -4,8 +4,8 @@ export default class BrowserStorage {
 
     this.config = {
       defaultState: () => ({}),
-      beforeSerialize: value => value,
-      afterDeserialize: value => value,
+      beforeSerialize: (value) => value,
+      afterDeserialize: (value) => value,
       serializer: JSON.stringify,
       deserializer: JSON.parse,
       ...config

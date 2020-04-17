@@ -5,7 +5,7 @@ import { getTestRun, getFeatures } from "../testRun/redux";
 // Action creators
 
 export function loadTestRunReportsPage({ testRunId }) {
-  return async dispatch => {
+  return async (dispatch) => {
     const testRunResult$ = dispatch(getTestRun({ testRunId }));
     const featuresResult$ = dispatch(getFeatures({ testRunId }));
 

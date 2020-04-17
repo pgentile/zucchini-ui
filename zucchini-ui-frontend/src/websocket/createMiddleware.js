@@ -12,13 +12,13 @@ export default function createWebSocketMiddleware(prefix) {
   const messageAction = createAction(`${prefix}/WS_MESSAGE`);
   const errorAction = createAction(`${prefix}/WS_ERROR`);
 
-  return store => {
+  return (store) => {
     const createWebSocket = ({ url, onKeepAlive }) => {
       return new SimpleWebSocket({
         url,
         onKeepAlive,
         onOpen: () => store.dispatch(openedAction()),
-        onMessage: data => store.dispatch(messageAction(data)),
+        onMessage: (data) => store.dispatch(messageAction(data)),
         onClose: () => store.dispatch(closedAction()),
         onError: () => {
           const error = new Error(`Communication failed with WebSocket: ${url}`);
@@ -29,7 +29,7 @@ export default function createWebSocketMiddleware(prefix) {
 
     let ws = null;
 
-    return next => action => {
+    return (next) => (action) => {
       switch (action.type) {
         case openActionName:
           if (ws) {

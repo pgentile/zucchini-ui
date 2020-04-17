@@ -17,7 +17,7 @@ export default class FeatureHistoryTable extends React.PureComponent {
   render() {
     const { history, featureId } = this.props;
 
-    const rows = history.map(feature => {
+    const rows = history.map((feature) => {
       const isActive = feature.id === featureId;
       return <FeatureHistoryTableRow key={feature.id} feature={feature} isActive={isActive} />;
     });

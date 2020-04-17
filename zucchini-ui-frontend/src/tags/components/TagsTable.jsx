@@ -15,7 +15,7 @@ export default class TagsTable extends React.Component {
   render() {
     const { tags, testRunId } = this.props;
 
-    const rows = tags.map(tag => {
+    const rows = tags.map((tag) => {
       return <TagsTableRow key={tag.tag} tag={tag} testRunId={testRunId} />;
     });
 

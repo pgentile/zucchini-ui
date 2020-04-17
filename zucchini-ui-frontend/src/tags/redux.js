@@ -15,7 +15,7 @@ const SET_TAG_FILTER = "SET_TAG_FILTER";
 // Action creators
 
 export function loadTestRunTagsPage({ testRunId }) {
-  return async dispatch => {
+  return async (dispatch) => {
     const testRunResult$ = dispatch(getTestRun({ testRunId }));
     const tagsResult$ = dispatch(getTags({ testRunId }));
 

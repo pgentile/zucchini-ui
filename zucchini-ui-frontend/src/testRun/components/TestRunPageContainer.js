@@ -12,17 +12,17 @@ const selectSelectedFeatureGroup = createSelector(
     const queryParams = selectQueryParams(ownProps.location);
     return queryParams.featureGroup || null;
   },
-  selectedFeatureGroup => selectedFeatureGroup
+  (selectedFeatureGroup) => selectedFeatureGroup
 );
 
 const selectTestRunId = createSelector(
   (state, ownProps) => ownProps.match.params.testRunId,
-  testRunId => testRunId
+  (testRunId) => testRunId
 );
 
 const selectTestRun = createSelector(
-  state => state.testRun.testRun,
-  testRun => testRun
+  (state) => state.testRun.testRun,
+  (testRun) => testRun
 );
 
 const selectProps = createStructuredSelector({

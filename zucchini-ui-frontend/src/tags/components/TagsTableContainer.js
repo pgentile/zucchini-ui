@@ -7,12 +7,12 @@ import TagsTable from "./TagsTable";
 const tagFilterSelector = formValueSelector("tagFilter");
 
 const selectTags = createSelector(
-  state => state.tags.tags,
-  state => tagFilterSelector(state, "filter"),
+  (state) => state.tags.tags,
+  (state) => tagFilterSelector(state, "filter"),
   (tags, filter) => {
     if (filter) {
       const filterLowerCase = filter.toLowerCase();
-      return tags.filter(tag => tag.tag.toLowerCase().startsWith(filterLowerCase));
+      return tags.filter((tag) => tag.tag.toLowerCase().startsWith(filterLowerCase));
     }
     return tags;
   }

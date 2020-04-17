@@ -5,7 +5,7 @@ import { selectFeatureFilterFunc } from "../../filters/selectors";
 import FeatureTable from "../../ui/components/FeatureTable";
 
 const selectFeatures = createSelector(
-  state => state.testRun.features,
+  (state) => state.testRun.features,
   (state, ownProps) => ownProps.selectedFeatureGroup,
   selectFeatureFilterFunc,
   (features, selectedFeatureGroup, featureFilterFunc) => {
@@ -13,7 +13,7 @@ const selectFeatures = createSelector(
     filteredFeatures = filteredFeatures.filter(featureFilterFunc);
 
     if (selectedFeatureGroup) {
-      filteredFeatures = filteredFeatures.filter(feature => feature.group === selectedFeatureGroup);
+      filteredFeatures = filteredFeatures.filter((feature) => feature.group === selectedFeatureGroup);
     }
 
     return filteredFeatures;

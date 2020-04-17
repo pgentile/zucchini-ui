@@ -10,7 +10,7 @@ export default class Breadcrumb extends React.PureComponent {
   render() {
     const { items } = this.props;
 
-    const isActive = index => index + 1 === items.length;
+    const isActive = (index) => index + 1 === items.length;
 
     const elements = items.map((item, index) => {
       // Active element

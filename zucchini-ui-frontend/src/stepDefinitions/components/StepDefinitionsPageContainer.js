@@ -7,17 +7,17 @@ import StepDefinitionsPage from "./StepDefinitionsPage";
 
 const selectTestRunId = createSelector(
   (state, ownProps) => ownProps.match.params.testRunId,
-  testRunId => testRunId
+  (testRunId) => testRunId
 );
 
 const selectTestRun = createSelector(
-  state => state.testRun.testRun,
-  testRun => testRun
+  (state) => state.testRun.testRun,
+  (testRun) => testRun
 );
 
 const selectStepDefinitions = createSelector(
-  state => state.stepDefinitions,
-  testRun => testRun
+  (state) => state.stepDefinitions,
+  (testRun) => testRun
 );
 
 const selectProps = createStructuredSelector({

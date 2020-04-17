@@ -11,7 +11,7 @@ const selectBreadcumbItems = createSelector(
     const queryParams = selectQueryParams(ownProps.location);
     return queryParams.type || null;
   },
-  selectedType => {
+  (selectedType) => {
     const items = [
       {
         value: "Derniers tirs",

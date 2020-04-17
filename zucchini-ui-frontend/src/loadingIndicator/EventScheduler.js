@@ -5,7 +5,7 @@ export default class EventScheduler {
 
   schedule(callback, timeout = 0) {
     this.promise = this.promise.then(() => {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         setTimeout(() => {
           requestAnimationFrame(() => {
             callback();

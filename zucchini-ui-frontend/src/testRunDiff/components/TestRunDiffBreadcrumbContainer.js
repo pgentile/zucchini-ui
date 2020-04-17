@@ -9,7 +9,7 @@ import queryString from "query-string";
 import getTypeEnvName from "../../utils/testRunUtils";
 
 const selectBreadcumbItems = createSelector(
-  state => state.testRun.testRun,
+  (state) => state.testRun.testRun,
   (state, ownProps) => {
     const queryParams = selectQueryParams(ownProps.location);
     return queryParams.otherTestRunId;

@@ -4,8 +4,8 @@ import { createSelector, createStructuredSelector } from "reselect";
 import FailuresTable from "./FailuresTable";
 
 const selectFailures = createSelector(
-  state => state.failures.failures,
-  failures => failures
+  (state) => state.failures.failures,
+  (failures) => failures
 );
 
 const selectProps = createStructuredSelector({

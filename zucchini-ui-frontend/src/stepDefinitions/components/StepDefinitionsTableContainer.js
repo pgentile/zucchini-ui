@@ -4,8 +4,8 @@ import { createSelector, createStructuredSelector } from "reselect";
 import StepDefinitionsTable from "./StepDefinitionsTable";
 
 const selectStepDefinitions = createSelector(
-  state => state.stepDefinitions.stepDefinitions,
-  stepDefinitions => stepDefinitions
+  (state) => state.stepDefinitions.stepDefinitions,
+  (stepDefinitions) => stepDefinitions
 );
 
 const selectProps = createStructuredSelector({

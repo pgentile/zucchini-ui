@@ -18,14 +18,10 @@ export default class SimpleText extends React.PureComponent {
       tokens.forEach(([type, value]) => {
         switch (type) {
           case "text":
-            output += html`
-              ${value}
-            `;
+            output += html` ${value} `;
             break;
           case "url":
-            output += html`
-              <a href="${value}">${value}</a>
-            `;
+            output += html` <a href="${value}">${value}</a> `;
             break;
           case "eol":
             output += "<br/>";

@@ -30,7 +30,7 @@ export default class TestRunsPage extends React.Component {
     this.props.onLoad();
   }
 
-  onCreateTestRunButtonClick = event => {
+  onCreateTestRunButtonClick = (event) => {
     event.preventDefault();
 
     this.setState({

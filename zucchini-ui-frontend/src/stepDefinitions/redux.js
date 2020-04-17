@@ -9,7 +9,7 @@ const GET_STEP_DEFINITIONS_FULFILLED = `${GET_STEP_DEFINITIONS}_FULFILLED`;
 
 // Action creators
 export function loadTestRunStepDefinitionsPage({ testRunId }) {
-  return async dispatch => {
+  return async (dispatch) => {
     const testRunResult$ = dispatch(getTestRun({ testRunId }));
     const stepDefinitionsResult$ = dispatch(getTestRunStepDefinitions({ testRunId }));
 

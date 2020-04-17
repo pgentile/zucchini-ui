@@ -29,34 +29,34 @@ export default class ImportCucumberResultsDialog extends React.PureComponent {
     };
   }
 
-  onCloseClick = event => {
+  onCloseClick = (event) => {
     if (event) {
       event.preventDefault();
     }
     this.props.onClose();
   };
 
-  onFileChange = event => {
+  onFileChange = (event) => {
     this.setState({
       file: event.target.files[0]
     });
   };
 
-  onGroupChange = event => {
+  onGroupChange = (event) => {
     this.setState({
       group: event.target.value
     });
   };
 
-  onOptionChange = name => {
-    return event => {
+  onOptionChange = (name) => {
+    return (event) => {
       this.setState({
         [name]: event.target.checked
       });
     };
   };
 
-  onImportCucumberResult = event => {
+  onImportCucumberResult = (event) => {
     if (event) {
       event.preventDefault();
     }

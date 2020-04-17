@@ -6,7 +6,7 @@ describe("Test run", () => {
 
     cy.createTestRun()
       .its("id")
-      .then(testRunId => {
+      .then((testRunId) => {
         cy.visit(`/ui/test-runs/${testRunId}`);
       });
 
@@ -32,9 +32,7 @@ describe("Test run", () => {
     cy.wait("@importCucumberReport");
 
     cy.get("table").within(() => {
-      cy.get("tbody")
-        .find("tr")
-        .should("have.length.greaterThan", 0);
+      cy.get("tbody").find("tr").should("have.length.greaterThan", 0);
     });
   });
 

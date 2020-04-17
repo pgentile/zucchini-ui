@@ -24,7 +24,7 @@ export default class TestRunTypeFilter extends React.PureComponent {
     };
   }
 
-  onShowPopoverClick = event => {
+  onShowPopoverClick = (event) => {
     this.setState({
       showSelectableTypes: true,
       overlayTarget: event.target

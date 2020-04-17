@@ -6,12 +6,12 @@ import { loadFeaturePage } from "../redux";
 
 const selectFeatureId = createSelector(
   (state, ownProps) => ownProps.match.params.featureId,
-  featureId => featureId
+  (featureId) => featureId
 );
 
 const selectFeature = createSelector(
-  state => state.feature.feature,
-  feature => feature
+  (state) => state.feature.feature,
+  (feature) => feature
 );
 
 const selectProps = createStructuredSelector({

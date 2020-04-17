@@ -17,7 +17,7 @@ export default class TestRunSelectorTable extends React.PureComponent {
   render() {
     const { testRuns, currentTestRunId } = this.props;
 
-    const rows = testRuns.map(testRun => (
+    const rows = testRuns.map((testRun) => (
       <TestRunSelectorTableRow key={testRun.id} testRun={testRun} currentTestRunId={currentTestRunId} />
     ));
 

@@ -5,7 +5,7 @@ import { selectFeatureFilterFunc } from "../../filters/selectors";
 import FeatureTable from "../../ui/components/FeatureTable";
 
 const selectFeatures = createSelector(
-  state => state.tagDetails.features,
+  (state) => state.tagDetails.features,
   selectFeatureFilterFunc,
   (features, featureFilterFunc) => {
     let filteredFeatures = features;

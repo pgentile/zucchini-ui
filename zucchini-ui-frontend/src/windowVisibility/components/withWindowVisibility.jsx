@@ -27,7 +27,7 @@ export default function withWindowVisibility(WrappedComponent) {
     applyVisible() {
       this.applyHidden.cancel();
 
-      this.setState(prevState => {
+      this.setState((prevState) => {
         if (prevState.isWindowVisible) {
           return null;
         }
@@ -41,7 +41,7 @@ export default function withWindowVisibility(WrappedComponent) {
     // These events are throttled because the full screen mode in chrome
     // triggers two events : hidden then visible.
     applyHidden = debounce(() => {
-      this.setState(prevState => {
+      this.setState((prevState) => {
         if (!prevState.isWindowVisible) {
           return null;
         }

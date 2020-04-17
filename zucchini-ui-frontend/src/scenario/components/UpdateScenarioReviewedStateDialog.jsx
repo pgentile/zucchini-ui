@@ -33,14 +33,14 @@ export default class UpdateScenarioReviewedStateDialog extends React.PureCompone
     };
   }
 
-  onCloseClick = event => {
+  onCloseClick = (event) => {
     if (event) {
       event.preventDefault();
     }
     this.props.onClose();
   };
 
-  onSetReviewedState = event => {
+  onSetReviewedState = (event) => {
     if (event) {
       event.preventDefault();
     }
@@ -64,7 +64,7 @@ export default class UpdateScenarioReviewedStateDialog extends React.PureCompone
 
   onStatusSelected(status) {
     return () => {
-      this.setState(prevState => {
+      this.setState((prevState) => {
         return {
           scenario: {
             ...prevState.scenario,
@@ -75,7 +75,7 @@ export default class UpdateScenarioReviewedStateDialog extends React.PureCompone
     };
   }
 
-  onCommentChange = event => {
+  onCommentChange = (event) => {
     const comment = event.target.value;
     this.setState({
       comment

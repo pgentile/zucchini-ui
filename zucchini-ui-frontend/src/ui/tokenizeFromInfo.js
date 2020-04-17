@@ -8,11 +8,11 @@ export default function tokenizeFromInfo(info) {
   const args = info.arguments || [];
 
   args
-    .filter(arg => {
+    .filter((arg) => {
       // Ignorer les arguments non définis
       return isString(arg.value) && arg.value !== "";
     })
-    .forEach(arg => {
+    .forEach((arg) => {
       // Ajouter le contenu avant l'argument
       const before = name.substring(previousOffset, arg.offset);
       if (before.length > 0) {

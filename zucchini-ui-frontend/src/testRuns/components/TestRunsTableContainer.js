@@ -6,12 +6,12 @@ import TestRunsTable from "./TestRunsTable";
 import { selectLatestTestRuns } from "../selectors";
 
 const selectTestRuns = createSelector(
-  state => selectLatestTestRuns(state),
+  (state) => selectLatestTestRuns(state),
   (state, ownProps) => ownProps.selectedType,
   (testRuns, selectedType) => {
     var selectedTestRuns = testRuns;
     if (selectedType) {
-      selectedTestRuns = selectedTestRuns.filter(testRun => testRun.type === selectedType);
+      selectedTestRuns = selectedTestRuns.filter((testRun) => testRun.type === selectedType);
     }
     return selectedTestRuns;
   }

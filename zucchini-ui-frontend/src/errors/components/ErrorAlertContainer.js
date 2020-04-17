@@ -5,8 +5,8 @@ import ErrorAlert from "./ErrorAlert";
 import { clearErrors } from "../redux";
 
 const selectErrors = createSelector(
-  state => state.errors.errors,
-  errors => errors
+  (state) => state.errors.errors,
+  (errors) => errors
 );
 
 const selectProps = createStructuredSelector({

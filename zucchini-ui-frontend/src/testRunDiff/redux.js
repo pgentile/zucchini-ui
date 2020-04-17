@@ -17,7 +17,7 @@ const GET_TEST_RUN_DIFF_FULFILLED = `${GET_TEST_RUN_DIFF}_FULFILLED`;
 // Action creators
 
 export function loadTestRunDiffSelectorPage({ testRunId }) {
-  return async dispatch => {
+  return async (dispatch) => {
     const testRunResult$ = dispatch(getTestRun({ testRunId }));
     const latestTestRunsResult$ = dispatch(getLatestTestRuns());
     const latestTestRunsWithStatsResult$ = dispatch(getLatestTestRunsWithStats());
@@ -31,7 +31,7 @@ export function loadTestRunDiffSelectorPage({ testRunId }) {
 }
 
 export function loadTestRunDiffResultPage({ testRunId, otherTestRunId }) {
-  return async dispatch => {
+  return async (dispatch) => {
     const testRunResult$ = dispatch(getTestRun({ testRunId }));
     const otherTestRunResult$ = dispatch(getOtherTestRun({ testRunId: otherTestRunId }));
     const diffResult$ = dispatch(getDiff({ testRunId, otherTestRunId }));

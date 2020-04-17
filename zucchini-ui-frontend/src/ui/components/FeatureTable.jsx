@@ -14,7 +14,7 @@ export default class FeatureTable extends React.Component {
   render() {
     const { features } = this.props;
 
-    const rows = features.map(feature => {
+    const rows = features.map((feature) => {
       return <FeatureTableTableRow key={feature.id} feature={feature} />;
     });
 

@@ -11,7 +11,7 @@ export default class StepAttachments extends React.PureComponent {
     attachments: PropTypes.array.isRequired
   };
 
-  buildUrlForAttachment = attachmentId => {
+  buildUrlForAttachment = (attachmentId) => {
     const { scenarioId } = this.props;
     return `/api/scenarii/${scenarioId}/attachments/${attachmentId}`;
   };

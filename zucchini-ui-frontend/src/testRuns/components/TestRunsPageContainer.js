@@ -11,7 +11,7 @@ const selectSelectedType = createSelector(
     const queryParams = selectQueryParams(ownProps.location);
     return queryParams.type || null;
   },
-  selectedType => selectedType
+  (selectedType) => selectedType
 );
 
 const selectProps = createStructuredSelector({

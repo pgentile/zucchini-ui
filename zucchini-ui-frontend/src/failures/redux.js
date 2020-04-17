@@ -11,7 +11,7 @@ const GET_FAILURES_FULFILLED = `${GET_FAILURES}_FULFILLED`;
 // Action creators
 
 export function loadTestRunFailuresPage({ testRunId }) {
-  return async dispatch => {
+  return async (dispatch) => {
     const testRunResult$ = dispatch(getTestRun({ testRunId }));
     const failuresResult$ = dispatch(getTestRunFailures({ testRunId }));
     const stats$ = dispatch(getTestRunStats({ testRunId }));

@@ -8,8 +8,8 @@ export default class HistoryFilter extends React.PureComponent {
     onFilterChange: PropTypes.func.isRequired
   };
 
-  onFilterChange = name => {
-    return event => {
+  onFilterChange = (name) => {
+    return (event) => {
       this.props.onFilterChange({
         [name]: event.target.checked
       });

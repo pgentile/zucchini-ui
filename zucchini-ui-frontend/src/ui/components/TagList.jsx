@@ -17,7 +17,7 @@ export default class TagList extends React.PureComponent {
     const sortedTags = [...tags];
     sortedTags.sort();
 
-    const tagElements = sortedTags.map(tag => <Tag key={tag} testRunId={testRunId} tag={tag} />);
+    const tagElements = sortedTags.map((tag) => <Tag key={tag} testRunId={testRunId} tag={tag} />);
 
     return <ListWithSeparator separator=" ">{tagElements}</ListWithSeparator>;
   }

@@ -29,7 +29,7 @@ export async function getScenarioComments({ scenarioId }) {
   // Load comments, extract references
 
   let comments = await scenariosApi.getComments({ scenarioId });
-  comments = comments.map(comment => {
+  comments = comments.map((comment) => {
     return {
       ...comment,
       testRunId: getCommentReference(comment.references, "TEST_RUN_ID"),
@@ -40,9 +40,9 @@ export async function getScenarioComments({ scenarioId }) {
 
   // Load associated test runs
 
-  const testRunsById = new PromiseMapper(testRunId => getTestRun({ testRunId }));
+  const testRunsById = new PromiseMapper((testRunId) => getTestRun({ testRunId }));
 
-  const commentsWithTestRun$ = comments.map(async comment => {
+  const commentsWithTestRun$ = comments.map(async (comment) => {
     const testRun = await testRunsById.get(comment.testRunId);
     return {
       ...comment,
@@ -66,7 +66,7 @@ function getTestRun({ testRunId }) {
 }
 
 function getCommentReference(references, referenceType) {
-  const selectedReferences = references.filter(reference => reference.type === referenceType);
+  const selectedReferences = references.filter((reference) => reference.type === referenceType);
   if (selectedReferences.length > 0) {
     return selectedReferences[0].reference;
   }

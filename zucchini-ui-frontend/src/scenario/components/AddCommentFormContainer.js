@@ -6,7 +6,7 @@ import { addScenarioCommentAndReload } from "../redux";
 
 const selectScenarioId = createSelector(
   (state, ownProps) => ownProps.scenarioId,
-  scenarioId => scenarioId
+  (scenarioId) => scenarioId
 );
 
 const selectProps = createStructuredSelector({

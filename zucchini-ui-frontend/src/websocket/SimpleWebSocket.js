@@ -34,7 +34,7 @@ export default class SimpleWebSocket {
       }
     };
 
-    this.ws.onmessage = event => {
+    this.ws.onmessage = (event) => {
       const decodedData = this.options.decoder(event.data);
       this.options.onMessage(decodedData);
     };

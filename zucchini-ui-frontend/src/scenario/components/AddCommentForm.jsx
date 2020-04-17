@@ -29,7 +29,7 @@ export default class AddCommentForm extends React.PureComponent {
     };
   }
 
-  onAddComment = event => {
+  onAddComment = (event) => {
     event.preventDefault();
 
     const { scenarioId } = this.props;
@@ -42,7 +42,7 @@ export default class AddCommentForm extends React.PureComponent {
     this.setState(this.createDefaultState());
   };
 
-  onCommentChange = event => {
+  onCommentChange = (event) => {
     const comment = event.target.value;
 
     this.setState({

@@ -27,7 +27,7 @@ const EDIT_TEST_RUN = `${PREFIX}/EDIT_TEST_RUN`;
 // Action creators
 
 export function loadTestRunPage({ testRunId }) {
-  return async dispatch => {
+  return async (dispatch) => {
     const testRunResult$ = dispatch(getTestRun({ testRunId }));
     const statsResult$ = dispatch(getTestRunStats({ testRunId }));
     const featuresResult$ = dispatch(getFeatures({ testRunId }));
@@ -106,7 +106,7 @@ export function importCucumberResult({ testRunId, file, ...options }) {
 }
 
 export function importCucumberResultThenReload({ testRunId, file, ...options }) {
-  return async dispatch => {
+  return async (dispatch) => {
     await dispatch(importCucumberResult({ testRunId, file, ...options }));
     return await dispatch(loadTestRunPage({ testRunId }));
   };
@@ -123,7 +123,7 @@ export function editTestRun({ testRunId, type, environment, name, labels }) {
 }
 
 export function editTestRunThenReload({ testRunId, type, environment, name, labels }) {
-  return async dispatch => {
+  return async (dispatch) => {
     await dispatch(editTestRun({ testRunId, type, environment, name, labels }));
     return await dispatch(loadTestRunPage({ testRunId }));
   };
@@ -151,7 +151,7 @@ export const testRun = handleActions(
       const stats = action.payload;
 
       // Refresh stats in history, if needed
-      const history = state.history.map(testRun => {
+      const history = state.history.map((testRun) => {
         if (testRun.id === action.meta.testRunId) {
           return {
             ...testRun,

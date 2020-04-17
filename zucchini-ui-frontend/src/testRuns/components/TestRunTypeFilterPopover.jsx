@@ -20,7 +20,7 @@ export default class TestRunTypeFilterPopover extends React.PureComponent {
     };
   }
 
-  onSearch = event => {
+  onSearch = (event) => {
     this.setState({
       search: event.target.value
     });
@@ -35,7 +35,7 @@ export default class TestRunTypeFilterPopover extends React.PureComponent {
 
     if (search) {
       const searchLowerCase = search.toLowerCase();
-      return type => type.toLowerCase().includes(searchLowerCase);
+      return (type) => type.toLowerCase().includes(searchLowerCase);
     }
 
     return () => true;
@@ -57,7 +57,7 @@ export default class TestRunTypeFilterPopover extends React.PureComponent {
 
     // Links to test run types
 
-    const testRunTypeLinks = testRunTypes.filter(this.createFilter()).map(type => {
+    const testRunTypeLinks = testRunTypes.filter(this.createFilter()).map((type) => {
       return (
         <p key={type}>
           <Link to={{ pathname: "/", search: queryString.stringify({ type }) }} onClick={this.onTypeSelected}>
