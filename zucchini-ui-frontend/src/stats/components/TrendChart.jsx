@@ -19,20 +19,16 @@ export default class TrendChart extends React.PureComponent {
   render() {
     const { trends } = this.props;
 
-    const series = [];
-
-    ["passed", "failed", "pending", "notRun"]
-
-    ["passed", "failed", "pending", "notRun"].forEach((type) => {
+    const series = ["passed", "failed", "pending", "notRun"].map((type) => {
       const serieValues = trends.map((trend) => {
         return trend[type];
       });
 
-      series.push({
+      return {
         name: type,
         value: serieValues,
         className: `chart-trend-${kebabCase(type)}`
-      });
+      };
     });
 
     return <BarChart data={{ series }} />;
