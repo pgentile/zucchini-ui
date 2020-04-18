@@ -20,8 +20,6 @@ export default function useWindowVisibility() {
   }, [markInvisible]);
 
   useEffect(() => {
-    console.info("Adding visibility change listener");
-
     setVisible(document.visibilityState !== "hidden");
 
     const handleVisibilityChange = () => {
@@ -35,10 +33,6 @@ export default function useWindowVisibility() {
       markInvisible.cancel();
     };
   }, [markInvisible, markVisible]);
-
-  useEffect(() => {
-    console.info("Visibility changed:", visible);
-  }, [visible]);
 
   return visible;
 }
