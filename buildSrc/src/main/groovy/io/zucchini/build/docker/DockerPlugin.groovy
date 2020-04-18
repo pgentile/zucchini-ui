@@ -14,6 +14,7 @@ class DockerPlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
         project.extensions.create('docker', DockerExtension, project)
+        project.extensions.create('dockerCompose', DockerComposeExtension, project)
 
         // Add Docker tasks if Dockerfile exists
         File dockerfile = project.file('Dockerfile')
@@ -68,6 +69,13 @@ class DockerPlugin implements Plugin<Project> {
             type: DockerComposeUpTask,
             group: TASK_GROUP,
             description: 'Docker Compose up'
+        )
+
+        project.task(
+            'dockerComposePull',
+            type: DockerComposePullTask,
+            group: TASK_GROUP,
+            description: 'Docker Compose pull'
         )
     }
 

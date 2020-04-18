@@ -168,6 +168,15 @@ allprojects {
         }
     }
 
+    // Docker compose config
+
+    dockerCompose {
+        environment 'ZUCCHINI_VERSION': "${project.version}"
+    }
+
+    dockerComposeUp {
+        detach = true
+    }
 
 }
 
@@ -295,11 +304,6 @@ project("${rootProject.name}-app") {
 
     dockerBuild {
         buildArg 'ZUCCHINI_VERSION': "${project.version}"
-    }
-
-    dockerComposeUp {
-        detach = true
-        environment 'ZUCCHINI_VERSION': "${project.version}"
     }
 
 }

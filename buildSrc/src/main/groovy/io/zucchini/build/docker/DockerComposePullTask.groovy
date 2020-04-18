@@ -5,22 +5,18 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 
-class DockerComposeUpTask extends DefaultTask {
-
-    @Input
-    boolean detach = false
+class DockerComposePullTask extends DefaultTask {
 
     @TaskAction
     void build() {
-        List<String> args = ['docker-compose', 'up']
-
-        if (detach) {
-            args << "-d"
-        }
+        List<String> args = ['docker-compose', 'pull']
 
         project.logger.info('Executing Docker Compose with arguments: {}', args)
 
         Map<String, String> env = project.dockerCompose.env
+
+        project.logger.error('Executing Docker Compose with env: {}', env)
+
         project.exec {
             environment env
             commandLine args
