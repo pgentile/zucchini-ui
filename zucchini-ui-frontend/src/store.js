@@ -11,7 +11,6 @@ import scenarioFiltersStorage from "./filters/scenarioFiltersStorage";
 import stepFiltersStorage from "./filters/stepFiltersStorage";
 import { default as createStorageMiddleware } from "./browserStorage/createMiddleware";
 import { default as createWebSocketMiddleware } from "./websocket/createMiddleware";
-import { loadingIndicatorMiddleware } from "./loadingIndicator/redux";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -23,8 +22,7 @@ const middlewares = [
   createStorageMiddleware(scenarioFiltersStorage, (state) => state.scenarioFilters),
   createStorageMiddleware(stepFiltersStorage, (state) => state.stepFilters),
   thunkMiddleware,
-  promise,
-  loadingIndicatorMiddleware()
+  promise
 ];
 
 // eslint-disable-next-line no-undef

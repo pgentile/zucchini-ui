@@ -5,8 +5,9 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import store from "./store";
 
 import RootPage from "./ui/components/RootPage";
-import NotFoundPage from "./notFound/components/NotFoundPage";
 import ScrollToTop from "./ui/components/ScrollToTop";
+import NotFoundPage from "./notFound/components/NotFoundPage";
+import PageLoadingPlaceholder from "./loadingIndicator/components/PageLoadingPlaceholder";
 
 const TestRunsPageContainer = lazy(() => import("./testRuns/components/TestRunsPageContainer"));
 const TestRunPageContainer = lazy(() => import("./testRun/components/TestRunPageContainer"));
@@ -27,7 +28,7 @@ export default function AppRouter() {
         <BrowserRouter basename="/ui">
           <RootPage>
             <ScrollToTop />
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<PageLoadingPlaceholder />}>
               <Switch>
                 <Route exact path="/" component={TestRunsPageContainer} />
                 <Route exact path="/test-runs/:testRunId" component={TestRunPageContainer} />
