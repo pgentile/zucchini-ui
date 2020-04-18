@@ -21,8 +21,10 @@ export default class TrendChart extends React.PureComponent {
 
     const series = [];
 
-    ["passed", "failed", "pending", "notRun"].forEach(function (type) {
-      const serieValues = trends.map(function (trend) {
+    ["passed", "failed", "pending", "notRun"]
+
+    ["passed", "failed", "pending", "notRun"].forEach((type) => {
+      const serieValues = trends.map((trend) => {
         return trend[type];
       });
 

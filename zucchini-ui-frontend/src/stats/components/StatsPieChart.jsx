@@ -36,9 +36,7 @@ export default class StatsPieChart extends React.PureComponent {
       }
     ];
 
-    series = series.filter(function (serie) {
-      return serie.value > 0;
-    });
+    series = series.filter((serie) => serie.value > 0);
 
     const data = {
       series

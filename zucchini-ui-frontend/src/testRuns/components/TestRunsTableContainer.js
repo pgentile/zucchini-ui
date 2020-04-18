@@ -9,7 +9,7 @@ const selectTestRuns = createSelector(
   (state) => selectLatestTestRuns(state),
   (state, ownProps) => ownProps.selectedType,
   (testRuns, selectedType) => {
-    var selectedTestRuns = testRuns;
+    let selectedTestRuns = testRuns;
     if (selectedType) {
       selectedTestRuns = selectedTestRuns.filter((testRun) => testRun.type === selectedType);
     }

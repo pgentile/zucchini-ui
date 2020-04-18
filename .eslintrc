@@ -1,10 +1,7 @@
 {
   "root": true,
-  "plugins": [
-    "prettier"
-  ],
-  "parserOptions": {
-    "ecmaVersion": 2020
+  "env": {
+    "es2020": true
   },
   "extends": [
     "eslint:recommended",
@@ -16,6 +13,20 @@
       {
         "ignoreRestSiblings": true
       }
-    ]
+    ],
+    "no-var": "error",
+    "prefer-const": "error",
+    "default-case": "error",
+    "dot-notation": [
+      "error",
+      {
+        "allowPattern": "^[a-z]+(_[a-z]+)+$"
+      }
+    ],
+    "no-useless-constructor": "error",
+    "no-useless-rename": "error",
+    "prefer-rest-params": "error",
+    "prefer-spread": "error",
+    "prefer-arrow-callback": "error"
   }
 }

@@ -2,13 +2,8 @@
   "root": false,
   "parser": "babel-eslint",
   "env": {
-    "browser": true,
-    "es6": true
+    "browser": true
   },
-  "plugins": [
-    "react",
-    "react-hooks" // https://reactjs.org/docs/hooks-rules.html#eslint-plugin
-  ],
   "parserOptions": {
     "sourceType": "module",
     "ecmaFeatures": {
@@ -17,14 +12,11 @@
   },
   "settings": {
     "react": {
-      "version": "16.8.6"
+      "version": "detect"
     }
   },
   "extends": [
-    "plugin:react/recommended"
-  ],
-  "rules": {
-    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
-    "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
-  }
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
+  ]
 }

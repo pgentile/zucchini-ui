@@ -1,5 +1,5 @@
 //Types de tir
-var types = [
+const types = [
   "Admissibility",
   "New Features",
   "New features",
@@ -13,7 +13,7 @@ var types = [
 ];
 
 //Environnements pris en charge
-var environnments = [
+const environnments = [
   "REL1",
   "REL2",
   "REL3",
@@ -33,20 +33,20 @@ var environnments = [
 ];
 
 export function getNom(valueNom, valueType) {
-  var nom = valueType;
+  let nom = valueType;
 
   /*Dans le cas où c'est l'existant, la variable n'est pas renseignée.
    *Tout est mis dans le champ type qui est alimenté par le champ jenkins NOM_RAPPORT_ZUCCHINI
    */
   if (valueNom == null) {
     //Pour chaque environnement, on vérifie s'il est défini dans le type. Si c'est le cas, on l'enlève
-    types.forEach(function (element) {
+    types.forEach((element) => {
       if (valueType.includes(element)) {
         nom = nom.replace(element, "");
       }
     });
     //Pour chaque environnement, on vérifie qu'il est défini dans le type. Si c'est le cas, on l'enlève
-    environnments.forEach(function (element) {
+    environnments.forEach((element) => {
       if (valueType.includes(element)) {
         nom = nom.replace(element, "");
       }
@@ -75,10 +75,10 @@ export function getPlateforme(valuePlateforme, valueType) {
 
 export function getType(value) {
   //Valeur renvoyée au cas où l'environnement ne soit pas renseigné dans le type renvoyé
-  var type = "NON DEFINI";
+  let type = "NON DEFINI";
 
   //Pour chaque environnement, on vérifie qu'il est défini dans le type
-  types.forEach(function (element) {
+  types.forEach((element) => {
     if (value.includes(element)) {
       type = element;
     }
@@ -89,19 +89,20 @@ export function getType(value) {
 //Fonction permettant de récupérer la plateforme dans l'existant
 export function getPlateformeFromNomRapportZucchini(value) {
   //Valeur renvoyée au cas où l'environnement ne soit pas renseigné dans le type renvoyé
-  var env = "NON DEFINI";
+  let env = "NON DEFINI";
 
   //Pour chaque environnement, on vérifie qu'il est défini dans le type
-  environnments.forEach(function (element) {
+  environnments.forEach((element) => {
     if (value.includes(element)) {
       env = element;
     }
   });
   return env;
 }
+
 //Fonction peremttant de récupérer  le type, nom et environnement du tir
 export default function getTypeEnvName(testRun) {
-  var separateur = " _";
+  const separateur = " _";
   if (testRun.environment == undefined && testRun.name !== undefined) {
     return testRun.type + separateur + testRun.name;
   } else if (testRun.environment !== undefined && testRun.name == undefined) {
