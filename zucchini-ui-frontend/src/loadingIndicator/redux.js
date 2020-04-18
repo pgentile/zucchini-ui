@@ -29,6 +29,8 @@ export function loadingIndicator(state = initialState, action) {
   }
 }
 
+// Middleware
+
 export function loadingIndicatorMiddleware() {
   return () => {
     let count = 0;
