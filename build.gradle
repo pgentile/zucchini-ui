@@ -43,7 +43,6 @@ allprojects {
     apply plugin: 'idea'
     apply plugin: DockerPlugin
     apply plugin: NodePlugin
-    apply plugin: 'com.github.ben-manes.versions'
 
     repositories {
         mavenLocal()
@@ -155,7 +154,7 @@ allprojects {
     }
 
     // Remove milestones, release candidates, etc from dependency updates check
-    dependencyUpdates.resolutionStrategy = {
+    dependencyUpdates.resolutionStrategy {
         componentSelection { rules ->
             rules.all { ComponentSelection selection ->
                 boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm'].any { qualifier ->
@@ -259,6 +258,20 @@ project("${rootProject.name}-frontend") {
         inputs.file('package.json')
     }
 
+    tasks.test.dependsOn jsTest
+
+    task lint(type: YarnTask, description: 'Lint') {
+        command = 'lint'
+
+        inputs.dir('src')
+        inputs.dir('test')
+        inputs.file('.eslintrc')
+        inputs.file(rootProject.file('.eslintrc'))
+        inputs.file('package.json')
+    }
+
+    tasks.check.dependsOn lint
+
     task copyAssets(type: Copy, dependsOn: webpack) {
         from 'build/dist'
         into "$project.buildDir/ui-resources/ui"
@@ -270,7 +283,6 @@ project("${rootProject.name}-frontend") {
     }
 
     tasks.processResources.dependsOn(copyAssets, copyIndexHtml)
-    tasks.test.dependsOn jsTest
 
 }
 
@@ -377,5 +389,18 @@ project("${rootProject.name}-e2e-tests") {
     task jsTest(type: YarnTask, description: 'Test E2E') {
         command = 'test'
     }
+
+    task lint(type: YarnTask, description: 'Lint') {
+        command = 'lint'
+
+        inputs.dir('cypress')
+        inputs.file('.eslintrc')
+        inputs.file(rootProject.file('.eslintrc'))
+        inputs.file('package.json')
+    }
+
+    task check
+
+    tasks.check.dependsOn lint
 
 }
