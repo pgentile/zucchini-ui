@@ -169,9 +169,9 @@
   integrity sha512-luq8meHGYwvky0O7u0eQZdA7B4Wd9owUCqvbw2m3XCrCU8mplYOujMBbvyS547AxJkC+pGnd0Cm15eNxEUNU8g==
 
 "@types/jquery@*":
-  version "3.3.34"
-  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.34.tgz#0d3b94057063d3854adaeb579652048fec07ba6c"
-  integrity sha512-lW9vsVL53Xu/Nj4gi2hNmHGc4u3KKghjqTkAlO0kF5GIOPxbqqnQpgqJBzmn3yXLrPqHb6cmNJ6URnS23Vtvbg==
+  version "3.3.35"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.35.tgz#ab2cbf97e7a04b4dc0faee22b93c633fa540891c"
+  integrity sha512-pnIELWhHXJ7RgoFylhiTxD+96QlKBJfEx8JCLj963/dh7zBOKFkZ6rlNqbaCcn2JZrsAxCI8WhgRXznBx2iDsA==
   dependencies:
     "@types/sizzle" "*"
 
@@ -248,9 +248,9 @@ ajv@^6.10.0, ajv@^6.10.2:
     uri-js "^4.2.2"
 
 ajv@^6.5.5:
-  version "6.12.0"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.12.0.tgz#06d60b96d87b8454a5adaba86e7854da629db4b7"
-  integrity sha512-D6gFiFA0RRLyUbvijN74DWAjXSFxWKaWP7mldxkVhyhAV3+SWA9HEJPHQ2c9soIeTFJqcSdFDGFgdqs1iUU2Hw==
+  version "6.12.2"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.12.2.tgz#c629c5eced17baf314437918d2da88c99d5958cd"
+  integrity sha512-k+V+hzjm5q/Mr8ef/1Y9goCmlsK4I6Sm74teeyGvFk1XrOsbsKLjEdrvny42CZ+a8sXbk8KWpY/bDwS+FLL2UQ==
   dependencies:
     fast-deep-equal "^3.1.1"
     fast-json-stable-stringify "^2.0.0"
@@ -574,9 +574,9 @@ cypress-file-upload@^4.0.0:
     mime "^2.4.4"
 
 cypress@^4.0.1:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/cypress/-/cypress-4.4.0.tgz#566ac224e11601634c31e5648e5c15199dde7954"
-  integrity sha512-ZpsV3pVemANGi4Cxu0UIqFv23uHdDJZYlKY+8P/eixujCpI1TQ5RSPBp2grfV3ZvlGYrOXPJY44j9iEh1xoQug==
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-4.4.1.tgz#f5aa1aa5f328f1299bff328103f7cbad89e80f29"
+  integrity sha512-LcskZ/PXRG9XTlEeeenKqz/KddT1x+7O7dqXsdKWPII01LxLNmNHIvHnlUqApchVbinJ5vir6J255CkELSeL0A==
   dependencies:
     "@cypress/listr-verbose-renderer" "0.4.1"
     "@cypress/request" "2.88.5"
