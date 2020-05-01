@@ -30,6 +30,9 @@ module.exports = {
   devtool: "source-map",
   devServer: {
     port: devServerPort,
+    inline: true,
+    compress: true,
+    historyApiFallback: true,
     before: app => {
       app.get("/", (req, res) => {
         res.redirect("/ui/");
