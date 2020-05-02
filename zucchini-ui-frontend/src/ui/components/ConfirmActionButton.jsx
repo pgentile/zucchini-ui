@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { Fragment } from "react";
 import Modal from "react-bootstrap/lib/Modal";
 
 import Button from "../../ui/components/Button";
@@ -48,7 +48,7 @@ export default class ConfirmActionButton extends React.PureComponent {
     const { show } = this.state;
 
     return (
-      <span>
+      <Fragment>
         <Button glyph={actionGlyph} bsStyle={bsStyle} bsSize={bsSize} onClick={this.onShowConfirmation}>
           {actionLabel}
         </Button>
@@ -67,7 +67,7 @@ export default class ConfirmActionButton extends React.PureComponent {
             </Button>
           </Modal.Footer>
         </Modal>
-      </span>
+      </Fragment>
     );
   }
 }

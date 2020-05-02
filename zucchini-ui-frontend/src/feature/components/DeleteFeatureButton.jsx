@@ -1,30 +1,33 @@
 import PropTypes from "prop-types";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import ConfirmActionButton from "../../ui/components/ConfirmActionButton";
+import { deleteFeature } from "../redux";
 
-export default class DeleteFeatureButton extends React.PureComponent {
-  static propTypes = {
-    testRunId: PropTypes.string,
-    featureId: PropTypes.string,
-    onDelete: PropTypes.func.isRequired
+export default function DeleteFeatureButton({ testRunId, featureId }) {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleDelete = async () => {
+    await dispatch(deleteFeature({ featureId }));
+    history.replace(`/test-runs/${testRunId}`);
   };
 
-  onDelete = () => {
-    const { testRunId, featureId, onDelete } = this.props;
-    onDelete({ testRunId, featureId });
-  };
-
-  render() {
-    return (
-      <ConfirmActionButton
-        bsStyle="danger"
-        actionGlyph="remove"
-        actionLabel="Supprimer"
-        title="Supprimer la fonctionnalité"
-        message="La suppression est irreversible. Êtes-vous sûr de supprimer cette fonctionnalité ?"
-        onConfirm={this.onDelete}
-      />
-    );
-  }
+  return (
+    <ConfirmActionButton
+      bsStyle="danger"
+      actionGlyph="remove"
+      actionLabel="Supprimer"
+      title="Supprimer la fonctionnalité"
+      message="La suppression est irreversible. Êtes-vous sûr de supprimer cette fonctionnalité ?"
+      onConfirm={handleDelete}
+    />
+  );
 }
+
+DeleteFeatureButton.propTypes = {
+  testRunId: PropTypes.string.isRequired,
+  featureId: PropTypes.string.isRequired
+};

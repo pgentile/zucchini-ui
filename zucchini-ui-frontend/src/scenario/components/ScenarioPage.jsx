@@ -16,7 +16,7 @@ import UpdateScenarioStateDialogContainer from "./UpdateScenarioStateDialogConta
 import CommentListContainer from "./CommentListContainer";
 import ScenarioDetailsContainer from "./ScenarioDetailsContainer";
 import AddCommentFormContainer from "./AddCommentFormContainer";
-import DeleteScenarioButtonContainer from "./DeleteScenarioButtonContainer";
+import DeleteScenarioButton from "./DeleteScenarioButton";
 import UpdateScenarioReviewedStateDialogContainer from "./UpdateScenarioReviewedStateDialogContainer";
 import SimilarFailureScenarioTableContainer from "./SimilarFailureScenarioTableContainer";
 import ScenarioChangeTable from "./ScenarioChangeTable";
@@ -133,7 +133,7 @@ export default class ScenarioPage extends React.Component {
             </Button>
           </ButtonGroup>
           <ButtonGroup>
-            <DeleteScenarioButtonContainer featureId={featureId} scenarioId={scenarioId} />
+            <DeleteScenarioButton featureId={featureId} scenarioId={scenarioId} />
           </ButtonGroup>
         </ButtonToolbar>
 

@@ -11,7 +11,7 @@ import TestRunHistoryTableContainer from "./TestRunHistoryTableContainer";
 import TestRunStatsContainer from "./TestRunStatsContainer";
 import TestRunFeatureTableContainer from "./TestRunFeatureTableContainer";
 import FeatureGroupFilterContainer from "./FeatureGroupFilterContainer";
-import DeleteTestRunButtonContainer from "./DeleteTestRunButtonContainer";
+import DeleteTestRunButton from "./DeleteTestRunButton";
 import ImportCucumberResultsDialogContainer from "./ImportCucumberResultsDialogContainer";
 import EditTestRunDialogContainer from "./EditTestRunDialogContainer";
 import TestRunTrendChartContainer from "./TestRunTrendChartContainer";
@@ -137,7 +137,7 @@ export default class TestRunPage extends React.Component {
             </ButtonLink>
           </ButtonGroup>
           <ButtonGroup>
-            <DeleteTestRunButtonContainer testRunId={testRunId} />
+            <DeleteTestRunButton testRunId={testRunId} />
           </ButtonGroup>
         </ButtonToolbar>
 

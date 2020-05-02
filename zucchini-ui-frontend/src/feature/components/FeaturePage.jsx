@@ -12,7 +12,7 @@ import ScenarioStateFilterContainer from "../../filters/components/ScenarioState
 import TagList from "../../ui/components/TagList";
 import SimpleText from "../../ui/components/SimpleText";
 import Status from "../../ui/components/Status";
-import DeleteFeatureButtonContainer from "./DeleteFeatureButtonContainer";
+import DeleteFeatureButton from "./DeleteFeatureButton";
 import FeatureTrendChartContainer from "./FeatureTrendChartContainer";
 import Page from "../../ui/components/Page";
 import FeatureBreadcrumbContainer from "./FeatureBreadcrumbContainer";
@@ -82,7 +82,7 @@ export default class FeaturePage extends React.Component {
 
         <hr />
         <ButtonToolbar>
-          <DeleteFeatureButtonContainer testRunId={feature.testRunId} featureId={featureId} />
+          <DeleteFeatureButton testRunId={feature.testRunId} featureId={featureId} />
         </ButtonToolbar>
         <hr />
 
