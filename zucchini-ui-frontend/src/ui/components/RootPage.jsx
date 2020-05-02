@@ -4,13 +4,13 @@ import Navbar from "react-bootstrap/lib/Navbar";
 import Nav from "react-bootstrap/lib/Nav";
 import { Link } from "react-router-dom";
 
-import LoadingIndicatorContainer from "../../loadingIndicator/components/LoadingIndicatorContainer";
+import LoadingIndicator from "../../loadingIndicator/components/LoadingIndicator";
 import ErrorAlertContainer from "../../errors/components/ErrorAlertContainer";
 
-export default function RoutePage({ search, children }) {
+export default function RootPage({ search, children }) {
   return (
     <Fragment>
-      <LoadingIndicatorContainer />
+      <LoadingIndicator />
 
       <Navbar inverse staticTop collapseOnSelect>
         <Navbar.Header>
@@ -36,7 +36,7 @@ export default function RoutePage({ search, children }) {
   );
 }
 
-RoutePage.propTypes = {
+RootPage.propTypes = {
   children: PropTypes.node,
   search: PropTypes.node
 };

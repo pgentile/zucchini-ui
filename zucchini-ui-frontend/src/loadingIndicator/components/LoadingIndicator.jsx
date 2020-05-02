@@ -1,51 +1,49 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useState, useEffect, useCallback } from "react";
+import { useSelector } from "react-redux";
 
 import EventScheduler from "../EventScheduler";
 import LoadingBar from "./LoadingBar";
 
-export default class LoadingIndicator extends React.PureComponent {
-  static propTypes = {
-    active: PropTypes.bool.isRequired
-  };
+const inactiveBarState = {
+  start: false,
+  pending: false,
+  ending: false,
+  done: false
+};
 
-  static defaultProps = {
-    active: false
-  };
+export default function LoadingIndicator() {
+  const [eventScheduler] = useState(() => new EventScheduler());
 
-  inactiveState = {
-    start: false,
-    pending: false,
-    ending: false,
-    done: false
-  };
+  const [barState, setBarState] = useState(inactiveBarState);
 
-  state = this.inactiveState;
+  const scheduleBarState = useCallback(
+    (newBarState, timeout) => {
+      eventScheduler.schedule(() => {
+        setBarState((currentBarState) => ({
+          ...currentBarState,
+          ...newBarState
+        }));
+      }, timeout);
+    },
+    [eventScheduler]
+  );
 
-  eventScheduler = new EventScheduler();
+  const active = useSelector((state) => state.loadingIndicator.count > 0);
 
-  componentDidUpdate(prevProps) {
-    const { active } = this.props;
+  useEffect(() => {
+    if (active) {
+      scheduleBarState({ start: true });
+      scheduleBarState({ pending: true });
+    } else {
+      const handle = setTimeout(() => {
+        scheduleBarState({ ending: true });
+        scheduleBarState({ done: true }, 200);
+        scheduleBarState(inactiveBarState);
+      }, 100);
 
-    if (prevProps.active !== active) {
-      if (active) {
-        this.scheduleState({ start: true });
-        this.scheduleState({ pending: true });
-      } else {
-        this.scheduleState({ ending: true });
-        this.scheduleState({ done: true }, 200);
-        this.scheduleState(this.inactiveState, 100);
-      }
+      return () => clearTimeout(handle);
     }
-  }
+  }, [active, scheduleBarState]);
 
-  scheduleState(nextState, timeout) {
-    this.eventScheduler.schedule(() => {
-      this.setState(nextState);
-    }, timeout);
-  }
-
-  render() {
-    return <LoadingBar {...this.state} />;
-  }
+  return <LoadingBar {...barState} />;
 }

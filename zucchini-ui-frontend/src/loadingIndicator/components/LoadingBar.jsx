@@ -1,22 +1,22 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 
-export default class LoadingBar extends React.PureComponent {
-  static propTypes = {
-    start: PropTypes.bool.isRequired,
-    pending: PropTypes.bool.isRequired,
-    ending: PropTypes.bool.isRequired,
-    done: PropTypes.bool.isRequired
-  };
+function LoadingBar(props) {
+  let classNames = "loading-bar";
+  ["start", "pending", "ending", "done"].forEach((flagName) => {
+    if (props[flagName]) {
+      classNames += ` loading-bar-${flagName}`;
+    }
+  });
 
-  render() {
-    let classNames = "loading-bar";
-    ["start", "pending", "ending", "done"].forEach((flagName) => {
-      if (this.props[flagName]) {
-        classNames += ` loading-bar-${flagName}`;
-      }
-    });
-
-    return <div className={classNames} />;
-  }
+  return <div className={classNames} />;
 }
+
+LoadingBar.propTypes = {
+  start: PropTypes.bool.isRequired,
+  pending: PropTypes.bool.isRequired,
+  ending: PropTypes.bool.isRequired,
+  done: PropTypes.bool.isRequired
+};
+
+export default memo(LoadingBar);
