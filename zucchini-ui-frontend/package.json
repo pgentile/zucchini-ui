@@ -6,7 +6,7 @@
     "build": "webpack --mode=production",
     "lint": "eslint --ext .jsx,.js ./src/ ./test/",
     "fix": "eslint --fix --ext .jsx,.js ./src/ ./test/",
-    "prettier": "prettier --write src/**/*.{js,jsx} test/**/*.{js,jsx}",
+    "prettier": "prettier --write src/**/*.{js,jsx,less} test/**/*.{js,jsx}",
     "test": "jest",
     "stats": "webpack --profile --json --mode=production >./build/stats.json",
     "babel": "babel",
