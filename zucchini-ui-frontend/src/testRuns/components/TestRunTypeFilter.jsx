@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import Overlay from "react-bootstrap/lib/Overlay";
 import Popover from "react-bootstrap/lib/Popover";
 import ButtonGroup from "react-bootstrap/lib/ButtonGroup";
@@ -7,61 +7,44 @@ import ButtonGroup from "react-bootstrap/lib/ButtonGroup";
 import Button from "../../ui/components/Button";
 import Caret from "../../ui/components/Caret";
 
-import TestRunTypeFilterPopoverContainer from "./TestRunTypeFilterPopoverContainer";
+import TestRunTypeFilterPopover from "./TestRunTypeFilterPopover";
 
-export default class TestRunTypeFilter extends React.PureComponent {
-  static propTypes = {
-    testRunTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
-    selectedType: PropTypes.string
+export default function TestRunTypeFilter({ selectedType }) {
+  const [showSelectableTypes, setShowSelectableTypes] = useState(false);
+  const [overlayTarget, setOverlayTarget] = useState(null);
+
+  const handleShowPopoverClick = (event) => {
+    setShowSelectableTypes(true);
+    setOverlayTarget(event.target);
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showSelectableTypes: false,
-      overlayTarget: null
-    };
-  }
-
-  onShowPopoverClick = (event) => {
-    this.setState({
-      showSelectableTypes: true,
-      overlayTarget: event.target
-    });
+  const handleHidePopover = () => {
+    setShowSelectableTypes(false);
   };
 
-  onHidePopover = () => {
-    this.setState({
-      showSelectableTypes: false
-    });
-  };
+  return (
+    <div style={{ position: "relative", marginBottom: "10px" }}>
+      <ButtonGroup bsSize="xsmall">
+        <Button active={showSelectableTypes} onClick={handleShowPopoverClick}>
+          Type de tir : <b>{selectedType ? selectedType : <i>Tous</i>}</b> <Caret />
+        </Button>
+      </ButtonGroup>
 
-  render() {
-    const { selectedType } = this.props;
-    const { showSelectableTypes, overlayTarget } = this.state;
-
-    return (
-      <div style={{ position: "relative", marginBottom: "10px" }}>
-        <ButtonGroup bsSize="xsmall">
-          <Button active={showSelectableTypes} onClick={this.onShowPopoverClick}>
-            Type de tir : <b>{selectedType ? selectedType : <i>Tous</i>}</b> <Caret />
-          </Button>
-        </ButtonGroup>
-
-        <Overlay
-          show={showSelectableTypes}
-          container={this}
-          target={overlayTarget}
-          placement="bottom"
-          rootClose
-          onHide={this.onHidePopover}
-        >
-          <Popover id="test-run-type-filter-container" title="Filter par type de tir" style={{ width: "30rem" }}>
-            <TestRunTypeFilterPopoverContainer selectedType={selectedType} onTypeSelected={this.onHidePopover} />
-          </Popover>
-        </Overlay>
-      </div>
-    );
-  }
+      <Overlay
+        show={showSelectableTypes}
+        target={overlayTarget}
+        placement="bottom"
+        rootClose
+        onHide={handleHidePopover}
+      >
+        <Popover id="test-run-type-filter-container" title="Filter par type de tir" style={{ width: "30rem" }}>
+          <TestRunTypeFilterPopover selectedType={selectedType} onTypeSelected={handleHidePopover} />
+        </Popover>
+      </Overlay>
+    </div>
+  );
 }
+
+TestRunTypeFilter.propTypes = {
+  selectedType: PropTypes.string
+};

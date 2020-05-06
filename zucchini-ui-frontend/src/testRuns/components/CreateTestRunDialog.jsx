@@ -1,116 +1,96 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import Modal from "react-bootstrap/lib/Modal";
 import FormGroup from "react-bootstrap/lib/FormGroup";
 import ControlLabel from "react-bootstrap/lib/ControlLabel";
 import FormControl from "react-bootstrap/lib/FormControl";
 
 import Button from "../../ui/components/Button";
+import { createTestRun } from "../redux";
 
-export default class CreateTestRunDialog extends React.PureComponent {
-  static propTypes = {
-    show: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
-    onCreateTestRun: PropTypes.func.isRequired
+export default function CreateTestRunDialog({ currentSelectedType, onClose }) {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const [type, setType] = useState(currentSelectedType ?? "");
+  const [environment, setEnvironment] = useState("");
+  const [name, setName] = useState("");
+
+  const handleTypeChange = (event) => {
+    event.preventDefault();
+    setType(event.target.value);
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      newTestRun: {
-        type: "",
-        environment: "",
-        name: ""
-      }
-    };
-  }
-
-  onTypeChange = (event) => {
+  const handleNameChange = (event) => {
     event.preventDefault();
-
-    const type = event.target.value;
-
-    this.setState((previousState) => ({
-      newTestRun: {
-        ...previousState.newTestRun,
-        type
-      }
-    }));
+    setName(event.target.value);
   };
 
-  onNameChange = (event) => {
+  const handleEnvironmentChange = (event) => {
     event.preventDefault();
+    setEnvironment(event.target.value);
+  };
 
-    const name = event.target.value;
+  const handleCloseClick = (event) => {
+    if (event) {
+      event.preventDefault();
+    }
+    onClose();
+  };
 
-    this.setState((previousState) => ({
-      newTestRun: {
-        ...previousState.newTestRun,
+  const handleCreateTestRun = async (event) => {
+    if (event) {
+      event.preventDefault();
+    }
+
+    const result = await dispatch(
+      createTestRun({
+        type,
+        environment,
         name
-      }
-    }));
-  };
-
-  onEnvironmentChange = (event) => {
-    event.preventDefault();
-
-    const environment = event.target.value;
-
-    this.setState((previousState) => ({
-      newTestRun: {
-        ...previousState.newTestRun,
-        environment
-      }
-    }));
-  };
-
-  onCloseClick = (event) => {
-    if (event) {
-      event.preventDefault();
-    }
-    this.props.onClose();
-  };
-
-  onCreateTestRun = (event) => {
-    if (event) {
-      event.preventDefault();
-    }
-    this.props.onCreateTestRun(this.state.newTestRun);
-    this.props.onClose();
-  };
-
-  render() {
-    const { show } = this.props;
-
-    return (
-      <Modal show={show} onHide={this.onCloseClick}>
-        <Modal.Header closeButton>
-          <Modal.Title>Créer un tir</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={this.onCreateTestRun}>
-            <FormGroup controlId="type">
-              <ControlLabel>Type</ControlLabel>
-              <FormControl type="text" autoFocus value={this.state.newTestRun.type} onChange={this.onTypeChange} />
-            </FormGroup>
-            <FormGroup controlId="environment">
-              <ControlLabel>Environnement</ControlLabel>
-              <FormControl type="text" value={this.state.newTestRun.environment} onChange={this.onEnvironmentChange} />
-            </FormGroup>
-            <FormGroup controlId="name">
-              <ControlLabel>Nom</ControlLabel>
-              <FormControl type="text" value={this.state.newTestRun.name} onChange={this.onNameChange} />
-            </FormGroup>
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button bsStyle="primary" onClick={this.onCreateTestRun}>
-            Créer
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      })
     );
-  }
+
+    onClose();
+
+    const createdTestRun = result.value;
+    history.push(`/test-runs/${createdTestRun.id}`);
+  };
+
+  return (
+    <Modal show onHide={handleCloseClick}>
+      <Modal.Header closeButton>
+        <Modal.Title>Créer un tir</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <form onSubmit={handleCreateTestRun}>
+          <FormGroup controlId="type">
+            <ControlLabel>Type</ControlLabel>
+            <FormControl type="text" autoFocus value={type} onChange={handleTypeChange} />
+          </FormGroup>
+          <FormGroup controlId="environment">
+            <ControlLabel>Environnement</ControlLabel>
+            <FormControl type="text" value={environment} onChange={handleEnvironmentChange} />
+          </FormGroup>
+          <FormGroup controlId="name">
+            <ControlLabel>Nom</ControlLabel>
+            <FormControl type="text" value={name} onChange={handleNameChange} />
+          </FormGroup>
+        </form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={handleCloseClick}>Annuler</Button>
+        <Button bsStyle="primary" onClick={handleCreateTestRun}>
+          Créer
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
 }
+
+CreateTestRunDialog.propTypes = {
+  currentSelectedType: PropTypes.string,
+  onClose: PropTypes.func.isRequired
+};

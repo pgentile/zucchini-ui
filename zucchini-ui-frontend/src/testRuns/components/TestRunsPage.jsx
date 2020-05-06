@@ -1,94 +1,70 @@
-import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import ButtonToolbar from "react-bootstrap/lib/ButtonToolbar";
 import ButtonGroup from "react-bootstrap/lib/ButtonGroup";
 
 import Button from "../../ui/components/Button";
-import TestRunsTableContainer from "./TestRunsTableContainer";
-import TestRunTypeFilterContainer from "./TestRunTypeFilterContainer";
-import CreateTestRunDialogContainer from "./CreateTestRunDialogContainer";
-import PurgeDialogContainer from "./PurgeDialogContainer";
+import TestRunsTable from "./TestRunsTable";
+import TestRunTypeFilter from "./TestRunTypeFilter";
+import CreateTestRunDialog from "./CreateTestRunDialog";
+import PurgeDialog from "./PurgeDialog";
 import Page from "../../ui/components/Page";
-import TestRunsBreadcrumbContainer from "./TestRunsBreadcrumbContainer";
+import TestRunsBreadcrumb from "./TestRunsBreadcrumb";
+import useQueryParams from "../../useQueryParams";
+import { loadTestRunsPage } from "../redux";
 
-export default class TestRunsPage extends React.Component {
-  static propTypes = {
-    onLoad: PropTypes.func.isRequired,
-    selectedType: PropTypes.string
-  };
+export default function TestRunsPage() {
+  const dispatch = useDispatch();
+  const { type: selectedType } = useQueryParams();
 
-  constructor(props) {
-    super(props);
+  const [showCreateTestRunDialog, setShowCreateTestRunDialog] = useState(false);
+  const [showPurgeDialog, setShowPurgeDialog] = useState(false);
 
-    this.state = {
-      showCreateTestRunDialog: false,
-      showPurgeDialog: false
-    };
-  }
+  useEffect(() => {
+    dispatch(loadTestRunsPage());
+  }, [dispatch]);
 
-  componentDidMount() {
-    this.props.onLoad();
-  }
-
-  onCreateTestRunButtonClick = (event) => {
+  const onCreateTestRunButtonClick = (event) => {
     event.preventDefault();
-
-    this.setState({
-      showCreateTestRunDialog: true
-    });
+    setShowCreateTestRunDialog(true);
   };
 
-  onPurgeButtonClick = () => {
-    this.setState({
-      showPurgeDialog: true
-    });
+  const onPurgeButtonClick = () => {
+    setShowPurgeDialog(true);
   };
 
-  hideCreateTestRunDialog = () => {
-    this.setState({
-      showCreateTestRunDialog: false
-    });
+  const hideCreateTestRunDialog = () => {
+    setShowCreateTestRunDialog(false);
   };
 
-  hidePurgeDialog = () => {
-    this.setState({
-      showPurgeDialog: false
-    });
+  const hidePurgeDialog = () => {
+    setShowPurgeDialog(false);
   };
 
-  render() {
-    const { selectedType } = this.props;
-    const { showCreateTestRunDialog, showPurgeDialog } = this.state;
-
-    return (
-      <Page
-        title={<Fragment>Derniers tirs {selectedType && <small>Type {selectedType}</small>}</Fragment>}
-        breadcrumb={<TestRunsBreadcrumbContainer />}
-      >
-        <ButtonToolbar>
-          <ButtonGroup>
-            <Button glyph="plus-sign" onClick={this.onCreateTestRunButtonClick}>
-              Créer un tir
-            </Button>
-          </ButtonGroup>
-          <ButtonGroup>
-            <Button glyph="tree-deciduous" onClick={this.onPurgeButtonClick}>
-              Purger les anciens tirs
-            </Button>
-          </ButtonGroup>
-        </ButtonToolbar>
-        <hr />
-        <TestRunTypeFilterContainer selectedType={selectedType} />
-        <TestRunsTableContainer selectedType={selectedType} />
-        <CreateTestRunDialogContainer show={showCreateTestRunDialog} onClose={this.hideCreateTestRunDialog} />
-        {showPurgeDialog && (
-          <PurgeDialogContainer
-            currentSelectedType={selectedType}
-            show={showPurgeDialog}
-            onClose={this.hidePurgeDialog}
-          />
-        )}
-      </Page>
-    );
-  }
+  return (
+    <Page
+      title={<Fragment>Derniers tirs {selectedType && <small>Type {selectedType}</small>}</Fragment>}
+      breadcrumb={<TestRunsBreadcrumb />}
+    >
+      <ButtonToolbar>
+        <ButtonGroup>
+          <Button glyph="plus-sign" onClick={onCreateTestRunButtonClick}>
+            Créer un tir
+          </Button>
+        </ButtonGroup>
+        <ButtonGroup>
+          <Button glyph="tree-deciduous" onClick={onPurgeButtonClick}>
+            Purger les anciens tirs
+          </Button>
+        </ButtonGroup>
+      </ButtonToolbar>
+      <hr />
+      <TestRunTypeFilter selectedType={selectedType} />
+      <TestRunsTable selectedType={selectedType} />
+      {showCreateTestRunDialog && (
+        <CreateTestRunDialog currentSelectedType={selectedType} onClose={hideCreateTestRunDialog} />
+      )}
+      {showPurgeDialog && <PurgeDialog currentSelectedType={selectedType} onClose={hidePurgeDialog} />}
+    </Page>
+  );
 }

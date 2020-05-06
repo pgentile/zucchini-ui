@@ -9,7 +9,7 @@ import ScrollToTop from "./ui/components/ScrollToTop";
 import NotFoundPage from "./notFound/components/NotFoundPage";
 import PageLoadingPlaceholder from "./loadingIndicator/components/PageLoadingPlaceholder";
 
-const TestRunsPageContainer = lazy(() => import("./testRuns/components/TestRunsPageContainer"));
+const TestRunsPage = lazy(() => import("./testRuns/components/TestRunsPage"));
 const TestRunPageContainer = lazy(() => import("./testRun/components/TestRunPageContainer"));
 const FeaturePageContainer = lazy(() => import("./feature/components/FeaturePageContainer"));
 const TestRunSearchPageContainer = lazy(() => import("./search/components/TestRunSearchPageContainer"));
@@ -30,7 +30,7 @@ export default function AppRouter() {
             <ScrollToTop />
             <Suspense fallback={<PageLoadingPlaceholder />}>
               <Switch>
-                <Route exact path="/" component={TestRunsPageContainer} />
+                <Route exact path="/" component={TestRunsPage} />
                 <Route exact path="/test-runs/:testRunId" component={TestRunPageContainer} />
                 <Route exact path="/test-runs/:testRunId/search" component={TestRunSearchPageContainer} />
                 <Route exact path="/test-runs/:testRunId/tags" component={TagsPageContainer} />

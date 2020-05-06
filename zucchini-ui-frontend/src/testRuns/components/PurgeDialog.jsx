@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState, useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Modal from "react-bootstrap/lib/Modal";
 import FormGroup from "react-bootstrap/lib/FormGroup";
 import ControlLabel from "react-bootstrap/lib/ControlLabel";
@@ -11,141 +12,111 @@ import subDays from "date-fns/subDays";
 import parseISO from "date-fns/parseISO";
 
 import Button from "../../ui/components/Button";
+import { selectTestRunTypes, selectLatestTestRuns } from "../selectors";
+import { purgeTestRuns } from "../redux";
 
 const LOCAL_DATE_FORMAT = "yyyy-MM-dd";
 
-export default class PurgeDialog extends React.PureComponent {
-  static propTypes = {
-    currentSelectedType: PropTypes.string,
-    show: PropTypes.bool.isRequired,
-    testRunTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
-    testRuns: PropTypes.array.isRequired,
-    purgeDelayInDays: PropTypes.number,
-    onClose: PropTypes.func.isRequired,
-    onPurge: PropTypes.func.isRequired
-  };
+export default function PurgeDialog({ currentSelectedType, purgeDelayInDays = 90, onClose }) {
+  const dispatch = useDispatch();
 
-  static defaultProps = {
-    purgeDelayInDays: 90
-  };
+  const [type, setType] = useState(currentSelectedType);
 
-  constructor(props) {
-    super(props);
+  const [maxDate, setMaxDate] = useState(() => {
+    const initialMaxDate = subDays(new Date(), purgeDelayInDays);
+    return format(initialMaxDate, LOCAL_DATE_FORMAT);
+  });
 
-    const maxDate = subDays(new Date(), props.purgeDelayInDays);
+  const testRuns = useSelector(selectLatestTestRuns);
 
-    const type = props.currentSelectedType || "";
-    this.state = {
-      type,
-      maxDate: format(maxDate, LOCAL_DATE_FORMAT),
-      selectedTestRunIds: this.selectTestRunIds(this.props.testRuns, { type, maxDate })
-    };
-  }
+  const selectedTestRunIds = useMemo(() => {
+    return selectTestRunIds(testRuns, { type, maxDate });
+  }, [maxDate, testRuns, type]);
 
-  onTypeChange = (event) => {
+  const handleTypeChange = (event) => {
     event.preventDefault();
-
-    const type = event.target.value;
-
-    this.updateState({
-      type
-    });
+    setType(event.target.value);
   };
 
-  onMaxDateChange = (event) => {
+  const handleMaxDateChange = (event) => {
     event.preventDefault();
-
-    const maxDate = event.target.value;
-
-    this.updateState({
-      maxDate
-    });
+    setMaxDate(event.target.value);
   };
 
-  onCloseClick = (event) => {
+  const handleClose = (event) => {
     if (event) {
       event.preventDefault();
     }
-    this.props.onClose();
+    onClose();
   };
 
-  onPurge = (event) => {
+  const handlePurge = (event) => {
     if (event) {
       event.preventDefault();
     }
 
-    this.props.onPurge({ selectedTestRunIds: this.state.selectedTestRunIds });
-    this.props.onClose();
+    dispatch(purgeTestRuns({ selectedTestRunIds }));
+    onClose();
   };
 
-  updateState(newState) {
-    this.setState((prevState, props) => {
-      return {
-        ...newState,
-        selectedTestRunIds: this.selectTestRunIds(props.testRuns, { ...prevState, ...newState })
-      };
-    });
-  }
+  const testRunTypes = useSelector(selectTestRunTypes);
 
-  selectTestRunIds(testRuns, { type, maxDate }) {
-    return testRuns
-      .filter((testRun) => testRun.type === type)
-      .filter((testRun) => isBefore(parseISO(testRun.date), parseISO(maxDate)))
-      .map((testRun) => testRun.id);
-  }
-
-  render() {
-    const { show, testRunTypes } = this.props;
-    const { type, maxDate, selectedTestRunIds } = this.state;
-
-    const testRunTypeOptions = testRunTypes.map((testRunType) => {
-      return (
-        <option key={testRunType} value={testRunType}>
-          {testRunType}
-        </option>
-      );
-    });
-
-    let selectionAlert = null;
-
-    let aboutChange = "";
-    const selectedTestRunCount = selectedTestRunIds.length;
-    if (selectedTestRunCount > 0) {
-      aboutChange = `${selectedTestRunCount} tir(s) à purger`;
-    } else {
-      aboutChange = "Aucun tir à purger";
-    }
-
-    selectionAlert = <Alert bsStyle="warning">{aboutChange}</Alert>;
-
+  const testRunTypeOptions = testRunTypes.map((testRunType) => {
     return (
-      <Modal show={show} onHide={this.onCloseClick}>
-        <Modal.Header closeButton>
-          <Modal.Title>Purger les anciens tirs</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={this.onPurge}>
-            <FormGroup controlId="type">
-              <ControlLabel>Type</ControlLabel>
-              <FormControl componentClass="select" autoFocus value={type} onChange={this.onTypeChange}>
-                <option />
-                {testRunTypeOptions}
-              </FormControl>
-            </FormGroup>
-            <FormGroup controlId="maxDate">
-              <ControlLabel>Date maximum des tirs à purger</ControlLabel>
-              <FormControl type="date" value={maxDate} onChange={this.onMaxDateChange} />
-            </FormGroup>
-            {selectionAlert}
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button bsStyle="primary" onClick={this.onPurge}>
-            Purger
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <option key={testRunType} value={testRunType}>
+        {testRunType}
+      </option>
     );
+  });
+
+  let aboutChange = "";
+  const selectedTestRunCount = selectedTestRunIds.length;
+  if (selectedTestRunCount > 0) {
+    aboutChange = `${selectedTestRunCount} tir(s) à purger`;
+  } else {
+    aboutChange = "Aucun tir à purger";
   }
+
+  return (
+    <Modal onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Purger les anciens tirs</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <form onSubmit={handlePurge}>
+          <FormGroup controlId="type">
+            <ControlLabel>Type</ControlLabel>
+            <FormControl componentClass="select" autoFocus value={type} onChange={handleTypeChange}>
+              <option />
+              {testRunTypeOptions}
+            </FormControl>
+          </FormGroup>
+          <FormGroup controlId="maxDate">
+            <ControlLabel>Date maximum des tirs à purger</ControlLabel>
+            <FormControl type="date" value={maxDate} onChange={handleMaxDateChange} />
+          </FormGroup>
+          <Alert bsStyle="warning">{aboutChange}</Alert>
+        </form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={handleClose}>Annuler</Button>
+        <Button bsStyle="primary" onClick={handlePurge}>
+          Purger
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
+PurgeDialog.propTypes = {
+  currentSelectedType: PropTypes.string,
+  purgeDelayInDays: PropTypes.number,
+  onClose: PropTypes.func.isRequired
+};
+
+function selectTestRunIds(testRuns, { type, maxDate }) {
+  return testRuns
+    .filter((testRun) => testRun.type === type)
+    .filter((testRun) => isBefore(parseISO(testRun.date), parseISO(maxDate)))
+    .map((testRun) => testRun.id);
 }
