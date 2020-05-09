@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Badge from "react-bootstrap/lib/Badge";
-import Table from "react-bootstrap/lib/Table";
+import Badge from "react-bootstrap/Badge";
+import Table from "react-bootstrap/Table";
 import truncate from "lodash/truncate";
 import sortBy from "lodash/sortBy";
 import StepDefinitionsVariantsDialog from "./StepDefinitionsVariantsDialog";
@@ -86,13 +86,13 @@ class StepDefinitionsRow extends React.Component {
     }).length;
     const successRate = Math.floor((nbSuccesses / stepDefinition.occurrences.length) * 100);
 
-    let successBadge;
+    let variant;
     if (successRate >= 90) {
-      successBadge = "badge-success";
+      variant = "success";
     } else if (successRate >= 50 && successRate >= 90) {
-      successBadge = "badge-warning";
-    } else if (successRate < 50) {
-      successBadge = "badge-error";
+      variant = "warning";
+    } else {
+      variant = "badge-error";
     }
 
     return (
@@ -112,7 +112,7 @@ class StepDefinitionsRow extends React.Component {
           <b>{stepDefinition.occurrences.length}</b>
         </td>
         <td style={{ textAlign: "center" }}>
-          <Badge bsClass={successBadge}>{successRate} %</Badge>
+          <Badge variant={variant}>{successRate} %</Badge>
         </td>
       </tr>
     );

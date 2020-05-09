@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import OverlayTrigger from "react-bootstrap/lib/OverlayTrigger";
-import Popover from "react-bootstrap/lib/Popover";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Popover from "react-bootstrap/Popover";
 import { Provider } from "react-redux";
 
 import store from "../../store";

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/lib/Table";
-import Label from "react-bootstrap/lib/Label";
+import Table from "react-bootstrap/Table";
+import Badge from "react-bootstrap/Badge";
 
 export default class StatsLegend extends React.PureComponent {
   static propTypes = {
@@ -24,7 +24,7 @@ export default class StatsLegend extends React.PureComponent {
         <tbody>
           <tr>
             <td>
-              <Label bsStyle="success">&nbsp;</Label>
+              <Badge variant="success">&nbsp;</Badge>
             </td>
             <td>Succès</td>
             <td>{stats.passed}</td>
@@ -32,7 +32,7 @@ export default class StatsLegend extends React.PureComponent {
           </tr>
           <tr>
             <td>
-              <Label bsStyle="warning">&nbsp;</Label>
+              <Badge variant="warning">&nbsp;</Badge>
             </td>
             <td>En attente</td>
             <td>{stats.pending}</td>
@@ -40,7 +40,7 @@ export default class StatsLegend extends React.PureComponent {
           </tr>
           <tr>
             <td>
-              <Label bsStyle="danger">&nbsp;</Label>
+              <Badge variant="danger">&nbsp;</Badge>
             </td>
             <td>Échecs</td>
             <td>{stats.failed}</td>
@@ -48,7 +48,7 @@ export default class StatsLegend extends React.PureComponent {
           </tr>
           <tr>
             <td>
-              <Label bsStyle="default">&nbsp;</Label>
+              <Badge variant="light">&nbsp;</Badge>
             </td>
             <td>Non joués</td>
             <td>{stats.notRun}</td>

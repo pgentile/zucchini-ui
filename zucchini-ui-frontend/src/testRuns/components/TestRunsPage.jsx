@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import ButtonToolbar from "react-bootstrap/lib/ButtonToolbar";
-import ButtonGroup from "react-bootstrap/lib/ButtonGroup";
+import ButtonToolbar from "react-bootstrap/ButtonToolbar";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 import Button from "../../ui/components/Button";
 import TestRunsTable from "./TestRunsTable";

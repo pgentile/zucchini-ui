@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import FormGroup from "react-bootstrap/lib/FormGroup";
-import Checkbox from "react-bootstrap/lib/Checkbox";
+import FormGroup from "react-bootstrap/FormGroup";
+import FormCheck from "react-bootstrap/FormCheck";
 
 const FILTERS = {
   comments: "Les commentaires",
@@ -33,9 +33,7 @@ export default class StepFilters extends React.PureComponent {
       const label = FILTERS[name];
       return (
         <FormGroup key={name}>
-          <Checkbox checked={filters[name]} onChange={this.onFilterChange(name)}>
-            {label}
-          </Checkbox>
+          <FormCheck type="checkbox" checked={filters[name]} onChange={this.onFilterChange(name)} label={label} />
         </FormGroup>
       );
     });

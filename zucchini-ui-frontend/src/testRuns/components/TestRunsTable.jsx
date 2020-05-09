@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useMemo } from "react";
-import Table from "react-bootstrap/lib/Table";
-import Badge from "react-bootstrap/lib/Badge";
-import Label from "react-bootstrap/lib/Label";
+import Table from "react-bootstrap/Table";
+import Badge from "react-bootstrap/Badge";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -25,19 +24,19 @@ export default function TestRunsTable() {
   const rows = selectedTestRuns.map((testRun) => <TestRunTableRow key={testRun.id} testRun={testRun} />);
 
   return (
-    <Table bordered striped>
+    <Table bordered striped responsive>
       <thead>
         <tr>
-          <th className="col-md-1">Type</th>
-          <th className="col-md-1">Environnement</th>
-          <th className="col-md-1">Nom</th>
-          <th className="col-md-3">Tir de test</th>
-          <th className="col-md-1">Total</th>
-          <th className="col-md-1">Succès</th>
-          <th className="col-md-1">Échecs</th>
-          <th className="col-md-1">En attente</th>
-          <th className="col-md-1">Non joués</th>
-          <th className="col-md-1">Analysés</th>
+          <th>Type</th>
+          <th>Environnement</th>
+          <th>Nom</th>
+          <th>Tir de test</th>
+          <th>Total</th>
+          <th>Succès</th>
+          <th>Échecs</th>
+          <th>En attente</th>
+          <th>Non joués</th>
+          <th>Analysés</th>
         </tr>
       </thead>
       <tbody>{rows}</tbody>
@@ -49,34 +48,34 @@ function TestRunTableRow({ testRun }) {
   return (
     <tr>
       <td>
-        <Label>{testRun.type}</Label>
+        <Badge>{testRun.type}</Badge>
       </td>
       <td>
-        <Label>{testRun.environment}</Label>
+        <Badge>{testRun.environment}</Badge>
       </td>
       <td>
-        <Label>{testRun.name}</Label>
+        <Badge>{testRun.name}</Badge>
       </td>
       <td>
         <Link to={`/test-runs/${testRun.id}`}>Tir du {toNiceDate(testRun.date)}</Link>
       </td>
       <td>
-        <Badge>{nullToDash(testRun.stats.all.count)}</Badge>
+        <Badge pill>{nullToDash(testRun.stats.all.count)}</Badge>
       </td>
       <td>
-        <Badge>{nullToDash(testRun.stats.all.passed)}</Badge>
+        <Badge pill>{nullToDash(testRun.stats.all.passed)}</Badge>
       </td>
       <td>
-        <Badge>{nullToDash(testRun.stats.all.failed)}</Badge>
+        <Badge pill>{nullToDash(testRun.stats.all.failed)}</Badge>
       </td>
       <td>
-        <Badge>{nullToDash(testRun.stats.all.pending)}</Badge>
+        <Badge pill>{nullToDash(testRun.stats.all.pending)}</Badge>
       </td>
       <td>
-        <Badge>{nullToDash(testRun.stats.all.notRun)}</Badge>
+        <Badge pill>{nullToDash(testRun.stats.all.notRun)}</Badge>
       </td>
       <td>
-        <Badge>{nullToDash(testRun.stats.reviewed.count)}</Badge>
+        <Badge pill>{nullToDash(testRun.stats.reviewed.count)}</Badge>
       </td>
     </tr>
   );

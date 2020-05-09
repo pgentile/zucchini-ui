@@ -13,7 +13,7 @@ export default class ButtonLink extends React.PureComponent {
     const { children, ...otherProps } = this.props;
 
     return (
-      <Button componentClass={Link} {...otherProps}>
+      <Button as={Link} {...otherProps}>
         {children}
       </Button>
     );

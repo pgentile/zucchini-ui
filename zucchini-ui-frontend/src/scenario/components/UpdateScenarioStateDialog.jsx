@@ -1,11 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Modal from "react-bootstrap/lib/Modal";
-import FormGroup from "react-bootstrap/lib/FormGroup";
-import Checkbox from "react-bootstrap/lib/Checkbox";
-import Radio from "react-bootstrap/lib/Radio";
-import ControlLabel from "react-bootstrap/lib/ControlLabel";
-import FormControl from "react-bootstrap/lib/FormControl";
+import Modal from "react-bootstrap/Modal";
+import FormGroup from "react-bootstrap/FormGroup";
+import FormCheck from "react-bootstrap/FormCheck";
+import FormLabel from "react-bootstrap/FormLabel";
+import FormControl from "react-bootstrap/FormControl";
 
 import Button from "../../ui/components/Button";
 
@@ -107,9 +106,13 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
     const statusRadios = Object.keys(AVAILABLE_STATUS).map((status) => {
       const label = AVAILABLE_STATUS[status];
       return (
-        <Radio key={status} checked={this.isStatusSelected(status)} onChange={this.onStatusSelected(status)}>
-          {label}
-        </Radio>
+        <FormCheck
+          type="radio"
+          label={label}
+          key={status}
+          checked={this.isStatusSelected(status)}
+          onChange={this.onStatusSelected(status)}
+        />
       );
     });
 
@@ -121,29 +124,26 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
         <Modal.Body>
           <form onSubmit={this.onUpdateState}>
             <FormGroup>
-              <ControlLabel>Nouveau statut</ControlLabel>
+              <FormLabel>Nouveau statut</FormLabel>
               {statusRadios}
             </FormGroup>
             <FormGroup>
-              <ControlLabel>Analyse du scénario</ControlLabel>
-              <Checkbox checked={this.state.scenario.reviewed} onChange={this.onReviewedChange}>
-                Scénario analysé ?
-              </Checkbox>
+              <FormLabel>Analyse du scénario</FormLabel>
+              <FormCheck
+                checked={this.state.scenario.reviewed}
+                onChange={this.onReviewedChange}
+                label="Scénario analysé ?"
+              />
             </FormGroup>
             <FormGroup controlId="comment">
-              <ControlLabel>Commentaire</ControlLabel>
-              <FormControl
-                componentClass="textarea"
-                rows="3"
-                value={this.state.comment}
-                onChange={this.onCommentChange}
-              />
+              <FormLabel>Commentaire</FormLabel>
+              <FormControl as="textarea" rows="3" value={this.state.comment} onChange={this.onCommentChange} />
             </FormGroup>
           </form>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button bsStyle="primary" onClick={this.onUpdateState}>
+          <Button variant="primary" onClick={this.onUpdateState}>
             Valider
           </Button>
         </Modal.Footer>

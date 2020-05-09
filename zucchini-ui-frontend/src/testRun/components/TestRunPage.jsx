@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import ButtonToolbar from "react-bootstrap/lib/ButtonToolbar";
-import ButtonGroup from "react-bootstrap/lib/ButtonGroup";
+import ButtonToolbar from "react-bootstrap/ButtonToolbar";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 import toNiceDate from "../../ui/toNiceDate";
 import Button from "../../ui/components/Button";

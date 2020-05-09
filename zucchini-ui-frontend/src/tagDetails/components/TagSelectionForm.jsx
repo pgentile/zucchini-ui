@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Row from "react-bootstrap/lib/Row";
-import Col from "react-bootstrap/lib/Col";
-import FormGroup from "react-bootstrap/lib/FormGroup";
-import InputGroup from "react-bootstrap/lib/InputGroup";
-import FormControl from "react-bootstrap/lib/FormControl";
-import ControlLabel from "react-bootstrap/lib/ControlLabel";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import FormGroup from "react-bootstrap/FormGroup";
+import InputGroup from "react-bootstrap/InputGroup";
+import FormControl from "react-bootstrap/FormControl";
+import FormLabel from "react-bootstrap/FormLabel";
 import { reduxForm, Field } from "redux-form";
 
 import Button from "../../ui/components/Button";
@@ -44,7 +44,7 @@ class TagSelectionForm extends React.PureComponent {
           <Col md={5}>
             <FormGroup controlId="tags">
               <InputGroup>
-                <ControlLabel className="input-group-addon">Tags inclus</ControlLabel>
+                <FormLabel className="input-group-addon">Tags inclus</FormLabel>
                 <Field name="tags" component={this.renderField} format={this.formatTags} parse={this.parseTags} />
               </InputGroup>
             </FormGroup>
@@ -52,7 +52,7 @@ class TagSelectionForm extends React.PureComponent {
           <Col md={5}>
             <FormGroup controlId="excludedTags">
               <InputGroup>
-                <ControlLabel className="input-group-addon">Tags exclus</ControlLabel>
+                <FormLabel className="input-group-addon">Tags exclus</FormLabel>
                 <Field
                   name="excludedTags"
                   component={this.renderField}

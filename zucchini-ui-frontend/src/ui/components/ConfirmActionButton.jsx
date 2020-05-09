@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
-import Modal from "react-bootstrap/lib/Modal";
+import Modal from "react-bootstrap/Modal";
 
 import Button from "../../ui/components/Button";
 
 export default class ConfirmActionButton extends React.PureComponent {
   static propTypes = {
-    bsStyle: PropTypes.string,
+    variant: PropTypes.string,
     bsSize: PropTypes.string,
     actionGlyph: PropTypes.string,
     actionLabel: PropTypes.string.isRequired,
@@ -44,12 +44,12 @@ export default class ConfirmActionButton extends React.PureComponent {
   };
 
   render() {
-    const { actionGlyph, actionLabel, title, message, bsStyle, bsSize } = this.props;
+    const { actionGlyph, actionLabel, title, message, variant, bsSize } = this.props;
     const { show } = this.state;
 
     return (
       <Fragment>
-        <Button glyph={actionGlyph} bsStyle={bsStyle} bsSize={bsSize} onClick={this.onShowConfirmation}>
+        <Button glyph={actionGlyph} variant={variant} bsSize={bsSize} onClick={this.onShowConfirmation}>
           {actionLabel}
         </Button>
 
@@ -62,7 +62,7 @@ export default class ConfirmActionButton extends React.PureComponent {
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.onCancel}>Annuler</Button>
-            <Button bsStyle="primary" onClick={this.onConfirm}>
+            <Button variant="primary" onClick={this.onConfirm}>
               {actionLabel}
             </Button>
           </Modal.Footer>

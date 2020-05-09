@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/lib/Table";
+import Table from "react-bootstrap/Table";
 
 import Status from "../../ui/components/Status";
 import toNiceDate from "../../ui/toNiceDate";

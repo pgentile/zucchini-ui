@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import FormGroup from "react-bootstrap/lib/FormGroup";
+import FormGroup from "react-bootstrap/FormGroup";
 
 import FilterCheckboxes from "../../ui/components/FilterCheckboxes";
 

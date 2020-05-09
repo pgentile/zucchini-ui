@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import FormGroup from "react-bootstrap/lib/FormGroup";
+import FormGroup from "react-bootstrap/FormGroup";
 
 export default class HistoryFilter extends React.PureComponent {
   static propTypes = {

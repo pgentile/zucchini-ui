@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Alert from "react-bootstrap/lib/Alert";
+import Alert from "react-bootstrap/Alert";
 
 export default function ErrorAlert({ error, onClearErrors }) {
   if (!error) {
@@ -8,7 +8,7 @@ export default function ErrorAlert({ error, onClearErrors }) {
   }
 
   return (
-    <Alert bsStyle="danger" onDismiss={() => onClearErrors()}>
+    <Alert variant="danger" onDismiss={() => onClearErrors()}>
       <h4>Une erreur a été détectée&hellip;</h4>
       <p>{error}</p>
     </Alert>

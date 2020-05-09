@@ -17,7 +17,7 @@ export default function DeleteTestRunButton({ testRunId }) {
 
   return (
     <ConfirmActionButton
-      bsStyle="danger"
+      variant="danger"
       actionGlyph="remove"
       actionLabel="Supprimer"
       title="Supprimer le tir"

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import ListGroup from "react-bootstrap/lib/ListGroup";
-import ListGroupItem from "react-bootstrap/lib/ListGroupItem";
+import ListGroup from "react-bootstrap/ListGroup";
+import ListGroupItem from "react-bootstrap/ListGroupItem";
 
 import PanelWithTitle from "../../ui/components/PanelWithTitle";
 
@@ -30,7 +30,7 @@ export default class StepAttachments extends React.PureComponent {
     });
 
     return (
-      <PanelWithTitle title="Pièces jointes" bsStyle="default">
+      <PanelWithTitle title="Pièces jointes" variant="default">
         <ListGroup>{items}</ListGroup>
       </PanelWithTitle>
     );

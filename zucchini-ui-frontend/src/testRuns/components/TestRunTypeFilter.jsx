@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import Overlay from "react-bootstrap/lib/Overlay";
-import Popover from "react-bootstrap/lib/Popover";
-import ButtonGroup from "react-bootstrap/lib/ButtonGroup";
+import Overlay from "react-bootstrap/Overlay";
+import Popover from "react-bootstrap/Popover";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 import Button from "../../ui/components/Button";
 import Caret from "../../ui/components/Caret";

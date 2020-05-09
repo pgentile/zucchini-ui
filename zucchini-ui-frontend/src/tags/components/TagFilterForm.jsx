@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
-import FormGroup from "react-bootstrap/lib/FormGroup";
-import FormControl from "react-bootstrap/lib/FormControl";
-import InputGroup from "react-bootstrap/lib/InputGroup";
+import FormGroup from "react-bootstrap/FormGroup";
+import FormControl from "react-bootstrap/FormControl";
+import InputGroup from "react-bootstrap/InputGroup";
 import { reduxForm, Field } from "redux-form";
 
 import Button from "../../ui/components/Button";

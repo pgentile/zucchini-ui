@@ -2,10 +2,10 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import Modal from "react-bootstrap/lib/Modal";
-import FormGroup from "react-bootstrap/lib/FormGroup";
-import ControlLabel from "react-bootstrap/lib/ControlLabel";
-import FormControl from "react-bootstrap/lib/FormControl";
+import Modal from "react-bootstrap/Modal";
+import FormGroup from "react-bootstrap/FormGroup";
+import FormLabel from "react-bootstrap/FormLabel";
+import FormControl from "react-bootstrap/FormControl";
 
 import Button from "../../ui/components/Button";
 import { createTestRun } from "../redux";
@@ -67,22 +67,22 @@ export default function CreateTestRunDialog({ currentSelectedType, onClose }) {
       <Modal.Body>
         <form onSubmit={handleCreateTestRun}>
           <FormGroup controlId="type">
-            <ControlLabel>Type</ControlLabel>
+            <FormLabel>Type</FormLabel>
             <FormControl type="text" autoFocus value={type} onChange={handleTypeChange} />
           </FormGroup>
           <FormGroup controlId="environment">
-            <ControlLabel>Environnement</ControlLabel>
+            <FormLabel>Environnement</FormLabel>
             <FormControl type="text" value={environment} onChange={handleEnvironmentChange} />
           </FormGroup>
           <FormGroup controlId="name">
-            <ControlLabel>Nom</ControlLabel>
+            <FormLabel>Nom</FormLabel>
             <FormControl type="text" value={name} onChange={handleNameChange} />
           </FormGroup>
         </form>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={handleCloseClick}>Annuler</Button>
-        <Button bsStyle="primary" onClick={handleCreateTestRun}>
+        <Button variant="primary" onClick={handleCreateTestRun}>
           Créer
         </Button>
       </Modal.Footer>

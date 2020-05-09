@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import React, { useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Modal from "react-bootstrap/lib/Modal";
-import FormGroup from "react-bootstrap/lib/FormGroup";
-import ControlLabel from "react-bootstrap/lib/ControlLabel";
-import FormControl from "react-bootstrap/lib/FormControl";
-import Alert from "react-bootstrap/lib/Alert";
+import Modal from "react-bootstrap/Modal";
+import FormGroup from "react-bootstrap/FormGroup";
+import FormLabel from "react-bootstrap/FormLabel";
+import FormControl from "react-bootstrap/FormControl";
+import Alert from "react-bootstrap/Alert";
 import format from "date-fns/format";
 import isBefore from "date-fns/isBefore";
 import subDays from "date-fns/subDays";
@@ -78,29 +78,29 @@ export default function PurgeDialog({ currentSelectedType, purgeDelayInDays = 90
   }
 
   return (
-    <Modal onHide={handleClose}>
+    <Modal show onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Purger les anciens tirs</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={handlePurge}>
           <FormGroup controlId="type">
-            <ControlLabel>Type</ControlLabel>
-            <FormControl componentClass="select" autoFocus value={type} onChange={handleTypeChange}>
+            <FormLabel>Type</FormLabel>
+            <FormControl as="select" autoFocus value={type} onChange={handleTypeChange}>
               <option />
               {testRunTypeOptions}
             </FormControl>
           </FormGroup>
           <FormGroup controlId="maxDate">
-            <ControlLabel>Date maximum des tirs à purger</ControlLabel>
+            <FormLabel>Date maximum des tirs à purger</FormLabel>
             <FormControl type="date" value={maxDate} onChange={handleMaxDateChange} />
           </FormGroup>
-          <Alert bsStyle="warning">{aboutChange}</Alert>
+          <Alert variant="warning">{aboutChange}</Alert>
         </form>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={handleClose}>Annuler</Button>
-        <Button bsStyle="primary" onClick={handlePurge}>
+        <Button variant="primary" onClick={handlePurge}>
           Purger
         </Button>
       </Modal.Footer>

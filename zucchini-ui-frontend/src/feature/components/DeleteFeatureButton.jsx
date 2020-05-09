@@ -17,7 +17,7 @@ export default function DeleteFeatureButton({ testRunId, featureId }) {
 
   return (
     <ConfirmActionButton
-      bsStyle="danger"
+      variant="danger"
       actionGlyph="remove"
       actionLabel="Supprimer"
       title="Supprimer la fonctionnalité"

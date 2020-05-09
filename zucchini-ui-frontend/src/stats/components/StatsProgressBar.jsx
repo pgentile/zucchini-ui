@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Label from "react-bootstrap/lib/Label";
-import ProgressBar from "react-bootstrap/lib/ProgressBar";
+import Badge from "react-bootstrap/Badge";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 export default class ProgressBarStats extends React.PureComponent {
   static propTypes = {
@@ -18,24 +18,24 @@ export default class ProgressBarStats extends React.PureComponent {
     return (
       <div>
         <ProgressBar style={{ marginBottom: "0" }}>
-          <ProgressBar bsStyle="success" now={success} key={1} label={`${Math.round(success)}%`} />
-          <ProgressBar bsStyle="info" now={notRun} key={2} />
-          <ProgressBar bsStyle="warning" now={pending} key={3} />
-          <ProgressBar active bsStyle="danger" now={failed} key={4} />
+          <ProgressBar variant="success" now={success} key={1} label={`${Math.round(success)}%`} />
+          <ProgressBar variant="info" now={notRun} key={2} />
+          <ProgressBar variant="warning" now={pending} key={3} />
+          <ProgressBar active variant="danger" now={failed} key={4} />
         </ProgressBar>
         <h5>
-          <Label bsStyle="success" style={{ marginRight: "1em" }}>
+          <Badge variant="success" style={{ marginRight: "1em" }}>
             Succès
-          </Label>
-          <Label bsStyle="info" style={{ marginRight: "1em" }}>
+          </Badge>
+          <Badge variant="info" style={{ marginRight: "1em" }}>
             Non Joués
-          </Label>
-          <Label bsStyle="warning" style={{ marginRight: "1em" }}>
+          </Badge>
+          <Badge variant="warning" style={{ marginRight: "1em" }}>
             En attente
-          </Label>
-          <Label bsStyle="danger" style={{ marginRight: "1em" }}>
+          </Badge>
+          <Badge variant="danger" style={{ marginRight: "1em" }}>
             Échecs
-          </Label>
+          </Badge>
         </h5>
       </div>
     );

@@ -17,7 +17,7 @@ export default function DeleteScenarioButton({ featureId, scenarioId }) {
 
   return (
     <ConfirmActionButton
-      bsStyle="danger"
+      variant="danger"
       actionGlyph="remove"
       actionLabel="Supprimer"
       title="Supprimer le scénario"

@@ -28,7 +28,7 @@ export default class Step extends React.PureComponent {
     let errorMessage = null;
     if (step.errorMessage) {
       errorMessage = (
-        <PanelWithTitle title="Message d'erreur" panelBody={true} bsStyle="danger" className="panel-error-message">
+        <PanelWithTitle title="Message d'erreur" panelBody={true} variant="danger" className="panel-error-message">
           <pre className="error-message text-danger">{step.errorMessage}</pre>
         </PanelWithTitle>
       );
@@ -37,7 +37,7 @@ export default class Step extends React.PureComponent {
     let logs = null;
     if (step.output) {
       logs = (
-        <PanelWithTitle title="Logs" panelBody={true} bsStyle="default" className="panel-log">
+        <PanelWithTitle title="Logs" panelBody={true} variant="default" className="panel-log">
           <pre className="log">{step.output}</pre>
         </PanelWithTitle>
       );

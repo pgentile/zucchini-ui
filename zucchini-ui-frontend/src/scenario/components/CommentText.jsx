@@ -32,7 +32,7 @@ export default class CommentText extends React.PureComponent {
             Modifier
           </Button>{" "}
           <ConfirmActionButton
-            bsStyle="danger"
+            variant="danger"
             bsSize="xsmall"
             actionGlyph="remove"
             actionLabel="Supprimer"

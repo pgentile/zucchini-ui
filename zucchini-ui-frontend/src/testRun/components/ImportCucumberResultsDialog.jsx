@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Modal from "react-bootstrap/lib/Modal";
-import Checkbox from "react-bootstrap/lib/Checkbox";
-import FormGroup from "react-bootstrap/lib/FormGroup";
-import ControlLabel from "react-bootstrap/lib/ControlLabel";
-import FormControl from "react-bootstrap/lib/FormControl";
-import HelpBlock from "react-bootstrap/lib/HelpBlock";
+import Modal from "react-bootstrap/Modal";
+import FormCheck from "react-bootstrap/FormCheck";
+import FormGroup from "react-bootstrap/FormGroup";
+import FormLabel from "react-bootstrap/FormLabel";
+import FormControl from "react-bootstrap/FormControl";
+import Form from "react-bootstrap/Form";
 
 import Button from "../../ui/components/Button";
 
@@ -80,12 +80,14 @@ export default class ImportCucumberResultsDialog extends React.PureComponent {
         <Modal.Body>
           <form onSubmit={this.onImportCucumberResult}>
             <FormGroup controlId="file">
-              <ControlLabel>Fichier à importer</ControlLabel>
+              <FormLabel>Fichier à importer</FormLabel>
               <FormControl type="file" accept=".json" required onChange={this.onFileChange} />
-              <HelpBlock>Le fichier à importer est un résultat d&apos;exécution Cucumber, au format JSON.</HelpBlock>
+              <Form.Text className="text-muted">
+                Le fichier à importer est un résultat d&apos;exécution Cucumber, au format JSON.
+              </Form.Text>
             </FormGroup>
             <FormGroup controlId="group">
-              <ControlLabel>Groupe</ControlLabel>
+              <FormLabel>Groupe</FormLabel>
               <FormControl
                 type="text"
                 placeholder="Nom d'un groupe pour les fonctionnalités importées"
@@ -94,24 +96,23 @@ export default class ImportCucumberResultsDialog extends React.PureComponent {
               />
             </FormGroup>
             <FormGroup>
-              <Checkbox checked={this.state.onlyNewScenarii} onChange={this.onOptionChange("onlyNewScenarii")}>
-                Limiter l&apos;import aux nouveaux scénarios
-              </Checkbox>
-              <Checkbox
+              <FormCheck
+                checked={this.state.onlyNewScenarii}
+                onChange={this.onOptionChange("onlyNewScenarii")}
+                label="Limiter l'import aux nouveaux scénarios"
+              />
+              <FormCheck
                 checked={this.state.mergeOnlyNewPassedScenarii}
                 onChange={this.onOptionChange("mergeOnlyNewPassedScenarii")}
-              >
-                Limiter l&apos;import aux scénarios passés avec succès
-              </Checkbox>
-              <Checkbox checked={this.state.dryRun} onChange={this.onOptionChange("dryRun")}>
-                Tir à blanc
-              </Checkbox>
+                label="Limiter l'import aux scénarios passés avec succès"
+              />
+              <FormCheck checked={this.state.dryRun} onChange={this.onOptionChange("dryRun")} label="Tir à blanc" />
             </FormGroup>
           </form>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button bsStyle="primary" onClick={this.onImportCucumberResult}>
+          <Button variant="primary" onClick={this.onImportCucumberResult}>
             Importer
           </Button>
         </Modal.Footer>

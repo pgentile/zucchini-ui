@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/lib/Table";
-import Badge from "react-bootstrap/lib/Badge";
+import Table from "react-bootstrap/Table";
+import Badge from "react-bootstrap/Badge";
 import { Link } from "react-router-dom";
 
 import toNiceDate from "../../ui/toNiceDate";

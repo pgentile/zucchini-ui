@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import FormGroup from "react-bootstrap/lib/FormGroup";
-import FormControl from "react-bootstrap/lib/FormControl";
+import FormGroup from "react-bootstrap/FormGroup";
+import FormControl from "react-bootstrap/FormControl";
 
 import Button from "../../ui/components/Button";
 
@@ -57,14 +57,14 @@ export default class AddCommentForm extends React.PureComponent {
       <form onSubmit={this.onAddComment}>
         <FormGroup>
           <FormControl
-            componentClass="textarea"
+            as="textarea"
             rows="3"
             placeholder="Entrez votre commentaire"
             value={comment}
             onChange={this.onCommentChange}
           />
         </FormGroup>
-        <Button type="submit" bsStyle="primary" disabled={!comment}>
+        <Button type="submit" variant="primary" disabled={!comment}>
           Ajouter le commentaire
         </Button>
       </form>

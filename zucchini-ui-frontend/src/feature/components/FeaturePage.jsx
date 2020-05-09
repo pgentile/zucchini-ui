@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import ButtonToolbar from "react-bootstrap/lib/ButtonToolbar";
+import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import queryString from "query-string";
 
 import FeatureStatsContainer from "./FeatureStatsContainer";

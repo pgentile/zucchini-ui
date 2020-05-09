@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/lib/Table";
-import Label from "react-bootstrap/lib/Label";
+import Table from "react-bootstrap/Table";
+import Badge from "react-bootstrap/Badge";
 import { Link } from "react-router-dom";
 
 import Status from "../../ui/components/Status";
@@ -46,7 +46,7 @@ class ScenarioTableRow extends React.PureComponent {
     const className = isActive ? "info" : null;
 
     const reviewedProps = {
-      bsStyle: scenario.reviewed ? "success" : "default",
+      variant: scenario.reviewed ? "success" : "default",
       text: scenario.reviewed ? "Oui" : "Non"
     };
 
@@ -61,7 +61,7 @@ class ScenarioTableRow extends React.PureComponent {
           <Status status={scenario.status} />
         </td>
         <td>
-          <Label bsStyle={reviewedProps.bsStyle}>{reviewedProps.text}</Label>
+          <Badge variant={reviewedProps.variant}>{reviewedProps.text}</Badge>
         </td>
       </tr>
     );

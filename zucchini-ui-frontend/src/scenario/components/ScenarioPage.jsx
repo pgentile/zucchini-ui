@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
-import ButtonToolbar from "react-bootstrap/lib/ButtonToolbar";
-import ButtonGroup from "react-bootstrap/lib/ButtonGroup";
-import Tabs from "react-bootstrap/lib/Tabs";
-import Tab from "react-bootstrap/lib/Tab";
+import ButtonToolbar from "react-bootstrap/ButtonToolbar";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
 
 import Button from "../../ui/components/Button";
 import TagList from "../../ui/components/TagList";

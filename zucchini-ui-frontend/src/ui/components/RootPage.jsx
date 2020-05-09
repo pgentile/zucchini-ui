@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
-import Navbar from "react-bootstrap/lib/Navbar";
-import Nav from "react-bootstrap/lib/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
 
 import LoadingIndicator from "../../loadingIndicator/components/LoadingIndicator";
@@ -13,12 +13,10 @@ export default function RootPage({ search, children }) {
       <LoadingIndicator />
 
       <Navbar inverse staticTop collapseOnSelect>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <Link to="/">Zucchini UI</Link>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
+        <Navbar.Brand>
+          <Link to="/">Zucchini UI</Link>
+        </Navbar.Brand>
+        <Navbar.Toggle />
         <Navbar.Collapse>
           <Nav>
             <NavItem>

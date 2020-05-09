@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Label from "react-bootstrap/lib/Label";
+import Badge from "react-bootstrap/Badge";
 
 export default class Status extends React.PureComponent {
   static propTypes = {
@@ -10,37 +10,37 @@ export default class Status extends React.PureComponent {
   getLabelAndStyle() {
     const { status } = this.props;
 
-    let bsStyle = "warning";
+    let variant = "warning";
     let displayLabel = status;
 
     switch (status) {
       case "PASSED":
         displayLabel = "Succès";
-        bsStyle = "success";
+        variant = "success";
         break;
       case "FAILED":
         displayLabel = "Échec";
-        bsStyle = "danger";
+        variant = "danger";
         break;
       case "UNDEFINED":
         displayLabel = "Non défini";
-        bsStyle = "danger";
+        variant = "danger";
         break;
       case "SKIPPED":
         displayLabel = "Sauté";
-        bsStyle = "default";
+        variant = "light";
         break;
       case "NOT_RUN":
         displayLabel = "Non joué";
-        bsStyle = "default";
+        variant = "light";
         break;
       case "PENDING":
         displayLabel = "En attente";
-        bsStyle = "warning";
+        variant = "warning";
         break;
       case "PARTIAL":
         displayLabel = "Partiel";
-        bsStyle = "warning";
+        variant = "warning";
         break;
 
       default:
@@ -49,13 +49,13 @@ export default class Status extends React.PureComponent {
 
     return {
       displayLabel,
-      bsStyle
+      variant
     };
   }
 
   render() {
-    const { bsStyle, displayLabel } = this.getLabelAndStyle();
+    const { variant, displayLabel } = this.getLabelAndStyle();
 
-    return <Label bsStyle={bsStyle}>{displayLabel}</Label>;
+    return <Badge variant={variant}>{displayLabel}</Badge>;
   }
 }

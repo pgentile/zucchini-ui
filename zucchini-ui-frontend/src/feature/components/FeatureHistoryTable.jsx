@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/lib/Table";
-import Badge from "react-bootstrap/lib/Badge";
-import Label from "react-bootstrap/lib/Label";
+import Table from "react-bootstrap/Table";
+import Badge from "react-bootstrap/Badge";
 import { Link } from "react-router-dom";
 
 import Status from "../../ui/components/Status";
@@ -58,13 +57,13 @@ class FeatureHistoryTableRow extends React.PureComponent {
     return (
       <tr className={className}>
         <td>
-          <Label>{feature.testRun.type}</Label>
+          <Badge>{feature.testRun.type}</Badge>
         </td>
         <td>
-          <Label>{feature.testRun.environment}</Label>
+          <Badge>{feature.testRun.environment}</Badge>
         </td>
         <td>
-          <Label>{feature.testRun.name}</Label>
+          <Badge>{feature.testRun.name}</Badge>
         </td>
         <td>
           <Link to={`/features/${feature.id}`}>Tir du {toNiceDate(feature.testRun.date)}</Link>
@@ -73,22 +72,22 @@ class FeatureHistoryTableRow extends React.PureComponent {
           <Status status={feature.status} />
         </td>
         <td>
-          <Badge>{feature.stats.all.count}</Badge>
+          <Badge pill>{feature.stats.all.count}</Badge>
         </td>
         <td>
-          <Badge>{feature.stats.all.passed}</Badge>
+          <Badge pill>{feature.stats.all.passed}</Badge>
         </td>
         <td>
-          <Badge>{feature.stats.all.failed}</Badge>
+          <Badge pill>{feature.stats.all.failed}</Badge>
         </td>
         <td>
-          <Badge>{feature.stats.all.pending}</Badge>
+          <Badge pill>{feature.stats.all.pending}</Badge>
         </td>
         <td>
-          <Badge>{feature.stats.all.notRun}</Badge>
+          <Badge pill>{feature.stats.all.notRun}</Badge>
         </td>
         <td>
-          <Badge>{feature.stats.reviewed.count}</Badge>
+          <Badge pill>{feature.stats.reviewed.count}</Badge>
         </td>
       </tr>
     );

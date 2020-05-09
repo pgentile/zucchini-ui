@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/lib/Table";
-import Badge from "react-bootstrap/lib/Badge";
-import Label from "react-bootstrap/lib/Label";
+import Table from "react-bootstrap/Table";
+import Badge from "react-bootstrap/Badge";
 import { Link } from "react-router-dom";
 import queryString from "query-string";
 
@@ -67,32 +66,32 @@ class TestRunSelectorTableRow extends React.PureComponent {
     return (
       <tr>
         <td>
-          <Label>{testRun.type}</Label>
+          <Badge>{testRun.type}</Badge>
         </td>
         <td>
-          <Label>{testRun.environment}</Label>
+          <Badge>{testRun.environment}</Badge>
         </td>
         <td>
-          <Label>{testRun.name}</Label>
+          <Badge>{testRun.name}</Badge>
         </td>
         <td>{testRunTitle}</td>
         <td>
-          <Badge>{nullToDash(testRun.stats.all.count)}</Badge>
+          <Badge pill>{nullToDash(testRun.stats.all.count)}</Badge>
         </td>
         <td>
-          <Badge>{nullToDash(testRun.stats.all.passed)}</Badge>
+          <Badge pill>{nullToDash(testRun.stats.all.passed)}</Badge>
         </td>
         <td>
-          <Badge>{nullToDash(testRun.stats.all.failed)}</Badge>
+          <Badge pill>{nullToDash(testRun.stats.all.failed)}</Badge>
         </td>
         <td>
-          <Badge>{nullToDash(testRun.stats.all.pending)}</Badge>
+          <Badge pill>{nullToDash(testRun.stats.all.pending)}</Badge>
         </td>
         <td>
-          <Badge>{nullToDash(testRun.stats.all.notRun)}</Badge>
+          <Badge pill>{nullToDash(testRun.stats.all.notRun)}</Badge>
         </td>
         <td>
-          <Badge>{nullToDash(testRun.stats.reviewed.count)}</Badge>
+          <Badge pill>{nullToDash(testRun.stats.reviewed.count)}</Badge>
         </td>
       </tr>
     );

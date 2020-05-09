@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
-import FormControl from "react-bootstrap/lib/FormControl";
-import FormGroup from "react-bootstrap/lib/FormGroup";
-import InputGroup from "react-bootstrap/lib/InputGroup";
+import FormControl from "react-bootstrap/FormControl";
+import FormGroup from "react-bootstrap/FormGroup";
+import InputGroup from "react-bootstrap/InputGroup";
 
 import Button from "../../ui/components/Button";
 import toNiceDate from "../../ui/toNiceDate";

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/lib/Table";
-import Badge from "react-bootstrap/lib/Badge";
+import Table from "react-bootstrap/Table";
+import Badge from "react-bootstrap/Badge";
 
 export default class ReportsTable extends React.Component {
   static propTypes = {

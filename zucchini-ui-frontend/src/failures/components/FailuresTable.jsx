@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
-import Table from "react-bootstrap/lib/Table";
-import Label from "react-bootstrap/lib/Label";
-import Modal from "react-bootstrap/lib/Modal";
+import Table from "react-bootstrap/Table";
+import Badge from "react-bootstrap/Badge";
+import Modal from "react-bootstrap/Modal";
 import Status from "../../ui/components/Status";
 import truncate from "lodash/truncate";
 
@@ -111,9 +111,9 @@ class FailuresTableRow extends React.Component {
           <Status status={failedScenario.status} />
         </td>
         <td>
-          <Label bsStyle={failedScenario.reviewed ? "success" : "default"}>
+          <Badge variant={failedScenario.reviewed ? "success" : "light"}>
             {failedScenario.reviewed ? "Oui" : "Non"}
-          </Label>
+          </Badge>
         </td>
       </tr>
     );

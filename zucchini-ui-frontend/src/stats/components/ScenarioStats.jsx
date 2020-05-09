@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Grid from "react-bootstrap/lib/Grid";
-import Row from "react-bootstrap/lib/Row";
-import Col from "react-bootstrap/lib/Col";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 import Button from "../../ui/components/Button";
 import ScenarioPieChart from "./StatsPieChart";
@@ -47,7 +47,7 @@ export default class ScenarioStats extends React.PureComponent {
     };
 
     return (
-      <Grid>
+      <Container>
         <Row>
           <p>
             <Button glyph={toggleDetailsButton.glyph} bsSize="xsmall" onClick={this.onToogleDetailsClick}>
@@ -84,7 +84,7 @@ export default class ScenarioStats extends React.PureComponent {
           </Col>
         </Row>
         {legendRow}
-      </Grid>
+      </Container>
     );
   }
 }

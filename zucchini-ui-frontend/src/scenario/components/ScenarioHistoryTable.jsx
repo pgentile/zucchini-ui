@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/lib/Table";
-import Label from "react-bootstrap/lib/Label";
+import Table from "react-bootstrap/Table";
+import Badge from "react-bootstrap/Badge";
 import { Link } from "react-router-dom";
 
 import Status from "../../ui/components/Status";
@@ -51,13 +51,13 @@ class ScenarioHistoryTableRow extends React.PureComponent {
     return (
       <tr className={className}>
         <td>
-          <Label>{scenario.testRun.type}</Label>
+          <Badge>{scenario.testRun.type}</Badge>
         </td>
         <td>
-          <Label>{scenario.testRun.environment}</Label>
+          <Badge>{scenario.testRun.environment}</Badge>
         </td>
         <td>
-          <Label>{scenario.testRun.name}</Label>
+          <Badge>{scenario.testRun.name}</Badge>
         </td>
         <td>
           <Link to={`/scenarios/${scenario.id}`}>Tir du {toNiceDate(scenario.testRun.date)}</Link>

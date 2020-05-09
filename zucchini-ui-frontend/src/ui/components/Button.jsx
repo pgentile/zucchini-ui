@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { default as BootstrapButton } from "react-bootstrap/lib/Button";
-import Glyphicon from "react-bootstrap/lib/Glyphicon";
+import { default as BootstrapButton } from "react-bootstrap/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default class Button extends React.PureComponent {
   static propTypes = {
@@ -11,15 +11,9 @@ export default class Button extends React.PureComponent {
 
   render() {
     const { glyph, children, ...otherProps } = this.props;
-
-    let glyphElement = null;
-    if (glyph) {
-      glyphElement = <Glyphicon glyph={glyph} />;
-    }
-
     return (
       <BootstrapButton {...otherProps}>
-        {glyphElement} {children}
+        {glyph && <FontAwesomeIcon icon={glyph} />} {children}
       </BootstrapButton>
     );
   }

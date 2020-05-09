@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Panel from "react-bootstrap/lib/Panel";
+import Card from "react-bootstrap/Card";
 
 export default class PanelWithTitle extends React.PureComponent {
   static propTypes = {
@@ -18,16 +18,16 @@ export default class PanelWithTitle extends React.PureComponent {
 
     let currentChildren = children;
     if (panelBody) {
-      currentChildren = <Panel.Body>{currentChildren}</Panel.Body>;
+      currentChildren = <Card.Body>{currentChildren}</Card.Body>;
     }
 
     return (
-      <Panel {...otherProps}>
-        <Panel.Heading>
-          <Panel.Title componentClass="h6">{title}</Panel.Title>
-        </Panel.Heading>
+      <Card {...otherProps}>
+        <Card.Header>
+          <Card.Title as="h6">{title}</Card.Title>
+        </Card.Header>
         {currentChildren}
-      </Panel>
+      </Card>
     );
   }
 }
