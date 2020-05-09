@@ -1,35 +1,23 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
+import { default as BootstrapBreadcrumb } from "react-bootstrap/Breadcrumb";
 
-export default class Breadcrumb extends React.PureComponent {
-  static propTypes = {
-    items: PropTypes.arrayOf(PropTypes.object).isRequired
-  };
+function Breadcrumb({ items }) {
+  const elements = items.map((item, index) => {
+    const active = index + 1 === items.length;
+    return (
+      <BootstrapBreadcrumb.Item key={index} active={active} linkAs={active ? null : Link} linkProps={{ to: item.link }}>
+        {item.value}
+      </BootstrapBreadcrumb.Item>
+    );
+  });
 
-  render() {
-    const { items } = this.props;
-
-    const isActive = (index) => index + 1 === items.length;
-
-    const elements = items.map((item, index) => {
-      // Active element
-      if (isActive(index)) {
-        return (
-          <li key={index} className="active">
-            {item.value}
-          </li>
-        );
-      }
-
-      // Inactive element
-      return (
-        <li key={index}>
-          <Link to={item.link}>{item.value}</Link>
-        </li>
-      );
-    });
-
-    return <ol className="breadcrumb">{elements}</ol>;
-  }
+  return <BootstrapBreadcrumb>{elements}</BootstrapBreadcrumb>;
 }
+
+Breadcrumb.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object).isRequired
+};
+
+export default memo(Breadcrumb);
