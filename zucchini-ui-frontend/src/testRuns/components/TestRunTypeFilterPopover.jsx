@@ -55,7 +55,7 @@ export default function TestRunTypeFilterPopover({ selectedType, onTypeSelected 
 
   return (
     <div>
-      <FormGroup bsSize="small">
+      <FormGroup size="sm">
         <FormControl
           type="text"
           placeholder="Rechercher un type de tir"

@@ -7,7 +7,7 @@ import Button from "../../ui/components/Button";
 export default class ConfirmActionButton extends React.PureComponent {
   static propTypes = {
     variant: PropTypes.string,
-    bsSize: PropTypes.string,
+    size: PropTypes.string,
     actionGlyph: PropTypes.string,
     actionLabel: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -44,12 +44,12 @@ export default class ConfirmActionButton extends React.PureComponent {
   };
 
   render() {
-    const { actionGlyph, actionLabel, title, message, variant, bsSize } = this.props;
+    const { actionGlyph, actionLabel, title, message, variant, size } = this.props;
     const { show } = this.state;
 
     return (
       <Fragment>
-        <Button glyph={actionGlyph} variant={variant} bsSize={bsSize} onClick={this.onShowConfirmation}>
+        <Button glyph={actionGlyph} variant={variant} size={size} onClick={this.onShowConfirmation}>
           {actionLabel}
         </Button>
 

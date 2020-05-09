@@ -86,7 +86,7 @@ export default class UpdateScenarioReviewedStateDialog extends React.PureCompone
     const { show } = this.props;
 
     return (
-      <Modal bsSize="large" show={show} onHide={this.onCloseClick}>
+      <Modal size="lg" show={show} onHide={this.onCloseClick}>
         <Modal.Header closeButton>
           <Modal.Title>Marquer le scénario comme analysé&hellip;</Modal.Title>
         </Modal.Header>

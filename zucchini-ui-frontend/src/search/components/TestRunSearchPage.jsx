@@ -76,7 +76,7 @@ export default class TestRunSearchPage extends React.Component {
       >
         <form onSubmit={this.onSearchFormSubmit}>
           <FormGroup controlId="search">
-            <InputGroup bsSize="large">
+            <InputGroup size="lg">
               <FormControl
                 type="text"
                 value={this.state.search}

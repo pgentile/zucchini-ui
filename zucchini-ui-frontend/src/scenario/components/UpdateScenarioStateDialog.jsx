@@ -117,7 +117,7 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
     });
 
     return (
-      <Modal bsSize="large" show={show} onHide={this.onCloseClick}>
+      <Modal size="lg" show={show} onHide={this.onCloseClick}>
         <Modal.Header closeButton>
           <Modal.Title>Modifier le statut du scénario&hellip;</Modal.Title>
         </Modal.Header>

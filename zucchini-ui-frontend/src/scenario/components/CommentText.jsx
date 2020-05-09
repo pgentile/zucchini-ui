@@ -28,12 +28,12 @@ export default class CommentText extends React.PureComponent {
       <div>
         <SimpleText text={comment.content} />
         <p>
-          <Button glyph="pencil" bsSize="xsmall" onClick={this.onEdit}>
+          <Button glyph="pencil" size="sm" onClick={this.onEdit}>
             Modifier
           </Button>{" "}
           <ConfirmActionButton
             variant="danger"
-            bsSize="xsmall"
+            size="sm"
             actionGlyph="remove"
             actionLabel="Supprimer"
             title="Supprimer le commentaire"

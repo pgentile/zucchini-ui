@@ -46,10 +46,10 @@ export default class CommentEditor extends React.PureComponent {
           <FormControl as="textarea" rows="3" autoFocus value={comment} onChange={this.onCommentChange} />
         </FormGroup>
         <p>
-          <Button bsSize="xsmall" onClick={this.onCancel}>
+          <Button size="sm" onClick={this.onCancel}>
             Annuler
           </Button>{" "}
-          <Button variant="primary" bsSize="xsmall" onClick={this.onSave} disabled={!comment}>
+          <Button variant="sm" size="small" onClick={this.onSave} disabled={!comment}>
             Enregistrer
           </Button>
         </p>

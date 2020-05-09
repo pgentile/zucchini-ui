@@ -50,7 +50,7 @@ export default class ScenarioStats extends React.PureComponent {
       <Container>
         <Row>
           <p>
-            <Button glyph={toggleDetailsButton.glyph} bsSize="xsmall" onClick={this.onToogleDetailsClick}>
+            <Button glyph={toggleDetailsButton.glyph} size="sm" onClick={this.onToogleDetailsClick}>
               {toggleDetailsButton.text}
             </Button>
           </p>

@@ -24,7 +24,7 @@ export default function TestRunTypeFilter({ selectedType }) {
 
   return (
     <div style={{ position: "relative", marginBottom: "10px" }}>
-      <ButtonGroup bsSize="xsmall">
+      <ButtonGroup size="sm">
         <Button active={showSelectableTypes} onClick={handleShowPopoverClick}>
           Type de tir : <b>{selectedType ? selectedType : <i>Tous</i>}</b> <Caret />
         </Button>

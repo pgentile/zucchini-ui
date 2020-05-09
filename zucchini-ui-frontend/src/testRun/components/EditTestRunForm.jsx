@@ -37,7 +37,7 @@ class EditTestRunForm extends React.PureComponent {
         <tfoot>
           <tr>
             <td colSpan={4}>
-              <Button glyph="plus-sign" bsSize="small" onClick={addLabel}>
+              <Button glyph="plus-sign" size="sm" onClick={addLabel}>
                 Ajouter une étiquette
               </Button>
             </td>
