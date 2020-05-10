@@ -103,12 +103,7 @@ export default class ScenarioPage extends React.Component {
       <Page
         title={
           <Fragment>
-            <b>{scenario.info.keyword}</b> {scenario.info.name}{" "}
-            {scenario.status && (
-              <small>
-                <Status status={scenario.status} />
-              </small>
-            )}
+            <b>{scenario.info.keyword}</b> {scenario.info.name} {scenario.status && <Status status={scenario.status} />}
           </Fragment>
         }
         breadcrumb={<ScenarioBreadcrumbContainer />}

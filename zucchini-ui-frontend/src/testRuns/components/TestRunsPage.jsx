@@ -43,7 +43,9 @@ export default function TestRunsPage() {
 
   return (
     <Page
-      title={<Fragment>Derniers tirs {selectedType && <small>Type {selectedType}</small>}</Fragment>}
+      title={
+        <Fragment>Derniers tirs {selectedType && <small className="text-muted">Type {selectedType}</small>}</Fragment>
+      }
       breadcrumb={<TestRunsBreadcrumb />}
     >
       <ButtonToolbar>

@@ -46,12 +46,7 @@ export default class FeaturePage extends React.Component {
       <Page
         title={
           <Fragment>
-            <b>{feature.info.keyword}</b> {feature.info.name}{" "}
-            {feature.status && (
-              <small>
-                <Status status={feature.status} />
-              </small>
-            )}
+            <b>{feature.info.keyword}</b> {feature.info.name} {feature.status && <Status status={feature.status} />}
           </Fragment>
         }
         breadcrumb={<FeatureBreadcrumbContainer />}

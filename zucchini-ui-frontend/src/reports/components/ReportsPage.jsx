@@ -36,7 +36,7 @@ export default class ReportsPage extends React.Component {
       <Page
         title={
           <Fragment>
-            Bilan <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
+            Bilan <small className="text-muted">{`Tir du ${toNiceDate(testRun.date)}`}</small>
           </Fragment>
         }
         breadcrumb={<ReportsBreadcrumbContainer />}
