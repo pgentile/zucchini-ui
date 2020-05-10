@@ -83,9 +83,11 @@ export default class TestRunSearchPage extends React.Component {
                 onChange={this.onSearchChange}
                 placeholder="Rechercher..."
               />
-              <InputGroup.Button>
-                <Button glyph="search" type="submit" />
-              </InputGroup.Button>
+              <InputGroup.Append>
+                <Button glyph="search" type="submit">
+                  Rechercher
+                </Button>
+              </InputGroup.Append>
             </InputGroup>
           </FormGroup>
         </form>
