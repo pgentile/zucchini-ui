@@ -104,47 +104,6 @@
   margin: 0;
 }
 
-/**
- * Loading indicator
- */
-
-.loading-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 5px;
-  z-index: 10000;
-
-  background: @brand-info;
-
-  width: 100%;
-
-  display: none;
-}
-
-.loading-bar-start {
-  width: 0;
-  opacity: 0;
-
-  display: block;
-}
-
-.loading-bar-pending {
-  transition: width linear 10s, opacity linear 500ms;
-  width: 70%;
-  opacity: 1;
-}
-
-.loading-bar-ending {
-  transition: width linear 200ms;
-  width: 100%;
-}
-
-.loading-bar-done {
-  transition: opacity linear 100ms;
-  opacity: 0;
-}
-
 .details-modal-dialog {
   width: 90%;
   display: table;
