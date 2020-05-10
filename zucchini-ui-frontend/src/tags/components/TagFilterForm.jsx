@@ -35,9 +35,11 @@ class TagFilterForm extends React.PureComponent {
               component={this.renderField}
               placeholder="Entrez les premières lettres d'un tag&hellip;"
             />
-            <InputGroup.Button>
-              <Button glyph="remove-circle" onClick={this.onClearFilter} />
-            </InputGroup.Button>
+            <InputGroup.Append>
+              <Button glyph="remove-circle" onClick={this.onClearFilter}>
+                <span className="sr-only">Effacer</span>
+              </Button>
+            </InputGroup.Append>
           </InputGroup>
         </FormGroup>
       </form>
