@@ -8,7 +8,7 @@ export default function ErrorAlert({ error, onClearErrors }) {
   }
 
   return (
-    <Alert variant="danger" onDismiss={() => onClearErrors()}>
+    <Alert variant="danger" dismissible onClose={() => onClearErrors()}>
       <h4>Une erreur a été détectée&hellip;</h4>
       <p>{error}</p>
     </Alert>
