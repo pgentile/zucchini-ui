@@ -1,22 +1,14 @@
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 
+@import "./legend-colors";
+
 .ct-chart-donut {
   .chart-progress {
-    &-passed .ct-slice-donut {
-      stroke: $success;
-    }
-
-    &-failed .ct-slice-donut {
-      stroke: $danger;
-    }
-
-    &-pending .ct-slice-donut {
-      stroke: $warning;
-    }
-
-    &-not-run .ct-slice-donut {
-      stroke: $dark;
+    @each $status, $color in $legend-colors {
+      &-#{$status} .ct-slice-donut {
+        stroke: $color;
+      }
     }
 
     &-others .ct-slice-donut {
