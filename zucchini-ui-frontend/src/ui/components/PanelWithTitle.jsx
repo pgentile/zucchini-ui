@@ -24,7 +24,9 @@ export default class PanelWithTitle extends React.PureComponent {
     return (
       <Card {...otherProps}>
         <Card.Header>
-          <Card.Title as="h6">{title}</Card.Title>
+          <Card.Title as="h6" className="mb-0">
+            {title}
+          </Card.Title>
         </Card.Header>
         {currentChildren}
       </Card>
