@@ -64,7 +64,7 @@ export default class Step extends React.PureComponent {
 
 function ErrorMessage({ errorMessage }) {
   return (
-    <PanelWithTitle title="Message d'erreur" panelBody bg="danger" text="white">
+    <PanelWithTitle title="Message d'erreur" panelBody bg="danger" text="white" className="mb-3">
       <pre className="mb-0 text-white">{errorMessage}</pre>
     </PanelWithTitle>
   );
@@ -76,7 +76,7 @@ ErrorMessage.propTypes = {
 
 function LogOutput({ output }) {
   return (
-    <PanelWithTitle title="Logs" panelBody>
+    <PanelWithTitle title="Logs" panelBody className="mb-3">
       <pre className="mb-0">{output}</pre>
     </PanelWithTitle>
   );
