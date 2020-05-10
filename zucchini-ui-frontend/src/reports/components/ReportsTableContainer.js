@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { createSelector, createStructuredSelector } from "reselect";
-import { ZERO_STATS_NUMBERS } from "../../testRun/model.js";
+import { createZeroStatsNumbers } from "../../testRun/model.js";
 
 import ReportsTable from "./ReportsTable";
 
@@ -27,7 +27,7 @@ const selectGroups = createSelector(
       const stats = features
         .filter((feature) => feature.group === groupName)
         .map((feature) => feature.stats.all)
-        .reduce(sumStats, ZERO_STATS_NUMBERS);
+        .reduce(sumStats, createZeroStatsNumbers());
 
       return {
         name: groupName || "",
@@ -37,7 +37,7 @@ const selectGroups = createSelector(
 
     // Total stats
 
-    const totalStats = groups.map((group) => group.stats).reduce(sumStats, ZERO_STATS_NUMBERS);
+    const totalStats = groups.map((group) => group.stats).reduce(sumStats, createZeroStatsNumbers());
 
     const total = {
       name: "Total",

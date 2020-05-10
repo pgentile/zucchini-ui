@@ -22,17 +22,17 @@ export function deleteFeature({ featureId }) {
 }
 
 export function createStatsWithZeros() {
+  const zeroStatsNumbers = {
+    count: 0,
+    passed: 0,
+    failed: 0,
+    pending: 0,
+    notRun: 0
+  };
+
   return {
-    all: ZERO_STATS_NUMBERS,
-    reviewed: ZERO_STATS_NUMBERS,
-    nonReviewed: ZERO_STATS_NUMBERS
+    all: { ...zeroStatsNumbers },
+    reviewed: { ...zeroStatsNumbers },
+    nonReviewed: { ...zeroStatsNumbers }
   };
 }
-
-const ZERO_STATS_NUMBERS = {
-  count: 0,
-  passed: 0,
-  failed: 0,
-  pending: 0,
-  notRun: 0
-};

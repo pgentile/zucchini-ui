@@ -19,14 +19,14 @@ export default class ReportsTable extends React.Component {
       <Table bordered striped hover>
         <thead>
           <tr>
-            <th className="col-md-1">Groupe</th>
-            <th className="col-md-1">Total</th>
-            <th className="col-md-1">Succès</th>
-            <th className="col-md-1">Échecs</th>
-            <th className="col-md-1">En attente</th>
-            <th className="col-md-1">Non joués</th>
-            <th className="col-md-1">Taux erreurs</th>
-            <th className="col-md-1">Taux de répartition des erreurs</th>
+            <th>Groupe</th>
+            <th>Total</th>
+            <th>Succès</th>
+            <th>Échecs</th>
+            <th>En attente</th>
+            <th>Non joués</th>
+            <th>Taux erreurs</th>
+            <th>Taux de répartition des erreurs</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
@@ -42,38 +42,53 @@ class ReportsTableRow extends React.PureComponent {
 
   render() {
     const { group } = this.props;
-    let style = "badge";
+
+    let variant = null;
     if (group.stats.failed === 0) {
-      style = "badge-success";
+      variant = "success";
     } else if (group.stats.faultRate > 50) {
-      style = "badge-error";
+      variant = "error";
     } else if (group.stats.faultRate > 10) {
-      style = "badge-warning";
+      variant = "warning";
     }
 
     return (
       <tr>
         <td>{group.total ? <b>{group.name}</b> : group.name}</td>
         <td>
-          <Badge bsClass={style}>{group.stats.count}</Badge>
+          <Badge variant={variant} pill>
+            {group.stats.count}
+          </Badge>
         </td>
         <td>
-          <Badge bsClass={style}>{group.stats.passed}</Badge>
+          <Badge variant={variant} pill>
+            {group.stats.passed}
+          </Badge>
         </td>
         <td>
-          <Badge bsClass={style}>{group.stats.failed}</Badge>
+          <Badge variant={variant} pill>
+            {group.stats.failed}
+          </Badge>
         </td>
         <td>
-          <Badge bsClass={style}>{group.stats.pending}</Badge>
+          <Badge variant={variant} pill>
+            {group.stats.pending}
+          </Badge>
         </td>
         <td>
-          <Badge bsClass={style}>{group.stats.notRun}</Badge>
+          <Badge variant={variant} pill>
+            {group.stats.notRun}
+          </Badge>
         </td>
         <td>
-          <Badge bsClass={style}>{group.stats.faultRate} %</Badge>
+          <Badge variant={variant} pill>
+            {group.stats.faultRate} %
+          </Badge>
         </td>
         <td>
-          <Badge bsClass={style}>{group.stats.faultRateRepartition} %</Badge>
+          <Badge variant={variant} pill>
+            {group.stats.faultRateRepartition}&nbsp;%
+          </Badge>
         </td>
       </tr>
     );
