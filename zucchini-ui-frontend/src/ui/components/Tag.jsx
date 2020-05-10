@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import queryString from "query-string";
+import Badge from "react-bootstrap/Badge";
 
 export default class Tag extends React.PureComponent {
   static propTypes = {
@@ -18,9 +19,9 @@ export default class Tag extends React.PureComponent {
     };
 
     return (
-      <Link className="label label-info" to={tagLink}>
+      <Badge variant="info" as={Link} to={tagLink}>
         @{tag}
-      </Link>
+      </Badge>
     );
   }
 }
