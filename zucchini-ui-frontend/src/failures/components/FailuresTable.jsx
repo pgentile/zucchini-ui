@@ -111,7 +111,7 @@ class FailuresTableRow extends React.Component {
           <Status status={failedScenario.status} />
         </td>
         <td>
-          <Badge variant={failedScenario.reviewed ? "success" : "light"}>
+          <Badge variant={failedScenario.reviewed ? "secondary" : "light"}>
             {failedScenario.reviewed ? "Oui" : "Non"}
           </Badge>
         </td>

@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
 import Table from "react-bootstrap/Table";
-import Badge from "react-bootstrap/Badge";
 import { Link } from "react-router-dom";
 
 import Status from "../../ui/components/Status";
+import ReviewedStatus from "../../ui/components/ReviewedStatus";
 
 export default class ScenarioTable extends React.PureComponent {
   static propTypes = {
@@ -45,11 +45,6 @@ class ScenarioTableRow extends React.PureComponent {
     const { scenario, isActive } = this.props;
     const className = isActive ? "info" : null;
 
-    const reviewedProps = {
-      variant: scenario.reviewed ? "success" : "default",
-      text: scenario.reviewed ? "Oui" : "Non"
-    };
-
     return (
       <tr className={className}>
         <td>
@@ -61,7 +56,7 @@ class ScenarioTableRow extends React.PureComponent {
           <Status status={scenario.status} />
         </td>
         <td>
-          <Badge variant={reviewedProps.variant}>{reviewedProps.text}</Badge>
+          <ReviewedStatus reviewed={scenario.reviewed} />
         </td>
       </tr>
     );

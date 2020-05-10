@@ -32,7 +32,7 @@ export default class Status extends React.PureComponent {
         break;
       case "NOT_RUN":
         displayLabel = "Non joué";
-        variant = "light";
+        variant = "dark";
         break;
       case "PENDING":
         displayLabel = "En attente";
