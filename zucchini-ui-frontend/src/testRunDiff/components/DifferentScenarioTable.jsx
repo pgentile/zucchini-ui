@@ -22,9 +22,9 @@ export default class DifferentScenarioTable extends React.PureComponent {
       <Table bordered striped hover>
         <thead>
           <tr>
-            <th className="col-md-10">Scénario</th>
-            <th className="col-md-1">Ancien statut</th>
-            <th className="col-md-1">Nouveau statut</th>
+            <th>Scénario</th>
+            <th>Ancien statut</th>
+            <th>Nouveau statut</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>

@@ -38,13 +38,9 @@ export default class StepDefinitionsTable extends React.Component {
       <Table bordered striped hover style={{ tableLayout: "fixed" }}>
         <thead>
           <tr>
-            <th className="col-md-10">Définition</th>
-            <th className="col-md-1" style={{ textAlign: "center" }}>
-              Occurrence
-            </th>
-            <th className="col-md-1" style={{ textAlign: "center" }}>
-              Réussite
-            </th>
+            <th>Définition</th>
+            <th style={{ textAlign: "center" }}>Occurrence</th>
+            <th style={{ textAlign: "center" }}>Réussite</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>

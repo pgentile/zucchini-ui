@@ -25,17 +25,17 @@ export default class FeatureHistoryTable extends React.PureComponent {
       <Table bordered striped hover>
         <thead>
           <tr>
-            <th className="col-md-1">Type</th>
-            <th className="col-md-1">Environnement</th>
-            <th className="col-md-1">Nom</th>
-            <th className="col-md-2">Tir de test</th>
-            <th className="col-md-1">Statut</th>
-            <th className="col-md-1">Total</th>
-            <th className="col-md-1">Succès</th>
-            <th className="col-md-1">Échecs</th>
-            <th className="col-md-1">En attente</th>
-            <th className="col-md-1">Non joués</th>
-            <th className="col-md-1">Analysés</th>
+            <th>Type</th>
+            <th>Environnement</th>
+            <th>Nom</th>
+            <th>Tir de test</th>
+            <th>Statut</th>
+            <th>Total</th>
+            <th>Succès</th>
+            <th>Échecs</th>
+            <th>En attente</th>
+            <th>Non joués</th>
+            <th>Analysés</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>

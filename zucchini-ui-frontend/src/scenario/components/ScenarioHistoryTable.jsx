@@ -25,11 +25,11 @@ export default class ScenarioHistoryTable extends React.PureComponent {
       <Table bordered striped hover>
         <thead>
           <tr>
-            <th className="col-md-2">Type</th>
-            <th className="col-md-2">Environnement</th>
-            <th className="col-md-2">Nom</th>
-            <th className="col-md-5">Tir de test</th>
-            <th className="col-md-1">Statut</th>
+            <th>Type</th>
+            <th>Environnement</th>
+            <th>Nom</th>
+            <th>Tir de test</th>
+            <th>Statut</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>

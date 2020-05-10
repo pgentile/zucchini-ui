@@ -27,9 +27,9 @@ class EditTestRunForm extends React.PureComponent {
       <Table>
         <thead>
           <tr>
-            <th className="col-md-4">Nom</th>
-            <th className="col-md-4">Valeur</th>
-            <th className="col-md-4">URL</th>
+            <th>Nom</th>
+            <th>Valeur</th>
+            <th>URL</th>
             <th>&nbsp;</th>
           </tr>
         </thead>

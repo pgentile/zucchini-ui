@@ -23,14 +23,14 @@ export default class TagsTable extends React.Component {
       <Table bordered striped hover>
         <thead>
           <tr>
-            <th className="col-md-5">Tag</th>
-            <th className="col-md-1">Statut</th>
-            <th className="col-md-1">Total</th>
-            <th className="col-md-1">Succès</th>
-            <th className="col-md-1">Échecs</th>
-            <th className="col-md-1">En attente</th>
-            <th className="col-md-1">Non joués</th>
-            <th className="col-md-1">Analysés</th>
+            <th>Tag</th>
+            <th>Statut</th>
+            <th>Total</th>
+            <th>Succès</th>
+            <th>Échecs</th>
+            <th>En attente</th>
+            <th>Non joués</th>
+            <th>Analysés</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>

@@ -24,9 +24,9 @@ export default class ScenarioTable extends React.PureComponent {
       <Table bordered striped hover>
         <thead>
           <tr>
-            <th className="col-md-10">Scénario</th>
-            <th className="col-md-1">Statut</th>
-            <th className="col-md-1">Analysé</th>
+            <th>Scénario</th>
+            <th>Statut</th>
+            <th>Analysé</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>

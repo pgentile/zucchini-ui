@@ -32,10 +32,10 @@ export default class FailuresTable extends React.Component {
       <Table bordered striped hover style={{ tableLayout: "fixed" }}>
         <thead>
           <tr>
-            <th className="col-md-4">Erreur</th>
-            <th className="col-md-6">Scénario</th>
-            <th className="col-md-1">Statut</th>
-            <th className="col-md-1">Analysé</th>
+            <th>Erreur</th>
+            <th>Scénario</th>
+            <th>Statut</th>
+            <th>Analysé</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>

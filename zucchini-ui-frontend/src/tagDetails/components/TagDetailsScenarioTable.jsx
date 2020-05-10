@@ -24,11 +24,11 @@ export default class TagDetailsScenarioTable extends React.PureComponent {
       <Table bordered striped hover>
         <thead>
           <tr>
-            <th className="col-md-1">Groupe</th>
-            <th className="col-md-4">Fonctionnalité</th>
-            <th className="col-md-5">Scénario</th>
-            <th className="col-md-1">Statut</th>
-            <th className="col-md-1">Analysé</th>
+            <th>Groupe</th>
+            <th>Fonctionnalité</th>
+            <th>Scénario</th>
+            <th>Statut</th>
+            <th>Analysé</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
