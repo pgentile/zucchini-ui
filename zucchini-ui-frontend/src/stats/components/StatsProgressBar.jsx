@@ -19,7 +19,7 @@ export default class ProgressBarStats extends React.PureComponent {
       <div>
         <ProgressBar style={{ marginBottom: "0" }}>
           <ProgressBar variant="success" now={success} key={1} label={`${Math.round(success)}%`} />
-          <ProgressBar variant="info" now={notRun} key={2} />
+          <ProgressBar variant="dark" now={notRun} key={2} />
           <ProgressBar variant="warning" now={pending} key={3} />
           <ProgressBar active variant="danger" now={failed} key={4} />
         </ProgressBar>
@@ -27,7 +27,7 @@ export default class ProgressBarStats extends React.PureComponent {
           <Badge variant="success" style={{ marginRight: "1em" }}>
             Succès
           </Badge>
-          <Badge variant="info" style={{ marginRight: "1em" }}>
+          <Badge variant="dark" style={{ marginRight: "1em" }}>
             Non Joués
           </Badge>
           <Badge variant="warning" style={{ marginRight: "1em" }}>

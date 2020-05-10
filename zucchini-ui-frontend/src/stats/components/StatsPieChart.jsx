@@ -3,6 +3,8 @@ import React from "react";
 
 import PieChart from "../../charts/components/PieChart";
 
+import "./StatsPieChart.scss";
+
 export default class StatsPieChart extends React.PureComponent {
   static propTypes = {
     stats: PropTypes.object.isRequired,

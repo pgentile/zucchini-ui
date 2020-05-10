@@ -3,6 +3,8 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 import Badge from "react-bootstrap/Badge";
 
+import "./StatsLegend.scss";
+
 export default class StatsLegend extends React.PureComponent {
   static propTypes = {
     stats: PropTypes.object.isRequired
@@ -48,7 +50,7 @@ export default class StatsLegend extends React.PureComponent {
           </tr>
           <tr>
             <td>
-              <Badge variant="light">&nbsp;</Badge>
+              <Badge variant="dark">&nbsp;</Badge>
             </td>
             <td>Non joués</td>
             <td>{stats.notRun}</td>
