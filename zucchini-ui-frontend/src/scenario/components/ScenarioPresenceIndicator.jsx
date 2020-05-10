@@ -11,7 +11,7 @@ export default function ScenarioPresenceIndicator({ scenarioId }) {
 
   const otherWatcherIds = useSelector((state) => state.presence.otherWatcherIds);
 
-  let variant = "exclamation-triangle";
+  let variant = "warning";
   let icon = "exclamation-sign";
   let text = "Présence d'utilisateurs en simultané inconnue";
 
