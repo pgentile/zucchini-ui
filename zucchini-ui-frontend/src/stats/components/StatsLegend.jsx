@@ -14,7 +14,7 @@ export default class StatsLegend extends React.PureComponent {
     const { stats } = this.props;
 
     return (
-      <Table condensed>
+      <Table size="sm">
         <thead>
           <tr>
             <th>&nbsp;</th>
