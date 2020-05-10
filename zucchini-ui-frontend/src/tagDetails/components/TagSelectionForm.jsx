@@ -1,78 +1,70 @@
-import PropTypes from "prop-types";
-import React from "react";
+import React, { memo, useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
 import FormGroup from "react-bootstrap/FormGroup";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import FormLabel from "react-bootstrap/FormLabel";
-import { reduxForm, Field } from "redux-form";
 
 import Button from "../../ui/components/Button";
+import { useParsedTags, useNavigateToTags } from "../url";
 
-class TagSelectionForm extends React.PureComponent {
-  static propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
-    initialValues: PropTypes.object.isRequired
+function TagSelectionForm() {
+  const parsedTags = useParsedTags();
+
+  const [tags, setTags] = useState(() => formatTags(parsedTags.tags));
+  const [excludedTags, setExcludedTags] = useState(() => formatTags(parsedTags.excludedTags));
+
+  const navigateToTags = useNavigateToTags();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    navigateToTags({
+      tags: parseTags(tags),
+      excludedTags: parseTags(excludedTags)
+    });
   };
 
-  renderField = ({ input, meta, ...otherProps }) => {
-    // eslint-disable-line no-unused-vars
-    return <FormControl {...input} {...otherProps} />;
-  };
-
-  formatTags = (tags) => {
-    if (tags) {
-      return tags.join(" ");
-    }
-    return "";
-  };
-
-  parseTags = (tagsStr) => {
-    if (tagsStr && tagsStr.length) {
-      return tagsStr.split(" ");
-    }
-    return [];
-  };
-
-  render() {
-    const { handleSubmit } = this.props;
-
-    return (
-      <form onSubmit={handleSubmit}>
-        <Row>
-          <Col md={5}>
-            <FormGroup controlId="tags">
-              <InputGroup>
-                <FormLabel className="input-group-addon">Tags inclus</FormLabel>
-                <Field name="tags" component={this.renderField} format={this.formatTags} parse={this.parseTags} />
-              </InputGroup>
-            </FormGroup>
-          </Col>
-          <Col md={5}>
-            <FormGroup controlId="excludedTags">
-              <InputGroup>
-                <FormLabel className="input-group-addon">Tags exclus</FormLabel>
-                <Field
-                  name="excludedTags"
-                  component={this.renderField}
-                  format={this.formatTags}
-                  parse={this.parseTags}
-                />
-              </InputGroup>
-            </FormGroup>
-          </Col>
-          <Col md={2}>
-            <Button glyph="refresh" type="submit" block>
-              Actualiser
-            </Button>
-          </Col>
-        </Row>
-      </form>
-    );
-  }
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Row>
+        <Col md={5}>
+          <FormGroup controlId="tags">
+            <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text as={FormLabel}>Tags inclus</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl value={tags} onChange={(e) => setTags(e.target.value)} />
+            </InputGroup>
+          </FormGroup>
+        </Col>
+        <Col md={5}>
+          <FormGroup controlId="excludedTags">
+            <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text as={FormLabel}>Tags exclus</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl value={excludedTags} onChange={(e) => setExcludedTags(e.target.value)} />
+            </InputGroup>
+          </FormGroup>
+        </Col>
+        <Col md={2}>
+          <Button glyph="refresh" type="submit" block>
+            Actualiser
+          </Button>
+        </Col>
+      </Row>
+    </Form>
+  );
 }
 
-export default reduxForm({
-  form: "tagSelection"
-})(TagSelectionForm);
+export default memo(TagSelectionForm);
+
+function formatTags(tags) {
+  return tags.join(" ");
+}
+
+function parseTags(tags) {
+  return tags.split(/ +/);
+}
