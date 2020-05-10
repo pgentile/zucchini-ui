@@ -95,48 +95,48 @@ export default class TestRunPage extends React.Component {
       <Page title={`Tir du ${toNiceDate(testRun.date)}`} breadcrumb={<TestRunBreadcrumbContainer />}>
         {labels}
 
-        <ButtonToolbar>
-          <ButtonGroup>
+        <ButtonToolbar className="mb-n2">
+          <ButtonGroup className="mr-2 mb-2">
             <Button glyph="upload" onClick={this.onImportCucumberResultButtonClick}>
               Importer un résultat de tests Cucumber
             </Button>
           </ButtonGroup>
-          <ButtonGroup>
+          <ButtonGroup className="mr-2 mb-2">
             <Button glyph="pencil" onClick={this.onEditButtonClick}>
               Modifier
             </Button>
           </ButtonGroup>
-          <ButtonGroup>
+          <ButtonGroup className="mr-2 mb-2">
             <ButtonLink glyph="search" to={`/test-runs/${testRunId}/search`}>
               Rechercher
             </ButtonLink>
           </ButtonGroup>
-          <ButtonGroup>
+          <ButtonGroup className="mr-2 mb-2">
             <ButtonLink glyph="tags" to={`/test-runs/${testRunId}/tags`}>
               Tags
             </ButtonLink>
           </ButtonGroup>
-          <ButtonGroup>
+          <ButtonGroup className="mr-2 mb-2">
             <ButtonLink glyph="exclamation-sign" to={`/test-runs/${testRunId}/failures`}>
               Échecs
             </ButtonLink>
           </ButtonGroup>
-          <ButtonGroup>
+          <ButtonGroup className="mr-2 mb-2">
             <ButtonLink glyph="book" to={`/test-runs/${testRunId}/stepDefinitions`}>
               Glues
             </ButtonLink>
           </ButtonGroup>
-          <ButtonGroup>
+          <ButtonGroup className="mr-2 mb-2">
             <ButtonLink glyph="list" to={`/test-runs/${testRunId}/reports`}>
               Bilan
             </ButtonLink>
           </ButtonGroup>
-          <ButtonGroup>
+          <ButtonGroup className="mr-2 mb-2">
             <ButtonLink glyph="list-alt" to={`/test-runs/${testRunId}/diff`}>
               Comparer avec un autre tir
             </ButtonLink>
           </ButtonGroup>
-          <ButtonGroup>
+          <ButtonGroup className="mb-2">
             <DeleteTestRunButton testRunId={testRunId} />
           </ButtonGroup>
         </ButtonToolbar>

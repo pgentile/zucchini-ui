@@ -49,7 +49,7 @@ export default function TestRunsPage() {
       breadcrumb={<TestRunsBreadcrumb />}
     >
       <ButtonToolbar>
-        <ButtonGroup>
+        <ButtonGroup className="mr-2">
           <Button glyph="plus-sign" onClick={onCreateTestRunButtonClick}>
             Créer un tir
           </Button>

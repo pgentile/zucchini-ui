@@ -117,12 +117,12 @@ export default class ScenarioPage extends React.Component {
         <hr />
 
         <ButtonToolbar>
-          <ButtonGroup>
+          <ButtonGroup className="mr-2">
             <Button glyph="flag" onClick={this.onUpdateStateClick}>
               Modifier le statut&hellip;
             </Button>
           </ButtonGroup>
-          <ButtonGroup>
+          <ButtonGroup className="mr-2">
             <Button glyph={reviewed ? "eye-close" : "eye-open"} onClick={this.onUpdateReviewedStateClick}>
               {reviewed ? "Marquer comme non analysé" : "Marquer comme analysé"}
             </Button>
