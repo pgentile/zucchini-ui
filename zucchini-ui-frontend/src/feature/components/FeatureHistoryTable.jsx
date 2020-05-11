@@ -52,7 +52,7 @@ class FeatureHistoryTableRow extends React.PureComponent {
 
   render() {
     const { feature, isActive } = this.props;
-    const className = isActive ? "info" : null;
+    const className = isActive ? "table-primary" : null;
 
     return (
       <tr className={className}>

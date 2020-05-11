@@ -5,7 +5,6 @@ import { useRouteMatch } from "react-router-dom";
 import toNiceDate from "../../ui/toNiceDate";
 import FeatureStateFilterContainer from "../../filters/components/FeatureStateFilterContainer";
 import ScenarioStateFilterContainer from "../../filters/components/ScenarioStateFilterContainer";
-import TagDetailsStatsContainer from "./TagDetailsStatsContainer";
 import TagDetailsFeatureTableContainer from "./TagDetailsFeatureTableContainer";
 import TagDetailsScenarioTableContainer from "./TagDetailsScenarioTableContainer";
 import TagSelectionForm from "./TagSelectionForm";
@@ -13,6 +12,7 @@ import Page from "../../ui/components/Page";
 import TagDetailsBreadcrumbContainer from "./TagDetailsBreadcrumbContainer";
 import { useParsedTags } from "../url";
 import { loadTagDetailsPage } from "../redux";
+import ScenarioStats from "../../stats/components/ScenarioStats";
 
 export default function TagDetailsPage() {
   const testRunId = useRouteMatch().params.testRunId;
@@ -29,6 +29,8 @@ export default function TagDetailsPage() {
 
   const testRun = useSelector((state) => state.testRun.testRun);
 
+  const stats = useSelector((state) => state.tagDetails.stats);
+
   return (
     <Page
       title={
@@ -44,7 +46,7 @@ export default function TagDetailsPage() {
       <hr />
 
       <h2>Statistiques</h2>
-      <TagDetailsStatsContainer />
+      <ScenarioStats stats={stats} />
 
       <hr />
 

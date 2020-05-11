@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import queryString from "query-string";
 
-import FeatureStatsContainer from "./FeatureStatsContainer";
 import FeatureHistoryTableContainer from "./FeatureHistoryTableContainer";
 import ScenarioTableContainer from "./ScenarioTableContainer";
 import HistoryFilterContainer from "../../filters/components/HistoryFilterContainer";
@@ -16,12 +15,14 @@ import DeleteFeatureButton from "./DeleteFeatureButton";
 import FeatureTrendChartContainer from "./FeatureTrendChartContainer";
 import Page from "../../ui/components/Page";
 import FeatureBreadcrumbContainer from "./FeatureBreadcrumbContainer";
+import ScenarioStats from "../../stats/components/ScenarioStats";
 
 export default class FeaturePage extends React.Component {
   static propTypes = {
     onLoad: PropTypes.func.isRequired,
     featureId: PropTypes.string.isRequired,
-    feature: PropTypes.object
+    feature: PropTypes.object,
+    stats: PropTypes.object.isRequired
   };
 
   componentDidMount() {
@@ -40,7 +41,7 @@ export default class FeaturePage extends React.Component {
   }
 
   render() {
-    const { feature, featureId } = this.props;
+    const { feature, featureId, stats } = this.props;
 
     return (
       <Page
@@ -82,7 +83,7 @@ export default class FeaturePage extends React.Component {
         <hr />
 
         <h2>Statistiques</h2>
-        <FeatureStatsContainer />
+        <ScenarioStats stats={stats} />
 
         <hr />
 

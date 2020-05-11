@@ -45,7 +45,7 @@ class TagDetailsScenarioTableRow extends React.PureComponent {
 
   render() {
     const { scenario, isActive } = this.props;
-    const className = isActive ? "info" : null;
+    const className = isActive ? "table-primary" : null;
 
     return (
       <tr className={className}>
