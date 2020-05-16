@@ -108,6 +108,7 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
       return (
         <FormCheck
           type="radio"
+          id={`updateScenario-status-${status}`}
           label={label}
           key={status}
           checked={this.isStatusSelected(status)}
@@ -130,6 +131,7 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
             <FormGroup>
               <FormLabel>Analyse du scénario</FormLabel>
               <FormCheck
+                id="updateScenario-reviewed"
                 checked={this.state.scenario.reviewed}
                 onChange={this.onReviewedChange}
                 label="Scénario analysé ?"
@@ -142,10 +144,10 @@ export default class UpdateScenarioStateDialog extends React.PureComponent {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button variant="primary" onClick={this.onUpdateState}>
-            Valider
+          <Button variant="secondary" onClick={this.onCloseClick}>
+            Annuler
           </Button>
+          <Button onClick={this.onUpdateState}>Valider</Button>
         </Modal.Footer>
       </Modal>
     );

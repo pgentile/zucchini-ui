@@ -81,10 +81,10 @@ export default function CreateTestRunDialog({ currentSelectedType, onClose }) {
         </form>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleCloseClick}>Annuler</Button>
-        <Button variant="primary" onClick={handleCreateTestRun}>
-          Créer
+        <Button variant="secondary" onClick={handleCloseClick}>
+          Annuler
         </Button>
+        <Button onClick={handleCreateTestRun}>Créer</Button>
       </Modal.Footer>
     </Modal>
   );

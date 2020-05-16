@@ -69,37 +69,37 @@ export default function TestRunPage({ testRunId, testRun, selectedFeatureGroup, 
           </Button>
         </ButtonGroup>
         <ButtonGroup className="mr-2 mb-2">
-          <Button glyph="pencil" onClick={onEditButtonClick}>
+          <Button variant="secondary" glyph="pencil" onClick={onEditButtonClick}>
             Modifier
           </Button>
         </ButtonGroup>
         <ButtonGroup className="mr-2 mb-2">
-          <ButtonLink glyph="search" to={`/test-runs/${testRunId}/search`}>
+          <ButtonLink variant="secondary" glyph="search" to={`/test-runs/${testRunId}/search`}>
             Rechercher
           </ButtonLink>
         </ButtonGroup>
         <ButtonGroup className="mr-2 mb-2">
-          <ButtonLink glyph="tags" to={`/test-runs/${testRunId}/tags`}>
+          <ButtonLink variant="secondary" glyph="tags" to={`/test-runs/${testRunId}/tags`}>
             Tags
           </ButtonLink>
         </ButtonGroup>
         <ButtonGroup className="mr-2 mb-2">
-          <ButtonLink glyph="exclamation-sign" to={`/test-runs/${testRunId}/failures`}>
+          <ButtonLink variant="secondary" glyph="exclamation-sign" to={`/test-runs/${testRunId}/failures`}>
             Échecs
           </ButtonLink>
         </ButtonGroup>
         <ButtonGroup className="mr-2 mb-2">
-          <ButtonLink glyph="book" to={`/test-runs/${testRunId}/stepDefinitions`}>
+          <ButtonLink variant="secondary" glyph="book" to={`/test-runs/${testRunId}/stepDefinitions`}>
             Glues
           </ButtonLink>
         </ButtonGroup>
         <ButtonGroup className="mr-2 mb-2">
-          <ButtonLink glyph="list" to={`/test-runs/${testRunId}/reports`}>
+          <ButtonLink variant="secondary" glyph="list" to={`/test-runs/${testRunId}/reports`}>
             Bilan
           </ButtonLink>
         </ButtonGroup>
         <ButtonGroup className="mr-2 mb-2">
-          <ButtonLink glyph="list-alt" to={`/test-runs/${testRunId}/diff`}>
+          <ButtonLink variant="secondary" glyph="list-alt" to={`/test-runs/${testRunId}/diff`}>
             Comparer avec un autre tir
           </ButtonLink>
         </ButtonGroup>

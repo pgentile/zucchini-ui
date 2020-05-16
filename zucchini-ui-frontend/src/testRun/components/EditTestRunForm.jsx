@@ -64,7 +64,9 @@ class EditTestRunForm extends React.PureComponent {
           <Field name={`${member}.url`} type="url" placeholder="URL" component={this.renderField} />
         </td>
         <td>
-          <Button glyph="remove" variant="danger" onClick={removeField} />
+          <Button glyph="remove" variant="danger" onClick={removeField}>
+            <span className="sr-only">Supprimer</span>
+          </Button>
         </td>
       </tr>
     );

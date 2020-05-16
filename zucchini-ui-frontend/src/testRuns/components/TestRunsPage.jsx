@@ -55,7 +55,7 @@ export default function TestRunsPage() {
           </Button>
         </ButtonGroup>
         <ButtonGroup>
-          <Button glyph="tree-deciduous" onClick={onPurgeButtonClick}>
+          <Button variant="secondary" glyph="tree-deciduous" onClick={onPurgeButtonClick}>
             Purger les anciens tirs
           </Button>
         </ButtonGroup>

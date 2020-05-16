@@ -73,7 +73,9 @@ export default class ScenarioDetails extends React.PureComponent {
       <div style={{ position: "relative" }}>
         <p>
           <OverlayTrigger container={this} rootClose trigger="click" placement="bottom" overlay={stepFilters}>
-            <Button size="sm">Options d&apos;affichage</Button>
+            <Button variant="outline-secondary" size="sm">
+              Options d&apos;affichage
+            </Button>
           </OverlayTrigger>
         </p>
 

@@ -64,7 +64,7 @@ export default class AddCommentForm extends React.PureComponent {
             onChange={this.onCommentChange}
           />
         </FormGroup>
-        <Button type="submit" variant="primary" disabled={!comment}>
+        <Button type="submit" disabled={!comment}>
           Ajouter le commentaire
         </Button>
       </form>

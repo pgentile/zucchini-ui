@@ -99,10 +99,10 @@ export default function PurgeDialog({ currentSelectedType, purgeDelayInDays = 90
         </form>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleClose}>Annuler</Button>
-        <Button variant="primary" onClick={handlePurge}>
-          Purger
+        <Button variant="secondary" onClick={handleClose}>
+          Annuler
         </Button>
+        <Button onClick={handlePurge}>Purger</Button>
       </Modal.Footer>
     </Modal>
   );

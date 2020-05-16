@@ -25,14 +25,14 @@ export default class CommentText extends React.PureComponent {
     const { comment } = this.props;
 
     return (
-      <div>
+      <>
         <SimpleText text={comment.content} />
         <p>
-          <Button glyph="pencil" size="sm" onClick={this.onEdit}>
+          <Button glyph="pencil" variant="outline-primary" size="sm" onClick={this.onEdit}>
             Modifier
           </Button>{" "}
           <ConfirmActionButton
-            variant="danger"
+            variant="outline-danger"
             size="sm"
             actionGlyph="remove"
             actionLabel="Supprimer"
@@ -41,7 +41,7 @@ export default class CommentText extends React.PureComponent {
             onConfirm={this.onDelete}
           />
         </p>
-      </div>
+      </>
     );
   }
 }

@@ -97,24 +97,31 @@ export default class ImportCucumberResultsDialog extends React.PureComponent {
             </FormGroup>
             <FormGroup>
               <FormCheck
+                id="onlyNewScenarii"
                 checked={this.state.onlyNewScenarii}
                 onChange={this.onOptionChange("onlyNewScenarii")}
                 label="Limiter l'import aux nouveaux scénarios"
               />
               <FormCheck
+                id="mergeOnlyNewPassedScenarii"
                 checked={this.state.mergeOnlyNewPassedScenarii}
                 onChange={this.onOptionChange("mergeOnlyNewPassedScenarii")}
                 label="Limiter l'import aux scénarios passés avec succès"
               />
-              <FormCheck checked={this.state.dryRun} onChange={this.onOptionChange("dryRun")} label="Tir à blanc" />
+              <FormCheck
+                id="dryRun"
+                checked={this.state.dryRun}
+                onChange={this.onOptionChange("dryRun")}
+                label="Tir à blanc"
+              />
             </FormGroup>
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button variant="primary" onClick={this.onImportCucumberResult}>
-            Importer
+          <Button variant="secondary" onClick={this.onCloseClick}>
+            Annuler
           </Button>
+          <Button onClick={this.onImportCucumberResult}>Importer</Button>
         </Modal.Footer>
       </Modal>
     );

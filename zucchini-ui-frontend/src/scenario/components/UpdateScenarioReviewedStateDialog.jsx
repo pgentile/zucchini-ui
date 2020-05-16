@@ -99,10 +99,10 @@ export default class UpdateScenarioReviewedStateDialog extends React.PureCompone
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button variant="primary" onClick={this.onSetReviewedState}>
-            Valider
+          <Button variant="secondary" onClick={this.onCloseClick}>
+            Annuler
           </Button>
+          <Button onClick={this.onSetReviewedState}>Valider</Button>
         </Modal.Footer>
       </Modal>
     );

@@ -61,10 +61,10 @@ export default class ConfirmActionButton extends React.PureComponent {
             <p>{message}</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.onCancel}>Annuler</Button>
-            <Button variant="primary" onClick={this.onConfirm}>
-              {actionLabel}
+            <Button variant="secondary" onClick={this.onCancel}>
+              Annuler
             </Button>
+            <Button onClick={this.onConfirm}>{actionLabel}</Button>
           </Modal.Footer>
         </Modal>
       </Fragment>

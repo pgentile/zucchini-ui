@@ -57,10 +57,10 @@ export default class EditTestRunDialog extends React.PureComponent {
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button variant="primary" onClick={this.onEditTestRunClick}>
-            Modifier
+          <Button variant="secondary" onClick={this.onCloseClick}>
+            Annuler
           </Button>
+          <Button onClick={this.onEditTestRunClick}>Modifier</Button>
         </Modal.Footer>
       </Modal>
     );
