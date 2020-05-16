@@ -113,7 +113,6 @@ export default function TestRunPage({ testRunId, testRun, selectedFeatureGroup, 
       <h2>Statistiques</h2>
       <ScenarioStats stats={stats} />
 
-      <hr />
       <h2>Fonctionnalités</h2>
       <FeatureGroupFilterContainer testRunId={testRunId} />
       <FeatureStateFilterContainer />

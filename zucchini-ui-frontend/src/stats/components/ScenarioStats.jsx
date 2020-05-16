@@ -3,8 +3,8 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
+import CardDeck from "react-bootstrap/CardDeck";
 
 import Button from "../../ui/components/Button";
 import ScenarioPieChart from "./StatsPieChart";
@@ -40,28 +40,24 @@ function ScenarioStats({ stats }) {
         </p>
       </Row>
       <Row>
-        <Col md={4}>
+        <CardDeck className="mb-3">
           <ChartCard
             title="Tous les scénarios"
             chart={<ScenarioPieChart stats={stats.all} total={stats.all.count} showDetails={showDetails} />}
             legend={<StatsLegend stats={stats.all} />}
             showDetails={showDetails}
           />
-        </Col>
-        <Col md={4}>
           <ChartCard
             title="Scénarios analysés"
             chart={<ScenarioPieChart stats={stats.reviewed} total={stats.all.count} showDetails={showDetails} />}
             legend={<StatsLegend stats={stats.reviewed} />}
           />
-        </Col>
-        <Col md={4}>
           <ChartCard
             title="Scénarios non analysés"
             chart={<ScenarioPieChart stats={stats.nonReviewed} total={stats.all.count} showDetails={showDetails} />}
             legend={<StatsLegend stats={stats.nonReviewed} />}
           />
-        </Col>
+        </CardDeck>
       </Row>
     </Container>
   );
@@ -79,11 +75,11 @@ function ChartCard({ title, chart, legend }) {
   return (
     <Card>
       <Card.Body>
-        <Card.Title className="text-center" as="h5">
+        <Card.Title className="text-center mb-3" as="h5">
           {title}
         </Card.Title>
         {chart}
-        {showDetails && legend}
+        {showDetails && <div className="mt-3">{legend}</div>}
       </Card.Body>
     </Card>
   );

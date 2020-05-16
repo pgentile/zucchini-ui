@@ -85,8 +85,6 @@ export default class FeaturePage extends React.Component {
         <h2>Statistiques</h2>
         <ScenarioStats stats={stats} />
 
-        <hr />
-
         <h2>Description</h2>
         <SimpleText text={feature.description} />
 

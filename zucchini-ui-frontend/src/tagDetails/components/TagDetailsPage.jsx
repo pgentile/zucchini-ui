@@ -48,8 +48,6 @@ export default function TagDetailsPage() {
       <h2>Statistiques</h2>
       <ScenarioStats stats={stats} />
 
-      <hr />
-
       <h2>Fonctionnalités</h2>
       <FeatureStateFilterContainer />
       <TagDetailsFeatureTableContainer />
