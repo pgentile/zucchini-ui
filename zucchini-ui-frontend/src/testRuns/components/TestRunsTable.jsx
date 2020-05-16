@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import toNiceDate from "../../ui/toNiceDate";
 import { selectLatestTestRuns } from "../selectors";
 import useQueryParams from "../../useQueryParams";
+import CounterBadge from "../../ui/components/CounterBadge";
 
 export default function TestRunsTable() {
   const testRuns = useSelector(selectLatestTestRuns);
@@ -60,22 +61,22 @@ function TestRunTableRow({ testRun }) {
         <Link to={`/test-runs/${testRun.id}`}>Tir du {toNiceDate(testRun.date)}</Link>
       </td>
       <td>
-        <Badge pill>{nullToDash(testRun.stats.all.count)}</Badge>
+        <CounterBadge>{testRun.stats.all.count}</CounterBadge>
       </td>
       <td>
-        <Badge pill>{nullToDash(testRun.stats.all.passed)}</Badge>
+        <CounterBadge>{testRun.stats.all.passed}</CounterBadge>
       </td>
       <td>
-        <Badge pill>{nullToDash(testRun.stats.all.failed)}</Badge>
+        <CounterBadge>{testRun.stats.all.failed}</CounterBadge>
       </td>
       <td>
-        <Badge pill>{nullToDash(testRun.stats.all.pending)}</Badge>
+        <CounterBadge>{testRun.stats.all.pending}</CounterBadge>
       </td>
       <td>
-        <Badge pill>{nullToDash(testRun.stats.all.notRun)}</Badge>
+        <CounterBadge>{testRun.stats.all.notRun}</CounterBadge>
       </td>
       <td>
-        <Badge pill>{nullToDash(testRun.stats.reviewed.count)}</Badge>
+        <CounterBadge>{testRun.stats.reviewed.count}</CounterBadge>
       </td>
     </tr>
   );
@@ -84,7 +85,3 @@ function TestRunTableRow({ testRun }) {
 TestRunTableRow.propTypes = {
   testRun: PropTypes.object.isRequired
 };
-
-function nullToDash(value) {
-  return value === null ? "-" : value;
-}

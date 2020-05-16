@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import queryString from "query-string";
 
 import toNiceDate from "../../ui/toNiceDate";
+import CounterBadge from "../../ui/components/CounterBadge";
 
 export default class TestRunSelectorTable extends React.PureComponent {
   static propTypes = {
@@ -76,28 +77,24 @@ class TestRunSelectorTableRow extends React.PureComponent {
         </td>
         <td>{testRunTitle}</td>
         <td>
-          <Badge pill>{nullToDash(testRun.stats.all.count)}</Badge>
+          <CounterBadge>{testRun.stats.all.count}</CounterBadge>
         </td>
         <td>
-          <Badge pill>{nullToDash(testRun.stats.all.passed)}</Badge>
+          <CounterBadge>{testRun.stats.all.passed}</CounterBadge>
         </td>
         <td>
-          <Badge pill>{nullToDash(testRun.stats.all.failed)}</Badge>
+          <CounterBadge>{testRun.stats.all.failed}</CounterBadge>
         </td>
         <td>
-          <Badge pill>{nullToDash(testRun.stats.all.pending)}</Badge>
+          <CounterBadge>{testRun.stats.all.pending}</CounterBadge>
         </td>
         <td>
-          <Badge pill>{nullToDash(testRun.stats.all.notRun)}</Badge>
+          <CounterBadge>{testRun.stats.all.notRun}</CounterBadge>
         </td>
         <td>
-          <Badge pill>{nullToDash(testRun.stats.reviewed.count)}</Badge>
+          <CounterBadge>{testRun.stats.reviewed.count}</CounterBadge>
         </td>
       </tr>
     );
   }
-}
-
-function nullToDash(value) {
-  return value === null ? "-" : value;
 }

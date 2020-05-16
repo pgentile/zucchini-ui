@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Badge from "react-bootstrap/Badge";
 import Table from "react-bootstrap/Table";
 import truncate from "lodash/truncate";
 import sortBy from "lodash/sortBy";
 import StepDefinitionsVariantsDialog from "./StepDefinitionsVariantsDialog";
 import StepDefinitionsHighlightedTerm from "./StepDefinitionsHighlightedTerm";
+import CounterBadge from "../../ui/components/CounterBadge";
 
 export default class StepDefinitionsTable extends React.Component {
   static propTypes = {
@@ -108,7 +108,7 @@ class StepDefinitionsRow extends React.Component {
           <b>{stepDefinition.occurrences.length}</b>
         </td>
         <td style={{ textAlign: "center" }}>
-          <Badge variant={variant}>{successRate} %</Badge>
+          <CounterBadge variant={variant}>{successRate}&thinsp;%</CounterBadge>
         </td>
       </tr>
     );

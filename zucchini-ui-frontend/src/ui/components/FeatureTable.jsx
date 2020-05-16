@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
 import Table from "react-bootstrap/Table";
-import Badge from "react-bootstrap/Badge";
 import { Link } from "react-router-dom";
 
 import Status from "../../ui/components/Status";
+import CounterBadge from "./CounterBadge";
 
 export default class FeatureTable extends React.Component {
   static propTypes = {
@@ -57,22 +57,22 @@ class FeatureTableTableRow extends React.PureComponent {
           <Status status={feature.status} />
         </td>
         <td>
-          <Badge>{feature.stats.all.count}</Badge>
+          <CounterBadge>{feature.stats.all.count}</CounterBadge>
         </td>
         <td>
-          <Badge>{feature.stats.all.passed}</Badge>
+          <CounterBadge>{feature.stats.all.passed}</CounterBadge>
         </td>
         <td>
-          <Badge>{feature.stats.all.failed}</Badge>
+          <CounterBadge>{feature.stats.all.failed}</CounterBadge>
         </td>
         <td>
-          <Badge>{feature.stats.all.pending}</Badge>
+          <CounterBadge>{feature.stats.all.pending}</CounterBadge>
         </td>
         <td>
-          <Badge>{feature.stats.all.notRun}</Badge>
+          <CounterBadge>{feature.stats.all.notRun}</CounterBadge>
         </td>
         <td>
-          <Badge>{feature.stats.reviewed.count}</Badge>
+          <CounterBadge>{feature.stats.reviewed.count}</CounterBadge>
         </td>
       </tr>
     );

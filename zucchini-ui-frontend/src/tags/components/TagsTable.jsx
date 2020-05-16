@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
 import Table from "react-bootstrap/Table";
-import Badge from "react-bootstrap/Badge";
 
 import Status from "../../ui/components/Status";
 import Tag from "../../ui/components/Tag";
+import CounterBadge from "../../ui/components/CounterBadge";
 
 export default class TagsTable extends React.Component {
   static propTypes = {
@@ -57,22 +57,22 @@ class TagsTableRow extends React.PureComponent {
           <Status status={tag.status} />
         </td>
         <td>
-          <Badge>{tag.stats.all.count}</Badge>
+          <CounterBadge>{tag.stats.all.count}</CounterBadge>
         </td>
         <td>
-          <Badge>{tag.stats.all.passed}</Badge>
+          <CounterBadge>{tag.stats.all.passed}</CounterBadge>
         </td>
         <td>
-          <Badge>{tag.stats.all.failed}</Badge>
+          <CounterBadge>{tag.stats.all.failed}</CounterBadge>
         </td>
         <td>
-          <Badge>{tag.stats.all.pending}</Badge>
+          <CounterBadge>{tag.stats.all.pending}</CounterBadge>
         </td>
         <td>
-          <Badge>{tag.stats.all.notRun}</Badge>
+          <CounterBadge>{tag.stats.all.notRun}</CounterBadge>
         </td>
         <td>
-          <Badge>{tag.stats.reviewed.count}</Badge>
+          <CounterBadge>{tag.stats.reviewed.count}</CounterBadge>
         </td>
       </tr>
     );

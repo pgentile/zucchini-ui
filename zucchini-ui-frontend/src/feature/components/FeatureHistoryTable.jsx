@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 import Status from "../../ui/components/Status";
 import toNiceDate from "../../ui/toNiceDate";
+import CounterBadge from "../../ui/components/CounterBadge";
 
 export default class FeatureHistoryTable extends React.PureComponent {
   static propTypes = {
@@ -72,22 +73,22 @@ class FeatureHistoryTableRow extends React.PureComponent {
           <Status status={feature.status} />
         </td>
         <td>
-          <Badge pill>{feature.stats.all.count}</Badge>
+          <CounterBadge>{feature.stats.all.count}</CounterBadge>
         </td>
         <td>
-          <Badge pill>{feature.stats.all.passed}</Badge>
+          <CounterBadge>{feature.stats.all.passed}</CounterBadge>
         </td>
         <td>
-          <Badge pill>{feature.stats.all.failed}</Badge>
+          <CounterBadge>{feature.stats.all.failed}</CounterBadge>
         </td>
         <td>
-          <Badge pill>{feature.stats.all.pending}</Badge>
+          <CounterBadge>{feature.stats.all.pending}</CounterBadge>
         </td>
         <td>
-          <Badge pill>{feature.stats.all.notRun}</Badge>
+          <CounterBadge>{feature.stats.all.notRun}</CounterBadge>
         </td>
         <td>
-          <Badge pill>{feature.stats.reviewed.count}</Badge>
+          <CounterBadge>{feature.stats.reviewed.count}</CounterBadge>
         </td>
       </tr>
     );

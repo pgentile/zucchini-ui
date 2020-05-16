@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import Table from "react-bootstrap/Table";
-import Badge from "react-bootstrap/Badge";
+import CounterBadge from "../../ui/components/CounterBadge";
 
 export default class ReportsTable extends React.Component {
   static propTypes = {
@@ -56,39 +56,25 @@ class ReportsTableRow extends React.PureComponent {
       <tr>
         <td>{group.total ? <b>{group.name}</b> : group.name}</td>
         <td>
-          <Badge variant={variant} pill>
-            {group.stats.count}
-          </Badge>
+          <CounterBadge variant={variant}>{group.stats.count}</CounterBadge>
         </td>
         <td>
-          <Badge variant={variant} pill>
-            {group.stats.passed}
-          </Badge>
+          <CounterBadge variant={variant}>{group.stats.passed}</CounterBadge>
         </td>
         <td>
-          <Badge variant={variant} pill>
-            {group.stats.failed}
-          </Badge>
+          <CounterBadge variant={variant}>{group.stats.failed}</CounterBadge>
         </td>
         <td>
-          <Badge variant={variant} pill>
-            {group.stats.pending}
-          </Badge>
+          <CounterBadge variant={variant}>{group.stats.pending}</CounterBadge>
         </td>
         <td>
-          <Badge variant={variant} pill>
-            {group.stats.notRun}
-          </Badge>
+          <CounterBadge variant={variant}>{group.stats.notRun}</CounterBadge>
         </td>
         <td>
-          <Badge variant={variant} pill>
-            {group.stats.faultRate} %
-          </Badge>
+          <CounterBadge variant={variant}>{group.stats.faultRate}&thinsp;%</CounterBadge>
         </td>
         <td>
-          <Badge variant={variant} pill>
-            {group.stats.faultRateRepartition}&nbsp;%
-          </Badge>
+          <CounterBadge variant={variant}>{group.stats.faultRateRepartition}&thinsp;%</CounterBadge>
         </td>
       </tr>
     );

@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
 import Table from "react-bootstrap/Table";
-import Badge from "react-bootstrap/Badge";
 import { Link } from "react-router-dom";
 
 import toNiceDate from "../../ui/toNiceDate";
+import CounterBadge from "../../ui/components/CounterBadge";
 
 export default class TestRunHistoryTable extends React.PureComponent {
   static propTypes = {
@@ -56,22 +56,22 @@ class TestRunHistoryTableTableRow extends React.PureComponent {
           <Link to={`/test-runs/${testRun.id}`}>Tir du {toNiceDate(testRun.date)}</Link>
         </td>
         <td>
-          <Badge>{testRun.stats.all.count}</Badge>
+          <CounterBadge>{testRun.stats.all.count}</CounterBadge>
         </td>
         <td>
-          <Badge>{testRun.stats.all.passed}</Badge>
+          <CounterBadge>{testRun.stats.all.passed}</CounterBadge>
         </td>
         <td>
-          <Badge>{testRun.stats.all.failed}</Badge>
+          <CounterBadge>{testRun.stats.all.failed}</CounterBadge>
         </td>
         <td>
-          <Badge>{testRun.stats.all.pending}</Badge>
+          <CounterBadge>{testRun.stats.all.pending}</CounterBadge>
         </td>
         <td>
-          <Badge>{testRun.stats.all.notRun}</Badge>
+          <CounterBadge>{testRun.stats.all.notRun}</CounterBadge>
         </td>
         <td>
-          <Badge>{testRun.stats.reviewed.count}</Badge>
+          <CounterBadge>{testRun.stats.reviewed.count}</CounterBadge>
         </td>
       </tr>
     );
