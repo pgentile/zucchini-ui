@@ -5,6 +5,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import CardDeck from "react-bootstrap/CardDeck";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 import Button from "../../ui/components/Button";
 import ScenarioPieChart from "./StatsPieChart";
@@ -28,7 +29,7 @@ function ScenarioStats({ stats }) {
   return (
     <Container>
       <Row>
-        <p>
+        <ButtonGroup className="mb-2">
           <Button
             glyph={showDetails ? "minus" : "plus"}
             size="sm"
@@ -37,7 +38,7 @@ function ScenarioStats({ stats }) {
           >
             {showDetails ? "Masquer les détails" : "Afficher les détails"}
           </Button>
-        </p>
+        </ButtonGroup>
       </Row>
       <Row>
         <CardDeck className="mb-3">
