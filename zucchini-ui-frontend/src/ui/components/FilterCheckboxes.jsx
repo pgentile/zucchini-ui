@@ -1,36 +1,39 @@
 import PropTypes from "prop-types";
 import React from "react";
+import FormCheck from "react-bootstrap/FormCheck";
 
-export default class FilterCheckboxes extends React.PureComponent {
-  static propTypes = {
-    labels: PropTypes.object.isRequired,
-    filters: PropTypes.object.isRequired,
-    onFilterChange: PropTypes.func.isRequired
-  };
+import useUniqueId from "../../useUniqueId";
 
-  onFilterChange = (name) => {
-    return (event) => {
-      this.props.onFilterChange({
+export default function FilterCheckboxes({ labels, filters, onFilterChange }) {
+  const idPrefix = useUniqueId("filter");
+
+  const checkboxes = Object.entries(labels).map(([name, label]) => {
+    const checked = filters[name];
+
+    const handleFilterChange = (event) => {
+      onFilterChange({
         [name]: event.target.checked
       });
     };
-  };
 
-  render() {
-    const { labels, filters } = this.props;
+    return (
+      <FormCheck
+        key={name}
+        inline
+        id={`${idPrefix}-filter-${name}`}
+        label={label}
+        type="checkbox"
+        checked={checked}
+        onChange={handleFilterChange}
+      />
+    );
+  });
 
-    const checkboxes = Object.keys(labels).map((name) => {
-      const label = labels[name];
-      const checked = filters[name];
-
-      return (
-        <label key={name} className="checkbox-inline">
-          <input type="checkbox" checked={checked} onChange={this.onFilterChange(name)} />
-          {label}
-        </label>
-      );
-    });
-
-    return <span>{checkboxes}</span>;
-  }
+  return checkboxes;
 }
+
+FilterCheckboxes.propTypes = {
+  labels: PropTypes.object.isRequired,
+  filters: PropTypes.object.isRequired,
+  onFilterChange: PropTypes.func.isRequired
+};
