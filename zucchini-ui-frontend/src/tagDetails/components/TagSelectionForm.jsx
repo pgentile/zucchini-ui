@@ -9,12 +9,16 @@ import FormLabel from "react-bootstrap/FormLabel";
 
 import Button from "../../ui/components/Button";
 import { useParsedTags, useNavigateToTags } from "../url";
+import useSyncValue from "../../useSyncValue";
 
 function TagSelectionForm() {
   const parsedTags = useParsedTags();
 
-  const [tags, setTags] = useState(() => formatTags(parsedTags.tags));
-  const [excludedTags, setExcludedTags] = useState(() => formatTags(parsedTags.excludedTags));
+  const [tags, setTags] = useState("");
+  const [excludedTags, setExcludedTags] = useState("");
+
+  useSyncValue(parsedTags.tags, (value) => setTags(formatTags(value)));
+  useSyncValue(parsedTags.excludedTags, (value) => setExcludedTags(formatTags(value)));
 
   const navigateToTags = useNavigateToTags();
 
