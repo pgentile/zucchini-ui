@@ -12,7 +12,7 @@ import PageLoadingPlaceholder from "./loadingIndicator/components/PageLoadingPla
 const TestRunsPage = lazy(() => import("./testRuns/components/TestRunsPage"));
 const TestRunPageContainer = lazy(() => import("./testRun/components/TestRunPageContainer"));
 const FeaturePageContainer = lazy(() => import("./feature/components/FeaturePageContainer"));
-const TestRunSearchPageContainer = lazy(() => import("./search/components/TestRunSearchPageContainer"));
+const TestRunSearchPage = lazy(() => import("./search/components/TestRunSearchPage"));
 const ScenarioPageContainer = lazy(() => import("./scenario/components/ScenarioPageContainer"));
 const TagsPageContainer = lazy(() => import("./tags/components/TagsPageContainer"));
 const TagDetailsPage = lazy(() => import("./tagDetails/components/TagDetailsPage"));
@@ -32,7 +32,7 @@ export default function AppRouter() {
               <Switch>
                 <Route exact path="/" component={TestRunsPage} />
                 <Route exact path="/test-runs/:testRunId" component={TestRunPageContainer} />
-                <Route exact path="/test-runs/:testRunId/search" component={TestRunSearchPageContainer} />
+                <Route exact path="/test-runs/:testRunId/search" component={TestRunSearchPage} />
                 <Route exact path="/test-runs/:testRunId/tags" component={TagsPageContainer} />
                 <Route exact path="/test-runs/:testRunId/failures" component={FailuresPageContainer} />
                 <Route exact path="/test-runs/:testRunId/reports" component={ReportsPageContainer} />

@@ -1,61 +1,47 @@
-import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouteMatch } from "react-router-dom";
 
 import toNiceDate from "../../ui/toNiceDate";
-import FoundScenarioTableContainer from "./FoundScenarioTableContainer";
+import ScenarioTable from "../../ui/components/ScenarioTable";
 import Page from "../../ui/components/Page";
 import TestRunSearchBreadcrumbContainer from "./TestRunSearchBreadcrumbContainer";
 import SearchForm from "./SearchForm";
+import useQueryParams from "../../useQueryParams";
+import { loadTestRunSearchPage, search as doSearch } from "../redux";
 
-export default class TestRunSearchPage extends React.Component {
-  static propTypes = {
-    onLoad: PropTypes.func.isRequired,
-    onSearch: PropTypes.func.isRequired,
-    search: PropTypes.string.isRequired,
-    testRunId: PropTypes.string.isRequired,
-    testRun: PropTypes.object.isRequired
-  };
+export default function TestRunSearchPage() {
+  const dispatch = useDispatch();
 
-  componentDidMount() {
-    this.loadTestRunIfPossible();
-    this.searchOnLoad();
-  }
+  const testRunId = useRouteMatch().params.testRunId;
+  const testRun = useSelector((state) => state.testRun.testRun);
 
-  componentDidUpdate(prevProps) {
-    this.loadTestRunIfPossible(prevProps);
-  }
+  const { search } = useQueryParams();
+  const scenarios = useSelector((state) => state.searchResults.foundScenarios);
 
-  loadTestRunIfPossible(prevProps = {}) {
-    const { testRunId } = this.props;
+  useEffect(() => {
+    dispatch(loadTestRunSearchPage({ testRunId }));
+  }, [dispatch, testRunId]);
 
-    if (testRunId !== prevProps.testRunId) {
-      this.props.onLoad({ testRunId: this.props.testRunId });
+  useEffect(() => {
+    if (search) {
+      dispatch(doSearch({ search, testRunId }));
     }
-  }
+  }, [dispatch, search, testRunId]);
 
-  searchOnLoad() {
-    const { testRunId, search } = this.props;
+  return (
+    <Page
+      title={"Rechercher dans le tir du " + toNiceDate(testRun.date)}
+      breadcrumb={<TestRunSearchBreadcrumbContainer />}
+    >
+      <SearchForm />
 
-    if (search && testRunId) {
-      this.props.onSearch({ testRunId, search });
-    }
-  }
-
-  render() {
-    const { testRun } = this.props;
-
-    return (
-      <Page
-        title={"Rechercher dans le tir du " + toNiceDate(testRun.date)}
-        breadcrumb={<TestRunSearchBreadcrumbContainer />}
-      >
-        <SearchForm />
-
-        <hr />
-
-        <h2>Résultats</h2>
-        <FoundScenarioTableContainer />
-      </Page>
-    );
-  }
+      {search && (
+        <>
+          <h2>Résultats</h2>
+          <ScenarioTable scenarios={scenarios} />
+        </>
+      )}
+    </Page>
+  );
 }
