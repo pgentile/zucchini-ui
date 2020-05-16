@@ -1,14 +1,11 @@
 import PropTypes from "prop-types";
 import React from "react";
-import FormControl from "react-bootstrap/FormControl";
-import FormGroup from "react-bootstrap/FormGroup";
-import InputGroup from "react-bootstrap/InputGroup";
 
-import Button from "../../ui/components/Button";
 import toNiceDate from "../../ui/toNiceDate";
 import FoundScenarioTableContainer from "./FoundScenarioTableContainer";
 import Page from "../../ui/components/Page";
 import TestRunSearchBreadcrumbContainer from "./TestRunSearchBreadcrumbContainer";
+import SearchForm from "./SearchForm";
 
 export default class TestRunSearchPage extends React.Component {
   static propTypes = {
@@ -19,14 +16,6 @@ export default class TestRunSearchPage extends React.Component {
     testRun: PropTypes.object.isRequired
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      search: props.search
-    };
-  }
-
   componentDidMount() {
     this.loadTestRunIfPossible();
     this.searchOnLoad();
@@ -35,20 +24,6 @@ export default class TestRunSearchPage extends React.Component {
   componentDidUpdate(prevProps) {
     this.loadTestRunIfPossible(prevProps);
   }
-
-  onSearchChange = (event) => {
-    this.setState({
-      search: event.target.value
-    });
-  };
-
-  onSearchFormSubmit = (event) => {
-    event.preventDefault();
-    this.props.onSearch({
-      search: this.state.search,
-      testRunId: this.props.testRunId
-    });
-  };
 
   loadTestRunIfPossible(prevProps = {}) {
     const { testRunId } = this.props;
@@ -74,23 +49,7 @@ export default class TestRunSearchPage extends React.Component {
         title={"Rechercher dans le tir du " + toNiceDate(testRun.date)}
         breadcrumb={<TestRunSearchBreadcrumbContainer />}
       >
-        <form onSubmit={this.onSearchFormSubmit}>
-          <FormGroup controlId="search">
-            <InputGroup size="lg">
-              <FormControl
-                type="text"
-                value={this.state.search}
-                onChange={this.onSearchChange}
-                placeholder="Rechercher..."
-              />
-              <InputGroup.Append>
-                <Button glyph="search" type="submit">
-                  Rechercher
-                </Button>
-              </InputGroup.Append>
-            </InputGroup>
-          </FormGroup>
-        </form>
+        <SearchForm />
 
         <hr />
 
