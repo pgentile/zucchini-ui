@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
+import { faPlusCircle, faRecycle } from "@fortawesome/free-solid-svg-icons";
 
 import Button from "../../ui/components/Button";
 import TestRunsTable from "./TestRunsTable";
@@ -50,12 +51,12 @@ export default function TestRunsPage() {
     >
       <ButtonToolbar>
         <ButtonGroup className="mr-2">
-          <Button glyph="plus-sign" onClick={onCreateTestRunButtonClick}>
+          <Button icon={faPlusCircle} onClick={onCreateTestRunButtonClick}>
             Créer un tir
           </Button>
         </ButtonGroup>
         <ButtonGroup>
-          <Button variant="secondary" glyph="tree-deciduous" onClick={onPurgeButtonClick}>
+          <Button variant="secondary" icon={faRecycle} onClick={onPurgeButtonClick}>
             Purger les anciens tirs
           </Button>
         </ButtonGroup>

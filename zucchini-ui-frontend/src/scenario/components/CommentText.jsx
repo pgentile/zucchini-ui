@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import { faEdit, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import Button from "../../ui/components/Button";
 import SimpleText from "../../ui/components/SimpleText";
@@ -28,13 +29,13 @@ export default class CommentText extends React.PureComponent {
       <>
         <SimpleText text={comment.content} />
         <p>
-          <Button glyph="pencil" variant="outline-primary" size="sm" onClick={this.onEdit}>
+          <Button icon={faEdit} variant="outline-primary" size="sm" onClick={this.onEdit}>
             Modifier
           </Button>{" "}
           <ConfirmActionButton
             variant="outline-danger"
             size="sm"
-            actionGlyph="remove"
+            actionIcon={faTimes}
             actionLabel="Supprimer"
             title="Supprimer le commentaire"
             message="La suppression est irreversible. Êtes-vous sûr de supprimer ce commentaire ?"

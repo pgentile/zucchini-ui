@@ -6,14 +6,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default class Button extends React.PureComponent {
   static propTypes = {
     ...BootstrapButton.propTypes,
-    glyph: PropTypes.string
+    icon: PropTypes.string
   };
 
   render() {
-    const { glyph, children, ...otherProps } = this.props;
+    const { icon, children, ...otherProps } = this.props;
     return (
       <BootstrapButton {...otherProps}>
-        {glyph && <FontAwesomeIcon icon={glyph} />} {children}
+        {icon && <FontAwesomeIcon icon={icon} />} {children}
       </BootstrapButton>
     );
   }

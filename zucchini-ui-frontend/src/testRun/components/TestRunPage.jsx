@@ -3,6 +3,16 @@ import React, { useEffect, useState } from "react";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { useSelector } from "react-redux";
+import {
+  faFileUpload,
+  faEdit,
+  faSearch,
+  faTags,
+  faExclamationCircle,
+  faBook,
+  faListAlt,
+  faNotEqual
+} from "@fortawesome/free-solid-svg-icons";
 
 import toNiceDate from "../../ui/toNiceDate";
 import Button from "../../ui/components/Button";
@@ -64,42 +74,42 @@ export default function TestRunPage({ testRunId, testRun, selectedFeatureGroup, 
 
       <ButtonToolbar className="mb-n2">
         <ButtonGroup className="mr-2 mb-2">
-          <Button glyph="upload" onClick={onImportCucumberResultButtonClick}>
+          <Button icon={faFileUpload} onClick={onImportCucumberResultButtonClick}>
             Importer un résultat de tests Cucumber
           </Button>
         </ButtonGroup>
         <ButtonGroup className="mr-2 mb-2">
-          <Button variant="secondary" glyph="pencil" onClick={onEditButtonClick}>
+          <Button variant="secondary" icon={faEdit} onClick={onEditButtonClick}>
             Modifier
           </Button>
         </ButtonGroup>
         <ButtonGroup className="mr-2 mb-2">
-          <ButtonLink variant="secondary" glyph="search" to={`/test-runs/${testRunId}/search`}>
+          <ButtonLink variant="secondary" icon={faSearch} to={`/test-runs/${testRunId}/search`}>
             Rechercher
           </ButtonLink>
         </ButtonGroup>
         <ButtonGroup className="mr-2 mb-2">
-          <ButtonLink variant="secondary" glyph="tags" to={`/test-runs/${testRunId}/tags`}>
+          <ButtonLink variant="secondary" icon={faTags} to={`/test-runs/${testRunId}/tags`}>
             Tags
           </ButtonLink>
         </ButtonGroup>
         <ButtonGroup className="mr-2 mb-2">
-          <ButtonLink variant="secondary" glyph="exclamation-sign" to={`/test-runs/${testRunId}/failures`}>
+          <ButtonLink variant="secondary" icon={faExclamationCircle} to={`/test-runs/${testRunId}/failures`}>
             Échecs
           </ButtonLink>
         </ButtonGroup>
         <ButtonGroup className="mr-2 mb-2">
-          <ButtonLink variant="secondary" glyph="book" to={`/test-runs/${testRunId}/stepDefinitions`}>
+          <ButtonLink variant="secondary" icon={faBook} to={`/test-runs/${testRunId}/stepDefinitions`}>
             Glues
           </ButtonLink>
         </ButtonGroup>
         <ButtonGroup className="mr-2 mb-2">
-          <ButtonLink variant="secondary" glyph="list" to={`/test-runs/${testRunId}/reports`}>
+          <ButtonLink variant="secondary" icon={faListAlt} to={`/test-runs/${testRunId}/reports`}>
             Bilan
           </ButtonLink>
         </ButtonGroup>
         <ButtonGroup className="mr-2 mb-2">
-          <ButtonLink variant="secondary" glyph="list-alt" to={`/test-runs/${testRunId}/diff`}>
+          <ButtonLink variant="secondary" icon={faNotEqual} to={`/test-runs/${testRunId}/diff`}>
             Comparer avec un autre tir
           </ButtonLink>
         </ButtonGroup>

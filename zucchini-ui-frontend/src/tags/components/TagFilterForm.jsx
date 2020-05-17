@@ -4,6 +4,7 @@ import FormGroup from "react-bootstrap/FormGroup";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import { reduxForm, Field } from "redux-form";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
 import Button from "../../ui/components/Button";
 
@@ -29,14 +30,14 @@ class TagFilterForm extends React.PureComponent {
     return (
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="filter">
-          <InputGroup>
+          <InputGroup size="lg">
             <Field
               name="filter"
               component={this.renderField}
               placeholder="Entrez les premières lettres d'un tag&hellip;"
             />
             <InputGroup.Append>
-              <Button glyph="remove-circle" onClick={this.onClearFilter}>
+              <Button icon={faTimesCircle} onClick={this.onClearFilter}>
                 <span className="sr-only">Effacer</span>
               </Button>
             </InputGroup.Append>

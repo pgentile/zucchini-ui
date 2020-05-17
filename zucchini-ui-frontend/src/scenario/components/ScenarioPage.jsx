@@ -4,7 +4,7 @@ import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
-
+import { faFlag, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../ui/components/Button";
 import TagList from "../../ui/components/TagList";
 import Status from "../../ui/components/Status";
@@ -118,12 +118,12 @@ export default class ScenarioPage extends React.Component {
 
         <ButtonToolbar>
           <ButtonGroup className="mr-2">
-            <Button glyph="flag" onClick={this.onUpdateStateClick}>
+            <Button icon={faFlag} onClick={this.onUpdateStateClick}>
               Modifier le statut&hellip;
             </Button>
           </ButtonGroup>
           <ButtonGroup className="mr-2">
-            <Button glyph={reviewed ? "eye-close" : "eye-open"} onClick={this.onUpdateReviewedStateClick}>
+            <Button icon={reviewed ? faEyeSlash : faEye} onClick={this.onUpdateReviewedStateClick}>
               {reviewed ? "Marquer comme non analysé" : "Marquer comme analysé"}
             </Button>
           </ButtonGroup>

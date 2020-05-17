@@ -6,6 +6,7 @@ import FormGroup from "react-bootstrap/FormGroup";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import FormLabel from "react-bootstrap/FormLabel";
+import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 
 import Button from "../../ui/components/Button";
 import { useParsedTags, useNavigateToTags } from "../url";
@@ -54,7 +55,7 @@ function TagSelectionForm() {
           </FormGroup>
         </Col>
         <Col md={2}>
-          <Button glyph="refresh" type="submit" block>
+          <Button icon={faSyncAlt} type="submit" block>
             Actualiser
           </Button>
         </Col>

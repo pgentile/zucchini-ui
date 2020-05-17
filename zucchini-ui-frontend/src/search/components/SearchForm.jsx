@@ -4,10 +4,11 @@ import queryString from "query-string";
 import FormGroup from "react-bootstrap/FormGroup";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import Button from "react-bootstrap/Button";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import useQueryParams from "../../useQueryParams";
 import useSyncValue from "../../useSyncValue";
+import Button from "../../ui/components/Button";
 
 export default function SearchForm() {
   const history = useHistory();
@@ -37,7 +38,7 @@ export default function SearchForm() {
         <InputGroup size="lg">
           <FormControl type="text" value={search} onChange={handleSearchChange} placeholder="Rechercher..." />
           <InputGroup.Append>
-            <Button glyph="search" type="submit">
+            <Button icon={faSearch} type="submit">
               Rechercher
             </Button>
           </InputGroup.Append>
