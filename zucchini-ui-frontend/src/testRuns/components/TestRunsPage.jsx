@@ -61,7 +61,7 @@ export default function TestRunsPage() {
         </ButtonGroup>
       </ButtonToolbar>
       <hr />
-      <TestRunTypeFilter selectedType={selectedType} />
+      <TestRunTypeFilter />
       <TestRunsTable selectedType={selectedType} />
       {showCreateTestRunDialog && (
         <CreateTestRunDialog currentSelectedType={selectedType} onClose={hideCreateTestRunDialog} />
