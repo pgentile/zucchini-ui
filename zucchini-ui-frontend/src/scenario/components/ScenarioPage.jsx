@@ -15,7 +15,7 @@ import SameFeatureScenarioTableContainer from "./SameFeatureScenarioTableContain
 import UpdateScenarioStateDialogContainer from "./UpdateScenarioStateDialogContainer";
 import CommentListContainer from "./CommentListContainer";
 import ScenarioDetailsContainer from "./ScenarioDetailsContainer";
-import AddCommentFormContainer from "./AddCommentFormContainer";
+import AddCommentForm from "./AddCommentForm";
 import DeleteScenarioButton from "./DeleteScenarioButton";
 import UpdateScenarioReviewedStateDialogContainer from "./UpdateScenarioReviewedStateDialogContainer";
 import SimilarFailureScenarioTableContainer from "./SimilarFailureScenarioTableContainer";
@@ -145,7 +145,7 @@ export default class ScenarioPage extends React.Component {
         <CommentListContainer />
 
         <h4>Ajouter un nouveau commentaire</h4>
-        <AddCommentFormContainer scenarioId={scenarioId} />
+        <AddCommentForm scenarioId={scenarioId} key={scenarioId} />
 
         <hr />
 

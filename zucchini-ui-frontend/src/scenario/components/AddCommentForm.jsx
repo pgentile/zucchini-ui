@@ -1,73 +1,51 @@
-import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useRouteMatch } from "react-router-dom";
+import Form from "react-bootstrap/Form";
 import FormGroup from "react-bootstrap/FormGroup";
 import FormControl from "react-bootstrap/FormControl";
 
 import Button from "../../ui/components/Button";
+import { addScenarioCommentAndReload } from "../redux";
 
-export default class AddCommentForm extends React.PureComponent {
-  static propTypes = {
-    scenarioId: PropTypes.string.isRequired,
-    onAddComment: PropTypes.func.isRequired
-  };
+export default function AddCommentForm() {
+  const dispatch = useDispatch();
 
-  constructor(props) {
-    super(props);
+  const { scenarioId } = useRouteMatch().params;
 
-    this.state = this.createDefaultState();
-  }
+  const [comment, setComment] = useState();
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.scenarioId !== this.props.scenarioId) {
-      this.setState(this.createDefaultState());
-    }
-  }
-
-  createDefaultState() {
-    return {
-      comment: ""
-    };
-  }
-
-  onAddComment = (event) => {
+  const onAddComment = (event) => {
     event.preventDefault();
 
-    const { scenarioId } = this.props;
-    const { comment } = this.state;
-    this.props.onAddComment({
-      scenarioId,
-      comment
-    });
-
-    this.setState(this.createDefaultState());
-  };
-
-  onCommentChange = (event) => {
-    const comment = event.target.value;
-
-    this.setState({
-      comment
-    });
-  };
-
-  render() {
-    const { comment } = this.state;
-
-    return (
-      <form onSubmit={this.onAddComment}>
-        <FormGroup>
-          <FormControl
-            as="textarea"
-            rows="3"
-            placeholder="Entrez votre commentaire"
-            value={comment}
-            onChange={this.onCommentChange}
-          />
-        </FormGroup>
-        <Button type="submit" disabled={!comment}>
-          Ajouter le commentaire
-        </Button>
-      </form>
+    dispatch(
+      addScenarioCommentAndReload({
+        scenarioId,
+        comment
+      })
     );
-  }
+
+    setComment("");
+  };
+
+  const onCommentChange = (event) => {
+    setComment(event.target.value);
+  };
+
+  return (
+    <Form onSubmit={onAddComment}>
+      <FormGroup className="mb-2">
+        <FormControl
+          as="textarea"
+          rows="3"
+          placeholder="Entrez votre commentaire"
+          value={comment}
+          onChange={onCommentChange}
+        />
+      </FormGroup>
+      <Button type="submit" disabled={!comment}>
+        Ajouter le commentaire
+      </Button>
+    </Form>
+  );
 }

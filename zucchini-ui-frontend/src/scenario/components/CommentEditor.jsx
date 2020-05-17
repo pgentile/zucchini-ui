@@ -41,8 +41,8 @@ export default class CommentEditor extends React.PureComponent {
     const { comment } = this.state;
 
     return (
-      <div>
-        <FormGroup>
+      <>
+        <FormGroup className="mb-2">
           <FormControl as="textarea" rows="3" autoFocus value={comment} onChange={this.onCommentChange} />
         </FormGroup>
         <p>
@@ -53,7 +53,7 @@ export default class CommentEditor extends React.PureComponent {
             Enregistrer
           </Button>
         </p>
-      </div>
+      </>
     );
   }
 }

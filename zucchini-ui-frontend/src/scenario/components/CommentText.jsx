@@ -27,7 +27,7 @@ export default class CommentText extends React.PureComponent {
 
     return (
       <>
-        <SimpleText text={comment.content} />
+        <SimpleText text={comment.content} className="mb-2" />
         <p>
           <Button icon={faEdit} variant="outline-primary" size="sm" onClick={this.onEdit}>
             Modifier
