@@ -5,13 +5,14 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import CardDeck from "react-bootstrap/CardDeck";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Form from "react-bootstrap/Form";
+import FormCheck from "react-bootstrap/FormCheck";
 
-import Button from "../../ui/components/Button";
 import ScenarioPieChart from "./StatsPieChart";
 import StatsLegend from "./StatsLegend";
 import { updateStatsDashboardFilters } from "../../filters/redux";
 import { selectShowDetails } from "../selectors";
+import useUniqueId from "../../useUniqueId";
 
 function ScenarioStats({ stats }) {
   const showDetails = useSelector(selectShowDetails);
@@ -26,19 +27,21 @@ function ScenarioStats({ stats }) {
     );
   };
 
+  const detailsSwitchId = useUniqueId("details-switch");
+
   return (
     <Container>
       <Row>
-        <ButtonGroup className="mb-2">
-          <Button
-            glyph={showDetails ? "minus" : "plus"}
-            size="sm"
-            variant="outline-secondary"
-            onClick={handleToogleDetails}
-          >
-            {showDetails ? "Masquer les détails" : "Afficher les détails"}
-          </Button>
-        </ButtonGroup>
+        <Form>
+          <FormCheck
+            type="switch"
+            id={detailsSwitchId}
+            label="Vue détaillée"
+            checked={showDetails}
+            onChange={handleToogleDetails}
+            className="mb-2"
+          />
+        </Form>
       </Row>
       <Row>
         <CardDeck className="mb-3">

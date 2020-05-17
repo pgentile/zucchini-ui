@@ -1,5 +1,6 @@
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
 
 .stats-legend {
   &-total {
@@ -7,25 +8,10 @@
   }
 
   &-sample {
-    $size: 1rem;
+    $size: 0.75rem;
 
     display: inline-block;
     width: $size;
     height: $size;
-
-    background-color: pink;
-  }
-
-  $sample-variants: (
-    success: $success,
-    danger: $danger,
-    warning: $warning,
-    dark: $dark
-  );
-
-  @each $variant, $color in $sample-variants {
-    &-sample-#{$variant} {
-      background-color: $color;
-    }
   }
 }

@@ -66,7 +66,7 @@ StatsLegend.propTypes = {
 export default memo(StatsLegend);
 
 function LegendSample({ variant }) {
-  return <span className={`stats-legend-sample stats-legend-sample-${variant} rounded-circle`} />;
+  return <span className={`rounded-circle bg-${variant} stats-legend-sample`} />;
 }
 
 LegendSample.propTypes = {
