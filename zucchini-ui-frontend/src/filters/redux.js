@@ -15,6 +15,7 @@ const UPDATE_STATS_DASHBOARD_FILTERS = `${PREFIX}/UPDATE_STATS_DASHBOARD_FILTERS
 const UPDATE_HISTORY_FILTERS = `${PREFIX}/UPDATE_HISTORY_FILTERS`;
 const UPDATE_SCENARIO_FILTERS = `${PREFIX}/UPDATE_SCENARIO_FILTERS`;
 const UPDATE_STEP_FILTERS = `${PREFIX}/UPDATE_STEP_FILTERS`;
+const TOGGLE_STEP_FILTER = `${PREFIX}/TOGGLE_STEP_FILTER`;
 
 export function updateFeatureFilters(filters) {
   return {
@@ -44,10 +45,26 @@ export function updateScenarioFilters(filters) {
   };
 }
 
-export function updateStepFilters(filters) {
+export function toggleStepFilter(filterName) {
   return {
-    type: UPDATE_STEP_FILTERS,
-    payload: filters
+    type: TOGGLE_STEP_FILTER,
+    payload: { filterName }
+  };
+}
+
+export function resetStepFilters() {
+  return (dispatch, getState) => {
+    const newFilters = {};
+
+    const keys = Object.keys(getState().stepFilters);
+    keys.forEach((key) => {
+      newFilters[key] = true;
+    });
+
+    dispatch({
+      type: UPDATE_STEP_FILTERS,
+      payload: newFilters
+    });
   };
 }
 
@@ -96,7 +113,14 @@ export const stepFilters = handleActions(
     [UPDATE_STEP_FILTERS]: (state, action) => ({
       ...state,
       ...action.payload
-    })
+    }),
+    [TOGGLE_STEP_FILTER]: (state, action) => {
+      const { filterName } = action.payload;
+      return {
+        ...state,
+        [filterName]: !state[filterName]
+      };
+    }
   },
   stepFiltersStorage.read()
 );

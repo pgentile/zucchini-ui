@@ -27,6 +27,11 @@
     "no-useless-rename": "error",
     "prefer-rest-params": "error",
     "prefer-spread": "error",
-    "prefer-arrow-callback": "error"
+    "prefer-arrow-callback": [
+      "error",
+      {
+        "allowNamedFunctions": true
+      }
+    ]
   }
 }

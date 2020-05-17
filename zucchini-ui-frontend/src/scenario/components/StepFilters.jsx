@@ -1,7 +1,12 @@
-import PropTypes from "prop-types";
-import React from "react";
+import React, { memo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import FormGroup from "react-bootstrap/FormGroup";
 import FormCheck from "react-bootstrap/FormCheck";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Button from "react-bootstrap/Button";
+
+import { toggleStepFilter, resetStepFilters } from "../../filters/redux";
+import { useMultiUniqueId } from "../../useUniqueId";
 
 const FILTERS = {
   comments: "Les commentaires",
@@ -12,32 +17,40 @@ const FILTERS = {
   attachments: "Les pièces jointes"
 };
 
-export default class StepFilters extends React.PureComponent {
-  static propTypes = {
-    filters: PropTypes.object.isRequired,
-    onFilterChange: PropTypes.func.isRequired
-  };
+function StepFilters() {
+  const filters = useSelector((state) => state.stepFilters);
+  const dispatch = useDispatch();
 
-  onFilterChange(name) {
-    return (event) => {
-      this.props.onFilterChange({
-        [name]: event.target.checked
-      });
-    };
-  }
+  const handleResetClick = () => dispatch(resetStepFilters());
 
-  render() {
-    const { filters } = this.props;
+  const checkboxIds = useMultiUniqueId("step-filter", Object.keys(FILTERS));
 
-    const checkboxes = Object.keys(FILTERS).map((name) => {
-      const label = FILTERS[name];
-      return (
-        <FormGroup key={name}>
-          <FormCheck type="checkbox" checked={filters[name]} onChange={this.onFilterChange(name)} label={label} />
-        </FormGroup>
-      );
-    });
+  const checkboxes = Object.entries(FILTERS).map(([name, label]) => {
+    const handleFilterChange = () => dispatch(toggleStepFilter(name));
 
-    return <div>{checkboxes}</div>;
-  }
+    return (
+      <FormGroup key={name}>
+        <FormCheck
+          type="checkbox"
+          checked={filters[name]}
+          onChange={handleFilterChange}
+          label={label}
+          id={checkboxIds[name]}
+        />
+      </FormGroup>
+    );
+  });
+
+  return (
+    <>
+      {checkboxes}
+      <ButtonGroup>
+        <Button variant="outline-secondary" size="sm" onClick={handleResetClick}>
+          Tout afficher
+        </Button>
+      </ButtonGroup>
+    </>
+  );
 }
+
+export default memo(StepFilters);
