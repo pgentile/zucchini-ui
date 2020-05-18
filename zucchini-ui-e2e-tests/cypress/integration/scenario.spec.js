@@ -26,7 +26,7 @@ describe("Scenario", () => {
         .and("contain", scenarios.info.name);
     });
 
-    cy.get("h1 .label").should("have.text", "Succès");
+    cy.get("h1 .badge").should("have.text", "Succès");
   });
 
   it("should change the reviewed status to not analyzed", () => {
@@ -57,9 +57,10 @@ describe("Scenario", () => {
     cy.contains("button", "Modifier le statut").click();
 
     cy.get("[role=dialog]").within(() => {
-      cy.contains("label", "Scénario analysé ?")
-        .find("input")
-        .should("be.checked");
+      cy.contains("label", "Scénario analysé ?").then((label) => {
+        const targetId = label.attr("for");
+        cy.get(`input#${targetId}`).should("be.checked");
+      });
 
       cy.contains("label", "Échec").click();
 
@@ -73,7 +74,7 @@ describe("Scenario", () => {
     cy.wait("@addComment");
     cy.wait("@scenarioRefresh");
 
-    cy.get("h1 .label").should("contain.text", "Échec");
+    cy.get("h1 .badge").should("contain.text", "Échec");
     cy.contains("button", "Marquer comme non analysé").should("exist");
   });
 
