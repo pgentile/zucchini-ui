@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/lib/Table";
+import Table from "react-bootstrap/Table";
 
 import Status from "../../ui/components/Status";
 import toNiceDate from "../../ui/toNiceDate";
@@ -21,10 +21,10 @@ export default class ScenarioChangeTable extends React.PureComponent {
       <Table bordered striped hover>
         <thead>
           <tr>
-            <th className="col-md-3">Date</th>
-            <th className="col-md-3">Type</th>
-            <th className="col-md-3">Ancienne&nbsp;valeur</th>
-            <th className="col-md-3">Nouvelle&nbsp;valeur</th>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Ancienne&nbsp;valeur</th>
+            <th>Nouvelle&nbsp;valeur</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>

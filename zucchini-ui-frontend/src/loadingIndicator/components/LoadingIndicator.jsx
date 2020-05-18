@@ -14,6 +14,10 @@ const inactiveBarState = {
 export default function LoadingIndicator() {
   const [eventScheduler] = useState(() => new EventScheduler());
 
+  useEffect(() => {
+    return () => eventScheduler.dispose();
+  }, [eventScheduler]);
+
   const [barState, setBarState] = useState(inactiveBarState);
 
   const scheduleBarState = useCallback(
@@ -35,13 +39,9 @@ export default function LoadingIndicator() {
       scheduleBarState({ start: true });
       scheduleBarState({ pending: true });
     } else {
-      const handle = setTimeout(() => {
-        scheduleBarState({ ending: true });
-        scheduleBarState({ done: true }, 200);
-        scheduleBarState(inactiveBarState);
-      }, 100);
-
-      return () => clearTimeout(handle);
+      scheduleBarState({ ending: true }, 100);
+      scheduleBarState({ done: true }, 200);
+      scheduleBarState(inactiveBarState);
     }
   }, [active, scheduleBarState]);
 

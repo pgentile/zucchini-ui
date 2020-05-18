@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/lib/Table";
-import Badge from "react-bootstrap/lib/Badge";
-import Label from "react-bootstrap/lib/Label";
+import Table from "react-bootstrap/Table";
+import Badge from "react-bootstrap/Badge";
 import { Link } from "react-router-dom";
 
 import Status from "../../ui/components/Status";
 import toNiceDate from "../../ui/toNiceDate";
+import CounterBadge from "../../ui/components/CounterBadge";
 
 export default class FeatureHistoryTable extends React.PureComponent {
   static propTypes = {
@@ -26,17 +26,17 @@ export default class FeatureHistoryTable extends React.PureComponent {
       <Table bordered striped hover>
         <thead>
           <tr>
-            <th className="col-md-1">Type</th>
-            <th className="col-md-1">Environnement</th>
-            <th className="col-md-1">Nom</th>
-            <th className="col-md-2">Tir de test</th>
-            <th className="col-md-1">Statut</th>
-            <th className="col-md-1">Total</th>
-            <th className="col-md-1">Succès</th>
-            <th className="col-md-1">Échecs</th>
-            <th className="col-md-1">En attente</th>
-            <th className="col-md-1">Non joués</th>
-            <th className="col-md-1">Analysés</th>
+            <th>Type</th>
+            <th>Environnement</th>
+            <th>Nom</th>
+            <th>Tir de test</th>
+            <th>Statut</th>
+            <th>Total</th>
+            <th>Succès</th>
+            <th>Échecs</th>
+            <th>En attente</th>
+            <th>Non joués</th>
+            <th>Analysés</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
@@ -53,18 +53,18 @@ class FeatureHistoryTableRow extends React.PureComponent {
 
   render() {
     const { feature, isActive } = this.props;
-    const className = isActive ? "info" : null;
+    const className = isActive ? "table-primary" : null;
 
     return (
       <tr className={className}>
         <td>
-          <Label>{feature.testRun.type}</Label>
+          <Badge>{feature.testRun.type}</Badge>
         </td>
         <td>
-          <Label>{feature.testRun.environment}</Label>
+          <Badge>{feature.testRun.environment}</Badge>
         </td>
         <td>
-          <Label>{feature.testRun.name}</Label>
+          <Badge>{feature.testRun.name}</Badge>
         </td>
         <td>
           <Link to={`/features/${feature.id}`}>Tir du {toNiceDate(feature.testRun.date)}</Link>
@@ -73,22 +73,22 @@ class FeatureHistoryTableRow extends React.PureComponent {
           <Status status={feature.status} />
         </td>
         <td>
-          <Badge>{feature.stats.all.count}</Badge>
+          <CounterBadge>{feature.stats.all.count}</CounterBadge>
         </td>
         <td>
-          <Badge>{feature.stats.all.passed}</Badge>
+          <CounterBadge>{feature.stats.all.passed}</CounterBadge>
         </td>
         <td>
-          <Badge>{feature.stats.all.failed}</Badge>
+          <CounterBadge>{feature.stats.all.failed}</CounterBadge>
         </td>
         <td>
-          <Badge>{feature.stats.all.pending}</Badge>
+          <CounterBadge>{feature.stats.all.pending}</CounterBadge>
         </td>
         <td>
-          <Badge>{feature.stats.all.notRun}</Badge>
+          <CounterBadge>{feature.stats.all.notRun}</CounterBadge>
         </td>
         <td>
-          <Badge>{feature.stats.reviewed.count}</Badge>
+          <CounterBadge>{feature.stats.reviewed.count}</CounterBadge>
         </td>
       </tr>
     );

@@ -14,9 +14,15 @@ const selectFeature = createSelector(
   (feature) => feature
 );
 
+const selectStats = createSelector(
+  (state) => state.feature.stats,
+  (stats) => stats
+);
+
 const selectProps = createStructuredSelector({
   featureId: selectFeatureId,
-  feature: selectFeature
+  feature: selectFeature,
+  stats: selectStats
 });
 
 const FeaturePageContainer = connect(selectProps, {

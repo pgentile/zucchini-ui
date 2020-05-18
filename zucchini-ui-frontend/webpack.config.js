@@ -16,11 +16,11 @@ const apiUrl = process.env.API_URL || "http://localhost:8080";
 
 module.exports = {
   entry: {
-    main: "./src/main.js"
+    main: "./src/main.jsx"
   },
   resolve: {
     modules: [path.join(__dirname, "src"), "node_modules"],
-    extensions: [".js", ".jsx", ".less", ".css"]
+    extensions: [".js", ".jsx", ".scss", ".css"]
   },
   output: {
     path: outputDir,
@@ -66,8 +66,8 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, "css-loader?sourceMap", "postcss-loader?sourceMap"]
       },
       {
-        test: /\.less$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader?sourceMap", "postcss-loader?sourceMap", "less-loader?sourceMap"]
+        test: /\.scss$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader?sourceMap", "postcss-loader?sourceMap", "sass-loader?sourceMap"]
       },
       {
         test: /\.(ttf|eot|woff2?|svg|png|jpg|gif)$/,

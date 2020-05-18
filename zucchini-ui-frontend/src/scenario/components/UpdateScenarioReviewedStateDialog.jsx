@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Modal from "react-bootstrap/lib/Modal";
-import FormGroup from "react-bootstrap/lib/FormGroup";
-import ControlLabel from "react-bootstrap/lib/ControlLabel";
-import FormControl from "react-bootstrap/lib/FormControl";
+import Modal from "react-bootstrap/Modal";
+import FormGroup from "react-bootstrap/FormGroup";
+import FormLabel from "react-bootstrap/FormLabel";
+import FormControl from "react-bootstrap/FormControl";
 
 import Button from "../../ui/components/Button";
 
@@ -86,28 +86,23 @@ export default class UpdateScenarioReviewedStateDialog extends React.PureCompone
     const { show } = this.props;
 
     return (
-      <Modal bsSize="large" show={show} onHide={this.onCloseClick}>
+      <Modal size="lg" show={show} onHide={this.onCloseClick}>
         <Modal.Header closeButton>
           <Modal.Title>Marquer le scénario comme analysé&hellip;</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={this.onSetReviewedState}>
             <FormGroup controlId="comment">
-              <ControlLabel>Commentaire</ControlLabel>
-              <FormControl
-                componentClass="textarea"
-                rows="3"
-                value={this.state.comment}
-                onChange={this.onCommentChange}
-              />
+              <FormLabel>Commentaire</FormLabel>
+              <FormControl as="textarea" rows="3" value={this.state.comment} onChange={this.onCommentChange} />
             </FormGroup>
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button bsStyle="primary" onClick={this.onSetReviewedState}>
-            Valider
+          <Button variant="secondary" onClick={this.onCloseClick}>
+            Annuler
           </Button>
+          <Button onClick={this.onSetReviewedState}>Valider</Button>
         </Modal.Footer>
       </Modal>
     );

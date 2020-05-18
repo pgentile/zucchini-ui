@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Modal from "react-bootstrap/lib/Modal";
+import Modal from "react-bootstrap/Modal";
 import includes from "lodash/includes";
 import StepDefinitionsHighlightedTerm from "./StepDefinitionsHighlightedTerm";
 
@@ -22,7 +22,7 @@ export default class StepDefinitionsVariantsDialog extends React.PureComponent {
   render() {
     const { show, occurrences, location } = this.props;
     return (
-      <Modal bsSize="large" dialogClassName="details-modal-dialog" show={show} onHide={this.onCloseClick}>
+      <Modal size="lg" dialogClassName="details-modal-dialog" show={show} onHide={this.onCloseClick}>
         <Modal.Header closeButton>
           <Modal.Title>
             Variantes Connues <span className="step-definition-location">{location}</span>

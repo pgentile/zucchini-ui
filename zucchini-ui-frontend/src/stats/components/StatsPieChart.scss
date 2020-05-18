@@ -1,0 +1,24 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+@import "./legend-colors";
+
+.ct-chart-donut {
+  .chart-progress {
+    @each $status, $color in $legend-colors {
+      &-#{$status} .ct-slice-donut {
+        stroke: $color;
+      }
+    }
+
+    &-others .ct-slice-donut {
+      stroke: $light;
+    }
+  }
+
+  .ct-label {
+    color: $white;
+    fill: $white;
+    font-size: 1em;
+  }
+}

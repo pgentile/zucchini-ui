@@ -37,7 +37,7 @@ export default class StepDefinitionsPage extends React.Component {
       <Page
         title={
           <Fragment>
-            Glues <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
+            Glues <small className="text-muted">{`Tir du ${toNiceDate(testRun.date)}`}</small>
           </Fragment>
         }
         breadcrumb={<StepDefinitionsBreadcrumbContainer />}

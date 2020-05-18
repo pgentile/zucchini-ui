@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/lib/Table";
-import Badge from "react-bootstrap/lib/Badge";
+import Table from "react-bootstrap/Table";
 
 import Status from "../../ui/components/Status";
 import Tag from "../../ui/components/Tag";
+import CounterBadge from "../../ui/components/CounterBadge";
 
 export default class TagsTable extends React.Component {
   static propTypes = {
@@ -23,14 +23,14 @@ export default class TagsTable extends React.Component {
       <Table bordered striped hover>
         <thead>
           <tr>
-            <th className="col-md-5">Tag</th>
-            <th className="col-md-1">Statut</th>
-            <th className="col-md-1">Total</th>
-            <th className="col-md-1">Succès</th>
-            <th className="col-md-1">Échecs</th>
-            <th className="col-md-1">En attente</th>
-            <th className="col-md-1">Non joués</th>
-            <th className="col-md-1">Analysés</th>
+            <th>Tag</th>
+            <th>Statut</th>
+            <th>Total</th>
+            <th>Succès</th>
+            <th>Échecs</th>
+            <th>En attente</th>
+            <th>Non joués</th>
+            <th>Analysés</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
@@ -57,22 +57,22 @@ class TagsTableRow extends React.PureComponent {
           <Status status={tag.status} />
         </td>
         <td>
-          <Badge>{tag.stats.all.count}</Badge>
+          <CounterBadge>{tag.stats.all.count}</CounterBadge>
         </td>
         <td>
-          <Badge>{tag.stats.all.passed}</Badge>
+          <CounterBadge>{tag.stats.all.passed}</CounterBadge>
         </td>
         <td>
-          <Badge>{tag.stats.all.failed}</Badge>
+          <CounterBadge>{tag.stats.all.failed}</CounterBadge>
         </td>
         <td>
-          <Badge>{tag.stats.all.pending}</Badge>
+          <CounterBadge>{tag.stats.all.pending}</CounterBadge>
         </td>
         <td>
-          <Badge>{tag.stats.all.notRun}</Badge>
+          <CounterBadge>{tag.stats.all.notRun}</CounterBadge>
         </td>
         <td>
-          <Badge>{tag.stats.reviewed.count}</Badge>
+          <CounterBadge>{tag.stats.reviewed.count}</CounterBadge>
         </td>
       </tr>
     );

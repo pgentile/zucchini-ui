@@ -39,7 +39,7 @@ export default class FailuresPage extends React.Component {
       <Page
         title={
           <Fragment>
-            Échecs <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
+            Échecs <small className="text-muted">{`Tir du ${toNiceDate(testRun.date)}`}</small>
           </Fragment>
         }
         breadcrumb={<FailuresBreadcrumbContainer />}

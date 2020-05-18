@@ -1,53 +1,25 @@
+import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import React from "react";
-
 import Chartist from "chartist";
 
-export default class PieChart extends React.Component {
-  static propTypes = {
-    data: PropTypes.any.isRequired,
-    total: PropTypes.number.isRequired,
-    showLabel: PropTypes.bool.isRequired,
-    donut: PropTypes.bool.isRequired,
-    donutWidth: PropTypes.number,
-    style: PropTypes.object
-  };
+export default function PieChart({ data, total, showLabel, donut = true, donutWidth, ...otherProps }) {
+  const chartElement = useRef();
 
-  static defaultProps = {
-    donut: true
-  };
+  const [chart, setChart] = useState();
 
-  constructor(props) {
-    super(props);
+  useEffect(() => {
+    setChart(new Chartist.Pie(chartElement.current));
+  }, []);
 
-    this.chart = null;
-  }
-
-  componentDidMount() {
-    this.updateChart();
-  }
-
-  componentDidUpdate() {
-    this.updateChart();
-  }
-
-  componentWillUnmount() {
-    if (this.chart) {
-      this.chart.detach();
+  useEffect(() => {
+    if (chart) {
+      return () => chart.detach();
     }
-  }
+  }, [chart]);
 
-  setChart = (element) => {
-    if (this.chart === null) {
-      this.chart = new Chartist.Pie(element);
-    }
-  };
-
-  updateChart() {
-    const { data, total, showLabel, donut, donutWidth } = this.props;
-
-    if (this.chart) {
-      this.chart.update(
+  useEffect(() => {
+    if (chart) {
+      chart.update(
         data,
         {
           donut,
@@ -58,11 +30,15 @@ export default class PieChart extends React.Component {
         true
       );
     }
-  }
+  }, [chart, data, donut, donutWidth, showLabel, total]);
 
-  render() {
-    const style = this.props.style || {};
-
-    return <div style={style} ref={this.setChart} />;
-  }
+  return <div {...otherProps} ref={chartElement} />;
 }
+
+PieChart.propTypes = {
+  data: PropTypes.any.isRequired,
+  total: PropTypes.number.isRequired,
+  showLabel: PropTypes.bool.isRequired,
+  donut: PropTypes.bool,
+  donutWidth: PropTypes.number
+};

@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { reduxForm, Field, FieldArray } from "redux-form";
-import FormGroup from "react-bootstrap/lib/FormGroup";
-import ControlLabel from "react-bootstrap/lib/ControlLabel";
-import FormControl from "react-bootstrap/lib/FormControl";
-import Table from "react-bootstrap/lib/Table";
+import FormGroup from "react-bootstrap/FormGroup";
+import FormLabel from "react-bootstrap/FormLabel";
+import FormControl from "react-bootstrap/FormControl";
+import Table from "react-bootstrap/Table";
+import { faPlusCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import Button from "../../ui/components/Button";
 
@@ -27,9 +28,9 @@ class EditTestRunForm extends React.PureComponent {
       <Table>
         <thead>
           <tr>
-            <th className="col-md-4">Nom</th>
-            <th className="col-md-4">Valeur</th>
-            <th className="col-md-4">URL</th>
+            <th>Nom</th>
+            <th>Valeur</th>
+            <th>URL</th>
             <th>&nbsp;</th>
           </tr>
         </thead>
@@ -37,7 +38,7 @@ class EditTestRunForm extends React.PureComponent {
         <tfoot>
           <tr>
             <td colSpan={4}>
-              <Button glyph="plus-sign" bsSize="small" onClick={addLabel}>
+              <Button icon={faPlusCircle} size="sm" onClick={addLabel}>
                 Ajouter une étiquette
               </Button>
             </td>
@@ -64,7 +65,9 @@ class EditTestRunForm extends React.PureComponent {
           <Field name={`${member}.url`} type="url" placeholder="URL" component={this.renderField} />
         </td>
         <td>
-          <Button glyph="remove" bsStyle="danger" onClick={removeField} />
+          <Button icon={faTimes} variant="danger" onClick={removeField}>
+            <span className="sr-only">Supprimer</span>
+          </Button>
         </td>
       </tr>
     );
@@ -77,19 +80,19 @@ class EditTestRunForm extends React.PureComponent {
     return (
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="type">
-          <ControlLabel>Type</ControlLabel>
+          <FormLabel>Type</FormLabel>
           <Field name="type" required component={this.renderField} />
         </FormGroup>
         <FormGroup controlId="environment">
-          <ControlLabel>Environnement</ControlLabel>
+          <FormLabel>Environnement</FormLabel>
           <Field name="environment" required component={this.renderField} />
         </FormGroup>
         <FormGroup controlId="name">
-          <ControlLabel>Nom</ControlLabel>
+          <FormLabel>Nom</FormLabel>
           <Field name="name" autoFocus required component={this.renderField} />
         </FormGroup>
         <FormGroup>
-          <ControlLabel>Étiquettes</ControlLabel>
+          <FormLabel>Étiquettes</FormLabel>
           <FieldArray name="labels" component={this.renderLabelFields} />
         </FormGroup>
       </form>

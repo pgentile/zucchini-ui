@@ -1,0 +1,11 @@
+@import "./legend-colors";
+
+.ct-chart-bar {
+  .ct-series.chart-trend {
+    @each $status, $color in $legend-colors {
+      &-#{$status} .ct-bar {
+        stroke: $color;
+      }
+    }
+  }
+}

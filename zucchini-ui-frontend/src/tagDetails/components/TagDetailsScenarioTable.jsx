@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/lib/Table";
-import Label from "react-bootstrap/lib/Label";
+import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
 
 import Status from "../../ui/components/Status";
+import ReviewedStatus from "../../ui/components/ReviewedStatus";
 
 export default class TagDetailsScenarioTable extends React.PureComponent {
   static propTypes = {
@@ -24,11 +24,11 @@ export default class TagDetailsScenarioTable extends React.PureComponent {
       <Table bordered striped hover>
         <thead>
           <tr>
-            <th className="col-md-1">Groupe</th>
-            <th className="col-md-4">Fonctionnalité</th>
-            <th className="col-md-5">Scénario</th>
-            <th className="col-md-1">Statut</th>
-            <th className="col-md-1">Analysé</th>
+            <th>Groupe</th>
+            <th>Fonctionnalité</th>
+            <th>Scénario</th>
+            <th>Statut</th>
+            <th>Analysé</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
@@ -45,12 +45,7 @@ class TagDetailsScenarioTableRow extends React.PureComponent {
 
   render() {
     const { scenario, isActive } = this.props;
-    const className = isActive ? "info" : null;
-
-    const reviewedProps = {
-      bsStyle: scenario.reviewed ? "success" : "default",
-      text: scenario.reviewed ? "Oui" : "Non"
-    };
+    const className = isActive ? "table-primary" : null;
 
     return (
       <tr className={className}>
@@ -67,7 +62,7 @@ class TagDetailsScenarioTableRow extends React.PureComponent {
           <Status status={scenario.status} />
         </td>
         <td>
-          <Label bsStyle={reviewedProps.bsStyle}>{reviewedProps.text}</Label>
+          <ReviewedStatus reviewed={scenario.reviewed} />
         </td>
       </tr>
     );

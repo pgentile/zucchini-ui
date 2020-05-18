@@ -1,0 +1,17 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+.stats-legend {
+  &-total {
+    font-style: italic;
+  }
+
+  &-sample {
+    $size: 0.75rem;
+
+    display: inline-block;
+    width: $size;
+    height: $size;
+  }
+}

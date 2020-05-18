@@ -1,7 +1,8 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import ButtonToolbar from "react-bootstrap/lib/ButtonToolbar";
-import ButtonGroup from "react-bootstrap/lib/ButtonGroup";
+import ButtonToolbar from "react-bootstrap/ButtonToolbar";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import { faPlusCircle, faRecycle } from "@fortawesome/free-solid-svg-icons";
 
 import Button from "../../ui/components/Button";
 import TestRunsTable from "./TestRunsTable";
@@ -43,23 +44,25 @@ export default function TestRunsPage() {
 
   return (
     <Page
-      title={<Fragment>Derniers tirs {selectedType && <small>Type {selectedType}</small>}</Fragment>}
+      title={
+        <Fragment>Derniers tirs {selectedType && <small className="text-muted">Type {selectedType}</small>}</Fragment>
+      }
       breadcrumb={<TestRunsBreadcrumb />}
     >
       <ButtonToolbar>
-        <ButtonGroup>
-          <Button glyph="plus-sign" onClick={onCreateTestRunButtonClick}>
+        <ButtonGroup className="mr-2">
+          <Button icon={faPlusCircle} onClick={onCreateTestRunButtonClick}>
             Créer un tir
           </Button>
         </ButtonGroup>
         <ButtonGroup>
-          <Button glyph="tree-deciduous" onClick={onPurgeButtonClick}>
+          <Button variant="secondary" icon={faRecycle} onClick={onPurgeButtonClick}>
             Purger les anciens tirs
           </Button>
         </ButtonGroup>
       </ButtonToolbar>
       <hr />
-      <TestRunTypeFilter selectedType={selectedType} />
+      <TestRunTypeFilter />
       <TestRunsTable selectedType={selectedType} />
       {showCreateTestRunDialog && (
         <CreateTestRunDialog currentSelectedType={selectedType} onClose={hideCreateTestRunDialog} />

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import FormGroup from "react-bootstrap/lib/FormGroup";
-import FormControl from "react-bootstrap/lib/FormControl";
+import FormGroup from "react-bootstrap/FormGroup";
+import FormControl from "react-bootstrap/FormControl";
 
 import Button from "../../ui/components/Button";
 
@@ -41,19 +41,19 @@ export default class CommentEditor extends React.PureComponent {
     const { comment } = this.state;
 
     return (
-      <div>
-        <FormGroup>
-          <FormControl componentClass="textarea" rows="3" autoFocus value={comment} onChange={this.onCommentChange} />
+      <>
+        <FormGroup className="mb-2">
+          <FormControl as="textarea" rows="3" autoFocus value={comment} onChange={this.onCommentChange} />
         </FormGroup>
         <p>
-          <Button bsSize="xsmall" onClick={this.onCancel}>
+          <Button variant="secondary" size="sm" onClick={this.onCancel}>
             Annuler
           </Button>{" "}
-          <Button bsStyle="primary" bsSize="xsmall" onClick={this.onSave} disabled={!comment}>
+          <Button variant="primary" size="sm" onClick={this.onSave} disabled={!comment}>
             Enregistrer
           </Button>
         </p>
-      </div>
+      </>
     );
   }
 }

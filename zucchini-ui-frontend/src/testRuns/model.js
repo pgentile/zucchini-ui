@@ -33,9 +33,9 @@ export async function deleteManyTestRuns({ testRunIds }) {
 
 export function createStats(numbers) {
   return {
-    all: numbers,
-    reviewed: numbers,
-    nonReviewed: numbers
+    all: { ...numbers },
+    reviewed: { ...numbers },
+    nonReviewed: { ...numbers }
   };
 }
 
@@ -47,7 +47,7 @@ export const UNDEFINED_STATS_NUMBERS = {
   notRun: null
 };
 
-export const ZERO_STATS_NUMBERS = {
+const ZERO_STATS_NUMBERS = {
   count: 0,
   passed: 0,
   failed: 0,

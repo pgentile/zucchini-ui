@@ -1,85 +1,62 @@
-import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useMemo, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouteMatch } from "react-router-dom";
 
 import toNiceDate from "../../ui/toNiceDate";
 import FeatureStateFilterContainer from "../../filters/components/FeatureStateFilterContainer";
 import ScenarioStateFilterContainer from "../../filters/components/ScenarioStateFilterContainer";
-import TagDetailsStatsContainer from "./TagDetailsStatsContainer";
 import TagDetailsFeatureTableContainer from "./TagDetailsFeatureTableContainer";
 import TagDetailsScenarioTableContainer from "./TagDetailsScenarioTableContainer";
 import TagSelectionForm from "./TagSelectionForm";
 import Page from "../../ui/components/Page";
 import TagDetailsBreadcrumbContainer from "./TagDetailsBreadcrumbContainer";
+import { useParsedTags } from "../url";
+import { loadTagDetailsPage } from "../redux";
+import ScenarioStats from "../../stats/components/ScenarioStats";
 
-export default class TagDetailsPage extends React.Component {
-  static propTypes = {
-    testRunId: PropTypes.string.isRequired,
-    testRun: PropTypes.object,
-    tags: PropTypes.array.isRequired,
-    excludedTags: PropTypes.array.isRequired,
-    onLoad: PropTypes.func.isRequired,
-    onUpdate: PropTypes.func.isRequired
-  };
+export default function TagDetailsPage() {
+  const testRunId = useRouteMatch().params.testRunId;
+  const { tags, excludedTags } = useParsedTags();
 
-  componentDidMount() {
-    this.loadPageIfPossible();
-  }
+  const includedTagsStr = useMemo(() => tags.map((tag) => `@${tag}`).join(" "), [tags]);
+  const excludedTagsStr = useMemo(() => excludedTags.map((tag) => `~@${tag}`).join(" "), [excludedTags]);
 
-  componentDidUpdate(prevProps) {
-    this.loadPageIfPossible(prevProps);
-  }
+  const dispatch = useDispatch();
 
-  loadPageIfPossible(prevProps = {}) {
-    const { testRunId, tags, excludedTags } = this.props;
+  useEffect(() => {
+    dispatch(loadTagDetailsPage({ testRunId, tags, excludedTags }));
+  }, [dispatch, testRunId, tags, excludedTags]);
 
-    if (testRunId !== prevProps.testRunId || tags !== prevProps.tags || excludedTags !== prevProps.excludedTags) {
-      this.props.onLoad({ testRunId, tags, excludedTags });
-    }
-  }
+  const testRun = useSelector((state) => state.testRun.testRun);
 
-  onUpdateTags = ({ tags, excludedTags }) => {
-    return this.props.onUpdate({
-      testRunId: this.props.testRunId,
-      tags: tags.filter((tag) => !!tag),
-      excludedTags: excludedTags.filter((tag) => !!tag)
-    });
-  };
+  const stats = useSelector((state) => state.tagDetails.stats);
 
-  render() {
-    const { testRun, tags, excludedTags } = this.props;
+  return (
+    <Page
+      title={
+        <Fragment>
+          Tags {includedTagsStr} {excludedTagsStr}{" "}
+          <small className="text-muted">{`Tir du ${toNiceDate(testRun.date)}`}</small>
+        </Fragment>
+      }
+      breadcrumb={<TagDetailsBreadcrumbContainer />}
+    >
+      <TagSelectionForm />
 
-    const includedTagsStr = tags.map((tag) => `@${tag}`).join(" ");
+      <hr />
 
-    const excludedTagsStr = excludedTags.map((tag) => `~@${tag}`).join(" ");
+      <h2>Statistiques</h2>
+      <ScenarioStats stats={stats} />
 
-    return (
-      <Page
-        title={
-          <Fragment>
-            Tags {includedTagsStr} {excludedTagsStr} <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
-          </Fragment>
-        }
-        breadcrumb={<TagDetailsBreadcrumbContainer />}
-      >
-        <TagSelectionForm initialValues={{ tags, excludedTags }} enableReinitialize onSubmit={this.onUpdateTags} />
+      <h2>Fonctionnalités</h2>
+      <FeatureStateFilterContainer />
+      <TagDetailsFeatureTableContainer />
 
-        <hr />
+      <hr />
 
-        <h2>Statistiques</h2>
-        <TagDetailsStatsContainer />
-
-        <hr />
-
-        <h2>Fonctionnalités</h2>
-        <FeatureStateFilterContainer />
-        <TagDetailsFeatureTableContainer />
-
-        <hr />
-
-        <h2>Scénarios</h2>
-        <ScenarioStateFilterContainer />
-        <TagDetailsScenarioTableContainer />
-      </Page>
-    );
-  }
+      <h2>Scénarios</h2>
+      <ScenarioStateFilterContainer />
+      <TagDetailsScenarioTableContainer />
+    </Page>
+  );
 }

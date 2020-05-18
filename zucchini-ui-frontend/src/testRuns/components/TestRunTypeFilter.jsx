@@ -1,50 +1,98 @@
-import PropTypes from "prop-types";
 import React, { useState } from "react";
-import Overlay from "react-bootstrap/lib/Overlay";
-import Popover from "react-bootstrap/lib/Popover";
-import ButtonGroup from "react-bootstrap/lib/ButtonGroup";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import queryString from "query-string";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import FormGroup from "react-bootstrap/FormGroup";
+import FormControl from "react-bootstrap/FormControl";
+import Dropdown from "react-bootstrap/Dropdown";
+import Form from "react-bootstrap/Form";
 
-import Button from "../../ui/components/Button";
-import Caret from "../../ui/components/Caret";
+import useQueryParams from "../../useQueryParams";
+import { useSelector } from "react-redux";
+import { selectTestRunTypes } from "../selectors";
 
-import TestRunTypeFilterPopover from "./TestRunTypeFilterPopover";
+export default function TestRunTypeFilter() {
+  const { type: selectedType } = useQueryParams();
 
-export default function TestRunTypeFilter({ selectedType }) {
-  const [showSelectableTypes, setShowSelectableTypes] = useState(false);
-  const [overlayTarget, setOverlayTarget] = useState(null);
+  const [search, setSearch] = useState("");
 
-  const handleShowPopoverClick = (event) => {
-    setShowSelectableTypes(true);
-    setOverlayTarget(event.target);
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
   };
 
-  const handleHidePopover = () => {
-    setShowSelectableTypes(false);
-  };
+  // Links to test run types
 
-  return (
-    <div style={{ position: "relative", marginBottom: "10px" }}>
-      <ButtonGroup bsSize="xsmall">
-        <Button active={showSelectableTypes} onClick={handleShowPopoverClick}>
-          Type de tir : <b>{selectedType ? selectedType : <i>Tous</i>}</b> <Caret />
-        </Button>
-      </ButtonGroup>
+  const testRunTypes = useSelector(selectTestRunTypes);
 
-      <Overlay
-        show={showSelectableTypes}
-        target={overlayTarget}
-        placement="bottom"
-        rootClose
-        onHide={handleHidePopover}
+  const testRunTypeLinks = testRunTypes.filter(createFilter(search)).map((type) => {
+    return (
+      <Dropdown.Item
+        key={type}
+        active={type === selectedType}
+        as={MenuLink}
+        to={{
+          pathname: "/",
+          search: queryString.stringify({ type })
+        }}
       >
-        <Popover id="test-run-type-filter-container" title="Filter par type de tir" style={{ width: "30rem" }}>
-          <TestRunTypeFilterPopover selectedType={selectedType} onTypeSelected={handleHidePopover} />
-        </Popover>
-      </Overlay>
-    </div>
+        {type}
+      </Dropdown.Item>
+    );
+  });
+  return (
+    <ButtonGroup className="mb-3">
+      <Dropdown>
+        <Dropdown.Toggle variant="outline-secondary" size="sm" id="dropdown-basic-xxxxxxxxxxxx">
+          Type de tir : <b>{selectedType ? selectedType : <i>Tous</i>}</b>
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Form>
+            <FormGroup size="sm" className="mx-2 mb-2">
+              <FormControl type="text" placeholder="Rechercher un type de tir" value={search} onChange={handleSearch} />
+            </FormGroup>
+          </Form>
+          <Dropdown.Divider />
+          {!search && (
+            <>
+              <Dropdown.Item active={!selectedType} as={MenuLink} to="/">
+                Tous les types
+              </Dropdown.Item>
+              <Dropdown.Divider />
+            </>
+          )}
+          {testRunTypeLinks}
+          {testRunTypeLinks.length === 0 && (
+            <Dropdown.Item disabled>
+              <i>Aucun type trouvé</i>
+            </Dropdown.Item>
+          )}
+        </Dropdown.Menu>
+      </Dropdown>
+    </ButtonGroup>
   );
 }
 
-TestRunTypeFilter.propTypes = {
-  selectedType: PropTypes.string
+function MenuLink({ children, to, className, onClick }) {
+  return (
+    <Link to={to} className={className} onClick={onClick}>
+      {children}
+    </Link>
+  );
+}
+
+MenuLink.propTypes = {
+  children: PropTypes.node,
+  to: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
+  className: PropTypes.string,
+  onClick: PropTypes.func
 };
+
+function createFilter(search) {
+  if (search) {
+    const searchLowerCase = search.toLowerCase();
+    return (type) => type.toLowerCase().includes(searchLowerCase);
+  }
+
+  return () => true;
+}

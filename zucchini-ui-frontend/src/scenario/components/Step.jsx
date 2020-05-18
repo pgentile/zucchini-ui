@@ -27,20 +27,12 @@ export default class Step extends React.PureComponent {
 
     let errorMessage = null;
     if (step.errorMessage) {
-      errorMessage = (
-        <PanelWithTitle title="Message d'erreur" panelBody={true} bsStyle="danger" className="panel-error-message">
-          <pre className="error-message text-danger">{step.errorMessage}</pre>
-        </PanelWithTitle>
-      );
+      errorMessage = <ErrorMessage errorMessage={step.errorMessage} />;
     }
 
     let logs = null;
     if (step.output) {
-      logs = (
-        <PanelWithTitle title="Logs" panelBody={true} bsStyle="default" className="panel-log">
-          <pre className="log">{step.output}</pre>
-        </PanelWithTitle>
-      );
+      logs = <LogOutput output={step.output} />;
     }
 
     let table = null;
@@ -69,3 +61,27 @@ export default class Step extends React.PureComponent {
     );
   }
 }
+
+function ErrorMessage({ errorMessage }) {
+  return (
+    <PanelWithTitle title="Message d'erreur" panelBody bg="danger" text="white" className="mb-3">
+      <pre className="mb-0 text-white">{errorMessage}</pre>
+    </PanelWithTitle>
+  );
+}
+
+ErrorMessage.propTypes = {
+  errorMessage: PropTypes.string.isRequired
+};
+
+function LogOutput({ output }) {
+  return (
+    <PanelWithTitle title="Logs" panelBody className="mb-3">
+      <pre className="mb-0">{output}</pre>
+    </PanelWithTitle>
+  );
+}
+
+LogOutput.propTypes = {
+  output: PropTypes.string.isRequired
+};

@@ -2,7 +2,6 @@ import { connect } from "react-redux";
 import { createSelector, createStructuredSelector } from "reselect";
 
 import ScenarioDetails from "./ScenarioDetails";
-import { updateStepFilters } from "../../filters/redux";
 
 const selectScenario = createSelector(
   (state) => state.scenario.scenario,
@@ -19,8 +18,6 @@ const selectProps = createStructuredSelector({
   filters: selectFilters
 });
 
-const ScenarioDetailsContainer = connect(selectProps, {
-  onFilterChange: updateStepFilters
-})(ScenarioDetails);
+const ScenarioDetailsContainer = connect(selectProps)(ScenarioDetails);
 
 export default ScenarioDetailsContainer;

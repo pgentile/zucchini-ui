@@ -11,10 +11,8 @@ export default class CommentList extends React.PureComponent {
   render() {
     const { comments } = this.props;
 
-    const commentList = comments.map((comment) => {
+    return comments.map((comment) => {
       return <CommentContainer key={comment.id} comment={comment} />;
     });
-
-    return <div>{commentList}</div>;
   }
 }

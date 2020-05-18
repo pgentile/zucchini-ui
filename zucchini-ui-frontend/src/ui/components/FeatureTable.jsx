@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/lib/Table";
-import Badge from "react-bootstrap/lib/Badge";
+import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
 
 import Status from "../../ui/components/Status";
+import CounterBadge from "./CounterBadge";
 
 export default class FeatureTable extends React.Component {
   static propTypes = {
@@ -22,15 +22,15 @@ export default class FeatureTable extends React.Component {
       <Table bordered striped hover>
         <thead>
           <tr>
-            <th className="col-md-1">Groupe</th>
-            <th className="col-md-4">Fonctionnalité</th>
-            <th className="col-md-1">Statut</th>
-            <th className="col-md-1">Total</th>
-            <th className="col-md-1">Succès</th>
-            <th className="col-md-1">Échecs</th>
-            <th className="col-md-1">En attente</th>
-            <th className="col-md-1">Non joués</th>
-            <th className="col-md-1">Analysés</th>
+            <th>Groupe</th>
+            <th>Fonctionnalité</th>
+            <th>Statut</th>
+            <th>Total</th>
+            <th>Succès</th>
+            <th>Échecs</th>
+            <th>En attente</th>
+            <th>Non joués</th>
+            <th>Analysés</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
@@ -57,22 +57,22 @@ class FeatureTableTableRow extends React.PureComponent {
           <Status status={feature.status} />
         </td>
         <td>
-          <Badge>{feature.stats.all.count}</Badge>
+          <CounterBadge>{feature.stats.all.count}</CounterBadge>
         </td>
         <td>
-          <Badge>{feature.stats.all.passed}</Badge>
+          <CounterBadge>{feature.stats.all.passed}</CounterBadge>
         </td>
         <td>
-          <Badge>{feature.stats.all.failed}</Badge>
+          <CounterBadge>{feature.stats.all.failed}</CounterBadge>
         </td>
         <td>
-          <Badge>{feature.stats.all.pending}</Badge>
+          <CounterBadge>{feature.stats.all.pending}</CounterBadge>
         </td>
         <td>
-          <Badge>{feature.stats.all.notRun}</Badge>
+          <CounterBadge>{feature.stats.all.notRun}</CounterBadge>
         </td>
         <td>
-          <Badge>{feature.stats.reviewed.count}</Badge>
+          <CounterBadge>{feature.stats.reviewed.count}</CounterBadge>
         </td>
       </tr>
     );

@@ -1,0 +1,39 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+.loading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 5px;
+  z-index: 10000;
+
+  background: $primary;
+
+  width: 100%;
+
+  display: none;
+
+  &-start {
+    width: 0;
+    opacity: 0;
+
+    display: block;
+  }
+
+  &-pending {
+    transition: width linear 10s, opacity linear 500ms;
+    width: 70%;
+    opacity: 1;
+  }
+
+  &-ending {
+    transition: width linear 200ms;
+    width: 100%;
+  }
+
+  &-done {
+    transition: opacity linear 100ms;
+    opacity: 0;
+  }
+}

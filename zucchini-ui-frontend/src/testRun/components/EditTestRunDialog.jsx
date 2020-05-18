@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Modal from "react-bootstrap/lib/Modal";
+import Modal from "react-bootstrap/Modal";
 
 import Button from "../../ui/components/Button";
 import EditTestRunForm from "./EditTestRunForm";
@@ -44,7 +44,7 @@ export default class EditTestRunDialog extends React.PureComponent {
     const { show, testRun } = this.props;
 
     return (
-      <Modal bsSize="large" show={show} onHide={this.onCloseClick}>
+      <Modal size="lg" show={show} onHide={this.onCloseClick}>
         <Modal.Header closeButton>
           <Modal.Title>Modifier les informations du tir</Modal.Title>
         </Modal.Header>
@@ -57,10 +57,10 @@ export default class EditTestRunDialog extends React.PureComponent {
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.onCloseClick}>Annuler</Button>
-          <Button bsStyle="primary" onClick={this.onEditTestRunClick}>
-            Modifier
+          <Button variant="secondary" onClick={this.onCloseClick}>
+            Annuler
           </Button>
+          <Button onClick={this.onEditTestRunClick}>Modifier</Button>
         </Modal.Footer>
       </Modal>
     );

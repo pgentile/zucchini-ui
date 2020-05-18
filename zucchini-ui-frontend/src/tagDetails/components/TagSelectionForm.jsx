@@ -1,78 +1,75 @@
-import PropTypes from "prop-types";
-import React from "react";
-import Row from "react-bootstrap/lib/Row";
-import Col from "react-bootstrap/lib/Col";
-import FormGroup from "react-bootstrap/lib/FormGroup";
-import InputGroup from "react-bootstrap/lib/InputGroup";
-import FormControl from "react-bootstrap/lib/FormControl";
-import ControlLabel from "react-bootstrap/lib/ControlLabel";
-import { reduxForm, Field } from "redux-form";
+import React, { memo, useState } from "react";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import FormGroup from "react-bootstrap/FormGroup";
+import InputGroup from "react-bootstrap/InputGroup";
+import FormControl from "react-bootstrap/FormControl";
+import FormLabel from "react-bootstrap/FormLabel";
+import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 
 import Button from "../../ui/components/Button";
+import { useParsedTags, useNavigateToTags } from "../url";
+import useSyncValue from "../../useSyncValue";
 
-class TagSelectionForm extends React.PureComponent {
-  static propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
-    initialValues: PropTypes.object.isRequired
+function TagSelectionForm() {
+  const parsedTags = useParsedTags();
+
+  const [tags, setTags] = useState("");
+  const [excludedTags, setExcludedTags] = useState("");
+
+  useSyncValue(parsedTags.tags, (value) => setTags(formatTags(value)));
+  useSyncValue(parsedTags.excludedTags, (value) => setExcludedTags(formatTags(value)));
+
+  const navigateToTags = useNavigateToTags();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    navigateToTags({
+      tags: parseTags(tags),
+      excludedTags: parseTags(excludedTags)
+    });
   };
 
-  renderField = ({ input, meta, ...otherProps }) => {
-    // eslint-disable-line no-unused-vars
-    return <FormControl {...input} {...otherProps} />;
-  };
-
-  formatTags = (tags) => {
-    if (tags) {
-      return tags.join(" ");
-    }
-    return "";
-  };
-
-  parseTags = (tagsStr) => {
-    if (tagsStr && tagsStr.length) {
-      return tagsStr.split(" ");
-    }
-    return [];
-  };
-
-  render() {
-    const { handleSubmit } = this.props;
-
-    return (
-      <form onSubmit={handleSubmit}>
-        <Row>
-          <Col md={5}>
-            <FormGroup controlId="tags">
-              <InputGroup>
-                <ControlLabel className="input-group-addon">Tags inclus</ControlLabel>
-                <Field name="tags" component={this.renderField} format={this.formatTags} parse={this.parseTags} />
-              </InputGroup>
-            </FormGroup>
-          </Col>
-          <Col md={5}>
-            <FormGroup controlId="excludedTags">
-              <InputGroup>
-                <ControlLabel className="input-group-addon">Tags exclus</ControlLabel>
-                <Field
-                  name="excludedTags"
-                  component={this.renderField}
-                  format={this.formatTags}
-                  parse={this.parseTags}
-                />
-              </InputGroup>
-            </FormGroup>
-          </Col>
-          <Col md={2}>
-            <Button glyph="refresh" type="submit" block>
-              Actualiser
-            </Button>
-          </Col>
-        </Row>
-      </form>
-    );
-  }
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Row>
+        <Col md={5}>
+          <FormGroup controlId="tags">
+            <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text as={FormLabel}>Tags inclus</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl value={tags} onChange={(e) => setTags(e.target.value)} />
+            </InputGroup>
+          </FormGroup>
+        </Col>
+        <Col md={5}>
+          <FormGroup controlId="excludedTags">
+            <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text as={FormLabel}>Tags exclus</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl value={excludedTags} onChange={(e) => setExcludedTags(e.target.value)} />
+            </InputGroup>
+          </FormGroup>
+        </Col>
+        <Col md={2}>
+          <Button icon={faSyncAlt} type="submit" block>
+            Actualiser
+          </Button>
+        </Col>
+      </Row>
+    </Form>
+  );
 }
 
-export default reduxForm({
-  form: "tagSelection"
-})(TagSelectionForm);
+export default memo(TagSelectionForm);
+
+function formatTags(tags) {
+  return tags.join(" ");
+}
+
+function parseTags(tags) {
+  return tags.split(/ +/);
+}

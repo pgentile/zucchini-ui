@@ -20,9 +20,9 @@ export function getFeatures({ testRunId }) {
 
 export function createStatsWithZeros() {
   return {
-    all: ZERO_STATS_NUMBERS,
-    reviewed: ZERO_STATS_NUMBERS,
-    nonReviewed: ZERO_STATS_NUMBERS
+    all: createZeroStatsNumbers(),
+    reviewed: createZeroStatsNumbers(),
+    nonReviewed: createZeroStatsNumbers()
   };
 }
 
@@ -38,10 +38,12 @@ export function editTestRun({ testRunId, type, environment, name, labels }) {
   return testRunsApi.editTestRun({ testRunId, type, environment, name, labels });
 }
 
-export const ZERO_STATS_NUMBERS = {
-  count: 0,
-  passed: 0,
-  failed: 0,
-  pending: 0,
-  notRun: 0
-};
+export function createZeroStatsNumbers() {
+  return {
+    count: 0,
+    passed: 0,
+    failed: 0,
+    pending: 0,
+    notRun: 0
+  };
+}

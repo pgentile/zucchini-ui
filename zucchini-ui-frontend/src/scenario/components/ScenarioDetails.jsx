@@ -1,16 +1,13 @@
 import PropTypes from "prop-types";
 import React from "react";
-import OverlayTrigger from "react-bootstrap/lib/OverlayTrigger";
-import Popover from "react-bootstrap/lib/Popover";
-import { Provider } from "react-redux";
-
-import store from "../../store";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Popover from "react-bootstrap/Popover";
 
 import Button from "../../ui/components/Button";
 import SimpleText from "../../ui/components/SimpleText";
 import ActionStep from "./ActionStep";
 import Step from "./Step";
-import StepFiltersContainer from "./StepFiltersContainer";
+import StepFilters from "./StepFilters";
 
 export default class ScenarioDetails extends React.PureComponent {
   static propTypes = {
@@ -62,18 +59,21 @@ export default class ScenarioDetails extends React.PureComponent {
     //   - The container prop of the OverlayTrigger must have a CSS relative position
     //   - The overlay prop of the OverlayTrigger must be the Popover element
     const stepFilters = (
-      <Popover id="step-filters" title="Configurer les options d'affichage">
-        <Provider store={store}>
-          <StepFiltersContainer />
-        </Provider>
+      <Popover id="step-filters">
+        <Popover.Title>Configurer les options d&apos;affichage</Popover.Title>
+        <Popover.Content>
+          <StepFilters />
+        </Popover.Content>
       </Popover>
     );
 
     return (
       <div style={{ position: "relative" }}>
         <p>
-          <OverlayTrigger container={this} rootClose trigger="click" placement="bottom" overlay={stepFilters}>
-            <Button bsSize="xsmall">Options d&apos;affichage</Button>
+          <OverlayTrigger rootClose trigger="click" placement="bottom" overlay={stepFilters}>
+            <Button variant="outline-secondary" size="sm">
+              Options d&apos;affichage
+            </Button>
           </OverlayTrigger>
         </p>
 

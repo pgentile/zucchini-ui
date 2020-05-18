@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
-import Table from "react-bootstrap/lib/Table";
-import Label from "react-bootstrap/lib/Label";
-import Modal from "react-bootstrap/lib/Modal";
+import Table from "react-bootstrap/Table";
+import Badge from "react-bootstrap/Badge";
+import Modal from "react-bootstrap/Modal";
 import Status from "../../ui/components/Status";
 import truncate from "lodash/truncate";
 
@@ -32,10 +32,10 @@ export default class FailuresTable extends React.Component {
       <Table bordered striped hover style={{ tableLayout: "fixed" }}>
         <thead>
           <tr>
-            <th className="col-md-4">Erreur</th>
-            <th className="col-md-6">Scénario</th>
-            <th className="col-md-1">Statut</th>
-            <th className="col-md-1">Analysé</th>
+            <th>Erreur</th>
+            <th>Scénario</th>
+            <th>Statut</th>
+            <th>Analysé</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
@@ -111,9 +111,9 @@ class FailuresTableRow extends React.Component {
           <Status status={failedScenario.status} />
         </td>
         <td>
-          <Label bsStyle={failedScenario.reviewed ? "success" : "default"}>
+          <Badge variant={failedScenario.reviewed ? "secondary" : "light"}>
             {failedScenario.reviewed ? "Oui" : "Non"}
-          </Label>
+          </Badge>
         </td>
       </tr>
     );
@@ -137,7 +137,7 @@ class FailuresDetailsDialog extends React.PureComponent {
   render() {
     const { show, errorMessage } = this.props;
     return (
-      <Modal bsSize="large" dialogClassName="details-modal-dialog" show={show} onHide={this.onCloseClick}>
+      <Modal size="lg" dialogClassName="details-modal-dialog" show={show} onHide={this.onCloseClick}>
         <Modal.Header closeButton>
           <Modal.Title>{"Détails de l'erreur"}</Modal.Title>
         </Modal.Header>

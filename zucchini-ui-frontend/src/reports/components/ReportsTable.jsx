@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/lib/Table";
-import Badge from "react-bootstrap/lib/Badge";
+import Table from "react-bootstrap/Table";
+import CounterBadge from "../../ui/components/CounterBadge";
 
 export default class ReportsTable extends React.Component {
   static propTypes = {
@@ -19,14 +19,14 @@ export default class ReportsTable extends React.Component {
       <Table bordered striped hover>
         <thead>
           <tr>
-            <th className="col-md-1">Groupe</th>
-            <th className="col-md-1">Total</th>
-            <th className="col-md-1">Succès</th>
-            <th className="col-md-1">Échecs</th>
-            <th className="col-md-1">En attente</th>
-            <th className="col-md-1">Non joués</th>
-            <th className="col-md-1">Taux erreurs</th>
-            <th className="col-md-1">Taux de répartition des erreurs</th>
+            <th>Groupe</th>
+            <th>Total</th>
+            <th>Succès</th>
+            <th>Échecs</th>
+            <th>En attente</th>
+            <th>Non joués</th>
+            <th>Taux erreurs</th>
+            <th>Taux de répartition des erreurs</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
@@ -42,38 +42,39 @@ class ReportsTableRow extends React.PureComponent {
 
   render() {
     const { group } = this.props;
-    let style = "badge";
+
+    let variant = null;
     if (group.stats.failed === 0) {
-      style = "badge-success";
+      variant = "success";
     } else if (group.stats.faultRate > 50) {
-      style = "badge-error";
+      variant = "error";
     } else if (group.stats.faultRate > 10) {
-      style = "badge-warning";
+      variant = "warning";
     }
 
     return (
       <tr>
         <td>{group.total ? <b>{group.name}</b> : group.name}</td>
         <td>
-          <Badge bsClass={style}>{group.stats.count}</Badge>
+          <CounterBadge variant={variant}>{group.stats.count}</CounterBadge>
         </td>
         <td>
-          <Badge bsClass={style}>{group.stats.passed}</Badge>
+          <CounterBadge variant={variant}>{group.stats.passed}</CounterBadge>
         </td>
         <td>
-          <Badge bsClass={style}>{group.stats.failed}</Badge>
+          <CounterBadge variant={variant}>{group.stats.failed}</CounterBadge>
         </td>
         <td>
-          <Badge bsClass={style}>{group.stats.pending}</Badge>
+          <CounterBadge variant={variant}>{group.stats.pending}</CounterBadge>
         </td>
         <td>
-          <Badge bsClass={style}>{group.stats.notRun}</Badge>
+          <CounterBadge variant={variant}>{group.stats.notRun}</CounterBadge>
         </td>
         <td>
-          <Badge bsClass={style}>{group.stats.faultRate} %</Badge>
+          <CounterBadge variant={variant}>{group.stats.faultRate}&thinsp;%</CounterBadge>
         </td>
         <td>
-          <Badge bsClass={style}>{group.stats.faultRateRepartition} %</Badge>
+          <CounterBadge variant={variant}>{group.stats.faultRateRepartition}&thinsp;%</CounterBadge>
         </td>
       </tr>
     );

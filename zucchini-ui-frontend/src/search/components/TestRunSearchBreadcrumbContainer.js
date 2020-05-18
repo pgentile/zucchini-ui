@@ -1,14 +1,15 @@
-import { connect } from "react-redux";
-import { createSelector, createStructuredSelector } from "reselect";
+import React, { useMemo } from "react";
+import { useSelector } from "react-redux";
 import queryString from "query-string";
 
 import Breadcrumb from "../../ui/components/Breadcrumb";
 import toNiceDate from "../../ui/toNiceDate";
 import getTypeEnvName from "../../utils/testRunUtils";
 
-const selectBreadcumbItems = createSelector(
-  (state) => state.testRun.testRun,
-  (testRun) => {
+export default function TestRunSearchBreadcrumbContainer() {
+  const testRun = useSelector((state) => state.testRun.testRun);
+
+  const items = useMemo(() => {
     return [
       {
         value: getTypeEnvName(testRun),
@@ -25,13 +26,7 @@ const selectBreadcumbItems = createSelector(
         value: "Recherche"
       }
     ];
-  }
-);
+  }, [testRun]);
 
-const selectProps = createStructuredSelector({
-  items: selectBreadcumbItems
-});
-
-const TestRunSearchBreadcrumbContainer = connect(selectProps)(Breadcrumb);
-
-export default TestRunSearchBreadcrumbContainer;
+  return <Breadcrumb items={items} />;
+}

@@ -12,10 +12,10 @@ import PageLoadingPlaceholder from "./loadingIndicator/components/PageLoadingPla
 const TestRunsPage = lazy(() => import("./testRuns/components/TestRunsPage"));
 const TestRunPageContainer = lazy(() => import("./testRun/components/TestRunPageContainer"));
 const FeaturePageContainer = lazy(() => import("./feature/components/FeaturePageContainer"));
-const TestRunSearchPageContainer = lazy(() => import("./search/components/TestRunSearchPageContainer"));
+const TestRunSearchPage = lazy(() => import("./search/components/TestRunSearchPage"));
 const ScenarioPageContainer = lazy(() => import("./scenario/components/ScenarioPageContainer"));
 const TagsPageContainer = lazy(() => import("./tags/components/TagsPageContainer"));
-const TagDetailsPageContainer = lazy(() => import("./tagDetails/components/TagDetailsPageContainer"));
+const TagDetailsPage = lazy(() => import("./tagDetails/components/TagDetailsPage"));
 const TestRunDiffPageContainer = lazy(() => import("./testRunDiff/components/TestRunDiffPageContainer"));
 const FailuresPageContainer = lazy(() => import("./failures/components/FailuresPageContainer"));
 const ReportsPageContainer = lazy(() => import("./reports/components/ReportsPageContainer"));
@@ -32,11 +32,11 @@ export default function AppRouter() {
               <Switch>
                 <Route exact path="/" component={TestRunsPage} />
                 <Route exact path="/test-runs/:testRunId" component={TestRunPageContainer} />
-                <Route exact path="/test-runs/:testRunId/search" component={TestRunSearchPageContainer} />
+                <Route exact path="/test-runs/:testRunId/search" component={TestRunSearchPage} />
                 <Route exact path="/test-runs/:testRunId/tags" component={TagsPageContainer} />
                 <Route exact path="/test-runs/:testRunId/failures" component={FailuresPageContainer} />
                 <Route exact path="/test-runs/:testRunId/reports" component={ReportsPageContainer} />
-                <Route exact path="/test-runs/:testRunId/tag-details" component={TagDetailsPageContainer} />
+                <Route exact path="/test-runs/:testRunId/tag-details" component={TagDetailsPage} />
                 <Route exact path="/test-runs/:testRunId/diff" component={TestRunDiffPageContainer} />
                 <Route exact path="/test-runs/:testRunId/stepDefinitions" component={StepDefinitionsPageContainer} />
                 <Route exact path="/features/:featureId" component={FeaturePageContainer} />

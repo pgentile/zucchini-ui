@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Badge from "react-bootstrap/lib/Badge";
-import Table from "react-bootstrap/lib/Table";
+import Table from "react-bootstrap/Table";
 import truncate from "lodash/truncate";
 import sortBy from "lodash/sortBy";
 import StepDefinitionsVariantsDialog from "./StepDefinitionsVariantsDialog";
 import StepDefinitionsHighlightedTerm from "./StepDefinitionsHighlightedTerm";
+import CounterBadge from "../../ui/components/CounterBadge";
 
 export default class StepDefinitionsTable extends React.Component {
   static propTypes = {
@@ -38,13 +38,9 @@ export default class StepDefinitionsTable extends React.Component {
       <Table bordered striped hover style={{ tableLayout: "fixed" }}>
         <thead>
           <tr>
-            <th className="col-md-10">Définition</th>
-            <th className="col-md-1" style={{ textAlign: "center" }}>
-              Occurrence
-            </th>
-            <th className="col-md-1" style={{ textAlign: "center" }}>
-              Réussite
-            </th>
+            <th>Définition</th>
+            <th style={{ textAlign: "center" }}>Occurrence</th>
+            <th style={{ textAlign: "center" }}>Réussite</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
@@ -86,13 +82,13 @@ class StepDefinitionsRow extends React.Component {
     }).length;
     const successRate = Math.floor((nbSuccesses / stepDefinition.occurrences.length) * 100);
 
-    let successBadge;
+    let variant;
     if (successRate >= 90) {
-      successBadge = "badge-success";
+      variant = "success";
     } else if (successRate >= 50 && successRate >= 90) {
-      successBadge = "badge-warning";
-    } else if (successRate < 50) {
-      successBadge = "badge-error";
+      variant = "warning";
+    } else {
+      variant = "badge-error";
     }
 
     return (
@@ -112,7 +108,7 @@ class StepDefinitionsRow extends React.Component {
           <b>{stepDefinition.occurrences.length}</b>
         </td>
         <td style={{ textAlign: "center" }}>
-          <Badge bsClass={successBadge}>{successRate} %</Badge>
+          <CounterBadge variant={variant}>{successRate}&thinsp;%</CounterBadge>
         </td>
       </tr>
     );

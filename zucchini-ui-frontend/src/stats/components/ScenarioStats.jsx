@@ -1,90 +1,96 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Grid from "react-bootstrap/lib/Grid";
-import Row from "react-bootstrap/lib/Row";
-import Col from "react-bootstrap/lib/Col";
+import { useSelector, useDispatch } from "react-redux";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Card from "react-bootstrap/Card";
+import CardDeck from "react-bootstrap/CardDeck";
+import Form from "react-bootstrap/Form";
+import FormCheck from "react-bootstrap/FormCheck";
 
-import Button from "../../ui/components/Button";
 import ScenarioPieChart from "./StatsPieChart";
 import StatsLegend from "./StatsLegend";
+import { updateStatsDashboardFilters } from "../../filters/redux";
+import { selectShowDetails } from "../selectors";
+import useUniqueId from "../../useUniqueId";
 
-export default class ScenarioStats extends React.PureComponent {
-  static propTypes = {
-    stats: PropTypes.object.isRequired,
-    showDetails: PropTypes.bool.isRequired,
-    onToggleDetails: PropTypes.func.isRequired
-  };
+function ScenarioStats({ stats }) {
+  const showDetails = useSelector(selectShowDetails);
 
-  onToogleDetailsClick = () => {
-    this.props.onToggleDetails({
-      showDetails: !this.props.showDetails
-    });
-  };
+  const dispatch = useDispatch();
 
-  render() {
-    const { stats, showDetails } = this.props;
-
-    let legendRow = null;
-    if (showDetails) {
-      legendRow = (
-        <Row>
-          <Col md={4}>
-            <StatsLegend stats={stats.all} />
-          </Col>
-          <Col md={4}>
-            <StatsLegend stats={stats.reviewed} />
-          </Col>
-          <Col md={4}>
-            <StatsLegend stats={stats.nonReviewed} />
-          </Col>
-        </Row>
-      );
-    }
-
-    const toggleDetailsButton = {
-      glyph: showDetails ? "minus" : "plus",
-      text: showDetails ? "Masquer les détails" : "Afficher les détails"
-    };
-
-    return (
-      <Grid>
-        <Row>
-          <p>
-            <Button glyph={toggleDetailsButton.glyph} bsSize="xsmall" onClick={this.onToogleDetailsClick}>
-              {toggleDetailsButton.text}
-            </Button>
-          </p>
-        </Row>
-        <Row>
-          <Col md={4}>
-            <h5 className="text-center">
-              <b>Tous les scénarios</b>
-            </h5>
-          </Col>
-          <Col md={4}>
-            <h5 className="text-center">
-              <b>Scénarios analysés</b>
-            </h5>
-          </Col>
-          <Col md={4}>
-            <h5 className="text-center">
-              <b>Scénarios non analysés</b>
-            </h5>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={4}>
-            <ScenarioPieChart stats={stats.all} total={stats.all.count} showDetails={showDetails} />
-          </Col>
-          <Col md={4}>
-            <ScenarioPieChart stats={stats.reviewed} total={stats.all.count} showDetails={showDetails} />
-          </Col>
-          <Col md={4}>
-            <ScenarioPieChart stats={stats.nonReviewed} total={stats.all.count} showDetails={showDetails} />
-          </Col>
-        </Row>
-        {legendRow}
-      </Grid>
+  const handleToogleDetails = () => {
+    dispatch(
+      updateStatsDashboardFilters({
+        showDetails: !showDetails
+      })
     );
-  }
+  };
+
+  const detailsSwitchId = useUniqueId("details-switch");
+
+  return (
+    <Container>
+      <Row>
+        <Form>
+          <FormCheck
+            type="switch"
+            id={detailsSwitchId}
+            label="Vue détaillée"
+            checked={showDetails}
+            onChange={handleToogleDetails}
+            className="mb-2"
+          />
+        </Form>
+      </Row>
+      <Row>
+        <CardDeck className="mb-3">
+          <ChartCard
+            title="Tous les scénarios"
+            chart={<ScenarioPieChart stats={stats.all} total={stats.all.count} showDetails={showDetails} />}
+            legend={<StatsLegend stats={stats.all} />}
+            showDetails={showDetails}
+          />
+          <ChartCard
+            title="Scénarios analysés"
+            chart={<ScenarioPieChart stats={stats.reviewed} total={stats.all.count} showDetails={showDetails} />}
+            legend={<StatsLegend stats={stats.reviewed} />}
+          />
+          <ChartCard
+            title="Scénarios non analysés"
+            chart={<ScenarioPieChart stats={stats.nonReviewed} total={stats.all.count} showDetails={showDetails} />}
+            legend={<StatsLegend stats={stats.nonReviewed} />}
+          />
+        </CardDeck>
+      </Row>
+    </Container>
+  );
 }
+
+ScenarioStats.propTypes = {
+  stats: PropTypes.object.isRequired
+};
+
+export default ScenarioStats;
+
+function ChartCard({ title, chart, legend }) {
+  const showDetails = useSelector(selectShowDetails);
+
+  return (
+    <Card>
+      <Card.Body>
+        <Card.Title className="text-center mb-3" as="h5">
+          {title}
+        </Card.Title>
+        {chart}
+        {showDetails && <div className="mt-3">{legend}</div>}
+      </Card.Body>
+    </Card>
+  );
+}
+
+ChartCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  chart: PropTypes.element.isRequired,
+  legend: PropTypes.element.isRequired
+};

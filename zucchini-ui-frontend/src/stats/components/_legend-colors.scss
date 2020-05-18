@@ -1,0 +1,9 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+$legend-colors: (
+  passed: $success,
+  failed: $danger,
+  pending: $warning,
+  not-run: $dark
+);

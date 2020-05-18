@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/lib/Table";
-import Label from "react-bootstrap/lib/Label";
+import Table from "react-bootstrap/Table";
+import Badge from "react-bootstrap/Badge";
 import { Link } from "react-router-dom";
 
 import Status from "../../ui/components/Status";
@@ -25,11 +25,11 @@ export default class ScenarioHistoryTable extends React.PureComponent {
       <Table bordered striped hover>
         <thead>
           <tr>
-            <th className="col-md-2">Type</th>
-            <th className="col-md-2">Environnement</th>
-            <th className="col-md-2">Nom</th>
-            <th className="col-md-5">Tir de test</th>
-            <th className="col-md-1">Statut</th>
+            <th>Type</th>
+            <th>Environnement</th>
+            <th>Nom</th>
+            <th>Tir de test</th>
+            <th>Statut</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
@@ -46,18 +46,18 @@ class ScenarioHistoryTableRow extends React.PureComponent {
 
   render() {
     const { scenario, isActive } = this.props;
-    const className = isActive ? "info" : null;
+    const className = isActive ? "table-primary" : null;
 
     return (
       <tr className={className}>
         <td>
-          <Label>{scenario.testRun.type}</Label>
+          <Badge>{scenario.testRun.type}</Badge>
         </td>
         <td>
-          <Label>{scenario.testRun.environment}</Label>
+          <Badge>{scenario.testRun.environment}</Badge>
         </td>
         <td>
-          <Label>{scenario.testRun.name}</Label>
+          <Badge>{scenario.testRun.name}</Badge>
         </td>
         <td>
           <Link to={`/scenarios/${scenario.id}`}>Tir du {toNiceDate(scenario.testRun.date)}</Link>

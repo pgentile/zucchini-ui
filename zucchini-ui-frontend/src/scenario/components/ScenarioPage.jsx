@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
-import ButtonToolbar from "react-bootstrap/lib/ButtonToolbar";
-import ButtonGroup from "react-bootstrap/lib/ButtonGroup";
-import Tabs from "react-bootstrap/lib/Tabs";
-import Tab from "react-bootstrap/lib/Tab";
-
+import ButtonToolbar from "react-bootstrap/ButtonToolbar";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
+import { faFlag, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../ui/components/Button";
 import TagList from "../../ui/components/TagList";
 import Status from "../../ui/components/Status";
@@ -15,7 +15,7 @@ import SameFeatureScenarioTableContainer from "./SameFeatureScenarioTableContain
 import UpdateScenarioStateDialogContainer from "./UpdateScenarioStateDialogContainer";
 import CommentListContainer from "./CommentListContainer";
 import ScenarioDetailsContainer from "./ScenarioDetailsContainer";
-import AddCommentFormContainer from "./AddCommentFormContainer";
+import AddCommentForm from "./AddCommentForm";
 import DeleteScenarioButton from "./DeleteScenarioButton";
 import UpdateScenarioReviewedStateDialogContainer from "./UpdateScenarioReviewedStateDialogContainer";
 import SimilarFailureScenarioTableContainer from "./SimilarFailureScenarioTableContainer";
@@ -103,12 +103,7 @@ export default class ScenarioPage extends React.Component {
       <Page
         title={
           <Fragment>
-            <b>{scenario.info.keyword}</b> {scenario.info.name}{" "}
-            {scenario.status && (
-              <small>
-                <Status status={scenario.status} />
-              </small>
-            )}
+            <b>{scenario.info.keyword}</b> {scenario.info.name} {scenario.status && <Status status={scenario.status} />}
           </Fragment>
         }
         breadcrumb={<ScenarioBreadcrumbContainer />}
@@ -122,13 +117,13 @@ export default class ScenarioPage extends React.Component {
         <hr />
 
         <ButtonToolbar>
-          <ButtonGroup>
-            <Button glyph="flag" onClick={this.onUpdateStateClick}>
+          <ButtonGroup className="mr-2">
+            <Button icon={faFlag} onClick={this.onUpdateStateClick}>
               Modifier le statut&hellip;
             </Button>
           </ButtonGroup>
-          <ButtonGroup>
-            <Button glyph={reviewed ? "eye-close" : "eye-open"} onClick={this.onUpdateReviewedStateClick}>
+          <ButtonGroup className="mr-2">
+            <Button icon={reviewed ? faEyeSlash : faEye} onClick={this.onUpdateReviewedStateClick}>
               {reviewed ? "Marquer comme non analysé" : "Marquer comme analysé"}
             </Button>
           </ButtonGroup>
@@ -150,7 +145,7 @@ export default class ScenarioPage extends React.Component {
         <CommentListContainer />
 
         <h4>Ajouter un nouveau commentaire</h4>
-        <AddCommentFormContainer scenarioId={scenarioId} />
+        <AddCommentForm scenarioId={scenarioId} key={scenarioId} />
 
         <hr />
 

@@ -37,7 +37,7 @@ export default class TagsPage extends React.Component {
       <Page
         title={
           <Fragment>
-            Tous les tags <small>{`Tir du ${toNiceDate(testRun.date)}`}</small>
+            Tous les tags <small className="text-muted">{`Tir du ${toNiceDate(testRun.date)}`}</small>
           </Fragment>
         }
         breadcrumb={<TagsBreadcrumbContainer />}

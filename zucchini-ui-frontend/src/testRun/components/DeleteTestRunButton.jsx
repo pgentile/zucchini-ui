@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import ConfirmActionButton from "../../ui/components/ConfirmActionButton";
 import { deleteTestRun } from "../redux";
@@ -17,8 +18,8 @@ export default function DeleteTestRunButton({ testRunId }) {
 
   return (
     <ConfirmActionButton
-      bsStyle="danger"
-      actionGlyph="remove"
+      variant="danger"
+      actionIcon={faTimes}
       actionLabel="Supprimer"
       title="Supprimer le tir"
       message="La suppression est irreversible. Êtes-vous sûr de supprimer ce tir ?"

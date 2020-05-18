@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/lib/Table";
-import Badge from "react-bootstrap/lib/Badge";
+import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
 
 import toNiceDate from "../../ui/toNiceDate";
+import CounterBadge from "../../ui/components/CounterBadge";
 
 export default class TestRunHistoryTable extends React.PureComponent {
   static propTypes = {
@@ -25,13 +25,13 @@ export default class TestRunHistoryTable extends React.PureComponent {
       <Table bordered striped hover>
         <thead>
           <tr>
-            <th className="col-md-6">Tir de test</th>
-            <th className="col-md-1">Total</th>
-            <th className="col-md-1">Succès</th>
-            <th className="col-md-1">Échecs</th>
-            <th className="col-md-1">En attente</th>
-            <th className="col-md-1">Non joués</th>
-            <th className="col-md-1">Analysés</th>
+            <th>Tir de test</th>
+            <th>Total</th>
+            <th>Succès</th>
+            <th>Échecs</th>
+            <th>En attente</th>
+            <th>Non joués</th>
+            <th>Analysés</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
@@ -48,7 +48,7 @@ class TestRunHistoryTableTableRow extends React.PureComponent {
 
   render() {
     const { testRun, isActive } = this.props;
-    const className = isActive ? "info" : null;
+    const className = isActive ? "table-primary" : null;
 
     return (
       <tr className={className}>
@@ -56,22 +56,22 @@ class TestRunHistoryTableTableRow extends React.PureComponent {
           <Link to={`/test-runs/${testRun.id}`}>Tir du {toNiceDate(testRun.date)}</Link>
         </td>
         <td>
-          <Badge>{testRun.stats.all.count}</Badge>
+          <CounterBadge>{testRun.stats.all.count}</CounterBadge>
         </td>
         <td>
-          <Badge>{testRun.stats.all.passed}</Badge>
+          <CounterBadge>{testRun.stats.all.passed}</CounterBadge>
         </td>
         <td>
-          <Badge>{testRun.stats.all.failed}</Badge>
+          <CounterBadge>{testRun.stats.all.failed}</CounterBadge>
         </td>
         <td>
-          <Badge>{testRun.stats.all.pending}</Badge>
+          <CounterBadge>{testRun.stats.all.pending}</CounterBadge>
         </td>
         <td>
-          <Badge>{testRun.stats.all.notRun}</Badge>
+          <CounterBadge>{testRun.stats.all.notRun}</CounterBadge>
         </td>
         <td>
-          <Badge>{testRun.stats.reviewed.count}</Badge>
+          <CounterBadge>{testRun.stats.reviewed.count}</CounterBadge>
         </td>
       </tr>
     );

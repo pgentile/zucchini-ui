@@ -1,6 +1,13 @@
 import PropTypes from "prop-types";
 import React from "react";
-import FormGroup from "react-bootstrap/lib/FormGroup";
+import FormGroup from "react-bootstrap/FormGroup";
+
+import FilterCheckboxes from "../../ui/components/FilterCheckboxes";
+
+const LABELS = {
+  sameTestRunType: "Même type de tir",
+  sameTestRunEnvironment: "Même environnement de tir"
+};
 
 export default class HistoryFilter extends React.PureComponent {
   static propTypes = {
@@ -8,35 +15,13 @@ export default class HistoryFilter extends React.PureComponent {
     onFilterChange: PropTypes.func.isRequired
   };
 
-  onFilterChange = (name) => {
-    return (event) => {
-      this.props.onFilterChange({
-        [name]: event.target.checked
-      });
-    };
-  };
-
   render() {
-    const { sameTestRunType } = this.props.filters;
-
-    const { sameTestRunEnvironment } = this.props.filters;
+    const { onFilterChange, filters } = this.props;
 
     return (
       <div className="form" style={{ marginBottom: "10px" }}>
         <FormGroup>
-          Filtrer :{" "}
-          <label className="checkbox-inline">
-            <input type="checkbox" checked={sameTestRunType} onChange={this.onFilterChange("sameTestRunType")} />
-            Même type de tir
-          </label>
-          <label className="checkbox-inline">
-            <input
-              type="checkbox"
-              checked={sameTestRunEnvironment}
-              onChange={this.onFilterChange("sameTestRunEnvironment")}
-            />
-            Même environnement de tir
-          </label>
+          Filtrer : <FilterCheckboxes labels={LABELS} filters={filters} onFilterChange={onFilterChange} />
         </FormGroup>
       </div>
     );

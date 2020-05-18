@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/lib/Table";
+import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
 
 import Status from "../../ui/components/Status";
@@ -21,8 +21,8 @@ export default class UnknownScenarioTable extends React.PureComponent {
       <Table bordered striped hover>
         <thead>
           <tr>
-            <th className="col-md-11">Scénario</th>
-            <th className="col-md-1">Statut</th>
+            <th>Scénario</th>
+            <th>Statut</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
