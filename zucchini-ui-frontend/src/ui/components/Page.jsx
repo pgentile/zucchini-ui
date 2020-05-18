@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 
-export default function Page({ title, breadcrumb, children }) {
+export default function Page({ breadcrumb, title, mainline, children }) {
   return (
     <Fragment>
       {breadcrumb}
       <h1>{title}</h1>
+      {mainline}
       <hr />
       {children}
     </Fragment>
@@ -13,7 +14,8 @@ export default function Page({ title, breadcrumb, children }) {
 }
 
 Page.propTypes = {
+  breadcrumb: PropTypes.node.isRequired,
   title: PropTypes.node.isRequired,
-  children: PropTypes.node.isRequired,
-  breadcrumb: PropTypes.node.isRequired
+  mainline: PropTypes.node,
+  children: PropTypes.node.isRequired
 };

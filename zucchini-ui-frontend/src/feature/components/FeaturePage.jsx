@@ -50,6 +50,7 @@ export default class FeaturePage extends React.Component {
             <b>{feature.info.keyword}</b> {feature.info.name} {feature.status && <Status status={feature.status} />}
           </Fragment>
         }
+        mainline={<SimpleText className="lead" text={feature.description} />}
         breadcrumb={<FeatureBreadcrumbContainer />}
       >
         {feature.group && (
@@ -84,11 +85,6 @@ export default class FeaturePage extends React.Component {
 
         <h2>Statistiques</h2>
         <ScenarioStats stats={stats} />
-
-        <h2>Description</h2>
-        <SimpleText text={feature.description} />
-
-        <hr />
 
         <h2>Scénarios</h2>
         <ScenarioStateFilterContainer />
