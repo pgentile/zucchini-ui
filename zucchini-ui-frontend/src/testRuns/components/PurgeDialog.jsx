@@ -55,7 +55,7 @@ export default function PurgeDialog({ currentSelectedType, purgeDelayInDays = 90
       event.preventDefault();
     }
 
-    dispatch(purgeTestRuns({ selectedTestRunIds }));
+    dispatch(purgeTestRuns({ testRunIds: selectedTestRunIds }));
     onClose();
   };
 

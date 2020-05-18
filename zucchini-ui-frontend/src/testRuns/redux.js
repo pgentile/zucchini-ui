@@ -15,8 +15,8 @@ const GET_LATEST_TEST_RUNS_WITH_STATS_FULFILLED = `${GET_LATEST_TEST_RUNS_WITH_S
 const CREATE_TEST_RUN = `${PREFIX}/CREATE_TEST_RUN`;
 const CREATE_TEST_RUN_FULFILLED = `${CREATE_TEST_RUN}_FULFILLED`;
 
-const DELETE_TEST_RUN = `${PREFIX}/DELETE_TEST_RUN`;
-const DELETE_TEST_RUN_FULFILLED = `${DELETE_TEST_RUN}_FULFILLED`;
+const DELETE_MANY_TEST_RUNS = `${PREFIX}/DELETE_MANY_TEST_RUNS`;
+const DELETE_MANY_TEST_RUNS_FULFILLED = `${DELETE_MANY_TEST_RUNS}_FULFILLED`;
 
 // Action creators
 
@@ -51,20 +51,12 @@ export function createTestRun({ type, environment, name }) {
   };
 }
 
-export function purgeTestRuns({ selectedTestRunIds }) {
-  return (dispatch) => {
-    selectedTestRunIds.forEach((testRunId) => {
-      dispatch(deleteTestRun({ testRunId }));
-    });
-  };
-}
-
-function deleteTestRun({ testRunId }) {
+export function purgeTestRuns({ testRunIds }) {
   return {
-    type: DELETE_TEST_RUN,
-    payload: model.deleteTestRun({ testRunId }),
+    type: DELETE_MANY_TEST_RUNS,
+    payload: model.deleteManyTestRuns({ testRunIds }),
     meta: {
-      testRunId
+      testRunIds
     }
   };
 }
@@ -91,18 +83,19 @@ export const testRuns = handleActions(
       };
     },
 
-    [CREATE_TEST_RUN_FULFILLED]: (state, action) => ({
-      ...state,
-      testRuns: [action.payload, ...state.testRuns]
-    }),
-
-    [DELETE_TEST_RUN_FULFILLED]: (state, action) => {
-      const { testRunId } = action.meta;
-      const testRuns = state.testRuns.filter((testRun) => testRun.id !== testRunId);
-
+    [CREATE_TEST_RUN_FULFILLED]: (state, action) => {
       return {
         ...state,
-        testRuns
+        testRuns: [action.payload, ...state.testRuns]
+      };
+    },
+
+    [DELETE_MANY_TEST_RUNS_FULFILLED]: (state, action) => {
+      const { testRunIds } = action.meta;
+      const testRunIdsSet = new Set(testRunIds);
+      return {
+        ...state,
+        testRuns: state.testRuns.filter((testRun) => !testRunIdsSet.has(testRun.id))
       };
     }
   },

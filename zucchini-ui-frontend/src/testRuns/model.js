@@ -17,10 +17,6 @@ export async function createTestRun({ type, environment, name }) {
   };
 }
 
-export function deleteTestRun({ testRunId }) {
-  return testRunsApi.deleteTestRun({ testRunId });
-}
-
 export async function deleteManyTestRuns({ testRunIds }) {
   const results = testRunIds.map((testRunId) => {
     testRunsApi.deleteTestRun({ testRunId });
