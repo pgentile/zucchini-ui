@@ -67,7 +67,7 @@
     "redux-actions": "^2.2.1",
     "redux-form": "^8.1.0",
     "redux-promise-middleware": "^6.1.0",
-    "redux-thunk": "^2.2.0",
+    "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.13.2",
     "reselect": "^4.0.0"
   }
