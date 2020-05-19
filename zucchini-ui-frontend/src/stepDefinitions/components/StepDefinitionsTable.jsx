@@ -85,10 +85,10 @@ class StepDefinitionsRow extends React.Component {
     let variant;
     if (successRate >= 90) {
       variant = "success";
-    } else if (successRate >= 50 && successRate >= 90) {
+    } else if (successRate >= 50) {
       variant = "warning";
     } else {
-      variant = "badge-error";
+      variant = "error";
     }
 
     return (
