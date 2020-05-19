@@ -8,9 +8,9 @@
   "scripts": {
     "test": "cypress run",
     "cypress:open": "cypress open",
-    "lint": "eslint --ext .js ./cypress",
-    "fix": "eslint --fix --ext .js ./cypress",
-    "prettier": "prettier --write cypress/**/*.js"
+    "lint": "eslint --resolve-plugins-relative-to . --ext .js .",
+    "fix": "eslint --resolve-plugins-relative-to . --fix --ext .js .",
+    "prettier": "prettier --write **/*.js"
   },
   "devDependencies": {
     "@testing-library/cypress": "^6.0.0",

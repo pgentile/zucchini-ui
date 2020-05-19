@@ -4,8 +4,8 @@
   "scripts": {
     "start": "webpack-dev-server --debug --progress --open --mode=development",
     "build": "webpack --mode=production",
-    "lint": "eslint --ext .jsx,.js ./src/ ./test/",
-    "fix": "eslint --fix --ext .jsx,.js ./src/ ./test/",
+    "lint": "eslint --resolve-plugins-relative-to . --ext .jsx,.js ./src/ ./test/",
+    "fix": "eslint --resolve-plugins-relative-to . --fix --ext .jsx,.js ./src/ ./test/",
     "prettier": "prettier --write src/**/*.{js,jsx,scss} test/**/*.{js,jsx}",
     "test": "jest",
     "stats": "webpack --profile --json --mode=production >./build/stats.json",
