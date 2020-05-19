@@ -1,4 +1,5 @@
 /// <reference types="Cypress" />
+/// <reference types="testing-library__cypress" />
 
 describe("Scenario", () => {
   beforeEach(() => {
@@ -57,10 +58,14 @@ describe("Scenario", () => {
     cy.contains("button", "Modifier le statut").click();
 
     cy.get("[role=dialog]").within(() => {
+      cy.findByLabelText("Scénario analysé ?").should("be.checked");
+
+      /*
       cy.contains("label", "Scénario analysé ?").then((label) => {
         const targetId = label.attr("for");
         cy.get(`input#${targetId}`).should("be.checked");
       });
+      */
 
       cy.contains("label", "Échec").click();
 

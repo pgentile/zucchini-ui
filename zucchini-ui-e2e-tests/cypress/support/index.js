@@ -14,6 +14,7 @@
 // ***********************************************************
 
 import "cypress-file-upload";
+import "@testing-library/cypress/add-commands";
 
 import "./unfetch";
 import "./zucchiniApi";
