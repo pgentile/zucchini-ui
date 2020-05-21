@@ -1,150 +1,111 @@
+import React, { memo, useState } from "react";
 import PropTypes from "prop-types";
-import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Table from "react-bootstrap/Table";
-import Badge from "react-bootstrap/Badge";
 import Modal from "react-bootstrap/Modal";
+
 import Status from "../../ui/components/Status";
-import truncate from "lodash/truncate";
+import ReviewedStatus from "../../ui/components/ReviewedStatus";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Button from "react-bootstrap/Button";
 
-export default class FailuresTable extends React.Component {
-  static propTypes = {
-    failures: PropTypes.arrayOf(PropTypes.object).isRequired
-  };
+import "./FailuresTable.scss";
 
-  render() {
-    const { failures } = this.props;
-    const rows = failures.map((groupedFailures) => {
-      const nbFailedScenarii = groupedFailures.failedScenarii.length;
-      return groupedFailures.failedScenarii.map((failedScenario, index) => {
-        return (
-          <FailuresTableRow
-            key={index}
-            failedScenario={failedScenario}
-            isFirstFailure={index === 0}
-            nbFailedScenarii={nbFailedScenarii}
-          />
-        );
-      });
+function FailuresTable() {
+  const failures = useSelector((state) => state.failures.failures);
+
+  const rows = failures.flatMap((failure) => {
+    const { errorMessage, failedScenarii: scenarios } = failure;
+
+    const errorColumn = <ErrorMessageColumn errorMessage={errorMessage} rowSpan={scenarios.length} />;
+
+    return scenarios.map((scenario, index) => {
+      const isFirstRow = index === 0;
+      return <FailuresTableRow key={scenario.id} scenario={scenario} extraColumn={isFirstRow && errorColumn} />;
     });
+  });
 
-    return (
-      <Table bordered striped hover style={{ tableLayout: "fixed" }}>
-        <thead>
-          <tr>
-            <th>Erreur</th>
-            <th>Scénario</th>
-            <th>Statut</th>
-            <th>Analysé</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
-    );
-  }
+  return (
+    <Table bordered striped>
+      <thead>
+        <tr>
+          <th>Erreur</th>
+          <th>Scénario</th>
+          <th>Statut</th>
+          <th>Analysé</th>
+        </tr>
+      </thead>
+      <tbody>{rows}</tbody>
+    </Table>
+  );
 }
 
-class FailuresTableRow extends React.Component {
-  static propTypes = {
-    failedScenario: PropTypes.object.isRequired,
-    isFirstFailure: PropTypes.bool.isRequired,
-    nbFailedScenarii: PropTypes.number.isRequired
-  };
+export default memo(FailuresTable);
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      showErrorMsgDetails: false
-    };
-  }
-
-  onShowErrorMsg = () => {
-    this.setState({
-      showErrorMsgDetails: true
-    });
-  };
-
-  onHideErrorMsg = () => {
-    this.setState({
-      showErrorMsgDetails: false
-    });
-  };
-
-  createErrorMessageCell(rowSpan, errorMessage) {
-    const cellStyle = {
-      overflow: "hidden",
-      textOverflow: "ellipsis"
-    };
-
-    return (
-      <td rowSpan={rowSpan} style={cellStyle}>
-        {truncate(errorMessage, { length: 300 })}
-        <br />
-        <a onClick={this.onShowErrorMsg}>
-          <b>Détails</b>
-        </a>
-        <FailuresDetailsDialog
-          errorMessage={errorMessage}
-          show={this.state.showErrorMsgDetails}
-          onClose={this.onHideErrorMsg}
-        />
+function FailuresTableRow({ extraColumn, scenario }) {
+  return (
+    <tr>
+      {extraColumn}
+      <td>
+        <Link to={`/scenarios/${scenario.id}`}>
+          <b>{scenario.info.keyword}</b> {scenario.info.name}
+        </Link>
       </td>
-    );
-  }
-
-  render() {
-    const { failedScenario, isFirstFailure, nbFailedScenarii } = this.props;
-
-    let errorMessageRow;
-    if (isFirstFailure) {
-      errorMessageRow = this.createErrorMessageCell(nbFailedScenarii, failedScenario.errorMessage);
-    }
-    return (
-      <tr key={failedScenario}>
-        {errorMessageRow}
-        <td>
-          <Link to={`/scenarios/${failedScenario.id}`}>
-            <b>{failedScenario.info.keyword}</b> {failedScenario.info.name}
-          </Link>
-        </td>
-        <td>
-          <Status status={failedScenario.status} />
-        </td>
-        <td>
-          <Badge variant={failedScenario.reviewed ? "secondary" : "light"}>
-            {failedScenario.reviewed ? "Oui" : "Non"}
-          </Badge>
-        </td>
-      </tr>
-    );
-  }
+      <td>
+        <Status status={scenario.status} />
+      </td>
+      <td>
+        <ReviewedStatus reviewed={scenario.reviewed} />
+      </td>
+    </tr>
+  );
 }
 
-class FailuresDetailsDialog extends React.PureComponent {
-  static propTypes = {
-    show: PropTypes.bool.isRequired,
-    errorMessage: PropTypes.string.isRequired,
-    onClose: PropTypes.func.isRequired
-  };
+FailuresTableRow.propTypes = {
+  extraColumn: PropTypes.node,
+  scenario: PropTypes.object.isRequired
+};
 
-  onCloseClick = (event) => {
-    if (event) {
-      event.preventDefault();
-    }
-    this.props.onClose();
-  };
+function ErrorMessageColumn({ errorMessage, rowSpan }) {
+  const [showDetails, setShowDetails] = useState(false);
 
-  render() {
-    const { show, errorMessage } = this.props;
-    return (
-      <Modal size="lg" dialogClassName="details-modal-dialog" show={show} onHide={this.onCloseClick}>
-        <Modal.Header closeButton>
-          <Modal.Title>{"Détails de l'erreur"}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <pre>{errorMessage}</pre>
-        </Modal.Body>
-      </Modal>
-    );
-  }
+  const handleShowDetails = () => setShowDetails(true);
+  const handleCloseDetails = () => setShowDetails(false);
+
+  return (
+    <td rowSpan={rowSpan}>
+      <pre className="mb-2 failure-table-error-message-resume">{errorMessage}</pre>
+      <ButtonGroup>
+        <Button variant="outline-dark" size="sm" onClick={handleShowDetails}>
+          Afficher l&apos;erreur&hellip;
+        </Button>
+      </ButtonGroup>
+      <ErrorDetailsDialog errorMessage={errorMessage} show={showDetails} onClose={handleCloseDetails} />
+    </td>
+  );
 }
+
+ErrorMessageColumn.propTypes = {
+  errorMessage: PropTypes.string.isRequired,
+  rowSpan: PropTypes.number
+};
+
+function ErrorDetailsDialog({ show, errorMessage, onClose }) {
+  return (
+    <Modal size="lg" show={show} onHide={onClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Détails de l&apos;erreur</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <pre className="m-0">{errorMessage}</pre>
+      </Modal.Body>
+    </Modal>
+  );
+}
+
+ErrorDetailsDialog.propTypes = {
+  show: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired
+};

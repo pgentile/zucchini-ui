@@ -17,7 +17,7 @@ const ScenarioPageContainer = lazy(() => import("./scenario/components/ScenarioP
 const TagsPage = lazy(() => import("./tags/components/TagsPage"));
 const TagDetailsPage = lazy(() => import("./tagDetails/components/TagDetailsPage"));
 const TestRunDiffPageContainer = lazy(() => import("./testRunDiff/components/TestRunDiffPageContainer"));
-const FailuresPageContainer = lazy(() => import("./failures/components/FailuresPageContainer"));
+const FailuresPage = lazy(() => import("./failures/components/FailuresPage"));
 const ReportsPageContainer = lazy(() => import("./reports/components/ReportsPageContainer"));
 const StepDefinitionsPageContainer = lazy(() => import("./stepDefinitions/components/StepDefinitionsPageContainer"));
 
@@ -34,7 +34,7 @@ export default function AppRouter() {
                 <Route exact path="/test-runs/:testRunId" component={TestRunPageContainer} />
                 <Route exact path="/test-runs/:testRunId/search" component={TestRunSearchPage} />
                 <Route exact path="/test-runs/:testRunId/tags" component={TagsPage} />
-                <Route exact path="/test-runs/:testRunId/failures" component={FailuresPageContainer} />
+                <Route exact path="/test-runs/:testRunId/failures" component={FailuresPage} />
                 <Route exact path="/test-runs/:testRunId/reports" component={ReportsPageContainer} />
                 <Route exact path="/test-runs/:testRunId/tag-details" component={TagDetailsPage} />
                 <Route exact path="/test-runs/:testRunId/diff" component={TestRunDiffPageContainer} />

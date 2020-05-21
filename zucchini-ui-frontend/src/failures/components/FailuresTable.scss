@@ -1,0 +1,9 @@
+.failure-table {
+  table-layout: fixed;
+
+  &-error-message-resume {
+    max-width: 30em;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+  }
+}

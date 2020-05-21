@@ -1,43 +1,64 @@
+import React, { memo } from "react";
 import PropTypes from "prop-types";
-import React from "react";
-import Badge from "react-bootstrap/Badge";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import Status from "../../ui/components/Status";
 
-export default class ProgressBarStats extends React.PureComponent {
-  static propTypes = {
-    stats: PropTypes.object.isRequired
-  };
+function StatsProgressBar({ stats }) {
+  const bars = [
+    {
+      statName: "passed",
+      status: "PASSED",
+      variant: "success"
+    },
+    {
+      statName: "pending",
+      status: "PENDING",
+      variant: "warning"
+    },
+    {
+      statName: "failed",
+      status: "FAILED",
+      variant: "danger"
+    },
+    {
+      statName: "notRun",
+      status: "NOT_RUN",
+      variant: "dark"
+    }
+  ];
 
-  render() {
-    const { stats } = this.props;
-    const success = (stats.all.passed * 100) / stats.all.count;
-    const pending = (stats.all.pending * 100) / stats.all.count;
-    const failed = (stats.all.failed * 100) / stats.all.count;
-    const notRun = (stats.all.notRun * 100) / stats.all.count;
+  const progressBars = bars
+    .map((bar) => {
+      const value = stats[bar.statName];
+      return { ...bar, value };
+    })
+    .filter(({ value }) => value > 0)
+    .map(({ statName, variant, value }) => {
+      const valueInPercent = (value / stats.count) * 100;
+      const label = `${Math.round(valueInPercent)}%`;
+      return (
+        <ProgressBar key={statName} variant={variant} now={valueInPercent} label={label} srOnly={valueInPercent < 20} />
+      );
+    });
 
+  const listItems = bars.map(({ statName, status }) => {
     return (
-      <div>
-        <ProgressBar style={{ marginBottom: "0" }}>
-          <ProgressBar variant="success" now={success} key={1} label={`${Math.round(success)}%`} />
-          <ProgressBar variant="dark" now={notRun} key={2} />
-          <ProgressBar variant="warning" now={pending} key={3} />
-          <ProgressBar active variant="danger" now={failed} key={4} />
-        </ProgressBar>
-        <h5>
-          <Badge variant="success" style={{ marginRight: "1em" }}>
-            Succès
-          </Badge>
-          <Badge variant="dark" style={{ marginRight: "1em" }}>
-            Non Joués
-          </Badge>
-          <Badge variant="warning" style={{ marginRight: "1em" }}>
-            En attente
-          </Badge>
-          <Badge variant="danger" style={{ marginRight: "1em" }}>
-            Échecs
-          </Badge>
-        </h5>
-      </div>
+      <li key={statName} className="list-inline-item">
+        <Status status={status} />
+      </li>
     );
-  }
+  });
+
+  return (
+    <>
+      <ProgressBar className="mb-3">{progressBars}</ProgressBar>
+      <ul className="list-inline">{listItems}</ul>
+    </>
+  );
 }
+
+StatsProgressBar.propTypes = {
+  stats: PropTypes.object.isRequired
+};
+
+export default memo(StatsProgressBar);

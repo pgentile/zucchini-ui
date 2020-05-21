@@ -1,53 +1,36 @@
-import PropTypes from "prop-types";
-import React, { Fragment } from "react";
-import toNiceDate from "../../ui/toNiceDate";
+import React, { Fragment, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouteMatch } from "react-router-dom";
 
-import FailuresTableContainer from "./FailuresTableContainer";
+import toNiceDate from "../../ui/toNiceDate";
+import FailuresTable from "./FailuresTable";
 import StatsProgressBar from "../../stats/components/StatsProgressBar";
 import Page from "../../ui/components/Page";
-import FailuresBreadcrumbContainer from "../../reports/components/ReportsBreadcrumbContainer";
+import FailuresBreadcrumbContainer from "./FailuresBreadcrumbContainer";
+import { loadTestRunFailuresPage } from "../redux";
 
-export default class FailuresPage extends React.Component {
-  static propTypes = {
-    testRunId: PropTypes.string.isRequired,
-    testRun: PropTypes.object,
-    failures: PropTypes.object,
-    stats: PropTypes.object,
-    onLoad: PropTypes.func.isRequired
-  };
+export default function FailuresPage() {
+  const dispatch = useDispatch();
+  const { testRunId } = useRouteMatch().params;
+  const testRun = useSelector((state) => state.testRun.testRun);
+  const stats = useSelector((state) => state.testRun.stats.all);
 
-  componentDidMount() {
-    this.loadTestRunFailuresIfPossible();
-  }
+  useEffect(() => {
+    dispatch(loadTestRunFailuresPage({ testRunId }));
+  }, [dispatch, testRunId]);
 
-  componentDidUpdate(prevProps) {
-    this.loadTestRunFailuresIfPossible(prevProps);
-  }
-
-  loadTestRunFailuresIfPossible(prevProps = {}) {
-    const { testRunId } = this.props;
-
-    if (testRunId !== prevProps.testRunId) {
-      this.props.onLoad({ testRunId });
-    }
-  }
-
-  render() {
-    const { testRun, stats } = this.props;
-
-    return (
-      <Page
-        title={
-          <Fragment>
-            Échecs <small className="text-muted">{`Tir du ${toNiceDate(testRun.date)}`}</small>
-          </Fragment>
-        }
-        breadcrumb={<FailuresBreadcrumbContainer />}
-      >
-        <StatsProgressBar stats={stats} />
-        <hr />
-        <FailuresTableContainer />
-      </Page>
-    );
-  }
+  return (
+    <Page
+      title={
+        <Fragment>
+          Échecs <small className="text-muted">{`Tir du ${toNiceDate(testRun.date)}`}</small>
+        </Fragment>
+      }
+      breadcrumb={<FailuresBreadcrumbContainer />}
+    >
+      <StatsProgressBar stats={stats} />
+      <hr />
+      <FailuresTable />
+    </Page>
+  );
 }
