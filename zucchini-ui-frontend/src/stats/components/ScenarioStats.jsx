@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -71,7 +71,7 @@ ScenarioStats.propTypes = {
   stats: PropTypes.object.isRequired
 };
 
-export default ScenarioStats;
+export default memo(ScenarioStats);
 
 function ChartCard({ title, chart, legend }) {
   const showDetails = useSelector(selectShowDetails);
