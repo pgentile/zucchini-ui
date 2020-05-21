@@ -39,9 +39,12 @@ export default function LoadingIndicator() {
       scheduleBarState({ start: true });
       scheduleBarState({ pending: true });
     } else {
-      scheduleBarState({ ending: true }, 100);
-      scheduleBarState({ done: true }, 200);
-      scheduleBarState(inactiveBarState);
+      const handle = setTimeout(() => {
+        scheduleBarState({ ending: true });
+        scheduleBarState({ done: true }, 200);
+        scheduleBarState(inactiveBarState);
+      });
+      return () => clearTimeout(handle);
     }
   }, [active, scheduleBarState]);
 
