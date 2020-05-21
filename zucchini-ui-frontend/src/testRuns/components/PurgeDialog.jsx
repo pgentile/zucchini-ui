@@ -17,7 +17,7 @@ import { purgeTestRuns } from "../redux";
 
 const LOCAL_DATE_FORMAT = "yyyy-MM-dd";
 
-export default function PurgeDialog({ currentSelectedType, purgeDelayInDays = 90, onClose }) {
+export default function PurgeDialog({ show, currentSelectedType, purgeDelayInDays = 90, onClose }) {
   const dispatch = useDispatch();
 
   const [type, setType] = useState(currentSelectedType);
@@ -78,7 +78,7 @@ export default function PurgeDialog({ currentSelectedType, purgeDelayInDays = 90
   }
 
   return (
-    <Modal show onHide={handleClose}>
+    <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Purger les anciens tirs</Modal.Title>
       </Modal.Header>
@@ -109,6 +109,7 @@ export default function PurgeDialog({ currentSelectedType, purgeDelayInDays = 90
 }
 
 PurgeDialog.propTypes = {
+  show: PropTypes.bool.isRequired,
   currentSelectedType: PropTypes.string,
   purgeDelayInDays: PropTypes.number,
   onClose: PropTypes.func.isRequired

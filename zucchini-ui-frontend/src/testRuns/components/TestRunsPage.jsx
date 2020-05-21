@@ -64,10 +64,18 @@ export default function TestRunsPage() {
       <hr />
       <TestRunTypeFilter />
       <TestRunsTable selectedType={selectedType} />
-      {showCreateTestRunDialog && (
-        <CreateTestRunDialog currentSelectedType={selectedType} onClose={hideCreateTestRunDialog} />
-      )}
-      {showPurgeDialog && <PurgeDialog currentSelectedType={selectedType} onClose={hidePurgeDialog} />}
+      <CreateTestRunDialog
+        key={`create-dialog-${selectedType}`}
+        show={showCreateTestRunDialog}
+        currentSelectedType={selectedType}
+        onClose={hideCreateTestRunDialog}
+      />
+      <PurgeDialog
+        key={`purge-dialog-${selectedType}`}
+        show={showPurgeDialog}
+        currentSelectedType={selectedType}
+        onClose={hidePurgeDialog}
+      />
     </Page>
   );
 }

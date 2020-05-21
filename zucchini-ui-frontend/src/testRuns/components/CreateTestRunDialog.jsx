@@ -10,7 +10,7 @@ import FormControl from "react-bootstrap/FormControl";
 import Button from "../../ui/components/Button";
 import { createTestRun } from "../redux";
 
-export default function CreateTestRunDialog({ currentSelectedType, onClose }) {
+export default function CreateTestRunDialog({ show, currentSelectedType, onClose }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -60,7 +60,7 @@ export default function CreateTestRunDialog({ currentSelectedType, onClose }) {
   };
 
   return (
-    <Modal show onHide={handleCloseClick}>
+    <Modal show={show} onHide={handleCloseClick}>
       <Modal.Header closeButton>
         <Modal.Title>Créer un tir</Modal.Title>
       </Modal.Header>
@@ -91,6 +91,7 @@ export default function CreateTestRunDialog({ currentSelectedType, onClose }) {
 }
 
 CreateTestRunDialog.propTypes = {
+  show: PropTypes.bool.isRequired,
   currentSelectedType: PropTypes.string,
   onClose: PropTypes.func.isRequired
 };
