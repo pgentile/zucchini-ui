@@ -1,80 +1,81 @@
+import React, { useMemo, memo } from "react";
 import PropTypes from "prop-types";
-import React from "react";
+import { useRouteMatch } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Table from "react-bootstrap/Table";
 
 import Status from "../../ui/components/Status";
 import Tag from "../../ui/components/Tag";
 import CounterBadge from "../../ui/components/CounterBadge";
 
-export default class TagsTable extends React.Component {
-  static propTypes = {
-    testRunId: PropTypes.string.isRequired,
-    tags: PropTypes.arrayOf(PropTypes.object).isRequired
-  };
+function TagsTable() {
+  const tags = useSelector((state) => state.tags.tags);
+  const filter = useSelector((state) => state.tags.filter);
 
-  render() {
-    const { tags, testRunId } = this.props;
+  const filteredTags = useMemo(() => {
+    if (filter) {
+      const filterLowerCase = filter.toLowerCase();
+      return tags.filter((tag) => tag.tag.toLowerCase().startsWith(filterLowerCase));
+    }
+    return tags;
+  }, [tags, filter]);
 
-    const rows = tags.map((tag) => {
-      return <TagsTableRow key={tag.tag} tag={tag} testRunId={testRunId} />;
-    });
+  const rows = filteredTags.map((tag) => <TagsTableRow key={tag.tag} tag={tag} />);
 
-    return (
-      <Table bordered striped hover>
-        <thead>
-          <tr>
-            <th>Tag</th>
-            <th>Statut</th>
-            <th>Total</th>
-            <th>Succès</th>
-            <th>Échecs</th>
-            <th>En attente</th>
-            <th>Non joués</th>
-            <th>Analysés</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
-    );
-  }
+  return (
+    <Table bordered striped hover>
+      <thead>
+        <tr>
+          <th>Tag</th>
+          <th>Statut</th>
+          <th>Total</th>
+          <th>Succès</th>
+          <th>Échecs</th>
+          <th>En attente</th>
+          <th>Non joués</th>
+          <th>Analysés</th>
+        </tr>
+      </thead>
+      <tbody>{rows}</tbody>
+    </Table>
+  );
 }
 
-class TagsTableRow extends React.PureComponent {
-  static propTypes = {
-    testRunId: PropTypes.string.isRequired,
-    tag: PropTypes.object.isRequired
-  };
+export default memo(TagsTable);
 
-  render() {
-    const { tag, testRunId } = this.props;
+const TagsTableRow = memo(function TagsTableRow({ tag }) {
+  const { testRunId } = useRouteMatch().params;
 
-    return (
-      <tr>
-        <td>
-          <Tag testRunId={testRunId} tag={tag.tag} />
-        </td>
-        <td>
-          <Status status={tag.status} />
-        </td>
-        <td>
-          <CounterBadge>{tag.stats.all.count}</CounterBadge>
-        </td>
-        <td>
-          <CounterBadge>{tag.stats.all.passed}</CounterBadge>
-        </td>
-        <td>
-          <CounterBadge>{tag.stats.all.failed}</CounterBadge>
-        </td>
-        <td>
-          <CounterBadge>{tag.stats.all.pending}</CounterBadge>
-        </td>
-        <td>
-          <CounterBadge>{tag.stats.all.notRun}</CounterBadge>
-        </td>
-        <td>
-          <CounterBadge>{tag.stats.reviewed.count}</CounterBadge>
-        </td>
-      </tr>
-    );
-  }
-}
+  return (
+    <tr>
+      <td>
+        <Tag testRunId={testRunId} tag={tag.tag} />
+      </td>
+      <td>
+        <Status status={tag.status} />
+      </td>
+      <td>
+        <CounterBadge>{tag.stats.all.count}</CounterBadge>
+      </td>
+      <td>
+        <CounterBadge>{tag.stats.all.passed}</CounterBadge>
+      </td>
+      <td>
+        <CounterBadge>{tag.stats.all.failed}</CounterBadge>
+      </td>
+      <td>
+        <CounterBadge>{tag.stats.all.pending}</CounterBadge>
+      </td>
+      <td>
+        <CounterBadge>{tag.stats.all.notRun}</CounterBadge>
+      </td>
+      <td>
+        <CounterBadge>{tag.stats.reviewed.count}</CounterBadge>
+      </td>
+    </tr>
+  );
+});
+
+TagsTableRow.propTypes = {
+  tag: PropTypes.object.isRequired
+};

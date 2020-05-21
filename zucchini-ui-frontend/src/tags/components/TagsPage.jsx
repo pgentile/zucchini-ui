@@ -1,50 +1,36 @@
-import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouteMatch } from "react-router-dom";
 
-import TagFilterFormContainer from "./TagFilterFormContainer";
-import TagsTableContainer from "./TagsTableContainer";
+import TagFilterForm from "./TagFilterForm";
+import TagsTable from "./TagsTable";
 import toNiceDate from "../../ui/toNiceDate";
 import Page from "../../ui/components/Page";
 import TagsBreadcrumbContainer from "./TagsBreadcrumbContainer";
+import { loadTestRunTagsPage } from "../redux";
 
-export default class TagsPage extends React.Component {
-  static propTypes = {
-    testRunId: PropTypes.string.isRequired,
-    testRun: PropTypes.object,
-    onLoad: PropTypes.func.isRequired
-  };
+export default function TagsPage() {
+  const { testRunId } = useRouteMatch().params;
 
-  componentDidMount() {
-    this.loadTestRunIfPossible();
-  }
+  const dispatch = useDispatch();
 
-  componentDidUpdate(prevProps) {
-    this.loadTestRunIfPossible(prevProps);
-  }
+  useEffect(() => {
+    dispatch(loadTestRunTagsPage({ testRunId }));
+  }, [dispatch, testRunId]);
 
-  loadTestRunIfPossible(prevProps = {}) {
-    const { testRunId } = this.props;
+  const testRun = useSelector((state) => state.testRun.testRun);
 
-    if (testRunId !== prevProps.testRunId) {
-      this.props.onLoad({ testRunId });
-    }
-  }
-
-  render() {
-    const { testRunId, testRun } = this.props;
-
-    return (
-      <Page
-        title={
-          <Fragment>
-            Tous les tags <small className="text-muted">{`Tir du ${toNiceDate(testRun.date)}`}</small>
-          </Fragment>
-        }
-        breadcrumb={<TagsBreadcrumbContainer />}
-      >
-        <TagFilterFormContainer />
-        <TagsTableContainer testRunId={testRunId} />
-      </Page>
-    );
-  }
+  return (
+    <Page
+      title={
+        <>
+          Tous les tags <small className="text-muted">{`Tir du ${toNiceDate(testRun.date)}`}</small>
+        </>
+      }
+      breadcrumb={<TagsBreadcrumbContainer />}
+    >
+      <TagFilterForm />
+      <TagsTable />
+    </Page>
+  );
 }

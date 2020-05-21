@@ -1,54 +1,70 @@
-import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useCallback, useState, useMemo } from "react";
+import { useDispatch } from "react-redux";
 import FormGroup from "react-bootstrap/FormGroup";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
-import { reduxForm, Field } from "redux-form";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import debounce from "lodash/debounce";
 
 import Button from "../../ui/components/Button";
+import { setTagFilter } from "../redux";
 
-class TagFilterForm extends React.PureComponent {
-  static propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
-    reset: PropTypes.func.isRequired,
-    onFilterChange: PropTypes.func.isRequired
+export default function TagFilterForm() {
+  const [filter, setFilter] = useState("");
+
+  const dispatch = useDispatch();
+
+  const updateStoreFilter = useMemo(() => {
+    const dispatchFilterChange = (filter) => dispatch(setTagFilter({ filter }));
+    return debounce(dispatchFilterChange, 200);
+  }, [dispatch]);
+
+  const updateFilter = useCallback(
+    (filter, immediate = false) => {
+      setFilter(filter);
+      updateStoreFilter(filter);
+      if (immediate) {
+        updateStoreFilter.flush();
+      }
+    },
+    [updateStoreFilter]
+  );
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    updateFilter(filter, true);
   };
 
-  onClearFilter = () => {
-    this.props.reset();
+  const handleFilterChange = (event) => {
+    updateFilter(event.target.value);
   };
 
-  renderField = ({ input, meta, ...otherProps }) => {
-    // eslint-disable-line no-unused-vars
-    return <FormControl {...input} {...otherProps} />;
+  const handleFilterClear = () => {
+    updateFilter("", true);
   };
 
-  render() {
-    const { handleSubmit } = this.props;
+  useEffect(() => {
+    return () => updateFilter("", true);
+  }, [updateFilter]);
 
-    return (
-      <form onSubmit={handleSubmit}>
-        <FormGroup controlId="filter">
-          <InputGroup size="lg">
-            <Field
-              name="filter"
-              component={this.renderField}
-              placeholder="Entrez les premières lettres d'un tag&hellip;"
-            />
-            <InputGroup.Append>
-              <Button icon={faTimesCircle} iconOnly onClick={this.onClearFilter}>
-                Effacer
-              </Button>
-            </InputGroup.Append>
-          </InputGroup>
-        </FormGroup>
-      </form>
-    );
-  }
+  return (
+    <form onSubmit={handleSubmit}>
+      <FormGroup controlId="filter">
+        <InputGroup size="lg">
+          <FormControl
+            type="text"
+            value={filter}
+            onChange={handleFilterChange}
+            placeholder="Entrez les premières lettres d'un tag&hellip;"
+          />
+          <InputGroup.Append>
+            <Button icon={faTimesCircle} iconOnly onClick={handleFilterClear}>
+              Effacer
+            </Button>
+          </InputGroup.Append>
+        </InputGroup>
+      </FormGroup>
+    </form>
+  );
 }
-
-export default reduxForm({
-  form: "tagFilter",
-  onSubmit: () => {}
-})(TagFilterForm);
