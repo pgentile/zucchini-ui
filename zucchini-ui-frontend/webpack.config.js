@@ -54,7 +54,12 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         enforce: "pre",
-        use: ["eslint-loader"]
+        use: {
+          loader: "eslint-loader",
+          options: {
+            resolvePluginsRelativeTo: __dirname
+          }
+        }
       },
       {
         test: /\.jsx?$/,
