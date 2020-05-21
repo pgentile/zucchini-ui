@@ -46,7 +46,7 @@ export default class Step extends React.PureComponent {
     }
 
     return (
-      <div>
+      <>
         {filters.comments && step.comment && <SimpleText className="text-muted" text={step.comment} />}
 
         <p>
@@ -57,7 +57,7 @@ export default class Step extends React.PureComponent {
         {filters.errorDetails && errorMessage}
         {filters.logs && logs}
         {filters.attachments && attachments}
-      </div>
+      </>
     );
   }
 }

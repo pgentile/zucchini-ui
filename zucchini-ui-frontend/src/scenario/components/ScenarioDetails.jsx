@@ -68,7 +68,7 @@ export default class ScenarioDetails extends React.PureComponent {
     );
 
     return (
-      <div style={{ position: "relative" }}>
+      <>
         <p>
           <OverlayTrigger rootClose trigger="click" placement="bottom" overlay={stepFilters}>
             <Button variant="outline-secondary" size="sm">
@@ -82,7 +82,7 @@ export default class ScenarioDetails extends React.PureComponent {
         {filters.context && backgroundSteps}
         {steps}
         {filters.beforeAndAfterActions && afterActions}
-      </div>
+      </>
     );
   }
 }
