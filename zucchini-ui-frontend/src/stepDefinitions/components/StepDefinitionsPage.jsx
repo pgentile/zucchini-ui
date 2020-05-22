@@ -1,49 +1,32 @@
-import PropTypes from "prop-types";
-import React, { Fragment } from "react";
-import toNiceDate from "../../ui/toNiceDate";
+import React, { Fragment, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouteMatch } from "react-router-dom";
 
-import StepDefinitionsTableContainer from "./StepDefinitionsTableContainer";
+import toNiceDate from "../../ui/toNiceDate";
+import StepDefinitionsTable from "./StepDefinitionsTable";
 import Page from "../../ui/components/Page";
 import StepDefinitionsBreadcrumbContainer from "./StepDefinitionsBreadcrumbContainer";
+import { loadTestRunStepDefinitionsPage } from "../redux";
 
-export default class StepDefinitionsPage extends React.Component {
-  static propTypes = {
-    testRunId: PropTypes.string.isRequired,
-    testRun: PropTypes.object,
-    stepDefinitions: PropTypes.object,
-    onLoad: PropTypes.func.isRequired
-  };
+export default function StepDefinitionsPage() {
+  const dispatch = useDispatch();
+  const { testRunId } = useRouteMatch().params;
+  const testRun = useSelector((state) => state.testRun.testRun);
 
-  componentDidMount() {
-    this.loadTestRunStepDefinitionsIfPossible();
-  }
+  useEffect(() => {
+    dispatch(loadTestRunStepDefinitionsPage({ testRunId }));
+  }, [dispatch, testRunId]);
 
-  componentDidUpdate(prevProps) {
-    this.loadTestRunStepDefinitionsIfPossible(prevProps);
-  }
-
-  loadTestRunStepDefinitionsIfPossible(prevProps = {}) {
-    const { testRunId } = this.props;
-
-    if (testRunId !== prevProps.testRunId) {
-      this.props.onLoad({ testRunId });
-    }
-  }
-
-  render() {
-    const { testRun } = this.props;
-
-    return (
-      <Page
-        title={
-          <Fragment>
-            Glues <small className="text-muted">{`Tir du ${toNiceDate(testRun.date)}`}</small>
-          </Fragment>
-        }
-        breadcrumb={<StepDefinitionsBreadcrumbContainer />}
-      >
-        <StepDefinitionsTableContainer />
-      </Page>
-    );
-  }
+  return (
+    <Page
+      title={
+        <Fragment>
+          Glues <small className="text-muted">{`Tir du ${toNiceDate(testRun.date)}`}</small>
+        </Fragment>
+      }
+      breadcrumb={<StepDefinitionsBreadcrumbContainer />}
+    >
+      <StepDefinitionsTable />
+    </Page>
+  );
 }

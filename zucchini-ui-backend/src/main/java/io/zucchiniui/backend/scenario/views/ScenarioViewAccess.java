@@ -206,14 +206,14 @@ public class ScenarioViewAccess {
         final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator).project("steps", true);
         List<Step> steps = MorphiaUtils.streamQuery(query)
             .flatMap(scenario -> scenario.getSteps().stream())
-            .filter(step -> step.getDefinitionLocation() != null)
+            .filter(step -> step.getDefinitionSource() != null)
             .collect(Collectors.toList());
 
         final List<GroupedStepsListItemView> groupedSteps = new ArrayList<>();
         steps.forEach(step -> {
             boolean matchFound = false;
             for (GroupedStepsListItemView current : groupedSteps) {
-                if (current.getStepDefinitionLocation().equals(step.getDefinitionLocation())) {
+                if (current.getDefinitionSource().equals(step.getDefinitionSource())) {
                     current.addOccurrence(step);
                     matchFound = true;
                     break;
@@ -224,7 +224,7 @@ public class ScenarioViewAccess {
                 GroupedStepsListItemView noMatch = new GroupedStepsListItemView();
                 noMatch.setOccurrences(new TreeSet<>(Comparator.comparing(s -> s.getInfo().getName())));
                 noMatch.addOccurrence(step);
-                noMatch.setStepDefinitionLocation(step.getDefinitionLocation());
+                noMatch.setDefinitionSource(step.getDefinitionSource());
                 groupedSteps.add(noMatch);
             }
         });

@@ -9,7 +9,7 @@ public class StepBuilder {
 
     private BasicInfo info;
 
-    private Location definitionLocation;
+    private String definitionSource;
 
     private StepStatus status = StepStatus.NOT_RUN;
 
@@ -58,8 +58,8 @@ public class StepBuilder {
         return this;
     }
 
-    public StepBuilder withDefinitionLocation(Location definitionLocation) {
-        this.definitionLocation = definitionLocation;
+    public StepBuilder withDefinitionSource(String definitionSource) {
+        this.definitionSource = definitionSource;
         return this;
     }
 
@@ -95,8 +95,8 @@ public class StepBuilder {
         return attachments;
     }
 
-    public Location getDefinitionLocation() {
-        return definitionLocation;
+    public String getDefinitionSource() {
+        return definitionSource;
     }
 
 }
