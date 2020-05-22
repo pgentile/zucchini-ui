@@ -2,10 +2,10 @@
 
 const path = require("path");
 const webpack = require("webpack");
-const TerserPlugin = require('terser-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
 // Output dir
 const outputDir = path.join(__dirname, "build/dist/assets");
@@ -33,7 +33,7 @@ module.exports = {
     inline: true,
     compress: true,
     historyApiFallback: true,
-    before: app => {
+    before: (app) => {
       app.get("/", (req, res) => {
         res.redirect("/ui/");
       });
@@ -67,12 +67,19 @@ module.exports = {
         use: ["babel-loader?cacheDirectory"]
       },
       {
-        test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader?sourceMap", "postcss-loader?sourceMap"]
-      },
-      {
-        test: /\.scss$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader?sourceMap", "postcss-loader?sourceMap", "sass-loader?sourceMap"]
+        test: /\.s?css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true,
+              importLoaders: 2
+            }
+          },
+          "postcss-loader?sourceMap",
+          "sass-loader?sourceMap"
+        ]
       },
       {
         test: /\.(ttf|eot|woff2?|svg|png|jpg|gif)$/,
@@ -81,10 +88,7 @@ module.exports = {
     ]
   },
   optimization: {
-    minimizer: [
-      new TerserPlugin(),
-      new OptimizeCSSAssetsPlugin({})
-    ],
+    minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin({})],
     splitChunks: {
       chunks: "all"
     }
@@ -94,7 +98,7 @@ module.exports = {
 
     // Replace lodash-es imports by equivalent lodash imports.
     // Otherwise, same lodash functions can be loaded twice !
-    new webpack.NormalModuleReplacementPlugin(/lodash-es/, resource => {
+    new webpack.NormalModuleReplacementPlugin(/lodash-es/, (resource) => {
       resource.request = resource.request.replace("lodash-es", "lodash");
     }),
 

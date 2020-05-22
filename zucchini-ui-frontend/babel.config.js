@@ -1,5 +1,9 @@
-module.exports = api => {
-  const testEnv = api.env(envName => envName === "test");
+const package = require("./package.json");
+
+const babelRuntimeVersion = package.dependencies["@babel/runtime"];
+
+module.exports = (api) => {
+  const testEnv = api.env((envName) => envName === "test");
 
   let envPresetConfig = {
     modules: false,
@@ -17,7 +21,19 @@ module.exports = api => {
   }
 
   return {
-    plugins: ["@babel/plugin-proposal-class-properties", "babel-plugin-lodash"],
+    plugins: [
+      "@babel/plugin-proposal-class-properties",
+      "babel-plugin-lodash",
+      [
+        "@babel/plugin-transform-runtime",
+        {
+          helpers: true,
+          corejs: false,
+          useESModules: true,
+          version: babelRuntimeVersion
+        }
+      ]
+    ],
     presets: [
       "@babel/preset-react",
       [
