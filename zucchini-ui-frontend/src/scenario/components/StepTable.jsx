@@ -2,6 +2,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import Table from "react-bootstrap/Table";
 
+import "./StepTable.scss";
+
 export default class StepTable extends React.PureComponent {
   static propTypes = {
     table: PropTypes.arrayOf(PropTypes.array).isRequired
@@ -21,7 +23,7 @@ export default class StepTable extends React.PureComponent {
     });
 
     return (
-      <Table bordered style={{ width: "auto" }}>
+      <Table bordered size="sm" className="step-table">
         <tbody>{rows}</tbody>
       </Table>
     );
