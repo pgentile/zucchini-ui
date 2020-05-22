@@ -1,8 +1,9 @@
-import PropTypes from "prop-types";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import FormGroup from "react-bootstrap/FormGroup";
 
 import FilterCheckboxes from "../../ui/components/FilterCheckboxes";
+import { updateScenarioFilters } from "../redux";
 
 const LABELS = {
   passed: "Succès",
@@ -13,26 +14,17 @@ const LABELS = {
   notReviewed: "Non analysés"
 };
 
-export default class ScenarioStateFilter extends React.PureComponent {
-  onFilterChange = (filters) => {
-    this.props.onFilterChange(filters);
+export default function ScenarioStateFilter() {
+  const dispatch = useDispatch();
+  const filters = useSelector((state) => state.scenarioFilters);
+
+  const handleFilterChange = (updatedFilters) => {
+    dispatch(updateScenarioFilters(updatedFilters));
   };
 
-  render() {
-    const { filters } = this.props;
-
-    return (
-      <div className="form" style={{ marginBottom: "10px" }}>
-        <FormGroup>
-          Filtrer les scénarios :{" "}
-          <FilterCheckboxes labels={LABELS} filters={filters} onFilterChange={this.onFilterChange} />
-        </FormGroup>
-      </div>
-    );
-  }
+  return (
+    <FormGroup className="mb-2">
+      Filtrer les scénarios : <FilterCheckboxes labels={LABELS} filters={filters} onFilterChange={handleFilterChange} />
+    </FormGroup>
+  );
 }
-
-ScenarioStateFilter.propTypes = {
-  filters: PropTypes.object.isRequired,
-  onFilterChange: PropTypes.func.isRequired
-};

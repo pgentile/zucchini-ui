@@ -17,7 +17,7 @@ import {
 import toNiceDate from "../../ui/toNiceDate";
 import Button from "../../ui/components/Button";
 import ButtonLink from "../../ui/components/ButtonLink";
-import FeatureStateFilterContainer from "../../filters/components/FeatureStateFilterContainer";
+import FeatureStateFilter from "../../filters/components/FeatureStateFilter";
 import TestRunHistoryTableContainer from "./TestRunHistoryTableContainer";
 import TestRunFeatureTableContainer from "./TestRunFeatureTableContainer";
 import FeatureGroupFilterContainer from "./FeatureGroupFilterContainer";
@@ -125,7 +125,7 @@ export default function TestRunPage({ testRunId, testRun, selectedFeatureGroup, 
 
       <h2>Fonctionnalités</h2>
       <FeatureGroupFilterContainer testRunId={testRunId} />
-      <FeatureStateFilterContainer />
+      <FeatureStateFilter />
       <TestRunFeatureTableContainer testRunId={testRunId} selectedFeatureGroup={selectedFeatureGroup} />
 
       <h2>Tendance</h2>

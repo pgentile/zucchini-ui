@@ -8,7 +8,7 @@ import { faFlag, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../ui/components/Button";
 import TagList from "../../ui/components/TagList";
 import Status from "../../ui/components/Status";
-import HistoryFilterContainer from "../../filters/components/HistoryFilterContainer";
+import HistoryFilter from "../../filters/components/HistoryFilter";
 import ScenarioPresenceIndicator from "./ScenarioPresenceIndicator";
 import ScenarioHistoryTableContainer from "./ScenarioHistoryTableContainer";
 import SameFeatureScenarioTableContainer from "./SameFeatureScenarioTableContainer";
@@ -152,7 +152,7 @@ export default class ScenarioPage extends React.Component {
         <Tabs defaultActiveKey="history" id="tabs" animation={false}>
           <Tab eventKey="history" title="Historique">
             <h2>Historique</h2>
-            <HistoryFilterContainer />
+            <HistoryFilter />
             <ScenarioHistoryTableContainer scenarioId={scenarioId} />
           </Tab>
           <Tab eventKey="changes" title="Changements">

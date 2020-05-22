@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRouteMatch } from "react-router-dom";
 
 import toNiceDate from "../../ui/toNiceDate";
-import FeatureStateFilterContainer from "../../filters/components/FeatureStateFilterContainer";
-import ScenarioStateFilterContainer from "../../filters/components/ScenarioStateFilterContainer";
+import FeatureStateFilter from "../../filters/components/FeatureStateFilter";
+import ScenarioStateFilter from "../../filters/components/ScenarioStateFilter";
 import TagDetailsFeatureTableContainer from "./TagDetailsFeatureTableContainer";
 import TagDetailsScenarioTableContainer from "./TagDetailsScenarioTableContainer";
 import TagSelectionForm from "./TagSelectionForm";
@@ -49,13 +49,13 @@ export default function TagDetailsPage() {
       <ScenarioStats stats={stats} />
 
       <h2>Fonctionnalités</h2>
-      <FeatureStateFilterContainer />
+      <FeatureStateFilter />
       <TagDetailsFeatureTableContainer />
 
       <hr />
 
       <h2>Scénarios</h2>
-      <ScenarioStateFilterContainer />
+      <ScenarioStateFilter />
       <TagDetailsScenarioTableContainer />
     </Page>
   );

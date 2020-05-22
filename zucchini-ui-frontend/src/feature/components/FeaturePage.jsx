@@ -6,8 +6,8 @@ import queryString from "query-string";
 
 import FeatureHistoryTableContainer from "./FeatureHistoryTableContainer";
 import ScenarioTableContainer from "./ScenarioTableContainer";
-import HistoryFilterContainer from "../../filters/components/HistoryFilterContainer";
-import ScenarioStateFilterContainer from "../../filters/components/ScenarioStateFilterContainer";
+import HistoryFilter from "../../filters/components/HistoryFilter";
+import ScenarioStateFilter from "../../filters/components/ScenarioStateFilter";
 import TagList from "../../ui/components/TagList";
 import SimpleText from "../../ui/components/SimpleText";
 import Status from "../../ui/components/Status";
@@ -87,19 +87,19 @@ export default class FeaturePage extends React.Component {
         <ScenarioStats stats={stats} />
 
         <h2>Scénarios</h2>
-        <ScenarioStateFilterContainer />
+        <ScenarioStateFilter />
         <ScenarioTableContainer />
 
         <hr />
 
         <h2>Tendance</h2>
-        <HistoryFilterContainer />
+        <HistoryFilter />
         <FeatureTrendChartContainer />
 
         <hr />
 
         <h2>Historique</h2>
-        <HistoryFilterContainer />
+        <HistoryFilter />
         <FeatureHistoryTableContainer featureId={featureId} />
       </Page>
     );

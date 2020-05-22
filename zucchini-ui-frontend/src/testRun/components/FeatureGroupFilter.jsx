@@ -25,7 +25,7 @@ export default class FeatureGroupFilter extends React.PureComponent {
     });
 
     return (
-      <p>
+      <p className="mb-2">
         Filter par groupe :{" "}
         <ListWithSeparator separator=", ">
           <Link to={`/test-runs/${testRunId}`}>
