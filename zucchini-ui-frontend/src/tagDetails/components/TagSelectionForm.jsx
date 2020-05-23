@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useEffect } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -10,7 +10,6 @@ import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 
 import Button from "../../ui/components/Button";
 import { useParsedTags, useNavigateToTags } from "../url";
-import useSyncValue from "../../useSyncValue";
 
 function TagSelectionForm() {
   const parsedTags = useParsedTags();
@@ -18,8 +17,10 @@ function TagSelectionForm() {
   const [tags, setTags] = useState("");
   const [excludedTags, setExcludedTags] = useState("");
 
-  useSyncValue(parsedTags.tags, (value) => setTags(formatTags(value)));
-  useSyncValue(parsedTags.excludedTags, (value) => setExcludedTags(formatTags(value)));
+  useEffect(() => {
+    setTags(formatTags(parsedTags.tags));
+    setExcludedTags(formatTags(parsedTags.excludedTags));
+  }, [parsedTags]);
 
   const navigateToTags = useNavigateToTags();
 
