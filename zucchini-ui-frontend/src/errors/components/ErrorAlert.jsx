@@ -1,39 +1,64 @@
-import React, { useEffect, useRef, useMemo, memo } from "react";
+import React, { useEffect, useRef, memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Alert from "react-bootstrap/Alert";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
 import { clearErrors } from "../redux";
+
+import "./ErrorAlert.scss";
 
 function ErrorAlert() {
   const dispatch = useDispatch();
 
   const errors = useSelector((state) => state.errors.errors);
 
-  const lastError = useMemo(() => {
-    return errors.length > 0 ? errors[errors.length - 1] : null;
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (errors.length > 0) {
+      setVisible(true);
+    }
   }, [errors]);
 
   const elementRef = useRef();
 
   useEffect(() => {
     const element = elementRef.current;
-    if (errors.length > 0 && element) {
+    if (visible) {
       element.focus();
     }
-  }, [errors]);
-
-  if (!lastError) {
-    return null;
-  }
+  }, [errors, visible]);
 
   const handleClose = () => {
+    setVisible(false);
+  };
+
+  const handleExited = () => {
     dispatch(clearErrors());
   };
 
+  const lastError = errors.length > 0 ? errors[errors.length - 1] : null;
+
   return (
-    <Alert ref={elementRef} variant="danger" dismissible onClose={handleClose} tabIndex={0}>
-      <h4>Une erreur a été détectée&hellip;</h4>
-      <p className="mb-0">{lastError}</p>
+    <Alert
+      ref={elementRef}
+      show={visible}
+      variant="danger"
+      dismissible
+      tabIndex={0}
+      onClose={handleClose}
+      onExited={handleExited}
+    >
+      <div className="error-alert-container">
+        <div className="error-alert-icon pr-3 d-none d-md-block">
+          <FontAwesomeIcon icon={faExclamationTriangle} size="2x" />
+        </div>
+        <div className="error-alert-message">
+          <h4>Une erreur a été détectée&hellip;</h4>
+          <p className="mb-0">{lastError}</p>
+        </div>
+      </div>
     </Alert>
   );
 }
