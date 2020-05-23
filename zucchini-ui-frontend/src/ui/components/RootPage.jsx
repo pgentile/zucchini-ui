@@ -6,7 +6,7 @@ import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
 
 import LoadingIndicator from "../../loadingIndicator/components/LoadingIndicator";
-import ErrorAlertContainer from "../../errors/components/ErrorAlertContainer";
+import ErrorAlert from "../../errors/components/ErrorAlert";
 
 export default function RootPage({ children }) {
   return (
@@ -26,7 +26,7 @@ export default function RootPage({ children }) {
         </Nav>
       </Navbar>
       <Container>
-        <ErrorAlertContainer />
+        <ErrorAlert />
         {children}
       </Container>
     </Fragment>
