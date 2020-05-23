@@ -1,15 +1,17 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React from "react";
+
+import ErrorBarrier from "./ErrorBarrier";
 
 export default function Page({ breadcrumb, title, mainline, children }) {
   return (
-    <Fragment>
+    <ErrorBarrier>
       {breadcrumb}
       <h1>{title}</h1>
       {mainline}
       <hr />
-      {children}
-    </Fragment>
+      <ErrorBarrier>{children}</ErrorBarrier>
+    </ErrorBarrier>
   );
 }
 
