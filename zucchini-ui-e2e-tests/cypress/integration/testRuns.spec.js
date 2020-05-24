@@ -23,9 +23,9 @@ describe("Test runs", () => {
     cy.contains("button", "Créer un tir").click();
 
     cy.get("[role=dialog]").within(() => {
-      cy.get("input#type").type("TYPE");
-      cy.get("input#environment").type("ENV");
-      cy.get("input#name").type("NAME");
+      cy.findByLabelText("Type").type("TYPE");
+      cy.findByLabelText("Environnement").type("ENV");
+      cy.findByLabelText("Nom").type("NAME");
 
       cy.contains("button", "Créer").click();
     });
