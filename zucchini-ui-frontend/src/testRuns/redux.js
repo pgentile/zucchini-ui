@@ -44,10 +44,10 @@ export function getLatestTestRunsWithStats() {
   };
 }
 
-export function createTestRun({ type, environment, name }) {
+export function createTestRun({ type, environment, name, labels }) {
   return {
     type: CREATE_TEST_RUN,
-    payload: model.createTestRun({ type, environment, name })
+    payload: model.createTestRun({ type, environment, name, labels })
   };
 }
 

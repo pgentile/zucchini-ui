@@ -15,10 +15,10 @@ class TestRunsApi {
     return this.client.get({ path: testRunId });
   }
 
-  createTestRun({ type, environment, name }) {
+  createTestRun({ type, environment, name, labels }) {
     return this.client.post({
       path: "/create",
-      body: { type, environment, name }
+      body: { type, environment, name, labels }
     });
   }
 

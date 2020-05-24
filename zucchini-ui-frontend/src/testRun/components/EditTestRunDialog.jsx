@@ -1,68 +1,60 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Modal from "react-bootstrap/Modal";
 
 import Button from "../../ui/components/Button";
-import EditTestRunForm from "./EditTestRunForm";
+import TestRunForm from "./TestRunForm";
+import { editTestRunThenReload } from "../redux";
 
-export default class EditTestRunDialog extends React.PureComponent {
-  static propTypes = {
-    testRun: PropTypes.object.isRequired,
-    show: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
-    onEditTestRun: PropTypes.func.isRequired
+export default function EditTestRunDialog({ show, onClose }) {
+  const testRun = useSelector((state) => state.testRun.testRun);
+
+  const dispatch = useDispatch();
+
+  const handleCloseClick = (event) => {
+    if (event) {
+      event.preventDefault();
+    }
+    onClose();
   };
 
-  constructor(props) {
-    super(props);
-
-    this.formRef = null;
-  }
-
-  onCloseClick = () => {
-    this.props.onClose();
-  };
-
-  onEditTestRun = (values) => {
-    this.props.onEditTestRun({
-      testRunId: this.props.testRun.id,
-      ...values
-    });
-
-    this.props.onClose();
-  };
-
-  setFormRef = (formRef) => {
-    this.formRef = formRef;
-  };
-
-  onEditTestRunClick = () => {
-    this.formRef.submit();
-  };
-
-  render() {
-    const { show, testRun } = this.props;
-
-    return (
-      <Modal size="lg" show={show} onHide={this.onCloseClick}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modifier les informations du tir</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <EditTestRunForm
-            ref={this.setFormRef}
-            initialValues={testRun}
-            enableReinitialize
-            onSubmit={this.onEditTestRun}
-          />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={this.onCloseClick}>
-            Annuler
-          </Button>
-          <Button onClick={this.onEditTestRunClick}>Modifier</Button>
-        </Modal.Footer>
-      </Modal>
+  const handleSubmit = async (values) => {
+    await dispatch(
+      editTestRunThenReload({
+        ...values,
+        testRunId: testRun.id
+      })
     );
-  }
+    onClose();
+  };
+
+  const formRef = useRef();
+
+  const handleUpdateClick = () => {
+    formRef.current.requestSubmit();
+  };
+
+  return (
+    <Modal show={show} onHide={handleCloseClick} size="lg">
+      <Modal.Header closeButton>
+        <Modal.Title>Modifier les informations du tir</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <TestRunForm ref={formRef} initialValues={testRun} key={testRun.id} onSubmit={handleSubmit} />
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleCloseClick}>
+          Annuler
+        </Button>
+        <Button onClick={handleUpdateClick}>Modifier</Button>
+      </Modal.Footer>
+    </Modal>
+  );
 }
+
+EditTestRunDialog.propTypes = {
+  show: PropTypes.bool.isRequired,
+  currentSelectedType: PropTypes.string,
+  onClose: PropTypes.func.isRequired
+};

@@ -23,7 +23,7 @@ import TestRunFeatureTableContainer from "./TestRunFeatureTableContainer";
 import FeatureGroupFilterContainer from "./FeatureGroupFilterContainer";
 import DeleteTestRunButton from "./DeleteTestRunButton";
 import ImportCucumberResultsDialogContainer from "./ImportCucumberResultsDialogContainer";
-import EditTestRunDialogContainer from "./EditTestRunDialogContainer";
+import EditTestRunDialog from "./EditTestRunDialog";
 import TestRunTrendChartContainer from "./TestRunTrendChartContainer";
 import Page from "../../ui/components/Page";
 import TestRunBreadcrumbContainer from "./TestRunBreadcrumbContainer";
@@ -140,7 +140,7 @@ export default function TestRunPage({ testRunId, testRun, selectedFeatureGroup, 
         onClose={hideImportCucumberResultDialog}
       />
 
-      <EditTestRunDialogContainer testRun={testRun} show={showEditDialog} onClose={hideEditDialog} />
+      <EditTestRunDialog testRun={testRun} show={showEditDialog} onClose={hideEditDialog} />
     </Page>
   );
 }
