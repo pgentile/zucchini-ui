@@ -1,4 +1,4 @@
-import React, { useState, useCallback, memo, forwardRef } from "react";
+import React, { useState, useCallback, memo, createContext } from "react";
 import PropTypes from "prop-types";
 import { faPlusCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import FormGroup from "react-bootstrap/FormGroup";
@@ -6,26 +6,56 @@ import FormLabel from "react-bootstrap/FormLabel";
 import FormControl from "react-bootstrap/FormControl";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Table from "react-bootstrap/Table";
+import noop from "lodash/noop";
 
 import { useMultiUniqueId } from "../../useUniqueId";
 import Button from "../../ui/components/Button";
+import { useContext } from "react";
 
-const TestRunForm = memo(
-  forwardRef(function TestRunForm({ initialValues = {}, onSubmit }, ref) {
-    const fieldIds = useMultiUniqueId("test-run", ["type", "environment", "name"]);
+const Context = createContext({
+  values: {},
+  setValues: noop
+});
 
-    const [values, setValues] = useState(() => {
-      return {
-        type: "",
-        environment: "",
-        name: "",
-        labels: [],
-        ...initialValues
-      };
-    });
-    const { type, environment, name, labels } = values;
+const TestRunForm = memo(function TestRunForm({ children, initialValues = {}, onSubmit }) {
+  const [values, setValues] = useState(() => {
+    return {
+      type: "",
+      environment: "",
+      name: "",
+      labels: [],
+      ...initialValues
+    };
+  });
 
-    const handleFieldChange = useCallback((event) => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onSubmit(values);
+  };
+
+  return (
+    <Context.Provider value={[values, setValues]}>
+      <form onSubmit={handleSubmit}>{children}</form>
+    </Context.Provider>
+  );
+});
+
+TestRunForm.propTypes = {
+  children: PropTypes.node,
+  initialValues: PropTypes.object,
+  onSubmit: PropTypes.func.isRequired
+};
+
+export { TestRunForm };
+
+const TestRunFormFields = memo(function TestRunFormFields() {
+  const fieldIds = useMultiUniqueId("test-run", ["type", "environment", "name"]);
+
+  const [values, setValues] = useContext(Context);
+  const { type, environment, name, labels } = values;
+
+  const handleFieldChange = useCallback(
+    (event) => {
       const { name, value } = event.target;
       setValues((currentValues) => {
         return {
@@ -33,54 +63,45 @@ const TestRunForm = memo(
           [name]: value
         };
       });
-    }, []);
+    },
+    [setValues]
+  );
 
-    const handleUpdateLabels = useCallback((labels) => {
+  const handleUpdateLabels = useCallback(
+    (labels) => {
       setValues((currentValues) => {
         return {
           ...currentValues,
           labels
         };
       });
-    }, []);
+    },
+    [setValues]
+  );
 
-    const handleSubmit = (event) => {
-      event.preventDefault();
+  return (
+    <>
+      <fieldset>
+        <legend>Paramètres principaux</legend>
+        <FormGroup controlId={fieldIds.type}>
+          <FormLabel>Type</FormLabel>
+          <FormControl name="type" type="text" required value={type} onChange={handleFieldChange} />
+        </FormGroup>
+        <FormGroup controlId={fieldIds.environment}>
+          <FormLabel>Environnement</FormLabel>
+          <FormControl name="environment" type="text" required value={environment} onChange={handleFieldChange} />
+        </FormGroup>
+        <FormGroup controlId={fieldIds.name}>
+          <FormLabel>Nom</FormLabel>
+          <FormControl name="name" type="text" required value={name} onChange={handleFieldChange} />
+        </FormGroup>
+      </fieldset>
+      <AllLabelsForm labels={labels} onUpdateLabels={handleUpdateLabels} />
+    </>
+  );
+});
 
-      onSubmit(values);
-    };
-
-    return (
-      <form onSubmit={handleSubmit} ref={ref}>
-        <fieldset>
-          <legend>Paramètres principaux</legend>
-          <FormGroup controlId={fieldIds.type}>
-            <FormLabel>Type</FormLabel>
-            <FormControl name="type" type="text" required value={type} onChange={handleFieldChange} />
-          </FormGroup>
-          <FormGroup controlId={fieldIds.environment}>
-            <FormLabel>Environnement</FormLabel>
-            <FormControl name="environment" type="text" required value={environment} onChange={handleFieldChange} />
-          </FormGroup>
-          <FormGroup controlId={fieldIds.name}>
-            <FormLabel>Nom</FormLabel>
-            <FormControl name="name" type="text" required value={name} onChange={handleFieldChange} />
-          </FormGroup>
-        </fieldset>
-        <AllLabelsForm labels={labels} onUpdateLabels={handleUpdateLabels} />
-      </form>
-    );
-  })
-);
-
-TestRunForm.displayName = "TestRunForm";
-
-TestRunForm.propTypes = {
-  initialValues: PropTypes.object,
-  onSubmit: PropTypes.func.isRequired
-};
-
-export default TestRunForm;
+export { TestRunFormFields };
 
 const AllLabelsForm = memo(function AllLabelsForm({ labels, onUpdateLabels }) {
   const handleAddLabel = () => {
@@ -138,7 +159,7 @@ const AllLabelsForm = memo(function AllLabelsForm({ labels, onUpdateLabels }) {
       )}
       {labels.length === 0 && <p className="text-muted">Aucun étiquette</p>}
       <ButtonGroup>
-        <Button icon={faPlusCircle} size="sm" onClick={handleAddLabel}>
+        <Button icon={faPlusCircle} variant="outline-secondary" size="sm" onClick={handleAddLabel}>
           Ajouter une étiquette
         </Button>
       </ButtonGroup>
@@ -196,7 +217,7 @@ const LabelForm = memo(function LabelForm({ index, label, onChangeLabel, onDelet
         />
       </td>
       <td>
-        <Button icon={faTimesCircle} iconOnly variant="danger" onClick={onDeleteLabel}>
+        <Button icon={faTimesCircle} iconOnly variant="outline-danger" onClick={onDeleteLabel}>
           Supprimer
         </Button>
       </td>

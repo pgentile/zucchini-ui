@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
-import React, { useRef } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 
 import Button from "../../ui/components/Button";
 import { createTestRun } from "../redux";
-import TestRunForm from "../../testRun/components/TestRunForm";
+import { TestRunForm, TestRunFormFields } from "../../testRun/components/TestRunForm";
 
 export default function CreateTestRunDialog({ show, currentSelectedType, onClose }) {
   const dispatch = useDispatch();
@@ -28,31 +28,22 @@ export default function CreateTestRunDialog({ show, currentSelectedType, onClose
     history.push(`/test-runs/${createdTestRun.id}`);
   };
 
-  const formRef = useRef();
-
-  const handleCreateClick = () => {
-    formRef.current.requestSubmit();
-  };
-
   return (
     <Modal show={show} onHide={handleCloseClick} size="lg">
-      <Modal.Header closeButton>
-        <Modal.Title>Créer un tir</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <TestRunForm
-          ref={formRef}
-          initialValues={{ type: currentSelectedType }}
-          key={currentSelectedType}
-          onSubmit={handleSubmit}
-        />
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleCloseClick}>
-          Annuler
-        </Button>
-        <Button onClick={handleCreateClick}>Créer</Button>
-      </Modal.Footer>
+      <TestRunForm initialValues={{ type: currentSelectedType }} onSubmit={handleSubmit}>
+        <Modal.Header closeButton>
+          <Modal.Title>Créer un tir</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <TestRunFormFields />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseClick}>
+            Annuler
+          </Button>
+          <Button type="submit">Créer</Button>
+        </Modal.Footer>
+      </TestRunForm>
     </Modal>
   );
 }
