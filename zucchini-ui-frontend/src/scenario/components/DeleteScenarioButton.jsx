@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
 import ConfirmActionButton from "../../ui/components/ConfirmActionButton";
 import { deleteScenario } from "../redux";
@@ -19,7 +19,7 @@ export default function DeleteScenarioButton({ featureId, scenarioId }) {
   return (
     <ConfirmActionButton
       variant="danger"
-      actionIcon={faTimes}
+      actionIcon={faTimesCircle}
       actionLabel="Supprimer"
       title="Supprimer le scénario"
       message="La suppression est irreversible. Êtes-vous sûr de supprimer ce scénario ?"

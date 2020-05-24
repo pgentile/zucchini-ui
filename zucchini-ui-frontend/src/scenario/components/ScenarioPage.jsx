@@ -149,22 +149,23 @@ export default class ScenarioPage extends React.Component {
 
         <hr />
 
-        <Tabs defaultActiveKey="history" id="tabs" animation={false}>
-          <Tab eventKey="history" title="Historique">
-            <h2>Historique</h2>
+        <Tabs defaultActiveKey="history" id="tabs">
+          <Tab eventKey="history" title="Historique" className="mt-2">
             <HistoryFilter />
             <ScenarioHistoryTableContainer scenarioId={scenarioId} />
           </Tab>
-          <Tab eventKey="changes" title="Changements">
-            <h2>Changements</h2>
+          <Tab eventKey="changes" title="Changements" className="mt-2">
             <ScenarioChangeTable changes={scenario.changes} />
           </Tab>
-          <Tab eventKey="same-feature" title="Scénarios de la même fonctionnalité">
-            <h2>Scénarios de la même fonctionnalité</h2>
+          <Tab eventKey="same-feature" title="Scénarios de la même fonctionnalité" className="mt-2">
             <SameFeatureScenarioTableContainer scenarioId={scenarioId} />
           </Tab>
-          <Tab eventKey="similar-errors" title="Erreurs similaires" disabled={similarFailureSection === null}>
-            <h2>Autres scénarios avec des erreurs similaires</h2>
+          <Tab
+            eventKey="similar-errors"
+            title="Erreurs similaires"
+            className="mt-2"
+            disabled={similarFailureSection === null}
+          >
             {similarFailureSection}
           </Tab>
         </Tabs>

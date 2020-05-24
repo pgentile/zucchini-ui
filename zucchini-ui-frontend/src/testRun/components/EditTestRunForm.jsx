@@ -5,7 +5,7 @@ import FormGroup from "react-bootstrap/FormGroup";
 import FormLabel from "react-bootstrap/FormLabel";
 import FormControl from "react-bootstrap/FormControl";
 import Table from "react-bootstrap/Table";
-import { faPlusCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
 import Button from "../../ui/components/Button";
 
@@ -65,7 +65,7 @@ class EditTestRunForm extends React.PureComponent {
           <Field name={`${member}.url`} type="url" placeholder="URL" component={this.renderField} />
         </td>
         <td>
-          <Button icon={faTimes} iconOnly variant="danger" onClick={removeField}>
+          <Button icon={faTimesCircle} iconOnly variant="danger" onClick={removeField}>
             Supprimer
           </Button>
         </td>

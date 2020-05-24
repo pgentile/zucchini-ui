@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import queryString from "query-string";
 import FormGroup from "react-bootstrap/FormGroup";
@@ -7,17 +7,18 @@ import FormControl from "react-bootstrap/FormControl";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import useQueryParams from "../../useQueryParams";
-import useSyncValue from "../../useSyncValue";
 import Button from "../../ui/components/Button";
 
 export default function SearchForm() {
   const history = useHistory();
-  const testRunId = useRouteMatch().params.testRunId;
+  const { testRunId } = useRouteMatch().params;
   const queryParams = useQueryParams();
 
   const [search, setSearch] = useState("");
 
-  useSyncValue(queryParams.search, (value) => setSearch(value));
+  useEffect(() => {
+    setSearch(queryParams.search);
+  }, [queryParams]);
 
   const handleSearchChange = (event) => setSearch(event.target.value);
 
