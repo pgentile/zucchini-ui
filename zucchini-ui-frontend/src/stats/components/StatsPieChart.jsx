@@ -35,16 +35,19 @@ function StatsPieChart({ stats, total }) {
 
   series = series.filter((serie) => serie.value > 0);
 
-  const data = {
-    series
-  };
-
   const height = showDetails ? "16rem" : "8rem";
   const donutWidth = showDetails ? 60 : 30;
 
   return (
     <div>
-      <PieChart data={data} total={total} showLabel={showDetails} donutWidth={donutWidth} style={{ height }} />
+      {total === 0 && (
+        <div className="stats-no-total" style={{ height }}>
+          <p className="text-center text-muted">Aucune statistique</p>
+        </div>
+      )}
+      {total > 0 && (
+        <PieChart data={{ series }} total={total} showLabel={showDetails} donutWidth={donutWidth} style={{ height }} />
+      )}
     </div>
   );
 }

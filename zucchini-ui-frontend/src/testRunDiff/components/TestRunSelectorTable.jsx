@@ -22,7 +22,7 @@ export default class TestRunSelectorTable extends React.PureComponent {
     ));
 
     return (
-      <Table bordered striped>
+      <Table bordered striped hover responsive>
         <thead>
           <tr>
             <th>Type</th>
@@ -52,8 +52,10 @@ class TestRunSelectorTableRow extends React.PureComponent {
   render() {
     const { testRun, currentTestRunId } = this.props;
 
+    const isSameTestRun = testRun.id === currentTestRunId;
+
     let testRunTitle = `Tir du ${toNiceDate(testRun.date)}`;
-    if (testRun.id !== currentTestRunId) {
+    if (!isSameTestRun) {
       const target = {
         pathname: `/test-runs/${currentTestRunId}/diff`,
         search: queryString.stringify({
@@ -65,7 +67,7 @@ class TestRunSelectorTableRow extends React.PureComponent {
     }
 
     return (
-      <tr>
+      <tr className={isSameTestRun ? "table-primary" : undefined}>
         <td>
           <Badge>{testRun.type}</Badge>
         </td>

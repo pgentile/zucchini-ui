@@ -22,7 +22,7 @@ export default class TestRunHistoryTable extends React.PureComponent {
     });
 
     return (
-      <Table bordered striped hover>
+      <Table bordered striped hover responsive>
         <thead>
           <tr>
             <th>Tir de test</th>

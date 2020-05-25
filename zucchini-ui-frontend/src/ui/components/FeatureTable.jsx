@@ -19,7 +19,7 @@ export default class FeatureTable extends React.Component {
     });
 
     return (
-      <Table bordered striped hover>
+      <Table bordered striped hover responsive>
         <thead>
           <tr>
             <th>Groupe</th>

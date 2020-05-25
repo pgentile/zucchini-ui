@@ -11,6 +11,7 @@ import Form from "react-bootstrap/Form";
 import useQueryParams from "../../useQueryParams";
 import { useSelector } from "react-redux";
 import { selectTestRunTypes } from "../selectors";
+import useUniqueId from "../../useUniqueId";
 
 export default function TestRunTypeFilter() {
   const { type: selectedType } = useQueryParams();
@@ -20,6 +21,8 @@ export default function TestRunTypeFilter() {
   const handleSearch = (event) => {
     setSearch(event.target.value);
   };
+
+  const dropdownId = useUniqueId("test-run-filter");
 
   // Links to test run types
 
@@ -43,13 +46,19 @@ export default function TestRunTypeFilter() {
   return (
     <ButtonGroup className="mb-3">
       <Dropdown>
-        <Dropdown.Toggle variant="outline-secondary" size="sm" id="dropdown-basic-xxxxxxxxxxxx">
+        <Dropdown.Toggle variant="outline-secondary" size="sm" id={dropdownId} disabled={testRunTypes.length === 0}>
           Type de tir : <b>{selectedType ? selectedType : <i>Tous</i>}</b>
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Form>
             <FormGroup size="sm" className="mx-2 mb-2">
-              <FormControl type="text" placeholder="Rechercher un type de tir" value={search} onChange={handleSearch} />
+              <FormControl
+                aria-label="Filtre de type de tir"
+                type="text"
+                placeholder="Rechercher un type de tir"
+                value={search}
+                onChange={handleSearch}
+              />
             </FormGroup>
           </Form>
           <Dropdown.Divider />
@@ -62,11 +71,7 @@ export default function TestRunTypeFilter() {
             </>
           )}
           {testRunTypeLinks}
-          {testRunTypeLinks.length === 0 && (
-            <Dropdown.Item disabled>
-              <i>Aucun type trouvé</i>
-            </Dropdown.Item>
-          )}
+          {testRunTypeLinks.length === 0 && <span className="dropdown-item-text text-muted">Aucun type trouvé</span>}
         </Dropdown.Menu>
       </Dropdown>
     </ButtonGroup>

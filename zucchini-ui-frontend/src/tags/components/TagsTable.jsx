@@ -23,7 +23,7 @@ function TagsTable() {
   const rows = filteredTags.map((tag) => <TagsTableRow key={tag.tag} tag={tag} />);
 
   return (
-    <Table bordered striped hover>
+    <Table bordered striped hover responsive>
       <thead>
         <tr>
           <th>Tag</th>

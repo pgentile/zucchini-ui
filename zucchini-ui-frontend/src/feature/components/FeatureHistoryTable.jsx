@@ -23,7 +23,7 @@ export default class FeatureHistoryTable extends React.PureComponent {
     });
 
     return (
-      <Table bordered striped hover>
+      <Table bordered striped hover responsive>
         <thead>
           <tr>
             <th>Type</th>

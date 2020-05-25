@@ -21,7 +21,7 @@ export default class TagDetailsScenarioTable extends React.PureComponent {
     });
 
     return (
-      <Table bordered striped hover>
+      <Table bordered striped hover responsive>
         <thead>
           <tr>
             <th>Groupe</th>

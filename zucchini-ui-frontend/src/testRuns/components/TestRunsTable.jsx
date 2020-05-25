@@ -25,7 +25,7 @@ export default function TestRunsTable() {
   const rows = selectedTestRuns.map((testRun) => <TestRunTableRow key={testRun.id} testRun={testRun} />);
 
   return (
-    <Table bordered striped responsive>
+    <Table bordered striped hover responsive>
       <thead>
         <tr>
           <th>Type</th>

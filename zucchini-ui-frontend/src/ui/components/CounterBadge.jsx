@@ -5,7 +5,7 @@ import Badge from "react-bootstrap/Badge";
 function CounterBadge({ children, variant }) {
   return (
     <Badge pill variant={variant ?? "dark"}>
-      {nullToDash(children)}
+      {children ?? "-"}
     </Badge>
   );
 }
@@ -16,7 +16,3 @@ CounterBadge.propTypes = {
 };
 
 export default memo(CounterBadge);
-
-function nullToDash(value) {
-  return value === null ? "-" : value;
-}

@@ -16,7 +16,7 @@ export default class ReportsTable extends React.Component {
     });
 
     return (
-      <Table bordered striped hover>
+      <Table bordered striped hover responsive>
         <thead>
           <tr>
             <th>Groupe</th>

@@ -6,12 +6,4 @@
   &-total {
     font-style: italic;
   }
-
-  &-sample {
-    $size: 0.75rem;
-
-    display: inline-block;
-    width: $size;
-    height: $size;
-  }
 }

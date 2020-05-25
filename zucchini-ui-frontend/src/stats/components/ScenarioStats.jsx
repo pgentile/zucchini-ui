@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
-import CardDeck from "react-bootstrap/CardDeck";
 import Form from "react-bootstrap/Form";
 import FormCheck from "react-bootstrap/FormCheck";
+import Col from "react-bootstrap/Col";
 
 import ScenarioPieChart from "./StatsPieChart";
 import StatsLegend from "./StatsLegend";
@@ -43,25 +43,29 @@ function ScenarioStats({ stats }) {
           />
         </Form>
       </Row>
-      <Row>
-        <CardDeck className="mb-3">
+      <Row xs={1} lg={3}>
+        <Col className="mb-3">
           <ChartCard
             title="Tous les scénarios"
             chart={<ScenarioPieChart stats={stats.all} total={stats.all.count} showDetails={showDetails} />}
             legend={<StatsLegend stats={stats.all} />}
             showDetails={showDetails}
           />
+        </Col>
+        <Col className="mb-3">
           <ChartCard
             title="Scénarios analysés"
             chart={<ScenarioPieChart stats={stats.reviewed} total={stats.all.count} showDetails={showDetails} />}
             legend={<StatsLegend stats={stats.reviewed} />}
           />
+        </Col>
+        <Col className="mb-3">
           <ChartCard
             title="Scénarios non analysés"
             chart={<ScenarioPieChart stats={stats.nonReviewed} total={stats.all.count} showDetails={showDetails} />}
             legend={<StatsLegend stats={stats.nonReviewed} />}
           />
-        </CardDeck>
+        </Col>
       </Row>
     </Container>
   );
