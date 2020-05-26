@@ -6,7 +6,7 @@ import Modal from "react-bootstrap/Modal";
 
 import Button from "../../ui/components/Button";
 import { createTestRun } from "../redux";
-import { TestRunForm, TestRunFormFields } from "../../testRun/components/TestRunForm";
+import TestRunForm, { TestRunFormFields } from "../../testRun/components/TestRunForm";
 
 export default function CreateTestRunDialog({ show, currentSelectedType, onClose }) {
   const dispatch = useDispatch();

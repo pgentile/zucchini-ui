@@ -1,39 +1,38 @@
-import PropTypes from "prop-types";
-import React from "react";
+import React, { memo, useMemo } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import queryString from "query-string";
 
 import ListWithSeparator from "../../ui/components/ListWithSeparator";
 
-export default class FeatureGroupFilter extends React.PureComponent {
-  static propTypes = {
-    testRunId: PropTypes.string.isRequired,
-    featureGroups: PropTypes.array.isRequired
-  };
+export default memo(function FeatureGroupFilter() {
+  const testRunId = useSelector((state) => state.testRun.testRun.id);
+  const features = useSelector((state) => state.testRun.features);
 
-  render() {
-    const { testRunId, featureGroups } = this.props;
+  const featureGroups = useMemo(() => {
+    const groupSet = new Set(features.map((feature) => feature.group).filter((group) => Boolean(group)));
+    return Array.from(groupSet).sort();
+  }, [features]);
 
-    const featureGroupLinks = featureGroups.map((featureGroup) => {
-      return (
-        <span key={featureGroup}>
-          <Link to={{ pathname: `/test-runs/${testRunId}`, search: queryString.stringify({ featureGroup }) }}>
-            {featureGroup}
-          </Link>
-        </span>
-      );
-    });
-
+  const featureGroupLinks = featureGroups.map((featureGroup) => {
     return (
-      <p className="mb-2">
-        Filter par groupe :{" "}
-        <ListWithSeparator separator=", ">
-          <Link to={`/test-runs/${testRunId}`}>
-            <i>Tous</i>
-          </Link>
-          {featureGroupLinks}
-        </ListWithSeparator>
-      </p>
+      <span key={featureGroup}>
+        <Link to={{ pathname: `/test-runs/${testRunId}`, search: queryString.stringify({ featureGroup }) }}>
+          {featureGroup}
+        </Link>
+      </span>
     );
-  }
-}
+  });
+
+  return (
+    <p className="mb-2">
+      Filter par groupe :{" "}
+      <ListWithSeparator separator=", ">
+        <Link to={`/test-runs/${testRunId}`}>
+          <i>Tous</i>
+        </Link>
+        {featureGroupLinks}
+      </ListWithSeparator>
+    </p>
+  );
+});

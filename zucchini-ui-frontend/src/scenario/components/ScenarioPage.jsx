@@ -10,7 +10,7 @@ import TagList from "../../ui/components/TagList";
 import Status from "../../ui/components/Status";
 import HistoryFilter from "../../filters/components/HistoryFilter";
 import ScenarioPresenceIndicator from "./ScenarioPresenceIndicator";
-import ScenarioHistoryTableContainer from "./ScenarioHistoryTableContainer";
+import ScenarioHistoryTable from "./ScenarioHistoryTable";
 import SameFeatureScenarioTableContainer from "./SameFeatureScenarioTableContainer";
 import UpdateScenarioStateDialogContainer from "./UpdateScenarioStateDialogContainer";
 import CommentListContainer from "./CommentListContainer";
@@ -152,7 +152,7 @@ export default class ScenarioPage extends React.Component {
         <Tabs defaultActiveKey="history" id="tabs">
           <Tab eventKey="history" title="Historique" className="mt-2">
             <HistoryFilter />
-            <ScenarioHistoryTableContainer scenarioId={scenarioId} />
+            <ScenarioHistoryTable />
           </Tab>
           <Tab eventKey="changes" title="Changements" className="mt-2">
             <ScenarioChangeTable changes={scenario.changes} />

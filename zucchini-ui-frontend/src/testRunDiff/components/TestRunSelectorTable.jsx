@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/Table";
 import Badge from "react-bootstrap/Badge";
 import { Link } from "react-router-dom";
 import queryString from "query-string";
 
 import toNiceDate from "../../ui/toNiceDate";
 import CounterBadge from "../../ui/components/CounterBadge";
+import TabularDataTable, { TabularDataRow } from "../../ui/components/TabularDataTable";
 
 export default class TestRunSelectorTable extends React.PureComponent {
   static propTypes = {
@@ -22,23 +22,22 @@ export default class TestRunSelectorTable extends React.PureComponent {
     ));
 
     return (
-      <Table bordered striped hover responsive>
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>Environnement</th>
-            <th>Nom</th>
-            <th>Tir de test</th>
-            <th>Total</th>
-            <th>Succès</th>
-            <th>Échecs</th>
-            <th>En attente</th>
-            <th>Non joués</th>
-            <th>Analysés</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
+      <TabularDataTable
+        columnNames={[
+          "Type",
+          "Environnement",
+          "Nom",
+          "Tir de test",
+          "Total",
+          "Succès",
+          "Échecs",
+          "En attente",
+          "Non joués",
+          "Analysés"
+        ]}
+      >
+        {rows}
+      </TabularDataTable>
     );
   }
 }
@@ -67,7 +66,7 @@ class TestRunSelectorTableRow extends React.PureComponent {
     }
 
     return (
-      <tr className={isSameTestRun ? "table-primary" : undefined}>
+      <TabularDataRow highlight={isSameTestRun}>
         <td>
           <Badge>{testRun.type}</Badge>
         </td>
@@ -96,7 +95,7 @@ class TestRunSelectorTableRow extends React.PureComponent {
         <td>
           <CounterBadge>{testRun.stats.reviewed.count}</CounterBadge>
         </td>
-      </tr>
+      </TabularDataRow>
     );
   }
 }

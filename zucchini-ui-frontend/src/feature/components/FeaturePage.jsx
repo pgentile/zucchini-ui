@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
-import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useRouteMatch } from "react-router-dom";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import queryString from "query-string";
 
@@ -15,93 +15,79 @@ import DeleteFeatureButton from "./DeleteFeatureButton";
 import FeatureTrendChartContainer from "./FeatureTrendChartContainer";
 import Page from "../../ui/components/Page";
 import FeatureBreadcrumbContainer from "./FeatureBreadcrumbContainer";
-import ScenarioStats from "../../stats/components/ScenarioStats";
+import { loadFeaturePage } from "../redux";
+import FeatureStats from "./FeatureStats";
 
-export default class FeaturePage extends React.Component {
-  static propTypes = {
-    onLoad: PropTypes.func.isRequired,
-    featureId: PropTypes.string.isRequired,
-    feature: PropTypes.object,
-    stats: PropTypes.object.isRequired
-  };
+export default function FeaturePage() {
+  const { featureId } = useRouteMatch().params;
+  const feature = useSelector((state) => state.feature.feature);
 
-  componentDidMount() {
-    this.loadFeatureIfNeeded();
-  }
+  const dispatch = useDispatch();
 
-  componentDidUpdate(prevProps) {
-    this.loadFeatureIfNeeded(prevProps);
-  }
+  useEffect(() => {
+    dispatch(loadFeaturePage({ featureId }));
+  }, [dispatch, featureId]);
 
-  loadFeatureIfNeeded(prevProps = {}) {
-    const { featureId, onLoad } = this.props;
-    if (featureId !== prevProps.featureId) {
-      onLoad({ featureId });
-    }
-  }
+  return (
+    <Page
+      title={
+        <>
+          <b>{feature.info.keyword}</b> {feature.info.name} {feature.status && <Status status={feature.status} />}
+        </>
+      }
+      mainline={
+        <>
+          <SimpleText className="lead" text={feature.description} />
+          <ul className="list-inline">
+            {feature.group && (
+              <li className="list-inline-item">
+                <b>Groupe : </b>{" "}
+                <Link
+                  to={{
+                    pathname: `/test-runs/${feature.testRunId}`,
+                    search: queryString.stringify({ featureGroup: feature.group })
+                  }}
+                >
+                  {feature.group}
+                </Link>
+              </li>
+            )}
+            <li className="list-inline-item">
+              <b>Source :</b> <code>{feature.location.filename}</code>, ligne <code>{feature.location.line}</code>
+            </li>
+          </ul>
+          {feature.tags.length > 0 && (
+            <p>
+              <b>Tags :</b> <TagList testRunId={feature.testRunId} tags={feature.tags} />
+            </p>
+          )}
+        </>
+      }
+      breadcrumb={<FeatureBreadcrumbContainer />}
+    >
+      <ButtonToolbar>
+        <DeleteFeatureButton />
+      </ButtonToolbar>
+      <hr />
 
-  render() {
-    const { feature, featureId, stats } = this.props;
+      <h2>Statistiques</h2>
+      <FeatureStats />
 
-    return (
-      <Page
-        title={
-          <Fragment>
-            <b>{feature.info.keyword}</b> {feature.info.name} {feature.status && <Status status={feature.status} />}
-          </Fragment>
-        }
-        mainline={<SimpleText className="lead" text={feature.description} />}
-        breadcrumb={<FeatureBreadcrumbContainer />}
-      >
-        {feature.group && (
-          <p>
-            <b>Groupe : </b>{" "}
-            <Link
-              to={{
-                pathname: `/test-runs/${feature.testRunId}`,
-                search: queryString.stringify({ featureGroup: feature.group })
-              }}
-            >
-              {feature.group}
-            </Link>
-          </p>
-        )}
+      <h2>Scénarios</h2>
+      <ScenarioStateFilter />
+      <ScenarioTableContainer />
 
-        <p>
-          <b>Source :</b> <code>{feature.location.filename}</code>, ligne <code>{feature.location.line}</code>
-        </p>
+      <hr />
 
-        {feature.tags.length > 0 && (
-          <p>
-            <b>Tags :</b> <TagList testRunId={feature.testRunId} tags={feature.tags} />
-          </p>
-        )}
+      <h2>Tendance</h2>
+      <HistoryFilter />
+      <FeatureTrendChartContainer />
 
-        <hr />
-        <ButtonToolbar>
-          <DeleteFeatureButton testRunId={feature.testRunId} featureId={featureId} />
-        </ButtonToolbar>
-        <hr />
+      <hr />
 
-        <h2>Statistiques</h2>
-        <ScenarioStats stats={stats} />
-
-        <h2>Scénarios</h2>
-        <ScenarioStateFilter />
-        <ScenarioTableContainer />
-
-        <hr />
-
-        <h2>Tendance</h2>
-        <HistoryFilter />
-        <FeatureTrendChartContainer />
-
-        <hr />
-
-        <h2>Historique</h2>
-        <HistoryFilter />
-        <FeatureHistoryTableContainer featureId={featureId} />
-      </Page>
-    );
-  }
+      <h2>Historique</h2>
+      <HistoryFilter />
+      <FeatureHistoryTableContainer featureId={featureId} />
+    </Page>
+  );
 }

@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
 
 import Status from "../../ui/components/Status";
+import TabularDataTable, { TabularDataRow } from "../../ui/components/TabularDataTable";
 
 export default class DifferentScenarioTable extends React.PureComponent {
   static propTypes = {
@@ -19,16 +19,12 @@ export default class DifferentScenarioTable extends React.PureComponent {
     });
 
     return (
-      <Table bordered striped hover>
-        <thead>
-          <tr>
-            <th>Scénario</th>
-            <th>Ancien statut</th>
-            <th>Nouveau statut</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
+      <TabularDataTable
+        columnNames={["Scénario", "Ancien statut", "Nouveau statut"]}
+        emptyDescription="Pas de différence"
+      >
+        {rows}
+      </TabularDataTable>
     );
   }
 }
@@ -44,7 +40,7 @@ class DifferentScenarioTableRow extends React.PureComponent {
     const scenario = rightScenario;
 
     return (
-      <tr>
+      <TabularDataRow>
         <td>
           <Link to={`/scenarios/${scenario.id}`}>
             <b>{scenario.info.keyword}</b> {scenario.info.name}
@@ -56,7 +52,7 @@ class DifferentScenarioTableRow extends React.PureComponent {
         <td>
           <Status status={rightScenario.status} />
         </td>
-      </tr>
+      </TabularDataRow>
     );
   }
 }

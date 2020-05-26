@@ -1,32 +1,32 @@
-import { connect } from "react-redux";
-import { createSelector, createStructuredSelector } from "reselect";
-
+import React, { memo } from "react";
+import { useSelector } from "react-redux";
 import TrendChart from "../../stats/components/TrendChart";
 
-const selectTrends = createSelector(
-  (state) => state.feature.history,
-  (state) => state.feature.feature.id,
-  (state) => state.testRun.testRun.type,
-  (state) => state.historyFilters.sameTestRunType,
-  (history, featureId, testRunType, sameTestRunType) => {
-    let trendHistory = [...history];
-    trendHistory.reverse();
+function FeatureTrendChartContainer() {
+  const trends = useTrends();
+  return <TrendChart trends={trends} />;
+}
 
-    if (sameTestRunType) {
-      trendHistory = trendHistory.filter((item) => item.testRun.type === testRunType);
-    }
+export default memo(FeatureTrendChartContainer);
 
-    const featureHistoryIndex = trendHistory.findIndex((item) => item.id === featureId);
-    trendHistory = trendHistory.slice(0, featureHistoryIndex + 1);
+function useTrends() {
+  const history = useSelector((state) => state.feature.history ?? []);
+  const featureId = useSelector((state) => state.feature.feature.id);
+  const testRunType = useSelector((state) => state.testRun.testRun.type);
+  const testRunEnv = useSelector((state) => state.testRun.testRun.environment);
+  const { sameTestRunType, sameTestRunEnvironment } = useSelector((state) => state.historyFilters);
 
-    return trendHistory.map((item) => item.stats.all);
+  let trendHistory = Array.from(history).reverse();
+
+  if (sameTestRunType) {
+    trendHistory = trendHistory.filter((item) => item.testRun.type === testRunType);
   }
-);
+  if (sameTestRunEnvironment) {
+    trendHistory = trendHistory.filter((item) => item.testRun.environment === testRunEnv);
+  }
 
-const selectProps = createStructuredSelector({
-  trends: selectTrends
-});
+  const featureHistoryIndex = trendHistory.findIndex((item) => item.id === featureId);
+  trendHistory = trendHistory.slice(0, featureHistoryIndex + 1);
 
-const FeatureTrendChartContainer = connect(selectProps)(TrendChart);
-
-export default FeatureTrendChartContainer;
+  return trendHistory.map((item) => item.stats.all);
+}

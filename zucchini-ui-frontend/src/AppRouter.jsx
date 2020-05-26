@@ -1,4 +1,4 @@
-import React, { StrictMode, Suspense, lazy } from "react";
+import React, { Fragment as StrictMode, Suspense, lazy } from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
@@ -11,8 +11,8 @@ import NotFoundPage from "./notFound/components/NotFoundPage";
 import ErrorBarrier from "./ui/components/ErrorBarrier";
 
 const TestRunsPage = lazy(() => import("./testRuns/components/TestRunsPage"));
-const TestRunPageContainer = lazy(() => import("./testRun/components/TestRunPageContainer"));
-const FeaturePageContainer = lazy(() => import("./feature/components/FeaturePageContainer"));
+const TestRunPage = lazy(() => import("./testRun/components/TestRunPage"));
+const FeaturePage = lazy(() => import("./feature/components/FeaturePage"));
 const TestRunSearchPage = lazy(() => import("./search/components/TestRunSearchPage"));
 const ScenarioPageContainer = lazy(() => import("./scenario/components/ScenarioPageContainer"));
 const TagsPage = lazy(() => import("./tags/components/TagsPage"));
@@ -33,7 +33,7 @@ export default function AppRouter() {
               <Suspense fallback={<PageLoadingPlaceholder />}>
                 <Switch>
                   <Route exact path="/" component={TestRunsPage} />
-                  <Route exact path="/test-runs/:testRunId" component={TestRunPageContainer} />
+                  <Route exact path="/test-runs/:testRunId" component={TestRunPage} />
                   <Route exact path="/test-runs/:testRunId/search" component={TestRunSearchPage} />
                   <Route exact path="/test-runs/:testRunId/tags" component={TagsPage} />
                   <Route exact path="/test-runs/:testRunId/failures" component={FailuresPage} />
@@ -41,7 +41,7 @@ export default function AppRouter() {
                   <Route exact path="/test-runs/:testRunId/tag-details" component={TagDetailsPage} />
                   <Route exact path="/test-runs/:testRunId/diff" component={TestRunDiffPageContainer} />
                   <Route exact path="/test-runs/:testRunId/stepDefinitions" component={StepDefinitionsPage} />
-                  <Route exact path="/features/:featureId" component={FeaturePageContainer} />
+                  <Route exact path="/features/:featureId" component={FeaturePage} />
                   <Route exact path="/scenarios/:scenarioId" component={ScenarioPageContainer} />
                   <Route component={NotFoundPage} />
                 </Switch>

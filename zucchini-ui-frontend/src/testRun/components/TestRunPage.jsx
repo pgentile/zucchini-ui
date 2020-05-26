@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouteMatch } from "react-router-dom";
 import {
   faFileUpload,
   faEdit,
@@ -18,68 +18,73 @@ import toNiceDate from "../../ui/toNiceDate";
 import Button from "../../ui/components/Button";
 import ButtonLink from "../../ui/components/ButtonLink";
 import FeatureStateFilter from "../../filters/components/FeatureStateFilter";
-import TestRunHistoryTableContainer from "./TestRunHistoryTableContainer";
+import TestRunHistoryTable from "./TestRunHistoryTable";
 import TestRunFeatureTableContainer from "./TestRunFeatureTableContainer";
-import FeatureGroupFilterContainer from "./FeatureGroupFilterContainer";
+import FeatureGroupFilter from "./FeatureGroupFilter";
 import DeleteTestRunButton from "./DeleteTestRunButton";
-import ImportCucumberResultsDialogContainer from "./ImportCucumberResultsDialogContainer";
+import ImportCucumberResultsDialog from "./ImportCucumberResultsDialog";
 import EditTestRunDialog from "./EditTestRunDialog";
 import TestRunTrendChartContainer from "./TestRunTrendChartContainer";
 import Page from "../../ui/components/Page";
 import TestRunBreadcrumbContainer from "./TestRunBreadcrumbContainer";
-import ScenarioStats from "../../stats/components/ScenarioStats";
+import { loadTestRunPage } from "../redux";
+import TestRunStats from "./TestRunStats";
 
-export default function TestRunPage({ testRunId, testRun, selectedFeatureGroup, onLoad }) {
+export default function TestRunPage() {
+  const { testRunId } = useRouteMatch().params;
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    onLoad({ testRunId });
-  }, [onLoad, testRunId]);
+    dispatch(loadTestRunPage({ testRunId }));
+  }, [dispatch, testRunId]);
+
+  const testRun = useSelector((state) => state.testRun.testRun);
 
   const [showImportCucumberResultDialog, setShowImportCucumberResultDialog] = useState(false);
   const [showEditDialog, setShowEditDialog] = useState(false);
 
-  const onEditButtonClick = () => {
+  const handleEditButtonClick = () => {
     setShowEditDialog(true);
   };
 
-  const onImportCucumberResultButtonClick = () => {
+  const handleImportCucumberResultButtonClick = () => {
     setShowImportCucumberResultDialog(true);
   };
 
-  const hideEditDialog = () => {
+  const handleCloseEditDialog = () => {
     setShowEditDialog(false);
   };
 
-  const hideImportCucumberResultDialog = () => {
+  const handleCloseImportCucumberResultDialog = () => {
     setShowImportCucumberResultDialog(false);
   };
 
-  const labels = testRun.labels.map((label) => {
+  const labelItems = testRun.labels.map((label, index) => {
     let value = label.value;
     if (label.url) {
       value = <a href={label.url}>{label.value}</a>;
     }
 
     return (
-      <p key={label.name}>
+      <li key={index} className="list-inline-item">
         <b>{label.name} :</b> {value}
-      </p>
+      </li>
     );
   });
 
-  const stats = useSelector((state) => state.testRun.stats);
+  const labels = <ul className="list-inline">{labelItems}</ul>;
 
   return (
-    <Page title={`Tir du ${toNiceDate(testRun.date)}`} breadcrumb={<TestRunBreadcrumbContainer />}>
-      {labels}
-
+    <Page title={`Tir du ${toNiceDate(testRun.date)}`} breadcrumb={<TestRunBreadcrumbContainer />} mainline={labels}>
       <ButtonToolbar className="mb-n2">
         <ButtonGroup className="mr-2 mb-2">
-          <Button icon={faFileUpload} onClick={onImportCucumberResultButtonClick}>
+          <Button icon={faFileUpload} onClick={handleImportCucumberResultButtonClick}>
             Importer un résultat de tests Cucumber
           </Button>
         </ButtonGroup>
         <ButtonGroup className="mr-2 mb-2">
-          <Button variant="secondary" icon={faEdit} onClick={onEditButtonClick}>
+          <Button variant="secondary" icon={faEdit} onClick={handleEditButtonClick}>
             Modifier
           </Button>
         </ButtonGroup>
@@ -121,33 +126,25 @@ export default function TestRunPage({ testRunId, testRun, selectedFeatureGroup, 
       <hr />
 
       <h2>Statistiques</h2>
-      <ScenarioStats stats={stats} />
+      <TestRunStats />
 
       <h2>Fonctionnalités</h2>
-      <FeatureGroupFilterContainer testRunId={testRunId} />
+      <FeatureGroupFilter />
       <FeatureStateFilter />
-      <TestRunFeatureTableContainer testRunId={testRunId} selectedFeatureGroup={selectedFeatureGroup} />
+      <TestRunFeatureTableContainer />
 
       <h2>Tendance</h2>
       <TestRunTrendChartContainer />
 
       <h2>Historique</h2>
-      <TestRunHistoryTableContainer testRunId={testRunId} />
+      <TestRunHistoryTable />
 
-      <ImportCucumberResultsDialogContainer
-        testRunId={testRunId}
+      <ImportCucumberResultsDialog
         show={showImportCucumberResultDialog}
-        onClose={hideImportCucumberResultDialog}
+        onClose={handleCloseImportCucumberResultDialog}
       />
 
-      <EditTestRunDialog testRun={testRun} show={showEditDialog} onClose={hideEditDialog} />
+      <EditTestRunDialog show={showEditDialog} onClose={handleCloseEditDialog} />
     </Page>
   );
 }
-
-TestRunPage.propTypes = {
-  testRunId: PropTypes.string.isRequired,
-  selectedFeatureGroup: PropTypes.string,
-  testRun: PropTypes.object,
-  onLoad: PropTypes.func.isRequired
-};

@@ -1,7 +1,5 @@
 import PropTypes from "prop-types";
 import React, { useMemo } from "react";
-import Table from "react-bootstrap/Table";
-import Badge from "react-bootstrap/Badge";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -9,6 +7,7 @@ import toNiceDate from "../../ui/toNiceDate";
 import { selectLatestTestRuns } from "../selectors";
 import useQueryParams from "../../useQueryParams";
 import CounterBadge from "../../ui/components/CounterBadge";
+import TabularDataTable, { TabularDataRow } from "../../ui/components/TabularDataTable";
 
 export default function TestRunsTable() {
   const testRuns = useSelector(selectLatestTestRuns);
@@ -25,38 +24,32 @@ export default function TestRunsTable() {
   const rows = selectedTestRuns.map((testRun) => <TestRunTableRow key={testRun.id} testRun={testRun} />);
 
   return (
-    <Table bordered striped hover responsive>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Environnement</th>
-          <th>Nom</th>
-          <th>Tir de test</th>
-          <th>Total</th>
-          <th>Succès</th>
-          <th>Échecs</th>
-          <th>En attente</th>
-          <th>Non joués</th>
-          <th>Analysés</th>
-        </tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </Table>
+    <TabularDataTable
+      columnNames={[
+        "Type",
+        "Environnement",
+        "Nom",
+        "Tir de test",
+        "Total",
+        "Succès",
+        "Échecs",
+        "En attente",
+        "Non joués",
+        "Analysés"
+      ]}
+      emptyDescription="Aucun tir"
+    >
+      {rows}
+    </TabularDataTable>
   );
 }
 
 function TestRunTableRow({ testRun }) {
   return (
-    <tr>
-      <td>
-        <Badge>{testRun.type}</Badge>
-      </td>
-      <td>
-        <Badge>{testRun.environment}</Badge>
-      </td>
-      <td>
-        <Badge>{testRun.name}</Badge>
-      </td>
+    <TabularDataRow>
+      <td>{testRun.type}</td>
+      <td>{testRun.environment}</td>
+      <td>{testRun.name}</td>
       <td>
         <Link to={`/test-runs/${testRun.id}`}>Tir du {toNiceDate(testRun.date)}</Link>
       </td>
@@ -78,7 +71,7 @@ function TestRunTableRow({ testRun }) {
       <td>
         <CounterBadge>{testRun.stats.reviewed.count}</CounterBadge>
       </td>
-    </tr>
+    </TabularDataRow>
   );
 }
 

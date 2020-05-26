@@ -1,13 +1,14 @@
-import PropTypes from "prop-types";
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
 import ConfirmActionButton from "../../ui/components/ConfirmActionButton";
 import { deleteTestRun } from "../redux";
 
-export default function DeleteTestRunButton({ testRunId }) {
+function DeleteTestRunButton() {
+  const testRunId = useSelector((state) => state.testRun.testRun.id);
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -28,6 +29,4 @@ export default function DeleteTestRunButton({ testRunId }) {
   );
 }
 
-DeleteTestRunButton.propTypes = {
-  testRunId: PropTypes.string
-};
+export default memo(DeleteTestRunButton);

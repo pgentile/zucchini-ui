@@ -17,7 +17,7 @@ export default function SearchForm() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    setSearch(queryParams.search);
+    setSearch(queryParams.search ?? "");
   }, [queryParams]);
 
   const handleSearchChange = (event) => setSearch(event.target.value);
@@ -37,7 +37,7 @@ export default function SearchForm() {
     <form onSubmit={handleSubmit}>
       <FormGroup controlId="search">
         <InputGroup size="lg">
-          <FormControl type="text" value={search} onChange={handleSearchChange} placeholder="Rechercher..." />
+          <FormControl type="text" value={search} onChange={handleSearchChange} placeholder="Rechercher&hellip;" />
           <InputGroup.Append>
             <Button icon={faSearch} type="submit">
               Rechercher

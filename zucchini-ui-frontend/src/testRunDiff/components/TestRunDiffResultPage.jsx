@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
+import { faExchangeAlt } from "@fortawesome/free-solid-svg-icons";
+import queryString from "query-string";
 
 import toNiceDate from "../../ui/toNiceDate";
 import AddedScenarioTableContainer from "./AddedScenarioTableContainer";
@@ -8,6 +10,7 @@ import DeletedScenarioTableContainer from "./DeletedScenarioTableContainer";
 import DifferentScenarioTableContainer from "./DifferentScenarioTableContainer";
 import Page from "../../ui/components/Page";
 import TestRunDiffBreadcrumbContainer from "./TestRunDiffBreadcrumbContainer";
+import Button from "../../ui/components/Button";
 
 export default class TestRunDiffResultPage extends React.Component {
   static propTypes = {
@@ -41,14 +44,29 @@ export default class TestRunDiffResultPage extends React.Component {
       <Page
         title={`Comparaison contre le tir du ${toNiceDate(testRun.date)}`}
         breadcrumb={<TestRunDiffBreadcrumbContainer />}
+        mainline={
+          <p>
+            Comparaison entre les tirs du <Link to={`/test-runs/${testRun.id}`}>{toNiceDate(testRun.date)}</Link> et du{" "}
+            <Link to={`/test-runs/${otherTestRun.id}`}>{toNiceDate(otherTestRun.date)}</Link>
+            <Button
+              icon={faExchangeAlt}
+              variant="outline-secondary"
+              size="sm"
+              className="ml-3"
+              as={Link}
+              to={{
+                pathname: `/test-runs/${otherTestRun.id}/diff`,
+                search: queryString.stringify({
+                  otherTestRunId: testRun.id
+                })
+              }}
+              replace
+            >
+              Inverser
+            </Button>
+          </p>
+        }
       >
-        <p>
-          Comparaison entre les tirs du <Link to={`/test-runs/${testRun.id}`}>{toNiceDate(testRun.date)}</Link> et du{" "}
-          <Link to={`/test-runs/${otherTestRun.id}`}>{toNiceDate(otherTestRun.date)}</Link>
-        </p>
-
-        <hr />
-
         <h2>Différences constatées</h2>
 
         <h3>Scénarios ajoutés</h3>

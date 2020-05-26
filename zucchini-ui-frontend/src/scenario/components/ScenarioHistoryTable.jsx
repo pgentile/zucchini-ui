@@ -1,71 +1,72 @@
+import React, { memo, useMemo } from "react";
 import PropTypes from "prop-types";
-import React from "react";
-import Table from "react-bootstrap/Table";
 import Badge from "react-bootstrap/Badge";
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Status from "../../ui/components/Status";
 import toNiceDate from "../../ui/toNiceDate";
+import TabularDataTable, { TabularDataRow } from "../../ui/components/TabularDataTable";
 
-export default class ScenarioHistoryTable extends React.PureComponent {
-  static propTypes = {
-    scenarioId: PropTypes.string.isRequired,
-    history: PropTypes.arrayOf(PropTypes.object)
-  };
+function ScenarioHistoryTable() {
+  const testRun = useSelector((state) => state.testRun.testRun);
+  const history = useSelector((state) => state.scenario.history);
+  const { sameTestRunType, sameTestRunEnvironment } = useSelector((state) => state.historyFilters);
 
-  render() {
-    const { history, scenarioId } = this.props;
+  const selectedHistory = useMemo(() => {
+    let filteredHistory = history;
 
-    const rows = history.map((scenario) => {
-      const isActive = scenario.id === scenarioId;
-      return <ScenarioHistoryTableRow key={scenario.testRun.id} scenario={scenario} isActive={isActive} />;
-    });
+    if (sameTestRunType) {
+      filteredHistory = filteredHistory.filter((scenario) => scenario.testRun.type === testRun.type);
+    }
 
-    return (
-      <Table bordered striped hover>
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>Environnement</th>
-            <th>Nom</th>
-            <th>Tir de test</th>
-            <th>Statut</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
-    );
-  }
+    if (sameTestRunEnvironment) {
+      filteredHistory = filteredHistory.filter((scenario) => scenario.testRun.environment === testRun.environment);
+    }
+
+    return filteredHistory;
+  }, [history, testRun, sameTestRunType, sameTestRunEnvironment]);
+
+  const rows = selectedHistory.map((scenario) => {
+    return <ScenarioHistoryTableRow key={scenario.testRun.id} scenario={scenario} />;
+  });
+
+  return (
+    <TabularDataTable columnNames={["Type", "Environnement", "Nom", "Tir de test", "Statut"]}>{rows}</TabularDataTable>
+  );
 }
 
-class ScenarioHistoryTableRow extends React.PureComponent {
-  static propTypes = {
-    scenario: PropTypes.object.isRequired,
-    isActive: PropTypes.bool.isRequired
-  };
+ScenarioHistoryTable.propTypes = {
+  scenarioId: PropTypes.string.isRequired,
+  history: PropTypes.arrayOf(PropTypes.object)
+};
 
-  render() {
-    const { scenario, isActive } = this.props;
-    const className = isActive ? "table-primary" : null;
+export default memo(ScenarioHistoryTable);
 
-    return (
-      <tr className={className}>
-        <td>
-          <Badge>{scenario.testRun.type}</Badge>
-        </td>
-        <td>
-          <Badge>{scenario.testRun.environment}</Badge>
-        </td>
-        <td>
-          <Badge>{scenario.testRun.name}</Badge>
-        </td>
-        <td>
-          <Link to={`/scenarios/${scenario.id}`}>Tir du {toNiceDate(scenario.testRun.date)}</Link>
-        </td>
-        <td>
-          <Status status={scenario.status} />
-        </td>
-      </tr>
-    );
-  }
-}
+const ScenarioHistoryTableRow = memo(function ScenarioHistoryTableRow({ scenario }) {
+  const { scenarioId } = useRouteMatch().params;
+
+  return (
+    <TabularDataRow highlight={scenario.id === scenarioId}>
+      <td>
+        <Badge>{scenario.testRun.type}</Badge>
+      </td>
+      <td>
+        <Badge>{scenario.testRun.environment}</Badge>
+      </td>
+      <td>
+        <Badge>{scenario.testRun.name}</Badge>
+      </td>
+      <td>
+        <Link to={`/scenarios/${scenario.id}`}>Tir du {toNiceDate(scenario.testRun.date)}</Link>
+      </td>
+      <td>
+        <Status status={scenario.status} />
+      </td>
+    </TabularDataRow>
+  );
+});
+
+ScenarioHistoryTableRow.propTypes = {
+  scenario: PropTypes.object.isRequired
+};

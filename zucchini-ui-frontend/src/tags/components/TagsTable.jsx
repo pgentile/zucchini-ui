@@ -2,11 +2,11 @@ import React, { useMemo, memo } from "react";
 import PropTypes from "prop-types";
 import { useRouteMatch } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Table from "react-bootstrap/Table";
 
 import Status from "../../ui/components/Status";
 import Tag from "../../ui/components/Tag";
 import CounterBadge from "../../ui/components/CounterBadge";
+import TabularDataTable, { TabularDataRow } from "../../ui/components/TabularDataTable";
 
 function TagsTable() {
   const tags = useSelector((state) => state.tags.tags);
@@ -23,21 +23,12 @@ function TagsTable() {
   const rows = filteredTags.map((tag) => <TagsTableRow key={tag.tag} tag={tag} />);
 
   return (
-    <Table bordered striped hover responsive>
-      <thead>
-        <tr>
-          <th>Tag</th>
-          <th>Statut</th>
-          <th>Total</th>
-          <th>Succès</th>
-          <th>Échecs</th>
-          <th>En attente</th>
-          <th>Non joués</th>
-          <th>Analysés</th>
-        </tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </Table>
+    <TabularDataTable
+      columnNames={["Tag", "Statut", "Total", "Succès", "Échecs", "En attente", "Non joués", "Analysés"]}
+      emptyDescription="Aucun tag"
+    >
+      {rows}
+    </TabularDataTable>
   );
 }
 
@@ -47,7 +38,7 @@ const TagsTableRow = memo(function TagsTableRow({ tag }) {
   const { testRunId } = useRouteMatch().params;
 
   return (
-    <tr>
+    <TabularDataRow>
       <td>
         <Tag testRunId={testRunId} tag={tag.tag} />
       </td>
@@ -72,7 +63,7 @@ const TagsTableRow = memo(function TagsTableRow({ tag }) {
       <td>
         <CounterBadge>{tag.stats.reviewed.count}</CounterBadge>
       </td>
-    </tr>
+    </TabularDataRow>
   );
 });
 

@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React, { memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
@@ -30,21 +29,23 @@ function ScenarioStats({ stats }) {
   const detailsSwitchId = useUniqueId("details-switch");
 
   return (
-    <Container>
+    <>
       <Row>
-        <Form>
-          <FormCheck
-            type="switch"
-            id={detailsSwitchId}
-            label="Vue détaillée"
-            checked={showDetails}
-            onChange={handleToogleDetails}
-            className="mb-2"
-          />
-        </Form>
+        <Col>
+          <Form>
+            <FormCheck
+              type="switch"
+              id={detailsSwitchId}
+              label="Vue détaillée"
+              checked={showDetails}
+              onChange={handleToogleDetails}
+              className="mb-2"
+            />
+          </Form>
+        </Col>
       </Row>
-      <Row xs={1} lg={3}>
-        <Col className="mb-3">
+      <Row xs={1} lg={3} className="mb-2">
+        <Col className="mb-2">
           <ChartCard
             title="Tous les scénarios"
             chart={<ScenarioPieChart stats={stats.all} total={stats.all.count} showDetails={showDetails} />}
@@ -52,14 +53,14 @@ function ScenarioStats({ stats }) {
             showDetails={showDetails}
           />
         </Col>
-        <Col className="mb-3">
+        <Col className="mb-2">
           <ChartCard
             title="Scénarios analysés"
             chart={<ScenarioPieChart stats={stats.reviewed} total={stats.all.count} showDetails={showDetails} />}
             legend={<StatsLegend stats={stats.reviewed} />}
           />
         </Col>
-        <Col className="mb-3">
+        <Col className="mb-2">
           <ChartCard
             title="Scénarios non analysés"
             chart={<ScenarioPieChart stats={stats.nonReviewed} total={stats.all.count} showDetails={showDetails} />}
@@ -67,7 +68,7 @@ function ScenarioStats({ stats }) {
           />
         </Col>
       </Row>
-    </Container>
+    </>
   );
 }
 

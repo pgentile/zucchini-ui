@@ -4,20 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import Modal from "react-bootstrap/Modal";
 
 import Button from "../../ui/components/Button";
-import { TestRunForm, TestRunFormFields } from "./TestRunForm";
+import TestRunForm, { TestRunFormFields } from "./TestRunForm";
 import { editTestRunThenReload } from "../redux";
 
 export default function EditTestRunDialog({ show, onClose }) {
   const testRun = useSelector((state) => state.testRun.testRun);
 
   const dispatch = useDispatch();
-
-  const handleCloseClick = (event) => {
-    if (event) {
-      event.preventDefault();
-    }
-    onClose();
-  };
 
   const handleSubmit = async (values) => {
     await dispatch(
@@ -30,7 +23,7 @@ export default function EditTestRunDialog({ show, onClose }) {
   };
 
   return (
-    <Modal show={show} onHide={handleCloseClick} size="lg">
+    <Modal show={show} onHide={onClose} size="lg">
       <TestRunForm initialValues={testRun} onSubmit={handleSubmit}>
         <Modal.Header closeButton>
           <Modal.Title>Modifier les informations du tir</Modal.Title>
@@ -39,7 +32,7 @@ export default function EditTestRunDialog({ show, onClose }) {
           <TestRunFormFields />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseClick}>
+          <Button variant="secondary" onClick={onClose}>
             Annuler
           </Button>
           <Button type="submit">Modifier</Button>

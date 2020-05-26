@@ -1,5 +1,6 @@
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-bootstrap/Modal";
 import FormCheck from "react-bootstrap/FormCheck";
 import FormGroup from "react-bootstrap/FormGroup";
@@ -8,122 +9,122 @@ import FormControl from "react-bootstrap/FormControl";
 import Form from "react-bootstrap/Form";
 
 import Button from "../../ui/components/Button";
+import { importCucumberResultThenReload } from "../redux";
 
-export default class ImportCucumberResultsDialog extends React.PureComponent {
-  static propTypes = {
-    testRunId: PropTypes.string.isRequired,
-    show: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
-    onImportCucumberResult: PropTypes.func.isRequired
-  };
+export default function ImportCucumberResultsDialog({ show, onClose }) {
+  const testRunId = useSelector((state) => state.testRun.testRun.id);
 
-  constructor(props) {
-    super(props);
+  const dispatch = useDispatch();
 
-    this.state = {
-      file: null,
-      group: "",
-      onlyNewScenarii: true,
-      mergeOnlyNewPassedScenarii: false,
-      dryRun: false
-    };
-  }
+  const [values, setValues] = useState({
+    file: null,
+    group: "",
+    onlyNewScenarii: true,
+    mergeOnlyNewPassedScenarii: false,
+    dryRun: false
+  });
+  const { group, onlyNewScenarii, mergeOnlyNewPassedScenarii, dryRun } = values;
 
-  onCloseClick = (event) => {
-    if (event) {
-      event.preventDefault();
-    }
-    this.props.onClose();
-  };
+  const handleValueChange = (event) => {
+    const { name, value } = event.target;
 
-  onFileChange = (event) => {
-    this.setState({
-      file: event.target.files[0]
+    setValues((currentValues) => {
+      return {
+        ...currentValues,
+        [name]: value
+      };
     });
   };
 
-  onGroupChange = (event) => {
-    this.setState({
-      group: event.target.value
+  const handleCheckChange = (event) => {
+    const { name, checked } = event.target;
+
+    setValues((currentValues) => {
+      return {
+        ...currentValues,
+        [name]: checked
+      };
     });
   };
 
-  onOptionChange = (name) => {
-    return (event) => {
-      this.setState({
-        [name]: event.target.checked
-      });
-    };
-  };
+  const handleFileChange = (event) => {
+    const { name, files } = event.target;
 
-  onImportCucumberResult = (event) => {
-    if (event) {
-      event.preventDefault();
-    }
-
-    this.props.onImportCucumberResult({
-      testRunId: this.props.testRunId,
-      ...this.state
+    setValues((currentValues) => {
+      return {
+        ...currentValues,
+        [name]: files[0]
+      };
     });
-
-    this.props.onClose();
   };
 
-  render() {
-    const { show } = this.props;
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-    return (
-      <Modal show={show} onHide={this.onCloseClick}>
+    dispatch(
+      importCucumberResultThenReload({
+        testRunId: testRunId,
+        ...values
+      })
+    );
+
+    onClose();
+  };
+
+  return (
+    <Modal show={show} onHide={onClose}>
+      <Form onSubmit={handleSubmit}>
         <Modal.Header closeButton>
           <Modal.Title>Importer un résultat de tests Cucumber</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={this.onImportCucumberResult}>
-            <FormGroup controlId="file">
-              <FormLabel>Fichier à importer</FormLabel>
-              <FormControl type="file" accept=".json" required onChange={this.onFileChange} />
-              <Form.Text className="text-muted">
-                Le fichier à importer est un résultat d&apos;exécution Cucumber, au format JSON.
-              </Form.Text>
-            </FormGroup>
-            <FormGroup controlId="group">
-              <FormLabel>Groupe</FormLabel>
-              <FormControl
-                type="text"
-                placeholder="Nom d'un groupe pour les fonctionnalités importées"
-                value={this.state.group}
-                onChange={this.onGroupChange}
-              />
-            </FormGroup>
-            <FormGroup>
-              <FormCheck
-                id="onlyNewScenarii"
-                checked={this.state.onlyNewScenarii}
-                onChange={this.onOptionChange("onlyNewScenarii")}
-                label="Limiter l'import aux nouveaux scénarios"
-              />
-              <FormCheck
-                id="mergeOnlyNewPassedScenarii"
-                checked={this.state.mergeOnlyNewPassedScenarii}
-                onChange={this.onOptionChange("mergeOnlyNewPassedScenarii")}
-                label="Limiter l'import aux scénarios passés avec succès"
-              />
-              <FormCheck
-                id="dryRun"
-                checked={this.state.dryRun}
-                onChange={this.onOptionChange("dryRun")}
-                label="Tir à blanc"
-              />
-            </FormGroup>
-          </form>
+          <FormGroup controlId="file">
+            <FormLabel>Fichier à importer</FormLabel>
+            <FormControl name="file" type="file" accept=".json" required onChange={handleFileChange} />
+            <Form.Text className="text-muted">
+              Le fichier à importer est un résultat d&apos;exécution Cucumber, au format JSON.
+            </Form.Text>
+          </FormGroup>
+          <FormGroup controlId="group">
+            <FormLabel>Groupe</FormLabel>
+            <FormControl
+              name="group"
+              type="text"
+              placeholder="Nom d'un groupe pour les fonctionnalités importées"
+              value={group}
+              onChange={handleValueChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <FormCheck
+              id="onlyNewScenarii"
+              name="onlyNewScenarii"
+              checked={onlyNewScenarii}
+              onChange={handleCheckChange}
+              label="Limiter l'import aux nouveaux scénarios"
+            />
+            <FormCheck
+              id="mergeOnlyNewPassedScenarii"
+              name="mergeOnlyNewPassedScenarii"
+              checked={mergeOnlyNewPassedScenarii}
+              onChange={handleCheckChange}
+              label="Limiter l'import aux scénarios passés avec succès"
+            />
+            <FormCheck id="dryRun" name="dryRun" checked={dryRun} onChange={handleCheckChange} label="Tir à blanc" />
+          </FormGroup>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={this.onCloseClick}>
+          <Button variant="secondary" onClick={onClose}>
             Annuler
           </Button>
-          <Button onClick={this.onImportCucumberResult}>Importer</Button>
+          <Button type="submit">Importer</Button>
         </Modal.Footer>
-      </Modal>
-    );
-  }
+      </Form>
+    </Modal>
+  );
 }
+
+ImportCucumberResultsDialog.propTypes = {
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired
+};

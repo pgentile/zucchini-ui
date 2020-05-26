@@ -59,7 +59,7 @@ export default function TagFilterForm() {
             placeholder="Entrez les premières lettres d'un tag&hellip;"
           />
           <InputGroup.Append>
-            <Button icon={faTimesCircle} iconOnly onClick={handleFilterClear}>
+            <Button variant="secondary" icon={faTimesCircle} iconOnly onClick={handleFilterClear}>
               Effacer
             </Button>
           </InputGroup.Append>

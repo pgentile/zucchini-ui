@@ -17,7 +17,7 @@ const Context = createContext({
   setValues: noop
 });
 
-const TestRunForm = memo(function TestRunForm({ children, initialValues = {}, onSubmit }) {
+function TestRunForm({ children, initialValues = {}, onSubmit }) {
   const [values, setValues] = useState(() => {
     return {
       type: "",
@@ -38,7 +38,7 @@ const TestRunForm = memo(function TestRunForm({ children, initialValues = {}, on
       <form onSubmit={handleSubmit}>{children}</form>
     </Context.Provider>
   );
-});
+}
 
 TestRunForm.propTypes = {
   children: PropTypes.node,
@@ -46,7 +46,7 @@ TestRunForm.propTypes = {
   onSubmit: PropTypes.func.isRequired
 };
 
-export { TestRunForm };
+export default memo(TestRunForm);
 
 const TestRunFormFields = memo(function TestRunFormFields() {
   const fieldIds = useMultiUniqueId("test-run", ["type", "environment", "name"]);
