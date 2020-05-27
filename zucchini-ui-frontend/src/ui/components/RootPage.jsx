@@ -3,7 +3,7 @@ import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import LoadingIndicator from "../../loadingIndicator/components/LoadingIndicator";
 import ErrorAlert from "../../errors/components/ErrorAlert";
@@ -19,7 +19,7 @@ export default function RootPage({ children }) {
         </Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Item>
-            <Nav.Link as={Link} to="/">
+            <Nav.Link as={NavLink} to="/" exact aria-current="true">
               Derniers tirs
             </Nav.Link>
           </Nav.Item>
