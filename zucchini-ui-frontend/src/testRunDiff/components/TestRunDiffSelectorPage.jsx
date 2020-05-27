@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import toNiceDate from "../../ui/toNiceDate";
 import HistoryFilter from "../../filters/components/HistoryFilter";
-import TestRunSelectorTableContainer from "./TestRunSelectorTableContainer";
+import TestRunSelectorTable from "./TestRunSelectorTable";
 import Page from "../../ui/components/Page";
 import TestRunDiffBreadcrumbContainer from "./TestRunDiffBreadcrumbContainer";
 import { useEffect } from "react";
@@ -27,7 +27,7 @@ function TestRunDiffSelectorPage() {
     >
       <h2>Sélectionner un autre tir</h2>
       <HistoryFilter />
-      <TestRunSelectorTableContainer currentTestRunId={testRunId} />
+      <TestRunSelectorTable currentTestRunId={testRunId} />
     </Page>
   );
 }
