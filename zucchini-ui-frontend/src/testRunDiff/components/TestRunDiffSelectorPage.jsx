@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { useRouteMatch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import toNiceDate from "../../ui/toNiceDate";
 import HistoryFilter from "../../filters/components/HistoryFilter";
@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadTestRunDiffSelectorPage } from "../redux";
 
 function TestRunDiffSelectorPage() {
-  const { testRunId } = useRouteMatch().params;
+  const { testRunId } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {

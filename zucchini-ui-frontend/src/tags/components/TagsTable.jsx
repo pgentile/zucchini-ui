@@ -1,6 +1,6 @@
 import React, { useMemo, memo } from "react";
 import PropTypes from "prop-types";
-import { useRouteMatch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import Status from "../../ui/components/Status";
@@ -35,7 +35,7 @@ function TagsTable() {
 export default memo(TagsTable);
 
 const TagsTableRow = memo(function TagsTableRow({ tag }) {
-  const { testRunId } = useRouteMatch().params;
+  const { testRunId } = useParams();
 
   return (
     <TabularDataRow>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useRouteMatch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import FormGroup from "react-bootstrap/FormGroup";
 import FormControl from "react-bootstrap/FormControl";
@@ -11,7 +11,7 @@ import { addScenarioCommentAndReload } from "../redux";
 export default function AddCommentForm() {
   const dispatch = useDispatch();
 
-  const { scenarioId } = useRouteMatch().params;
+  const { scenarioId } = useParams();
 
   const [comment, setComment] = useState();
 

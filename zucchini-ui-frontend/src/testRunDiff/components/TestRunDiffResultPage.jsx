@@ -1,5 +1,5 @@
 import React, { memo, useEffect } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { faExchangeAlt } from "@fortawesome/free-solid-svg-icons";
 import queryString from "query-string";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +14,7 @@ import UnknownScenarioTable from "./UnknownScenarioTable";
 import DifferentScenarioTable from "./DifferentScenarioTable";
 
 function TestRunDiffResultPage() {
-  const { testRunId } = useRouteMatch().params;
+  const { testRunId } = useParams();
   const { otherTestRunId } = useQueryParams();
   const dispatch = useDispatch();
 

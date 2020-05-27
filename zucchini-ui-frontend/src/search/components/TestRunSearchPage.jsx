@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useRouteMatch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import toNiceDate from "../../ui/toNiceDate";
 import ScenarioTable from "../../ui/components/ScenarioTable";
@@ -13,7 +13,7 @@ import { loadTestRunSearchPage, search as doSearch } from "../redux";
 export default function TestRunSearchPage() {
   const dispatch = useDispatch();
 
-  const testRunId = useRouteMatch().params.testRunId;
+  const testRunId = useParams().testRunId;
   const testRun = useSelector((state) => state.testRun.testRun);
 
   const { search } = useQueryParams();

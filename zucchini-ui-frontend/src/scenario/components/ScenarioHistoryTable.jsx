@@ -1,6 +1,6 @@
 import React, { memo, useMemo } from "react";
 import PropTypes from "prop-types";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import Status from "../../ui/components/Status";
@@ -43,7 +43,7 @@ ScenarioHistoryTable.propTypes = {
 export default memo(ScenarioHistoryTable);
 
 const ScenarioHistoryTableRow = memo(function ScenarioHistoryTableRow({ scenario }) {
-  const { scenarioId } = useRouteMatch().params;
+  const { scenarioId } = useParams();
 
   return (
     <TabularDataRow highlight={scenario.id === scenarioId}>

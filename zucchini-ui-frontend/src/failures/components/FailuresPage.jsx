@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useRouteMatch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import toNiceDate from "../../ui/toNiceDate";
 import FailuresTable from "./FailuresTable";
@@ -11,7 +11,7 @@ import { loadTestRunFailuresPage } from "../redux";
 
 export default function FailuresPage() {
   const dispatch = useDispatch();
-  const { testRunId } = useRouteMatch().params;
+  const { testRunId } = useParams();
   const testRun = useSelector((state) => state.testRun.testRun);
   const stats = useSelector((state) => state.testRun.stats.all);
 

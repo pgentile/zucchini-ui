@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { useSelector, useDispatch } from "react-redux";
-import { useRouteMatch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   faFileUpload,
   faEdit,
@@ -31,7 +31,7 @@ import { loadTestRunPage } from "../redux";
 import TestRunStats from "./TestRunStats";
 
 export default function TestRunPage() {
-  const { testRunId } = useRouteMatch().params;
+  const { testRunId } = useParams();
 
   const dispatch = useDispatch();
 

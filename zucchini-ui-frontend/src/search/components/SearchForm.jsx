@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import queryString from "query-string";
 import FormGroup from "react-bootstrap/FormGroup";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -11,7 +11,7 @@ import Button from "../../ui/components/Button";
 
 export default function SearchForm() {
   const history = useHistory();
-  const { testRunId } = useRouteMatch().params;
+  const { testRunId } = useParams();
   const queryParams = useQueryParams();
 
   const [search, setSearch] = useState("");

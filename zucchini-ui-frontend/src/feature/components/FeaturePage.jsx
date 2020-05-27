@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import queryString from "query-string";
 
@@ -19,7 +19,7 @@ import { loadFeaturePage } from "../redux";
 import FeatureStats from "./FeatureStats";
 
 export default function FeaturePage() {
-  const { featureId } = useRouteMatch().params;
+  const { featureId } = useParams();
   const feature = useSelector((state) => state.feature.feature);
 
   const dispatch = useDispatch();

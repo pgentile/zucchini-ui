@@ -1,6 +1,6 @@
 import React, { Fragment, useMemo, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useRouteMatch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import toNiceDate from "../../ui/toNiceDate";
 import FeatureStateFilter from "../../filters/components/FeatureStateFilter";
@@ -15,7 +15,7 @@ import { loadTagDetailsPage } from "../redux";
 import ScenarioStats from "../../stats/components/ScenarioStats";
 
 export default function TagDetailsPage() {
-  const testRunId = useRouteMatch().params.testRunId;
+  const testRunId = useParams().testRunId;
   const { tags, excludedTags } = useParsedTags();
 
   const includedTagsStr = useMemo(() => tags.map((tag) => `@${tag}`).join(" "), [tags]);

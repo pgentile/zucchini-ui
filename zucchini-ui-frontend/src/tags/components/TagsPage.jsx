@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useRouteMatch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import TagFilterForm from "./TagFilterForm";
 import TagsTable from "./TagsTable";
@@ -10,7 +10,7 @@ import TagsBreadcrumbContainer from "./TagsBreadcrumbContainer";
 import { loadTestRunTagsPage } from "../redux";
 
 export default function TagsPage() {
-  const { testRunId } = useRouteMatch().params;
+  const { testRunId } = useParams();
 
   const dispatch = useDispatch();
 
