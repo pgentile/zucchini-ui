@@ -5,7 +5,7 @@ import { render, fireEvent } from "@testing-library/react";
 import ScrollToTop from "./ScrollToTop";
 
 describe("ScrollToTop", () => {
-  it("should scroll to top", async () => {
+  it("should scroll to top", () => {
     window.scrollTo = jest.fn().mockName("scrollTo");
 
     const { getByText } = render(

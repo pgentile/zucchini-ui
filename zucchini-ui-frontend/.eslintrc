@@ -22,14 +22,13 @@
       "env": {
         "jest/globals": true
       },
-      "extends": ["plugin:jest/recommended", "plugin:jest-dom/recommended"]
+      "extends": ["plugin:jest/recommended", "plugin:jest-dom/recommended", "plugin:testing-library/recommended"]
     },
     {
       "files": ["babel.config.js", "jest.config.js", "postcss.config.js", "webpack.config.js"],
       "env": {
         "node": true
-      },
-      "extends": ["plugin:jest/recommended", "plugin:jest-dom/recommended"]
+      }
     }
   ]
 }

@@ -1,23 +1,18 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { Fragment, Children, memo } from "react";
 
-export default function ListWithSeparator({ children, separator }) {
-  let items = React.Children.map(children, (child) => [child, separator]);
-
-  if (items.length > 0) {
-    const begining = items.slice(0, items.length - 1);
-
-    // Remove last separator
-    let last = items[items.length - 1];
-    last = last.slice(0, 0);
-
-    items = [...begining, last];
-  }
-
-  return <span>{items}</span>;
+function ListWithSeparator({ children, separator }) {
+  return Children.toArray(children)
+    .flatMap((child, index) => [
+      <Fragment key={`child-${index}`}>{child}</Fragment>,
+      <Fragment key={`separator-${index}`}>{separator}</Fragment>
+    ])
+    .slice(0, -1);
 }
 
 ListWithSeparator.propTypes = {
-  separator: PropTypes.string.isRequired,
+  separator: PropTypes.node.isRequired,
   children: PropTypes.node
 };
+
+export default memo(ListWithSeparator);

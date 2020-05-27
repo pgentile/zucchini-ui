@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListWithSeparator should not use separator for just one element 1`] = `
+<DocumentFragment>
+  <span>
+    Item 1
+  </span>
+</DocumentFragment>
+`;
+
+exports[`ListWithSeparator should not use separator for no element 1`] = `<DocumentFragment />`;
+
+exports[`ListWithSeparator should use separator for many elements 1`] = `
+<DocumentFragment>
+  <span>
+    Item 1
+  </span>
+  -
+  <span>
+    Item 2
+  </span>
+  -
+  <span>
+    Item 3
+  </span>
+</DocumentFragment>
+`;
+
+exports[`ListWithSeparator should use separator tag for many elements 1`] = `
+<DocumentFragment>
+  <span>
+    Item 1
+  </span>
+  <span>
+    /
+  </span>
+  <span>
+    Item 2
+  </span>
+</DocumentFragment>
+`;
