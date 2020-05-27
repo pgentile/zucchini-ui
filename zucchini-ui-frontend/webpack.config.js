@@ -1,11 +1,12 @@
 /* eslint-disable */
 
 const path = require("path");
-const webpack = require("webpack");
+const { NormalModuleReplacementPlugin } = require("webpack");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 // Output dir
 const outputDir = path.join(__dirname, "build/dist/assets");
@@ -27,11 +28,10 @@ module.exports = {
     filename: "[name].js",
     publicPath: "/ui/assets/"
   },
+  node: false,
   devtool: "source-map",
   devServer: {
     port: devServerPort,
-    inline: true,
-    compress: true,
     historyApiFallback: true,
     before: (app) => {
       app.get("/", (req, res) => {
@@ -94,11 +94,13 @@ module.exports = {
     }
   },
   plugins: [
+    new CleanWebpackPlugin(),
+
     new MiniCssExtractPlugin(),
 
     // Replace lodash-es imports by equivalent lodash imports.
     // Otherwise, same lodash functions can be loaded twice !
-    new webpack.NormalModuleReplacementPlugin(/lodash-es/, (resource) => {
+    new NormalModuleReplacementPlugin(/lodash-es/, (resource) => {
       resource.request = resource.request.replace("lodash-es", "lodash");
     }),
 

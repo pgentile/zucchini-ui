@@ -12,6 +12,7 @@ module.exports = (api) => {
 
   if (testEnv) {
     envPresetConfig = {
+      ...envPresetConfig,
       modules: "commonjs",
       useBuiltIns: "usage",
       targets: {
