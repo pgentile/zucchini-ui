@@ -254,7 +254,6 @@ project("${rootProject.name}-frontend") {
         command = 'test'
 
         inputs.dir('src')
-        inputs.dir('test')
         inputs.file('package.json')
     }
 
@@ -264,7 +263,6 @@ project("${rootProject.name}-frontend") {
         command = 'lint'
 
         inputs.dir('src')
-        inputs.dir('test')
         inputs.file('.eslintrc')
         inputs.file(rootProject.file('.eslintrc'))
         inputs.file('package.json')
