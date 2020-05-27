@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import { BrowserRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
 
 import TagList from "../../../src/ui/components/TagList";
 
@@ -10,9 +10,9 @@ describe("TagList", () => {
     const testRunId = "sampleId";
 
     const component = renderer.create(
-      <BrowserRouter>
+      <MemoryRouter>
         <TagList testRunId={testRunId} tags={tags} />
-      </BrowserRouter>
+      </MemoryRouter>
     );
 
     const tree = component.toJSON();
