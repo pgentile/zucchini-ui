@@ -1,6 +1,5 @@
 import React, { memo, useMemo } from "react";
 import PropTypes from "prop-types";
-import Badge from "react-bootstrap/Badge";
 import { Link, useRouteMatch } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -48,15 +47,9 @@ const ScenarioHistoryTableRow = memo(function ScenarioHistoryTableRow({ scenario
 
   return (
     <TabularDataRow highlight={scenario.id === scenarioId}>
-      <td>
-        <Badge>{scenario.testRun.type}</Badge>
-      </td>
-      <td>
-        <Badge>{scenario.testRun.environment}</Badge>
-      </td>
-      <td>
-        <Badge>{scenario.testRun.name}</Badge>
-      </td>
+      <td>{scenario.testRun.type}</td>
+      <td>{scenario.testRun.environment}</td>
+      <td>{scenario.testRun.name}</td>
       <td>
         <Link to={`/scenarios/${scenario.id}`}>Tir du {toNiceDate(scenario.testRun.date)}</Link>
       </td>

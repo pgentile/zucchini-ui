@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Badge from "react-bootstrap/Badge";
 import { Link } from "react-router-dom";
 import queryString from "query-string";
 
@@ -67,15 +66,9 @@ class TestRunSelectorTableRow extends React.PureComponent {
 
     return (
       <TabularDataRow highlight={isSameTestRun}>
-        <td>
-          <Badge>{testRun.type}</Badge>
-        </td>
-        <td>
-          <Badge>{testRun.environment}</Badge>
-        </td>
-        <td>
-          <Badge>{testRun.name}</Badge>
-        </td>
+        <td>{testRun.type}</td>
+        <td>{testRun.environment}</td>
+        <td>{testRun.name}</td>
         <td>{testRunTitle}</td>
         <td>
           <CounterBadge>{testRun.stats.all.count}</CounterBadge>

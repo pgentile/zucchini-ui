@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
 import Table from "react-bootstrap/Table";
-import Badge from "react-bootstrap/Badge";
 import { Link } from "react-router-dom";
 
 import Status from "../../ui/components/Status";
@@ -57,15 +56,9 @@ class FeatureHistoryTableRow extends React.PureComponent {
 
     return (
       <tr className={className}>
-        <td>
-          <Badge>{feature.testRun.type}</Badge>
-        </td>
-        <td>
-          <Badge>{feature.testRun.environment}</Badge>
-        </td>
-        <td>
-          <Badge>{feature.testRun.name}</Badge>
-        </td>
+        <td>{feature.testRun.type}</td>
+        <td>{feature.testRun.environment}</td>
+        <td>{feature.testRun.name}</td>
         <td>
           <Link to={`/features/${feature.id}`}>Tir du {toNiceDate(feature.testRun.date)}</Link>
         </td>
