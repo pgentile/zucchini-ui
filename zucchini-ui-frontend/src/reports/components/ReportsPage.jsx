@@ -1,48 +1,35 @@
-import PropTypes from "prop-types";
-import React, { Fragment } from "react";
-import toNiceDate from "../../ui/toNiceDate";
+import React, { memo, Fragment, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
+import toNiceDate from "../../ui/toNiceDate";
+import { useParams } from "react-router-dom";
 import ReportsTableContainer from "./ReportsTableContainer";
 import Page from "../../ui/components/Page";
 import ReportsBreadcrumbContainer from "./ReportsBreadcrumbContainer";
+import { loadTestRunReportsPage } from "../redux";
 
-export default class ReportsPage extends React.Component {
-  static propTypes = {
-    testRunId: PropTypes.string.isRequired,
-    testRun: PropTypes.object,
-    onLoad: PropTypes.func.isRequired
-  };
+function ReportsPage() {
+  const { testRunId } = useParams();
+  const testRun = useSelector((state) => state.testRun.testRun);
 
-  componentDidMount() {
-    this.loadTestRunReportsIfPossible();
-  }
+  const dispatch = useDispatch();
 
-  componentDidUpdate(prevProps) {
-    this.loadTestRunReportsIfPossible(prevProps);
-  }
+  useEffect(() => {
+    dispatch(loadTestRunReportsPage({ testRunId }));
+  }, [dispatch, testRunId]);
 
-  loadTestRunReportsIfPossible(prevProps = {}) {
-    const { testRunId } = this.props;
-
-    if (testRunId !== prevProps.testRunId) {
-      this.props.onLoad({ testRunId });
-    }
-  }
-
-  render() {
-    const { testRun } = this.props;
-
-    return (
-      <Page
-        title={
-          <Fragment>
-            Bilan <small className="text-muted">{`Tir du ${toNiceDate(testRun.date)}`}</small>
-          </Fragment>
-        }
-        breadcrumb={<ReportsBreadcrumbContainer />}
-      >
-        <ReportsTableContainer />
-      </Page>
-    );
-  }
+  return (
+    <Page
+      title={
+        <Fragment>
+          Bilan <small className="text-muted">{`Tir du ${toNiceDate(testRun.date)}`}</small>
+        </Fragment>
+      }
+      breadcrumb={<ReportsBreadcrumbContainer />}
+    >
+      <ReportsTableContainer />
+    </Page>
+  );
 }
+
+export default memo(ReportsPage);

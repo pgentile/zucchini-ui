@@ -19,7 +19,7 @@ const TagsPage = lazy(() => import("./tags/components/TagsPage"));
 const TagDetailsPage = lazy(() => import("./tagDetails/components/TagDetailsPage"));
 const TestRunDiffPage = lazy(() => import("./testRunDiff/components/TestRunDiffPage"));
 const FailuresPage = lazy(() => import("./failures/components/FailuresPage"));
-const ReportsPageContainer = lazy(() => import("./reports/components/ReportsPageContainer"));
+const ReportsPage = lazy(() => import("./reports/components/ReportsPage"));
 const StepDefinitionsPage = lazy(() => import("./stepDefinitions/components/StepDefinitionsPage"));
 
 export default function AppRouter() {
@@ -37,7 +37,7 @@ export default function AppRouter() {
                   <Route exact path="/test-runs/:testRunId/search" component={TestRunSearchPage} />
                   <Route exact path="/test-runs/:testRunId/tags" component={TagsPage} />
                   <Route exact path="/test-runs/:testRunId/failures" component={FailuresPage} />
-                  <Route exact path="/test-runs/:testRunId/reports" component={ReportsPageContainer} />
+                  <Route exact path="/test-runs/:testRunId/reports" component={ReportsPage} />
                   <Route exact path="/test-runs/:testRunId/tag-details" component={TagDetailsPage} />
                   <Route exact path="/test-runs/:testRunId/diff" component={TestRunDiffPage} />
                   <Route exact path="/test-runs/:testRunId/stepDefinitions" component={StepDefinitionsPage} />
