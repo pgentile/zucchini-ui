@@ -458,9 +458,9 @@ aws-sign2@~0.7.0:
   integrity sha1-tG6JCTSpWR8tL2+G1+ap8bP+dqg=
 
 aws4@^1.8.0:
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.9.1.tgz#7e33d8f7d449b3f673cd72deb9abdc552dbe528e"
-  integrity sha512-wMHVg2EOHaMRxbzgFJ9gtjOOCrI80OHLG14rxi28XwOW8ux6IiEbRCGGGqCtdAIg4FQCbW20k9RsT4y3gJlFug==
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.10.0.tgz#a17b3a8ea811060e74d47d306122400ad4497ae2"
+  integrity sha512-3YDiu347mtVtjpyV3u5kVqQLP242c06zwDOgpeRnybmXlYYsLbtTrUBUm8i8srONt+FWobl5aibnU1030PeeuA==
 
 babel-eslint@^10.0.3:
   version "10.1.0"
@@ -775,9 +775,9 @@ cypress@*:
     yauzl "2.10.0"
 
 cypress@^4.0.1:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/cypress/-/cypress-4.6.0.tgz#ac76786500580df1347a0a50be63e5c59ffbef59"
-  integrity sha512-vIPXAceRP+Nxvnm/O9ruY9EQaRGmVVybtk9F1sfC9mH3067YbitrdBTynaaLuHFj90p9e0U2ZCV7OkX4x4V/Wg==
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-4.7.0.tgz#3ea29bddaf9a1faeaa5b8d54b60a84ed1cafa83d"
+  integrity sha512-Vav6wUFhPRlImIND/2lOQlUnAWzgCC/iXyJlJjX9nJOJul5LC1vUpf/m8Oiae870PFPyT0ZLLwPHKTXZNdXmHw==
   dependencies:
     "@cypress/listr-verbose-renderer" "0.4.1"
     "@cypress/request" "2.88.5"
