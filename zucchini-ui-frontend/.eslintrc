@@ -15,8 +15,21 @@
       "version": "detect"
     }
   },
-  "extends": [
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended"
+  "extends": ["plugin:react/recommended", "plugin:react-hooks/recommended"],
+  "overrides": [
+    {
+      "files": ["src/**/*.test.js", "src/**/*.test.jsx"],
+      "env": {
+        "jest/globals": true
+      },
+      "extends": ["plugin:jest/recommended", "plugin:jest-dom/recommended"]
+    },
+    {
+      "files": ["babel.config.js", "jest.config.js", "postcss.config.js", "webpack.config.js"],
+      "env": {
+        "node": true
+      },
+      "extends": ["plugin:jest/recommended", "plugin:jest-dom/recommended"]
+    }
   ]
 }

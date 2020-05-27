@@ -1,4 +1,4 @@
-import tokenizeUrls from "../../src/ui/tokenizeUrls";
+import tokenizeUrls from "./tokenizeUrls";
 
 describe("tokenizeUrls", () => {
   it("should return empty token list for a null input", () => {

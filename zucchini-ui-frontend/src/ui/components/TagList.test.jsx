@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import { MemoryRouter } from "react-router-dom";
 
-import TagList from "../../../src/ui/components/TagList";
+import TagList from "./TagList";
 
 describe("TagList", () => {
   it("should contain labels with tags", () => {

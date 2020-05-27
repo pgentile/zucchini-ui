@@ -1,4 +1,4 @@
-import toNiceDate from "../../src/ui/toNiceDate";
+import toNiceDate from "./toNiceDate";
 
 describe("toNiceDate", () => {
   it("should return null for a null input", () => {

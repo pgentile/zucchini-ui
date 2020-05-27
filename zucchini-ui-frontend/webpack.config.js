@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 const path = require("path");
 const { NormalModuleReplacementPlugin } = require("webpack");
 const TerserPlugin = require("terser-webpack-plugin");

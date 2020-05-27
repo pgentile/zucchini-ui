@@ -1,4 +1,4 @@
-import html from "../../src/ui/html";
+import html from "./html";
 
 describe("html", () => {
   it("should escape template arguments", () => {

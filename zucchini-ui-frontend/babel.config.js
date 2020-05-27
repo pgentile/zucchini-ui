@@ -1,6 +1,6 @@
-const package = require("./package.json");
+const pkg = require("./package.json");
 
-const babelRuntimeVersion = package.dependencies["@babel/runtime"];
+const babelRuntimeVersion = pkg.dependencies["@babel/runtime"];
 
 module.exports = (api) => {
   const testEnv = api.env((envName) => envName === "test");
