@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import Spinner from "react-bootstrap/Spinner";
+
 import { load, unload } from "../redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 
 export default function PageLoadingPlaceholder() {
   const dispatch = useDispatch();
@@ -17,7 +17,9 @@ export default function PageLoadingPlaceholder() {
     <>
       <p className="lead text-center">Chargement de la page en cours&hellip;</p>
       <div className="text-center">
-        <FontAwesomeIcon icon={faCircleNotch} spin size="3x" />
+        <Spinner animation="border" role="status">
+          <span className="sr-only">Chargement&hellip;</span>
+        </Spinner>
       </div>
     </>
   );
