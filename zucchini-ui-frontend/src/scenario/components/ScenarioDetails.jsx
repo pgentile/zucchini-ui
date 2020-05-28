@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 import Button from "../../ui/components/Button";
 import SimpleText from "../../ui/components/SimpleText";
@@ -55,9 +56,6 @@ export default class ScenarioDetails extends React.PureComponent {
       );
     });
 
-    // For good popover placement :
-    //   - The container prop of the OverlayTrigger must have a CSS relative position
-    //   - The overlay prop of the OverlayTrigger must be the Popover element
     const stepFilters = (
       <Popover id="step-filters">
         <Popover.Title>Configurer les options d&apos;affichage</Popover.Title>
@@ -69,13 +67,13 @@ export default class ScenarioDetails extends React.PureComponent {
 
     return (
       <>
-        <p>
+        <ButtonGroup className="mb-3">
           <OverlayTrigger rootClose trigger="click" placement="bottom" overlay={stepFilters}>
             <Button variant="outline-secondary" size="sm">
               Options d&apos;affichage
             </Button>
           </OverlayTrigger>
-        </p>
+        </ButtonGroup>
 
         {filters.comments && scenario.comment && <SimpleText className="text-muted" text={scenario.comment} />}
         {filters.beforeAndAfterActions && beforeActions}

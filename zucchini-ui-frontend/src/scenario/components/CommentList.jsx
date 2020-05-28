@@ -1,18 +1,14 @@
-import PropTypes from "prop-types";
-import React from "react";
+import React, { memo } from "react";
+import { useSelector } from "react-redux";
 
-import CommentContainer from "./CommentContainer";
+import Comment from "./Comment";
 
-export default class CommentList extends React.PureComponent {
-  static propTypes = {
-    comments: PropTypes.array.isRequired
-  };
+function CommentList() {
+  const comments = useSelector((state) => state.scenario.comments);
 
-  render() {
-    const { comments } = this.props;
-
-    return comments.map((comment) => {
-      return <CommentContainer key={comment.id} comment={comment} />;
-    });
-  }
+  return comments.map((comment) => {
+    return <Comment key={comment.id} comment={comment} />;
+  });
 }
+
+export default memo(CommentList);

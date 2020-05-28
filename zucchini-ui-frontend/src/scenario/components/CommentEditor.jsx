@@ -1,59 +1,64 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState, memo } from "react";
+import { useDispatch } from "react-redux";
 import FormGroup from "react-bootstrap/FormGroup";
 import FormControl from "react-bootstrap/FormControl";
+import ButtonToolbar from "react-bootstrap/ButtonToolbar";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import FormLabel from "react-bootstrap/FormLabel";
 
 import Button from "../../ui/components/Button";
+import { updateCommentThenReload } from "../redux";
+import useUniqueId from "../../useUniqueId";
 
-export default class CommentEditor extends React.PureComponent {
-  static propTypes = {
-    comment: PropTypes.object.isRequired,
-    testRunId: PropTypes.string,
-    onCancel: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired
+function CommentEditor({ comment, onCancel, onSaved }) {
+  const [content, setContent] = useState(comment.content);
+
+  const handleTextChange = (event) => {
+    setContent(event.target.value);
   };
 
-  constructor(props) {
-    super(props);
+  const dispatch = useDispatch();
 
-    this.state = {
-      comment: props.comment.content
-    };
-  }
-
-  onCancel = () => {
-    this.props.onCancel();
+  const handleSaveClick = async () => {
+    await dispatch(
+      updateCommentThenReload({
+        scenarioId: comment.scenarioId,
+        commentId: comment.id,
+        newContent: content
+      })
+    );
+    onSaved();
   };
 
-  onSave = () => {
-    this.props.onSave({
-      newContent: this.state.comment
-    });
-  };
+  const textId = useUniqueId("edit-comment");
 
-  onCommentChange = (event) => {
-    this.setState({
-      comment: event.target.value
-    });
-  };
-
-  render() {
-    const { comment } = this.state;
-
-    return (
-      <>
-        <FormGroup className="mb-2">
-          <FormControl as="textarea" rows="3" autoFocus value={comment} onChange={this.onCommentChange} />
-        </FormGroup>
-        <p>
-          <Button variant="secondary" size="sm" onClick={this.onCancel}>
+  return (
+    <>
+      <FormGroup className="mb-2" controlId={textId}>
+        <FormLabel srOnly>Commentaire</FormLabel>
+        <FormControl as="textarea" rows="3" autoFocus value={content} onChange={handleTextChange} />
+      </FormGroup>
+      <ButtonToolbar>
+        <ButtonGroup className="mr-2">
+          <Button variant="secondary" size="sm" onClick={onCancel}>
             Annuler
-          </Button>{" "}
-          <Button variant="primary" size="sm" onClick={this.onSave} disabled={!comment}>
+          </Button>
+        </ButtonGroup>
+        <ButtonGroup>
+          <Button variant="primary" size="sm" onClick={handleSaveClick} disabled={!content}>
             Enregistrer
           </Button>
-        </p>
-      </>
-    );
-  }
+        </ButtonGroup>
+      </ButtonToolbar>
+    </>
+  );
 }
+
+CommentEditor.propTypes = {
+  comment: PropTypes.object.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onSaved: PropTypes.func.isRequired
+};
+
+export default memo(CommentEditor);
