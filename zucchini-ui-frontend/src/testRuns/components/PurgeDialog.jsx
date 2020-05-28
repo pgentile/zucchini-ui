@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Modal from "react-bootstrap/Modal";
 import FormGroup from "react-bootstrap/FormGroup";
 import FormLabel from "react-bootstrap/FormLabel";
 import FormControl from "react-bootstrap/FormControl";
 import Alert from "react-bootstrap/Alert";
+import Form from "react-bootstrap/Form";
 import format from "date-fns/format";
 import isBefore from "date-fns/isBefore";
 import subDays from "date-fns/subDays";
@@ -14,50 +15,36 @@ import parseISO from "date-fns/parseISO";
 import Button from "../../ui/components/Button";
 import { selectTestRunTypes, selectLatestTestRuns } from "../selectors";
 import { purgeTestRuns } from "../redux";
+import useUniqueId from "../../useUniqueId";
 
 const LOCAL_DATE_FORMAT = "yyyy-MM-dd";
 
 export default function PurgeDialog({ show, currentSelectedType, purgeDelayInDays = 90, onClose }) {
-  const dispatch = useDispatch();
-
-  const [type, setType] = useState(currentSelectedType);
-
-  const [maxDate, setMaxDate] = useState(() => {
+  const [values, setValues] = useState(() => {
     const initialMaxDate = subDays(new Date(), purgeDelayInDays);
-    return format(initialMaxDate, LOCAL_DATE_FORMAT);
+    return {
+      type: currentSelectedType,
+      maxDate: format(initialMaxDate, LOCAL_DATE_FORMAT)
+    };
   });
+
+  const handleFieldChange = useCallback((event) => {
+    const { name, value } = event.target;
+    setValues((currentValues) => {
+      return {
+        ...currentValues,
+        [name]: value
+      };
+    });
+  }, []);
+
+  const { type, maxDate } = values;
 
   const testRuns = useSelector(selectLatestTestRuns);
 
   const selectedTestRunIds = useMemo(() => {
     return selectTestRunIds(testRuns, { type, maxDate });
   }, [maxDate, testRuns, type]);
-
-  const handleTypeChange = (event) => {
-    event.preventDefault();
-    setType(event.target.value);
-  };
-
-  const handleMaxDateChange = (event) => {
-    event.preventDefault();
-    setMaxDate(event.target.value);
-  };
-
-  const handleClose = (event) => {
-    if (event) {
-      event.preventDefault();
-    }
-    onClose();
-  };
-
-  const handlePurge = (event) => {
-    if (event) {
-      event.preventDefault();
-    }
-
-    dispatch(purgeTestRuns({ testRunIds: selectedTestRunIds }));
-    onClose();
-  };
 
   const testRunTypes = useSelector(selectTestRunTypes);
 
@@ -77,33 +64,48 @@ export default function PurgeDialog({ show, currentSelectedType, purgeDelayInDay
     aboutChange = "Aucun tir à purger";
   }
 
+  const titleId = useUniqueId("title");
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    await dispatch(purgeTestRuns({ testRunIds: selectedTestRunIds }));
+    onClose();
+  };
+
   return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Purger les anciens tirs</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <form onSubmit={handlePurge}>
+    <Modal show={show} onHide={onClose} aria-labelledby={titleId}>
+      <Form onSubmit={handleSubmit}>
+        <Modal.Header closeButton>
+          <Modal.Title id={titleId}>Purger les anciens tirs</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <FormGroup controlId="type">
             <FormLabel>Type</FormLabel>
-            <FormControl as="select" autoFocus value={type} onChange={handleTypeChange}>
+            <FormControl name="type" as="select" autoFocus value={type} onChange={handleFieldChange}>
               <option />
               {testRunTypeOptions}
             </FormControl>
           </FormGroup>
           <FormGroup controlId="maxDate">
             <FormLabel>Date maximum des tirs à purger</FormLabel>
-            <FormControl type="date" value={maxDate} onChange={handleMaxDateChange} />
+            <FormControl name="maxDate" type="date" value={maxDate} onChange={handleFieldChange} />
           </FormGroup>
-          <Alert variant="warning">{aboutChange}</Alert>
-        </form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Annuler
-        </Button>
-        <Button onClick={handlePurge}>Purger</Button>
-      </Modal.Footer>
+          <Alert variant="warning" className="mb-0">
+            {aboutChange}
+          </Alert>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={onClose}>
+            Annuler
+          </Button>
+          <Button type="submit" disabled={selectedTestRunCount === 0}>
+            Purger
+          </Button>
+        </Modal.Footer>
+      </Form>
     </Modal>
   );
 }

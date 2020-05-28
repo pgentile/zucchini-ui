@@ -10,6 +10,7 @@ import Form from "react-bootstrap/Form";
 
 import Button from "../../ui/components/Button";
 import { importCucumberResultThenReload } from "../redux";
+import useUniqueId from "../../useUniqueId";
 
 export default function ImportCucumberResultsDialog({ show, onClose }) {
   const testRunId = useSelector((state) => state.testRun.testRun.id);
@@ -71,11 +72,13 @@ export default function ImportCucumberResultsDialog({ show, onClose }) {
     onClose();
   };
 
+  const titleId = useUniqueId("title");
+
   return (
-    <Modal show={show} onHide={onClose}>
+    <Modal show={show} onHide={onClose} aria-labelledby={titleId}>
       <Form onSubmit={handleSubmit}>
         <Modal.Header closeButton>
-          <Modal.Title>Importer un résultat de tests Cucumber</Modal.Title>
+          <Modal.Title id={titleId}>Importer un résultat de tests Cucumber</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <FormGroup controlId="file">

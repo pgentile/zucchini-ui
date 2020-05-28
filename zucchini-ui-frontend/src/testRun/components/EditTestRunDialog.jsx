@@ -6,6 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "../../ui/components/Button";
 import TestRunForm, { TestRunFormFields } from "./TestRunForm";
 import { editTestRunThenReload } from "../redux";
+import useUniqueId from "../../useUniqueId";
 
 export default function EditTestRunDialog({ show, onClose }) {
   const testRun = useSelector((state) => state.testRun.testRun);
@@ -22,11 +23,13 @@ export default function EditTestRunDialog({ show, onClose }) {
     onClose();
   };
 
+  const titleId = useUniqueId("title");
+
   return (
-    <Modal show={show} onHide={onClose} size="lg">
+    <Modal show={show} onHide={onClose} size="lg" aria-labelledby={titleId}>
       <TestRunForm initialValues={testRun} onSubmit={handleSubmit}>
         <Modal.Header closeButton>
-          <Modal.Title>Modifier les informations du tir</Modal.Title>
+          <Modal.Title id={titleId}>Modifier les informations du tir</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <TestRunFormFields />

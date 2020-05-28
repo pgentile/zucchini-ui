@@ -7,6 +7,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "../../ui/components/Button";
 import { createTestRun } from "../redux";
 import TestRunForm, { TestRunFormFields } from "../../testRun/components/TestRunForm";
+import useUniqueId from "../../useUniqueId";
 
 export default function CreateTestRunDialog({ show, currentSelectedType, onClose }) {
   const dispatch = useDispatch();
@@ -22,17 +23,17 @@ export default function CreateTestRunDialog({ show, currentSelectedType, onClose
   const handleSubmit = async (values) => {
     const result = await dispatch(createTestRun(values));
 
-    onClose();
-
     const createdTestRun = result.value;
     history.push(`/test-runs/${createdTestRun.id}`);
   };
 
+  const titleId = useUniqueId("title");
+
   return (
-    <Modal show={show} onHide={handleCloseClick} size="lg">
+    <Modal show={show} onHide={handleCloseClick} size="lg" aria-labelledby={titleId}>
       <TestRunForm initialValues={{ type: currentSelectedType }} onSubmit={handleSubmit}>
         <Modal.Header closeButton>
-          <Modal.Title>Créer un tir</Modal.Title>
+          <Modal.Title id={titleId}>Créer un tir</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <TestRunFormFields />
