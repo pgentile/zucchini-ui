@@ -49,7 +49,7 @@ function ErrorAlert() {
       show={visible}
       variant="danger"
       dismissible
-      tabIndex={0}
+      tabIndex={-1}
       onClose={handleClose}
       onExited={handleExited}
       aria-labelledby={titleId}

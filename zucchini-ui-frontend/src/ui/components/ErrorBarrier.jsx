@@ -38,7 +38,7 @@ function ErrorBarrierAlert({ name, errorMessage, className }) {
   const titleId = useUniqueId();
 
   return (
-    <Alert variant="danger" tabIndex={0} className={className} data-name={name} aria-labelledby={titleId}>
+    <Alert variant="danger" tabIndex={-1} className={className} data-name={name} aria-labelledby={titleId}>
       <h4 id={titleId}>Une erreur fatale s&apos;est produite&hellip;</h4>
       <p>{errorMessage}</p>
       <hr />
