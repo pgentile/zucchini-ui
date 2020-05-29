@@ -5,10 +5,14 @@ export default function Page({ breadcrumb, title, mainline, children }) {
   return (
     <>
       {breadcrumb}
-      <h1>{title}</h1>
-      {mainline}
-      <hr />
-      {children}
+      <article>
+        <header>
+          <h1>{title}</h1>
+          {mainline}
+        </header>
+        <hr />
+        {children}
+      </article>
     </>
   );
 }

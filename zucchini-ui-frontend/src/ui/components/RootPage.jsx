@@ -25,7 +25,7 @@ export default function RootPage({ children }) {
           </Nav.Item>
         </Nav>
       </Navbar>
-      <Container>
+      <Container as="main">
         <ErrorBarrier className="my-4" name="Root page">
           <ErrorAlert />
           {children}
