@@ -7,6 +7,7 @@ import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import { clearErrors } from "../redux";
 
 import "./ErrorAlert.scss";
+import useUniqueId from "../../useUniqueId";
 
 function ErrorAlert() {
   const dispatch = useDispatch();
@@ -40,6 +41,8 @@ function ErrorAlert() {
 
   const lastError = errors.length > 0 ? errors[errors.length - 1] : null;
 
+  const titleId = useUniqueId();
+
   return (
     <Alert
       ref={elementRef}
@@ -49,13 +52,14 @@ function ErrorAlert() {
       tabIndex={0}
       onClose={handleClose}
       onExited={handleExited}
+      aria-labelledby={titleId}
     >
       <div className="error-alert-container">
         <div className="error-alert-icon pr-3 d-none d-md-block">
           <FontAwesomeIcon icon={faExclamationTriangle} size="2x" />
         </div>
         <div className="error-alert-message">
-          <h4>Une erreur a été détectée&hellip;</h4>
+          <h4 id={titleId}>Une erreur a été détectée&hellip;</h4>
           <p className="mb-0">{lastError}</p>
         </div>
       </div>

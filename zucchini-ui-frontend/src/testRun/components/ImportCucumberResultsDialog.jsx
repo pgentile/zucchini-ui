@@ -72,7 +72,7 @@ export default function ImportCucumberResultsDialog({ show, onClose }) {
     onClose();
   };
 
-  const titleId = useUniqueId("title");
+  const titleId = useUniqueId();
 
   return (
     <Modal show={show} onHide={onClose} aria-labelledby={titleId}>

@@ -5,7 +5,7 @@ import FormCheck from "react-bootstrap/FormCheck";
 import useUniqueId from "../../useUniqueId";
 
 export default function FilterCheckboxes({ labels, filters, onFilterChange }) {
-  const idPrefix = useUniqueId("filter");
+  const idPrefix = useUniqueId();
 
   const checkboxes = Object.entries(labels).map(([name, label]) => {
     const checked = filters[name];

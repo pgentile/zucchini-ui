@@ -22,7 +22,7 @@ export default function TestRunTypeFilter() {
     setSearch(event.target.value);
   };
 
-  const dropdownId = useUniqueId("test-run-filter");
+  const dropdownId = useUniqueId();
 
   // Links to test run types
 

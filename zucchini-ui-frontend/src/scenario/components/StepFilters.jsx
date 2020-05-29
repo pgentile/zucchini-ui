@@ -23,7 +23,7 @@ function StepFilters() {
 
   const handleResetClick = () => dispatch(resetStepFilters());
 
-  const checkboxIds = useMultiUniqueId("step-filter", Object.keys(FILTERS));
+  const checkboxIds = useMultiUniqueId(Object.keys(FILTERS));
 
   const checkboxes = Object.entries(FILTERS).map(([name, label]) => {
     const handleFilterChange = () => dispatch(toggleStepFilter(name));

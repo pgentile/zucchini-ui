@@ -31,7 +31,7 @@ function CommentEditor({ comment, onCancel, onSaved }) {
     onSaved();
   };
 
-  const textId = useUniqueId("edit-comment");
+  const textId = useUniqueId();
 
   return (
     <>

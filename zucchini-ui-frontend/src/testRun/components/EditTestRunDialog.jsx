@@ -23,7 +23,7 @@ export default function EditTestRunDialog({ show, onClose }) {
     onClose();
   };
 
-  const titleId = useUniqueId("title");
+  const titleId = useUniqueId();
 
   return (
     <Modal show={show} onHide={onClose} size="lg" aria-labelledby={titleId}>

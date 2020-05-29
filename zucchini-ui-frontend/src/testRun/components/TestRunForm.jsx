@@ -49,7 +49,7 @@ TestRunForm.propTypes = {
 export default memo(TestRunForm);
 
 const TestRunFormFields = memo(function TestRunFormFields() {
-  const fieldIds = useMultiUniqueId("test-run", ["type", "environment", "name"]);
+  const fieldIds = useMultiUniqueId(["type", "environment", "name"]);
 
   const [values, setValues] = useContext(Context);
   const { type, environment, name, labels } = values;

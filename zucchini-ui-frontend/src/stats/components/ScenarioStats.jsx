@@ -26,7 +26,7 @@ function ScenarioStats({ stats }) {
     );
   };
 
-  const detailsSwitchId = useUniqueId("details-switch");
+  const detailsSwitchId = useUniqueId();
 
   return (
     <>

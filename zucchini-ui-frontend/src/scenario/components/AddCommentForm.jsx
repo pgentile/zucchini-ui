@@ -34,7 +34,7 @@ export default function AddCommentForm() {
     setComment(event.target.value);
   };
 
-  const commentId = useUniqueId("add-comment");
+  const commentId = useUniqueId();
 
   return (
     <Form onSubmit={onAddComment}>

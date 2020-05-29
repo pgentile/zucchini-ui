@@ -27,7 +27,7 @@ export default function CreateTestRunDialog({ show, currentSelectedType, onClose
     history.push(`/test-runs/${createdTestRun.id}`);
   };
 
-  const titleId = useUniqueId("title");
+  const titleId = useUniqueId();
 
   return (
     <Modal show={show} onHide={handleCloseClick} size="lg" aria-labelledby={titleId}>

@@ -64,7 +64,7 @@ export default function PurgeDialog({ show, currentSelectedType, purgeDelayInDay
     aboutChange = "Aucun tir à purger";
   }
 
-  const titleId = useUniqueId("title");
+  const titleId = useUniqueId();
 
   const dispatch = useDispatch();
 
