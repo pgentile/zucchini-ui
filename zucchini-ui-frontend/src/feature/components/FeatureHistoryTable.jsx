@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
 
 import Status from "../../ui/components/Status";
 import toNiceDate from "../../ui/toNiceDate";
 import CounterBadge from "../../ui/components/CounterBadge";
+import TabularDataTable, { TabularDataRow } from "../../ui/components/TabularDataTable";
 
 export default class FeatureHistoryTable extends React.PureComponent {
   static propTypes = {
@@ -22,24 +22,23 @@ export default class FeatureHistoryTable extends React.PureComponent {
     });
 
     return (
-      <Table bordered striped hover responsive>
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>Environnement</th>
-            <th>Nom</th>
-            <th>Tir de test</th>
-            <th>Statut</th>
-            <th>Total</th>
-            <th>Succès</th>
-            <th>Échecs</th>
-            <th>En attente</th>
-            <th>Non joués</th>
-            <th>Analysés</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
+      <TabularDataTable
+        columnNames={[
+          "Type",
+          "Environnement",
+          "Nom",
+          "Tir de test",
+          "Statut",
+          "Total",
+          "Succès",
+          "Échecs",
+          "En attente",
+          "Non joués",
+          "Analysés"
+        ]}
+      >
+        {rows}
+      </TabularDataTable>
     );
   }
 }
@@ -52,10 +51,9 @@ class FeatureHistoryTableRow extends React.PureComponent {
 
   render() {
     const { feature, isActive } = this.props;
-    const className = isActive ? "table-primary" : null;
 
     return (
-      <tr className={className}>
+      <TabularDataRow highlight={isActive}>
         <td>{feature.testRun.type}</td>
         <td>{feature.testRun.environment}</td>
         <td>{feature.testRun.name}</td>
@@ -83,7 +81,7 @@ class FeatureHistoryTableRow extends React.PureComponent {
         <td>
           <CounterBadge>{feature.stats.reviewed.count}</CounterBadge>
         </td>
-      </tr>
+      </TabularDataRow>
     );
   }
 }

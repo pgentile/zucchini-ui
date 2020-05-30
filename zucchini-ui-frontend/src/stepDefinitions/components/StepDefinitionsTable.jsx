@@ -16,7 +16,7 @@ export default function StepDefinitionsTable() {
   });
 
   return (
-    <Table bordered striped hover>
+    <Table bordered striped hover responsive>
       <thead>
         <tr>
           <th>Définition</th>

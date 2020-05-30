@@ -27,7 +27,7 @@ function FailuresTable() {
   });
 
   return (
-    <Table bordered striped>
+    <Table bordered striped responsive>
       <thead>
         <tr>
           <th>Erreur</th>

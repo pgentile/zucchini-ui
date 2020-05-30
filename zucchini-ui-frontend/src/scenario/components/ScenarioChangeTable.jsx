@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/Table";
 
 import Status from "../../ui/components/Status";
 import toNiceDate from "../../ui/toNiceDate";
+import TabularDataTable, { TabularDataRow } from "../../ui/components/TabularDataTable";
 
 export default class ScenarioChangeTable extends React.PureComponent {
   static propTypes = {
@@ -18,17 +18,12 @@ export default class ScenarioChangeTable extends React.PureComponent {
     });
 
     return (
-      <Table bordered striped hover>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Type</th>
-            <th>Ancienne&nbsp;valeur</th>
-            <th>Nouvelle&nbsp;valeur</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
+      <TabularDataTable
+        columnNames={["Date", "Type", "Ancienne valeur", "Nouvelle valeur"]}
+        emptyDescription="Pas de changement"
+      >
+        {rows}
+      </TabularDataTable>
     );
   }
 }
@@ -70,7 +65,7 @@ class ScenarioChangeTableRow extends React.PureComponent {
     const ValueComponent = this.getValueComponent();
 
     return (
-      <tr>
+      <TabularDataRow>
         <td>{toNiceDate(change.date)}</td>
         <td>
           <b>{this.getChangeTypeName()}</b>
@@ -81,7 +76,7 @@ class ScenarioChangeTableRow extends React.PureComponent {
         <td>
           <ValueComponent value={change.newValue} />
         </td>
-      </tr>
+      </TabularDataRow>
     );
   }
 }

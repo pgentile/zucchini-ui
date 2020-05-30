@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Table from "react-bootstrap/Table";
 import CounterBadge from "../../ui/components/CounterBadge";
+import TabularDataTable, { TabularDataRow } from "../../ui/components/TabularDataTable";
 
 export default class ReportsTable extends React.Component {
   static propTypes = {
@@ -16,21 +16,20 @@ export default class ReportsTable extends React.Component {
     });
 
     return (
-      <Table bordered striped hover responsive>
-        <thead>
-          <tr>
-            <th>Groupe</th>
-            <th>Total</th>
-            <th>Succès</th>
-            <th>Échecs</th>
-            <th>En attente</th>
-            <th>Non joués</th>
-            <th>Taux erreurs</th>
-            <th>Taux de répartition des erreurs</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
+      <TabularDataTable
+        columnNames={[
+          "Groupe",
+          "Total",
+          "Succès",
+          "Échecs",
+          "En attente",
+          "Non joués",
+          "Taux erreurs",
+          "Taux de répartition des erreurs"
+        ]}
+      >
+        {rows}
+      </TabularDataTable>
     );
   }
 }
@@ -53,7 +52,7 @@ class ReportsTableRow extends React.PureComponent {
     }
 
     return (
-      <tr>
+      <TabularDataRow>
         <td>{group.total ? <b>{group.name}</b> : group.name}</td>
         <td>
           <CounterBadge variant={variant}>{group.stats.count}</CounterBadge>
@@ -76,7 +75,7 @@ class ReportsTableRow extends React.PureComponent {
         <td>
           <CounterBadge variant={variant}>{group.stats.faultRateRepartition}&thinsp;%</CounterBadge>
         </td>
-      </tr>
+      </TabularDataRow>
     );
   }
 }
