@@ -85,6 +85,7 @@ module.exports = {
       }
     ]
   },
+  node: false,
   optimization: {
     minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin({})],
     splitChunks: {
