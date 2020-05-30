@@ -156,7 +156,7 @@ export default class ScenarioPage extends React.Component {
             <ScenarioHistoryTable />
           </Tab>
           <Tab eventKey="changes" title="Changements" className="mt-2">
-            <ScenarioChangeTable changes={scenario.changes} />
+            <ScenarioChangeTable />
           </Tab>
           <Tab eventKey="same-feature" title="Scénarios de la même fonctionnalité" className="mt-2">
             <SameFeatureScenarioTableContainer scenarioId={scenarioId} />

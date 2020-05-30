@@ -1,104 +1,76 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { memo, Fragment } from "react";
 
 import Status from "../../ui/components/Status";
+import ReviewedStatus from "../../ui/components/ReviewedStatus";
 import toNiceDate from "../../ui/toNiceDate";
 import TabularDataTable, { TabularDataRow } from "../../ui/components/TabularDataTable";
+import { useSelector } from "react-redux";
 
-export default class ScenarioChangeTable extends React.PureComponent {
-  static propTypes = {
-    changes: PropTypes.arrayOf(PropTypes.object)
-  };
+function ScenarioChangeTable() {
+  const changes = useSelector((state) => state.scenario.scenario.changes);
 
-  render() {
-    const { changes } = this.props;
+  const rows = changes.map((change) => {
+    return <ScenarioChangeTableRow key={change.id} change={change} />;
+  });
 
-    const rows = changes.map((change) => {
-      return <ScenarioChangeTableRow key={change.id} change={change} />;
-    });
+  return (
+    <TabularDataTable
+      columnNames={["Date", "Type", "Ancienne valeur", "Nouvelle valeur"]}
+      emptyDescription="Pas de changement"
+    >
+      {rows}
+    </TabularDataTable>
+  );
+}
 
-    return (
-      <TabularDataTable
-        columnNames={["Date", "Type", "Ancienne valeur", "Nouvelle valeur"]}
-        emptyDescription="Pas de changement"
-      >
-        {rows}
-      </TabularDataTable>
-    );
+export default memo(ScenarioChangeTable);
+
+const ScenarioChangeTableRow = memo(function ScenarioChangeTableRow({ change }) {
+  const { label, component: Element } = getChangeConfig(change.type);
+  return (
+    <TabularDataRow>
+      <td>{toNiceDate(change.date)}</td>
+      <td>
+        <b>{label}</b>
+      </td>
+      <td>
+        <Element>{change.oldValue}</Element>
+      </td>
+      <td>
+        <Element>{change.newValue}</Element>
+      </td>
+    </TabularDataRow>
+  );
+});
+
+ScenarioChangeTableRow.propTypes = {
+  change: PropTypes.object.isRequired
+};
+
+function getChangeConfig(changeType) {
+  switch (changeType) {
+    case "REVIEWED_STATE":
+      return { label: "Analysé ?", component: ReviewedStateContent };
+    case "STATUS":
+      return { label: "Statut", component: StatusContent };
+    default:
+      return { label: changeType, component: Fragment };
   }
 }
 
-class ScenarioChangeTableRow extends React.PureComponent {
-  static propTypes = {
-    change: PropTypes.object.isRequired
-  };
-
-  getChangeTypeName() {
-    const { change } = this.props;
-
-    switch (change.type) {
-      case "REVIEWED_STATE":
-        return "Analysé ?";
-      case "STATUS":
-        return "Statut";
-      default:
-        return change.type;
-    }
-  }
-
-  getValueComponent() {
-    const { change } = this.props;
-
-    switch (change.type) {
-      case "REVIEWED_STATE":
-        return ReviewedStateContent;
-      case "STATUS":
-        return StatusContent;
-      default:
-        return null;
-    }
-  }
-
-  render() {
-    const { change } = this.props;
-
-    const ValueComponent = this.getValueComponent();
-
-    return (
-      <TabularDataRow>
-        <td>{toNiceDate(change.date)}</td>
-        <td>
-          <b>{this.getChangeTypeName()}</b>
-        </td>
-        <td>
-          <ValueComponent value={change.oldValue} />
-        </td>
-        <td>
-          <ValueComponent value={change.newValue} />
-        </td>
-      </TabularDataRow>
-    );
-  }
+function StatusContent({ children }) {
+  return <Status status={children} />;
 }
 
-class StatusContent extends React.PureComponent {
-  static propTypes = {
-    value: PropTypes.any.isRequired
-  };
+StatusContent.propTypes = {
+  children: PropTypes.string.isRequired
+};
 
-  render() {
-    const { value } = this.props;
-    return <Status status={value} />;
-  }
+function ReviewedStateContent({ children }) {
+  return <ReviewedStatus reviewed={children} />;
 }
 
-class ReviewedStateContent extends React.PureComponent {
-  static propTypes = {
-    value: PropTypes.any.isRequired
-  };
-
-  render() {
-    const { value } = this.props;
-    return <span>{value ? "Oui" : "Non"}</span>;
-  }
-}
+ReviewedStateContent.propTypes = {
+  children: PropTypes.bool.isRequired
+};
