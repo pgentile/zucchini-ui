@@ -17,6 +17,10 @@ export function getScenarios({ featureId }) {
   return scenariosApi.getScenarios({ featureId });
 }
 
+export function editFeatureState({ featureId, group }) {
+  return featuresApi.editFeatureState({ featureId, group });
+}
+
 export function deleteFeature({ featureId }) {
   return featuresApi.deleteFeature({ featureId });
 }

@@ -5,8 +5,7 @@ import queryString from "query-string";
 
 import ListWithSeparator from "../../ui/components/ListWithSeparator";
 
-export default memo(function FeatureGroupFilter() {
-  const testRunId = useSelector((state) => state.testRun.testRun.id);
+function FeatureGroupFilter() {
   const features = useSelector((state) => state.testRun.features);
 
   const featureGroups = useMemo(() => {
@@ -17,9 +16,7 @@ export default memo(function FeatureGroupFilter() {
   const featureGroupLinks = featureGroups.map((featureGroup) => {
     return (
       <span key={featureGroup}>
-        <Link to={{ pathname: `/test-runs/${testRunId}`, search: queryString.stringify({ featureGroup }) }}>
-          {featureGroup}
-        </Link>
+        <Link to={(location) => buildLocation(location, featureGroup)}>{featureGroup}</Link>
       </span>
     );
   });
@@ -28,11 +25,27 @@ export default memo(function FeatureGroupFilter() {
     <p className="mb-2">
       Filter par groupe :{" "}
       <ListWithSeparator separator=", ">
-        <Link to={`/test-runs/${testRunId}`}>
+        <Link to={(location) => buildLocation(location)}>
           <i>Tous</i>
         </Link>
         {featureGroupLinks}
       </ListWithSeparator>
     </p>
   );
-});
+}
+
+export default memo(FeatureGroupFilter);
+
+function buildLocation(location, featureGroup) {
+  const queryParams = queryString.parse(location.search);
+  if (featureGroup) {
+    queryParams.featureGroup = featureGroup;
+  } else {
+    delete queryParams.featureGroup;
+  }
+
+  return {
+    ...location,
+    search: queryString.stringify(queryParams)
+  };
+}

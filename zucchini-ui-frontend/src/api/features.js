@@ -24,6 +24,16 @@ class FeaturesApi {
     return this.client.get({ path: `${featureId}/history` });
   }
 
+  editFeatureState({ featureId, group }) {
+    return this.client.patch({
+      path: featureId,
+      body: {
+        group
+      },
+      hasOutput: false
+    });
+  }
+
   deleteFeature({ featureId }) {
     return this.client.delete({
       path: featureId,

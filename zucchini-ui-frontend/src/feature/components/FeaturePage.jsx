@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import queryString from "query-string";
 
 import FeatureHistoryTableContainer from "./FeatureHistoryTableContainer";
@@ -17,6 +19,8 @@ import Page from "../../ui/components/Page";
 import FeatureBreadcrumbContainer from "./FeatureBreadcrumbContainer";
 import { loadFeaturePage } from "../redux";
 import FeatureStats from "./FeatureStats";
+import Button from "../../ui/components/Button";
+import EditFeatureDialog from "./EditFeatureDialog";
 
 export default function FeaturePage() {
   const { featureId } = useParams();
@@ -27,6 +31,12 @@ export default function FeaturePage() {
   useEffect(() => {
     dispatch(loadFeaturePage({ featureId }));
   }, [dispatch, featureId]);
+
+  const [showEditForm, setShowEditForm] = useState(false);
+
+  const handleToggleShowEditForm = () => {
+    setShowEditForm((currentValue) => !currentValue);
+  };
 
   return (
     <Page
@@ -66,7 +76,14 @@ export default function FeaturePage() {
       breadcrumb={<FeatureBreadcrumbContainer />}
     >
       <ButtonToolbar>
-        <DeleteFeatureButton />
+        <ButtonGroup className="mr-2">
+          <Button variant="secondary" icon={faEdit} onClick={handleToggleShowEditForm}>
+            Modifier
+          </Button>
+        </ButtonGroup>
+        <ButtonGroup>
+          <DeleteFeatureButton />
+        </ButtonGroup>
       </ButtonToolbar>
       <hr />
 
@@ -88,6 +105,8 @@ export default function FeaturePage() {
       <h2>Historique</h2>
       <HistoryFilter />
       <FeatureHistoryTableContainer featureId={featureId} />
+
+      <EditFeatureDialog show={showEditForm} onClose={handleToggleShowEditForm} key={featureId} />
     </Page>
   );
 }

@@ -11,14 +11,9 @@ import io.zucchiniui.backend.feature.views.FeatureViewAccess;
 import io.zucchiniui.backend.shared.domain.TagSelection;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.Set;
@@ -74,6 +69,14 @@ public class FeatureResource {
     public List<FeatureHistoryItem> getFeatureHistory(@PathParam("featureId") final String featureId) {
         final Feature feature = featureRepository.getById(featureId);
         return featureViewAccess.getFeatureHistory(feature.getFeatureKey());
+    }
+
+    @PATCH
+    @Path("{featureId}")
+    public void update(@PathParam("featureId") final String featureId, @Valid @NotNull final UpdateFeatureRequest request) {
+        final Feature feature = featureRepository.getById(featureId);
+        feature.setGroup(Strings.emptyToNull(request.getGroup()));
+        featureRepository.save(feature);
     }
 
     @DELETE

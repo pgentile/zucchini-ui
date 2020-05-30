@@ -1,13 +1,13 @@
 import React, { memo } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 
 import { selectFeatureFilterFunc } from "../../filters/selectors";
 import FeatureTable from "../../ui/components/FeatureTable";
+import useQueryParams from "../../useQueryParams";
 
 function TestRunFeatureTableContainer() {
   const features = useSelector((state) => state.testRun.features);
-  const { featureGroup } = useParams();
+  const { featureGroup } = useQueryParams();
   const featureFilterFunc = useSelector(selectFeatureFilterFunc);
 
   let filteredFeatures = features;
