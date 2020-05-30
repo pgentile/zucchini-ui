@@ -109,12 +109,13 @@ export default class ScenarioPage extends React.Component {
         breadcrumb={<ScenarioBreadcrumbContainer />}
       >
         {scenario.allTags.length > 0 && (
-          <p>
-            <b>Tags :</b> <TagList testRunId={scenario.testRunId} tags={scenario.allTags} />
-          </p>
+          <>
+            <p>
+              <b>Tags :</b> <TagList testRunId={scenario.testRunId} tags={scenario.allTags} />
+            </p>
+            <hr />
+          </>
         )}
-
-        <hr />
 
         <ButtonToolbar>
           <ButtonGroup className="mr-2">
