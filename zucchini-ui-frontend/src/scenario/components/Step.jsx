@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { memo } from "react";
 
 import SimpleText from "../../ui/components/SimpleText";
 import Status from "../../ui/components/Status";
@@ -7,60 +7,56 @@ import PanelWithTitle from "../../ui/components/PanelWithTitle";
 import ElementInfo from "../../ui/components/ElementInfo";
 import StepTable from "./StepTable";
 import StepAttachments from "./StepAttachments";
+import { useSelector } from "react-redux";
 
-export default class Step extends React.PureComponent {
-  static propTypes = {
-    scenarioId: PropTypes.string.isRequired,
-    step: PropTypes.object.isRequired,
-    special: PropTypes.bool.isRequired,
-    filters: PropTypes.object.isRequired
-  };
+function Step({ step, special = false }) {
+  const scenarioId = useSelector((state) => state.scenario.scenario.id);
+  const filters = useSelector((state) => state.stepFilters);
 
-  static defaultProps = {
-    special: false
-  };
+  const title = <ElementInfo info={step.info} />;
 
-  render() {
-    const { step, scenarioId, special, filters } = this.props;
-
-    const title = <ElementInfo info={step.info} />;
-
-    let errorMessage = null;
-    if (step.errorMessage) {
-      errorMessage = <ErrorMessage errorMessage={step.errorMessage} />;
-    }
-
-    let logs = null;
-    if (step.output) {
-      logs = <LogOutput output={step.output} />;
-    }
-
-    let table = null;
-    if (step.table) {
-      table = <StepTable table={step.table} />;
-    }
-
-    let attachments = null;
-    if (step.attachments && step.attachments.length > 0) {
-      attachments = <StepAttachments scenarioId={scenarioId} attachments={step.attachments} />;
-    }
-
-    return (
-      <>
-        {filters.comments && step.comment && <SimpleText className="text-muted" text={step.comment} />}
-
-        <p>
-          {special ? <i>{title}</i> : title} <Status status={step.status} />
-        </p>
-
-        {table}
-        {filters.errorDetails && errorMessage}
-        {filters.logs && logs}
-        {filters.attachments && attachments}
-      </>
-    );
+  let errorMessage = null;
+  if (step.errorMessage) {
+    errorMessage = <ErrorMessage errorMessage={step.errorMessage} />;
   }
+
+  let logs = null;
+  if (step.output) {
+    logs = <LogOutput output={step.output} />;
+  }
+
+  let table = null;
+  if (step.table) {
+    table = <StepTable table={step.table} />;
+  }
+
+  let attachments = null;
+  if (step.attachments && step.attachments.length > 0) {
+    attachments = <StepAttachments scenarioId={scenarioId} attachments={step.attachments} />;
+  }
+
+  return (
+    <>
+      {filters.comments && step.comment && <SimpleText className="text-muted" text={step.comment} />}
+
+      <p>
+        {special ? <i>{title}</i> : title} <Status status={step.status} />
+      </p>
+
+      {table}
+      {filters.errorDetails && errorMessage}
+      {filters.logs && logs}
+      {filters.attachments && attachments}
+    </>
+  );
 }
+
+Step.propTypes = {
+  step: PropTypes.object.isRequired,
+  special: PropTypes.bool
+};
+
+export default memo(Step);
 
 function ErrorMessage({ errorMessage }) {
   return (

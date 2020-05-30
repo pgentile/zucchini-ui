@@ -14,7 +14,7 @@ import ScenarioHistoryTable from "./ScenarioHistoryTable";
 import SameFeatureScenarioTableContainer from "./SameFeatureScenarioTableContainer";
 import UpdateScenarioStateDialogContainer from "./UpdateScenarioStateDialogContainer";
 import CommentList from "./CommentList";
-import ScenarioDetailsContainer from "./ScenarioDetailsContainer";
+import ScenarioDetails from "./ScenarioDetails";
 import AddCommentForm from "./AddCommentForm";
 import DeleteScenarioButton from "./DeleteScenarioButton";
 import UpdateScenarioReviewedStateDialogContainer from "./UpdateScenarioReviewedStateDialogContainer";
@@ -138,7 +138,7 @@ export default class ScenarioPage extends React.Component {
         <ScenarioPresenceIndicator scenarioId={scenarioId} />
 
         <h2>Étapes du scénario</h2>
-        <ScenarioDetailsContainer />
+        <ScenarioDetails />
 
         <hr />
 
