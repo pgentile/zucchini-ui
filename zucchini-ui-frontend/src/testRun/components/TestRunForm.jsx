@@ -6,6 +6,7 @@ import FormLabel from "react-bootstrap/FormLabel";
 import FormControl from "react-bootstrap/FormControl";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Table from "react-bootstrap/Table";
+import Form from "react-bootstrap/Form";
 import noop from "lodash/noop";
 
 import { useMultiUniqueId } from "../../useUniqueId";
@@ -35,7 +36,7 @@ function TestRunForm({ children, initialValues = {}, onSubmit }) {
 
   return (
     <Context.Provider value={[values, setValues]}>
-      <form onSubmit={handleSubmit}>{children}</form>
+      <Form onSubmit={handleSubmit}>{children}</Form>
     </Context.Provider>
   );
 }

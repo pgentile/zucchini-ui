@@ -45,11 +45,11 @@ export default function AddCommentForm({ onCommentAdded }) {
     }
   };
 
-  const commentId = useUniqueId();
+  const commentControlId = useUniqueId();
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormGroup className="mb-2" controlId={commentId}>
+      <FormGroup className="mb-2" controlId={commentControlId}>
         <FormLabel srOnly>Commentaire</FormLabel>
         <FormControl
           as="textarea"

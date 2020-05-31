@@ -49,12 +49,10 @@ function UpdateScenarioReviewedStateDialog({ show, onClose }) {
           <Modal.Title>Marquer le scénario comme analysé&hellip;</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={handleSubmit}>
-            <FormGroup controlId={commentId}>
-              <FormLabel>Commentaire</FormLabel>
-              <FormControl as="textarea" rows="3" name="comment" value={comment} onChange={handleValueChange} />
-            </FormGroup>
-          </form>
+          <FormGroup controlId={commentId}>
+            <FormLabel>Commentaire</FormLabel>
+            <FormControl as="textarea" rows="3" name="comment" value={comment} onChange={handleValueChange} />
+          </FormGroup>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={onClose}>

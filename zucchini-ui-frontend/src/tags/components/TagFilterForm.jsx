@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import FormGroup from "react-bootstrap/FormGroup";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
+import Form from "react-bootstrap/Form";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import debounce from "lodash/debounce";
 
@@ -49,7 +50,7 @@ export default function TagFilterForm() {
   }, [updateFilter]);
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <FormGroup controlId="filter">
         <InputGroup size="lg">
           <FormControl
@@ -65,6 +66,6 @@ export default function TagFilterForm() {
           </InputGroup.Append>
         </InputGroup>
       </FormGroup>
-    </form>
+    </Form>
   );
 }

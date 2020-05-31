@@ -4,6 +4,7 @@ import queryString from "query-string";
 import FormGroup from "react-bootstrap/FormGroup";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
+import Form from "react-bootstrap/Form";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import useQueryParams from "../../useQueryParams";
@@ -34,7 +35,7 @@ export default function SearchForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <FormGroup controlId="search">
         <InputGroup size="lg">
           <FormControl type="text" value={search} onChange={handleSearchChange} placeholder="Rechercher&hellip;" />
@@ -45,6 +46,6 @@ export default function SearchForm() {
           </InputGroup.Append>
         </InputGroup>
       </FormGroup>
-    </form>
+    </Form>
   );
 }
