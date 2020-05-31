@@ -1,4 +1,5 @@
 /// <reference types="Cypress" />
+/// <reference types="testing-library__cypress" />
 
 describe("Feature", () => {
   beforeEach(() => {
@@ -18,6 +19,26 @@ describe("Feature", () => {
       cy.get("h1")
         .should("contain", feature.info.keyword)
         .and("contain", feature.info.name);
+    });
+  });
+
+  it.only("should edit feature", () => {
+    cy.route("PATCH", "/api/features/*").as("updateFeature");
+
+    cy.findByText("Modifier").click();
+
+    const group = "Sample group";
+
+    cy.get("[role=dialog]").within(() => {
+      cy.findByLabelText("Groupe").type(group);
+
+      cy.get("form").submit();
+    });
+
+    cy.wait("@updateFeature");
+
+    cy.get("header").within(() => {
+      cy.contains("li", "Groupe").should("contain.text", group);
     });
   });
 

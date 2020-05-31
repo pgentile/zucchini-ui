@@ -1,4 +1,5 @@
 /// <reference types="Cypress" />
+/// <reference types="testing-library__cypress" />
 
 describe("Test run", () => {
   beforeEach(() => {
