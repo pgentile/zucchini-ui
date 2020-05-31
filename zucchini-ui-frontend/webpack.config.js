@@ -26,7 +26,6 @@ module.exports = {
     filename: "[name].js",
     publicPath: "/ui/assets/"
   },
-  node: false,
   devtool: "source-map",
   devServer: {
     port: devServerPort,
