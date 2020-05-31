@@ -41,10 +41,10 @@ describe("Scenario", () => {
     cy.contains("button", "Marquer comme analysé").click();
 
     cy.get("[role=dialog]").within(() => {
-      cy.get("textarea#comment").type(
+      cy.findByLabelText("Commentaire").type(
         "Coucou{enter}Voir https://example.org pour plus d'infos"
       );
-      cy.contains("button", "Valider").click();
+      cy.get("form").submit();
     });
 
     cy.contains("button", "Marquer comme non analysé").should("exist");
@@ -60,19 +60,13 @@ describe("Scenario", () => {
     cy.get("[role=dialog]").within(() => {
       cy.findByLabelText("Scénario analysé ?").should("be.checked");
 
-      /*
-      cy.contains("label", "Scénario analysé ?").then((label) => {
-        const targetId = label.attr("for");
-        cy.get(`input#${targetId}`).should("be.checked");
-      });
-      */
+      cy.findByLabelText("Échec").click();
 
-      cy.contains("label", "Échec").click();
-
-      cy.get("textarea#comment").type(
+      cy.findByLabelText("Commentaire").type(
         "Ca ne marche pas. Encore un bug, dis donc"
       );
-      cy.contains("button", "Valider").click();
+
+      cy.get("form").submit();
     });
 
     cy.wait("@updateScenario");
