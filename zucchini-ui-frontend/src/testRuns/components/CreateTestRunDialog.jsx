@@ -31,7 +31,7 @@ export default function CreateTestRunDialog({ show, currentSelectedType, onClose
 
   return (
     <Modal show={show} onHide={handleCloseClick} size="lg" aria-labelledby={titleId}>
-      <TestRunForm initialValues={{ type: currentSelectedType }} onSubmit={handleSubmit}>
+      <TestRunForm initialValues={{ type: currentSelectedType ?? "" }} onSubmit={handleSubmit}>
         <Modal.Header closeButton>
           <Modal.Title id={titleId}>Créer un tir</Modal.Title>
         </Modal.Header>
