@@ -94,7 +94,7 @@ class ScenariosApi {
     return this.client.post({
       path: `/${scenarioId}/comments/create`,
       body: { content: comment },
-      hasOutput: false
+      hasOutput: true
     });
   }
 

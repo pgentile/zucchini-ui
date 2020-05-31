@@ -1,13 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { memo } from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 import usePresenceIndicator from "../../presence/usePresenceIndicator";
 
-export default function ScenarioPresenceIndicator({ scenarioId }) {
+function ScenarioPresenceIndicator() {
+  const { scenarioId } = useParams();
   usePresenceIndicator({ referenceType: "SCENARIO_ID", reference: scenarioId });
 
   const otherWatcherIds = useSelector((state) => state.presence.otherWatcherIds);
@@ -35,6 +36,4 @@ export default function ScenarioPresenceIndicator({ scenarioId }) {
   );
 }
 
-ScenarioPresenceIndicator.propTypes = {
-  scenarioId: PropTypes.string.isRequired
-};
+export default memo(ScenarioPresenceIndicator);

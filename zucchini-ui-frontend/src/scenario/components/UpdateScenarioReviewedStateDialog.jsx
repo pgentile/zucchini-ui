@@ -1,110 +1,75 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { memo, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-bootstrap/Modal";
 import FormGroup from "react-bootstrap/FormGroup";
 import FormLabel from "react-bootstrap/FormLabel";
 import FormControl from "react-bootstrap/FormControl";
+import Form from "react-bootstrap/Form";
 
 import Button from "../../ui/components/Button";
+import { setScenarioReviewedStateAndComment } from "../redux";
+import useForm from "../../useForm";
+import useUniqueId from "../../useUniqueId";
 
-export default class UpdateScenarioReviewedStateDialog extends React.PureComponent {
-  static propTypes = {
-    show: PropTypes.bool.isRequired,
-    scenarioId: PropTypes.string.isRequired,
-    onClose: PropTypes.func.isRequired,
-    onSetReviewedState: PropTypes.func.isRequired
-  };
+function UpdateScenarioReviewedStateDialog({ show, onClose }) {
+  const scenarioId = useSelector((state) => state.scenario.scenario.id);
 
-  constructor(props) {
-    super(props);
+  const { values, reset, handleValueChange } = useForm({
+    comment: ""
+  });
 
-    this.state = this.createDefaultState();
-  }
+  const { comment } = values;
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.scenarioId !== this.props.scenarioId) {
-      this.setState(this.createDefaultState());
-    }
-  }
+  useEffect(() => {
+    reset();
+  }, [reset, scenarioId]);
 
-  createDefaultState() {
-    return {
-      comment: ""
-    };
-  }
+  const dispatch = useDispatch();
 
-  onCloseClick = (event) => {
-    if (event) {
-      event.preventDefault();
-    }
-    this.props.onClose();
-  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  onSetReviewedState = (event) => {
-    if (event) {
-      event.preventDefault();
-    }
-
-    const { scenarioId, onClose, onSetReviewedState } = this.props;
-    const { comment } = this.state;
-
-    onSetReviewedState({
-      scenarioId,
-      comment
-    });
-
-    this.setState(this.createDefaultState());
+    await dispatch(
+      setScenarioReviewedStateAndComment({
+        scenarioId,
+        comment
+      })
+    );
 
     onClose();
   };
 
-  isStatusSelected(status) {
-    return this.state.scenario.status === status;
-  }
+  const commentId = useUniqueId();
 
-  onStatusSelected(status) {
-    return () => {
-      this.setState((prevState) => {
-        return {
-          scenario: {
-            ...prevState.scenario,
-            status
-          }
-        };
-      });
-    };
-  }
-
-  onCommentChange = (event) => {
-    const comment = event.target.value;
-    this.setState({
-      comment
-    });
-  };
-
-  render() {
-    const { show } = this.props;
-
-    return (
-      <Modal size="lg" show={show} onHide={this.onCloseClick}>
+  return (
+    <Modal size="lg" show={show} onHide={onClose}>
+      <Form onSubmit={handleSubmit}>
         <Modal.Header closeButton>
           <Modal.Title>Marquer le scénario comme analysé&hellip;</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={this.onSetReviewedState}>
-            <FormGroup controlId="comment">
+          <form onSubmit={handleSubmit}>
+            <FormGroup controlId={commentId}>
               <FormLabel>Commentaire</FormLabel>
-              <FormControl as="textarea" rows="3" value={this.state.comment} onChange={this.onCommentChange} />
+              <FormControl as="textarea" rows="3" name="comment" value={comment} onChange={handleValueChange} />
             </FormGroup>
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={this.onCloseClick}>
+          <Button variant="secondary" onClick={onClose}>
             Annuler
           </Button>
-          <Button onClick={this.onSetReviewedState}>Valider</Button>
+          <Button type="submit">Valider</Button>
         </Modal.Footer>
-      </Modal>
-    );
-  }
+      </Form>
+    </Modal>
+  );
 }
+
+UpdateScenarioReviewedStateDialog.propTypes = {
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired
+};
+
+export default memo(UpdateScenarioReviewedStateDialog);

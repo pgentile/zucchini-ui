@@ -1,12 +1,17 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { memo, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Modal from "react-bootstrap/Modal";
 import FormGroup from "react-bootstrap/FormGroup";
 import FormCheck from "react-bootstrap/FormCheck";
 import FormLabel from "react-bootstrap/FormLabel";
 import FormControl from "react-bootstrap/FormControl";
+import Form from "react-bootstrap/Form";
 
 import Button from "../../ui/components/Button";
+import useUniqueId, { useMultiUniqueId } from "../../useUniqueId";
+import { updateScenarioStateAndComment } from "../redux";
+import useForm from "../../useForm";
 
 const AVAILABLE_STATUS = {
   PASSED: "Succès",
@@ -15,141 +20,101 @@ const AVAILABLE_STATUS = {
   PENDING: "En attente"
 };
 
-export default class UpdateScenarioStateDialog extends React.PureComponent {
-  static propTypes = {
-    show: PropTypes.bool.isRequired,
-    scenario: PropTypes.object.isRequired,
-    onClose: PropTypes.func.isRequired,
-    onUpdateState: PropTypes.func.isRequired
-  };
+function UpdateScenarioStateDialog({ show, onClose }) {
+  const scenario = useSelector((state) => state.scenario.scenario);
 
-  constructor(props) {
-    super(props);
+  const { values, reset, handleValueChange, handleCheckboxChange, handleRadioChange } = useForm({
+    status: scenario.status,
+    reviewed: true,
+    comment: ""
+  });
 
-    this.state = this.createDefaultStateFromProps(props);
-  }
+  const { status, reviewed, comment } = values;
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.scenario !== this.props.scenario) {
-      this.setState(this.createDefaultStateFromProps(this.props));
-    }
-  }
+  useEffect(() => {
+    reset();
+  }, [reset, scenario]);
 
-  createDefaultStateFromProps({ scenario }) {
-    const status = scenario ? scenario.status : null;
-    return {
-      scenario: {
-        status,
-        reviewed: true
-      },
-      comment: ""
-    };
-  }
+  const statusRadioIds = useMultiUniqueId(Object.keys(AVAILABLE_STATUS));
 
-  onCloseClick = (event) => {
-    if (event) {
-      event.preventDefault();
-    }
-    this.props.onClose();
-  };
-
-  onUpdateState = (event) => {
-    if (event) {
-      event.preventDefault();
-    }
-    this.props.onUpdateState({
-      scenarioId: this.props.scenario.id,
-      newState: this.state.scenario,
-      comment: this.state.comment
-    });
-    this.props.onClose();
-  };
-
-  isStatusSelected = (status) => {
-    return this.state.scenario.status === status;
-  };
-
-  onStatusSelected = (status) => {
-    return () => {
-      this.setState((prevState) => {
-        return {
-          scenario: {
-            ...prevState.scenario,
-            status
-          }
-        };
-      });
-    };
-  };
-
-  onReviewedChange = () => {
-    this.setState((prevState) => {
-      return {
-        scenario: {
-          ...prevState.scenario,
-          reviewed: !prevState.scenario.reviewed
-        }
-      };
-    });
-  };
-
-  onCommentChange = (event) => {
-    const comment = event.target.value;
-    this.setState({
-      comment
-    });
-  };
-
-  render() {
-    const { show } = this.props;
-
-    const statusRadios = Object.keys(AVAILABLE_STATUS).map((status) => {
-      const label = AVAILABLE_STATUS[status];
-      return (
-        <FormCheck
-          type="radio"
-          id={`updateScenario-status-${status}`}
-          label={label}
-          key={status}
-          checked={this.isStatusSelected(status)}
-          onChange={this.onStatusSelected(status)}
-        />
-      );
-    });
-
+  const statusRadios = Object.entries(AVAILABLE_STATUS).map((entry) => {
+    const [someStatus, label] = entry;
     return (
-      <Modal size="lg" show={show} onHide={this.onCloseClick}>
+      <FormCheck
+        name="status"
+        value={someStatus}
+        type="radio"
+        id={statusRadioIds[someStatus]}
+        label={label}
+        key={someStatus}
+        checked={someStatus === status}
+        onChange={handleRadioChange}
+      />
+    );
+  });
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    await dispatch(
+      updateScenarioStateAndComment({
+        scenarioId: scenario.id,
+        newState: {
+          status,
+          reviewed
+        },
+        comment
+      })
+    );
+
+    onClose();
+  };
+
+  const reviewedId = useUniqueId();
+  const commentId = useUniqueId();
+
+  return (
+    <Modal size="lg" show={show} onHide={onClose}>
+      <Form onSubmit={handleSubmit}>
         <Modal.Header closeButton>
           <Modal.Title>Modifier le statut du scénario&hellip;</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={this.onUpdateState}>
-            <FormGroup>
-              <FormLabel>Nouveau statut</FormLabel>
-              {statusRadios}
-            </FormGroup>
-            <FormGroup>
-              <FormLabel>Analyse du scénario</FormLabel>
-              <FormCheck
-                id="updateScenario-reviewed"
-                checked={this.state.scenario.reviewed}
-                onChange={this.onReviewedChange}
-                label="Scénario analysé ?"
-              />
-            </FormGroup>
-            <FormGroup controlId="comment">
-              <FormLabel>Commentaire</FormLabel>
-              <FormControl as="textarea" rows="3" value={this.state.comment} onChange={this.onCommentChange} />
-            </FormGroup>
-          </form>
+          <FormGroup>
+            <FormLabel>Nouveau statut</FormLabel>
+            {statusRadios}
+          </FormGroup>
+          <FormGroup>
+            <FormLabel>Analyse du scénario</FormLabel>
+            <FormCheck
+              id={reviewedId}
+              name="reviewed"
+              checked={reviewed}
+              onChange={handleCheckboxChange}
+              label="Scénario analysé ?"
+            />
+          </FormGroup>
+          <FormGroup controlId={commentId}>
+            <FormLabel>Commentaire</FormLabel>
+            <FormControl as="textarea" rows="3" name="comment" value={comment} onChange={handleValueChange} />
+          </FormGroup>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={this.onCloseClick}>
+          <Button variant="secondary" onClick={onClose}>
             Annuler
           </Button>
-          <Button onClick={this.onUpdateState}>Valider</Button>
+          <Button type="submit">Valider</Button>
         </Modal.Footer>
-      </Modal>
-    );
-  }
+      </Form>
+    </Modal>
+  );
 }
+
+UpdateScenarioStateDialog.propTypes = {
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired
+};
+
+export default memo(UpdateScenarioStateDialog);

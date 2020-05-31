@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useState, memo } from "react";
+import React, { memo } from "react";
 import { useDispatch } from "react-redux";
 import FormGroup from "react-bootstrap/FormGroup";
 import FormControl from "react-bootstrap/FormControl";
@@ -10,17 +10,21 @@ import FormLabel from "react-bootstrap/FormLabel";
 import Button from "../../ui/components/Button";
 import { updateCommentThenReload } from "../redux";
 import useUniqueId from "../../useUniqueId";
+import Form from "react-bootstrap/Form";
+import useForm from "../../useForm";
 
 function CommentEditor({ comment, onCancel, onSaved }) {
-  const [content, setContent] = useState(comment.content);
+  const { values, handleValueChange } = useForm({
+    content: comment.content
+  });
 
-  const handleTextChange = (event) => {
-    setContent(event.target.value);
-  };
+  const { content } = values;
 
   const dispatch = useDispatch();
 
-  const handleSaveClick = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
     await dispatch(
       updateCommentThenReload({
         scenarioId: comment.scenarioId,
@@ -28,16 +32,17 @@ function CommentEditor({ comment, onCancel, onSaved }) {
         newContent: content
       })
     );
+
     onSaved();
   };
 
-  const textId = useUniqueId();
+  const contentId = useUniqueId();
 
   return (
-    <>
-      <FormGroup className="mb-2" controlId={textId}>
+    <Form onSubmit={handleSubmit}>
+      <FormGroup className="mb-2" controlId={contentId}>
         <FormLabel srOnly>Commentaire</FormLabel>
-        <FormControl as="textarea" rows="3" autoFocus value={content} onChange={handleTextChange} />
+        <FormControl as="textarea" rows="3" autoFocus name="content" value={content} onChange={handleValueChange} />
       </FormGroup>
       <ButtonToolbar>
         <ButtonGroup className="mr-2">
@@ -46,12 +51,12 @@ function CommentEditor({ comment, onCancel, onSaved }) {
           </Button>
         </ButtonGroup>
         <ButtonGroup>
-          <Button variant="primary" size="sm" onClick={handleSaveClick} disabled={!content}>
+          <Button variant="primary" size="sm" type="submit" disabled={!content}>
             Enregistrer
           </Button>
         </ButtonGroup>
       </ButtonToolbar>
-    </>
+    </Form>
   );
 }
 

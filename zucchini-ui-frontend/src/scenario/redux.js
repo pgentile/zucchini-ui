@@ -154,10 +154,10 @@ export function updateScenarioStateAndComment({ scenarioId, newState, comment })
 
 export function addScenarioCommentAndReload({ scenarioId, comment }) {
   return async (dispatch) => {
-    await dispatch(addScenarioComment({ scenarioId, comment }));
+    const result = await dispatch(addScenarioComment({ scenarioId, comment }));
     await dispatch(getScenarioComments({ scenarioId }));
 
-    return null;
+    return result;
   };
 }
 

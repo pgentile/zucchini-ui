@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import Form from "react-bootstrap/Form";
@@ -9,43 +10,54 @@ import FormLabel from "react-bootstrap/FormLabel";
 import Button from "../../ui/components/Button";
 import { addScenarioCommentAndReload } from "../redux";
 import useUniqueId from "../../useUniqueId";
+import useForm from "../../useForm";
 
-export default function AddCommentForm() {
+export default function AddCommentForm({ onCommentAdded }) {
   const dispatch = useDispatch();
+
+  const { values, handleValueChange, reset } = useForm({
+    comment: ""
+  });
+
+  const { comment } = values;
 
   const { scenarioId } = useParams();
 
-  const [comment, setComment] = useState();
+  useEffect(() => {
+    reset();
+  }, [reset, scenarioId]);
 
-  const onAddComment = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    dispatch(
+    const result = await dispatch(
       addScenarioCommentAndReload({
         scenarioId,
         comment
       })
     );
+    const newCommentId = result.value.id;
 
-    setComment("");
-  };
+    reset();
 
-  const onCommentChange = (event) => {
-    setComment(event.target.value);
+    if (onCommentAdded) {
+      onCommentAdded({ newCommentId });
+    }
   };
 
   const commentId = useUniqueId();
 
   return (
-    <Form onSubmit={onAddComment}>
+    <Form onSubmit={handleSubmit}>
       <FormGroup className="mb-2" controlId={commentId}>
         <FormLabel srOnly>Commentaire</FormLabel>
         <FormControl
           as="textarea"
           rows="3"
           placeholder="Entrez votre commentaire"
+          name="comment"
           value={comment}
-          onChange={onCommentChange}
+          onChange={handleValueChange}
         />
       </FormGroup>
       <Button type="submit" disabled={!comment}>
@@ -54,3 +66,7 @@ export default function AddCommentForm() {
     </Form>
   );
 }
+
+AddCommentForm.propTypes = {
+  onCommentAdded: PropTypes.func
+};

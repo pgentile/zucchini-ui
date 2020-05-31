@@ -1,13 +1,13 @@
-import PropTypes from "prop-types";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
 import ConfirmActionButton from "../../ui/components/ConfirmActionButton";
 import { deleteScenario } from "../redux";
 
-export default function DeleteScenarioButton({ featureId, scenarioId }) {
+export default function DeleteScenarioButton() {
+  const { id: scenarioId, featureId } = useSelector((state) => state.scenario.scenario);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -27,8 +27,3 @@ export default function DeleteScenarioButton({ featureId, scenarioId }) {
     />
   );
 }
-
-DeleteScenarioButton.propTypes = {
-  featureId: PropTypes.string.isRequired,
-  scenarioId: PropTypes.string.isRequired
-};

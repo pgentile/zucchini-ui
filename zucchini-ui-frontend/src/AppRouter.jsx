@@ -14,7 +14,7 @@ const TestRunsPage = lazy(() => import("./testRuns/components/TestRunsPage"));
 const TestRunPage = lazy(() => import("./testRun/components/TestRunPage"));
 const FeaturePage = lazy(() => import("./feature/components/FeaturePage"));
 const TestRunSearchPage = lazy(() => import("./search/components/TestRunSearchPage"));
-const ScenarioPageContainer = lazy(() => import("./scenario/components/ScenarioPageContainer"));
+const ScenarioPage = lazy(() => import("./scenario/components/ScenarioPage"));
 const TagsPage = lazy(() => import("./tags/components/TagsPage"));
 const TagDetailsPage = lazy(() => import("./tagDetails/components/TagDetailsPage"));
 const TestRunDiffPage = lazy(() => import("./testRunDiff/components/TestRunDiffPage"));
@@ -42,7 +42,7 @@ export default function AppRouter() {
                   <Route exact path="/test-runs/:testRunId/diff" component={TestRunDiffPage} />
                   <Route exact path="/test-runs/:testRunId/stepDefinitions" component={StepDefinitionsPage} />
                   <Route exact path="/features/:featureId" component={FeaturePage} />
-                  <Route exact path="/scenarios/:scenarioId" component={ScenarioPageContainer} />
+                  <Route exact path="/scenarios/:scenarioId" component={ScenarioPage} />
                   <Route component={NotFoundPage} />
                 </Switch>
               </Suspense>

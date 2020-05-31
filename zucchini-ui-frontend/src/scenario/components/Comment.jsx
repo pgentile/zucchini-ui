@@ -43,7 +43,7 @@ function Comment({ comment }) {
   }
 
   return (
-    <section className="mb-3">
+    <section className="mb-3" id={`comment-${comment.id}`} tabIndex={-1}>
       <h4>
         Le {toNiceDate(comment.date)} <small>{testRunInfo}</small>
       </h4>

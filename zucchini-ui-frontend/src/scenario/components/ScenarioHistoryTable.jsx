@@ -35,11 +35,6 @@ function ScenarioHistoryTable() {
   );
 }
 
-ScenarioHistoryTable.propTypes = {
-  scenarioId: PropTypes.string.isRequired,
-  history: PropTypes.arrayOf(PropTypes.object)
-};
-
 export default memo(ScenarioHistoryTable);
 
 const ScenarioHistoryTableRow = memo(function ScenarioHistoryTableRow({ scenario }) {

@@ -1,5 +1,6 @@
-import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { memo, Fragment, useState, useEffect, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Tabs from "react-bootstrap/Tabs";
@@ -12,176 +13,138 @@ import HistoryFilter from "../../filters/components/HistoryFilter";
 import ScenarioPresenceIndicator from "./ScenarioPresenceIndicator";
 import ScenarioHistoryTable from "./ScenarioHistoryTable";
 import SameFeatureScenarioTableContainer from "./SameFeatureScenarioTableContainer";
-import UpdateScenarioStateDialogContainer from "./UpdateScenarioStateDialogContainer";
+import UpdateScenarioStateDialog from "./UpdateScenarioStateDialog";
 import CommentList from "./CommentList";
 import ScenarioDetails from "./ScenarioDetails";
 import AddCommentForm from "./AddCommentForm";
 import DeleteScenarioButton from "./DeleteScenarioButton";
-import UpdateScenarioReviewedStateDialogContainer from "./UpdateScenarioReviewedStateDialogContainer";
+import UpdateScenarioReviewedStateDialog from "./UpdateScenarioReviewedStateDialog";
 import SimilarFailureScenarioTableContainer from "./SimilarFailureScenarioTableContainer";
 import ScenarioChangeTable from "./ScenarioChangeTable";
 import Page from "../../ui/components/Page";
 import ScenarioBreadcrumbContainer from "./ScenarioBreadcrumbContainer";
+import { setNonReviewedStateThenReload, loadScenarioPage } from "../redux";
 
-export default class ScenarioPage extends React.Component {
-  static propTypes = {
-    onLoad: PropTypes.func.isRequired,
-    onSetNonReviewedState: PropTypes.func.isRequired,
-    scenarioId: PropTypes.string.isRequired,
-    scenario: PropTypes.object
+function ScenarioPage() {
+  const [showUpdateStateDialog, setShowUpdateStateDialog] = useState(false);
+  const [showSetReviewedStateDialog, setShowSetReviewedStateDialog] = useState(false);
+
+  const scenario = useSelector((state) => state.scenario.scenario);
+  const { reviewed } = scenario;
+
+  const dispatch = useDispatch();
+
+  const handleUpdateStateClick = () => {
+    setShowUpdateStateDialog(true);
   };
 
-  constructor(props) {
-    super(props);
+  const handleCloseUpdateStateDialog = () => {
+    setShowUpdateStateDialog(false);
+  };
 
-    this.state = {
-      showUpdateStateDialog: false,
-      showSetReviewedStateDialog: false
-    };
-  }
-
-  componentDidMount() {
-    this.loadScenarioIfNeeded();
-  }
-
-  componentDidUpdate(prevProps) {
-    this.loadScenarioIfNeeded(prevProps);
-  }
-
-  onUpdateReviewedStateClick = () => {
-    const { scenarioId, scenario, onSetNonReviewedState } = this.props;
-    const { reviewed } = scenario;
-
+  const handleUpdateReviewedStateClick = () => {
     if (reviewed) {
-      onSetNonReviewedState({ scenarioId });
+      dispatch(setNonReviewedStateThenReload({ scenarioId }));
     } else {
-      this.setState({
-        showSetReviewedStateDialog: true
-      });
+      setShowSetReviewedStateDialog(true);
     }
   };
 
-  onUpdateStateClick = () => {
-    this.showUpdateStateDialog();
+  const handleCloseSetReviewedStateDialog = () => {
+    setShowSetReviewedStateDialog(false);
   };
 
-  hideSetReviewedStateDialog = () => {
-    this.setState({
-      showSetReviewedStateDialog: false
-    });
-  };
+  const { scenarioId } = useParams();
 
-  hideUpdateStateDialog = () => {
-    this.setState({
-      showUpdateStateDialog: false
-    });
-  };
+  useEffect(() => {
+    dispatch(loadScenarioPage({ scenarioId }));
+  }, [dispatch, scenarioId]);
 
-  loadScenarioIfNeeded(prevProps = {}) {
-    const { scenarioId, onLoad } = this.props;
-    if (scenarioId !== prevProps.scenarioId) {
-      onLoad({ scenarioId });
-    }
-  }
+  const handleCommentAdded = useCallback(({ newCommentId }) => {
+    const newCommentElem = document.getElementById(`comment-${newCommentId}`);
+    newCommentElem?.focus();
+  }, []);
 
-  showUpdateStateDialog = () => {
-    this.setState({
-      showUpdateStateDialog: true
-    });
-  };
+  return (
+    <Page
+      title={
+        <Fragment>
+          <b>{scenario.info.keyword}</b> {scenario.info.name} {scenario.status && <Status status={scenario.status} />}
+        </Fragment>
+      }
+      breadcrumb={<ScenarioBreadcrumbContainer />}
+    >
+      {scenario.allTags.length > 0 && (
+        <>
+          <p>
+            <b>Tags :</b> <TagList testRunId={scenario.testRunId} tags={scenario.allTags} />
+          </p>
+          <hr />
+        </>
+      )}
 
-  render() {
-    const { scenario, scenarioId } = this.props;
-    const { featureId, reviewed } = scenario;
+      <ButtonToolbar>
+        <ButtonGroup className="mr-2">
+          <Button icon={faFlag} onClick={handleUpdateStateClick}>
+            Modifier le statut&hellip;
+          </Button>
+        </ButtonGroup>
+        <ButtonGroup className="mr-2">
+          <Button icon={reviewed ? faEyeSlash : faEye} onClick={handleUpdateReviewedStateClick}>
+            {reviewed ? "Marquer comme non analysé" : "Marquer comme analysé"}
+          </Button>
+        </ButtonGroup>
+        <ButtonGroup>
+          <DeleteScenarioButton />
+        </ButtonGroup>
+      </ButtonToolbar>
 
-    let similarFailureSection = null;
-    if (scenario.status === "FAILED") {
-      similarFailureSection = <SimilarFailureScenarioTableContainer />;
-    }
+      <hr />
 
-    return (
-      <Page
-        title={
-          <Fragment>
-            <b>{scenario.info.keyword}</b> {scenario.info.name} {scenario.status && <Status status={scenario.status} />}
-          </Fragment>
-        }
-        breadcrumb={<ScenarioBreadcrumbContainer />}
-      >
-        {scenario.allTags.length > 0 && (
-          <>
-            <p>
-              <b>Tags :</b> <TagList testRunId={scenario.testRunId} tags={scenario.allTags} />
-            </p>
-            <hr />
-          </>
-        )}
+      <ScenarioPresenceIndicator />
 
-        <ButtonToolbar>
-          <ButtonGroup className="mr-2">
-            <Button icon={faFlag} onClick={this.onUpdateStateClick}>
-              Modifier le statut&hellip;
-            </Button>
-          </ButtonGroup>
-          <ButtonGroup className="mr-2">
-            <Button icon={reviewed ? faEyeSlash : faEye} onClick={this.onUpdateReviewedStateClick}>
-              {reviewed ? "Marquer comme non analysé" : "Marquer comme analysé"}
-            </Button>
-          </ButtonGroup>
-          <ButtonGroup>
-            <DeleteScenarioButton featureId={featureId} scenarioId={scenarioId} />
-          </ButtonGroup>
-        </ButtonToolbar>
+      <h2>Étapes du scénario</h2>
+      <ScenarioDetails />
 
-        <hr />
+      <hr />
 
-        <ScenarioPresenceIndicator scenarioId={scenarioId} />
+      <h2>Commentaires</h2>
+      <CommentList />
 
-        <h2>Étapes du scénario</h2>
-        <ScenarioDetails />
+      <h4>Ajouter un nouveau commentaire</h4>
+      <AddCommentForm onCommentAdded={handleCommentAdded} />
 
-        <hr />
+      <hr />
 
-        <h2>Commentaires</h2>
-        <CommentList />
+      <Tabs defaultActiveKey="history" id="tabs">
+        <Tab eventKey="history" title="Historique" className="mt-2">
+          <HistoryFilter />
+          <ScenarioHistoryTable />
+        </Tab>
+        <Tab eventKey="changes" title="Changements" className="mt-2">
+          <ScenarioChangeTable />
+        </Tab>
+        <Tab eventKey="same-feature" title="Scénarios de la même fonctionnalité" className="mt-2">
+          <SameFeatureScenarioTableContainer />
+        </Tab>
+        <Tab
+          eventKey="similar-errors"
+          title="Erreurs similaires"
+          className="mt-2"
+          disabled={scenario.status !== "FAILED"}
+        >
+          {scenario.status === "FAILED" && <SimilarFailureScenarioTableContainer />}
+        </Tab>
+      </Tabs>
 
-        <h4>Ajouter un nouveau commentaire</h4>
-        <AddCommentForm scenarioId={scenarioId} key={scenarioId} />
+      <UpdateScenarioStateDialog show={showUpdateStateDialog} onClose={handleCloseUpdateStateDialog} />
 
-        <hr />
-
-        <Tabs defaultActiveKey="history" id="tabs">
-          <Tab eventKey="history" title="Historique" className="mt-2">
-            <HistoryFilter />
-            <ScenarioHistoryTable />
-          </Tab>
-          <Tab eventKey="changes" title="Changements" className="mt-2">
-            <ScenarioChangeTable />
-          </Tab>
-          <Tab eventKey="same-feature" title="Scénarios de la même fonctionnalité" className="mt-2">
-            <SameFeatureScenarioTableContainer scenarioId={scenarioId} />
-          </Tab>
-          <Tab
-            eventKey="similar-errors"
-            title="Erreurs similaires"
-            className="mt-2"
-            disabled={similarFailureSection === null}
-          >
-            {similarFailureSection}
-          </Tab>
-        </Tabs>
-
-        <UpdateScenarioStateDialogContainer
-          show={this.state.showUpdateStateDialog}
-          onClose={this.hideUpdateStateDialog}
-        />
-
-        <UpdateScenarioReviewedStateDialogContainer
-          scenarioId={scenarioId}
-          show={this.state.showSetReviewedStateDialog}
-          onClose={this.hideSetReviewedStateDialog}
-        />
-      </Page>
-    );
-  }
+      <UpdateScenarioReviewedStateDialog
+        show={showSetReviewedStateDialog}
+        onClose={handleCloseSetReviewedStateDialog}
+      />
+    </Page>
+  );
 }
+
+export default memo(ScenarioPage);
