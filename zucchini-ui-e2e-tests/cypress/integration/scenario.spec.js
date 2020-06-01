@@ -1,15 +1,15 @@
 /// <reference types="Cypress" />
 /// <reference types="testing-library__cypress" />
+/// <reference path="../support/zucchiniApi.d.ts" />
+/// <reference path="../support/selectors.d.ts" />
 
 describe("Scenario", () => {
   beforeEach(() => {
     cy.log("Créer une feature");
 
     cy.createFilledTestRun().then(({ id }) => {
-      cy.getScenariosForTestRun({ testRunId: id }).then((scenarios) => {
-        const firstScenario = scenarios.find(
-          (scenario) => scenario.status === "PASSED"
-        );
+      cy.getScenariosForTestRun(id).then((scenarios) => {
+        const firstScenario = scenarios.find((scenario) => scenario.status === "PASSED");
         if (!firstScenario) {
           throw new Error("No scenario found");
         }
@@ -22,9 +22,7 @@ describe("Scenario", () => {
 
   it("should display scenario info", () => {
     cy.get("@scenario").then((scenarios) => {
-      cy.get("h1")
-        .should("contain", scenarios.info.keyword)
-        .and("contain", scenarios.info.name);
+      cy.get("h1").should("contain", scenarios.info.keyword).and("contain", scenarios.info.name);
     });
 
     cy.get("h1 .badge").should("have.text", "Succès");
@@ -41,9 +39,7 @@ describe("Scenario", () => {
     cy.contains("button", "Marquer comme analysé").click();
 
     cy.get("[role=dialog]").within(() => {
-      cy.findByLabelText("Commentaire").type(
-        "Coucou{enter}Voir https://example.org pour plus d'infos"
-      );
+      cy.findByLabelText("Commentaire").type("Coucou{enter}Voir https://example.org pour plus d'infos");
       cy.get("form").submit();
     });
 
@@ -62,9 +58,7 @@ describe("Scenario", () => {
 
       cy.findByLabelText("Échec").click();
 
-      cy.findByLabelText("Commentaire").type(
-        "Ca ne marche pas. Encore un bug, dis donc"
-      );
+      cy.findByLabelText("Commentaire").type("Ca ne marche pas. Encore un bug, dis donc");
 
       cy.get("form").submit();
     });
@@ -88,8 +82,6 @@ describe("Scenario", () => {
 
     cy.wait("@deleteScenario");
 
-    cy.location("pathname").should("satisfy", (url) =>
-      url.startsWith("/ui/features/")
-    );
+    cy.location("pathname").should("satisfy", (url) => url.startsWith("/ui/features/"));
   });
 });

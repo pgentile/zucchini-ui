@@ -1,12 +1,14 @@
 /// <reference types="Cypress" />
 /// <reference types="testing-library__cypress" />
+/// <reference path="../support/zucchiniApi.d.ts" />
+/// <reference path="../support/selectors.d.ts" />
 
 describe("Feature", () => {
   beforeEach(() => {
     cy.log("Créer une feature");
 
     cy.createFilledTestRun().then(({ id }) => {
-      cy.getFeaturesForTestRun({ testRunId: id }).then((features) => {
+      cy.getFeaturesForTestRun(id).then((features) => {
         const firstFeature = features[0];
         cy.wrap(firstFeature).as("feature");
         cy.visit(`/ui/features/${firstFeature.id}`);
@@ -16,13 +18,11 @@ describe("Feature", () => {
 
   it("should display feature info", () => {
     cy.get("@feature").then((feature) => {
-      cy.get("h1")
-        .should("contain", feature.info.keyword)
-        .and("contain", feature.info.name);
+      cy.get("h1").should("contain", feature.info.keyword).and("contain", feature.info.name);
     });
   });
 
-  it.only("should edit feature", () => {
+  it("should edit feature", () => {
     cy.route("PATCH", "/api/features/*").as("updateFeature");
 
     cy.findByText("Modifier").click();
@@ -53,8 +53,6 @@ describe("Feature", () => {
 
     cy.wait("@deleteFeature");
 
-    cy.location("pathname").should("satisfy", (url) =>
-      url.startsWith("/ui/test-runs/")
-    );
+    cy.location("pathname").should("satisfy", (url) => url.startsWith("/ui/test-runs/"));
   });
 });

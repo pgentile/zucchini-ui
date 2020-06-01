@@ -73,7 +73,11 @@ export default function TestRunPage() {
     );
   });
 
-  const labels = <ul className="list-inline">{labelItems}</ul>;
+  const labels = labelItems.length > 0 && (
+    <ul className="list-inline" data-testid="labels">
+      {labelItems}
+    </ul>
+  );
 
   return (
     <Page title={`Tir du ${toNiceDate(testRun.date)}`} breadcrumb={<TestRunBreadcrumbContainer />} mainline={labels}>

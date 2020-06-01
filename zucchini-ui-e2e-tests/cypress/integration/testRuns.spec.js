@@ -1,5 +1,7 @@
 /// <reference types="Cypress" />
 /// <reference types="testing-library__cypress" />
+/// <reference path="../support/zucchiniApi.d.ts" />
+/// <reference path="../support/selectors.d.ts" />
 
 describe("Test runs", () => {
   beforeEach(() => {
@@ -12,7 +14,7 @@ describe("Test runs", () => {
     cy.createTestRun({
       type: "Display test runs",
       environment: "PREP",
-      name: "Test à afficher",
+      name: "Test à afficher"
     });
 
     cy.get("table").within(() => {

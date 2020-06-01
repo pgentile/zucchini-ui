@@ -1,5 +1,7 @@
 /// <reference types="Cypress" />
 /// <reference types="testing-library__cypress" />
+/// <reference path="../support/zucchiniApi.d.ts" />
+/// <reference path="../support/selectors.d.ts" />
 
 describe("Test run", () => {
   beforeEach(() => {
@@ -34,6 +36,50 @@ describe("Test run", () => {
 
     cy.get("table").within(() => {
       cy.get("tbody").find("tr").should("have.length.greaterThan", 0);
+    });
+  });
+
+  it("should edit a test run", () => {
+    cy.route("PATCH", "/api/testRuns/*").as("updateTestRun");
+
+    cy.findByText("Modifier").click();
+
+    const labels = [
+      { name: "Label un", value: "Valeur 1" },
+      { name: "Label deux", value: "Valeur 2" }
+    ];
+
+    cy.get("[role=dialog]")
+      .as("modal")
+      .within(() => {
+        cy.findByLabelText("Type").clear().type("New type");
+        cy.findByLabelText("Environnement").clear().type("New env");
+        cy.findByLabelText("Nom").clear().type("New name");
+
+        labels.forEach((label, index) => {
+          cy.log("Ajouter le label", label.name);
+
+          cy.findByText("Ajouter une étiquette").click();
+
+          cy.findFieldsetByLegend("Étiquettes")
+            .findByTestId(`label-${index}`)
+            .within(() => {
+              cy.findByLabelText("Nom").type(label.name);
+              cy.findByLabelText("Valeur").type(label.value);
+            });
+        });
+
+        cy.get("form").submit();
+      });
+
+    cy.wait("@updateTestRun");
+
+    cy.get("@modal").should("not.exist");
+
+    cy.findByTestId("labels").within(() => {
+      labels.forEach((label) => {
+        cy.contains(`${label.name} : ${label.value}`).should("exist");
+      });
     });
   });
 

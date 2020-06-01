@@ -10,7 +10,7 @@
     "cypress:open": "cypress open",
     "lint": "eslint --resolve-plugins-relative-to . --ext .js .",
     "fix": "eslint --resolve-plugins-relative-to . --fix --ext .js .",
-    "prettier": "prettier --write **/*.js"
+    "prettier": "prettier --write **/*.js **/*.ts"
   },
   "devDependencies": {
     "@testing-library/cypress": "^6.0.0",

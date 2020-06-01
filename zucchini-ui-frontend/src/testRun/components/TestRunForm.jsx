@@ -187,7 +187,7 @@ const LabelForm = memo(function LabelForm({ index, label, onChangeLabel, onDelet
   };
 
   return (
-    <tr>
+    <tr data-testid={`label-${index}`}>
       <td>
         <FormControl
           name={`${prefix}.name`}
