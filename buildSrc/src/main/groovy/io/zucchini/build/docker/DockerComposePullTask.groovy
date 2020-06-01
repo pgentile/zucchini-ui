@@ -10,12 +10,10 @@ class DockerComposePullTask extends DefaultTask {
     @TaskAction
     void build() {
         List<String> args = ['docker-compose', 'pull']
-
-        project.logger.info('Executing Docker Compose with arguments: {}', args)
-
         Map<String, String> env = project.dockerCompose.env
 
-        project.logger.error('Executing Docker Compose with env: {}', env)
+        project.logger.info('Executing Docker Compose with arguments: {}', args)
+        project.logger.info('Executing Docker Compose with env: {}', env)
 
         project.exec {
             environment env
