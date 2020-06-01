@@ -26,6 +26,7 @@ function TagsTable() {
     <TabularDataTable
       columnNames={["Tag", "Statut", "Total", "Succès", "Échecs", "En attente", "Non joués", "Analysés"]}
       emptyDescription="Aucun tag"
+      data-testid="tags"
     >
       {rows}
     </TabularDataTable>

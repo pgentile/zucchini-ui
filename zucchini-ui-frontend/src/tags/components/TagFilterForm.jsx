@@ -4,11 +4,13 @@ import FormGroup from "react-bootstrap/FormGroup";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
+import FormLabel from "react-bootstrap/FormLabel";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import debounce from "lodash/debounce";
 
 import Button from "../../ui/components/Button";
 import { setTagFilter } from "../redux";
+import useUniqueId from "../../useUniqueId";
 
 export default function TagFilterForm() {
   const [filter, setFilter] = useState("");
@@ -49,10 +51,13 @@ export default function TagFilterForm() {
     return () => updateFilter("", true);
   }, [updateFilter]);
 
+  const tagControlId = useUniqueId();
+
   return (
-    <Form onSubmit={handleSubmit}>
-      <FormGroup controlId="filter">
+    <Form onSubmit={handleSubmit} data-testid="tag-filter-form">
+      <FormGroup controlId={tagControlId}>
         <InputGroup size="lg">
+          <FormLabel srOnly>Tag</FormLabel>
           <FormControl
             type="text"
             value={filter}
