@@ -56,7 +56,7 @@ describe("Scenario", () => {
     cy.get("[role=dialog]").within(() => {
       cy.findByLabelText("Scénario analysé ?").should("be.checked");
 
-      cy.findByLabelText("Échec").click();
+      cy.findByLabelText("Échec").check();
 
       cy.findByLabelText("Commentaire").type("Ca ne marche pas. Encore un bug, dis donc");
 
