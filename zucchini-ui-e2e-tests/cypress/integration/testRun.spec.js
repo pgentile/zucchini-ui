@@ -64,8 +64,8 @@ describe("Test run", () => {
           cy.findFieldsetByLegend("Étiquettes")
             .findByTestId(`label-${index}`)
             .within(() => {
-              cy.findByLabelText("Nom").type(label.name);
-              cy.findByLabelText("Valeur").type(label.value);
+              cy.findByLabelText(/Nom/).type(label.name);
+              cy.findByLabelText(/Valeur/).type(label.value);
             });
         });
 
