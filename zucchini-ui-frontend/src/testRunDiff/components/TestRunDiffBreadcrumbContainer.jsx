@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Breadcrumb from "../../ui/components/Breadcrumb";
 import toNiceDate from "../../ui/toNiceDate";
 import queryString from "query-string";
-import getTypeEnvName from "../../utils/testRunUtils";
+
 import useQueryParams from "../../useQueryParams";
 
 function TestRunDiffBreadcrumbContainer() {
@@ -14,7 +14,7 @@ function TestRunDiffBreadcrumbContainer() {
 
   const items = [
     {
-      value: getTypeEnvName(testRun),
+      value: `Type ${testRun.type}`,
       link: {
         pathname: "/",
         search: queryString.stringify({ type: testRun.type })

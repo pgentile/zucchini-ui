@@ -4,7 +4,6 @@ import queryString from "query-string";
 
 import Breadcrumb from "../../ui/components/Breadcrumb";
 import toNiceDate from "../../ui/toNiceDate";
-import getTypeEnvName from "../../utils/testRunUtils";
 
 export default function FailuresBreadcrumbContainer() {
   const testRun = useSelector((state) => state.testRun.testRun);
@@ -12,7 +11,7 @@ export default function FailuresBreadcrumbContainer() {
   const items = useMemo(() => {
     return [
       {
-        value: getTypeEnvName(testRun),
+        value: `Type ${testRun.type}`,
         link: {
           pathname: "/",
           search: queryString.stringify({ type: testRun.type })

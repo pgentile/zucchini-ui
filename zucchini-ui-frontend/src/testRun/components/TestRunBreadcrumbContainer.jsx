@@ -4,14 +4,13 @@ import queryString from "query-string";
 
 import Breadcrumb from "../../ui/components/Breadcrumb";
 import toNiceDate from "../../ui/toNiceDate";
-import getTypeEnvName from "../../utils/testRunUtils";
 
 function TestRunBreadcrumbContainer() {
   const testRun = useSelector((state) => state.testRun.testRun);
 
   const items = [
     {
-      value: getTypeEnvName(testRun),
+      value: `Type ${testRun.type}`,
       link: {
         pathname: "/",
         search: queryString.stringify({ type: testRun.type })
