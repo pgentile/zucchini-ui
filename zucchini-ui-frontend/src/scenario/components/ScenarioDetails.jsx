@@ -9,6 +9,7 @@ import SimpleText from "../../ui/components/SimpleText";
 import ActionStep from "./ActionStep";
 import Step from "./Step";
 import StepFilters from "./StepFilters";
+import useUniqueId from "../../useUniqueId";
 
 function ScenarioDetails() {
   const scenario = useSelector((state) => state.scenario.scenario);
@@ -33,8 +34,10 @@ function ScenarioDetails() {
     return <ActionStep key={index} index={index} name="Post-action" action={action} />;
   });
 
+  const stepFilterId = useUniqueId();
+
   const stepFilters = (
-    <Popover id="step-filters">
+    <Popover id={stepFilterId}>
       <Popover.Title>Configurer les options d&apos;affichage</Popover.Title>
       <Popover.Content>
         <StepFilters />

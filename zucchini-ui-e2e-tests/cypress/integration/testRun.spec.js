@@ -26,7 +26,7 @@ describe("Test run", () => {
 
     cy.get("[role=dialog]").within(() => {
       // Workaround : cucumber-report.json not loaded as base64, even if asked. So... extention change
-      cy.get("input#file").attachFile("cucumber-report.json.bin");
+      cy.findAllByLabelText(/Fichier/).attachFile("cucumber-report.json.bin");
       cy.contains("button", "Importer").click();
     });
 

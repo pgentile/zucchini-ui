@@ -1,19 +1,27 @@
-import { useState } from "react";
-
-let counter = 0;
+import { useRef } from "react";
 
 export default function useUniqueId() {
-  const [id] = useState(() => `id-${counter++}`);
-  return id;
+  const ref = useRef();
+  if (!ref.current) {
+    ref.current = generateId();
+  }
+  return ref.current;
 }
 
 export function useMultiUniqueId(keys) {
-  const [ids] = useState(() => {
-    const idsByKey = {};
-    keys.forEach((key) => {
-      idsByKey[key] = `id-${counter++}`;
-    });
-    return Object.seal(idsByKey);
+  const ref = useRef({});
+
+  keys.forEach((key) => {
+    if (!(key in ref.current)) {
+      ref.current[key] = generateId();
+    }
   });
-  return ids;
+
+  return ref.current;
+}
+
+let counter = 0;
+
+function generateId() {
+  return `id-${counter++}`;
 }

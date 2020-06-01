@@ -10,6 +10,7 @@ import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 
 import Button from "../../ui/components/Button";
 import { useParsedTags, useNavigateToTags } from "../url";
+import useUniqueId from "../../useUniqueId";
 
 function TagSelectionForm() {
   const parsedTags = useParsedTags();
@@ -32,11 +33,14 @@ function TagSelectionForm() {
     });
   };
 
+  const tagsControlId = useUniqueId();
+  const excludedTagsControlId = useUniqueId();
+
   return (
     <Form onSubmit={handleSubmit}>
       <Row>
         <Col md>
-          <FormGroup controlId="tags">
+          <FormGroup controlId={tagsControlId}>
             <InputGroup>
               <InputGroup.Prepend>
                 <InputGroup.Text as={FormLabel}>Tags inclus</InputGroup.Text>
@@ -46,7 +50,7 @@ function TagSelectionForm() {
           </FormGroup>
         </Col>
         <Col md>
-          <FormGroup controlId="excludedTags">
+          <FormGroup controlId={excludedTagsControlId}>
             <InputGroup>
               <InputGroup.Prepend>
                 <InputGroup.Text as={FormLabel}>Tags exclus</InputGroup.Text>

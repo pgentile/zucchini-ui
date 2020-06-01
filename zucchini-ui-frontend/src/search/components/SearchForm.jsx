@@ -9,6 +9,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import useQueryParams from "../../useQueryParams";
 import Button from "../../ui/components/Button";
+import useUniqueId from "../../useUniqueId";
 
 export default function SearchForm() {
   const history = useHistory();
@@ -34,9 +35,11 @@ export default function SearchForm() {
     });
   };
 
+  const searchControlId = useUniqueId();
+
   return (
     <Form onSubmit={handleSubmit}>
-      <FormGroup controlId="search">
+      <FormGroup controlId={searchControlId}>
         <InputGroup size="lg">
           <FormControl type="text" value={search} onChange={handleSearchChange} placeholder="Rechercher&hellip;" />
           <InputGroup.Append>

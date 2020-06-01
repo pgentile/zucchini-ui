@@ -47,7 +47,7 @@ TestRunForm.propTypes = {
 export default memo(TestRunForm);
 
 const TestRunFormFields = memo(function TestRunFormFields() {
-  const fieldIds = useMultiUniqueId(["type", "environment", "name"]);
+  const controlIds = useMultiUniqueId(["type", "environment", "name"]);
 
   const { values, handleValueChange } = useContext(TestRunFormContext);
   const { type, environment, name } = values;
@@ -56,15 +56,15 @@ const TestRunFormFields = memo(function TestRunFormFields() {
     <>
       <fieldset>
         <legend>Paramètres principaux</legend>
-        <FormGroup controlId={fieldIds.type}>
+        <FormGroup controlId={controlIds.type}>
           <FormLabel>Type</FormLabel>
           <FormControl name="type" type="text" required value={type} onChange={handleValueChange} />
         </FormGroup>
-        <FormGroup controlId={fieldIds.environment}>
+        <FormGroup controlId={controlIds.environment}>
           <FormLabel>Environnement</FormLabel>
           <FormControl name="environment" type="text" required value={environment} onChange={handleValueChange} />
         </FormGroup>
-        <FormGroup controlId={fieldIds.name}>
+        <FormGroup controlId={controlIds.name}>
           <FormLabel>Nom</FormLabel>
           <FormControl name="name" type="text" required value={name} onChange={handleValueChange} />
         </FormGroup>

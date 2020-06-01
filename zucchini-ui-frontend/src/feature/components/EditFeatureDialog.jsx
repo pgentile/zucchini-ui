@@ -57,7 +57,7 @@ export default function EditFeatureDialog({ show, onClose }) {
   };
 
   const titleId = useUniqueId();
-  const groupFieldId = useUniqueId();
+  const groupControlId = useUniqueId();
 
   return (
     <Modal show={show} onHide={onClose} aria-labelledby={titleId}>
@@ -66,7 +66,7 @@ export default function EditFeatureDialog({ show, onClose }) {
           <Modal.Title id={titleId}>Modifier la fonctionnalité</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <FormGroup controlId={groupFieldId}>
+          <FormGroup controlId={groupControlId}>
             <FormLabel>Groupe</FormLabel>
             <FormControl name="group" type="text" value={group} onChange={handleValueChange} />
           </FormGroup>

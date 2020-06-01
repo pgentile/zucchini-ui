@@ -73,6 +73,11 @@ export default function ImportCucumberResultsDialog({ show, onClose }) {
   };
 
   const titleId = useUniqueId();
+  const fileControlId = useUniqueId();
+  const groupControlId = useUniqueId();
+  const onlyNewScenariiControlId = useUniqueId();
+  const mergeOnlyNewPassedScenariiControlId = useUniqueId();
+  const dryRunControlId = useUniqueId();
 
   return (
     <Modal show={show} onHide={onClose} aria-labelledby={titleId}>
@@ -81,14 +86,14 @@ export default function ImportCucumberResultsDialog({ show, onClose }) {
           <Modal.Title id={titleId}>Importer un résultat de tests Cucumber</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <FormGroup controlId="file">
+          <FormGroup controlId={fileControlId}>
             <FormLabel>Fichier à importer</FormLabel>
             <FormControl name="file" type="file" accept=".json" required onChange={handleFileChange} />
             <Form.Text className="text-muted">
               Le fichier à importer est un résultat d&apos;exécution Cucumber, au format JSON.
             </Form.Text>
           </FormGroup>
-          <FormGroup controlId="group">
+          <FormGroup controlId={groupControlId}>
             <FormLabel>Groupe</FormLabel>
             <FormControl
               name="group"
@@ -100,20 +105,26 @@ export default function ImportCucumberResultsDialog({ show, onClose }) {
           </FormGroup>
           <FormGroup>
             <FormCheck
-              id="onlyNewScenarii"
+              id={onlyNewScenariiControlId}
               name="onlyNewScenarii"
               checked={onlyNewScenarii}
               onChange={handleCheckChange}
               label="Limiter l'import aux nouveaux scénarios"
             />
             <FormCheck
-              id="mergeOnlyNewPassedScenarii"
+              id={mergeOnlyNewPassedScenariiControlId}
               name="mergeOnlyNewPassedScenarii"
               checked={mergeOnlyNewPassedScenarii}
               onChange={handleCheckChange}
               label="Limiter l'import aux scénarios passés avec succès"
             />
-            <FormCheck id="dryRun" name="dryRun" checked={dryRun} onChange={handleCheckChange} label="Tir à blanc" />
+            <FormCheck
+              id={dryRunControlId}
+              name="dryRun"
+              checked={dryRun}
+              onChange={handleCheckChange}
+              label="Tir à blanc"
+            />
           </FormGroup>
         </Modal.Body>
         <Modal.Footer>
