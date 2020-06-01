@@ -35,7 +35,7 @@ function TagSelectionForm() {
   return (
     <Form onSubmit={handleSubmit}>
       <Row>
-        <Col md={5}>
+        <Col md>
           <FormGroup controlId="tags">
             <InputGroup>
               <InputGroup.Prepend>
@@ -45,7 +45,7 @@ function TagSelectionForm() {
             </InputGroup>
           </FormGroup>
         </Col>
-        <Col md={5}>
+        <Col md>
           <FormGroup controlId="excludedTags">
             <InputGroup>
               <InputGroup.Prepend>
@@ -55,8 +55,8 @@ function TagSelectionForm() {
             </InputGroup>
           </FormGroup>
         </Col>
-        <Col md={2}>
-          <Button icon={faSyncAlt} type="submit" block>
+        <Col md="auto">
+          <Button icon={faSyncAlt} block type="submit" className="mb-3">
             Actualiser
           </Button>
         </Col>

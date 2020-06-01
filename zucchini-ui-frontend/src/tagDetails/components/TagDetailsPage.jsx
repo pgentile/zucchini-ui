@@ -43,7 +43,7 @@ export default function TagDetailsPage() {
     >
       <TagSelectionForm />
 
-      <hr />
+      <hr className="mt-0" />
 
       <h2>Statistiques</h2>
       <ScenarioStats stats={stats} />
