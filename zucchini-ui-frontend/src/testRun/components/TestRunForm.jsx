@@ -1,4 +1,4 @@
-import React, { useState, useCallback, memo, createContext } from "react";
+import React, { memo, createContext } from "react";
 import PropTypes from "prop-types";
 import { faPlusCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import FormGroup from "react-bootstrap/FormGroup";
@@ -7,39 +7,34 @@ import FormControl from "react-bootstrap/FormControl";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
-import noop from "lodash/noop";
 
 import { useMultiUniqueId } from "../../useUniqueId";
 import Button from "../../ui/components/Button";
 import { useContext } from "react";
+import useForm from "../../useForm";
 
-const Context = createContext({
-  values: {},
-  setValues: noop
-});
+const TestRunFormContext = createContext();
 
-Context.displayName = "TestRunFormContext";
+TestRunFormContext.displayName = "TestRunFormContext";
 
 function TestRunForm({ children, initialValues = {}, onSubmit }) {
-  const [values, setValues] = useState(() => {
-    return {
-      type: "",
-      environment: "",
-      name: "",
-      labels: [],
-      ...initialValues
-    };
+  const form = useForm({
+    type: "",
+    environment: "",
+    name: "",
+    labels: [],
+    ...initialValues
   });
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onSubmit(values);
+    onSubmit(form.values);
   };
 
   return (
-    <Context.Provider value={[values, setValues]}>
+    <TestRunFormContext.Provider value={form}>
       <Form onSubmit={handleSubmit}>{children}</Form>
-    </Context.Provider>
+    </TestRunFormContext.Provider>
   );
 }
 
@@ -54,33 +49,8 @@ export default memo(TestRunForm);
 const TestRunFormFields = memo(function TestRunFormFields() {
   const fieldIds = useMultiUniqueId(["type", "environment", "name"]);
 
-  const [values, setValues] = useContext(Context);
-  const { type, environment, name, labels } = values;
-
-  const handleFieldChange = useCallback(
-    (event) => {
-      const { name, value } = event.target;
-      setValues((currentValues) => {
-        return {
-          ...currentValues,
-          [name]: value
-        };
-      });
-    },
-    [setValues]
-  );
-
-  const handleUpdateLabels = useCallback(
-    (labels) => {
-      setValues((currentValues) => {
-        return {
-          ...currentValues,
-          labels
-        };
-      });
-    },
-    [setValues]
-  );
+  const { values, handleValueChange } = useContext(TestRunFormContext);
+  const { type, environment, name } = values;
 
   return (
     <>
@@ -88,60 +58,41 @@ const TestRunFormFields = memo(function TestRunFormFields() {
         <legend>Paramètres principaux</legend>
         <FormGroup controlId={fieldIds.type}>
           <FormLabel>Type</FormLabel>
-          <FormControl name="type" type="text" required value={type} onChange={handleFieldChange} />
+          <FormControl name="type" type="text" required value={type} onChange={handleValueChange} />
         </FormGroup>
         <FormGroup controlId={fieldIds.environment}>
           <FormLabel>Environnement</FormLabel>
-          <FormControl name="environment" type="text" required value={environment} onChange={handleFieldChange} />
+          <FormControl name="environment" type="text" required value={environment} onChange={handleValueChange} />
         </FormGroup>
         <FormGroup controlId={fieldIds.name}>
           <FormLabel>Nom</FormLabel>
-          <FormControl name="name" type="text" required value={name} onChange={handleFieldChange} />
+          <FormControl name="name" type="text" required value={name} onChange={handleValueChange} />
         </FormGroup>
       </fieldset>
-      <AllLabelsForm labels={labels} onUpdateLabels={handleUpdateLabels} />
+      <AllLabelsForm />
     </>
   );
 });
 
 export { TestRunFormFields };
 
-const AllLabelsForm = memo(function AllLabelsForm({ labels, onUpdateLabels }) {
+const AllLabelsForm = memo(function AllLabelsForm() {
+  const { values, updateValues } = useContext(TestRunFormContext);
+  const { labels } = values;
+
   const handleAddLabel = () => {
-    const newLabel = { name: "", value: "", url: "" };
-    onUpdateLabels([...labels, newLabel]);
+    const newLabel = {
+      name: "",
+      value: "",
+      url: ""
+    };
+    updateValues("labels", (currentLabels) => {
+      return [...currentLabels, newLabel];
+    });
   };
 
   const labelRows = labels.map((label, index) => {
-    const handleChangeLabel = (name, value) => {
-      const updatedLabels = labels.map((label, someIndex) => {
-        if (someIndex !== index) {
-          return label;
-        }
-
-        return {
-          ...label,
-          [name]: value
-        };
-      });
-
-      onUpdateLabels(updatedLabels);
-    };
-
-    const handleDeleteLabel = () => {
-      const updatedLabels = labels.filter((_label, someIndex) => someIndex !== index);
-      onUpdateLabels(updatedLabels);
-    };
-
-    return (
-      <LabelForm
-        key={index}
-        index={index}
-        label={label}
-        onChangeLabel={handleChangeLabel}
-        onDeleteLabel={handleDeleteLabel}
-      />
-    );
+    return <LabelForm key={index} index={index} label={label} />;
   });
 
   return (
@@ -170,58 +121,55 @@ const AllLabelsForm = memo(function AllLabelsForm({ labels, onUpdateLabels }) {
   );
 });
 
-AllLabelsForm.propTypes = {
-  labels: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onUpdateLabels: PropTypes.func.isRequired
-};
+const LabelForm = memo(function LabelForm({ index, label }) {
+  const { handleValueChange, updateValues } = useContext(TestRunFormContext);
 
-const LabelForm = memo(function LabelForm({ index, label, onChangeLabel, onDeleteLabel }) {
+  const handleDeleteLabel = () => {
+    updateValues("labels", (currentLabels) => {
+      return currentLabels.filter((_label, currentIndex) => currentIndex !== index);
+    });
+  };
+
   const { name, value, url } = label;
 
   const prefix = `labels.${index}`;
-
-  const handleFieldChange = (event) => {
-    const { name, value } = event.target;
-    const localName = name.substr(prefix.length + 1);
-    onChangeLabel(localName, value);
-  };
 
   return (
     <tr data-testid={`label-${index}`}>
       <td>
         <FormControl
           name={`${prefix}.name`}
-          aria-label="Nom"
+          aria-label={`Nom n°${index + 1}`}
           placeholder="Nom"
           type="text"
           required
           value={name}
-          onChange={handleFieldChange}
+          onChange={handleValueChange}
         />
       </td>
       <td>
         <FormControl
           name={`${prefix}.value`}
-          aria-label="Valeur"
+          aria-label={`Valeur n°${index + 1}`}
           placeholder="Valeur"
           type="text"
           value={value}
-          onChange={handleFieldChange}
+          onChange={handleValueChange}
         />
       </td>
       <td>
         <FormControl
           name={`${prefix}.url`}
-          aria-label="URL"
+          aria-label={`URL n°${index + 1}`}
           placeholder="URL"
           type="text"
           value={url}
-          onChange={handleFieldChange}
+          onChange={handleValueChange}
         />
       </td>
       <td>
-        <Button icon={faTimesCircle} iconOnly variant="outline-danger" onClick={onDeleteLabel}>
-          Supprimer
+        <Button icon={faTimesCircle} iconOnly variant="outline-danger" onClick={handleDeleteLabel}>
+          Supprimer l&apos;étiquette n°{index + 1}
         </Button>
       </td>
     </tr>
@@ -230,7 +178,5 @@ const LabelForm = memo(function LabelForm({ index, label, onChangeLabel, onDelet
 
 LabelForm.propTypes = {
   index: PropTypes.number.isRequired,
-  label: PropTypes.object.isRequired,
-  onChangeLabel: PropTypes.func.isRequired,
-  onDeleteLabel: PropTypes.func.isRequired
+  label: PropTypes.object.isRequired
 };

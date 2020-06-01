@@ -1,4 +1,5 @@
 import { useRef, useCallback, useState } from "react";
+import { updateValue, update } from "./tools/updater";
 
 export default function useForm(initialState) {
   const [values, setValues] = useState(initialState);
@@ -10,45 +11,44 @@ export default function useForm(initialState) {
     setValues(initialStateRef.current);
   }, []);
 
-  const updateValue = useCallback((name, value) => {
-    setValues((currentValues) => {
-      return {
-        ...currentValues,
-        [name]: value
-      };
-    });
+  const updateValues = useCallback((name, updaterFn) => {
+    setValues((currentValues) => update(currentValues, name, updaterFn));
+  }, []);
+
+  const updateFieldValue = useCallback((name, value) => {
+    setValues((currentValues) => updateValue(currentValues, name, value));
   }, []);
 
   const handleValueChange = useCallback(
     (event) => {
       const { name, value } = event.target;
-      updateValue(name, value);
+      updateFieldValue(name, value);
     },
-    [updateValue]
+    [updateFieldValue]
   );
 
   const handleCheckboxChange = useCallback(
     (event) => {
       const { name, checked } = event.target;
-      updateValue(name, checked);
+      updateFieldValue(name, checked);
     },
-    [updateValue]
+    [updateFieldValue]
   );
 
   const handleRadioChange = useCallback(
     (event) => {
       const { name, value, checked } = event.target;
       if (checked) {
-        updateValue(name, value);
+        updateFieldValue(name, value);
       }
     },
-    [updateValue]
+    [updateFieldValue]
   );
 
   return {
     values,
     setValues,
-    updateValue,
+    updateValues,
     handleValueChange,
     handleCheckboxChange,
     handleRadioChange,
