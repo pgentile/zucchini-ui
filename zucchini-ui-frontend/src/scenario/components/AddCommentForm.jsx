@@ -48,7 +48,7 @@ export default function AddCommentForm({ onCommentAdded }) {
   const commentControlId = useUniqueId();
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} data-testid="add-comment">
       <FormGroup className="mb-2" controlId={commentControlId}>
         <FormLabel srOnly>Commentaire</FormLabel>
         <FormControl

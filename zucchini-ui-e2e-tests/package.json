@@ -2,6 +2,7 @@
   "name": "zucchini-ui-e2e-tests",
   "private": true,
   "dependencies": {
+    "@testing-library/cypress": "^6.0.0",
     "cypress": "^4.0.1",
     "cypress-file-upload": "^4.0.0"
   },
@@ -13,7 +14,6 @@
     "prettier": "prettier --write **/*.js **/*.ts"
   },
   "devDependencies": {
-    "@testing-library/cypress": "^6.0.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^7.0.0",
     "eslint-config-prettier": "^6.3.0",

@@ -84,4 +84,18 @@ describe("Scenario", () => {
 
     cy.location("pathname").should("satisfy", (url) => url.startsWith("/ui/features/"));
   });
+
+  it("should add a comment", () => {
+    cy.route("POST", "/api/scenarii/*/comments/create").as("newComment");
+
+    const commentText = "Voici un nouveau commentaire";
+
+    cy.findByTestId("add-comment").within((form) => {
+      cy.findByLabelText("Commentaire").type(commentText);
+
+      cy.wrap(form).submit();
+    });
+
+    cy.wait("@newComment");
+  });
 });
