@@ -46,6 +46,9 @@ function buildLocation(location, featureGroup) {
 
   return {
     ...location,
-    search: queryString.stringify(queryParams)
+    search: queryString.stringify(queryParams),
+    state: {
+      scrollToTop: false
+    }
   };
 }

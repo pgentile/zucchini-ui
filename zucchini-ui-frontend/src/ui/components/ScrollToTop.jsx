@@ -5,7 +5,9 @@ export default function ScrollToTop() {
   const location = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (location.state?.scrollToTop ?? true) {
+      window.scrollTo(0, 0);
+    }
   }, [location]);
 
   return null;
