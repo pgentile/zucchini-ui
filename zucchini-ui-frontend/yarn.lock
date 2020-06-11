@@ -3512,12 +3512,13 @@ eslint-loader@^4.0.0:
     object-hash "^2.0.3"
     schema-utils "^2.6.5"
 
-eslint-plugin-jest-dom@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest-dom/-/eslint-plugin-jest-dom-2.1.0.tgz#02a4b84d53f2d39e9a4ede9429a8aeaa4503eb73"
-  integrity sha512-J9H75qqPro0TA5AQcEJtZmxG4Go0KYjZYXAiAmvQsNUOIP1EzCF6BTJSkB/7Sw8wmzgLwNSvhMUDXqDfHa1HqA==
+eslint-plugin-jest-dom@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest-dom/-/eslint-plugin-jest-dom-3.0.0.tgz#9072d9d30500366945b20dc5b60e1934d4314ca2"
+  integrity sha512-ehi5uiy7VFp1z7eYacixv6H5tusA1iKCE704qmDXZe5fcRGvHVux+gzZWa383Ve/w3Rn7luo/ntZvOs9kI3gzg==
   dependencies:
-    requireindex "~1.2.0"
+    "@babel/runtime" "^7.9.6"
+    requireindex "^1.2.0"
 
 eslint-plugin-jest@^23.13.2:
   version "23.13.2"
@@ -7768,7 +7769,7 @@ require-package-name@^2.0.1:
   resolved "https://registry.yarnpkg.com/require-package-name/-/require-package-name-2.0.1.tgz#c11e97276b65b8e2923f75dabf5fb2ef0c3841b9"
   integrity sha1-wR6XJ2tluOKSP3Xav1+y7ww4Qbk=
 
-requireindex@~1.2.0:
+requireindex@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/requireindex/-/requireindex-1.2.0.tgz#3463cdb22ee151902635aa6c9535d4de9c2ef1ef"
   integrity sha512-L9jEkOi3ASd9PYit2cwRfyppc9NoABujTP8/5gFcbERmo5jUoAKovIC3fsF17pkTnGsrByysqX+Kxd2OTNI1ww==
