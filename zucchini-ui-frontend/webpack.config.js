@@ -65,9 +65,7 @@ module.exports = {
       },
       {
         test: /\.jsx?$/,
-        include: [
-          path.join(__dirname, "node_modules", "quick-lru")
-        ],
+        include: [path.join(__dirname, "node_modules", "quick-lru")],
         use: ["babel-loader?cacheDirectory"]
       },
       {
