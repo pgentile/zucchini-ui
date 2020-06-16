@@ -1,20 +1,12 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import Spinner from "react-bootstrap/Spinner";
 
-import { load, unload } from "../redux";
+import LoadingIndicatorTrigger from "./LoadingIndicatorTrigger";
 
 export default function PageLoadingPlaceholder() {
-  const dispatch = useDispatch();
-
-  // Considérer qu'il y a un chargement en cours lorsque ce composant est affiché
-  useEffect(() => {
-    dispatch(load());
-    return () => dispatch(unload());
-  }, [dispatch]);
-
   return (
     <>
+      <LoadingIndicatorTrigger />
       <p className="lead text-center">Chargement de la page en cours&hellip;</p>
       <div className="text-center">
         <Spinner animation="border" role="status">

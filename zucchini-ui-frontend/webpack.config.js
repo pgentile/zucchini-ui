@@ -64,6 +64,13 @@ module.exports = {
         use: ["babel-loader?cacheDirectory"]
       },
       {
+        test: /\.jsx?$/,
+        include: [
+          path.join(__dirname, "node_modules", "quick-lru")
+        ],
+        use: ["babel-loader?cacheDirectory"]
+      },
+      {
         test: /\.s?css$/,
         use: [
           MiniCssExtractPlugin.loader,
