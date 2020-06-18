@@ -30,7 +30,7 @@ describe("Test runs", () => {
       cy.findByLabelText("Environnement").type("ENV");
       cy.findByLabelText("Nom").type("NAME");
 
-      cy.contains("button", "Créer").click();
+      cy.get("form").submit();
     });
 
     cy.url().should("include", "/ui/test-runs/");
