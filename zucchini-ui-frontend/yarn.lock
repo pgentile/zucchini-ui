@@ -7434,9 +7434,9 @@ punycode@^2.1.0, punycode@^2.1.1:
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
 pure-uuid@^1.5.6:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/pure-uuid/-/pure-uuid-1.6.0.tgz#304da991dbd38d1efd03342d3e104f6666f6e38d"
-  integrity sha512-z+A7GMeyPu4X1NoGKraYiOOFzK0HZpnsHwbJZbt9NGGaqrfs3amyuWgRhHnfMJN4MM0IbAsLvHBqt0p1S84UQQ==
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/pure-uuid/-/pure-uuid-1.6.1.tgz#ec3f9c11b37794551eca9d7a9ce6fb1adc9bc1ed"
+  integrity sha512-0qnd02lO/X6ENcPWyZJf8YwjF3GBou4vAG/k2ecmPSI+qNkTivWw/9MeGiR99Q9DnHfpkTT70hsYUCv297S1xw==
 
 q@^1.1.2:
   version "1.5.1"
