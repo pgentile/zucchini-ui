@@ -77,7 +77,7 @@ allprojects {
 
                 testImplementation 'junit:junit:4.13'
                 testImplementation 'org.assertj:assertj-core:3.16.1'
-                testImplementation 'org.mockito:mockito-core:3.3.3'
+                testImplementation 'org.mockito:mockito-core:3.4.0'
 
             }
 
