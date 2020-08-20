@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "@testing-library/cypress": "^6.0.0",
-    "cypress": "^4.7.0",
+    "cypress": "^5.0.0",
     "cypress-file-upload": "^4.0.0"
   },
   "scripts": {
