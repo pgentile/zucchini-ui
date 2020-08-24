@@ -191,7 +191,7 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@testing-library/cypress@^6.0.0":
+"@testing-library/cypress@^6.0.1":
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/@testing-library/cypress/-/cypress-6.0.1.tgz#c924a69617db6a403c498abcb63759b79318fc76"
   integrity sha512-hcPu2OnVuSTX1yDubEe7TBRD6mP2VgyopP1WTBIrJP79INPZdgOAX+TMNH68uZ/r5b4C7100IB4hjPIEQ+/Xog==
