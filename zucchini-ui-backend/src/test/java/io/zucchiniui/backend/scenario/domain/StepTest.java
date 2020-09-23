@@ -32,7 +32,7 @@ public class StepTest {
 
         // then
         assertThat(stepCopy).isNotSameAs(step);
-        assertThat(stepCopy).isEqualToComparingFieldByField(step);
+        assertThat(stepCopy).usingRecursiveComparison().isEqualTo(step);
     }
 
     private static Step createStep() {

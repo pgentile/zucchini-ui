@@ -39,7 +39,7 @@ public class BackgroundTest {
             final Step step = background.getSteps().get(i);
 
             assertThat(stepCopy).isNotSameAs(step);
-            assertThat(stepCopy).isEqualToComparingFieldByField(step);
+            assertThat(stepCopy).usingRecursiveComparison().isEqualTo(step);
         }
 
     }

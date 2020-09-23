@@ -131,7 +131,11 @@ public class FeatureTest {
         targetFeature.mergeWith(sourceFeature);
 
         // then
-        assertThat(targetFeature).isEqualToIgnoringGivenFields(sourceFeature, "id", "createdAt", "modifiedAt");
+        assertThat(targetFeature)
+            .usingRecursiveComparison()
+            .ignoringFields("id", "createdAt", "modifiedAt")
+            .isEqualTo(sourceFeature);
+
         assertThat(targetFeature.getId()).isNotEqualTo(sourceFeature.getId());
         assertThat(targetFeature.getModifiedAt()).isAfterOrEqualTo(targetFeature.getModifiedAt());
     }

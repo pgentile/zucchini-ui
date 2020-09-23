@@ -221,8 +221,9 @@ public class ScenarioTest {
         receivingScenario.mergeWith(inputScenario);
 
         // then
-        assertThat(receivingScenario).isEqualToIgnoringGivenFields(inputScenario, "id", "createdAt", "modifiedAt",
-            "background", "steps", "beforeActions", "afterActions", "reviewed", "changes");
+        assertThat(receivingScenario).usingRecursiveComparison()
+            .ignoringFields("id", "createdAt", "modifiedAt", "background", "steps", "beforeActions", "afterActions", "reviewed", "changes")
+            .isEqualTo(inputScenario);
 
         assertThat(receivingScenario.getId()).isNotEqualTo(inputScenario.getId());
         assertThat(receivingScenario.getModifiedAt()).isAfter(inputScenario.getModifiedAt());
