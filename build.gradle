@@ -183,7 +183,7 @@ project("${rootProject.name}-backend") {
 
     dependencies {
 
-        annotationProcessor 'org.hibernate:hibernate-validator-annotation-processor:6.1.5.Final'
+        annotationProcessor 'org.hibernate:hibernate-validator-annotation-processor:6.1.6.Final'
 
         implementation 'io.dropwizard:dropwizard-core:2.0.13'
         implementation 'ma.glasnost.orika:orika-core:1.5.4'
