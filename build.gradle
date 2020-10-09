@@ -191,7 +191,7 @@ project("${rootProject.name}-backend") {
         implementation 'xyz.morphia.morphia:logging-slf4j:1.4.0'
         implementation 'org.slf4j:slf4j-api:1.7.30'
         implementation 'org.springframework:spring-context:5.2.9.RELEASE'
-        implementation 'org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.18.v20190429'
+        implementation 'org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.32.v20200930'
         implementation 'org.apache.commons:commons-text:1.9'
 
         implementation 'org.javassist:javassist:3.27.0-GA'
