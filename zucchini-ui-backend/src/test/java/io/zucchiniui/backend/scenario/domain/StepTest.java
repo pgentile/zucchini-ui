@@ -1,14 +1,14 @@
 package io.zucchiniui.backend.scenario.domain;
 
 import io.zucchiniui.backend.shared.domain.BasicInfo;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StepTest {
 
     @Test
-    public void should_change_status() throws Exception {
+    void should_change_status() throws Exception {
         // given
         final Step step = createStep();
 
@@ -23,7 +23,7 @@ public class StepTest {
     }
 
     @Test
-    public void should_copy_step() throws Exception {
+    void should_copy_step() throws Exception {
         // given
         final Step step = createStep();
 

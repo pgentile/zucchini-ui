@@ -4,7 +4,7 @@ import com.google.common.collect.Sets;
 import io.zucchiniui.backend.shared.domain.ItemReference;
 import io.zucchiniui.backend.shared.domain.ItemReferenceType;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.ZonedDateTime;
 import java.util.Set;
@@ -21,7 +21,7 @@ public class CommentTest {
     private static final String CONTENT = "content";
 
     @Test
-    public void should_create_comment() throws Exception {
+    void should_create_comment() {
         // given
         final ZonedDateTime testStartDate = ZonedDateTime.now();
 

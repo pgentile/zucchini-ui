@@ -1,7 +1,7 @@
 package io.zucchiniui.backend.shared.domain;
 
 import com.google.common.collect.Lists;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class BasicInfoTest {
     private static final String NAME = "name";
 
     @Test
-    public void should_create_info_with_no_arguments() throws Exception {
+    void should_create_info_with_no_arguments() throws Exception {
         // given
 
         // when
@@ -27,7 +27,7 @@ public class BasicInfoTest {
     }
 
     @Test
-    public void should_create_info_with_some_arguments() throws Exception {
+    void should_create_info_with_some_arguments() throws Exception {
         // given
         final List<Argument> arguments = Lists.newArrayList(
             new Argument(0, "toto"),

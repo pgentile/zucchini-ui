@@ -8,22 +8,19 @@ import io.zucchiniui.backend.scenario.domain.ScenarioRepository;
 import io.zucchiniui.backend.scenario.views.ScenarioStats;
 import io.zucchiniui.backend.scenario.views.ScenarioViewAccess;
 import io.zucchiniui.backend.support.ddd.PreparedQuery;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+@ExtendWith(MockitoExtension.class)
 public class FeatureServiceImplTest {
-
-    @Rule
-    public final MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Mock
     private FeatureRepository featureRepository;
@@ -38,7 +35,7 @@ public class FeatureServiceImplTest {
     private FeatureServiceImpl featureService;
 
     @Test
-    public void should_calculate_status_from_scenarii() throws Exception {
+    void should_calculate_status_from_scenarii() {
         // given
         final Feature feature = mock(Feature.class);
 
@@ -59,7 +56,7 @@ public class FeatureServiceImplTest {
     }
 
     @Test
-    public void should_update_status_from_scenarii() throws Exception {
+    void should_update_status_from_scenarii() {
         // given
         final String featureId = "featureId";
 
@@ -85,7 +82,7 @@ public class FeatureServiceImplTest {
     }
 
     @Test
-    public void should_delete_feature_by_test_run_id() throws Exception {
+    void should_delete_feature_by_test_run_id() {
         // given
         final String testRunId = "testRunId";
 
@@ -104,7 +101,7 @@ public class FeatureServiceImplTest {
     }
 
     @Test
-    public void should_delete_feature_by_id() throws Exception {
+    void should_delete_feature_by_id() {
         // given
         final String featureId = "featureId";
 

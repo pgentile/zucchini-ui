@@ -3,7 +3,7 @@ package io.zucchiniui.backend.feature.domain;
 import com.google.common.collect.Sets;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
 import io.zucchiniui.backend.shared.domain.Location;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.ZonedDateTime;
 import java.util.Set;
@@ -21,7 +21,7 @@ public class FeatureTest {
     private static final Location LOCATION = new Location("file.feature", 5);
 
     @Test
-    public void should_create_feature() throws Exception {
+    void should_create_feature() {
         // given
         final ZonedDateTime testStartDate = ZonedDateTime.now();
 
@@ -46,7 +46,7 @@ public class FeatureTest {
     }
 
     @Test
-    public void should_set_status() throws Exception {
+    void should_set_status() {
         // given
         final FeatureStatus newStatus = FeatureStatus.PASSED;
 
@@ -62,7 +62,7 @@ public class FeatureTest {
     }
 
     @Test
-    public void should_set_group() throws Exception {
+    void should_set_group() {
         // given
         final String newGroup = "newGroup";
 
@@ -78,7 +78,7 @@ public class FeatureTest {
     }
 
     @Test
-    public void should_set_description() throws Exception {
+    void should_set_description() {
         // given
         final String newDescription = "newGroup";
 
@@ -94,7 +94,7 @@ public class FeatureTest {
     }
 
     @Test
-    public void should_set_tags() throws Exception {
+    void should_set_tags() {
         // given
         final Set<String> newTags = Sets.newHashSet("titi", "toto", "tutu");
 
@@ -110,7 +110,7 @@ public class FeatureTest {
     }
 
     @Test
-    public void should_merge_with_another_feature() throws Exception {
+    void should_merge_with_another_feature() {
         // given
         final Feature sourceFeature = new Feature(FEATURE_KEY, TEST_RUN_ID, INFO, LOCATION, "en");
         sourceFeature.setGroup("group");
