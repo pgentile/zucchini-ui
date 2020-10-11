@@ -13,14 +13,13 @@ import io.zucchiniui.backend.scenario.domain.Scenario;
 import io.zucchiniui.backend.scenario.domain.ScenarioRepository;
 import io.zucchiniui.backend.scenario.domain.ScenarioService;
 import io.zucchiniui.backend.scenario.domain.ScenarioStatus;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.InputStream;
 import java.util.List;
@@ -28,17 +27,12 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 import static java.util.Collections.singletonList;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willAnswer;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class ReportConverterServiceImplTest {
-
-    @Rule
-    public final MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Mock
     private FeatureRepository featureRepository;
@@ -63,8 +57,8 @@ public class ReportConverterServiceImplTest {
 
     private CollectionType featureListJavaType;
 
-    @Before
-    public void initMocks() {
+    @BeforeEach
+    void initMocks() {
         final TypeFactory typeFactory = TypeFactory.defaultInstance();
         featureListJavaType = typeFactory.constructCollectionType(List.class, ReportFeature.class);
 
@@ -72,7 +66,7 @@ public class ReportConverterServiceImplTest {
     }
 
     @Test
-    public void should_convert_and_save_features() throws Exception {
+    void should_convert_and_save_features() throws Exception {
         // given
         final String testRunId = "1234";
         final InputStream inputStream = mock(InputStream.class);
@@ -110,7 +104,7 @@ public class ReportConverterServiceImplTest {
     }
 
     @Test
-    public void should_convert_and_save_features_with_dry_run() throws Exception {
+    void should_convert_and_save_features_with_dry_run() throws Exception {
         // given
         final String testRunId = "1234";
         final InputStream inputStream = mock(InputStream.class);
@@ -136,7 +130,7 @@ public class ReportConverterServiceImplTest {
         given(scenarioService.tryToMergeWithExistingScenario(scenario, false)).willReturn(scenario);
 
         // when
-        service.convertAndSaveFeatures(testRunId, inputStream, group, true, false,false);
+        service.convertAndSaveFeatures(testRunId, inputStream, group, true, false, false);
 
         // then
 
@@ -156,7 +150,7 @@ public class ReportConverterServiceImplTest {
     }
 
     @Test
-    public void should_convert_and_save_features_with_already_existing_feature() throws Exception {
+    void should_convert_and_save_features_with_already_existing_feature() throws Exception {
         // given
         final String testRunId = "1234";
         final InputStream inputStream = mock(InputStream.class);
@@ -198,7 +192,7 @@ public class ReportConverterServiceImplTest {
     }
 
     @Test
-    public void should_convert_and_save_features_with_already_existing_scenario_and_only_new_scenarii_activated() throws Exception {
+    void should_convert_and_save_features_with_already_existing_scenario_and_only_new_scenarii_activated() throws Exception {
         // given
         final String testRunId = "1234";
         final InputStream inputStream = mock(InputStream.class);

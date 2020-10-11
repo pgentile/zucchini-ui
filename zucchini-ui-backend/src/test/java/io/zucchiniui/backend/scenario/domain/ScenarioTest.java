@@ -1,9 +1,10 @@
 package io.zucchiniui.backend.scenario.domain;
 
 import io.zucchiniui.backend.shared.domain.BasicInfo;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -12,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ScenarioTest {
 
     @Test
-    public void should_have_not_run_status_when_scenario_has_nothing() throws Exception {
+    void should_have_not_run_status_when_scenario_has_nothing() {
         // given
         final StatusTestScenarioBuilder builder = new StatusTestScenarioBuilder();
 
@@ -25,7 +26,7 @@ public class ScenarioTest {
     }
 
     @Test
-    public void should_have_passed_status_when_scenario_has_only_passed_steps() throws Exception {
+    void should_have_passed_status_when_scenario_has_only_passed_steps() {
         // given
         final StatusTestScenarioBuilder builder = new StatusTestScenarioBuilder()
             .withBeforeAction(StepStatus.PASSED)
@@ -46,7 +47,7 @@ public class ScenarioTest {
     }
 
     @Test
-    public void should_have_failed_status_when_scenario_has_at_least_one_failed_before_action() throws Exception {
+    void should_have_failed_status_when_scenario_has_at_least_one_failed_before_action() {
         // given
         final StatusTestScenarioBuilder builder = new StatusTestScenarioBuilder()
             .withBeforeAction(StepStatus.PASSED)
@@ -64,7 +65,7 @@ public class ScenarioTest {
     }
 
     @Test
-    public void should_have_failed_status_when_scenario_has_at_least_one_failed_after_action() throws Exception {
+    void should_have_failed_status_when_scenario_has_at_least_one_failed_after_action() {
         // given
         final StatusTestScenarioBuilder builder = new StatusTestScenarioBuilder()
             .withBeforeAction(StepStatus.PASSED)
@@ -83,7 +84,7 @@ public class ScenarioTest {
     }
 
     @Test
-    public void should_have_failed_status_when_scenario_has_at_least_one_failed_background_step() throws Exception {
+    void should_have_failed_status_when_scenario_has_at_least_one_failed_background_step() {
         // given
         final StatusTestScenarioBuilder builder = new StatusTestScenarioBuilder()
             .withBeforeAction(StepStatus.PASSED)
@@ -102,7 +103,7 @@ public class ScenarioTest {
     }
 
     @Test
-    public void should_have_failed_status_when_scenario_has_at_least_one_undefined_step() throws Exception {
+    void should_have_failed_status_when_scenario_has_at_least_one_undefined_step() {
         // given
         final StatusTestScenarioBuilder builder = new StatusTestScenarioBuilder()
             .withBeforeAction(StepStatus.PASSED)
@@ -119,7 +120,7 @@ public class ScenarioTest {
     }
 
     @Test
-    public void should_have_pending_status_when_scenario_has_at_least_one_pending_step() throws Exception {
+    void should_have_pending_status_when_scenario_has_at_least_one_pending_step() {
         // given
         final StatusTestScenarioBuilder builder = new StatusTestScenarioBuilder()
             .withBeforeAction(StepStatus.PASSED)
@@ -138,7 +139,7 @@ public class ScenarioTest {
     }
 
     @Test
-    public void should_have_not_run_status_when_scenario_has_only_skipped_steps() throws Exception {
+    void should_have_not_run_status_when_scenario_has_only_skipped_steps() {
         // given
         final StatusTestScenarioBuilder builder = new StatusTestScenarioBuilder()
             .withBeforeAction(StepStatus.PASSED)
@@ -157,7 +158,7 @@ public class ScenarioTest {
     }
 
     @Test
-    public void should_have_not_run_status_when_scenario_has_only_not_run_steps() throws Exception {
+    void should_have_not_run_status_when_scenario_has_only_not_run_steps() {
         // given
         final StatusTestScenarioBuilder builder = new StatusTestScenarioBuilder()
             .withBeforeAction(StepStatus.PASSED)
@@ -176,7 +177,7 @@ public class ScenarioTest {
     }
 
     @Test
-    public void should_merge_scenarii() throws Exception {
+    void should_merge_scenarii() {
         // given
         final String testRunId = UUID.randomUUID().toString();
         final String featureId = UUID.randomUUID().toString();
@@ -246,31 +247,33 @@ public class ScenarioTest {
             .filteredOn(change -> change instanceof ScenarioStatusChange)
             .hasSize(1);
 
-        final ScenarioStatusChange scenarioStatusChange = receivingScenario.getChanges().stream()
+        final Optional<ScenarioStatusChange> scenarioStatusChange = receivingScenario.getChanges().stream()
             .filter(change -> change instanceof ScenarioStatusChange)
             .map(ScenarioStatusChange.class::cast)
-            .findFirst()
-            .get();
+            .findFirst();
 
-        assertThat(scenarioStatusChange.getOldValue()).isEqualTo(ScenarioStatus.PASSED);
-        assertThat(scenarioStatusChange.getNewValue()).isEqualTo(ScenarioStatus.FAILED);
+        assertThat(scenarioStatusChange).hasValueSatisfying(change -> {
+            assertThat(change.getOldValue()).isEqualTo(ScenarioStatus.PASSED);
+            assertThat(change.getNewValue()).isEqualTo(ScenarioStatus.FAILED);
+        });
 
         assertThat(receivingScenario.getChanges())
             .filteredOn(change -> change instanceof ScenarioReviewedStateChange)
             .hasSize(1);
 
-        final ScenarioReviewedStateChange scenarioReviewedStateChange = receivingScenario.getChanges().stream()
+        final Optional<ScenarioReviewedStateChange> scenarioReviewedStateChange = receivingScenario.getChanges().stream()
             .filter(change -> change instanceof ScenarioReviewedStateChange)
             .map(ScenarioReviewedStateChange.class::cast)
-            .findFirst()
-            .get();
+            .findFirst();
 
-        assertThat(scenarioReviewedStateChange.getOldValue()).isTrue();
-        assertThat(scenarioReviewedStateChange.getNewValue()).isFalse();
+        assertThat(scenarioReviewedStateChange).hasValueSatisfying(change -> {
+            assertThat(change.getOldValue()).isTrue();
+            assertThat(change.getNewValue()).isFalse();
+        });
     }
 
     @Test
-    public void should_add_status_change_on_set_status() throws Exception {
+    void should_add_status_change_on_set_status() {
         // given
         final Scenario scenario = new StatusTestScenarioBuilder()
             .withStep(StepStatus.NOT_RUN)
@@ -298,7 +301,7 @@ public class ScenarioTest {
     }
 
     @Test
-    public void should_reviewed_state_status_change_on_set_reviewed() throws Exception {
+    void should_reviewed_state_status_change_on_set_reviewed() {
         // given
         final Scenario scenario = new StatusTestScenarioBuilder()
             .withStep(StepStatus.NOT_RUN)
@@ -324,7 +327,7 @@ public class ScenarioTest {
     }
 
     @Test
-    public void should_not_add_changes_on_ignore_changes() throws Exception {
+    void should_not_add_changes_on_ignore_changes() {
         // given
         final Scenario scenario = new StatusTestScenarioBuilder()
             .withStep(StepStatus.NOT_RUN)

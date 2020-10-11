@@ -1,14 +1,14 @@
 package io.zucchiniui.backend.scenario.domain;
 
 import io.zucchiniui.backend.shared.domain.BasicInfo;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BackgroundTest {
 
     @Test
-    public void should_change_step_status_on_background_status_change() throws Exception {
+    void should_change_step_status_on_background_status_change() {
         // given
         final Background background = createBackground();
 
@@ -22,7 +22,7 @@ public class BackgroundTest {
     }
 
     @Test
-    public void should_copy_background() throws Exception {
+    void should_copy_background() {
         // given
         final Background background = createBackground();
 

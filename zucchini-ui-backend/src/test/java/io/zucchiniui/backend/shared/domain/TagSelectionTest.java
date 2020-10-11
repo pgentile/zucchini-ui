@@ -1,7 +1,7 @@
 package io.zucchiniui.backend.shared.domain;
 
 import com.google.common.collect.Sets;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.Set;
@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TagSelectionTest {
 
     @Test
-    public void should_create_inactive_tag_selection() throws Exception {
+    void should_create_inactive_tag_selection() {
         // given
 
         // when
@@ -24,7 +24,7 @@ public class TagSelectionTest {
     }
 
     @Test
-    public void should_create_active_tag_selection_with_only_included_tags() throws Exception {
+    void should_create_active_tag_selection_with_only_included_tags() {
         // given
         final Set<String> includedTags = Sets.newHashSet("toto", "tutu");
 
@@ -38,7 +38,7 @@ public class TagSelectionTest {
     }
 
     @Test
-    public void should_create_active_tag_selection_with_only_excluded_tags() throws Exception {
+    void should_create_active_tag_selection_with_only_excluded_tags() {
         // given
         final Set<String> excludedTags = Sets.newHashSet("toto", "tutu");
 
@@ -52,7 +52,7 @@ public class TagSelectionTest {
     }
 
     @Test
-    public void should_create_active_tag_selection_with_included_and_excluded_tags() throws Exception {
+    void should_create_active_tag_selection_with_included_and_excluded_tags() {
         // given
         final Set<String> includedTags = Sets.newHashSet("tata", "tete");
         final Set<String> excludedTags = Sets.newHashSet("toto", "tutu");

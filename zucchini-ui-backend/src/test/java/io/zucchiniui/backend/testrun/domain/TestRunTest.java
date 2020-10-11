@@ -1,7 +1,6 @@
 package io.zucchiniui.backend.testrun.domain;
 
-import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.ZonedDateTime;
 import java.util.Arrays;
@@ -12,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TestRunTest {
 
     @Test
-    public void should_create_test_run() throws Exception {
+    void should_create_test_run() {
         // given
         final ZonedDateTime testStartDate = ZonedDateTime.now();
         final String type = "TYPE";
@@ -29,7 +28,7 @@ public class TestRunTest {
     }
 
     @Test
-    public void should_change_type() throws Exception {
+    void should_change_type() {
         // given
         final TestRun testRun = new TestRun("OLD_TYPE");
 
@@ -43,7 +42,7 @@ public class TestRunTest {
     }
 
     @Test
-    public void should_change_labels() throws Exception {
+    void should_change_labels() {
         // given
         final TestRun testRun = new TestRun("TYPE");
 
@@ -64,7 +63,7 @@ public class TestRunTest {
         testRun.setLabels(newLabels);
 
         // then
-        Assertions.assertThat(testRun.getLabels())
+        assertThat(testRun.getLabels())
             .doesNotContainAnyElementsOf(oldLabels)
             .containsExactlyElementsOf(newLabels);
     }

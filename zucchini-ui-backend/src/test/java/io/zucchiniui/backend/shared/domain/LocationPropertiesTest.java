@@ -1,22 +1,15 @@
 package io.zucchiniui.backend.shared.domain;
 
-import com.pholser.junit.quickcheck.Property;
-import com.pholser.junit.quickcheck.generator.InRange;
-import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assume.assumeFalse;
-import static org.junit.Assume.assumeTrue;
 
-@RunWith(JUnitQuickcheck.class)
 public class LocationPropertiesTest {
 
-    @Property
-    public void arguments_with_same_values_should_be_equal(
-        final String filename,
-        @InRange(minInt = 1) final int line
-    ) throws Exception {
+    @Test
+    public void arguments_with_same_values_should_be_equal() throws Exception {
+        final String filename = "filename.txt";
+        final int line = 10;
         final Location leftLocation = new Location(filename, line);
         final Location rightLocation = new Location(filename, line);
 
@@ -24,12 +17,10 @@ public class LocationPropertiesTest {
         assertThat(leftLocation.hashCode()).isEqualTo(rightLocation.hashCode());
     }
 
-    @Property
-    public void arguments_with_different_line_numbers_should_not_be_equal(
-        @InRange(minInt = 1) final int leftLine,
-        @InRange(minInt = 1) final int rightLine
-    ) throws Exception {
-        assumeTrue(leftLine != rightLine);
+    @Test
+    public void arguments_with_different_line_numbers_should_not_be_equal() throws Exception {
+        final int leftLine = 5;
+        final int rightLine = 11;
 
         final String filename = "value";
         final Location leftLocation = new Location(filename, leftLine);
@@ -38,12 +29,10 @@ public class LocationPropertiesTest {
         assertThat(leftLocation).isNotEqualTo(rightLocation);
     }
 
-    @Property
-    public void arguments_with_different_filenames_should_not_be_equal(
-       final String leftFilename,
-       final String rightFilename
-    ) throws Exception {
-        assumeFalse(leftFilename.equals(rightFilename));
+    @Test
+    public void arguments_with_different_filenames_should_not_be_equal() throws Exception {
+        final String leftFilename = "leftFilename.txt";
+        final String rightFilename = "rightFilename.txt";
 
         final int line = 6;
         final Location leftLocation = new Location(leftFilename, line);

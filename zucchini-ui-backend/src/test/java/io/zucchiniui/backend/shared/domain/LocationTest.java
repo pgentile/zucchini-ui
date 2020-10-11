@@ -1,6 +1,6 @@
 package io.zucchiniui.backend.shared.domain;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -11,7 +11,7 @@ public class LocationTest {
     private static final int LINE = 5;
 
     @Test
-    public void should_create_location() throws Exception {
+    void should_create_location() {
         // given
 
         // when

@@ -1,13 +1,13 @@
 package io.zucchiniui.backend.shared.domain;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ArgumentTest {
 
     @Test
-    public void should_create_argument() throws Exception {
+    void should_create_argument() {
         // given
         final int offset = 99;
         final String value = "arg";
