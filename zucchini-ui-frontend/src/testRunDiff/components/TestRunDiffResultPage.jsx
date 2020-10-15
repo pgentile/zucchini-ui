@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import { memo, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { faExchangeAlt } from "@fortawesome/free-solid-svg-icons";
 import queryString from "query-string";

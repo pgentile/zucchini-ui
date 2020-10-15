@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
-import React from "react";
+import { Component } from "react";
 
 import Chartist from "chartist";
 
-export default class BarChart extends React.Component {
+export default class BarChart extends Component {
   static propTypes = {
     data: PropTypes.any.isRequired,
     showLabel: PropTypes.bool.isRequired,

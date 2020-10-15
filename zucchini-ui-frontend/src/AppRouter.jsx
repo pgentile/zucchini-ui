@@ -1,4 +1,4 @@
-import React, { Fragment as StrictMode, Suspense, lazy } from "react";
+import { Fragment as StrictMode, Suspense, lazy } from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 

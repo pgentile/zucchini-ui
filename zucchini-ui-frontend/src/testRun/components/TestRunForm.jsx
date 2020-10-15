@@ -1,4 +1,4 @@
-import React, { memo, createContext } from "react";
+import { memo, createContext } from "react";
 import PropTypes from "prop-types";
 import { faPlusCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import FormGroup from "react-bootstrap/FormGroup";

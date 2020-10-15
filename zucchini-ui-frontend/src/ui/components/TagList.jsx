@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
-import React from "react";
+import { PureComponent } from "react";
 
 import ListWithSeparator from "./ListWithSeparator";
 import Tag from "./Tag";
 
-export default class TagList extends React.PureComponent {
+export default class TagList extends PureComponent {
   static propTypes = {
     testRunId: PropTypes.string.isRequired,
     tags: PropTypes.arrayOf(PropTypes.string).isRequired

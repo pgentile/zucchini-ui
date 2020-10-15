@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-import React from "react";
+import { PureComponent } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 
 import PanelWithTitle from "../../ui/components/PanelWithTitle";
 
-export default class StepAttachments extends React.PureComponent {
+export default class StepAttachments extends PureComponent {
   static propTypes = {
     scenarioId: PropTypes.string.isRequired,
     attachments: PropTypes.array.isRequired

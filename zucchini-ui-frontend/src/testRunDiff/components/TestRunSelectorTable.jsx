@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { memo, useMemo } from "react";
+import { memo, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import queryString from "query-string";
 import { useSelector } from "react-redux";

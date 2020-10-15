@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 

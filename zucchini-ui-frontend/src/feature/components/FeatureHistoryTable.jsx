@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import { PureComponent } from "react";
 import { Link } from "react-router-dom";
 
 import Status from "../../ui/components/Status";
@@ -7,7 +7,7 @@ import toNiceDate from "../../ui/toNiceDate";
 import CounterBadge from "../../ui/components/CounterBadge";
 import TabularDataTable, { TabularDataRow } from "../../ui/components/TabularDataTable";
 
-export default class FeatureHistoryTable extends React.PureComponent {
+export default class FeatureHistoryTable extends PureComponent {
   static propTypes = {
     featureId: PropTypes.string.isRequired,
     history: PropTypes.arrayOf(PropTypes.object)
@@ -43,7 +43,7 @@ export default class FeatureHistoryTable extends React.PureComponent {
   }
 }
 
-class FeatureHistoryTableRow extends React.PureComponent {
+class FeatureHistoryTableRow extends PureComponent {
   static propTypes = {
     feature: PropTypes.object.isRequired,
     isActive: PropTypes.bool.isRequired

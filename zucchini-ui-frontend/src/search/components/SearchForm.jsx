@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import queryString from "query-string";
 import FormGroup from "react-bootstrap/FormGroup";

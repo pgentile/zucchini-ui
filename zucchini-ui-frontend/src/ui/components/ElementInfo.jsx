@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
-import React from "react";
+import { PureComponent } from "react";
 
 import tokenizeFromInfo from "../tokenizeFromInfo";
 import html from "../html";
 
-export default class ElementInfo extends React.PureComponent {
+export default class ElementInfo extends PureComponent {
   static propTypes = {
     info: PropTypes.object
   };

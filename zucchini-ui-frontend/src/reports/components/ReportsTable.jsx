@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
-import React from "react";
+import { Component, PureComponent } from "react";
 import CounterBadge from "../../ui/components/CounterBadge";
 import TabularDataTable, { TabularDataRow } from "../../ui/components/TabularDataTable";
 
-export default class ReportsTable extends React.Component {
+export default class ReportsTable extends Component {
   static propTypes = {
     groups: PropTypes.arrayOf(PropTypes.object).isRequired
   };
@@ -34,7 +34,7 @@ export default class ReportsTable extends React.Component {
   }
 }
 
-class ReportsTableRow extends React.PureComponent {
+class ReportsTableRow extends PureComponent {
   static propTypes = {
     group: PropTypes.object.isRequired
   };

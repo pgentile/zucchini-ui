@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { memo } from "react";
+import { memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";

@@ -1,10 +1,10 @@
-import React from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import Alert from "react-bootstrap/Alert";
 
 import useUniqueId from "../../useUniqueId";
 
-export default class ErrorBarrier extends React.Component {
+export default class ErrorBarrier extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     children: PropTypes.node,

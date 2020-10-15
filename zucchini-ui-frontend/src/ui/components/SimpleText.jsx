@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { memo, useMemo } from "react";
+import { memo, useMemo } from "react";
 
 import tokenizeUrls from "../tokenizeUrls";
 import html from "../html";

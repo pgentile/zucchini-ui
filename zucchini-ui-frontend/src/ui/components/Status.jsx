@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
-import React from "react";
+import { PureComponent } from "react";
 import Badge from "react-bootstrap/Badge";
 
-export default class Status extends React.PureComponent {
+export default class Status extends PureComponent {
   static propTypes = {
     status: PropTypes.string.isRequired
   };

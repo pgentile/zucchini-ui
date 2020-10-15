@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-import React from "react";
+import { PureComponent } from "react";
 import { Link } from "react-router-dom";
 
 import Status from "../../ui/components/Status";
 import TabularDataTable, { TabularDataRow } from "../../ui/components/TabularDataTable";
 
-export default class DifferentScenarioTable extends React.PureComponent {
+export default class DifferentScenarioTable extends PureComponent {
   static propTypes = {
     differentScenarios: PropTypes.arrayOf(PropTypes.object).isRequired
   };
@@ -29,7 +29,7 @@ export default class DifferentScenarioTable extends React.PureComponent {
   }
 }
 
-class DifferentScenarioTableRow extends React.PureComponent {
+class DifferentScenarioTableRow extends PureComponent {
   static propTypes = {
     leftScenario: PropTypes.object.isRequired,
     rightScenario: PropTypes.object.isRequired

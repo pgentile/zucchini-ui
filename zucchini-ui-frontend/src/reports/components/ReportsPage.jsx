@@ -1,4 +1,4 @@
-import React, { memo, Fragment, useEffect } from "react";
+import { memo, Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import toNiceDate from "../../ui/toNiceDate";

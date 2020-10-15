@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { memo, useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Modal from "react-bootstrap/Modal";
 import FormGroup from "react-bootstrap/FormGroup";

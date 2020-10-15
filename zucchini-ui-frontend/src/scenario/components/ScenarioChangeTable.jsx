@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { memo, Fragment } from "react";
+import { memo, Fragment } from "react";
 
 import Status from "../../ui/components/Status";
 import ReviewedStatus from "../../ui/components/ReviewedStatus";

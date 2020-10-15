@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from "react";
+import { memo, useMemo } from "react";
 import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";

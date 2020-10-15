@@ -38,7 +38,12 @@ module.exports = (api) => {
       ]
     ],
     presets: [
-      "@babel/preset-react",
+      [
+        "@babel/preset-react",
+        {
+          runtime: "automatic"
+        }
+      ],
       [
         "@babel/preset-env",
         {

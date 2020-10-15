@@ -1,4 +1,4 @@
-import React, { Children, memo } from "react";
+import { Children, memo } from "react";
 import PropTypes from "prop-types";
 import Table from "react-bootstrap/Table";
 

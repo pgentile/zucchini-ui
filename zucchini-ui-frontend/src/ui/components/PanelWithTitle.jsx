@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
-import React from "react";
+import { PureComponent } from "react";
 import Card from "react-bootstrap/Card";
 
-export default class PanelWithTitle extends React.PureComponent {
+export default class PanelWithTitle extends PureComponent {
   static propTypes = {
     title: PropTypes.string.isRequired,
     panelBody: PropTypes.bool.isRequired,

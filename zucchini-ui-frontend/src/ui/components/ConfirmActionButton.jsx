@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import { PureComponent, Fragment } from "react";
 import Modal from "react-bootstrap/Modal";
 
 import Button from "../../ui/components/Button";
 
-export default class ConfirmActionButton extends React.PureComponent {
+export default class ConfirmActionButton extends PureComponent {
   static propTypes = {
     variant: PropTypes.string,
     size: PropTypes.string,

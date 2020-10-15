@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment, Children, memo } from "react";
+import { Fragment, Children, memo } from "react";
 
 function ListWithSeparator({ children, separator }) {
   return Children.toArray(children)

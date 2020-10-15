@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import React from "react";
 import FormCheck from "react-bootstrap/FormCheck";
 
 import { useMultiUniqueId } from "../../useUniqueId";
