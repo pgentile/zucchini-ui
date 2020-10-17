@@ -2,7 +2,7 @@
   "name": "zucchini-ui-frontend",
   "private": true,
   "scripts": {
-    "start": "webpack-dev-server --debug --progress --open --mode=development",
+    "start": "webpack serve --progress --open --mode=development",
     "build": "webpack --mode=production",
     "lint": "eslint --resolve-plugins-relative-to . --ext .jsx,.js .",
     "fix": "eslint --resolve-plugins-relative-to . --fix --ext .jsx,.js .",
@@ -31,6 +31,7 @@
     "babel-plugin-lodash": "^3.3.4",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^5.0.0",
+    "css-minimizer-webpack-plugin": "^1.1.5",
     "eslint": "^7.0.0",
     "eslint-config-prettier": "^6.3.0",
     "eslint-plugin-jest": "^24.0.0",
@@ -42,9 +43,7 @@
     "eslint-webpack-plugin": "^2.1.0",
     "file-loader": "^6.0.0",
     "jest": "^26.0.0",
-    "lodash-webpack-plugin": "^0.11.5",
     "mini-css-extract-plugin": "^1.0.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.0",
     "postcss": "^8.0.5",
     "postcss-loader": "^4.0.2",
     "prettier": "^2.0.0",
@@ -52,9 +51,8 @@
     "redux-freeze": "^0.1.5",
     "sass": "^1.26.5",
     "sass-loader": "^10.0.0",
-    "terser-webpack-plugin": "^4.0.0",
-    "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1",
+    "webpack": "^5.1.3",
+    "webpack-cli": "^4.0.0",
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {

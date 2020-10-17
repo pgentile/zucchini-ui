@@ -7,4 +7,6 @@ import AppRouter from "./AppRouter";
 
 import "./main.scss";
 
-ReactDOM.render(<AppRouter />, document.getElementById("content"));
+window.addEventListener("DOMContentLoaded", () => {
+  ReactDOM.render(<AppRouter />, document.getElementById("content"));
+});
