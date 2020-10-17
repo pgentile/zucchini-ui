@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
 
 // Output dir
 const outputDir = path.join(__dirname, "build/dist/assets");
@@ -47,17 +48,6 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        enforce: "pre",
-        use: {
-          loader: "eslint-loader",
-          options: {
-            resolvePluginsRelativeTo: __dirname
-          }
-        }
-      },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -107,6 +97,10 @@ module.exports = {
       resource.request = resource.request.replace("lodash-es", "lodash");
     }),
 
-    new LodashModuleReplacementPlugin()
+    new LodashModuleReplacementPlugin(),
+
+    new ESLintPlugin({
+      resolvePluginsRelativeTo: __dirname
+    })
   ]
 };
