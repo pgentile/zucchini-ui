@@ -3,17 +3,16 @@ const pkg = require("./package.json");
 const babelRuntimeVersion = pkg.dependencies["@babel/runtime"];
 
 module.exports = (api) => {
-  const testEnv = api.env((envName) => envName === "test");
+  const testEnv = api.env("test");
 
   let envPresetConfig = {
-    modules: false,
+    modules: "auto",
     useBuiltIns: "entry"
   };
 
   if (testEnv) {
     envPresetConfig = {
       ...envPresetConfig,
-      modules: "commonjs",
       useBuiltIns: "usage",
       targets: {
         node: true
