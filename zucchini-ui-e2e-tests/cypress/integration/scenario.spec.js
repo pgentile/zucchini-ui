@@ -1,5 +1,5 @@
 /// <reference types="Cypress" />
-/// <reference types="testing-library__cypress" />
+/// <reference types="@testing-library/cypress" />
 /// <reference path="../support/zucchiniApi.d.ts" />
 /// <reference path="../support/selectors.d.ts" />
 
