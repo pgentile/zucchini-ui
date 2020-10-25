@@ -11,7 +11,8 @@ ADD src/docker/config.yml /zucchini-ui/
 ADD src/docker/docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 
-ADD build/libs/zucchini-ui-app-${ZUCCHINI_VERSION}-all.jar /zucchini-ui/
+ADD build/docker/libs/*.jar /zucchini-ui/libs/
+ADD build/docker/app/*.jar /zucchini-ui/app/
 
 EXPOSE 8080 8081
 

@@ -242,6 +242,7 @@ project("${rootProject.name}-frontend") {
         args = ['build']
 
         inputs.dir('src')
+        inputs.file('package.json')
         inputs.file('yarn.lock')
         inputs.file('postcss.config.js')
         inputs.file('webpack.config.js')
@@ -313,9 +314,29 @@ project("${rootProject.name}-app") {
         tags += project.getDockerTags()
     }
 
+    task copyLibraries(type: Sync) {
+        into "$project.buildDir/docker"
+
+        from(configurations.default) {
+            into "libs"
+            exclude "${rootProject.name}-*.jar"
+        }
+
+        from(configurations.default) {
+            into "app"
+            include "${rootProject.name}-*.jar"
+        }
+
+        from(jar) {
+            into "app"
+        }
+    }
+
     dockerBuild {
         buildArg 'ZUCCHINI_VERSION': "${project.version}"
     }
+
+    tasks.dockerBuild.dependsOn copyLibraries
 
 }
 

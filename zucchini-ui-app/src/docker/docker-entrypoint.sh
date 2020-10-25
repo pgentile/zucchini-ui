@@ -7,5 +7,6 @@ exec java \
   -showversion \
   -XX:-UseContainerSupport \
   -Djava.awt.headless=true \
-  -jar /zucchini-ui/zucchini-ui-app-${ZUCCHINI_VERSION}-all.jar \
+  -classpath "/zucchini-ui/app/*:/zucchini-ui/libs/*" \
+  io.zucchiniui.app.ZucchiniUIApplication \
   "$@"
