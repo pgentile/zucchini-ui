@@ -4,6 +4,7 @@ const babelRuntimeVersion = pkg.dependencies["@babel/runtime"];
 
 module.exports = (api) => {
   const testEnv = api.env("test");
+  const productionEnv = api.env("production");
 
   let envPresetConfig = {
     modules: "auto",
@@ -40,7 +41,8 @@ module.exports = (api) => {
       [
         "@babel/preset-react",
         {
-          runtime: "automatic"
+          runtime: "automatic",
+          development: !productionEnv
         }
       ],
       [

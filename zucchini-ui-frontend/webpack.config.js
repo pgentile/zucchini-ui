@@ -15,9 +15,10 @@ const apiUrl = process.env.API_URL || "http://localhost:8080";
 const publicPath = "/ui/assets/";
 
 module.exports = (env, argv) => {
+  const mode = argv.mode || "development";
   return {
     // Bug ? Webpack 5.1.3 : argument mode en ligne de commande pas pris en compte
-    mode: argv.mode || "development",
+    mode,
     entry: {
       main: "./src/main.jsx"
     },
@@ -56,13 +57,15 @@ module.exports = (env, argv) => {
       rules: [
         {
           test: /\.jsx?$/,
-          exclude: /node_modules/,
-          use: ["babel-loader"]
-        },
-        {
-          test: /\.jsx?$/,
-          include: [path.join(__dirname, "node_modules", "quick-lru")],
-          use: ["babel-loader"]
+          include: [path.join(__dirname, "src"), path.join(__dirname, "node_modules", "quick-lru")],
+          use: [
+            {
+              loader: "babel-loader",
+              options: {
+                envName: mode
+              }
+            }
+          ]
         },
         {
           test: /\.s?css$/,
