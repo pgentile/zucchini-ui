@@ -80,7 +80,7 @@ allprojects {
 
                 testImplementation 'org.assertj:assertj-core:3.18.0'
                 testImplementation 'org.mockito:mockito-core:3.6.0'
-                testImplementation 'org.mockito:mockito-junit-jupiter:3.5.15'
+                testImplementation 'org.mockito:mockito-junit-jupiter:3.6.0'
 
             }
 
