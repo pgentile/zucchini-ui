@@ -1,12 +1,12 @@
 {
   "extends": [
     "config:base",
-    ":disableRateLimiting"
+    ":disableRateLimiting",
+    ":automergeMinor"
   ],
   "gradle": {
     "enabled": true
   },
-  "rangeStrategy": "update-lockfile",
   "packageRules": [
     {
       "groupName": "Dropwizard",
