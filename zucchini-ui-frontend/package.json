@@ -62,7 +62,7 @@
     "@fortawesome/react-fontawesome": "0.1.12",
     "bootstrap": "4.5.3",
     "chartist": "0.11.4",
-    "core-js": "3.6.5",
+    "core-js": "3.7.0",
     "date-fns": "2.16.1",
     "lodash": "4.17.20",
     "pure-uuid": "1.6.1",
