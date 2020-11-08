@@ -22,7 +22,7 @@ Requirements
 ### Development
 
 * JDK 11
-* [Node](https://nodejs.org) 12
+* [Node](https://nodejs.org) 14
 * [Yarn](https://yarnpkg.com)
 
 Zucchini is built with [Gradle](https://gradle.org/). The Gradle wrapper is provided, no extra download is required.
