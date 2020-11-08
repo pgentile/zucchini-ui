@@ -84,7 +84,7 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.(ttf|eot|woff2?|svg|png|jpg|gif)$/,
-          use: ["file-loader"]
+          type: "asset"
         }
       ]
     },
