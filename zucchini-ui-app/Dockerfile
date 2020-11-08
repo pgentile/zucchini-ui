@@ -1,5 +1,4 @@
 FROM openjdk:11-jre-slim
-MAINTAINER Pierre Gentile <pierre.gentile.perso@gmail.com>
 
 ARG ZUCCHINI_VERSION
 ENV ZUCCHINI_VERSION=${ZUCCHINI_VERSION}
