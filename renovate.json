@@ -13,6 +13,12 @@
       "packagePatterns": [
         "^io.dropwizard:"
       ]
+    },
+    {
+      "groupName": "Mockito",
+      "packagePatterns": [
+        "^org.mockito:"
+      ]
     }
   ]
 }
