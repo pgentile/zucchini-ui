@@ -206,7 +206,7 @@ project("${rootProject.name}-backend") {
         implementation 'org.javassist:javassist:3.27.0-GA'
 
         implementation 'javax.xml.bind:jaxb-api:2.3.1'
-        runtimeOnly 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
+        runtimeOnly 'org.glassfish.jaxb:jaxb-runtime:3.0.0'
     }
 
     task runBackend(type: JavaExec, description: 'Run backend server') {
