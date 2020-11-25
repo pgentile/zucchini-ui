@@ -1,6 +1,4 @@
 Cypress.Commands.add("createTestRun", ({ type = "TYPE", environment = "ENV", name = "NAME" } = {}) => {
-  cy.server();
-
   return cy
     .request("POST", "/api/testRuns/create", {
       type,
@@ -14,8 +12,6 @@ Cypress.Commands.add("createTestRun", ({ type = "TYPE", environment = "ENV", nam
 });
 
 Cypress.Commands.add("importCucumberReport", ({ testRunId, content }) => {
-  cy.server();
-
   return cy
     .request("POST", `/api/testRuns/${testRunId}/import`, content)
     .should((xhr) => {
@@ -38,8 +34,6 @@ Cypress.Commands.add("createFilledTestRun", ({ type, environment, name } = {}) =
 });
 
 Cypress.Commands.add("getFeaturesForTestRun", (testRunId) => {
-  cy.server();
-
   return cy
     .request("GET", `/api/features?testRunId=${testRunId}`)
     .should((xhr) => {
@@ -49,8 +43,6 @@ Cypress.Commands.add("getFeaturesForTestRun", (testRunId) => {
 });
 
 Cypress.Commands.add("getScenariosForTestRun", (testRunId) => {
-  cy.server();
-
   return cy
     .request("GET", `/api/scenarii?testRunId=${testRunId}`)
     .should((xhr) => {

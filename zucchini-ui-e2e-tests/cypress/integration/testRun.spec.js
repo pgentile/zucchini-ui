@@ -17,8 +17,7 @@ describe("Test run", () => {
   });
 
   it("should import Cucumber result", () => {
-    cy.server();
-    cy.route("POST", "/api/testRuns/*/import**").as("importCucumberReport");
+    cy.intercept({ method: "POST", pathname: "/api/testRuns/*/import" }).as("importCucumberReport");
 
     cy.log("Importer un fichier de résultats Cucumber");
 
@@ -26,7 +25,7 @@ describe("Test run", () => {
 
     cy.get("[role=dialog]").within(() => {
       // Workaround : cucumber-report.json not loaded as base64, even if asked. So... extention change
-      cy.findAllByLabelText(/Fichier/).attachFile("cucumber-report.json.bin");
+      cy.findAllByLabelText(/Fichier/).attachFile("cucumber-report.json");
       cy.contains("button", "Importer").click();
     });
 
@@ -40,7 +39,7 @@ describe("Test run", () => {
   });
 
   it("should edit a test run", () => {
-    cy.route("PATCH", "/api/testRuns/*").as("updateTestRun");
+    cy.intercept({ method: "PATCH", pathname: "/api/testRuns/*" }).as("updateTestRun");
 
     cy.findByText("Modifier").click();
 
@@ -84,7 +83,7 @@ describe("Test run", () => {
   });
 
   it("should delete a test run", () => {
-    cy.route("DELETE", "/api/testRuns/*").as("deleteTestRun");
+    cy.intercept({ method: "DELETE", pathname: "/api/testRuns/*" }).as("deleteTestRun");
 
     cy.contains("button", "Supprimer").click();
 
