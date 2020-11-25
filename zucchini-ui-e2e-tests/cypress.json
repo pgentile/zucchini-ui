@@ -1,5 +1,4 @@
 {
   "baseUrl": "http://localhost:8080/",
-  "nodeVersion": "system",
-  "experimentalFetchPolyfill": true
+  "nodeVersion": "system"
 }
