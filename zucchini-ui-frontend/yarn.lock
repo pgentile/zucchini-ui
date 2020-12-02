@@ -3588,10 +3588,10 @@ eslint-config-prettier@6.15.0:
   dependencies:
     get-stdin "^6.0.0"
 
-eslint-plugin-jest-dom@3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest-dom/-/eslint-plugin-jest-dom-3.4.1.tgz#1525a6651de486ed2c6cf2d51a90307888806604"
-  integrity sha512-ylgldq0fRpdH9+hOZUcYYyHtdspWunzPCQr9QKt6Ficlt1537VYxlaL+8iqTvvhc50VNercsr0kBV42xh4KaGg==
+eslint-plugin-jest-dom@3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest-dom/-/eslint-plugin-jest-dom-3.5.0.tgz#e5198d3aa30eca0b902b09e018df5a3b65c4e932"
+  integrity sha512-23+G4noSZRSN2znHMYBIOGBuRbNaxzL/o4WUelOJD9gL7jlpVJCczE89vE5nFt01cs7PRdP+wA4N6f0l+q1DTA==
   dependencies:
     "@babel/runtime" "^7.9.6"
     "@testing-library/dom" "^7.28.1"
