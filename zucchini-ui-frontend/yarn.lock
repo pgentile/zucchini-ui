@@ -7118,10 +7118,10 @@ raw-body@2.4.0:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-react-bootstrap@1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-1.4.2.tgz#b3a7c39fd15629be81f70c0b9ae8ffd053e84c02"
-  integrity sha512-snz4XhYFeG+TsR/xhF3s4qAOE6ByeHWrQKMrXAV0Pgb/EYkp/K6b2GFiDyguHt4e3C1rE73gUxCVyInJlIAfEw==
+react-bootstrap@1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-1.4.3.tgz#9a76a66800b57f422dd824c9dbe4c9dcef634790"
+  integrity sha512-4tYhk26KRnK0myMEp2wvNjOvnHMwWfa6pWFIiCtj9wewYaTxP7TrCf7MwcIMBgUzyX0SJXx6UbbDG0+hObiXNg==
   dependencies:
     "@babel/runtime" "^7.4.2"
     "@restart/context" "^2.1.4"
