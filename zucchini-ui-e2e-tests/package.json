@@ -4,7 +4,7 @@
   "dependencies": {
     "@testing-library/cypress": "7.0.3",
     "cypress": "6.3.0",
-    "cypress-file-upload": "5.0.1"
+    "cypress-file-upload": "5.0.2"
   },
   "scripts": {
     "test": "cypress run",
