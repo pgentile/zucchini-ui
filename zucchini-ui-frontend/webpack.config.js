@@ -78,8 +78,18 @@ module.exports = (env, argv) => {
                 importLoaders: 2
               }
             },
-            "postcss-loader?sourceMap",
-            "sass-loader?sourceMap"
+            {
+              loader: "postcss-loader",
+              options: {
+                sourceMap: true
+              }
+            },
+            {
+              loader: "sass-loader",
+              options: {
+                sourceMap: true
+              }
+            }
           ]
         },
         {
