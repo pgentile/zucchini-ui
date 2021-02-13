@@ -1,5 +1,13 @@
 {
   "root": false,
   "parser": "babel-eslint",
-  "extends": ["plugin:cypress/recommended"]
+  "extends": ["plugin:cypress/recommended"],
+  "overrides": [
+    {
+      "files": ["**/*.ts"],
+      "parser": "@typescript-eslint/parser",
+      "extends": ["plugin:@typescript-eslint/recommended"],
+      "plugins": ["@typescript-eslint"]
+    }
+  ]
 }

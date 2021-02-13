@@ -1,7 +1,5 @@
-/// <reference types="Cypress" />
-/// <reference types="@testing-library/cypress" />
-/// <reference path="../support/zucchiniApi.d.ts" />
-/// <reference path="../support/selectors.d.ts" />
+import "../support/zucchiniApi";
+import "../support/selectors";
 
 describe("Scenario", () => {
   beforeEach(() => {
@@ -21,8 +19,8 @@ describe("Scenario", () => {
   });
 
   it("should display scenario info", () => {
-    cy.get("@scenario").then((scenarios) => {
-      cy.get("h1").should("contain", scenarios.info.keyword).and("contain", scenarios.info.name);
+    cy.get<Scenario>("@scenario").then((scenario) => {
+      cy.get("h1").should("contain", scenario.info.keyword).and("contain", scenario.info.name);
     });
 
     cy.get("h1 .badge").should("have.text", "Succès");
@@ -63,9 +61,9 @@ describe("Scenario", () => {
       cy.get("form").submit();
     });
 
-    // cy.wait("@updateScenario");
-    // cy.wait("@addComment");
-    // cy.wait("@scenarioRefresh");
+    cy.wait("@updateScenario");
+    cy.wait("@addComment");
+    cy.wait("@scenarioRefresh");
 
     cy.get("h1 .badge").should("contain.text", "Échec");
     cy.contains("button", "Marquer comme non analysé").should("exist");
@@ -80,7 +78,7 @@ describe("Scenario", () => {
       cy.contains("button", "Supprimer").click();
     });
 
-    // cy.wait("@deleteScenario");
+    cy.wait("@deleteScenario");
 
     cy.location("pathname").should("satisfy", (url) => url.startsWith("/ui/features/"));
   });
@@ -96,6 +94,6 @@ describe("Scenario", () => {
       cy.wrap(form).submit();
     });
 
-    // cy.wait("@newComment");
+    cy.wait("@newComment");
   });
 });
