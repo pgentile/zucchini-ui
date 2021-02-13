@@ -1,7 +1,5 @@
-/// <reference types="Cypress" />
-/// <reference types="@testing-library/cypress" />
-/// <reference path="../support/zucchiniApi.d.ts" />
-/// <reference path="../support/selectors.d.ts" />
+import "../support/zucchiniApi";
+import "../support/selectors";
 
 describe("Feature", () => {
   beforeEach(() => {
@@ -17,7 +15,7 @@ describe("Feature", () => {
   });
 
   it("should display feature info", () => {
-    cy.get("@feature").then((feature) => {
+    cy.get<Feature>("@feature").then((feature) => {
       cy.get("h1").should("contain", feature.info.keyword).and("contain", feature.info.name);
     });
   });
@@ -35,7 +33,7 @@ describe("Feature", () => {
       cy.get("form").submit();
     });
 
-    // cy.wait("@updateFeature");
+    cy.wait("@updateFeature");
 
     cy.get("header").within(() => {
       cy.contains("li", "Groupe").should("contain.text", group);
@@ -51,7 +49,7 @@ describe("Feature", () => {
       cy.contains("button", "Supprimer").click();
     });
 
-    // cy.wait("@deleteFeature");
+    cy.wait("@deleteFeature");
 
     cy.location("pathname").should("satisfy", (url) => url.startsWith("/ui/test-runs/"));
   });

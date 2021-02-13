@@ -1,7 +1,4 @@
-/// <reference types="Cypress" />
-/// <reference types="@testing-library/cypress" />
-/// <reference path="../support/zucchiniApi.d.ts" />
-/// <reference path="../support/selectors.d.ts" />
+import "../support/selectors";
 
 describe("Test runs", () => {
   beforeEach(() => {

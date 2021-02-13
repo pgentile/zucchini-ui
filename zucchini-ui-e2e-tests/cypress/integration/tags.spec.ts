@@ -1,10 +1,8 @@
-/// <reference types="Cypress" />
-/// <reference types="@testing-library/cypress" />
-/// <reference path="../support/zucchiniApi.d.ts" />
-/// <reference path="../support/selectors.d.ts" />
+import "../support/zucchiniApi";
+import "../support/selectors";
 
 describe("Tags", () => {
-  let testRunId;
+  let testRunId: string;
 
   before(() => {
     cy.log("Créer un tir");

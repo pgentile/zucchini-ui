@@ -1,7 +1,5 @@
-/// <reference types="Cypress" />
-/// <reference types="@testing-library/cypress" />
-/// <reference path="../support/zucchiniApi.d.ts" />
-/// <reference path="../support/selectors.d.ts" />
+import "../support/zucchiniApi";
+import "../support/selectors";
 
 describe("Test run", () => {
   beforeEach(() => {
@@ -24,7 +22,6 @@ describe("Test run", () => {
     cy.contains("button", "Importer").click();
 
     cy.get("[role=dialog]").within(() => {
-      // Workaround : cucumber-report.json not loaded as base64, even if asked. So... extention change
       cy.findAllByLabelText(/Fichier/).attachFile("cucumber-report.json");
       cy.contains("button", "Importer").click();
     });
