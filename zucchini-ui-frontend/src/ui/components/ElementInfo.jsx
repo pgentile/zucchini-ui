@@ -1,35 +1,37 @@
 import PropTypes from "prop-types";
-import { PureComponent } from "react";
+import { memo, useMemo } from "react";
 
 import tokenizeFromInfo from "../tokenizeFromInfo";
 import html from "../html";
 
-export default class ElementInfo extends PureComponent {
-  static propTypes = {
-    info: PropTypes.object
-  };
-
-  render() {
-    const { info } = this.props;
-
-    if (info) {
-      let output = html` <b>${info.keyword}</b> `;
-      tokenizeFromInfo(info).forEach(({ type, value }) => {
-        switch (type) {
-          case "text":
-            output += html` ${value} `;
-            break;
-          case "arg":
-            output += html` <code>${value}</code> `;
-            break;
-          default:
-            break;
-        }
-      });
-
-      return <span dangerouslySetInnerHTML={{ __html: output }} />;
+function ElementInfo({ info }) {
+  const htmlContent = useMemo(() => {
+    if (!info) {
+      return null;
     }
 
-    return null;
-  }
+    return tokenizeFromInfo(info).reduce((before, current) => {
+      const { type, value } = current;
+      switch (type) {
+        case "text":
+          return before + html` ${value} `;
+        case "arg":
+          return before + html` <code>${value}</code> `;
+        default:
+          return before;
+      }
+    }, "");
+  }, [info]);
+
+  return info ? (
+    <>
+      <b>{info.keyword}</b> <span dangerouslySetInnerHTML={{ __html: htmlContent }} />
+    </>
+  ) : null;
 }
+
+ElementInfo.propTypes = {
+  info: PropTypes.object
+};
+
+export default memo(ElementInfo);

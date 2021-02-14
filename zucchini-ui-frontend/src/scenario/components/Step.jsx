@@ -35,11 +35,13 @@ function Step({ step, special = false }) {
     attachments = <StepAttachments scenarioId={scenarioId} attachments={step.attachments} />;
   }
 
+  const hasError = ["FAILED", "UNDEFINED"].includes(step.status);
+
   return (
     <>
       {filters.comments && step.comment && <SimpleText className="text-muted" text={step.comment} />}
 
-      <p>
+      <p className={hasError ? "text-danger" : null}>
         {special ? <i>{title}</i> : title} <Status status={step.status} />
       </p>
 
