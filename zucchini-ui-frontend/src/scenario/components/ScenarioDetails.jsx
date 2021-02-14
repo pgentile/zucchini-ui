@@ -20,18 +20,26 @@ function ScenarioDetails() {
   });
 
   let backgroundSteps = [];
-  if (scenario.background && scenario.background.steps) {
+  if (filters.context && scenario.background && scenario.background.steps) {
     backgroundSteps = scenario.background.steps.map((step, index) => {
       return <Step key={index} step={step} special />;
     });
   }
 
-  const beforeActions = scenario.beforeActions.map((action, index) => {
-    return <ActionStep key={index} index={index} name="Pré-action" action={action} />;
-  });
+  let beforeActions = [];
+  let afterActions = [];
+  if (filters.beforeAndAfterActions) {
+    beforeActions = scenario.beforeActions.map((action, index) => {
+      return <ActionStep key={index} index={index} name="Pré-action" action={action} />;
+    });
 
-  const afterActions = scenario.afterActions.map((action, index) => {
-    return <ActionStep key={index} index={index} name="Post-action" action={action} />;
+    afterActions = scenario.afterActions.map((action, index) => {
+      return <ActionStep key={index} index={index} name="Post-action" action={action} />;
+    });
+  }
+
+  const items = [...beforeActions, ...backgroundSteps, ...steps, ...afterActions].map((item, index) => {
+    return <li key={index}>{item}</li>;
   });
 
   const stepFilterId = useUniqueId();
@@ -48,7 +56,7 @@ function ScenarioDetails() {
   return (
     <>
       <ButtonGroup className="mb-3">
-        <OverlayTrigger rootClose trigger="click" placement="bottom" overlay={stepFilters}>
+        <OverlayTrigger rootClose trigger="click" placement="right-start" overlay={stepFilters}>
           <Button variant="outline-secondary" size="sm">
             Options d&apos;affichage
           </Button>
@@ -56,10 +64,8 @@ function ScenarioDetails() {
       </ButtonGroup>
 
       {filters.comments && scenario.comment && <SimpleText className="text-muted" text={scenario.comment} />}
-      {filters.beforeAndAfterActions && beforeActions}
-      {filters.context && backgroundSteps}
-      {steps}
-      {filters.beforeAndAfterActions && afterActions}
+
+      <ol className="list-unstyled">{items}</ol>
     </>
   );
 }
