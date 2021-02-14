@@ -10,6 +10,8 @@ declare namespace Cypress {
     getFeaturesForTestRun(testRunId: string): Chainable<Feature[]>;
 
     getScenariosForTestRun(testRunId: string): Chainable<Scenario[]>;
+
+    createCommentForScenario(scenarioId: string, content: string): Chainable<PartialZucchiniComment>;
   }
 }
 
@@ -34,6 +36,10 @@ type Info = {
   name: string;
 };
 
+type ZucchiniComment = {
+  id: string;
+};
+
 type TestRunParams = {
   type?: string;
   environment?: string;
@@ -46,6 +52,8 @@ type ImportCucumberReportParams = {
 };
 
 type PartialTestRun = Pick<TestRun, "id">;
+
+type PartialZucchiniComment = Pick<ZucchiniComment, "id">;
 
 Cypress.Commands.add(
   "createTestRun",
@@ -112,5 +120,19 @@ Cypress.Commands.add(
         expect(xhr.isOkStatusCode).to.be.true;
       })
       .then((xhr) => xhr.body);
+  }
+);
+
+Cypress.Commands.add(
+  "createCommentForScenario",
+  (scenarioId: string, content: string): Cypress.Chainable<PartialZucchiniComment> => {
+    return cy
+      .request("POST", `/api/scenarii/${scenarioId}/comments/create`, {
+        content
+      })
+      .should((xhr) => {
+        expect(xhr.isOkStatusCode).to.be.true;
+      })
+      .then((xhr) => xhr.body as PartialZucchiniComment);
   }
 );
