@@ -1,5 +1,3 @@
-import "../support/selectors";
-
 describe("Test runs", () => {
   beforeEach(() => {
     cy.visit("/");

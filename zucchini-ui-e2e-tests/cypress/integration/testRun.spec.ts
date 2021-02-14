@@ -1,6 +1,3 @@
-import "../support/zucchiniApi";
-import "../support/selectors";
-
 describe("Test run", () => {
   beforeEach(() => {
     cy.log("Créer un tir");

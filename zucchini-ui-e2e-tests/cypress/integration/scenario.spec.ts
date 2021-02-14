@@ -1,6 +1,3 @@
-import "../support/zucchiniApi";
-import "../support/selectors";
-
 describe("Scenario", () => {
   beforeEach(() => {
     cy.log("Créer une feature");

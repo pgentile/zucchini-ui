@@ -1,8 +1,20 @@
-type PartialTestRun = {
-  id: string;
-};
+// eslint-disable-next-line @typescript-eslint/no-namespace
+declare namespace Cypress {
+  interface Chainable {
+    createTestRun(params?: TestRunParams): Chainable<TestRun>;
 
-type TestRun = PartialTestRun & {
+    importCucumberReport(params: ImportCucumberReportParams): Chainable<null>;
+
+    createFilledTestRun(params?: TestRunParams): Chainable<PartialTestRun>;
+
+    getFeaturesForTestRun(testRunId: string): Chainable<Feature[]>;
+
+    getScenariosForTestRun(testRunId: string): Chainable<Scenario[]>;
+  }
+}
+
+type TestRun = {
+  id: string;
   info: Info;
 };
 
@@ -33,20 +45,7 @@ type ImportCucumberReportParams = {
   content: Cypress.RequestBody;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
-declare namespace Cypress {
-  interface Chainable {
-    createTestRun(params?: TestRunParams): Chainable<TestRun>;
-
-    importCucumberReport(params: ImportCucumberReportParams): Chainable<null>;
-
-    createFilledTestRun(params?: TestRunParams): Chainable<PartialTestRun>;
-
-    getFeaturesForTestRun(testRunId: string): Chainable<Feature[]>;
-
-    getScenariosForTestRun(testRunId: string): Chainable<Scenario[]>;
-  }
-}
+type PartialTestRun = Pick<TestRun, "id">;
 
 Cypress.Commands.add(
   "createTestRun",

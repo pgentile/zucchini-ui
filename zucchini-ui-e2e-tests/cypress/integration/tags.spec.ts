@@ -1,6 +1,3 @@
-import "../support/zucchiniApi";
-import "../support/selectors";
-
 describe("Tags", () => {
   let testRunId: string;
 
