@@ -32,7 +32,6 @@ module.exports = (api) => {
         {
           helpers: true,
           corejs: false,
-          useESModules: !testEnv,
           version: babelRuntimeVersion
         }
       ]
