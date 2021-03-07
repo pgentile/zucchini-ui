@@ -16,7 +16,7 @@ Requirements
 ### Runtime
 
 * Java JRE 11
-* [Mongo 3](https://www.mongodb.com)
+* [Mongo 4](https://www.mongodb.com)
 
 
 ### Development
