@@ -56,8 +56,8 @@
   },
   "dependencies": {
     "@babel/runtime": "7.13.10",
-    "@fortawesome/fontawesome-svg-core": "1.2.34",
-    "@fortawesome/free-solid-svg-icons": "5.15.2",
+    "@fortawesome/fontawesome-svg-core": "1.2.35",
+    "@fortawesome/free-solid-svg-icons": "5.15.3",
     "@fortawesome/react-fontawesome": "0.1.14",
     "bootstrap": "4.6.0",
     "chartist": "0.11.4",
