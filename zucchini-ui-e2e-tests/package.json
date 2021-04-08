@@ -13,7 +13,7 @@
   "dependencies": {
     "@testing-library/cypress": "7.0.5",
     "cypress": "7.0.1",
-    "cypress-file-upload": "5.0.4"
+    "cypress-file-upload": "5.0.5"
   },
   "devDependencies": {
     "@tsconfig/recommended": "1.0.1",
