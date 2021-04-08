@@ -107,7 +107,7 @@ Cypress.Commands.add(
       .should((xhr) => {
         expect(xhr.isOkStatusCode).to.be.true;
       })
-      .then((xhr) => xhr.body);
+      .then((xhr) => xhr.body as Feature[]);
   }
 );
 
@@ -119,7 +119,7 @@ Cypress.Commands.add(
       .should((xhr) => {
         expect(xhr.isOkStatusCode).to.be.true;
       })
-      .then((xhr) => xhr.body);
+      .then((xhr) => xhr.body as Scenario[]);
   }
 );
 
