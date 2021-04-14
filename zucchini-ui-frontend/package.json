@@ -62,7 +62,7 @@
     "bootstrap": "4.6.0",
     "chartist": "0.11.4",
     "core-js": "3.10.1",
-    "date-fns": "2.20.3",
+    "date-fns": "2.21.0",
     "lodash": "4.17.21",
     "pure-uuid": "1.6.2",
     "query-string": "7.0.0",
