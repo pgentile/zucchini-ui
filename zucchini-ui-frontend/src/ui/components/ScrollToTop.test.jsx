@@ -1,5 +1,5 @@
 import { MemoryRouter, Link } from "react-router-dom";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 
 import ScrollToTop from "./ScrollToTop";
 
@@ -19,7 +19,7 @@ describe("ScrollToTop", () => {
   });
 
   it("should scroll to top", () => {
-    const { getByText } = render(
+    render(
       <>
         <ScrollToTop />
         <Link to="/new-page">Change page</Link>
@@ -29,13 +29,13 @@ describe("ScrollToTop", () => {
 
     expect(window.scrollTo).toHaveBeenCalled();
 
-    fireEvent.click(getByText("Change page"));
+    fireEvent.click(screen.getByText("Change page"));
 
     expect(window.scrollTo).toHaveBeenCalledTimes(2);
   });
 
   it("should not scroll to top if location state says so", () => {
-    const { getByText } = render(
+    render(
       <>
         <ScrollToTop />
         <Link
@@ -54,7 +54,7 @@ describe("ScrollToTop", () => {
 
     expect(window.scrollTo).toHaveBeenCalled();
 
-    fireEvent.click(getByText("Change page"));
+    fireEvent.click(screen.getByText("Change page"));
 
     expect(window.scrollTo).toHaveBeenCalledTimes(1);
   });
