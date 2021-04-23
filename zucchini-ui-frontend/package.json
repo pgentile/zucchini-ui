@@ -50,7 +50,7 @@
     "redux-freeze": "0.1.7",
     "sass": "1.32.11",
     "sass-loader": "11.0.1",
-    "webpack": "5.35.0",
+    "webpack": "5.35.1",
     "webpack-cli": "4.6.0",
     "webpack-dev-server": "3.11.2"
   },
