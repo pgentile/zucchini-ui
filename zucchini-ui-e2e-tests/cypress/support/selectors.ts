@@ -5,9 +5,6 @@ declare namespace Cypress {
   }
 }
 
-Cypress.Commands.add(
-  "findFieldsetByLegend",
-  (legendText: string): Cypress.Chainable<JQuery<HTMLFieldSetElement>> => {
-    return cy.contains("legend", legendText).parent("fieldset").first();
-  }
-);
+Cypress.Commands.add("findFieldsetByLegend", (legendText: string): Cypress.Chainable<JQuery<HTMLFieldSetElement>> => {
+  return cy.contains("legend", legendText).parent("fieldset").first();
+});

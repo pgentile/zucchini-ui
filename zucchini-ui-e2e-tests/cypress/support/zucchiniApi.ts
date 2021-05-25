@@ -99,29 +99,23 @@ Cypress.Commands.add(
   }
 );
 
-Cypress.Commands.add(
-  "getFeaturesForTestRun",
-  (testRunId: string): Cypress.Chainable<Feature[]> => {
-    return cy
-      .request("GET", `/api/features?testRunId=${testRunId}`)
-      .should((xhr) => {
-        expect(xhr.isOkStatusCode).to.be.true;
-      })
-      .then((xhr) => xhr.body as Feature[]);
-  }
-);
+Cypress.Commands.add("getFeaturesForTestRun", (testRunId: string): Cypress.Chainable<Feature[]> => {
+  return cy
+    .request("GET", `/api/features?testRunId=${testRunId}`)
+    .should((xhr) => {
+      expect(xhr.isOkStatusCode).to.be.true;
+    })
+    .then((xhr) => xhr.body as Feature[]);
+});
 
-Cypress.Commands.add(
-  "getScenariosForTestRun",
-  (testRunId: string): Cypress.Chainable<Scenario[]> => {
-    return cy
-      .request("GET", `/api/scenarii?testRunId=${testRunId}`)
-      .should((xhr) => {
-        expect(xhr.isOkStatusCode).to.be.true;
-      })
-      .then((xhr) => xhr.body as Scenario[]);
-  }
-);
+Cypress.Commands.add("getScenariosForTestRun", (testRunId: string): Cypress.Chainable<Scenario[]> => {
+  return cy
+    .request("GET", `/api/scenarii?testRunId=${testRunId}`)
+    .should((xhr) => {
+      expect(xhr.isOkStatusCode).to.be.true;
+    })
+    .then((xhr) => xhr.body as Scenario[]);
+});
 
 Cypress.Commands.add(
   "createCommentForScenario",
