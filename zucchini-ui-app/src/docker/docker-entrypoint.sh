@@ -6,6 +6,7 @@ set -e
 exec java \
   -showversion \
   -XX:-OmitStackTraceInFastThrow \
+  -XX:+PrintCommandLineFlags \
   -Djava.awt.headless=true \
   -classpath "/zucchini-ui/app/*:/zucchini-ui/libs/*" \
   io.zucchiniui.app.ZucchiniUIApplication \
