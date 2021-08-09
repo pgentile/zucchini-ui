@@ -7452,10 +7452,10 @@ queue-microtask@^1.2.2:
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.2.tgz#abf64491e6ecf0f38a6502403d4cda04f372dfd3"
   integrity sha512-dB15eXv3p2jDlbOiNLyMabYg1/sXvppd8DP2J3EOCQ0AkuSXCW2tP7mnVouVLJKgUMY6yP0kcQDVpLCN13h4Xg==
 
-quick-lru@6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-6.0.0.tgz#c5a245a773c702694870828e5f09b28f7af087db"
-  integrity sha512-kQ3ACYYIALMi7x8xvMU+qSF6N6baMZms8/q3dn2XFiORhFrLbpR6vTRNGR80HwlakWSoY4RnGoCJWUgnyH6zZQ==
+quick-lru@6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-6.0.1.tgz#3a3fabc74960d663222d04957634766d3447c562"
+  integrity sha512-IE0DNgU7LWaVHB3KqPwWwZ9QiBK9HqZ1Au1uOcLkoosOzehlhOq/v1LA3TUUSzjA98CCOfhug74rWb0L7sGwdw==
 
 randombytes@^2.1.0:
   version "2.1.0"
