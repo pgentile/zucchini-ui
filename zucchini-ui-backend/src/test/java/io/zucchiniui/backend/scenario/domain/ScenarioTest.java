@@ -230,14 +230,14 @@ public class ScenarioTest {
         assertThat(receivingScenario.getModifiedAt()).isAfter(inputScenario.getModifiedAt());
         assertThat(receivingScenario.isReviewed()).isFalse();
 
-        assertThat(receivingScenario.getBeforeActions()).usingFieldByFieldElementComparator().isEqualTo(inputScenario.getBeforeActions());
+        assertThat(receivingScenario.getBeforeActions()).usingRecursiveComparison().isEqualTo(inputScenario.getBeforeActions());
 
         assertThat(receivingScenario.getBackground()).isNotNull();
-        assertThat(receivingScenario.getBackground().getSteps()).usingFieldByFieldElementComparator().isEqualTo(inputScenario.getBackground().getSteps());
+        assertThat(receivingScenario.getBackground().getSteps()).usingRecursiveComparison().isEqualTo(inputScenario.getBackground().getSteps());
 
-        assertThat(receivingScenario.getSteps()).usingFieldByFieldElementComparator().isEqualTo(inputScenario.getSteps());
+        assertThat(receivingScenario.getSteps()).usingRecursiveComparison().isEqualTo(inputScenario.getSteps());
 
-        assertThat(receivingScenario.getAfterActions()).usingFieldByFieldElementComparator().isEqualTo(inputScenario.getAfterActions());
+        assertThat(receivingScenario.getAfterActions()).usingRecursiveComparison().isEqualTo(inputScenario.getAfterActions());
 
         // Removing previous changes that must be ignored
 
