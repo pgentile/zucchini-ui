@@ -43,7 +43,7 @@ public class ZucchiniUIApplication extends Application<BackendConfiguration> {
         environment.getApplicationContext().addFilter(forwardFilterHolder, BASE_PATH + "/*", EnumSet.allOf(DispatcherType.class));
 
         // Default servlet
-        final ServletHolder defaultServletHolder = new ServletHolder(new AssetServlet("/favicons/", "/", null, StandardCharsets.UTF_8));
+        final ServletHolder defaultServletHolder = new ServletHolder(new AssetServlet("/public/", "/", null, StandardCharsets.UTF_8));
         environment.getApplicationContext().addServlet(defaultServletHolder, "/");
     }
 

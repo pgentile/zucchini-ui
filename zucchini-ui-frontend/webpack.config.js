@@ -37,10 +37,6 @@ module.exports = (env, argv) => {
     devServer: {
       port: devServerPort,
       historyApiFallback: true,
-      static: {
-        // index.html is in root directory
-        directory: __dirname,
-      },
       devMiddleware: {
         publicPath
       },
