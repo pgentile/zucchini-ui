@@ -261,11 +261,18 @@ project("${rootProject.name}-frontend") {
     }
 
     task copyIndexHtml(type: Copy) {
-        from 'index.html'
+        from 'public/index.html'
         into "$project.buildDir/ui-resources/ui"
     }
 
-    tasks.processResources.dependsOn(copyAssets, copyIndexHtml)
+    task copyPublicContent(type: Copy) {
+        from('public') {
+            exclude 'index.html'
+        }
+        into "$project.buildDir/ui-resources/public"
+    }
+
+    tasks.processResources.dependsOn(copyAssets, copyIndexHtml, copyPublicContent)
 
 }
 

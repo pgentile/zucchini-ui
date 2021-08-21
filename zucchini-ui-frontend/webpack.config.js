@@ -36,10 +36,12 @@ module.exports = (env, argv) => {
     },
     devServer: {
       port: devServerPort,
-      publicPath,
       historyApiFallback: true,
-      before: (app) => {
-        app.get("/", (req, res) => {
+      devMiddleware: {
+        publicPath
+      },
+      onBeforeSetupMiddleware: (devServer) => {
+        devServer.app.get("/", (req, res) => {
           res.redirect("/ui/");
         });
       },
