@@ -12,7 +12,7 @@ jobs:
       matrix:
         java:
           - "11"
-          - "16"
+          - "17"
 
       fail-fast: true
 
