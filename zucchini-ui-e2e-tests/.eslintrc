@@ -1,6 +1,5 @@
 {
   "root": false,
-  "parser": "babel-eslint",
   "extends": ["plugin:cypress/recommended"],
   "overrides": [
     {
