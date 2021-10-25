@@ -292,7 +292,15 @@ project("${rootProject.name}-app") {
     }
 
     runShadow {
+
+        jvmArgs(
+            // Required for Orika init
+            '--add-opens',
+            'java.base/java.lang=ALL-UNNAMED'
+        )
+
         args 'server', "${rootDir}/server-config.yml"
+
     }
 
    tasks.assemble.dependsOn shadowJar
@@ -348,14 +356,26 @@ project("${rootProject.name}-example-features") {
 
         mainClass = 'cucumber.api.cli.Main'
 
-        args += [
+        jvmArgs(
+            // Required for xtream init
+            '--add-opens',
+            'java.base/java.util=ALL-UNNAMED',
+            '--add-opens',
+            'java.base/java.lang.reflect=ALL-UNNAMED',
+            '--add-opens',
+            'java.base/java.text=ALL-UNNAMED',
+            '--add-opens',
+            'java.desktop/java.awt.font=ALL-UNNAMED'
+        )
+
+        args(
             '--glue', 'classpath:io.zucchini.examples.glues',
             '--plugin', 'pretty',
             '--plugin', "html:${project.buildDir}/cucumber/html",
             '--plugin', "json:${project.buildDir}/cucumber/report.json",
             '--tags', '~@ignored',
             'src/features',
-        ]
+        )
 
         ignoreExitValue true
 
@@ -367,14 +387,26 @@ project("${rootProject.name}-example-features") {
 
         mainClass = 'cucumber.api.cli.Main'
 
-        args += [
+        jvmArgs(
+            // Required for xtream init
+            '--add-opens',
+            'java.base/java.util=ALL-UNNAMED',
+            '--add-opens',
+            'java.base/java.lang.reflect=ALL-UNNAMED',
+            '--add-opens',
+            'java.base/java.text=ALL-UNNAMED',
+            '--add-opens',
+            'java.desktop/java.awt.font=ALL-UNNAMED'
+        )
+
+        args(
             '--glue', 'classpath:io.zucchini.examples.glues',
             '--plugin', 'pretty',
             '--plugin', "html:${project.buildDir}/cucumber-dry/html",
             '--plugin', "json:${project.buildDir}/cucumber-dry/report.json",
             '--dry-run',
             'src/features',
-        ]
+        )
 
         ignoreExitValue true
 
