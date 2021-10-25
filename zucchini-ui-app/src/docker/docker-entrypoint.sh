@@ -9,5 +9,6 @@ exec java \
   -XX:+PrintCommandLineFlags \
   -Djava.awt.headless=true \
   -classpath "/zucchini-ui/app/*:/zucchini-ui/libs/*" \
+  --add-opens java.base/java.lang=ALL-UNNAMED \
   io.zucchiniui.app.ZucchiniUIApplication \
   "$@"
