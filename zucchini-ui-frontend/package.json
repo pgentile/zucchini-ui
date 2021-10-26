@@ -75,7 +75,7 @@
     "redux": "4.1.1",
     "redux-actions": "2.6.5",
     "redux-promise-middleware": "6.1.2",
-    "redux-thunk": "2.3.0",
+    "redux-thunk": "2.4.0",
     "regenerator-runtime": "0.13.9",
     "reselect": "4.0.0"
   }
