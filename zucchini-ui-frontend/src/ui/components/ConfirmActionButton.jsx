@@ -5,16 +5,6 @@ import Modal from "react-bootstrap/Modal";
 import Button from "../../ui/components/Button";
 
 export default class ConfirmActionButton extends PureComponent {
-  static propTypes = {
-    variant: PropTypes.string,
-    size: PropTypes.string,
-    actionIcon: PropTypes.object.isRequired,
-    actionLabel: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-    onConfirm: PropTypes.func.isRequired
-  };
-
   constructor(props) {
     super(props);
 
@@ -71,3 +61,13 @@ export default class ConfirmActionButton extends PureComponent {
     );
   }
 }
+
+ConfirmActionButton.propTypes = {
+  variant: PropTypes.string,
+  size: PropTypes.string,
+  actionIcon: PropTypes.object.isRequired,
+  actionLabel: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
+  onConfirm: PropTypes.func.isRequired
+};

@@ -1,64 +1,40 @@
 import PropTypes from "prop-types";
-import { Component } from "react";
+import { useEffect, useRef } from "react";
 
 import Chartist from "chartist";
 
-export default class BarChart extends Component {
-  static propTypes = {
-    data: PropTypes.any.isRequired,
-    showLabel: PropTypes.bool.isRequired,
-    stackBars: PropTypes.bool.isRequired,
-    seriesBarDistance: PropTypes.number.isRequired,
-    fullWidth: PropTypes.bool.isRequired,
-    axisX: PropTypes.object.isRequired,
-    axisY: PropTypes.object.isRequired,
-    style: PropTypes.object
-  };
+export default function BarChar({
+  data,
+  showLabel = false,
+  stackBars = true,
+  seriesBarDistance = 30,
+  fullWidth = true,
+  axisX = {
+    showGrid: false
+  },
+  axisY = {
+    onlyInteger: true
+  },
+  style
+}) {
+  const chartElementRef = useRef();
+  const chartRef = useRef();
 
-  static defaultProps = {
-    showLabel: false,
-    stackBars: true,
-    seriesBarDistance: 30,
-    fullWidth: true,
-    axisX: {
-      showGrid: false
-    },
-    axisY: {
-      onlyInteger: true
+  useEffect(() => {
+    const chartElement = chartElementRef.current;
+    if (chartElement) {
+      const newChart = new Chartist.Bar(chartElement);
+      chartRef.current = newChart;
+      return () => newChart.detach();
+    } else {
+      chartRef.current = null;
     }
-  };
+  }, []);
 
-  constructor(props) {
-    super(props);
-
-    this.chart = null;
-  }
-
-  componentDidMount() {
-    this.updateChart();
-  }
-
-  componentDidUpdate() {
-    this.updateChart();
-  }
-
-  componentWillUnmount() {
-    if (this.chart) {
-      this.chart.detach();
-    }
-  }
-
-  setChart = (element) => {
-    if (this.chart === null) {
-      this.chart = new Chartist.Bar(element);
-    }
-  };
-
-  updateChart() {
-    const { data, showLabel, stackBars, seriesBarDistance, fullWidth, axisX, axisY } = this.props;
-
-    if (this.chart) {
-      this.chart.update(
+  useEffect(() => {
+    const chart = chartRef.current;
+    if (chart) {
+      chart.update(
         data,
         {
           showLabel,
@@ -71,11 +47,18 @@ export default class BarChart extends Component {
         true
       );
     }
-  }
+  }, [data, showLabel, stackBars, seriesBarDistance, fullWidth, axisX, axisY]);
 
-  render() {
-    const { style } = this.props;
-
-    return <div style={style} ref={this.setChart} />;
-  }
+  return <div style={style} ref={chartElementRef} />;
 }
+
+BarChar.propTypes = {
+  data: PropTypes.any.isRequired,
+  showLabel: PropTypes.bool,
+  stackBars: PropTypes.bool,
+  seriesBarDistance: PropTypes.number,
+  fullWidth: PropTypes.bool,
+  axisX: PropTypes.object,
+  axisY: PropTypes.object,
+  style: PropTypes.object
+};

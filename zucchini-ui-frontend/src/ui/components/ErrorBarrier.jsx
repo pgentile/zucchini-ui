@@ -5,12 +5,6 @@ import Alert from "react-bootstrap/Alert";
 import useUniqueId from "../../useUniqueId";
 
 export default class ErrorBarrier extends Component {
-  static propTypes = {
-    name: PropTypes.string.isRequired,
-    children: PropTypes.node,
-    className: PropTypes.string
-  };
-
   state = {
     hasError: false,
     errorMessage: null
@@ -33,6 +27,12 @@ export default class ErrorBarrier extends Component {
     return children;
   }
 }
+
+ErrorBarrier.propTypes = {
+  name: PropTypes.string.isRequired,
+  children: PropTypes.node,
+  className: PropTypes.string
+};
 
 function ErrorBarrierAlert({ name, errorMessage, className }) {
   const titleId = useUniqueId();
