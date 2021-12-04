@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run dev stack" type="CompoundRunConfigurationType">
+    <toRun name="Run backend" type="Application" />
+    <toRun name="Run frontend - Dev mode" type="js.build_tools.npm" />
+    <toRun name="Run Mongo database" type="docker-deploy" />
+    <method v="2" />
+  </configuration>
+</component>
