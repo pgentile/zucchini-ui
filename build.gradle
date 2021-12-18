@@ -191,7 +191,6 @@ project("${rootProject.name}-backend") {
         annotationProcessor 'org.hibernate:hibernate-validator-annotation-processor:6.2.1.Final'
 
         implementation 'io.dropwizard:dropwizard-core:2.0.27'
-        implementation 'ma.glasnost.orika:orika-core:1.5.4'
         implementation 'xyz.morphia.morphia:core:1.4.0'
         implementation 'xyz.morphia.morphia:logging-slf4j:1.4.0'
         implementation 'org.slf4j:slf4j-api:1.7.32'
@@ -292,15 +291,7 @@ project("${rootProject.name}-app") {
     }
 
     runShadow {
-
-        jvmArgs(
-            // Required for Orika init
-            '--add-opens',
-            'java.base/java.lang=ALL-UNNAMED'
-        )
-
         args 'server', "${rootDir}/server-config.yml"
-
     }
 
    tasks.assemble.dependsOn shadowJar

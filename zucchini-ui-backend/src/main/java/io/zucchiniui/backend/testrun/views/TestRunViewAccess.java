@@ -9,7 +9,6 @@ import io.zucchiniui.backend.testrun.dao.TestRunDAO;
 import io.zucchiniui.backend.testrun.domain.TestRun;
 import io.zucchiniui.backend.testrun.domain.TestRunQuery;
 import io.zucchiniui.backend.testrun.domain.TestRunRepository;
-import ma.glasnost.orika.BoundMapperFacade;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -25,19 +24,18 @@ public class TestRunViewAccess {
 
     private final ScenarioViewAccess scenarioViewAccess;
 
-    private final BoundMapperFacade<TestRun, TestRunListItem> testRunToListItemMapper;
+    private final TestRunToListItemMapper testRunToListItemMapper;
 
     public TestRunViewAccess(
         final TestRunRepository testRunRepository,
         final TestRunDAO testRunDAO,
-        final ScenarioViewAccess scenarioViewAccess
+        final ScenarioViewAccess scenarioViewAccess,
+        TestRunToListItemMapper testRunToListItemMapper
     ) {
         this.testRunRepository = testRunRepository;
         this.testRunDAO = testRunDAO;
         this.scenarioViewAccess = scenarioViewAccess;
-
-        final TestRunMapper mapper = new TestRunMapper();
-        testRunToListItemMapper = mapper.dedicatedMapperFor(TestRun.class, TestRunListItem.class, false);
+        this.testRunToListItemMapper = testRunToListItemMapper;
     }
 
     public List<TestRunListItem> getTestRunListItems(final Consumer<TestRunQuery> preparator, final boolean withStats) {

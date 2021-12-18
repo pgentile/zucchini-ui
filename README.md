@@ -186,7 +186,6 @@ Used frameworks:
   [React-Bootstrap](https://react-bootstrap.github.io/)
 * Backend project: [Dropwizard](http://dropwizard.io),
   [Spring](http://spring.io), [Morphia](http://mongodb.github.io/morphia/),
-  [Orika](http://orika-mapper.github.io/orika-docs)
 
 
 Contributing
