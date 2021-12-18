@@ -108,20 +108,18 @@ allprojects {
             }
 
             // Spotbugs plugin
-            // Only on JDK < 11
-            if (JavaVersion.current() <= JavaVersion.VERSION_11) {
-                project.apply plugin: 'com.github.spotbugs'
 
-                project.spotbugs {
-                    ignoreFailures = true
-                    effort = 'max'
-                }
+            project.apply plugin: 'com.github.spotbugs'
 
-                tasks.withType(SpotBugsTask) {
-                    reports {
-                        xml.enabled = false
-                        html.enabled = true
-                    }
+            project.spotbugs {
+                ignoreFailures = true
+                effort = 'max'
+            }
+
+            tasks.withType(SpotBugsTask) {
+                reports {
+                    xml.enabled = false
+                    html.enabled = true
                 }
             }
 
