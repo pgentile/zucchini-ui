@@ -33,6 +33,7 @@ jobs:
           echo "Github Action vars"
           echo "github.ref = ${{ github.ref  }}"
           echo "matrix.java = ${{ matrix.java }}"
+          echo "matrix.node = ${{ matrix.node }}"
 
       - name: Checkout
         uses: actions/checkout@v2
