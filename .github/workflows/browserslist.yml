@@ -45,5 +45,4 @@ jobs:
         run: |
           (cd zucchini-ui-frontend && npx browserslist@latest --update-db)
           (cd zucchini-ui-e2e-tests && npx browserslist@latest --update-db)
-          git status
-          git diff
+          ./.github/workflows/browserslist.sh
