@@ -127,7 +127,7 @@ allprojects {
 
         // Shared Java compiler config
         project.tasks.withType(JavaCompile) {
-            options.release = 11
+            options.release = 17
 
             options.encoding = 'UTF-8'
             options.deprecation = true
@@ -191,7 +191,6 @@ project("${rootProject.name}-backend") {
         annotationProcessor 'org.hibernate:hibernate-validator-annotation-processor:6.2.1.Final'
 
         implementation 'io.dropwizard:dropwizard-core:2.0.27'
-        implementation 'ma.glasnost.orika:orika-core:1.5.4'
         implementation 'xyz.morphia.morphia:core:1.4.0'
         implementation 'xyz.morphia.morphia:logging-slf4j:1.4.0'
         implementation 'org.slf4j:slf4j-api:1.7.32'
@@ -348,14 +347,26 @@ project("${rootProject.name}-example-features") {
 
         mainClass = 'cucumber.api.cli.Main'
 
-        args += [
+        jvmArgs(
+            // Required for xtream init
+            '--add-opens',
+            'java.base/java.util=ALL-UNNAMED',
+            '--add-opens',
+            'java.base/java.lang.reflect=ALL-UNNAMED',
+            '--add-opens',
+            'java.base/java.text=ALL-UNNAMED',
+            '--add-opens',
+            'java.desktop/java.awt.font=ALL-UNNAMED'
+        )
+
+        args(
             '--glue', 'classpath:io.zucchini.examples.glues',
             '--plugin', 'pretty',
             '--plugin', "html:${project.buildDir}/cucumber/html",
             '--plugin', "json:${project.buildDir}/cucumber/report.json",
             '--tags', '~@ignored',
             'src/features',
-        ]
+        )
 
         ignoreExitValue true
 
@@ -367,14 +378,26 @@ project("${rootProject.name}-example-features") {
 
         mainClass = 'cucumber.api.cli.Main'
 
-        args += [
+        jvmArgs(
+            // Required for xtream init
+            '--add-opens',
+            'java.base/java.util=ALL-UNNAMED',
+            '--add-opens',
+            'java.base/java.lang.reflect=ALL-UNNAMED',
+            '--add-opens',
+            'java.base/java.text=ALL-UNNAMED',
+            '--add-opens',
+            'java.desktop/java.awt.font=ALL-UNNAMED'
+        )
+
+        args(
             '--glue', 'classpath:io.zucchini.examples.glues',
             '--plugin', 'pretty',
             '--plugin', "html:${project.buildDir}/cucumber-dry/html",
             '--plugin', "json:${project.buildDir}/cucumber-dry/report.json",
             '--dry-run',
             'src/features',
-        ]
+        )
 
         ignoreExitValue true
 

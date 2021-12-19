@@ -9,9 +9,8 @@ import io.zucchiniui.backend.shared.domain.TagSelection;
 import io.zucchiniui.backend.support.ddd.morphia.MorphiaUtils;
 import io.zucchiniui.backend.testrun.domain.TestRunQuery;
 import io.zucchiniui.backend.testrun.domain.TestRunRepository;
-import ma.glasnost.orika.BoundMapperFacade;
-import xyz.morphia.query.Query;
 import org.springframework.stereotype.Component;
+import xyz.morphia.query.Query;
 
 import java.util.List;
 import java.util.Set;
@@ -28,22 +27,22 @@ public class FeatureViewAccess {
 
     private final TestRunRepository testRunRepository;
 
-    private final BoundMapperFacade<Feature, FeatureHistoryItem> featureToHistoryItemMapper;
+    private final FeatureToHistoryItemMapper featureToHistoryItemMapper;
 
-    private final BoundMapperFacade<Feature, FeatureListItem> featureToListItemMapper;
+    private final FeatureToListItemMapper featureToListItemMapper;
 
     public FeatureViewAccess(
         final FeatureDAO featureDAO,
         final ScenarioViewAccess scenarioViewAccess,
-        final TestRunRepository testRunRepository
+        final TestRunRepository testRunRepository,
+        final FeatureToHistoryItemMapper featureToHistoryItemMapper,
+        final FeatureToListItemMapper featureToListItemMapper
     ) {
         this.featureDAO = featureDAO;
         this.scenarioViewAccess = scenarioViewAccess;
         this.testRunRepository = testRunRepository;
-
-        final FeatureViewMapper mapper = new FeatureViewMapper();
-        featureToHistoryItemMapper = mapper.dedicatedMapperFor(Feature.class, FeatureHistoryItem.class, false);
-        featureToListItemMapper = mapper.dedicatedMapperFor(Feature.class, FeatureListItem.class, false);
+        this.featureToHistoryItemMapper = featureToHistoryItemMapper;
+        this.featureToListItemMapper = featureToListItemMapper;
     }
 
     public List<FeatureListItem> getFeatureListItems(

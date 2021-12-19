@@ -10,7 +10,6 @@ import io.zucchiniui.backend.support.ddd.morphia.MorphiaRawQuery;
 import io.zucchiniui.backend.support.ddd.morphia.MorphiaUtils;
 import io.zucchiniui.backend.testrun.domain.TestRunQuery;
 import io.zucchiniui.backend.testrun.domain.TestRunRepository;
-import ma.glasnost.orika.BoundMapperFacade;
 import xyz.morphia.query.Query;
 import org.springframework.stereotype.Component;
 
@@ -35,20 +34,23 @@ public class ScenarioViewAccess {
 
     private final TestRunRepository testRunRepository;
 
-    private final BoundMapperFacade<Scenario, ScenarioListItemView> scenarioToListItemViewMapper;
+    private final ScenarioToListItemViewMapper scenarioToListItemViewMapper;
 
-    private final BoundMapperFacade<Scenario, FailedScenarioListItemView> failedScenarioToListItemViewMapper;
+    private final FailedScenarioToListItemViewMapper failedScenarioToListItemViewMapper;
 
-    private final BoundMapperFacade<Scenario, ScenarioHistoryItemView> scenarioToHistoryItemViewMapper;
+    private final ScenarioToHistoryItemViewMapper scenarioToHistoryItemViewMapper;
 
-    public ScenarioViewAccess(final ScenarioDAO scenarioDAO, final TestRunRepository testRunRepository) {
+    public ScenarioViewAccess(
+        final ScenarioDAO scenarioDAO,
+        final TestRunRepository testRunRepository,
+        final ScenarioToListItemViewMapper scenarioToListItemViewMapper,
+        FailedScenarioToListItemViewMapper failedScenarioToListItemViewMapper,
+        ScenarioToHistoryItemViewMapper scenarioToHistoryItemViewMapper) {
         this.scenarioDAO = scenarioDAO;
         this.testRunRepository = testRunRepository;
-
-        final ScenarioViewMapper mapper = new ScenarioViewMapper();
-        scenarioToListItemViewMapper = mapper.dedicatedMapperFor(Scenario.class, ScenarioListItemView.class, false);
-        failedScenarioToListItemViewMapper = mapper.dedicatedMapperFor(Scenario.class, FailedScenarioListItemView.class, false);
-        scenarioToHistoryItemViewMapper = mapper.dedicatedMapperFor(Scenario.class, ScenarioHistoryItemView.class, false);
+        this.scenarioToListItemViewMapper = scenarioToListItemViewMapper;
+        this.failedScenarioToListItemViewMapper = failedScenarioToListItemViewMapper;
+        this.scenarioToHistoryItemViewMapper = scenarioToHistoryItemViewMapper;
     }
 
     public List<ScenarioListItemView> getScenarioListItems(final Consumer<ScenarioQuery> preparator) {
@@ -218,7 +220,6 @@ public class ScenarioViewAccess {
                     matchFound = true;
                     break;
                 }
-                matchFound = false;
             }
             if (!matchFound) {
                 GroupedStepsListItemView noMatch = new GroupedStepsListItemView();

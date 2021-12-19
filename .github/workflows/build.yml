@@ -11,8 +11,9 @@ jobs:
     strategy:
       matrix:
         java:
-          - "11"
           - "17"
+        node:
+          - "16"
 
       fail-fast: true
 
@@ -20,7 +21,8 @@ jobs:
       GRADLE_OPTS: "-Dorg.gradle.caching=false -Dorg.gradle.daemon=false"
       DOCKER_USERNAME: pgentile
       CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
-      DEFAULT_JAVA_VERSION: 11
+      DEFAULT_JAVA_VERSION: "17"
+      DEFAULT_NODE_VERSION: "16"
 
     steps:
       - name: About env
@@ -31,6 +33,7 @@ jobs:
           echo "Github Action vars"
           echo "github.ref = ${{ github.ref  }}"
           echo "matrix.java = ${{ matrix.java }}"
+          echo "matrix.node = ${{ matrix.node }}"
 
       - name: Checkout
         uses: actions/checkout@v2
@@ -72,7 +75,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: "16"
+          node-version: ${{ matrix.node }}
           check-latest: true
 
       - name: Check Gradle
@@ -106,7 +109,7 @@ jobs:
           path: ./zucchini-ui-e2e-tests/cypress/videos
 
       - name: Push Docker image
-        if: github.ref == 'refs/heads/master' && matrix.java == env.DEFAULT_JAVA_VERSION
+        if: github.ref == 'refs/heads/master' && matrix.java == env.DEFAULT_JAVA_VERSION && matrix.node == env.DEFAULT_NODE_VERSION
         run: |
           docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
           ./gradlew dockerPush
