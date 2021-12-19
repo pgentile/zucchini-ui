@@ -5,7 +5,8 @@ set -o pipefail
 
 count_changes=$(git status --porcelain | wc -l)
 if [[ $count_changes -gt 0 ]]; then
-  git checkout -C browserslist
+  git branch -C browserslist
+  git checkout browserslist
 
   git add -u
   gh pr view || gh pr create --title "Update browserslist database" --label browserslist --body "Automatic upgrade of the database"
