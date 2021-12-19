@@ -16,6 +16,9 @@ git status
 count_changes=$(git status --porcelain | wc -l)
 if [[ $count_changes -gt 0 ]]; then
 
+  git config user.name "Browserslist Bot"
+  git config user.email "browserslist@pgentile.example.org"
+
   git add -u
   git status
   git commit -m "Upgrade the browserslist database"
