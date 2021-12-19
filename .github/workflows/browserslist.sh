@@ -9,6 +9,9 @@ git checkout browserslist
 (cd zucchini-ui-frontend && npx browserslist@latest --update-db)
 (cd zucchini-ui-e2e-tests && npx browserslist@latest --update-db)
 
+git branch
+git status
+
 count_changes=$(git status --porcelain | wc -l)
 if [[ $count_changes -gt 0 ]]; then
 
