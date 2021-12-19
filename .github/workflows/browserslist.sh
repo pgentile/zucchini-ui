@@ -19,6 +19,8 @@ if [[ $count_changes -gt 0 ]]; then
   git config user.name "Browserslist Bot"
   git config user.email "browserslist@pgentile.example.org"
 
+  git remote -v
+
   git add -u
   git status
   git commit -m "Upgrade the browserslist database"
