@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -x
 set -e
 set -o pipefail
 
@@ -16,6 +17,7 @@ count_changes=$(git status --porcelain | wc -l)
 if [[ $count_changes -gt 0 ]]; then
 
   git add -u
+  git status
   gh pr view || gh pr create --title "Update browserslist database" --label browserslist --body "Automatic upgrade of the database"
   git commit -m "Upgrade the browserslist database"
   git push --force --set-upstream origin/browserslist
