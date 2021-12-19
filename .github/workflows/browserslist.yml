@@ -1,0 +1,30 @@
+name: Update browserslist
+
+on:
+  - cron: "0 0 * * *"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    env:
+      GRADLE_OPTS: "-Dorg.gradle.caching=false -Dorg.gradle.daemon=false"
+      DEFAULT_NODE_VERSION: "16"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.DEFAULT_NODE_VERSION }}
+          check-latest: true
+
+      # See https://github.com/browserslist/browserslist#browsers-data-updating
+      - name: Run browserslist update
+        run: |
+          (cd zucchini-ui-frontend && npx browserslist@latest --update-db)
+          (cd zucchini-ui-e2e-tests && npx browserslist@latest --update-db)
+          git status
