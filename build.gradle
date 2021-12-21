@@ -286,7 +286,7 @@ project("${rootProject.name}-app") {
 
         implementation project(":${rootProject.name}-backend")
         implementation project(":${rootProject.name}-frontend")
-        implementation 'io.dropwizard:dropwizard-assets:2.0.27'
+        implementation 'io.dropwizard:dropwizard-assets:2.0.28'
 
     }
 
