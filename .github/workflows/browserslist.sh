@@ -40,4 +40,8 @@ if [[ $count_changes -gt 0 ]]; then
     # PR doesn't exist, open new one
     open_pr
   fi
+
+  if gh pr view; then
+      gh workflow run Build --ref browserslist
+  fi
 fi
