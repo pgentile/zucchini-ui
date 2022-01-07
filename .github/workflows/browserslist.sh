@@ -4,6 +4,10 @@ set -x
 set -e
 set -o pipefail
 
+function open_pr() {
+  gh pr create --title "Update browserslist database" --label browserslist --body "Update of the browserslist database"
+}
+
 git branch -C browserslist
 git checkout browserslist
 
@@ -25,5 +29,15 @@ if [[ $count_changes -gt 0 ]]; then
   git status
   git commit -m "Upgrade the browserslist database"
   git push --force --set-upstream origin browserslist
-  gh pr view || gh pr create --title "Update browserslist database" --label browserslist --body "Automatic upgrade of the database"
+
+  if gh pr view; then
+    # PR already exists
+    if [[ $(gh pr view --json state | jq -r .state) == MERGED ]]; then
+      # Reopen PR
+      open_pr
+    fi
+  else
+    # PR doesn't exist, open new one
+    open_pr
+  fi
 fi
