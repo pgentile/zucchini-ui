@@ -42,6 +42,6 @@ if [[ $count_changes -gt 0 ]]; then
   fi
 
   if gh pr view; then
-      gh workflow run Build --ref browserslist
+      gh workflow run build.yml --ref browserslist
   fi
 fi
