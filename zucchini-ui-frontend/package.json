@@ -13,13 +13,13 @@
     "babel:test": "babel --env-name test"
   },
   "devDependencies": {
-    "@babel/cli": "7.16.8",
-    "@babel/core": "7.16.12",
-    "@babel/eslint-parser": "7.16.5",
-    "@babel/plugin-transform-runtime": "7.16.10",
+    "@babel/cli": "7.17.0",
+    "@babel/core": "7.17.0",
+    "@babel/eslint-parser": "7.17.0",
+    "@babel/plugin-transform-runtime": "7.17.0",
     "@babel/preset-env": "7.16.11",
     "@babel/preset-react": "7.16.7",
-    "@babel/register": "7.16.9",
+    "@babel/register": "7.17.0",
     "@testing-library/jest-dom": "5.16.1",
     "@testing-library/react": "12.1.2",
     "autoprefixer": "10.4.2",
@@ -52,7 +52,7 @@
     "webpack-dev-server": "4.7.4"
   },
   "dependencies": {
-    "@babel/runtime": "7.16.7",
+    "@babel/runtime": "7.17.0",
     "@fortawesome/fontawesome-svg-core": "1.2.36",
     "@fortawesome/free-solid-svg-icons": "5.15.4",
     "@fortawesome/react-fontawesome": "0.1.17",
