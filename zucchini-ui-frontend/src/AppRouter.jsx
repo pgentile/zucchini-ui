@@ -32,18 +32,42 @@ export default function AppRouter() {
               <ScrollToTop />
               <Suspense fallback={<PageLoadingPlaceholder />}>
                 <Switch>
-                  <Route exact path="/" component={TestRunsPage} />
-                  <Route exact path="/test-runs/:testRunId" component={TestRunPage} />
-                  <Route exact path="/test-runs/:testRunId/search" component={TestRunSearchPage} />
-                  <Route exact path="/test-runs/:testRunId/tags" component={TagsPage} />
-                  <Route exact path="/test-runs/:testRunId/failures" component={FailuresPage} />
-                  <Route exact path="/test-runs/:testRunId/reports" component={ReportsPage} />
-                  <Route exact path="/test-runs/:testRunId/tag-details" component={TagDetailsPage} />
-                  <Route exact path="/test-runs/:testRunId/diff" component={TestRunDiffPage} />
-                  <Route exact path="/test-runs/:testRunId/stepDefinitions" component={StepDefinitionsPage} />
-                  <Route exact path="/features/:featureId" component={FeaturePage} />
-                  <Route exact path="/scenarios/:scenarioId" component={ScenarioPage} />
-                  <Route component={NotFoundPage} />
+                  <Route exact path="/">
+                    <TestRunsPage />
+                  </Route>
+                  <Route exact path="/test-runs/:testRunId">
+                    <TestRunPage />
+                  </Route>
+                  <Route exact path="/test-runs/:testRunId/search">
+                    <TestRunSearchPage />
+                  </Route>
+                  <Route exact path="/test-runs/:testRunId/tags">
+                    <TagsPage />
+                  </Route>
+                  <Route exact path="/test-runs/:testRunId/failures">
+                    <FailuresPage />
+                  </Route>
+                  <Route exact path="/test-runs/:testRunId/reports">
+                    <ReportsPage />
+                  </Route>
+                  <Route exact path="/test-runs/:testRunId/tag-details">
+                    <TagDetailsPage />
+                  </Route>
+                  <Route exact path="/test-runs/:testRunId/diff">
+                    <TestRunDiffPage />
+                  </Route>
+                  <Route exact path="/test-runs/:testRunId/stepDefinitions">
+                    <StepDefinitionsPage />
+                  </Route>
+                  <Route exact path="/features/:featureId">
+                    <FeaturePage />
+                  </Route>
+                  <Route exact path="/scenarios/:scenarioId">
+                    <ScenarioPage />
+                  </Route>
+                  <Route>
+                    <NotFoundPage />
+                  </Route>
                 </Switch>
               </Suspense>
             </RootPage>
