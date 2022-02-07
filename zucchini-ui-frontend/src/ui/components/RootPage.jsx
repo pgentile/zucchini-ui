@@ -18,7 +18,7 @@ export default function RootPage({ children }) {
         </Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Item>
-            <Nav.Link as={NavLink} to="/" exact aria-current="true">
+            <Nav.Link as={NavLink} to="/" end aria-current="true">
               Derniers tirs
             </Nav.Link>
           </Nav.Item>

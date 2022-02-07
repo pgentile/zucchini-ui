@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
 import ConfirmActionButton from "../../ui/components/ConfirmActionButton";
@@ -10,11 +10,11 @@ function DeleteTestRunButton() {
   const testRunId = useSelector((state) => state.testRun.testRun.id);
 
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleDelete = async () => {
     await dispatch(deleteTestRun({ testRunId }));
-    history.replace(`/`);
+    navigate(`/`, { replace: true });
   };
 
   return (

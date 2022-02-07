@@ -1,6 +1,6 @@
 import { Fragment as StrictMode, Suspense, lazy } from "react";
 import { Provider } from "react-redux";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import store from "./store";
 
@@ -31,44 +31,20 @@ export default function AppRouter() {
             <RootPage>
               <ScrollToTop />
               <Suspense fallback={<PageLoadingPlaceholder />}>
-                <Switch>
-                  <Route exact path="/">
-                    <TestRunsPage />
-                  </Route>
-                  <Route exact path="/test-runs/:testRunId">
-                    <TestRunPage />
-                  </Route>
-                  <Route exact path="/test-runs/:testRunId/search">
-                    <TestRunSearchPage />
-                  </Route>
-                  <Route exact path="/test-runs/:testRunId/tags">
-                    <TagsPage />
-                  </Route>
-                  <Route exact path="/test-runs/:testRunId/failures">
-                    <FailuresPage />
-                  </Route>
-                  <Route exact path="/test-runs/:testRunId/reports">
-                    <ReportsPage />
-                  </Route>
-                  <Route exact path="/test-runs/:testRunId/tag-details">
-                    <TagDetailsPage />
-                  </Route>
-                  <Route exact path="/test-runs/:testRunId/diff">
-                    <TestRunDiffPage />
-                  </Route>
-                  <Route exact path="/test-runs/:testRunId/stepDefinitions">
-                    <StepDefinitionsPage />
-                  </Route>
-                  <Route exact path="/features/:featureId">
-                    <FeaturePage />
-                  </Route>
-                  <Route exact path="/scenarios/:scenarioId">
-                    <ScenarioPage />
-                  </Route>
-                  <Route>
-                    <NotFoundPage />
-                  </Route>
-                </Switch>
+                <Routes>
+                  <Route path="/" element={<TestRunsPage />} />
+                  <Route path="/test-runs/:testRunId" element={<TestRunPage />} />
+                  <Route path="/test-runs/:testRunId/search" element={<TestRunSearchPage />} />
+                  <Route path="/test-runs/:testRunId/tags" element={<TagsPage />} />
+                  <Route path="/test-runs/:testRunId/failures" element={<FailuresPage />} />
+                  <Route path="/test-runs/:testRunId/reports" element={<ReportsPage />} />
+                  <Route path="/test-runs/:testRunId/tag-details" element={<TagDetailsPage />} />
+                  <Route path="/test-runs/:testRunId/diff" element={<TestRunDiffPage />} />
+                  <Route path="/test-runs/:testRunId/stepDefinitions" element={<StepDefinitionsPage />} />
+                  <Route path="/features/:featureId" element={<FeaturePage />} />
+                  <Route path="/scenarios/:scenarioId" element={<ScenarioPage />} />
+                  <Route path="*" element={<NotFoundPage />} />
+                </Routes>
               </Suspense>
             </RootPage>
           </BrowserRouter>

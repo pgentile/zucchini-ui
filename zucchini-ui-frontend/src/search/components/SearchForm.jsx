@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import queryString from "query-string";
 import FormGroup from "react-bootstrap/FormGroup";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -12,7 +12,7 @@ import Button from "../../ui/components/Button";
 import useUniqueId from "../../useUniqueId";
 
 export default function SearchForm() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { testRunId } = useParams();
   const queryParams = useQueryParams();
 
@@ -27,7 +27,7 @@ export default function SearchForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    history.push({
+    navigate({
       pathname: `/test-runs/${testRunId}/search`,
       search: queryString.stringify({
         search

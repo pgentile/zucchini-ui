@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router";
 import Modal from "react-bootstrap/Modal";
 
 import Button from "../../ui/components/Button";
@@ -10,7 +10,7 @@ import useUniqueId from "../../useUniqueId";
 
 export default function CreateTestRunDialog({ show, currentSelectedType, onClose }) {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleCloseClick = (event) => {
     if (event) {
@@ -23,7 +23,7 @@ export default function CreateTestRunDialog({ show, currentSelectedType, onClose
     const result = await dispatch(createTestRun(values));
 
     const createdTestRun = result.value;
-    history.push(`/test-runs/${createdTestRun.id}`);
+    navigate(`/test-runs/${createdTestRun.id}`);
   };
 
   const titleId = useUniqueId();

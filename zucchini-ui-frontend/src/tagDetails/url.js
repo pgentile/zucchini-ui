@@ -1,7 +1,7 @@
 import { useMemo, useCallback } from "react";
 import isString from "lodash/isString";
 import queryString from "query-string";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 import useQueryParams from "../useQueryParams";
 
@@ -20,17 +20,17 @@ export function useParsedTags() {
 }
 
 export function useNavigateToTags() {
-  const history = useHistory();
+  const navigate = useNavigate();
   return useCallback(
     ({ tags, excludedTags }) => {
-      history.push({
+      navigate({
         search: queryString.stringify({
           tag: tags,
           excludedTag: excludedTags
         })
       });
     },
-    [history]
+    [navigate]
   );
 }
 
