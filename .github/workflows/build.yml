@@ -108,7 +108,7 @@ jobs:
         run: yarn test
 
       - name: Collect Cypress videos
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: always() && matrix.java == env.DEFAULT_JAVA_VERSION
         with:
           name: Cypress videos for Java ${{ matrix.java }}
