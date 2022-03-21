@@ -39,7 +39,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Gradle cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
@@ -50,7 +50,7 @@ jobs:
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Yarn cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -58,7 +58,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Cypress cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ env.CYPRESS_CACHE_FOLDER }}
           key: ${{ runner.os }}-cypress-${{ hashFiles('zucchini-ui-e2e-tests/yarn.lock') }}
