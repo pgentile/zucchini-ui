@@ -13,7 +13,6 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-import "cypress-file-upload";
 import "@testing-library/cypress/add-commands";
 
 import "./zucchiniApi";
