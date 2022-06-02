@@ -19,7 +19,7 @@ describe("Test run", () => {
     cy.contains("button", "Importer").click();
 
     cy.get("[role=dialog]").within(() => {
-      cy.findAllByLabelText(/Fichier/).attachFile("cucumber-report.json");
+      cy.findAllByLabelText(/Fichier/).selectFile("cypress/fixtures/cucumber-report.json");
       cy.contains("button", "Importer").click();
     });
 
