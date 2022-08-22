@@ -38,14 +38,7 @@ describe("ScrollToTop", () => {
     render(
       <>
         <ScrollToTop />
-        <Link
-          to={{
-            pathname: "/new-page",
-            state: {
-              scrollToTop: false
-            }
-          }}
-        >
+        <Link to="/new-page" state={{ scrollToTop: false }}>
           Change page
         </Link>
       </>,
