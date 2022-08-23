@@ -1,12 +1,14 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 
-import ReactDOM from "react-dom";
+import { createRoot } from 'react-dom/client';
 
 import AppRouter from "./AppRouter";
 
 import "./main.scss";
 
 window.addEventListener("DOMContentLoaded", () => {
-  ReactDOM.render(<AppRouter />, document.getElementById("content"));
+  const contentElement = document.getElementById("content");
+  const root = createRoot(contentElement);
+  root.render(<AppRouter />);
 });
