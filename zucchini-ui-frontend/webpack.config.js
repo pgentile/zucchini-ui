@@ -51,7 +51,7 @@ module.exports = (env, argv) => {
       proxy: {
         "/api": {
           target: apiUrl
-        },
+        }
         // FIXME Find a way to change the /ws prefix of webpack websocket
         // "/ws": {
         //   target: apiUrl.replace(/^http/, "ws"),

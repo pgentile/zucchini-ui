@@ -1,7 +1,7 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 
-import { createRoot } from 'react-dom/client';
+import { createRoot } from "react-dom/client";
 
 import AppRouter from "./AppRouter";
 
