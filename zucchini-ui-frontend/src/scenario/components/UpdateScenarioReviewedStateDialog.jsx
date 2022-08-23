@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { memo, useEffect } from "react";
+import { memo, useEffect, useId } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-bootstrap/Modal";
 import FormGroup from "react-bootstrap/FormGroup";
@@ -10,7 +10,6 @@ import Form from "react-bootstrap/Form";
 import Button from "../../ui/components/Button";
 import { setScenarioReviewedStateAndComment } from "../redux";
 import useForm from "../../useForm";
-import useUniqueId from "../../useUniqueId";
 
 function UpdateScenarioReviewedStateDialog({ show, onClose }) {
   const scenarioId = useSelector((state) => state.scenario.scenario.id);
@@ -40,7 +39,7 @@ function UpdateScenarioReviewedStateDialog({ show, onClose }) {
     onClose();
   };
 
-  const commentId = useUniqueId();
+  const commentId = useId();
 
   return (
     <Modal size="lg" show={show} onHide={onClose}>

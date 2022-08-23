@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useState, useMemo } from "react";
+import { useCallback, useEffect, useId, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import FormGroup from "react-bootstrap/FormGroup";
 import FormControl from "react-bootstrap/FormControl";
@@ -10,7 +10,6 @@ import debounce from "lodash/debounce";
 
 import Button from "../../ui/components/Button";
 import { setTagFilter } from "../redux";
-import useUniqueId from "../../useUniqueId";
 
 export default function TagFilterForm() {
   const [filter, setFilter] = useState("");
@@ -51,7 +50,7 @@ export default function TagFilterForm() {
     return () => updateFilter("", true);
   }, [updateFilter]);
 
-  const tagControlId = useUniqueId();
+  const tagControlId = useId();
 
   return (
     <Form onSubmit={handleSubmit} data-testid="tag-filter-form">

@@ -1,4 +1,4 @@
-import { memo, createContext } from "react";
+import { createContext, memo, useContext, useId } from "react";
 import PropTypes from "prop-types";
 import { faPlusCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import FormGroup from "react-bootstrap/FormGroup";
@@ -7,10 +7,7 @@ import FormControl from "react-bootstrap/FormControl";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
-
-import { useMultiUniqueId } from "../../useUniqueId";
 import Button from "../../ui/components/Button";
-import { useContext } from "react";
 import useForm from "../../useForm";
 
 const TestRunFormContext = createContext();
@@ -47,7 +44,7 @@ TestRunForm.propTypes = {
 export default memo(TestRunForm);
 
 const TestRunFormFields = memo(function TestRunFormFields() {
-  const controlIds = useMultiUniqueId(["type", "environment", "name"]);
+  const idPrefix = useId();
 
   const { values, handleValueChange } = useContext(TestRunFormContext);
   const { type, environment, name } = values;
@@ -56,15 +53,15 @@ const TestRunFormFields = memo(function TestRunFormFields() {
     <>
       <fieldset>
         <legend>Paramètres principaux</legend>
-        <FormGroup controlId={controlIds.type}>
+        <FormGroup controlId={`${idPrefix}-type`}>
           <FormLabel>Type</FormLabel>
           <FormControl name="type" type="text" required value={type} onChange={handleValueChange} />
         </FormGroup>
-        <FormGroup controlId={controlIds.environment}>
+        <FormGroup controlId={`${idPrefix}-environment`}>
           <FormLabel>Environnement</FormLabel>
           <FormControl name="environment" type="text" required value={environment} onChange={handleValueChange} />
         </FormGroup>
-        <FormGroup controlId={controlIds.name}>
+        <FormGroup controlId={`${idPrefix}-name`}>
           <FormLabel>Nom</FormLabel>
           <FormControl name="name" type="text" required value={name} onChange={handleValueChange} />
         </FormGroup>

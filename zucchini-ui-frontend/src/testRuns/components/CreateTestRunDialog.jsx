@@ -6,7 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "../../ui/components/Button";
 import { createTestRun } from "../redux";
 import TestRunForm, { TestRunFormFields } from "../../testRun/components/TestRunForm";
-import useUniqueId from "../../useUniqueId";
+import { useId } from "react";
 
 export default function CreateTestRunDialog({ show, currentSelectedType, onClose }) {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export default function CreateTestRunDialog({ show, currentSelectedType, onClose
     navigate(`/test-runs/${createdTestRun.id}`);
   };
 
-  const titleId = useUniqueId();
+  const titleId = useId();
 
   return (
     <Modal show={show} onHide={handleCloseClick} size="lg" aria-labelledby={titleId}>

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { memo } from "react";
+import { memo, useId } from "react";
 import { useDispatch } from "react-redux";
 import FormGroup from "react-bootstrap/FormGroup";
 import FormControl from "react-bootstrap/FormControl";
@@ -9,7 +9,6 @@ import FormLabel from "react-bootstrap/FormLabel";
 
 import Button from "../../ui/components/Button";
 import { updateCommentThenReload } from "../redux";
-import useUniqueId from "../../useUniqueId";
 import Form from "react-bootstrap/Form";
 import useForm from "../../useForm";
 
@@ -36,7 +35,7 @@ function CommentEditor({ comment, onCancel, onSaved }) {
     onSaved();
   };
 
-  const contentId = useUniqueId();
+  const contentId = useId();
 
   return (
     <Form onSubmit={handleSubmit}>

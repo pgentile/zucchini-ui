@@ -1,4 +1,4 @@
-import { useEffect, useRef, memo, useState } from "react";
+import { memo, useEffect, useId, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Alert from "react-bootstrap/Alert";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,7 +7,6 @@ import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import { clearErrors } from "../redux";
 
 import "./ErrorAlert.scss";
-import useUniqueId from "../../useUniqueId";
 
 function ErrorAlert() {
   const dispatch = useDispatch();
@@ -41,7 +40,7 @@ function ErrorAlert() {
 
   const lastError = errors.length > 0 ? errors[errors.length - 1] : null;
 
-  const titleId = useUniqueId();
+  const titleId = useId();
 
   return (
     <Alert

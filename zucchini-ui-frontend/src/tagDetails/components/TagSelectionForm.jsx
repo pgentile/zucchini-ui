@@ -1,4 +1,4 @@
-import { memo, useState, useEffect } from "react";
+import { memo, useEffect, useId, useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -9,8 +9,7 @@ import FormLabel from "react-bootstrap/FormLabel";
 import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 
 import Button from "../../ui/components/Button";
-import { useParsedTags, useNavigateToTags } from "../url";
-import useUniqueId from "../../useUniqueId";
+import { useNavigateToTags, useParsedTags } from "../url";
 
 function TagSelectionForm() {
   const parsedTags = useParsedTags();
@@ -33,8 +32,8 @@ function TagSelectionForm() {
     });
   };
 
-  const tagsControlId = useUniqueId();
-  const excludedTagsControlId = useUniqueId();
+  const tagsControlId = useId();
+  const excludedTagsControlId = useId();
 
   return (
     <Form onSubmit={handleSubmit}>

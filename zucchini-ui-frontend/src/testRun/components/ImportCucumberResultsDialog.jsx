@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-bootstrap/Modal";
@@ -10,7 +10,6 @@ import Form from "react-bootstrap/Form";
 
 import Button from "../../ui/components/Button";
 import { importCucumberResultThenReload } from "../redux";
-import useUniqueId from "../../useUniqueId";
 
 export default function ImportCucumberResultsDialog({ show, onClose }) {
   const testRunId = useSelector((state) => state.testRun.testRun.id);
@@ -72,12 +71,12 @@ export default function ImportCucumberResultsDialog({ show, onClose }) {
     onClose();
   };
 
-  const titleId = useUniqueId();
-  const fileControlId = useUniqueId();
-  const groupControlId = useUniqueId();
-  const onlyNewScenariiControlId = useUniqueId();
-  const mergeOnlyNewPassedScenariiControlId = useUniqueId();
-  const dryRunControlId = useUniqueId();
+  const titleId = useId();
+  const fileControlId = useId();
+  const groupControlId = useId();
+  const onlyNewScenariiControlId = useId();
+  const mergeOnlyNewPassedScenariiControlId = useId();
+  const dryRunControlId = useId();
 
   return (
     <Modal show={show} onHide={onClose} aria-labelledby={titleId}>

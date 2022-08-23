@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import { useState, useMemo, useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useCallback, useId, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-bootstrap/Modal";
 import FormGroup from "react-bootstrap/FormGroup";
 import FormLabel from "react-bootstrap/FormLabel";
@@ -13,9 +13,8 @@ import subDays from "date-fns/subDays";
 import parseISO from "date-fns/parseISO";
 
 import Button from "../../ui/components/Button";
-import { selectTestRunTypes, selectLatestTestRuns } from "../selectors";
+import { selectLatestTestRuns, selectTestRunTypes } from "../selectors";
 import { purgeTestRuns } from "../redux";
-import useUniqueId from "../../useUniqueId";
 
 const LOCAL_DATE_FORMAT = "yyyy-MM-dd";
 
@@ -64,7 +63,7 @@ export default function PurgeDialog({ show, currentSelectedType, purgeDelayInDay
     aboutChange = "Aucun tir à purger";
   }
 
-  const titleId = useUniqueId();
+  const titleId = useId();
 
   const dispatch = useDispatch();
 

@@ -1,10 +1,9 @@
 import PropTypes from "prop-types";
 import FormCheck from "react-bootstrap/FormCheck";
-
-import { useMultiUniqueId } from "../../useUniqueId";
+import { useId } from "react";
 
 export default function FilterCheckboxes({ labels, filters, onFilterChange }) {
-  const ids = useMultiUniqueId(Object.keys(labels));
+  const idPrefix = useId();
 
   const checkboxes = Object.entries(labels).map(([name, label]) => {
     const checked = filters[name];
@@ -19,7 +18,7 @@ export default function FilterCheckboxes({ labels, filters, onFilterChange }) {
       <FormCheck
         key={name}
         inline
-        id={ids[name]}
+        id={`${idPrefix}-${name}`}
         label={label}
         type="checkbox"
         checked={checked}

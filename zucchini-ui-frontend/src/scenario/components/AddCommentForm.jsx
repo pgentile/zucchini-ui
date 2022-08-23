@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useId } from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -9,7 +9,6 @@ import FormLabel from "react-bootstrap/FormLabel";
 
 import Button from "../../ui/components/Button";
 import { addScenarioCommentAndReload } from "../redux";
-import useUniqueId from "../../useUniqueId";
 import useForm from "../../useForm";
 
 export default function AddCommentForm({ onCommentAdded }) {
@@ -45,7 +44,7 @@ export default function AddCommentForm({ onCommentAdded }) {
     }
   };
 
-  const commentControlId = useUniqueId();
+  const commentControlId = useId();
 
   return (
     <Form onSubmit={handleSubmit} data-testid="add-comment">

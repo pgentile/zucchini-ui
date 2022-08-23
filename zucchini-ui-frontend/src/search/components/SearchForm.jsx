@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useId, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import queryString from "query-string";
 import FormGroup from "react-bootstrap/FormGroup";
@@ -9,7 +9,6 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import useQueryParams from "../../useQueryParams";
 import Button from "../../ui/components/Button";
-import useUniqueId from "../../useUniqueId";
 
 export default function SearchForm() {
   const navigate = useNavigate();
@@ -35,7 +34,7 @@ export default function SearchForm() {
     });
   };
 
-  const searchControlId = useUniqueId();
+  const searchControlId = useId();
 
   return (
     <Form onSubmit={handleSubmit}>

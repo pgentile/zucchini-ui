@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useId } from "react";
 import { useSelector } from "react-redux";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
@@ -9,7 +9,6 @@ import SimpleText from "../../ui/components/SimpleText";
 import ActionStep from "./ActionStep";
 import Step from "./Step";
 import StepFilters from "./StepFilters";
-import useUniqueId from "../../useUniqueId";
 
 function ScenarioDetails() {
   const scenario = useSelector((state) => state.scenario.scenario);
@@ -42,7 +41,7 @@ function ScenarioDetails() {
     return <li key={index}>{item}</li>;
   });
 
-  const stepFilterId = useUniqueId();
+  const stepFilterId = useId();
 
   const stepFilters = (
     <Popover id={stepFilterId}>

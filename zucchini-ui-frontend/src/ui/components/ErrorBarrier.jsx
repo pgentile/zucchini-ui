@@ -1,8 +1,6 @@
-import { Component } from "react";
+import { Component, useId } from "react";
 import PropTypes from "prop-types";
 import Alert from "react-bootstrap/Alert";
-
-import useUniqueId from "../../useUniqueId";
 
 export default class ErrorBarrier extends Component {
   state = {
@@ -35,7 +33,7 @@ ErrorBarrier.propTypes = {
 };
 
 function ErrorBarrierAlert({ name, errorMessage, className }) {
-  const titleId = useUniqueId();
+  const titleId = useId();
 
   return (
     <Alert variant="danger" tabIndex={-1} className={className} data-name={name} aria-labelledby={titleId}>

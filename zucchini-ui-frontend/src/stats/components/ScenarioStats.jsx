@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import { memo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { memo, useId } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
@@ -11,7 +11,6 @@ import ScenarioPieChart from "./StatsPieChart";
 import StatsLegend from "./StatsLegend";
 import { updateStatsDashboardFilters } from "../../filters/redux";
 import { selectShowDetails } from "../selectors";
-import useUniqueId from "../../useUniqueId";
 
 function ScenarioStats({ stats }) {
   const showDetails = useSelector(selectShowDetails);
@@ -26,7 +25,7 @@ function ScenarioStats({ stats }) {
     );
   };
 
-  const detailsSwitchId = useUniqueId();
+  const detailsSwitchId = useId();
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useId, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-bootstrap/Modal";
@@ -8,8 +8,6 @@ import FormControl from "react-bootstrap/FormControl";
 import Form from "react-bootstrap/Form";
 
 import Button from "../../ui/components/Button";
-import useUniqueId from "../../useUniqueId";
-import { useEffect } from "react";
 import { editFeatureState } from "../redux";
 
 export default function EditFeatureDialog({ show, onClose }) {
@@ -56,8 +54,8 @@ export default function EditFeatureDialog({ show, onClose }) {
     onClose();
   };
 
-  const titleId = useUniqueId();
-  const groupControlId = useUniqueId();
+  const titleId = useId();
+  const groupControlId = useId();
 
   return (
     <Modal show={show} onHide={onClose} aria-labelledby={titleId}>

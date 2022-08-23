@@ -1,12 +1,11 @@
-import { memo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { memo, useId } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import FormGroup from "react-bootstrap/FormGroup";
 import FormCheck from "react-bootstrap/FormCheck";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
 
-import { toggleStepFilter, resetStepFilters } from "../../filters/redux";
-import { useMultiUniqueId } from "../../useUniqueId";
+import { resetStepFilters, toggleStepFilter } from "../../filters/redux";
 
 const FILTERS = {
   comments: "Les commentaires",
@@ -23,7 +22,7 @@ function StepFilters() {
 
   const handleResetClick = () => dispatch(resetStepFilters());
 
-  const checkboxIds = useMultiUniqueId(Object.keys(FILTERS));
+  const idPrefix = useId();
 
   const checkboxes = Object.entries(FILTERS).map(([name, label]) => {
     const handleFilterChange = () => dispatch(toggleStepFilter(name));
@@ -35,7 +34,7 @@ function StepFilters() {
           checked={filters[name]}
           onChange={handleFilterChange}
           label={label}
-          id={checkboxIds[name]}
+          id={`${idPrefix}-${name}`}
         />
       </FormGroup>
     );

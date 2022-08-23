@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import queryString from "query-string";
@@ -11,7 +11,6 @@ import Form from "react-bootstrap/Form";
 import useQueryParams from "../../useQueryParams";
 import { useSelector } from "react-redux";
 import { selectTestRunTypes } from "../selectors";
-import useUniqueId from "../../useUniqueId";
 
 export default function TestRunTypeFilter() {
   const { type: selectedType } = useQueryParams();
@@ -22,7 +21,7 @@ export default function TestRunTypeFilter() {
     setSearch(event.target.value);
   };
 
-  const dropdownId = useUniqueId();
+  const dropdownId = useId();
 
   // Links to test run types
 

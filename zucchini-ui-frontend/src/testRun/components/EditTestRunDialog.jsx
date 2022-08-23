@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-bootstrap/Modal";
 
 import Button from "../../ui/components/Button";
 import TestRunForm, { TestRunFormFields } from "./TestRunForm";
 import { editTestRunThenReload } from "../redux";
-import useUniqueId from "../../useUniqueId";
+import { useId } from "react";
 
 export default function EditTestRunDialog({ show, onClose }) {
   const testRun = useSelector((state) => state.testRun.testRun);
@@ -22,7 +22,7 @@ export default function EditTestRunDialog({ show, onClose }) {
     onClose();
   };
 
-  const titleId = useUniqueId();
+  const titleId = useId();
 
   return (
     <Modal show={show} onHide={onClose} size="lg" aria-labelledby={titleId}>

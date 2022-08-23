@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import { memo, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { memo, useEffect, useId } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-bootstrap/Modal";
 import FormGroup from "react-bootstrap/FormGroup";
 import FormCheck from "react-bootstrap/FormCheck";
@@ -9,7 +9,6 @@ import FormControl from "react-bootstrap/FormControl";
 import Form from "react-bootstrap/Form";
 
 import Button from "../../ui/components/Button";
-import useUniqueId, { useMultiUniqueId } from "../../useUniqueId";
 import { updateScenarioStateAndComment } from "../redux";
 import useForm from "../../useForm";
 
@@ -35,7 +34,7 @@ function UpdateScenarioStateDialog({ show, onClose }) {
     reset();
   }, [reset, scenario]);
 
-  const statusRadioIds = useMultiUniqueId(Object.keys(AVAILABLE_STATUS));
+  const idPrefix = useId();
 
   const statusRadios = Object.entries(AVAILABLE_STATUS).map((entry) => {
     const [someStatus, label] = entry;
@@ -44,7 +43,7 @@ function UpdateScenarioStateDialog({ show, onClose }) {
         name="status"
         value={someStatus}
         type="radio"
-        id={statusRadioIds[someStatus]}
+        id={`${idPrefix}-${someStatus}`}
         label={label}
         key={someStatus}
         checked={someStatus === status}
@@ -72,8 +71,8 @@ function UpdateScenarioStateDialog({ show, onClose }) {
     onClose();
   };
 
-  const reviewedId = useUniqueId();
-  const commentId = useUniqueId();
+  const reviewedId = useId();
+  const commentId = useId();
 
   return (
     <Modal size="lg" show={show} onHide={onClose}>
