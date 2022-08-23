@@ -40,10 +40,13 @@ module.exports = (env, argv) => {
       devMiddleware: {
         publicPath
       },
-      onBeforeSetupMiddleware: (devServer) => {
+      setupMiddlewares: (middlewares, devServer) => {
+        // Like in the full app: redirect from root to /ui/
         devServer.app.get("/", (req, res) => {
           res.redirect("/ui/");
         });
+
+        return middlewares;
       },
       proxy: {
         "/api": {
