@@ -48,6 +48,6 @@ describe("Feature", () => {
 
     cy.wait("@deleteFeature");
 
-    cy.location("pathname").should("satisfy", (url) => url.startsWith("/ui/test-runs/"));
+    cy.location("pathname").should("satisfy", (url: string) => url.startsWith("/ui/test-runs/"));
   });
 });
