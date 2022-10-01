@@ -90,10 +90,10 @@ public class SpringWebSocketConfig {
     }
 
     private void registerEndpoints(final ServerContainer serverContainer, final Map<String, ServerEndpointConfig> endpointConfigs) {
-        LOGGER.debug("Registring WebSockets endpoints");
+        LOGGER.debug("Registering WebSockets endpoints");
 
         endpointConfigs.forEach((beanName, endpointConfig) -> {
-            LOGGER.info("Registring endpoint bean {} to path {}", beanName, endpointConfig.getPath());
+            LOGGER.info("Registering endpoint bean {} to path {}", beanName, endpointConfig.getPath());
             try {
                 serverContainer.addEndpoint(endpointConfig);
             } catch (final DeploymentException e) {
