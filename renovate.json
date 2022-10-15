@@ -20,6 +20,12 @@
       "packagePatterns": [
         "^org.mockito:"
       ]
+    },
+    {
+      "groupName": "slf4j",
+      "packagePatterns": [
+        "^org.slf4j:"
+      ]
     }
   ]
 }
