@@ -30,7 +30,7 @@ public class WebSocketEnablerBundle implements ConfiguredBundle<Configuration> {
                 LOGGER.info("Configuring WebSocket container");
 
                 try {
-                    WebSocketServerContainerInitializer.configureContext(environment.getApplicationContext());
+                    WebSocketServerContainerInitializer.initialize(environment.getApplicationContext());
                 } catch (final ServletException e) {
                     throw new RuntimeException("Can't enable WebSocket feature for Jetty", e);
                 }
