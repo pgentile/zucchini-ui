@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TagList should contain labels with tags 1`] = `
-Array [
+[
   <a
     className="badge badge-info"
     href="/test-runs/sampleId/tag-details?tag=A"
