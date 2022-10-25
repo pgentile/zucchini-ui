@@ -1,12 +1,9 @@
-import { Fragment as StrictMode, Suspense, lazy } from "react";
+import { Fragment as StrictMode, lazy } from "react";
 import { Provider } from "react-redux";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import store from "./store";
-
-import PageLoadingPlaceholder from "./loadingIndicator/components/PageLoadingPlaceholder";
 import RootPage from "./ui/components/RootPage";
-import ScrollToTop from "./ui/components/ScrollToTop";
 import NotFoundPage from "./notFound/components/NotFoundPage";
 import ErrorBarrier from "./ui/components/ErrorBarrier";
 
@@ -22,32 +19,79 @@ const FailuresPage = lazy(() => import("./failures/components/FailuresPage"));
 const ReportsPage = lazy(() => import("./reports/components/ReportsPage"));
 const StepDefinitionsPage = lazy(() => import("./stepDefinitions/components/StepDefinitionsPage"));
 
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <RootPage />,
+      children: [
+        {
+          path: "",
+          element: <TestRunsPage />
+        },
+        {
+          path: "test-runs/:testRunId",
+          children: [
+            {
+              path: "",
+              element: <TestRunPage />
+            },
+            {
+              path: "search",
+              element: <TestRunSearchPage />
+            },
+            {
+              path: "tags",
+              element: <TagsPage />
+            },
+            {
+              path: "failures",
+              element: <FailuresPage />
+            },
+            {
+              path: "reports",
+              element: <ReportsPage />
+            },
+            {
+              path: "tag-details",
+              element: <TagDetailsPage />
+            },
+            {
+              path: "diff",
+              element: <TestRunDiffPage />
+            },
+            {
+              path: "stepDefinitions",
+              element: <StepDefinitionsPage />
+            }
+          ]
+        },
+        {
+          path: "features/:featureId",
+          element: <FeaturePage />
+        },
+        {
+          path: "scenarios/:scenarioId",
+          element: <ScenarioPage />
+        },
+        {
+          path: "*",
+          element: <NotFoundPage />
+        }
+      ]
+    }
+  ],
+  {
+    basename: "/ui/"
+  }
+);
+
 export default function AppRouter() {
   return (
     <ErrorBarrier className="m-4" name="App router">
       <StrictMode>
         <Provider store={store}>
-          <BrowserRouter basename="/ui">
-            <RootPage>
-              <ScrollToTop />
-              <Suspense fallback={<PageLoadingPlaceholder />}>
-                <Routes>
-                  <Route path="/" element={<TestRunsPage />} />
-                  <Route path="/test-runs/:testRunId" element={<TestRunPage />} />
-                  <Route path="/test-runs/:testRunId/search" element={<TestRunSearchPage />} />
-                  <Route path="/test-runs/:testRunId/tags" element={<TagsPage />} />
-                  <Route path="/test-runs/:testRunId/failures" element={<FailuresPage />} />
-                  <Route path="/test-runs/:testRunId/reports" element={<ReportsPage />} />
-                  <Route path="/test-runs/:testRunId/tag-details" element={<TagDetailsPage />} />
-                  <Route path="/test-runs/:testRunId/diff" element={<TestRunDiffPage />} />
-                  <Route path="/test-runs/:testRunId/stepDefinitions" element={<StepDefinitionsPage />} />
-                  <Route path="/features/:featureId" element={<FeaturePage />} />
-                  <Route path="/scenarios/:scenarioId" element={<ScenarioPage />} />
-                  <Route path="*" element={<NotFoundPage />} />
-                </Routes>
-              </Suspense>
-            </RootPage>
-          </BrowserRouter>
+          <RouterProvider router={router} />
         </Provider>
       </StrictMode>
     </ErrorBarrier>
