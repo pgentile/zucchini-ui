@@ -24,7 +24,7 @@ function FeatureGroupFilter() {
 
     return (
       <span key={featureGroup}>
-        <Link to={{ search: linkSearch }} state={{ scrollToTop: false }}>
+        <Link to={{ search: linkSearch }} preventScrollReset>
           {featureGroup}
         </Link>
       </span>
@@ -40,7 +40,7 @@ function FeatureGroupFilter() {
     <p className="mb-2">
       Filter par groupe :{" "}
       <ListWithSeparator separator=", ">
-        <Link to={{ search: linkAllSearch }}>
+        <Link to={{ search: linkAllSearch }} preventScrollReset>
           <i>Tous</i>
         </Link>
         {featureGroupLinks}

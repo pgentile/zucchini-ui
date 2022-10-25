@@ -57,6 +57,12 @@ module.exports = (env, argv) => {
         //   target: apiUrl.replace(/^http/, "ws"),
         //   ws: true
         // }
+      },
+      client: {
+        overlay: {
+          warnings: false,
+          errors: true
+        }
       }
     },
     module: {
