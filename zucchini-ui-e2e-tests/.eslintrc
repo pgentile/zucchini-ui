@@ -1,6 +1,10 @@
 {
   "root": false,
-  "extends": ["plugin:cypress/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:cypress/recommended"
+  ],
   "overrides": [
     {
       "files": ["**/*.ts"],

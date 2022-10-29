@@ -4,10 +4,10 @@
   "scripts": {
     "test": "cypress run",
     "start": "cypress open",
-    "lint:eslint": "eslint --resolve-plugins-relative-to . --ext .js,.ts .",
+    "lint:eslint": "eslint --ext .js,.ts .",
     "lint:tsc": "tsc --noEmit",
     "lint": "run-s lint:tsc lint:eslint",
-    "fix": "eslint --resolve-plugins-relative-to . --fix --ext .js,.ts .",
+    "fix": "eslint --fix --ext .js,.ts .",
     "prettier": "prettier --write **/*.js **/*.ts"
   },
   "dependencies": {
