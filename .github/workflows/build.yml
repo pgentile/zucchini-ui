@@ -114,6 +114,11 @@ jobs:
           name: Cypress videos for Java ${{ matrix.java }}
           path: ./zucchini-ui-e2e-tests/cypress/videos
 
+      - name: JUnit Report Action
+        uses: mikepenz/action-junit-report@v3
+        with:
+          report_paths: '**/test-results/**/TEST-*.xml'
+
       - name: Push Docker image
         if: github.ref == 'refs/heads/master' && matrix.java == env.DEFAULT_JAVA_VERSION && matrix.node == env.DEFAULT_NODE_VERSION
         run: ./gradlew dockerPush

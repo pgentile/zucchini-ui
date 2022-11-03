@@ -8,5 +8,9 @@ export default defineConfig({
   },
   e2e: {
     baseUrl: "http://localhost:8080/"
+  },
+  reporter: "junit",
+  reporterOptions: {
+    mochaFile: "test-results/TEST-result-[hash].xml"
   }
 });
