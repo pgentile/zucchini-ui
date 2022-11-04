@@ -63,7 +63,7 @@ describe("Scenario", () => {
     cy.wait("@scenarioRefresh");
 
     cy.get("h1 .badge").should("contain.text", "Échec");
-    cy.contains("button", "Marquer comme non analysé").should("exist");
+    cy.contains("button", "Marquer comme non analysé sddssd").should("exist");
   });
 
   it("should delete a scenario", () => {

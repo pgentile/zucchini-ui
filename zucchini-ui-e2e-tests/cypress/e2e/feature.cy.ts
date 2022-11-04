@@ -33,7 +33,7 @@ describe("Feature", () => {
     cy.wait("@updateFeature");
 
     cy.get("header").within(() => {
-      cy.contains("li", "Groupe").should("contain.text", group);
+      cy.contains("li", "Groupe").should("contain.text", group + "dfdfdfd");
     });
   });
 
@@ -48,6 +48,6 @@ describe("Feature", () => {
 
     cy.wait("@deleteFeature");
 
-    cy.location("pathname").should("satisfy", (url: string) => url.startsWith("/ui/test-runs/"));
+    cy.location("pathname").should("satisfy", (url: string) => url.startsWith("sdsdsdsds/ui/test-runs/"));
   });
 });

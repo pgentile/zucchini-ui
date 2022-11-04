@@ -14,7 +14,7 @@ describe("Tags", () => {
   beforeEach(() => {
     cy.visit(`/ui/test-runs/${testRunId}/tags`);
 
-    cy.contains("h1", "Tous les tags").should("exist");
+    cy.contains("h1", "Tous les tags").should("not.exist");
   });
 
   it("should display tags", () => {
