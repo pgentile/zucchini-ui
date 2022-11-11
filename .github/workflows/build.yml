@@ -89,9 +89,13 @@ jobs:
         run: ./gradlew dockerComposeUp
 
       - name: Run Cypress tests
+        uses: cypress-io/github-action@v4
         if: matrix.java == env.DEFAULT_JAVA_VERSION
-        working-directory: ./zucchini-ui-e2e-tests
-        run: yarn test
+        with:
+          working-directory: ./zucchini-ui-e2e-tests
+          # Already installed
+          install: false
+          command: yarn test
 
       - name: Collect Cypress videos
         uses: actions/upload-artifact@v3
