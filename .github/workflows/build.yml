@@ -38,14 +38,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Gradle cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
       - name: Cypress cache
         uses: actions/cache@v3
         with:
@@ -71,6 +63,9 @@ jobs:
 
       - name: Check Gradle
         uses: gradle/wrapper-validation-action@v1
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
 
       - name: Install JS dependencies
         run: ./gradlew yarnInstall
