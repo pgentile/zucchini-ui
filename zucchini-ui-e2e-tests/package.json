@@ -11,7 +11,7 @@
     "prettier": "prettier --write **/*.js **/*.ts"
   },
   "dependencies": {
-    "@testing-library/cypress": "8.0.3",
+    "@testing-library/cypress": "8.0.7",
     "cypress": "11.1.0"
   },
   "devDependencies": {
