@@ -47,7 +47,7 @@
     "prettier": "2.8.1",
     "react-test-renderer": "18.2.0",
     "redux-freeze": "0.1.7",
-    "sass": "1.56.1",
+    "sass": "1.56.2",
     "sass-loader": "13.2.0",
     "webpack": "5.75.0",
     "webpack-cli": "4.10.0",
