@@ -24,6 +24,7 @@ export default function FeatureTable({ features }) {
         "Analysés"
       ]}
       emptyDescription="Aucune fonctionnalité"
+      data-testid="feature-table"
     >
       {rows}
     </TabularDataTable>

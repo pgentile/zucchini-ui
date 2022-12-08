@@ -27,7 +27,7 @@ describe("Test run", () => {
 
     cy.wait("@importCucumberReport");
 
-    cy.get("table").within(() => {
+    cy.findByTestId("feature-table").within(() => {
       cy.get("tbody").find("tr").should("have.length.greaterThan", 0);
     });
   });
