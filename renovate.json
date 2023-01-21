@@ -8,6 +8,7 @@
   "gradle": {
     "enabled": true
   },
+  "platformAutomerge": true,
   "packageRules": [
     {
       "groupName": "Dropwizard",
