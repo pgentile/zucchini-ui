@@ -24,7 +24,7 @@ public class BackendSpringConfig {
     public Datastore datastore() {
         return new MorphiaDatastoreBuilder(dropwizardEnvironment)
             .withUri(configuration.getMongoUri())
-            .build("mongo");
+            .build("mongo", "zucchini-ui");
     }
 
     @Bean
