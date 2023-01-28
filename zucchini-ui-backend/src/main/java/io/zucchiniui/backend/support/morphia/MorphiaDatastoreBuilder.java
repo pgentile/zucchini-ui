@@ -30,13 +30,13 @@ public class MorphiaDatastoreBuilder {
         return this;
     }
 
-    public Datastore build(final String name) {
+    public Datastore build(final String name, final String applicationName) {
         if (uri == null) {
             throw new IllegalStateException("URI is undefined");
         }
 
         // Init client options
-        final MongoClientOptions.Builder optionBuilder = MongoClientOptions.builder().description(name);
+        final MongoClientOptions.Builder optionBuilder = MongoClientOptions.builder().applicationName(applicationName);
 
         // Create client
         final MongoClientURI clientURI = new MongoClientURI(uri, optionBuilder);

@@ -1,3 +1,6 @@
+const fs = require("fs");
+const path = require("path");
+
 const migrationContext = {
   filename: null
 };
@@ -63,13 +66,16 @@ function runMigration({ filename, baseName }) {
 
 print("Will apply migrations");
 
-print(`Current work dir is: ${pwd()}`);
+const migrationsDir = "/migrations";
 
-cd("./migrations");
-
-listFiles()
-  .filter((file) => !file.isDirectory)
-  .sort((left, right) => left.baseName.localeCompare(right.baseName))
-  .forEach((file) => runMigration({ filename: file.name, baseName: file.baseName }));
+fs.readdirSync(migrationsDir, { withFileTypes: true })
+  .filter((file) => !file.isDirectory())
+  .sort((left, right) => left.name.localeCompare(right.name))
+  .forEach((file) => {
+    runMigration({
+      filename: path.join(migrationsDir, file.name),
+      baseName: file.name,
+    });
+  });
 
 print("All migrations applied, you're ready to go !");
