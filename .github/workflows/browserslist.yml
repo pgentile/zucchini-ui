@@ -14,8 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      GRADLE_OPTS: "-Dorg.gradle.caching=false -Dorg.gradle.daemon=false"
-      DEFAULT_NODE_VERSION: "16"
+      DEFAULT_NODE_VERSION: "18"
 
     steps:
       - name: Checkout
