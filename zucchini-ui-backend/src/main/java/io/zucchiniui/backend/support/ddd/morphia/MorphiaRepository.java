@@ -4,14 +4,16 @@ import io.zucchiniui.backend.support.ddd.ConcurrentEntityModificationException;
 import io.zucchiniui.backend.support.ddd.EntityNotFoundException;
 import io.zucchiniui.backend.support.ddd.Repository;
 import xyz.morphia.dao.BasicDAO;
+import xyz.morphia.query.Query;
 
 import java.util.ConcurrentModificationException;
+import java.util.function.Function;
 
-public class MorphiaRepository<T, I> implements Repository<T, I> {
+public class MorphiaRepository<T, I, D extends BasicDAO<T, I>> implements Repository<T, I> {
 
-    private final BasicDAO<T, I> dao;
+    private final D dao;
 
-    public MorphiaRepository(final BasicDAO<T, I> dao) {
+    public MorphiaRepository(final D dao) {
         this.dao = dao;
     }
 
@@ -36,6 +38,10 @@ public class MorphiaRepository<T, I> implements Repository<T, I> {
     @Override
     public void delete(final T entity) {
         dao.delete(entity);
+    }
+
+    protected MorphiaPreparedQuery<T> prepareQuery(Function<D, Query<T>> queryPreparator) {
+        return new MorphiaPreparedQuery<>(dao, queryPreparator.apply(dao));
     }
 
 }
