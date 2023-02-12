@@ -78,7 +78,7 @@ public class FeatureViewAccess {
     }
 
     public List<FeatureHistoryItem> getFeatureHistory(final String featureKey) {
-        return testRunRepository.query(TestRunQuery::orderByLatestFirst)
+        return testRunRepository.query(new TestRunQuery().sortByLatestFirst())
             .stream()
             .flatMap(testRun -> {
                 final Feature feature = featureDAO.prepareTypedQuery(q -> q.withTestRunId(testRun.getId()).withFeatureKey(featureKey))

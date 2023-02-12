@@ -12,7 +12,6 @@ import io.zucchiniui.backend.testrun.domain.TestRunRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @Component
@@ -38,8 +37,8 @@ public class TestRunViewAccess {
         this.testRunToListItemMapper = testRunToListItemMapper;
     }
 
-    public List<TestRunListItem> getTestRunListItems(final Consumer<TestRunQuery> preparator, final boolean withStats) {
-        return MorphiaUtils.streamQuery(testRunDAO.prepareTypedQuery(preparator))
+    public List<TestRunListItem> getTestRunListItems(final TestRunQuery testRunQuery, final boolean withStats) {
+        return MorphiaUtils.streamQuery(testRunDAO.query(testRunQuery))
             .map(testRun -> {
                 final TestRunListItem item = testRunToListItemMapper.map(testRun);
                 if (withStats) {

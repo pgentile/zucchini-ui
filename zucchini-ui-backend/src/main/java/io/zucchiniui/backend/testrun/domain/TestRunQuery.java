@@ -1,9 +1,17 @@
 package io.zucchiniui.backend.testrun.domain;
 
-public interface TestRunQuery {
+public record TestRunQuery(String type, boolean orderByLatestFirst) {
 
-    TestRunQuery orderByLatestFirst();
+    public TestRunQuery() {
+        this(null, false);
+    }
 
-    TestRunQuery withType(String type);
+    public TestRunQuery sortByLatestFirst() {
+        return new TestRunQuery(type, true);
+    }
+
+    public TestRunQuery withType(String type) {
+        return new TestRunQuery(type, orderByLatestFirst);
+    }
 
 }

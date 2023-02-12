@@ -48,7 +48,9 @@ class MorphiaPreparedQuery<T> implements PreparedQuery<T> {
 
     @Override
     public void update(final Consumer<T> updater) {
-        stream().peek(updater).forEach(dao::save);
+        try (final Stream<T> s = stream()) {
+            s.peek(updater).forEach(dao::save);
+        }
     }
 
     @Override

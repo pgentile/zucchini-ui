@@ -113,7 +113,7 @@ public class ScenarioViewAccess {
     }
 
     public List<ScenarioHistoryItemView> getScenarioHistory(final String scenarioKey) {
-        return testRunRepository.query(TestRunQuery::orderByLatestFirst)
+        return testRunRepository.query(new TestRunQuery().sortByLatestFirst())
             .stream()
             .flatMap(testRun -> {
                 final Scenario scenario = scenarioDAO.prepareTypedQuery(q -> q.withTestRunId(testRun.getId()).withScenarioKey(scenarioKey))
@@ -176,7 +176,7 @@ public class ScenarioViewAccess {
                 final boolean reviewed = (Boolean) dbObj.get("reviewed");
 
                 @SuppressWarnings("unchecked")
-                List<String> scenarioTags = (List) dbObj.get("allTags");
+                List<String> scenarioTags = (List<String>) dbObj.get("allTags");
                 if (scenarioTags == null) {
                     scenarioTags = Collections.emptyList();
                 }
@@ -209,7 +209,7 @@ public class ScenarioViewAccess {
         List<Step> steps = MorphiaUtils.streamQuery(query)
             .flatMap(scenario -> scenario.getSteps().stream())
             .filter(step -> step.getDefinitionSource() != null)
-            .collect(Collectors.toList());
+            .toList();
 
         final List<GroupedStepsListItemView> groupedSteps = new ArrayList<>();
         steps.forEach(step -> {
