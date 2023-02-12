@@ -15,7 +15,6 @@ import xyz.morphia.query.Query;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Component
@@ -73,8 +72,7 @@ public class FeatureViewAccess {
                     item.setStats(stats);
                 }
                 return item;
-            })
-            .collect(Collectors.toList());
+            }).toList();
     }
 
     public List<FeatureHistoryItem> getFeatureHistory(final String featureKey) {
@@ -97,7 +95,7 @@ public class FeatureViewAccess {
 
                 return Stream.of(item);
             })
-            .collect(Collectors.toList());
+            .toList();
     }
 
 }

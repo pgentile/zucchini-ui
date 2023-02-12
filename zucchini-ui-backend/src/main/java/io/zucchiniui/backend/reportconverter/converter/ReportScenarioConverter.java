@@ -8,9 +8,7 @@ import io.zucchiniui.backend.reportconverter.report.*;
 import io.zucchiniui.backend.scenario.domain.*;
 import io.zucchiniui.backend.shared.domain.Argument;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
-import io.zucchiniui.backend.shared.domain.Location;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -83,7 +81,7 @@ class ReportScenarioConverter {
         final List<Argument> arguments = reportStep.getMatch().getArguments().stream()
             .filter(a -> !Strings.isNullOrEmpty(a.getValue()))
             .map(reportArg -> new Argument(reportArg.getOffset(), reportArg.getValue()))
-            .collect(Collectors.toList());
+            .toList();
 
         final BasicInfo stepInfo = new BasicInfo(
             ConversionUtils.trimString(reportStep.getKeyword()),
@@ -166,18 +164,7 @@ class ReportScenarioConverter {
                 final String mimeType = reportAttachment.getMimeType();
                 return new Attachment(data, mimeType);
             })
-            .collect(Collectors.toList());
-    }
-
-    private static Location parseLocation(String rawLocation) {
-        if (StringUtils.countMatches(rawLocation, ':') == 1) {
-            final String[] locationParts = StringUtils.split(ConversionUtils.trimString(rawLocation), ':');
-            return new Location(
-                locationParts[0],
-                NumberUtils.toInt(locationParts[1])
-            );
-        }
-        return null;
+            .toList();
     }
 
 }

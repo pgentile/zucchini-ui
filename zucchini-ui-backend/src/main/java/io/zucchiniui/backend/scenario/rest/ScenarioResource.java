@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 @Component
 @Path("/scenarii")
@@ -132,7 +131,7 @@ public class ScenarioResource {
             .stream()
             .filter(someScenario -> !scenarioId.equals(someScenario.getId()))
             .filter(someScenario -> ErrorMessageGroupingUtils.isSimilar(errorMessage, someScenario.getErrorMessage()))
-            .collect(Collectors.toList());
+            .toList();
     }
 
     @GET

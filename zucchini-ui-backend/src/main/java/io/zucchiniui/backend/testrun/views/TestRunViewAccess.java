@@ -12,7 +12,6 @@ import io.zucchiniui.backend.testrun.domain.TestRunRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Component
 public class TestRunViewAccess {
@@ -47,7 +46,7 @@ public class TestRunViewAccess {
                 }
                 return item;
             })
-            .collect(Collectors.toList());
+            .toList();
     }
 
     public TestRunScenarioDiff getScenarioDiff(final String leftTestRunId, final String rightTestRunId) {
@@ -61,13 +60,13 @@ public class TestRunViewAccess {
         final List<ScenarioListItemView> newScenarii = newScenarioFeatureKeys.stream()
             .map(rightScenarii::get)
             .sorted(Comparator.comparing(item -> item.getInfo().getName()))
-            .collect(Collectors.toList());
+            .toList();
 
         final Set<String> deletedScenarioFeatureKeys = Sets.difference(leftScenarii.keySet(), rightScenarii.keySet());
         final List<ScenarioListItemView> deletedScenarii = deletedScenarioFeatureKeys.stream()
             .map(leftScenarii::get)
             .sorted(Comparator.comparing(item -> item.getInfo().getName()))
-            .collect(Collectors.toList());
+            .toList();
 
         final Set<String> commonFeatureKeys = Sets.intersection(leftScenarii.keySet(), rightScenarii.keySet());
 
@@ -84,7 +83,7 @@ public class TestRunViewAccess {
             })
             .filter(Objects::nonNull)
             .sorted(Comparator.comparing(d -> d.getLeft().getInfo().getName()))
-            .collect(Collectors.toList());
+            .toList();
 
         final TestRunScenarioDiff diff = new TestRunScenarioDiff();
         diff.setLeftTestRun(leftTestRun);

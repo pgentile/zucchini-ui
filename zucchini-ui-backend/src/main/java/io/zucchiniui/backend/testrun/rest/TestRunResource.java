@@ -24,7 +24,6 @@ import java.net.URI;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 @Path("/testRuns")
@@ -142,7 +141,7 @@ public class TestRunResource {
 
         return requestLabels.stream()
             .map(requestLabel -> new Label(requestLabel.getName(), requestLabel.getValue(), requestLabel.getUrl()))
-            .collect(Collectors.toList());
+            .toList();
     }
 
 }

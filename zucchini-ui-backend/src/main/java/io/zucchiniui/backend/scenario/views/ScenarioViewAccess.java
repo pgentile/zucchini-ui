@@ -10,18 +10,10 @@ import io.zucchiniui.backend.support.ddd.morphia.MorphiaRawQuery;
 import io.zucchiniui.backend.support.ddd.morphia.MorphiaUtils;
 import io.zucchiniui.backend.testrun.domain.TestRunQuery;
 import io.zucchiniui.backend.testrun.domain.TestRunRepository;
-import xyz.morphia.query.Query;
 import org.springframework.stereotype.Component;
+import xyz.morphia.query.Query;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -63,7 +55,7 @@ public class ScenarioViewAccess {
 
         return MorphiaUtils.streamQuery(query)
             .map(scenarioToListItemViewMapper::map)
-            .collect(Collectors.toList());
+            .toList();
     }
 
     public Map<String, ScenarioListItemView> getScenarioListItemsGroupedByScenarioKey(final Consumer<ScenarioQuery> preparator) {
@@ -100,7 +92,7 @@ public class ScenarioViewAccess {
         return groupedFailures
             .stream()
             .sorted(Comparator.comparing((GroupedFailuresListItemView grp) -> grp.getFailedScenarii().size()).reversed())
-            .collect(Collectors.toList());
+            .toList();
     }
 
     public List<FailedScenarioListItemView> getFailedScenarii(final Consumer<ScenarioQuery> preparator) {
@@ -109,7 +101,7 @@ public class ScenarioViewAccess {
         final Query<Scenario> query = scenarioDAO.prepareTypedQuery(fullPreparator);
         return MorphiaUtils.streamQuery(query)
             .map(failedScenarioToListItemViewMapper::map)
-            .collect(Collectors.toList());
+            .toList();
     }
 
     public List<ScenarioHistoryItemView> getScenarioHistory(final String scenarioKey) {
@@ -128,7 +120,7 @@ public class ScenarioViewAccess {
                 item.setTestRun(testRun);
                 return Stream.of(item);
             })
-            .collect(Collectors.toList());
+            .toList();
     }
 
     public ScenarioHistoryItemView getLastScenariiTested(final Consumer<ScenarioQuery> preparator) {
@@ -192,7 +184,7 @@ public class ScenarioViewAccess {
         return statsByTag.entrySet().stream()
             .map(entry -> new ScenarioTagStats(entry.getKey(), entry.getValue()))
             .sorted(Comparator.comparing(ScenarioTagStats::getTag))
-            .collect(Collectors.toList());
+            .toList();
     }
 
     public Set<String> getFeatureIdsForTags(final TagSelection tagSelection) {
@@ -233,7 +225,7 @@ public class ScenarioViewAccess {
         return groupedSteps
             .stream()
             .sorted(Comparator.comparing((GroupedStepsListItemView grp) -> grp.getOccurrences().size()).reversed())
-            .collect(Collectors.toList());
+            .toList();
     }
 
 }

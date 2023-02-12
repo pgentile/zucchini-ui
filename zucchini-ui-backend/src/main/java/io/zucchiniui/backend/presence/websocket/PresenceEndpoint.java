@@ -10,12 +10,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import javax.websocket.CloseReason;
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
+import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.Collection;
@@ -126,7 +121,7 @@ public class PresenceEndpoint {
             .filter(someSession -> reference.equals(someSession.getUserProperties().get(REFERENCE_USER_PROP)))
             .filter(Session::isOpen)
             .filter(sessionFilter)
-            .collect(Collectors.toList());
+            .toList();
     }
 
     private List<Session> findSessionsWithSameReference() {
