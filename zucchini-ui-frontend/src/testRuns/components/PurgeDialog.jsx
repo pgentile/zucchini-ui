@@ -55,7 +55,7 @@ export default function PurgeDialog({ show, currentSelectedType, purgeDelayInDay
     );
   });
 
-  let aboutChange = "";
+  let aboutChange;
   const selectedTestRunCount = selectedTestRunIds.length;
   if (selectedTestRunCount > 0) {
     aboutChange = `${selectedTestRunCount} tir(s) à purger`;

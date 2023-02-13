@@ -5,7 +5,7 @@ import { useId } from "react";
 export default function FilterCheckboxes({ labels, filters, onFilterChange }) {
   const idPrefix = useId();
 
-  const checkboxes = Object.entries(labels).map(([name, label]) => {
+  return Object.entries(labels).map(([name, label]) => {
     const checked = filters[name];
 
     const handleFilterChange = (event) => {
@@ -26,8 +26,6 @@ export default function FilterCheckboxes({ labels, filters, onFilterChange }) {
       />
     );
   });
-
-  return checkboxes;
 }
 
 FilterCheckboxes.propTypes = {
