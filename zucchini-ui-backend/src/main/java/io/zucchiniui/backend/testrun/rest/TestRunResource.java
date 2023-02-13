@@ -140,7 +140,7 @@ public class TestRunResource {
         }
 
         return requestLabels.stream()
-            .map(requestLabel -> new Label(requestLabel.getName(), requestLabel.getValue(), requestLabel.getUrl()))
+            .map(requestLabel -> new Label(requestLabel.name(), requestLabel.value(), requestLabel.url()))
             .toList();
     }
 

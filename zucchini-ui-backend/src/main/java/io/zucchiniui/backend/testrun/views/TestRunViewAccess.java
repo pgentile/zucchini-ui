@@ -82,7 +82,7 @@ public class TestRunViewAccess {
                 return null;
             })
             .filter(Objects::nonNull)
-            .sorted(Comparator.comparing(d -> d.getLeft().getInfo().getName()))
+            .sorted(Comparator.comparing(d -> d.left().getInfo().getName()))
             .toList();
 
         final TestRunScenarioDiff diff = new TestRunScenarioDiff();

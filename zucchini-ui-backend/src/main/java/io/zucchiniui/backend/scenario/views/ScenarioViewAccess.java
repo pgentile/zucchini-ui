@@ -183,7 +183,7 @@ public class ScenarioViewAccess {
 
         return statsByTag.entrySet().stream()
             .map(entry -> new ScenarioTagStats(entry.getKey(), entry.getValue()))
-            .sorted(Comparator.comparing(ScenarioTagStats::getTag))
+            .sorted(Comparator.comparing(ScenarioTagStats::tag))
             .toList();
     }
 

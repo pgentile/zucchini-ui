@@ -38,7 +38,7 @@ public class CommentTest {
     }
 
     @Test
-    public void should_set_description() throws Exception {
+    public void should_set_description() {
         // given
         final String newContent = "newContent";
 

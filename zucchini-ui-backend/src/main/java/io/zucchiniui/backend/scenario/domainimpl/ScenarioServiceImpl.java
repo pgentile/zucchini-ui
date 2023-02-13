@@ -26,11 +26,11 @@ class ScenarioServiceImpl implements ScenarioService {
     @Override
     public void updateScenario(final String scenarioId, final UpdateScenarioParams params) {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
-        params.getStatus().ifPresent(scenario::setStatus);
-        params.isReviewed().ifPresent(scenario::setReviewed);
+        params.status().ifPresent(scenario::setStatus);
+        params.reviewed().ifPresent(scenario::setReviewed);
         scenarioRepository.save(scenario);
 
-        if (params.getStatus().isPresent()) {
+        if (params.status().isPresent()) {
             featureService.updateStatusFromScenarii(scenario.getFeatureId());
         }
     }

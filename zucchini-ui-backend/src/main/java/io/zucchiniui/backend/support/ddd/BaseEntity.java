@@ -24,7 +24,7 @@ public abstract class BaseEntity<I> {
             return false;
         }
 
-        final BaseEntity other = (BaseEntity) obj;
+        final BaseEntity<?> other = (BaseEntity<?>) obj;
         return Objects.equals(getEntityId(), other.getEntityId());
     }
 

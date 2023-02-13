@@ -86,7 +86,7 @@ class ReportConverterServiceImpl implements ReportConverterService {
         final ConversionResult conversionResult = reportConverter.convert(testRunId, group, reportFeature);
 
         if (dryRun) {
-            conversionResult.getScenarii().forEach(s -> {
+            conversionResult.scenarii().forEach(s -> {
                 s.doIgnoringChanges(ignored -> {
                     s.setStatus(ScenarioStatus.NOT_RUN);
                 });
@@ -94,12 +94,12 @@ class ReportConverterServiceImpl implements ReportConverterService {
         }
 
         // If feature has been merged to an existing feature, re-link scenarii to this existing feature
-        final Feature feature = featureService.tryToMergeWithExistingFeature(conversionResult.getFeature());
-        if (!conversionResult.getFeature().equals(feature)) {
-            conversionResult.getScenarii().forEach(s -> s.setFeatureId(feature.getId()));
+        final Feature feature = featureService.tryToMergeWithExistingFeature(conversionResult.feature());
+        if (!conversionResult.feature().equals(feature)) {
+            conversionResult.scenarii().forEach(s -> s.setFeatureId(feature.getId()));
         }
 
-        saveScenariiIfNeeded(conversionResult.getScenarii(), onlyNewScenarii, mergeOnlyNewPassedScenarii);
+        saveScenariiIfNeeded(conversionResult.scenarii(), onlyNewScenarii, mergeOnlyNewPassedScenarii);
 
         featureService.calculateStatusFromScenarii(feature);
         featureRepository.save(feature);

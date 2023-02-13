@@ -1,7 +1,5 @@
 package io.zucchiniui.backend.testrun.views;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.zucchiniui.backend.scenario.views.ScenarioListItemView;
 import io.zucchiniui.backend.testrun.domain.TestRun;
 
@@ -10,25 +8,7 @@ import java.util.List;
 
 public class TestRunScenarioDiff {
 
-    public static class ScenarioDiff {
-
-        private final ScenarioListItemView left;
-
-        private final ScenarioListItemView right;
-
-        @JsonCreator
-        public ScenarioDiff(@JsonProperty("left") final ScenarioListItemView left, @JsonProperty("right") final ScenarioListItemView right) {
-            this.left = left;
-            this.right = right;
-        }
-
-        public ScenarioListItemView getLeft() {
-            return left;
-        }
-
-        public ScenarioListItemView getRight() {
-            return right;
-        }
+    public record ScenarioDiff(ScenarioListItemView left, ScenarioListItemView right) {
 
     }
 
