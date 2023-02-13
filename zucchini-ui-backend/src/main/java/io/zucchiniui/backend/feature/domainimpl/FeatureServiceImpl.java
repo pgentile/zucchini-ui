@@ -1,6 +1,7 @@
 package io.zucchiniui.backend.feature.domainimpl;
 
 import io.zucchiniui.backend.feature.domain.Feature;
+import io.zucchiniui.backend.feature.domain.FeatureQuery;
 import io.zucchiniui.backend.feature.domain.FeatureRepository;
 import io.zucchiniui.backend.feature.domain.FeatureService;
 import io.zucchiniui.backend.scenario.domain.ScenarioRepository;
@@ -47,7 +48,7 @@ class FeatureServiceImpl implements FeatureService {
     @Override
     public void deleteByTestRunId(final String testRunId) {
         scenarioRepository.query(q -> q.withTestRunId(testRunId)).delete();
-        featureRepository.query(q -> q.withTestRunId(testRunId)).delete();
+        featureRepository.query(new FeatureQuery().withTestRunId(testRunId)).delete();
     }
 
     @Override
@@ -60,7 +61,7 @@ class FeatureServiceImpl implements FeatureService {
 
     @Override
     public Feature tryToMergeWithExistingFeature(final Feature newFeature) {
-        return featureRepository.query(q -> q.withTestRunId(newFeature.getTestRunId()).withFeatureKey(newFeature.getFeatureKey()))
+        return featureRepository.query(new FeatureQuery().withTestRunId(newFeature.getTestRunId()).withFeatureKey(newFeature.getFeatureKey()))
             .tryToFindOne()
             .map(existingFeature -> {
                 LOGGER.info("Merged new feature with key {} with existing feature {}", newFeature.getFeatureKey(), existingFeature);

@@ -48,14 +48,12 @@ public class FeatureResource {
         @QueryParam("excludedTag") final Set<String> excludedTag,
         @QueryParam("withStats") @DefaultValue("false") final boolean withStats
     ) {
-        final Consumer<FeatureQuery> query = q -> {
-            if (!Strings.isNullOrEmpty(testRunId)) {
-                q.withTestRunId(testRunId);
-            }
-            q.orderByGroupAndName();
-        };
+        FeatureQuery q = new FeatureQuery().sortByGroupAndName();
+        if (!Strings.isNullOrEmpty(testRunId)) {
+            q = q.withTestRunId(testRunId);
+        }
         final TagSelection tagSelection = new TagSelection(tags, excludedTag);
-        return featureViewAccess.getFeatureListItems(query, tagSelection, withStats);
+        return featureViewAccess.getFeatureListItems(q, tagSelection, withStats);
     }
 
     @GET
