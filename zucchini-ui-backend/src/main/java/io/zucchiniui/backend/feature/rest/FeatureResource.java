@@ -17,7 +17,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Consumer;
 
 @Component
 @Path("/features")

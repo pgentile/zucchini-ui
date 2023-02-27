@@ -3,6 +3,7 @@ package io.zucchiniui.backend.feature.views;
 import io.zucchiniui.backend.feature.dao.FeatureDAO;
 import io.zucchiniui.backend.feature.domain.Feature;
 import io.zucchiniui.backend.feature.domain.FeatureQuery;
+import io.zucchiniui.backend.scenario.dao.ScenarioQuery;
 import io.zucchiniui.backend.scenario.views.ScenarioStats;
 import io.zucchiniui.backend.scenario.views.ScenarioViewAccess;
 import io.zucchiniui.backend.shared.domain.TagSelection;
@@ -14,7 +15,6 @@ import xyz.morphia.query.Query;
 
 import java.util.List;
 import java.util.Set;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 @Component
@@ -67,7 +67,8 @@ public class FeatureViewAccess {
                 final FeatureListItem item = featureToListItemMapper.map(feature);
 
                 if (withStats || tagSelection.isActive()) {
-                    final ScenarioStats stats = scenarioViewAccess.getStats(sq -> sq.withFeatureId(feature.getId()).withSelectedTags(tagSelection));
+                    final var sq = new ScenarioQuery().withFeatureId(feature.getId()).withSelectedTags(tagSelection);
+                    final ScenarioStats stats = scenarioViewAccess.getStats(sq);
                     item.setStatus(stats.computeFeatureStatus());
                     item.setStats(stats);
                 }
@@ -89,7 +90,8 @@ public class FeatureViewAccess {
                     return Stream.empty();
                 }
 
-                final ScenarioStats stats = scenarioViewAccess.getStats(sq -> sq.withFeatureId(feature.getId()));
+                final var sq = new ScenarioQuery().withFeatureId(feature.getId());
+                final ScenarioStats stats = scenarioViewAccess.getStats(sq);
 
                 final FeatureHistoryItem item = featureToHistoryItemMapper.map(feature);
                 item.setTestRun(testRun);

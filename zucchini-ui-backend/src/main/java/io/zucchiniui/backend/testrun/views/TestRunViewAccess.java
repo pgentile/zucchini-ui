@@ -1,6 +1,7 @@
 package io.zucchiniui.backend.testrun.views;
 
 import com.google.common.collect.Sets;
+import io.zucchiniui.backend.scenario.dao.ScenarioQuery;
 import io.zucchiniui.backend.scenario.views.ScenarioListItemView;
 import io.zucchiniui.backend.scenario.views.ScenarioStats;
 import io.zucchiniui.backend.scenario.views.ScenarioViewAccess;
@@ -41,7 +42,8 @@ public class TestRunViewAccess {
             .map(testRun -> {
                 final TestRunListItem item = testRunToListItemMapper.map(testRun);
                 if (withStats) {
-                    final ScenarioStats stats = scenarioViewAccess.getStats(q -> q.withTestRunId(item.getId()));
+                    final var q = new ScenarioQuery().withTestRunId(item.getId());
+                    final ScenarioStats stats = scenarioViewAccess.getStats(q);
                     item.setStats(stats);
                 }
                 return item;
@@ -53,8 +55,10 @@ public class TestRunViewAccess {
         final TestRun leftTestRun = testRunRepository.getById(leftTestRunId);
         final TestRun rightTestRun = testRunRepository.getById(rightTestRunId);
 
-        final Map<String, ScenarioListItemView> leftScenarii = scenarioViewAccess.getScenarioListItemsGroupedByScenarioKey(q -> q.withTestRunId(leftTestRunId));
-        final Map<String, ScenarioListItemView> rightScenarii = scenarioViewAccess.getScenarioListItemsGroupedByScenarioKey(q -> q.withTestRunId(rightTestRunId));
+        final var leftQuery = new ScenarioQuery().withTestRunId(leftTestRunId);
+        final var rightQuery = new ScenarioQuery().withTestRunId(rightTestRunId);
+        final Map<String, ScenarioListItemView> leftScenarii = scenarioViewAccess.getScenarioListItemsGroupedByScenarioKey(leftQuery);
+        final Map<String, ScenarioListItemView> rightScenarii = scenarioViewAccess.getScenarioListItemsGroupedByScenarioKey(rightQuery);
 
         final Set<String> newScenarioFeatureKeys = Sets.difference(rightScenarii.keySet(), leftScenarii.keySet());
         final List<ScenarioListItemView> newScenarii = newScenarioFeatureKeys.stream()
