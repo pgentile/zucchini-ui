@@ -1,7 +1,6 @@
 package io.zucchiniui.backend.scenario.views;
 
 import io.zucchiniui.backend.scenario.domain.Step;
-import io.zucchiniui.backend.shared.domain.Location;
 
 import java.util.Set;
 

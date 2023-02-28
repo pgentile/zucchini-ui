@@ -1,6 +1,7 @@
 package io.zucchiniui.backend.scenario.domainimpl;
 
 import io.zucchiniui.backend.feature.domain.FeatureService;
+import io.zucchiniui.backend.scenario.dao.ScenarioQuery;
 import io.zucchiniui.backend.scenario.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,11 +27,11 @@ class ScenarioServiceImpl implements ScenarioService {
     @Override
     public void updateScenario(final String scenarioId, final UpdateScenarioParams params) {
         final Scenario scenario = scenarioRepository.getById(scenarioId);
-        params.getStatus().ifPresent(scenario::setStatus);
-        params.isReviewed().ifPresent(scenario::setReviewed);
+        params.status().ifPresent(scenario::setStatus);
+        params.reviewed().ifPresent(scenario::setReviewed);
         scenarioRepository.save(scenario);
 
-        if (params.getStatus().isPresent()) {
+        if (params.status().isPresent()) {
             featureService.updateStatusFromScenarii(scenario.getFeatureId());
         }
     }
@@ -45,7 +46,10 @@ class ScenarioServiceImpl implements ScenarioService {
 
     @Override
     public Scenario tryToMergeWithExistingScenario(final Scenario newScenario, boolean mergeOnlyNewPassedScenarii) {
-        return scenarioRepository.query(q -> q.withFeatureId(newScenario.getFeatureId()).withScenarioKey(newScenario.getScenarioKey()))
+        final var q = new ScenarioQuery()
+            .withFeatureId(newScenario.getFeatureId())
+            .withScenarioKey(newScenario.getScenarioKey());
+        return scenarioRepository.query(q)
             .tryToFindOne()
             .map(existingScenario -> {
                 LOGGER.info("Merging new scenario {} with existing feature {}, merge only passed is {}", newScenario, existingScenario, mergeOnlyNewPassedScenarii);

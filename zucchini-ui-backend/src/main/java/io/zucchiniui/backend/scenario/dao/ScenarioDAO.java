@@ -1,26 +1,61 @@
 package io.zucchiniui.backend.scenario.dao;
 
 import io.zucchiniui.backend.scenario.domain.Scenario;
-import io.zucchiniui.backend.scenario.domain.ScenarioQuery;
-import io.zucchiniui.backend.support.ddd.morphia.MorphiaTypedQueryDAO;
-import xyz.morphia.Datastore;
-import xyz.morphia.query.Query;
+import io.zucchiniui.backend.scenario.domain.ScenarioStatus;
 import org.springframework.stereotype.Component;
-
-import java.util.function.Consumer;
+import xyz.morphia.Datastore;
+import xyz.morphia.dao.BasicDAO;
+import xyz.morphia.query.Query;
 
 @Component
-public class ScenarioDAO extends MorphiaTypedQueryDAO<Scenario, String, ScenarioQuery> {
+public class ScenarioDAO extends BasicDAO<Scenario, String> {
 
     public ScenarioDAO(final Datastore ds) {
         super(ds);
     }
 
-    @Override
-    public Query<Scenario> prepareTypedQuery(final Consumer<? super ScenarioQuery> preparator) {
-        final ScenarioQueryImpl typedQuery = new ScenarioQueryImpl(createQuery());
-        preparator.accept(typedQuery);
-        return typedQuery.morphiaQuery();
+    public Query<Scenario> query(ScenarioQuery q) {
+        Query<Scenario> query = createQuery();
+
+        if (q.featureId() != null) {
+            query = query.field("featureId").equal(q.featureId());
+        }
+
+        if (q.scenarioKey() != null) {
+            query = query.field("scenarioKey").equal(q.scenarioKey());
+        }
+
+        if (q.testRunId() != null) {
+            query = query.field("testRunId").equal(q.testRunId());
+        }
+
+        if (q.search() != null) {
+            query = query.search(q.search());
+        }
+
+        if (q.name() != null) {
+            query = query.field("info.name").equal(q.name());
+        }
+
+        if (q.orderedByName()) {
+            query = query.order("info.name");
+        }
+
+        if (q.tagSelection() != null && q.tagSelection().isActive()) {
+            if (!q.tagSelection().getIncludedTags().isEmpty()) {
+                query = query.field("allTags").in(q.tagSelection().getIncludedTags());
+            }
+            if (!q.tagSelection().getExcludedTags().isEmpty()) {
+                query = query.field("allTags").notIn(q.tagSelection().getExcludedTags());
+            }
+        }
+
+        if (q.withErrorMessage()) {
+            query = query.field("status").equal(ScenarioStatus.FAILED);
+            query = query.field("steps.errorMessage").exists();
+        }
+
+        return query;
     }
 
 }

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class Background {
 
@@ -43,7 +42,7 @@ public class Background {
 
         newBackground.steps = steps.stream()
             .map(Step::copy)
-            .collect(Collectors.toList());
+            .toList();
 
         return newBackground;
     }

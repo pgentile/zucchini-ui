@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BasicInfoPropertiesTest {
 
     @Test
-    void infos_with_same_values_should_be_equal() throws Exception {
+    void infos_with_same_values_should_be_equal() {
         final String keyword = "Soit";
         final String name = "un superbe test";
 

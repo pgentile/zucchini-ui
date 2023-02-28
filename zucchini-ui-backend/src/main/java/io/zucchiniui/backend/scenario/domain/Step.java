@@ -2,7 +2,6 @@ package io.zucchiniui.backend.scenario.domain;
 
 import com.google.common.base.MoreObjects;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
-import io.zucchiniui.backend.shared.domain.Location;
 
 import java.util.ArrayList;
 import java.util.List;

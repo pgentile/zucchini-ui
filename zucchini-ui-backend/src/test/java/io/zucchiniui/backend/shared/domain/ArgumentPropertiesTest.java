@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ArgumentPropertiesTest {
 
     @Test
-    void arguments_with_same_values_should_be_equal() throws Exception {
+    void arguments_with_same_values_should_be_equal() {
         final int offset = 5;
         final String value = "value";
         final Argument leftArgument = new Argument(offset, value);
@@ -18,7 +18,7 @@ public class ArgumentPropertiesTest {
     }
 
     @Test
-    void arguments_with_different_offsets_should_not_be_equal() throws Exception {
+    void arguments_with_different_offsets_should_not_be_equal() {
         final int leftOffset = 5;
         final int rightOffset = 10;
 
@@ -30,7 +30,7 @@ public class ArgumentPropertiesTest {
     }
 
     @Test
-    public void arguments_with_different_values_should_not_be_equal() throws Exception {
+    public void arguments_with_different_values_should_not_be_equal() {
         final String leftValue = "left";
         final String rightValue = "right";
 

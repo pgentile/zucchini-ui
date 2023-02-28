@@ -1,11 +1,7 @@
 package io.zucchiniui.backend.reportconverter.converter;
 
 import io.zucchiniui.backend.feature.domain.Feature;
-import io.zucchiniui.backend.reportconverter.report.ReportBackground;
-import io.zucchiniui.backend.reportconverter.report.ReportFeature;
-import io.zucchiniui.backend.reportconverter.report.ReportFeatureElement;
-import io.zucchiniui.backend.reportconverter.report.ReportScenario;
-import io.zucchiniui.backend.reportconverter.report.ReportScenarioOutline;
+import io.zucchiniui.backend.reportconverter.report.*;
 import io.zucchiniui.backend.scenario.domain.BackgroundBuilder;
 import io.zucchiniui.backend.scenario.domain.Scenario;
 import io.zucchiniui.backend.scenario.domain.ScenarioBuilder;
@@ -17,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 
 @Component
@@ -81,7 +76,7 @@ public class ReportConverter {
 
         return scenarioBuilders.stream()
             .map(ScenarioBuilder::build)
-            .collect(Collectors.toList());
+            .toList();
     }
 
 }

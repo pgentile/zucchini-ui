@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AroundActionTest {
 
     @Test
-    void should_create_around_action_without_error_message_using_builder() throws Exception {
+    void should_create_around_action_without_error_message_using_builder() {
         // given
         final StepStatus step = StepStatus.PASSED;
 
@@ -23,7 +23,7 @@ public class AroundActionTest {
     }
 
     @Test
-    void should_create_around_action_with_error_message_using_builder() throws Exception {
+    void should_create_around_action_with_error_message_using_builder() {
         // given
         final String errorMessage = "error";
         final StepStatus step = StepStatus.FAILED;
@@ -41,7 +41,7 @@ public class AroundActionTest {
     }
 
     @Test
-    void should_change_status_to_passed_on_failed_around_action() throws Exception {
+    void should_change_status_to_passed_on_failed_around_action() {
         // given
 
         final AroundAction aroundAction = new AroundActionBuilder()
@@ -60,7 +60,7 @@ public class AroundActionTest {
     }
 
     @Test
-    void should_change_status_to_failed_on_passed_around_action() throws Exception {
+    void should_change_status_to_failed_on_passed_around_action() {
         // given
 
         final AroundAction aroundAction = new AroundActionBuilder()
@@ -78,7 +78,7 @@ public class AroundActionTest {
     }
 
     @Test
-    void should_copy_around_action() throws Exception {
+    void should_copy_around_action() {
         // given
 
         final AroundAction aroundAction = new AroundActionBuilder()

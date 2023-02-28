@@ -2,14 +2,32 @@ package io.zucchiniui.backend.feature.domain;
 
 import java.util.Collection;
 
-public interface FeatureQuery {
+public record FeatureQuery(
+    String featureKey,
+    String testRunId,
+    Collection<String> ids,
+    boolean orderByGroupAndName
+) {
 
-    FeatureQuery withFeatureKey(String featureKey);
+    public FeatureQuery() {
+        this(null, null, null, false);
+    }
 
-    FeatureQuery withTestRunId(String testRunId);
+    public FeatureQuery withFeatureKey(String featureKey) {
+        return new FeatureQuery(featureKey, testRunId, ids, orderByGroupAndName);
+    }
 
-    FeatureQuery withIdIn(Collection<String> ids);
+    public FeatureQuery withTestRunId(String testRunId) {
+        return new FeatureQuery(featureKey, testRunId, ids, orderByGroupAndName);
 
-    FeatureQuery orderByGroupAndName();
+    }
+
+    public FeatureQuery withIdIn(Collection<String> ids) {
+        return new FeatureQuery(featureKey, testRunId, ids, orderByGroupAndName);
+    }
+
+    public FeatureQuery sortByGroupAndName() {
+        return new FeatureQuery(featureKey, testRunId, ids, true);
+    }
 
 }

@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class StepTest {
 
     @Test
-    void should_change_status() throws Exception {
+    void should_change_status() {
         // given
         final Step step = createStep();
 
@@ -23,7 +23,7 @@ public class StepTest {
     }
 
     @Test
-    void should_copy_step() throws Exception {
+    void should_copy_step() {
         // given
         final Step step = createStep();
 

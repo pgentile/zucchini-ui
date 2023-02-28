@@ -1,8 +1,8 @@
 package io.zucchiniui.backend.scenario.views;
 
 import io.zucchiniui.backend.scenario.dao.ScenarioDAO;
+import io.zucchiniui.backend.scenario.dao.ScenarioQuery;
 import io.zucchiniui.backend.scenario.domain.Scenario;
-import io.zucchiniui.backend.scenario.domain.ScenarioQuery;
 import io.zucchiniui.backend.scenario.domain.ScenarioStatus;
 import io.zucchiniui.backend.scenario.domain.Step;
 import io.zucchiniui.backend.shared.domain.TagSelection;
@@ -10,19 +10,10 @@ import io.zucchiniui.backend.support.ddd.morphia.MorphiaRawQuery;
 import io.zucchiniui.backend.support.ddd.morphia.MorphiaUtils;
 import io.zucchiniui.backend.testrun.domain.TestRunQuery;
 import io.zucchiniui.backend.testrun.domain.TestRunRepository;
-import xyz.morphia.query.Query;
 import org.springframework.stereotype.Component;
+import xyz.morphia.query.Query;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.function.Consumer;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -53,8 +44,8 @@ public class ScenarioViewAccess {
         this.scenarioToHistoryItemViewMapper = scenarioToHistoryItemViewMapper;
     }
 
-    public List<ScenarioListItemView> getScenarioListItems(final Consumer<ScenarioQuery> preparator) {
-        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator)
+    public List<ScenarioListItemView> getScenarioListItems(final ScenarioQuery q) {
+        final Query<Scenario> query = scenarioDAO.query(q)
             .project("info", true)
             .project("status", true)
             .project("testRunId", true)
@@ -63,11 +54,11 @@ public class ScenarioViewAccess {
 
         return MorphiaUtils.streamQuery(query)
             .map(scenarioToListItemViewMapper::map)
-            .collect(Collectors.toList());
+            .toList();
     }
 
-    public Map<String, ScenarioListItemView> getScenarioListItemsGroupedByScenarioKey(final Consumer<ScenarioQuery> preparator) {
-        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator)
+    public Map<String, ScenarioListItemView> getScenarioListItemsGroupedByScenarioKey(final ScenarioQuery q) {
+        final Query<Scenario> query = scenarioDAO.query(q)
             .project("info", true)
             .project("status", true)
             .project("testRunId", true)
@@ -78,9 +69,9 @@ public class ScenarioViewAccess {
         return MorphiaUtils.streamQuery(query).collect(Collectors.toMap(Scenario::getScenarioKey, scenarioToListItemViewMapper::map));
     }
 
-    public List<GroupedFailuresListItemView> getGroupedFailedScenarii(final Consumer<ScenarioQuery> preparator) {
+    public List<GroupedFailuresListItemView> getGroupedFailedScenarii(final ScenarioQuery q) {
         List<GroupedFailuresListItemView> groupedFailures = new ArrayList<>();
-        getFailedScenarii(preparator).forEach(scenario -> {
+        getFailedScenarii(q).forEach(scenario -> {
             boolean matchFound = false;
             for (GroupedFailuresListItemView current : groupedFailures) {
                 if (ErrorMessageGroupingUtils.isSimilar(current.getErrorMessage(), scenario.getErrorMessage())) {
@@ -100,23 +91,24 @@ public class ScenarioViewAccess {
         return groupedFailures
             .stream()
             .sorted(Comparator.comparing((GroupedFailuresListItemView grp) -> grp.getFailedScenarii().size()).reversed())
-            .collect(Collectors.toList());
+            .toList();
     }
 
-    public List<FailedScenarioListItemView> getFailedScenarii(final Consumer<ScenarioQuery> preparator) {
-        Consumer<ScenarioQuery> fullPreparator = preparator.andThen(ScenarioQuery::havingErrorMessage);
-
-        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(fullPreparator);
+    public List<FailedScenarioListItemView> getFailedScenarii(final ScenarioQuery q) {
+        final Query<Scenario> query = scenarioDAO.query(q.havingErrorMessage());
         return MorphiaUtils.streamQuery(query)
             .map(failedScenarioToListItemViewMapper::map)
-            .collect(Collectors.toList());
+            .toList();
     }
 
     public List<ScenarioHistoryItemView> getScenarioHistory(final String scenarioKey) {
-        return testRunRepository.query(TestRunQuery::orderByLatestFirst)
+        return testRunRepository.query(new TestRunQuery().sortByLatestFirst())
             .stream()
             .flatMap(testRun -> {
-                final Scenario scenario = scenarioDAO.prepareTypedQuery(q -> q.withTestRunId(testRun.getId()).withScenarioKey(scenarioKey))
+                final ScenarioQuery q = new ScenarioQuery()
+                    .withTestRunId(testRun.getId())
+                    .withScenarioKey(scenarioKey);
+                final Scenario scenario = scenarioDAO.query(q)
                     .project("status", true)
                     .get();
 
@@ -128,11 +120,11 @@ public class ScenarioViewAccess {
                 item.setTestRun(testRun);
                 return Stream.of(item);
             })
-            .collect(Collectors.toList());
+            .toList();
     }
 
-    public ScenarioHistoryItemView getLastScenariiTested(final Consumer<ScenarioQuery> preparator) {
-        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator);
+    public ScenarioHistoryItemView getLastScenariiTested(final ScenarioQuery q) {
+        final Query<Scenario> query = scenarioDAO.query(q);
         final Scenario scenario = MorphiaUtils.streamQuery(query).findFirst().orElse(null);
         if(scenario == null) {
             return new ScenarioHistoryItemView(); // empty object
@@ -141,10 +133,10 @@ public class ScenarioViewAccess {
         return scenariosHistory.get(0);
     }
 
-    public ScenarioStats getStats(final Consumer<ScenarioQuery> preparator) {
+    public ScenarioStats getStats(final ScenarioQuery q) {
         final ScenarioStats stats = new ScenarioStats();
 
-        new MorphiaRawQuery(scenarioDAO.prepareTypedQuery(preparator))
+        new MorphiaRawQuery(scenarioDAO.query(q))
             .includeFields("status", "reviewed")
             .stream()
             .forEach(dbObj -> {
@@ -156,7 +148,7 @@ public class ScenarioViewAccess {
         return stats;
     }
 
-    public List<ScenarioTagStats> getTagStats(final Consumer<ScenarioQuery> preparator, final Collection<String> tags) {
+    public List<ScenarioTagStats> getTagStats(final ScenarioQuery q, final Collection<String> tags) {
         // Filter tags if requested
         final Predicate<String> tagFilter;
         if (tags.isEmpty()) {
@@ -168,7 +160,7 @@ public class ScenarioViewAccess {
         final Map<String, ScenarioStats> statsByTag = new HashMap<>();
 
         // Raw Mongo query for performance, to bypass Morphia object conversion
-        new MorphiaRawQuery(scenarioDAO.prepareTypedQuery(preparator))
+        new MorphiaRawQuery(scenarioDAO.query(q))
             .includeFields("status", "reviewed", "allTags")
             .stream()
             .forEach(dbObj -> {
@@ -176,7 +168,7 @@ public class ScenarioViewAccess {
                 final boolean reviewed = (Boolean) dbObj.get("reviewed");
 
                 @SuppressWarnings("unchecked")
-                List<String> scenarioTags = (List) dbObj.get("allTags");
+                List<String> scenarioTags = (List<String>) dbObj.get("allTags");
                 if (scenarioTags == null) {
                     scenarioTags = Collections.emptyList();
                 }
@@ -191,25 +183,25 @@ public class ScenarioViewAccess {
 
         return statsByTag.entrySet().stream()
             .map(entry -> new ScenarioTagStats(entry.getKey(), entry.getValue()))
-            .sorted(Comparator.comparing(ScenarioTagStats::getTag))
-            .collect(Collectors.toList());
+            .sorted(Comparator.comparing(ScenarioTagStats::tag))
+            .toList();
     }
 
     public Set<String> getFeatureIdsForTags(final TagSelection tagSelection) {
-        return new MorphiaRawQuery(scenarioDAO.prepareTypedQuery(q -> q.withSelectedTags(tagSelection)))
+        final var q = new ScenarioQuery().withSelectedTags(tagSelection);
+        return new MorphiaRawQuery(scenarioDAO.query(q))
             .includeFields("featureId")
             .stream()
             .map(dbObj -> (String) dbObj.get("featureId"))
             .collect(Collectors.toSet());
     }
 
-    public List<GroupedStepsListItemView> getStepDefinitions(final Consumer<ScenarioQuery> preparator) {
-
-        final Query<Scenario> query = scenarioDAO.prepareTypedQuery(preparator).project("steps", true);
+    public List<GroupedStepsListItemView> getStepDefinitions(final ScenarioQuery q) {
+        final Query<Scenario> query = scenarioDAO.query(q).project("steps", true);
         List<Step> steps = MorphiaUtils.streamQuery(query)
             .flatMap(scenario -> scenario.getSteps().stream())
             .filter(step -> step.getDefinitionSource() != null)
-            .collect(Collectors.toList());
+            .toList();
 
         final List<GroupedStepsListItemView> groupedSteps = new ArrayList<>();
         steps.forEach(step -> {
@@ -233,7 +225,7 @@ public class ScenarioViewAccess {
         return groupedSteps
             .stream()
             .sorted(Comparator.comparing((GroupedStepsListItemView grp) -> grp.getOccurrences().size()).reversed())
-            .collect(Collectors.toList());
+            .toList();
     }
 
 }

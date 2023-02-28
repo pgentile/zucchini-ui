@@ -18,20 +18,10 @@ public class TypedScenarioStats {
         count++;
 
         switch (status) {
-            case NOT_RUN:
-                notRun++;
-                break;
-            case PASSED:
-                passed++;
-                break;
-            case FAILED:
-                failed++;
-                break;
-            case PENDING:
-                pending++;
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown status: " + status);
+            case NOT_RUN -> notRun++;
+            case PASSED -> passed++;
+            case FAILED -> failed++;
+            case PENDING -> pending++;
         }
     }
 

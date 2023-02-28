@@ -4,11 +4,11 @@ import io.zucchiniui.backend.scenario.domain.Scenario;
 import io.zucchiniui.backend.scenario.domain.ScenarioRepository;
 import io.zucchiniui.backend.scenario.domain.ScenarioStatus;
 import io.zucchiniui.backend.support.ddd.PreparedQuery;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
@@ -16,8 +16,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by yoga on 11/02/17.
@@ -26,20 +25,30 @@ import static org.mockito.Mockito.verify;
 public class ScenarioServiceImplTest {
 
     @Mock
-    ScenarioRepository scenarioRepository;
+    private ScenarioRepository scenarioRepository;
+
+    @Mock
+    private Scenario newScenario;
+
+    @Mock
+    private Scenario existingScenario;
+
+    @Mock
+    private PreparedQuery<Scenario> preparedQuery;
 
     @InjectMocks
     private ScenarioServiceImpl scenarioService;
 
-    @Test
-    void tryToMergeWithExistingScenario_not_mergeOnlyNewPassedScenarii() throws Exception {
-        // given
-        Scenario newScenario = Mockito.mock(Scenario.class);
-        Scenario existingScenario = Mockito.mock(Scenario.class);
-        PreparedQuery preparedQuery = Mockito.mock(PreparedQuery.class);
-        Optional optionalScenarii = Optional.of(existingScenario);
-        given(preparedQuery.tryToFindOne()).willReturn(optionalScenarii);
+    @BeforeEach
+    void prepareMocks() {
+        Optional<Scenario> optionalScenario = Optional.of(existingScenario);
+        given(preparedQuery.tryToFindOne()).willReturn(optionalScenario);
         given(scenarioRepository.query(any())).willReturn(preparedQuery);
+    }
+
+    @Test
+    void tryToMergeWithExistingScenario_not_mergeOnlyNewPassedScenarii() {
+        // given
 
         // when
         Scenario mergedScenario = scenarioService.tryToMergeWithExistingScenario(newScenario, false);
@@ -50,33 +59,21 @@ public class ScenarioServiceImplTest {
     }
 
     @Test
-    void tryToMergeWithExistingScenario_with_mergeOnlyNewPassedScenarii_and_existingScenario_passed_new_faild() throws Exception {
+    void tryToMergeWithExistingScenario_with_mergeOnlyNewPassedScenarii_and_existingScenario_passed_new_faild() {
         // given
-        Scenario newScenario = Mockito.mock(Scenario.class);
-        Scenario existingScenario = Mockito.mock(Scenario.class);
-        PreparedQuery preparedQuery = Mockito.mock(PreparedQuery.class);
-        Optional optionalScenarii = Optional.of(existingScenario);
-        given(preparedQuery.tryToFindOne()).willReturn(optionalScenarii);
-        given(scenarioRepository.query(any())).willReturn(preparedQuery);
         given(newScenario.getStatus()).willReturn(ScenarioStatus.FAILED);
 
         // when
         Scenario mergedScenario = scenarioService.tryToMergeWithExistingScenario(newScenario, true);
 
         // then
-        verify(existingScenario, times(0)).mergeWith(newScenario);
+        verify(existingScenario, never()).mergeWith(newScenario);
         assertThat(mergedScenario).isSameAs(existingScenario);
     }
 
     @Test
-    void tryToMergeWithExistingScenario_with_mergeOnlyNewPassedScenarii_and_existingScenario_faild_new_passed() throws Exception {
+    void tryToMergeWithExistingScenario_with_mergeOnlyNewPassedScenarii_and_existingScenario_faild_new_passed() {
         // given
-        Scenario newScenario = Mockito.mock(Scenario.class);
-        Scenario existingScenario = Mockito.mock(Scenario.class);
-        PreparedQuery preparedQuery = Mockito.mock(PreparedQuery.class);
-        Optional optionalScenarii = Optional.of(existingScenario);
-        given(preparedQuery.tryToFindOne()).willReturn(optionalScenarii);
-        given(scenarioRepository.query(any())).willReturn(preparedQuery);
         given(newScenario.getStatus()).willReturn(ScenarioStatus.PASSED);
         given(existingScenario.getStatus()).willReturn(ScenarioStatus.FAILED);
 
@@ -89,14 +86,8 @@ public class ScenarioServiceImplTest {
     }
 
     @Test
-    void tryToMergeWithExistingScenario_with_mergeOnlyNewPassedScenarii_and_existingScenario_passed_new_passed() throws Exception {
+    void tryToMergeWithExistingScenario_with_mergeOnlyNewPassedScenarii_and_existingScenario_passed_new_passed() {
         // given
-        Scenario newScenario = Mockito.mock(Scenario.class);
-        Scenario existingScenario = Mockito.mock(Scenario.class);
-        PreparedQuery preparedQuery = Mockito.mock(PreparedQuery.class);
-        Optional optionalScenarii = Optional.of(existingScenario);
-        given(preparedQuery.tryToFindOne()).willReturn(optionalScenarii);
-        given(scenarioRepository.query(any())).willReturn(preparedQuery);
         given(newScenario.getStatus()).willReturn(ScenarioStatus.PASSED);
         given(existingScenario.getStatus()).willReturn(ScenarioStatus.PASSED);
 
@@ -104,26 +95,21 @@ public class ScenarioServiceImplTest {
         Scenario mergedScenario = scenarioService.tryToMergeWithExistingScenario(newScenario, true);
 
         // then
-        verify(existingScenario, times(0)).mergeWith(newScenario);
+        verify(existingScenario, never()).mergeWith(newScenario);
         assertThat(mergedScenario).isSameAs(existingScenario);
     }
 
     @Test
-    void tryToMergeWithExistingScenario_with_mergeOnlyNewPassedScenarii_and_existingScenario_failed_new_failed() throws Exception {
+    void tryToMergeWithExistingScenario_with_mergeOnlyNewPassedScenarii_and_existingScenario_failed_new_failed() {
         // given
-        Scenario newScenario = Mockito.mock(Scenario.class);
-        Scenario existingScenario = Mockito.mock(Scenario.class);
-        PreparedQuery preparedQuery = Mockito.mock(PreparedQuery.class);
-        Optional optionalScenarii = Optional.of(existingScenario);
-        given(preparedQuery.tryToFindOne()).willReturn(optionalScenarii);
-        given(scenarioRepository.query(any())).willReturn(preparedQuery);
         given(newScenario.getStatus()).willReturn(ScenarioStatus.FAILED);
 
         // when
         Scenario mergedScenario = scenarioService.tryToMergeWithExistingScenario(newScenario, true);
 
         // then
-        verify(existingScenario, times(0)).mergeWith(newScenario);
+        verify(existingScenario, never()).mergeWith(newScenario);
         assertThat(mergedScenario).isSameAs(existingScenario);
     }
+
 }

@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
 import io.dropwizard.jersey.PATCH;
 import io.zucchiniui.backend.comment.rest.CommentResource;
+import io.zucchiniui.backend.scenario.dao.ScenarioQuery;
 import io.zucchiniui.backend.scenario.domain.*;
 import io.zucchiniui.backend.scenario.views.*;
 import io.zucchiniui.backend.shared.domain.ItemReference;
@@ -23,8 +24,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 @Component
 @Path("/scenarii")
@@ -54,10 +53,10 @@ public class ScenarioResource {
 
     @GET
     public List<ScenarioListItemView> getScenarii(@BeanParam final GetScenariiRequestParams requestParams) {
-        Consumer<ScenarioQuery> query = prepareQueryFromRequestParams(requestParams);
+        ScenarioQuery query = prepareQueryFromRequestParams(requestParams);
 
         if (Strings.isNullOrEmpty(requestParams.getSearch())) {
-            query = query.andThen(ScenarioQuery::orderedByName);
+            query = query.sortByName();
         }
 
         return scenarioViewAccess.getScenarioListItems(query);
@@ -66,7 +65,7 @@ public class ScenarioResource {
     @GET
     @Path("exact")
     public ScenarioHistoryItemView getLastScenariiTested(@BeanParam final GetScenariiRequestParams requestParams) {
-        final Consumer<ScenarioQuery> query = prepareQueryFromRequestParams(requestParams);
+        final ScenarioQuery query = prepareQueryFromRequestParams(requestParams);
         return scenarioViewAccess.getLastScenariiTested(query);
     }
 
@@ -77,39 +76,40 @@ public class ScenarioResource {
             throw new BadRequestException("You can't exclude tags when requesting feature tags");
         }
 
-        final Consumer<ScenarioQuery> query = prepareQueryFromRequestParams(requestParams);
+        final ScenarioQuery query = prepareQueryFromRequestParams(requestParams);
         return scenarioViewAccess.getTagStats(query, requestParams.getTags());
     }
 
     @GET
     @Path("stats")
     public ScenarioStats getStats(@BeanParam final GetScenariiRequestParams requestParams) {
-        final Consumer<ScenarioQuery> query = prepareQueryFromRequestParams(requestParams);
+        final ScenarioQuery query = prepareQueryFromRequestParams(requestParams);
         return scenarioViewAccess.getStats(query);
     }
 
     @GET
     @Path("failures")
     public List<GroupedFailuresListItemView> getGroupedFailures(@BeanParam final GetScenariiRequestParams requestParams) {
-        return scenarioViewAccess.getGroupedFailedScenarii(q -> {
-            if (!Strings.isNullOrEmpty(requestParams.getTestRunId())) {
-                q.withTestRunId(requestParams.getTestRunId());
-            }
-            if (!Strings.isNullOrEmpty(requestParams.getFeatureId())) {
-                q.withFeatureId(requestParams.getFeatureId());
-            }
-            q.havingErrorMessage();
-        });
+        var q = new ScenarioQuery().havingErrorMessage();
+        if (!Strings.isNullOrEmpty(requestParams.getTestRunId())) {
+            q = q.withTestRunId(requestParams.getTestRunId());
+        }
+        if (!Strings.isNullOrEmpty(requestParams.getFeatureId())) {
+            q = q.withFeatureId(requestParams.getFeatureId());
+        }
+
+        return scenarioViewAccess.getGroupedFailedScenarii(q);
     }
 
     @GET
     @Path("stepDefinitions")
     public List<GroupedStepsListItemView> getGroupedStepDefinitions(@QueryParam("testRunId") final String testRunId) {
-        return scenarioViewAccess.getStepDefinitions(q -> {
-            if (!Strings.isNullOrEmpty(testRunId)) {
-                q.withTestRunId(testRunId);
-            }
-        });
+        var q = new ScenarioQuery();
+        if (!Strings.isNullOrEmpty(testRunId)) {
+            q = q.withTestRunId(testRunId);
+        }
+
+        return scenarioViewAccess.getStepDefinitions(q);
     }
 
     @GET
@@ -128,11 +128,15 @@ public class ScenarioResource {
             return Collections.emptyList();
         }
 
-        return scenarioViewAccess.getFailedScenarii(q -> q.withTestRunId(scenario.getTestRunId()).orderedByName())
+        final var q = new ScenarioQuery()
+            .withTestRunId(scenario.getTestRunId())
+            .sortByName();
+
+        return scenarioViewAccess.getFailedScenarii(q)
             .stream()
             .filter(someScenario -> !scenarioId.equals(someScenario.getId()))
             .filter(someScenario -> ErrorMessageGroupingUtils.isSimilar(errorMessage, someScenario.getErrorMessage()))
-            .collect(Collectors.toList());
+            .toList();
     }
 
     @GET
@@ -190,23 +194,25 @@ public class ScenarioResource {
         return commentResourceFactory.create(commentsUri, mainReferences, extraReferences);
     }
 
-    private static Consumer<ScenarioQuery> prepareQueryFromRequestParams(final GetScenariiRequestParams requestParams) {
-        return q -> {
-            if (!Strings.isNullOrEmpty(requestParams.getTestRunId())) {
-                q.withTestRunId(requestParams.getTestRunId());
-            }
-            if (!Strings.isNullOrEmpty(requestParams.getFeatureId())) {
-                q.withFeatureId(requestParams.getFeatureId());
-            }
-            if (!Strings.isNullOrEmpty(requestParams.getSearch())) {
-                q.withSearch(requestParams.getSearch());
-            }
-            if (!Strings.isNullOrEmpty(requestParams.getName())) {
-                q.withName(requestParams.getName());
-            }
-            final TagSelection tagSelection = new TagSelection(requestParams.getTags(), requestParams.getExcludedTags());
-            q.withSelectedTags(tagSelection);
-        };
+    private static ScenarioQuery prepareQueryFromRequestParams(final GetScenariiRequestParams requestParams) {
+        var q = new ScenarioQuery();
+
+        if (!Strings.isNullOrEmpty(requestParams.getTestRunId())) {
+            q = q.withTestRunId(requestParams.getTestRunId());
+        }
+        if (!Strings.isNullOrEmpty(requestParams.getFeatureId())) {
+            q = q.withFeatureId(requestParams.getFeatureId());
+        }
+        if (!Strings.isNullOrEmpty(requestParams.getSearch())) {
+            q = q.withSearch(requestParams.getSearch());
+        }
+        if (!Strings.isNullOrEmpty(requestParams.getName())) {
+            q = q.withName(requestParams.getName());
+        }
+        final TagSelection tagSelection = new TagSelection(requestParams.getTags(), requestParams.getExcludedTags());
+        q = q.withSelectedTags(tagSelection);
+
+        return q;
     }
 
 }

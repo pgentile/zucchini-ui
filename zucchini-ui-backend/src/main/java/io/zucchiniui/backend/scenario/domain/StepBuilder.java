@@ -1,7 +1,6 @@
 package io.zucchiniui.backend.scenario.domain;
 
 import io.zucchiniui.backend.shared.domain.BasicInfo;
-import io.zucchiniui.backend.shared.domain.Location;
 
 import java.util.List;
 

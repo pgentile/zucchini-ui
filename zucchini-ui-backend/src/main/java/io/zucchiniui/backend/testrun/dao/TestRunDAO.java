@@ -1,26 +1,31 @@
 package io.zucchiniui.backend.testrun.dao;
 
-import io.zucchiniui.backend.support.ddd.morphia.MorphiaTypedQueryDAO;
 import io.zucchiniui.backend.testrun.domain.TestRun;
 import io.zucchiniui.backend.testrun.domain.TestRunQuery;
-import xyz.morphia.Datastore;
-import xyz.morphia.query.Query;
 import org.springframework.stereotype.Component;
-
-import java.util.function.Consumer;
+import xyz.morphia.Datastore;
+import xyz.morphia.dao.BasicDAO;
+import xyz.morphia.query.Query;
 
 @Component
-public class TestRunDAO extends MorphiaTypedQueryDAO<TestRun, String, TestRunQuery> {
+public class TestRunDAO extends BasicDAO<TestRun, String> {
 
     public TestRunDAO(final Datastore ds) {
         super(ds);
     }
 
-    @Override
-    public Query<TestRun> prepareTypedQuery(final Consumer<? super TestRunQuery> preparator) {
-        final TestRunQueryImpl typedQuery = new TestRunQueryImpl(createQuery());
-        preparator.accept(typedQuery);
-        return typedQuery.morphiaQuery();
+    public Query<TestRun> query(TestRunQuery q) {
+        Query<TestRun> query = createQuery();
+
+        if (q.type() != null) {
+            query = query.field("type").equal(q.type());
+        }
+
+        if (q.orderByLatestFirst()) {
+            query = query.order("-date");
+        }
+
+        return query;
     }
 
 }

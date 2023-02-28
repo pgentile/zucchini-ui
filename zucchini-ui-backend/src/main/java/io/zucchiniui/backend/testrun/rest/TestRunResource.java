@@ -4,11 +4,7 @@ package io.zucchiniui.backend.testrun.rest;
 import com.google.common.base.Strings;
 import io.dropwizard.jersey.PATCH;
 import io.zucchiniui.backend.reportconverter.domain.ReportConverterService;
-import io.zucchiniui.backend.testrun.domain.Label;
-import io.zucchiniui.backend.testrun.domain.TestRun;
-import io.zucchiniui.backend.testrun.domain.TestRunQuery;
-import io.zucchiniui.backend.testrun.domain.TestRunRepository;
-import io.zucchiniui.backend.testrun.domain.TestRunService;
+import io.zucchiniui.backend.testrun.domain.*;
 import io.zucchiniui.backend.testrun.views.TestRunListItem;
 import io.zucchiniui.backend.testrun.views.TestRunScenarioDiff;
 import io.zucchiniui.backend.testrun.views.TestRunViewAccess;
@@ -28,8 +24,6 @@ import java.net.URI;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 @Component
 @Path("/testRuns")
@@ -64,12 +58,11 @@ public class TestRunResource {
         @QueryParam("type") final String type,
         @QueryParam("withStats") @DefaultValue("false") final boolean withStats
     ) {
-        Consumer<TestRunQuery> queryPreparator = TestRunQuery::orderByLatestFirst;
+        TestRunQuery testRunQuery = new TestRunQuery().sortByLatestFirst();
         if (!Strings.isNullOrEmpty(type)) {
-            queryPreparator = queryPreparator.andThen(q -> q.withType(type));
+            testRunQuery = testRunQuery.withType(type);
         }
-
-        return testRunViewAccess.getTestRunListItems(queryPreparator, withStats);
+        return testRunViewAccess.getTestRunListItems(testRunQuery, withStats);
     }
 
     @POST
@@ -147,8 +140,8 @@ public class TestRunResource {
         }
 
         return requestLabels.stream()
-            .map(requestLabel -> new Label(requestLabel.getName(), requestLabel.getValue(), requestLabel.getUrl()))
-            .collect(Collectors.toList());
+            .map(requestLabel -> new Label(requestLabel.name(), requestLabel.value(), requestLabel.url()))
+            .toList();
     }
 
 }

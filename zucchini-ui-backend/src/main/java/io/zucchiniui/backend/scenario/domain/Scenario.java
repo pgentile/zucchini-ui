@@ -7,14 +7,7 @@ import xyz.morphia.annotations.Entity;
 import xyz.morphia.annotations.Id;
 
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -138,15 +131,15 @@ public class Scenario extends BaseEntity<String> {
 
         steps = other.steps.stream()
             .map(Step::copy)
-            .collect(Collectors.toList());
+            .toList();
 
         beforeActions = other.beforeActions.stream()
             .map(AroundAction::copy)
-            .collect(Collectors.toList());
+            .toList();
 
         afterActions = other.afterActions.stream()
             .map(AroundAction::copy)
-            .collect(Collectors.toList());
+            .toList();
 
         calculateStatusFromSteps();
         calculateReviewStateFromStatus();
@@ -168,23 +161,12 @@ public class Scenario extends BaseEntity<String> {
             return;
         }
 
-        final StepStatus newStepStatus;
-        switch (newStatus) {
-            case PASSED:
-                newStepStatus = StepStatus.PASSED;
-                break;
-            case FAILED:
-                newStepStatus = StepStatus.FAILED;
-                break;
-            case NOT_RUN:
-                newStepStatus = StepStatus.NOT_RUN;
-                break;
-            case PENDING:
-                newStepStatus = StepStatus.PENDING;
-                break;
-            default:
-                throw new IllegalArgumentException("Unsupported status: " + newStatus);
-        }
+        final StepStatus newStepStatus = switch (newStatus) {
+            case PASSED -> StepStatus.PASSED;
+            case FAILED -> StepStatus.FAILED;
+            case NOT_RUN -> StepStatus.NOT_RUN;
+            case PENDING -> StepStatus.PENDING;
+        };
 
         beforeActions.forEach(step -> step.setStatus(newStepStatus));
         if (background != null) {
