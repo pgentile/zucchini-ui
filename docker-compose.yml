@@ -5,14 +5,14 @@ version: "3"
 services:
 
   mongo:
-    image: "pgentile/zucchini-ui-mongo:${ZUCCHINI_VERSION:-latest}"
+    image: "ghcr.io/pgentile/zucchini-ui-mongo:${ZUCCHINI_VERSION:-latest}"
     ports:
       - "27017:27017"
     networks:
       - mongo
 
   zucchini-ui:
-    image: "pgentile/zucchini-ui:${ZUCCHINI_VERSION:-latest}"
+    image: "ghcr.io/pgentile/zucchini-ui:${ZUCCHINI_VERSION:-latest}"
     ports:
       - "8080:8080"
       - "8081:8081"
