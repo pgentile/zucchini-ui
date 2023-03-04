@@ -1,4 +1,5 @@
 import com.github.spotbugs.snom.SpotBugsTask
+import io.zucchini.build.docker.DockerExtension
 import io.zucchini.build.docker.DockerPlugin
 import io.zucchini.build.node.NodePlugin
 import io.zucchini.build.node.YarnTask
@@ -45,22 +46,6 @@ allprojects {
     repositories {
         mavenLocal()
         mavenCentral()
-    }
-
-    ext.getDockerTags = {
-        List<String> dockerTags = []
-
-        // Branch slug, without special characters
-        String branchName = project.grgit.branch.current().name
-        String branchSlug = branchName.replace('/', '-')
-
-        // If the Git branch is the master branch, then the Docker image will be tagged "latest"
-        dockerTags << "branch-${branchSlug}"
-        if (branchName == 'master') {
-            dockerTags << 'latest'
-        }
-
-        return dockerTags
     }
 
     // Plugins to use with the java plugin
@@ -123,6 +108,23 @@ allprojects {
                 }
             }
 
+        }
+
+        // Shared Docker config
+        DockerExtension dockerExtension = project.getExtensions().findByType(DockerExtension.class)
+        if (dockerExtension) {
+            dockerExtension.repositories << (project.properties['docker.baseRepository'] as String)
+            dockerExtension.repositories << (project.properties['docker.publishRepository'] as String)
+
+            // If the Git branch is the master branch, then the Docker image will be tagged "latest"
+            String branchName = project.grgit.branch.current().name
+            if (branchName == 'master') {
+                dockerExtension.tags << 'latest'
+            } else {
+                // Branch slug, without special characters
+                String branchSlug = branchName.replace('/', '-')
+                dockerExtension.tags << "branch-${branchSlug}"
+            }
         }
 
         // Shared Java compiler config
@@ -299,7 +301,6 @@ project("${rootProject.name}-app") {
 
     docker {
         name = rootProject.name
-        tags += project.getDockerTags()
     }
 
     task copyLibraries(type: Sync) {
@@ -407,13 +408,7 @@ project("${rootProject.name}-example-features") {
 }
 
 
-project("${rootProject.name}-mongo") {
-
-    docker {
-        tags += project.getDockerTags()
-    }
-
-}
+project("${rootProject.name}-mongo")
 
 
 project("${rootProject.name}-e2e-tests") {

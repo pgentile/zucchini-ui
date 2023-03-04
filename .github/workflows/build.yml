@@ -27,6 +27,9 @@ jobs:
       DEFAULT_NODE_VERSION: "18"
 
     steps:
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v4
+
       - name: About env
         run: |
           echo "Env"

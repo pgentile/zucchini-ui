@@ -1,6 +1,5 @@
 package io.zucchini.build.docker
 
-import groovy.transform.PackageScope
 import org.gradle.api.Project
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Optional
@@ -17,7 +16,6 @@ class DockerComposeExtension {
     }
 
     void environment(String name, String value) {
-        System.stdout.println("Adding ${name} with value ${value}");
         env.put(name, value)
     }
 
