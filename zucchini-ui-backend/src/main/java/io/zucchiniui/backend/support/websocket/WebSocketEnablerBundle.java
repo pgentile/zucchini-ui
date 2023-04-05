@@ -1,16 +1,15 @@
 package io.zucchiniui.backend.support.websocket;
 
-import io.dropwizard.Configuration;
-import io.dropwizard.ConfiguredBundle;
-import io.dropwizard.setup.Bootstrap;
-import io.dropwizard.setup.Environment;
-import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer;
+import io.dropwizard.core.Configuration;
+import io.dropwizard.core.ConfiguredBundle;
+import io.dropwizard.core.setup.Bootstrap;
+import io.dropwizard.core.setup.Environment;
+import org.eclipse.jetty.websocket.jakarta.server.config.JakartaWebSocketServletContainerInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.ServletException;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
 
 public class WebSocketEnablerBundle implements ConfiguredBundle<Configuration> {
 
@@ -29,11 +28,7 @@ public class WebSocketEnablerBundle implements ConfiguredBundle<Configuration> {
             public void contextInitialized(final ServletContextEvent servletContextEvent) {
                 LOGGER.info("Configuring WebSocket container");
 
-                try {
-                    WebSocketServerContainerInitializer.initialize(environment.getApplicationContext());
-                } catch (final ServletException e) {
-                    throw new RuntimeException("Can't enable WebSocket feature for Jetty", e);
-                }
+                JakartaWebSocketServletContainerInitializer.configure(environment.getApplicationContext(), null);
             }
 
             @Override

@@ -1,11 +1,11 @@
 package io.zucchiniui.backend;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.dropwizard.Configuration;
-import io.dropwizard.metrics.MetricsFactory;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import io.dropwizard.core.Configuration;
+import io.dropwizard.metrics.common.MetricsFactory;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BackendConfiguration extends Configuration {

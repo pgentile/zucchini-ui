@@ -1,6 +1,6 @@
 package io.zucchiniui.backend.testrun.rest;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 public class UpdateTestRunRequest {

@@ -1,17 +1,17 @@
 package io.zucchiniui.app;
 
-import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.core.Application;
+import io.dropwizard.core.setup.Bootstrap;
+import io.dropwizard.core.setup.Environment;
 import io.dropwizard.servlets.assets.AssetServlet;
-import io.dropwizard.setup.Bootstrap;
-import io.dropwizard.setup.Environment;
 import io.zucchiniui.backend.BackendBundle;
 import io.zucchiniui.backend.BackendConfiguration;
 import io.zucchiniui.backend.support.exceptionhandler.ExitExceptionHandler;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletHolder;
 
-import javax.servlet.DispatcherType;
+import jakarta.servlet.DispatcherType;
 import java.nio.charset.StandardCharsets;
 import java.util.EnumSet;
 

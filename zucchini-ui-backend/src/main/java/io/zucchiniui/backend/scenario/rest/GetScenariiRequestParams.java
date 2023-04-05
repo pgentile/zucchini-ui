@@ -1,6 +1,6 @@
 package io.zucchiniui.backend.scenario.rest;
 
-import javax.ws.rs.QueryParam;
+import jakarta.ws.rs.QueryParam;
 import java.util.HashSet;
 import java.util.Set;
 
