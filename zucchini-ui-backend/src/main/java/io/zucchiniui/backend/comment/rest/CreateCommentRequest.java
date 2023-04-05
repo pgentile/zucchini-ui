@@ -1,6 +1,6 @@
 package io.zucchiniui.backend.comment.rest;
 
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 
 public class CreateCommentRequest {
 

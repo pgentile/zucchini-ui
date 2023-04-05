@@ -4,7 +4,7 @@ import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
-import io.dropwizard.setup.Environment;
+import io.dropwizard.core.setup.Environment;
 import io.zucchiniui.backend.support.autocloseable.AutoCloseableManagedAdapter;
 import xyz.morphia.Datastore;
 import xyz.morphia.Morphia;

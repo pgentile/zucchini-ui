@@ -11,10 +11,10 @@ import io.zucchiniui.backend.feature.views.FeatureViewAccess;
 import io.zucchiniui.backend.shared.domain.TagSelection;
 import org.springframework.stereotype.Component;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.Set;
 

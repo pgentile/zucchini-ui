@@ -2,7 +2,7 @@ package io.zucchiniui.backend.scenario.rest;
 
 import io.zucchiniui.backend.scenario.domain.ScenarioStatus;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 public class ChangeStatusRequest {
 
