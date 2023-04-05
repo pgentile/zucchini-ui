@@ -148,7 +148,7 @@ allprojects {
 
             // Override some dependency versions
             eachDependency { DependencyResolveDetails details ->
-                replaceDependencyGroupVersion(details, 'org.slf4j', '1.7.26')
+                replaceDependencyGroupVersion(details, 'org.slf4j', '2.0.7')
             }
 
         }
