@@ -25,7 +25,7 @@ class DockerBuildTask extends DefaultTask {
     @TaskAction
     void build() {
 
-        List<String> args = ['docker', 'build']
+        List<String> args = ['docker', 'buildx', 'build']
 
         if (dockerFile != null) {
             args += ['-f', dockerFile]
@@ -34,6 +34,9 @@ class DockerBuildTask extends DefaultTask {
         args += project.docker.fullTags.collect({ ['-t', it] }).flatten()
 
         args += buildArgs.collect { name, value -> ['--build-arg', "${name}=${value}"] }.flatten()
+
+        // TODO Add an option to set the target platforms
+        args += ['--platform', 'linux/amd64,linux/arm64v8']
 
         if (pull) {
             args << '--pull'
