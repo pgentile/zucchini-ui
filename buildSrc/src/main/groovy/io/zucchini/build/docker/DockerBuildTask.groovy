@@ -36,7 +36,7 @@ class DockerBuildTask extends DefaultTask {
         args += buildArgs.collect { name, value -> ['--build-arg', "${name}=${value}"] }.flatten()
 
         // TODO Add an option to set the target platforms
-        args += ['--platform', 'linux/amd64,linux/arm64v8']
+        args += ['--platform', 'amd64,arm64v8']
 
         if (pull) {
             args << '--pull'
