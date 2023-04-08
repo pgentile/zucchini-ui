@@ -27,7 +27,7 @@ class DockerBuildTask extends DefaultTask {
         args += project.docker.buildArgs.collect { name, value -> ['--build-arg', "${name}=${value}"] }.flatten()
 
         if (push) {
-            args += ['--output', 'type=registry', '--platform', 'linux/amd64,linux/arm64']
+            args += ['--output', 'type=registry']
 
             if (!project.docker.platforms.isEmpty()) {
                 args << '--platform'
@@ -36,6 +36,11 @@ class DockerBuildTask extends DefaultTask {
         } else {
             args += ['--output', 'type=docker']
         }
+
+        // TODO Add an option to set the target platforms
+        args += ['--platform', 'linux/amd64,linux/arm64']
+
+        args += ['--output', 'type=image']
 
         if (pull) {
             args << '--pull'
