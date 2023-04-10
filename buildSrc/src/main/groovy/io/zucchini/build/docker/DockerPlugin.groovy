@@ -32,14 +32,14 @@ class DockerPlugin implements Plugin<Project> {
     }
 
     private static void initDockerTasks(Project project) {
-        Task buildTask = project.task(
+        project.task(
             'dockerBuild',
             type: DockerBuildTask,
             group: TASK_GROUP,
             description: 'Build Docker image'
         )
 
-        Task pushTask = project.task(
+        project.task(
             'dockerPush',
             type: DockerBuildTask,
             group: TASK_GROUP,
@@ -54,15 +54,6 @@ class DockerPlugin implements Plugin<Project> {
             group: TASK_GROUP,
             description: 'Clean generated Docker images'
         )
-
-        project.afterEvaluate {
-
-            if (project.tasks.findByName('assemble') != null) {
-                buildTask.dependsOn 'assemble'
-                pushTask.dependsOn 'assemble'
-            }
-
-        }
     }
 
     private static void initDockerComposeTasks(Project project) {

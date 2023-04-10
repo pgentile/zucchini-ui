@@ -295,7 +295,7 @@ project("${rootProject.name}-app") {
         args 'server', "${rootDir}/server-config.yml"
     }
 
-   tasks.assemble.dependsOn shadowJar
+    tasks.assemble.dependsOn shadowJar
 
     docker {
         name = rootProject.name
@@ -320,6 +320,9 @@ project("${rootProject.name}-app") {
             into "app"
         }
     }
+
+    tasks.dockerBuild.dependsOn tasks.copyLibraries
+    tasks.dockerPush.dependsOn tasks.copyLibraries
 
 }
 
