@@ -300,6 +300,7 @@ project("${rootProject.name}-app") {
     docker {
         name = rootProject.name
         tags += project.getDockerTags()
+        buildArg 'ZUCCHINI_VERSION': "${project.version}"
     }
 
     task copyLibraries(type: Sync) {
@@ -319,12 +320,6 @@ project("${rootProject.name}-app") {
             into "app"
         }
     }
-
-    dockerBuild {
-        buildArg 'ZUCCHINI_VERSION': "${project.version}"
-    }
-
-    tasks.dockerBuild.dependsOn copyLibraries
 
 }
 

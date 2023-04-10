@@ -19,8 +19,7 @@ class DockerBuildTask extends DefaultTask {
     boolean pull = true
 
     @Input
-    @Optional
-    Map<String, String> buildArgs = [:]
+    boolean push = false
 
     @TaskAction
     void build() {
@@ -31,14 +30,15 @@ class DockerBuildTask extends DefaultTask {
             args += ['-f', dockerFile]
         }
 
-        args += project.docker.fullTags.collect({ ['-t', it] }).flatten()
+        args += project.docker.fullTags.collect({ ['--tag', it] }).flatten()
 
-        args += buildArgs.collect { name, value -> ['--build-arg', "${name}=${value}"] }.flatten()
+        args += project.docker.buildArgs.collect { name, value -> ['--build-arg', "${name}=${value}"] }.flatten()
 
-        // TODO Add an option to set the target platforms
-        args += ['--platform', 'linux/amd64,linux/arm64']
-
-        args += ['--output', 'type=image']
+        if (push) {
+            args += ['--output', 'type=registry', '--platform', 'linux/amd64,linux/arm64']
+        } else {
+            args += ['--output', 'type=docker']
+        }
 
         if (pull) {
             args << '--pull'
@@ -50,10 +50,6 @@ class DockerBuildTask extends DefaultTask {
         project.exec {
             commandLine args
         }
-    }
-
-    void buildArg(Map<String, String> args) {
-        buildArgs.putAll(args)
     }
 
 }

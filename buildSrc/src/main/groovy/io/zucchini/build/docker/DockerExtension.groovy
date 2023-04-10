@@ -16,6 +16,10 @@ class DockerExtension {
     @Optional
     List<String> tags = []
 
+    @Input
+    @Optional
+    Map<String, String> buildArgs = [:]
+
     DockerExtension(Project project) {
         repository = project.properties['docker.baseRepository']
         name = project.name
@@ -24,6 +28,10 @@ class DockerExtension {
 
     void tag(String tag) {
         tags << tag
+    }
+
+    void buildArg(Map<String, String> args) {
+        buildArgs.putAll(args)
     }
 
     @PackageScope

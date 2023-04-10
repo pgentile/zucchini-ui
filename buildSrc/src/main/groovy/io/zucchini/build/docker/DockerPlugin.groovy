@@ -39,13 +39,14 @@ class DockerPlugin implements Plugin<Project> {
             description: 'Build Docker image'
         )
 
-        project.task(
+        Task pushTask = project.task(
             'dockerPush',
-            type: DockerPushTask,
+            type: DockerBuildTask,
             group: TASK_GROUP,
             description: 'Push Docker image',
-            dependsOn: buildTask
-        )
+        ) {
+            push = true
+        }
 
         project.task(
             'dockerClean',
@@ -58,6 +59,7 @@ class DockerPlugin implements Plugin<Project> {
 
             if (project.tasks.findByName('assemble') != null) {
                 buildTask.dependsOn 'assemble'
+                pushTask.dependsOn 'assemble'
             }
 
         }
