@@ -295,11 +295,13 @@ project("${rootProject.name}-app") {
         args 'server', "${rootDir}/server-config.yml"
     }
 
-   tasks.assemble.dependsOn shadowJar
+    tasks.assemble.dependsOn shadowJar
 
     docker {
         name = rootProject.name
         tags += project.getDockerTags()
+        buildArg 'ZUCCHINI_VERSION': "${project.version}"
+        platforms = ['linux/amd64', 'linux/arm64']
     }
 
     task copyLibraries(type: Sync) {
@@ -320,11 +322,8 @@ project("${rootProject.name}-app") {
         }
     }
 
-    dockerBuild {
-        buildArg 'ZUCCHINI_VERSION': "${project.version}"
-    }
-
-    tasks.dockerBuild.dependsOn copyLibraries
+    tasks.dockerBuild.dependsOn tasks.copyLibraries
+    tasks.dockerPush.dependsOn tasks.copyLibraries
 
 }
 
@@ -411,6 +410,7 @@ project("${rootProject.name}-mongo") {
 
     docker {
         tags += project.getDockerTags()
+        platforms = ['linux/amd64', 'linux/arm64']
     }
 
 }
