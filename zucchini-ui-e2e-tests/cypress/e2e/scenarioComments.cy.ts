@@ -71,7 +71,8 @@ describe("Scenario comments", () => {
       cy.get(`#comment-${commentId}`).within((commentElement) => {
         cy.contains("button", "Modifier").click();
 
-        cy.findByLabelText("Commentaire").clear().type(contentAfterModification);
+        cy.findByLabelText("Commentaire").clear();
+        cy.findByLabelText("Commentaire").type(contentAfterModification);
 
         cy.contains("button", "Enregistrer").click();
 
