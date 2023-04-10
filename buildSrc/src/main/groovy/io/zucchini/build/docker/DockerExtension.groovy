@@ -2,9 +2,6 @@ package io.zucchini.build.docker
 
 import groovy.transform.PackageScope
 import org.gradle.api.Project
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.Optional
-
 
 class DockerExtension {
 
@@ -12,12 +9,14 @@ class DockerExtension {
 
     String repository
 
-    @Input
-    @Optional
+    String basePath = '.'
+
+    String dockerFile = null
+
     List<String> tags = []
 
-    @Input
-    @Optional
+    List<String> platforms = []
+
     Map<String, String> buildArgs = [:]
 
     DockerExtension(Project project) {

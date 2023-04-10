@@ -8,14 +8,6 @@ import org.gradle.api.tasks.TaskAction
 class DockerBuildTask extends DefaultTask {
 
     @Input
-    @Optional
-    String basePath = '.'
-
-    @Input
-    @Optional
-    String dockerFile = null
-
-    @Input
     boolean pull = true
 
     @Input
@@ -26,8 +18,8 @@ class DockerBuildTask extends DefaultTask {
 
         List<String> args = ['docker', 'buildx', 'build']
 
-        if (dockerFile != null) {
-            args += ['-f', dockerFile]
+        if (project.docker.dockerFile != null) {
+            args += ['-f', project.docker.dockerFile]
         }
 
         args += project.docker.fullTags.collect({ ['--tag', it] }).flatten()
@@ -36,6 +28,11 @@ class DockerBuildTask extends DefaultTask {
 
         if (push) {
             args += ['--output', 'type=registry', '--platform', 'linux/amd64,linux/arm64']
+
+            if (!project.docker.platforms.isEmpty()) {
+                args << '--platform'
+                args << project.docker.platforms.join(',')
+            }
         } else {
             args += ['--output', 'type=docker']
         }
@@ -44,7 +41,7 @@ class DockerBuildTask extends DefaultTask {
             args << '--pull'
         }
 
-        args << basePath
+        args << project.docker.basePath
 
         project.logger.info('Executing Docker build with arguments: {}', args)
         project.exec {

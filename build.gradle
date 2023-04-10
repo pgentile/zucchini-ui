@@ -301,6 +301,7 @@ project("${rootProject.name}-app") {
         name = rootProject.name
         tags += project.getDockerTags()
         buildArg 'ZUCCHINI_VERSION': "${project.version}"
+        platforms = ['linux/amd64', 'linux/arm64']
     }
 
     task copyLibraries(type: Sync) {
@@ -409,6 +410,7 @@ project("${rootProject.name}-mongo") {
 
     docker {
         tags += project.getDockerTags()
+        platforms = ['linux/amd64', 'linux/arm64']
     }
 
 }
