@@ -45,9 +45,14 @@ describe("Test run", () => {
     cy.get("[role=dialog]")
       .as("modal")
       .within(() => {
-        cy.findByLabelText("Type").clear().type("New type");
-        cy.findByLabelText("Environnement").clear().type("New env");
-        cy.findByLabelText("Nom").clear().type("New name");
+        cy.findByLabelText("Type").clear();
+        cy.findByLabelText("Type").type("New type");
+
+        cy.findByLabelText("Environnement").clear();
+        cy.findByLabelText("Environnement").type("New env");
+
+        cy.findByLabelText("Nom").clear();
+        cy.findByLabelText("Nom").type("New name");
 
         labels.forEach((label, index) => {
           cy.log("Ajouter le label", label.name);
