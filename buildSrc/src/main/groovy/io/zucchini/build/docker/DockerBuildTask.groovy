@@ -37,11 +37,6 @@ class DockerBuildTask extends DefaultTask {
             args += ['--output', 'type=docker']
         }
 
-        // TODO Add an option to set the target platforms
-        args += ['--platform', 'linux/amd64,linux/arm64']
-
-        args += ['--output', 'type=image']
-
         if (pull) {
             args << '--pull'
         }
