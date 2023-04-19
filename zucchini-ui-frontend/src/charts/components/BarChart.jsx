@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useRef } from "react";
 
-import Chartist from "chartist";
+import { BarChart as ChartistBarChart } from "chartist";
 
 export default function BarChar({
   data,
@@ -23,7 +23,7 @@ export default function BarChar({
   useEffect(() => {
     const chartElement = chartElementRef.current;
     if (chartElement) {
-      const newChart = new Chartist.Bar(chartElement);
+      const newChart = new ChartistBarChart(chartElement);
       chartRef.current = newChart;
       return () => newChart.detach();
     } else {

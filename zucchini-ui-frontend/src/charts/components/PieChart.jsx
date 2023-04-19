@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Chartist from "chartist";
+import { PieChart as ChartistPieChart } from "chartist";
 
 export default function PieChart({ data, total, showLabel, donut = true, donutWidth, ...otherProps }) {
   const chartElement = useRef();
@@ -8,7 +8,7 @@ export default function PieChart({ data, total, showLabel, donut = true, donutWi
   const [chart, setChart] = useState();
 
   useEffect(() => {
-    setChart(new Chartist.Pie(chartElement.current));
+    setChart(new ChartistPieChart(chartElement.current));
   }, []);
 
   useEffect(() => {
