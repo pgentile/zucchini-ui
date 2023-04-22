@@ -15,7 +15,7 @@ buildscript {
 plugins {
     id 'com.github.ben-manes.versions' version '0.46.0'
     id 'com.google.osdetector' version '1.7.3'
-    id 'org.ajoberstar.grgit' version '5.0.0'
+    id 'org.ajoberstar.grgit' version '5.2.0'
     id 'com.github.spotbugs' version '5.0.14' apply false
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
 }
