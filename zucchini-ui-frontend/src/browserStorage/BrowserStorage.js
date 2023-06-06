@@ -36,10 +36,6 @@ export default class BrowserStorage {
     this.writeInStorage(serializer(beforeSerialize(value)));
   }
 
-  reset() {
-    this.clearInStorage();
-  }
-
   readInStorage() {
     const { entryName } = this.config;
     return this.storage.getItem(entryName);
