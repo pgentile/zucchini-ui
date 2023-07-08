@@ -6610,10 +6610,10 @@ pure-rand@^6.0.0:
   resolved "https://registry.yarnpkg.com/pure-rand/-/pure-rand-6.0.0.tgz#701996ceefa253507923a0e864c17ab421c04a7c"
   integrity sha512-rLSBxJjP+4DQOgcJAx6RZHT2he2pkhQdSnofG5VWyVl6GRq/K02ISOuOLcsMOrtKDIJb8JN2zm3FFzWNbezdPw==
 
-pure-uuid@1.6.3:
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/pure-uuid/-/pure-uuid-1.6.3.tgz#d0e1894720328612ce55cdd08d90443dd7c1fc7f"
-  integrity sha512-5cBiGtFWAulm5WwPWpUTjqJay6mJL5rm3Oru9vCXgwgWcoYtBEpjJbxjsWYVX7omr1jP5iw27lXUB6fDIdoOdw==
+pure-uuid@1.6.4:
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/pure-uuid/-/pure-uuid-1.6.4.tgz#5fb373269ff6bae5a7e8f4750035196667be6142"
+  integrity sha512-ZMpDd+v9JWxU4Lqrpf2oBTwHQakCIC7px8iNv8P/EkMvoRvr9N4z/PQT+nZ3Lbrhelmq/ejibLOlMnmJj+f+Pg==
 
 qs@6.9.7:
   version "6.9.7"

@@ -63,7 +63,7 @@
     "core-js": "3.31.1",
     "date-fns": "2.30.0",
     "lodash": "4.17.21",
-    "pure-uuid": "1.6.3",
+    "pure-uuid": "1.6.4",
     "query-string": "8.1.0",
     "quick-lru": "6.1.1",
     "react": "18.2.0",
