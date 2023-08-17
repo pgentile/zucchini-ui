@@ -1,4 +1,4 @@
-FROM mongo:6
+FROM mongo:7
 
 ENV MONGO_INITDB_DATABASE=zucchini
 
