@@ -65,7 +65,7 @@
     "lodash": "4.17.21",
     "pure-uuid": "1.7.0",
     "query-string": "8.1.0",
-    "quick-lru": "6.1.1",
+    "quick-lru": "6.1.2",
     "react": "18.2.0",
     "react-bootstrap": "1.6.7",
     "react-dom": "18.2.0",
