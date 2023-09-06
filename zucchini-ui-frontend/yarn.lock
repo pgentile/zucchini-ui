@@ -7130,10 +7130,10 @@ pure-rand@^6.0.0:
   resolved "https://registry.yarnpkg.com/pure-rand/-/pure-rand-6.0.0.tgz#701996ceefa253507923a0e864c17ab421c04a7c"
   integrity sha512-rLSBxJjP+4DQOgcJAx6RZHT2he2pkhQdSnofG5VWyVl6GRq/K02ISOuOLcsMOrtKDIJb8JN2zm3FFzWNbezdPw==
 
-pure-uuid@1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/pure-uuid/-/pure-uuid-1.8.0.tgz#4fef699ace196e76b832eb4c69dba09dee30887f"
-  integrity sha512-YJaQ8jFg8disS+Crl4/3PW7t/0i/7j3B/htx9qaM8SS+YcP3z6tHL0b8Uhm/leKR0GGamifU6j0miTmRlTPkxA==
+pure-uuid@1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/pure-uuid/-/pure-uuid-1.8.1.tgz#8470eb8e8ec3613af835367b68463314bc966962"
+  integrity sha512-PIwHXU7NZb/wTBwUfzCSjI85tfwx6DQOm74sRLtNLH8KHsFZEvAQbBQdz7E5ij8SNSv9WGdQPWiiM6NpNIeNfA==
 
 qs@6.9.7:
   version "6.9.7"
