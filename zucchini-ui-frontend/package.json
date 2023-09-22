@@ -29,7 +29,7 @@
     "clean-webpack-plugin": "4.0.0",
     "css-loader": "6.8.1",
     "css-minimizer-webpack-plugin": "5.0.1",
-    "eslint": "8.49.0",
+    "eslint": "8.50.0",
     "eslint-config-prettier": "9.0.0",
     "eslint-plugin-jest": "27.4.0",
     "eslint-plugin-jest-dom": "5.1.0",
