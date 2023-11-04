@@ -36,9 +36,9 @@ jobs:
           - java
           - javascript
         java:
-          - "17"
+          - "21"
         node:
-          - "18"
+          - "20"
 
     steps:
     - name: Checkout repository

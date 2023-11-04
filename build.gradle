@@ -127,7 +127,7 @@ allprojects {
 
         // Shared Java compiler config
         project.tasks.withType(JavaCompile) {
-            options.release = 17
+            options.release = 21
 
             options.encoding = 'UTF-8'
             options.deprecation = true
