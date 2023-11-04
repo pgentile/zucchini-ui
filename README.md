@@ -15,14 +15,14 @@ Requirements
 
 ### Runtime
 
-* Java JRE 17
-* [Mongo 5](https://www.mongodb.com)
+* Java JRE 21
+* [Mongo](https://www.mongodb.com)
 
 
 ### Development
 
-* JDK 17
-* [Node](https://nodejs.org) 16
+* JDK 21
+* [Node](https://nodejs.org) 20
 * [Yarn](https://yarnpkg.com)
 
 Zucchini is built with [Gradle](https://gradle.org/). The Gradle wrapper is provided, no extra download is required.

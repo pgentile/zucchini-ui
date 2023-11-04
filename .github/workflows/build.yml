@@ -12,7 +12,6 @@ jobs:
     strategy:
       matrix:
         java:
-          - "17"
           - "21"
         node:
           - "20"
@@ -23,7 +22,7 @@ jobs:
       GRADLE_OPTS: "-Dorg.gradle.caching=false -Dorg.gradle.daemon=false"
       DOCKER_USERNAME: pgentile
       CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
-      DEFAULT_JAVA_VERSION: "17"
+      DEFAULT_JAVA_VERSION: "21"
       DEFAULT_NODE_VERSION: "20"
 
     steps:
