@@ -71,7 +71,7 @@ jobs:
         config-file: ./.github/codeql/codeql-config.yml
 
     - name: Setup Java
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         java-version: ${{ matrix.java }}
         distribution: temurin
