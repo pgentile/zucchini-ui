@@ -20,10 +20,10 @@ module.exports = (env, argv) => {
     // Bug ? Webpack 5.1.3 : argument mode en ligne de commande pas pris en compte
     mode,
     entry: {
-      main: "./src/main.jsx"
+      main: "./src/main.tsx"
     },
     resolve: {
-      extensions: [".js", ".jsx", ".scss", ".css"]
+      extensions: [".js", ".jsx", ".ts", ".tsx", ".scss", ".css"]
     },
     output: {
       path: outputDir,
@@ -67,6 +67,11 @@ module.exports = (env, argv) => {
     },
     module: {
       rules: [
+        {
+          test: /\.tsx?$/,
+          use: "ts-loader",
+          exclude: /node_modules/
+        },
         {
           test: /\.jsx?$/,
           include: [path.join(__dirname, "src"), path.join(__dirname, "node_modules", "quick-lru")],
