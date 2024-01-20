@@ -1,12 +1,10 @@
-import queryString from "query-string";
+import queryString, { ParsedQuery } from "query-string";
 import { useLocation } from "react-router-dom";
 import { useMemo } from "react";
 
-export default function useQueryParams() {
+export default function useQueryParams(): ParsedQuery {
   const location = useLocation();
-  const queryParams = useMemo(() => {
+  return useMemo(() => {
     return queryString.parse(location.search);
   }, [location.search]);
-
-  return queryParams;
 }
