@@ -13,7 +13,7 @@ buildscript {
 }
 
 plugins {
-    id 'com.github.ben-manes.versions' version '0.50.0'
+    id 'com.github.ben-manes.versions' version '0.51.0'
     id 'com.google.osdetector' version '1.7.3'
     id 'org.ajoberstar.grgit' version '5.2.1'
     id 'com.github.spotbugs' version '5.2.5' apply false
