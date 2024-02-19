@@ -48,7 +48,7 @@
     "react-test-renderer": "18.2.0",
     "redux-freeze": "0.1.7",
     "sass": "1.71.0",
-    "sass-loader": "14.1.0",
+    "sass-loader": "14.1.1",
     "webpack": "5.90.3",
     "webpack-cli": "4.10.0",
     "webpack-dev-server": "4.15.1"
