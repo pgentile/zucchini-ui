@@ -43,7 +43,7 @@
     "jest-junit": "16.0.0",
     "mini-css-extract-plugin": "2.8.1",
     "postcss": "8.4.35",
-    "postcss-loader": "8.1.0",
+    "postcss-loader": "8.1.1",
     "prettier": "3.2.5",
     "react-test-renderer": "18.2.0",
     "redux-freeze": "0.1.7",
