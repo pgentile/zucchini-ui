@@ -2979,13 +2979,13 @@ asynckit@^0.4.0:
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
   integrity sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==
 
-autoprefixer@10.4.17:
-  version "10.4.17"
-  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-10.4.17.tgz#35cd5695cbbe82f536a50fa025d561b01fdec8be"
-  integrity sha512-/cpVNRLSfhOtcGflT13P2794gVSgmPgTR+erw5ifnMLZb0UnSlkK4tquLmkd3BhA+nLo5tX8Cu0upUsGKvKbmg==
+autoprefixer@10.4.18:
+  version "10.4.18"
+  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-10.4.18.tgz#fcb171a3b017be7cb5d8b7a825f5aacbf2045163"
+  integrity sha512-1DKbDfsr6KUElM6wg+0zRNkB/Q7WcKYAaK+pzXn+Xqmszm/5Xa9coeNdtP88Vi+dPzZnMjhge8GIV49ZQkDa+g==
   dependencies:
-    browserslist "^4.22.2"
-    caniuse-lite "^1.0.30001578"
+    browserslist "^4.23.0"
+    caniuse-lite "^1.0.30001591"
     fraction.js "^4.3.7"
     normalize-range "^0.1.2"
     picocolors "^1.0.0"
@@ -3222,6 +3222,16 @@ browserslist@^4.21.9:
     node-releases "^2.0.12"
     update-browserslist-db "^1.0.11"
 
+browserslist@^4.23.0:
+  version "4.23.0"
+  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.23.0.tgz#8f3acc2bbe73af7213399430890f86c63a5674ab"
+  integrity sha512-QW8HiM1shhT2GuzkvklfjcKDiWFXHOeFCIA/huJPwHsslwcydgk7X+z2zXpEijP98UCY7HbubZt5J2Zgvf0CaQ==
+  dependencies:
+    caniuse-lite "^1.0.30001587"
+    electron-to-chromium "^1.4.668"
+    node-releases "^2.0.14"
+    update-browserslist-db "^1.0.13"
+
 bser@2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/bser/-/bser-2.1.1.tgz#e6787da20ece9d07998533cfd9de6f5c38f4bc05"
@@ -3294,10 +3304,10 @@ caniuse-lite@^1.0.30001565:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001568.tgz#53fa9297273c9a977a560663f48cbea1767518b7"
   integrity sha512-vSUkH84HontZJ88MiNrOau1EBrCqEQYgkC5gIySiDlpsm8sGVrhU7Kx4V6h0tnqaHzIHZv08HlJIwPbL4XL9+A==
 
-caniuse-lite@^1.0.30001578:
-  version "1.0.30001578"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001578.tgz#11741580434ce60aae4b4a9abee9f9f8d7bf5be5"
-  integrity sha512-J/jkFgsQ3NEl4w2lCoM9ZPxrD+FoBNJ7uJUpGVjIg/j0OwJosWM36EPDv+Yyi0V4twBk9pPmlFS+PLykgEvUmg==
+caniuse-lite@^1.0.30001587, caniuse-lite@^1.0.30001591:
+  version "1.0.30001591"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001591.tgz#16745e50263edc9f395895a7cd468b9f3767cf33"
+  integrity sha512-PCzRMei/vXjJyL5mJtzNiUCKP59dm8Apqc3PH8gJkMnMXZGox93RbE76jHsmLwmIo6/3nsYIpJtx0O7u5PqFuQ==
 
 chalk@^2.0.0, chalk@^2.4.2:
   version "2.4.2"
@@ -4011,6 +4021,11 @@ electron-to-chromium@^1.4.601:
   version "1.4.609"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.609.tgz#5790a70aaa96de232501b56e14b64d17aff93988"
   integrity sha512-ihiCP7PJmjoGNuLpl7TjNA8pCQWu09vGyjlPYw1Rqww4gvNuCcmvl+44G+2QyJ6S2K4o+wbTS++Xz0YN8Q9ERw==
+
+electron-to-chromium@^1.4.668:
+  version "1.4.689"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.689.tgz#94fe370b800d978b606a2b4c0c5db5c8c98db4f2"
+  integrity sha512-GatzRKnGPS1go29ep25reM94xxd1Wj8ritU0yRhCJ/tr1Bg8gKnm6R9O/yPOhGQBoLMZ9ezfrpghNaTw97C/PQ==
 
 emittery@^0.13.1:
   version "0.13.1"
