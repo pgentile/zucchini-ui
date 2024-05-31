@@ -337,7 +337,7 @@ project("${rootProject.name}-example-features") {
         implementation 'info.cukes:cucumber-java:1.2.6'
         implementation 'org.slf4j:slf4j-api:2.0.13'
         implementation 'org.assertj:assertj-core:3.26.0'
-        implementation 'com.google.guava:guava:33.2.0-jre'
+        implementation 'com.google.guava:guava:33.2.1-jre'
 
     }
 
