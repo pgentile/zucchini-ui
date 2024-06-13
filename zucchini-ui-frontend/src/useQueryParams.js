@@ -4,9 +4,7 @@ import { useMemo } from "react";
 
 export default function useQueryParams() {
   const location = useLocation();
-  const queryParams = useMemo(() => {
+  return useMemo(() => {
     return queryString.parse(location.search);
   }, [location.search]);
-
-  return queryParams;
 }
