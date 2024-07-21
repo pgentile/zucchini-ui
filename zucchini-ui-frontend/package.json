@@ -73,7 +73,7 @@
     "react-router": "6.25.1",
     "react-router-dom": "6.25.1",
     "redux": "4.2.1",
-    "redux-actions": "3.0.0",
+    "redux-actions": "3.0.3",
     "redux-promise-middleware": "6.2.0",
     "redux-thunk": "2.4.2",
     "regenerator-runtime": "0.14.1",
