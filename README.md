@@ -148,7 +148,7 @@ The Docker image will be located at `pgentile/zucchini-ui`. After that, you can 
 Docker image and its dependencies with the following command:
 
 ```
-docker-compose up
+docker compose up
 ```
 
 You can find some pre-built images in [Docker Hub](https://hub.docker.com/r/pgentile/zucchini-ui).

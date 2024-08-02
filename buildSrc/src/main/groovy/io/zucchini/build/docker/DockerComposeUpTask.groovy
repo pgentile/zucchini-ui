@@ -12,7 +12,7 @@ class DockerComposeUpTask extends DefaultTask {
 
     @TaskAction
     void build() {
-        List<String> args = ['docker-compose', 'up']
+        List<String> args = ['docker', 'compose', 'up']
 
         if (detach) {
             args << "-d"
