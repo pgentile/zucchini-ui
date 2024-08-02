@@ -81,6 +81,6 @@
     "redux-promise-middleware": "6.2.0",
     "redux-thunk": "2.4.2",
     "regenerator-runtime": "0.14.1",
-    "reselect": "4.1.8"
+    "reselect": "5.1.1"
   }
 }
