@@ -24,7 +24,7 @@ export default class BrowserStorage {
 
     try {
       return afterDeserialize(deserializer(storedValue));
-    } catch (e) {
+    } catch {
       // Ignoring exception, use default value
       this.clearInStorage();
       return defaultState();
