@@ -84,7 +84,7 @@ jobs:
         check-latest: true
 
     - name: Check Gradle
-      uses: gradle/wrapper-validation-action@v3
+      uses: gradle/actions/wrapper-validation@v3
 
     - name: Install JS dependencies
       run: ./gradlew yarnInstall
