@@ -1,3 +1,6 @@
+# syntax=docker/dockerfile:1
+# check=error=true
+
 FROM eclipse-temurin:21
 
 ARG ZUCCHINI_VERSION
