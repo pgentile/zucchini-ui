@@ -27,6 +27,12 @@
   },
   "overrides": [
     {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"],
+      "extends": ["plugin:@typescript-eslint/recommended"]
+    },
+    {
       "files": ["src/**/*.test.js", "src/**/*.test.jsx"],
       "env": {
         "jest/globals": true

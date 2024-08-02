@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ES2015",
+    "lib": ["ES2015", "dom"],
+    "jsx": "react-jsx",
+    "module": "es2020",
+    "moduleResolution": "bundler"
+  },
+  "include": ["**/*.ts", "**/*.tsx"]
+}
