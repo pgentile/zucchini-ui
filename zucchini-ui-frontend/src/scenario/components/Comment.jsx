@@ -12,7 +12,7 @@ function Comment({ comment }) {
   const [editMode, setEditMode] = useState(false);
   const testRunId = useSelector((state) => state.scenario.scenario.testRunId || null);
 
-  let testRunInfo = null;
+  let testRunInfo;
   if (comment.testRunId === testRunId) {
     testRunInfo = <i>(tir de test actuel)</i>;
   } else if (comment.testRun) {
@@ -33,7 +33,7 @@ function Comment({ comment }) {
     setEditMode((current) => !current);
   }, []);
 
-  let commentComponent = null;
+  let commentComponent;
   if (editMode) {
     commentComponent = (
       <CommentEditor comment={comment} onCancel={handleToggleEditMode} onSaved={handleToggleEditMode} />
