@@ -62,9 +62,6 @@ jobs:
           cache: yarn
           cache-dependency-path: '**/yarn.lock'
 
-      - name: Check Gradle
-        uses: gradle/actions/wrapper-validation@v4
-
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
