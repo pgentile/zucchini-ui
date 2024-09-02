@@ -33,7 +33,7 @@
     "css-minimizer-webpack-plugin": "7.0.0",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-jest": "28.8.1",
+    "eslint-plugin-jest": "28.8.2",
     "eslint-plugin-jest-dom": "5.4.0",
     "eslint-plugin-prettier": "5.2.1",
     "eslint-plugin-react": "7.35.0",
