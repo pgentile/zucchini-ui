@@ -46,7 +46,7 @@
     "mini-css-extract-plugin": "2.9.2",
     "postcss": "8.4.49",
     "postcss-loader": "8.1.1",
-    "prettier": "3.4.0",
+    "prettier": "3.4.1",
     "react-test-renderer": "18.3.1",
     "redux-freeze": "0.1.7",
     "sass": "1.81.0",
