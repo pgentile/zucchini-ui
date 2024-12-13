@@ -188,7 +188,7 @@ project("${rootProject.name}-backend") {
 
     dependencies {
 
-        annotationProcessor 'org.hibernate:hibernate-validator-annotation-processor:8.0.1.Final'
+        annotationProcessor 'org.hibernate:hibernate-validator-annotation-processor:8.0.2.Final'
 
         implementation 'io.dropwizard:dropwizard-core:4.0.11'
         implementation 'xyz.morphia.morphia:core:1.4.0'
