@@ -4619,10 +4619,10 @@ eslint-plugin-jest-dom@5.5.0:
     "@babel/runtime" "^7.16.3"
     requireindex "^1.2.0"
 
-eslint-plugin-jest@28.10.1:
-  version "28.10.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-28.10.1.tgz#61ee94401ce1fb81ae06e4a316cb50e505496de5"
-  integrity sha512-ncP1WXe/buu5k/YrR1DnE8ZCueGkODRv0GT3ZH8F9PObkbFSGw35DpjAVisWt+vUiWnLi9l7k/XcYkwnc1Vwhw==
+eslint-plugin-jest@28.11.0:
+  version "28.11.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-28.11.0.tgz#2641ecb4411941bbddb3d7cf8a8ff1163fbb510e"
+  integrity sha512-QAfipLcNCWLVocVbZW8GimKn5p5iiMcgGbRzz8z/P5q7xw+cNEpYqyzFMtIF/ZgF2HLOyy+dYBut+DoYolvqig==
   dependencies:
     "@typescript-eslint/utils" "^6.0.0 || ^7.0.0 || ^8.0.0"
 
