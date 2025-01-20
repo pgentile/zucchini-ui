@@ -14,7 +14,7 @@ jobs:
         java:
           - "21"
         node:
-          - "20"
+          - "22"
 
       fail-fast: true
 
@@ -23,7 +23,7 @@ jobs:
       DOCKER_USERNAME: pgentile
       CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
       DEFAULT_JAVA_VERSION: "21"
-      DEFAULT_NODE_VERSION: "20"
+      DEFAULT_NODE_VERSION: "22"
 
     steps:
       - name: About env
