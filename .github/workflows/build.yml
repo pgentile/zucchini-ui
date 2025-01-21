@@ -37,7 +37,7 @@ jobs:
           echo "matrix.node = ${{ matrix.node }}"
 
       - name: Checkout
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
       - name: Cypress cache
         uses: actions/cache@v4
@@ -113,7 +113,7 @@ jobs:
           path: ./zucchini-ui-e2e-tests/cypress/videos
 
       - name: JUnit Report Action
-        uses: mikepenz/action-junit-report@v4
+        uses: mikepenz/action-junit-report@v5
         if: always()
         with:
           report_paths: '**/test-results/**/TEST-*.xml'
