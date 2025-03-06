@@ -3852,10 +3852,10 @@ css-loader@7.1.2:
     postcss-value-parser "^4.2.0"
     semver "^7.5.4"
 
-css-minimizer-webpack-plugin@7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/css-minimizer-webpack-plugin/-/css-minimizer-webpack-plugin-7.0.1.tgz#8e8dc83949ec449106fee53a66704ca46f1f99b0"
-  integrity sha512-L0XZFcGEPBZm0lJ8EjqifudRTvNAd7YuU7Ny5KAmeMbVh3ArtaOaiQTr5KhINEVhHpFZiTpUEdtTWE7ICA2hMA==
+css-minimizer-webpack-plugin@7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/css-minimizer-webpack-plugin/-/css-minimizer-webpack-plugin-7.0.2.tgz#aa1b01c6033f5b2f86ddb60c1f5bddd012b50cac"
+  integrity sha512-nBRWZtI77PBZQgcXMNqiIXVshiQOVLGSf2qX/WZfG8IQfMbeHUMXaBWQmiiSTmPJUflQxHjZjzAmuyO7tpL2Jg==
   dependencies:
     "@jridgewell/trace-mapping" "^0.3.25"
     cssnano "^7.0.4"
