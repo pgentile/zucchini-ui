@@ -3557,10 +3557,10 @@ char-regex@^1.0.2:
   resolved "https://registry.yarnpkg.com/char-regex/-/char-regex-1.0.2.tgz#d744358226217f981ed58f479b1d6bcc29545dcf"
   integrity sha512-kWWXztvZ5SBQV+eRgKFeh8q5sLuZY2+8WUIzlxWVTg+oGwY14qylx1KbKzHd8P6ZYkAg0xyIDU9JMHhyJMZ1jw==
 
-chartist@1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/chartist/-/chartist-1.3.0.tgz#ade0cadeb3d443377438a17b6866ccd125d5f079"
-  integrity sha512-M3ckI3ua7EHt08WLZvdi3QXn5g+in27qU6TxjI5bpriS6QwIZlWtisyUhFbpGclW546SlT3SL9oq0vFFDiAo6g==
+chartist@1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/chartist/-/chartist-1.3.1.tgz#6b5e614c1237e0a9c043812d1f2e7a24587789b7"
+  integrity sha512-pvdQowirS3f59tkIvUl4MJoWAKU/aVv1RqleKzOkXQ0nD4X9uu+7T1cCJSTTnbAvPNuAt9JpUu6+cffvZh5nHg==
 
 chokidar@^3.5.3:
   version "3.5.3"
