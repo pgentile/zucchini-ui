@@ -197,7 +197,7 @@ project("${rootProject.name}-backend") {
         implementation 'org.slf4j:slf4j-api:2.0.17'
         implementation 'org.springframework:spring-context:6.2.5'
         implementation 'org.eclipse.jetty.websocket:websocket-jakarta-server:11.0.25'
-        implementation 'org.apache.commons:commons-text:1.13.0'
+        implementation 'org.apache.commons:commons-text:1.13.1'
     }
 
     task runBackend(type: JavaExec, description: 'Run backend server') {
