@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # check=error=true
 
-FROM mongo:7
+FROM mongo:8
 
 ENV MONGO_INITDB_DATABASE=zucchini
 
