@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@testing-library/cypress": "10.0.3",
-    "cypress": "14.4.0"
+    "cypress": "14.4.1"
   },
   "devDependencies": {
     "@tsconfig/recommended": "1.0.8",
