@@ -189,10 +189,10 @@
     lz-string "^1.5.0"
     pretty-format "^27.0.2"
 
-"@tsconfig/recommended@1.0.9":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@tsconfig/recommended/-/recommended-1.0.9.tgz#5e81abb2860a641f3e9c6e5b9e35d1efc3781ec2"
-  integrity sha512-jf+a+mlsEi7V/RhoSgn7KlxCplFV2DVyfNEKSWBiUYKe2OuRVC/LZB5pUTA7KSB++c23LI66qc2VJXF7DCHGAA==
+"@tsconfig/recommended@1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@tsconfig/recommended/-/recommended-1.0.10.tgz#5ed23fcf8cca7d78a9e3a6e4828cd96cf783994c"
+  integrity sha512-cGvydvg03lONp5Z9yaplW493Vw9/um7k588mvDkm+VFPF2PZUVPx0uswq4PFpeEySsLbQRETrDRhzh4Dmxaslw==
 
 "@types/aria-query@^5.0.1":
   version "5.0.1"
