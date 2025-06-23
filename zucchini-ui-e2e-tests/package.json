@@ -23,7 +23,7 @@
     "eslint-plugin-cypress": "4.3.0",
     "eslint-plugin-prettier": "5.5.0",
     "npm-run-all2": "7.0.2",
-    "prettier": "3.5.3",
+    "prettier": "3.6.0",
     "typescript": "5.8.3"
   }
 }
