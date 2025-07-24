@@ -190,7 +190,7 @@ project("${rootProject.name}-backend") {
 
         annotationProcessor 'org.hibernate:hibernate-validator-annotation-processor:8.0.2.Final'
 
-        implementation 'io.dropwizard:dropwizard-core:4.0.14'
+        implementation 'io.dropwizard:dropwizard-core:4.0.15'
         implementation 'xyz.morphia.morphia:core:1.4.0'
         implementation 'xyz.morphia.morphia:logging-slf4j:1.4.0'
         implementation 'org.mongodb:mongo-java-driver:3.12.14'
@@ -287,7 +287,7 @@ project("${rootProject.name}-app") {
 
         implementation project(":${rootProject.name}-backend")
         implementation project(":${rootProject.name}-frontend")
-        implementation 'io.dropwizard:dropwizard-assets:4.0.14'
+        implementation 'io.dropwizard:dropwizard-assets:4.0.15'
 
     }
 
