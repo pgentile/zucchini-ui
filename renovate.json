@@ -1,6 +1,6 @@
 {
   "extends": [
-    "config:base",
+    "config:recommended",
     ":disableRateLimiting",
     ":automergeMinor",
     ":label(dependencies)"
@@ -12,21 +12,15 @@
   "packageRules": [
     {
       "groupName": "Dropwizard",
-      "packagePatterns": [
-        "^io.dropwizard:"
-      ]
+      "matchPackageNames": ["/^io.dropwizard:/"]
     },
     {
       "groupName": "Mockito",
-      "packagePatterns": [
-        "^org.mockito:"
-      ]
+      "matchPackageNames": ["/^org.mockito:/"]
     },
     {
       "groupName": "slf4j",
-      "packagePatterns": [
-        "^org.slf4j:"
-      ]
+      "matchPackageNames": ["/^org.slf4j:/"]
     }
   ]
 }
