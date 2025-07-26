@@ -11,6 +11,10 @@
 #
 name: "CodeQL"
 
+env:
+  JAVA_VERSION: "21"
+  NODE_VERSION: "22"
+
 on:
   push:
     branches: [ master ]
@@ -29,20 +33,9 @@ jobs:
       contents: read
       security-events: write
 
-    strategy:
-      fail-fast: false
-      matrix:
-        language:
-          - java
-          - javascript
-        java:
-          - "21"
-        node:
-          - "20"
-
     steps:
     - name: Checkout repository
-      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      uses: actions/checkout@v4
 
     - name: Gradle cache
       uses: actions/cache@v4
@@ -67,20 +60,20 @@ jobs:
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
-        languages: ${{ matrix.language }}
+        languages: java, javascript-typescript
         config-file: ./.github/codeql/codeql-config.yml
 
     - name: Setup Java
       uses: actions/setup-java@v4
       with:
-        java-version: ${{ matrix.java }}
+        java-version: ${{ env.JAVA_VERSION }}
         distribution: temurin
         check-latest: true
 
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
-        node-version: ${{ matrix.node }}
+        node-version: ${{ env.NODE_VERSION }}
         check-latest: true
 
     - name: Check Gradle

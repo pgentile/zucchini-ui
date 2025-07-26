@@ -4,27 +4,20 @@ on:
   push: {}
   pull_request: {}
 
+env:
+  JAVA_VERSION: "21"
+  NODE_VERSION: "22"
+
 jobs:
   build:
-    name: "Build - java = ${{ matrix.java }} - node = ${{ matrix.node }}"
+    name: "Build"
 
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        java:
-          - "21"
-        node:
-          - "22"
-
-      fail-fast: true
 
     env:
       GRADLE_OPTS: "-Dorg.gradle.caching=false -Dorg.gradle.daemon=false"
       DOCKER_USERNAME: pgentile
       CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
-      DEFAULT_JAVA_VERSION: "21"
-      DEFAULT_NODE_VERSION: "22"
 
     steps:
       - name: About env
@@ -34,11 +27,9 @@ jobs:
           echo
           echo "Github Action vars"
           echo "github.ref = ${{ github.ref  }}"
-          echo "matrix.java = ${{ matrix.java }}"
-          echo "matrix.node = ${{ matrix.node }}"
 
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@v4
 
       - name: Cypress cache
         uses: actions/cache@v4
@@ -51,14 +42,14 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          java-version: ${{ matrix.java }}
+          java-version: ${{ env.JAVA_VERSION }}
           distribution: temurin
           check-latest: true
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: ${{ env.NODE_VERSION }}
           check-latest: true
           cache: yarn
           cache-dependency-path: '**/yarn.lock'
@@ -95,7 +86,6 @@ jobs:
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v4
-        if: matrix.java == env.DEFAULT_JAVA_VERSION
         with:
           working-directory: ./zucchini-ui-e2e-tests
           # Already installed
@@ -108,9 +98,8 @@ jobs:
 
       - name: Collect Cypress videos
         uses: actions/upload-artifact@v4
-        if: always() && matrix.java == env.DEFAULT_JAVA_VERSION
         with:
-          name: Cypress videos for Java ${{ matrix.java }}
+          name: Cypress videos for E2E tests
           path: ./zucchini-ui-e2e-tests/cypress/videos
 
       - name: JUnit Report Action
@@ -120,5 +109,5 @@ jobs:
           report_paths: '**/test-results/**/TEST-*.xml'
 
       - name: Push Docker image
-        if: github.ref == 'refs/heads/master' && matrix.java == env.DEFAULT_JAVA_VERSION && matrix.node == env.DEFAULT_NODE_VERSION
+        if: github.ref == 'refs/heads/master'
         run: ./gradlew dockerPush
