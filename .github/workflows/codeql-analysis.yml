@@ -18,15 +18,13 @@ env:
 on:
   push:
     branches: [ master ]
-  pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [ master ]
+  pull_request: { }
   schedule:
     - cron: '28 16 * * 1'
 
 jobs:
   analyze:
-    name: Analyze
+    name: Analyze code
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -34,56 +32,56 @@ jobs:
       security-events: write
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Gradle cache
-      uses: actions/cache@v4
-      with:
-        path: ~/.gradle/caches
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-
+      - name: Gradle cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
-    - name: Get yarn cache
-      id: yarn-cache
-      run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-    - name: Yarn cache
-      uses: actions/cache@v4
-      with:
-        path: ${{ steps.yarn-cache.outputs.dir }}
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-yarn-
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+      - name: Yarn cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
-    # Initializes the CodeQL tools for scanning.
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
-      with:
-        languages: java, javascript-typescript
-        config-file: ./.github/codeql/codeql-config.yml
+      # Initializes the CodeQL tools for scanning.
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: java, javascript-typescript
+          config-file: ./.github/codeql/codeql-config.yml
 
-    - name: Setup Java
-      uses: actions/setup-java@v4
-      with:
-        java-version: ${{ env.JAVA_VERSION }}
-        distribution: temurin
-        check-latest: true
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: temurin
+          check-latest: true
 
-    - name: Setup Node
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-        check-latest: true
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          check-latest: true
 
-    - name: Check Gradle
-      uses: gradle/actions/wrapper-validation@v4
+      - name: Check Gradle
+        uses: gradle/actions/wrapper-validation@v4
 
-    - name: Install JS dependencies
-      run: ./gradlew yarnInstall
+      - name: Install JS dependencies
+        run: ./gradlew yarnInstall
 
-    - name: Assemble project
-      run: ./gradlew assemble
+      - name: Assemble project
+        run: ./gradlew assemble
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
