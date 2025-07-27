@@ -1,32 +1,26 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`TagList should contain labels with tags 1`] = `
-[
+<DocumentFragment>
   <a
-    className="badge badge-info"
+    class="badge badge-info"
     href="/test-runs/sampleId/tag-details?tag=A"
-    onClick={[Function]}
   >
-    @
-    A
-  </a>,
-  " ",
+    @A
+  </a>
+   
   <a
-    className="badge badge-info"
+    class="badge badge-info"
     href="/test-runs/sampleId/tag-details?tag=B"
-    onClick={[Function]}
   >
-    @
-    B
-  </a>,
-  " ",
+    @B
+  </a>
+   
   <a
-    className="badge badge-info"
+    class="badge badge-info"
     href="/test-runs/sampleId/tag-details?tag=C"
-    onClick={[Function]}
   >
-    @
-    C
-  </a>,
-]
+    @C
+  </a>
+</DocumentFragment>
 `;

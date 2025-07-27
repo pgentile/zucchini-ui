@@ -1,4 +1,4 @@
-import renderer from "react-test-renderer";
+import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 import TagList from "./TagList";
@@ -8,13 +8,12 @@ describe("TagList", () => {
     const tags = ["A", "B", "C"];
     const testRunId = "sampleId";
 
-    const component = renderer.create(
+    const { asFragment } = render(
       <MemoryRouter>
         <TagList testRunId={testRunId} tags={tags} />
       </MemoryRouter>
     );
 
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });
