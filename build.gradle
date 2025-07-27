@@ -17,7 +17,7 @@ plugins {
     id 'com.google.osdetector' version '1.7.3'
     id 'org.ajoberstar.grgit' version '5.3.2'
     id 'com.github.spotbugs' version '5.2.5' apply false
-    id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
+    id 'com.gradleup.shadow' version '8.3.8' apply false
 }
 
 /**
@@ -280,9 +280,11 @@ project("${rootProject.name}-app") {
 
     apply plugin: 'java'
     apply plugin: 'application'
-    apply plugin: 'com.github.johnrengelman.shadow'
+    apply plugin: 'com.gradleup.shadow'
 
-    mainClassName = 'io.zucchiniui.app.ZucchiniUIApplication'
+    application {
+        mainClass = 'io.zucchiniui.app.ZucchiniUIApplication'
+    }
 
     dependencies {
 
@@ -369,7 +371,7 @@ project("${rootProject.name}-example-features") {
             'src/features',
         )
 
-        ignoreExitValue true
+        ignoreExitValue = true
 
     }
 
@@ -400,7 +402,7 @@ project("${rootProject.name}-example-features") {
             'src/features',
         )
 
-        ignoreExitValue true
+        ignoreExitValue = true
 
     }
 
