@@ -48,16 +48,17 @@ module.exports = (env, argv) => {
 
         return middlewares;
       },
-      proxy: {
-        "/api": {
+      proxy: [
+        {
+          context: ["/api"],
           target: apiUrl
+          // FIXME Find a way to change the /ws prefix of webpack websocket
+          // "/ws": {
+          //   target: apiUrl.replace(/^http/, "ws"),
+          //   ws: true
+          // }
         }
-        // FIXME Find a way to change the /ws prefix of webpack websocket
-        // "/ws": {
-        //   target: apiUrl.replace(/^http/, "ws"),
-        //   ws: true
-        // }
-      },
+      ],
       client: {
         overlay: {
           warnings: false,
