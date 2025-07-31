@@ -54,9 +54,9 @@ allprojects {
         String branchName = project.grgit.branch.current().name
         String branchSlug = branchName.replace('/', '-')
 
-        // If the Git branch is the master branch, then the Docker image will be tagged "latest"
+        // If the Git branch is the main branch, then the Docker image will be tagged "latest"
         dockerTags << "branch-${branchSlug}"
-        if (branchName == 'master') {
+        if (branchName == 'main') {
             dockerTags << 'latest'
         }
 

@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request: { }
 
 env:
@@ -110,5 +110,5 @@ jobs:
           report_paths: '**/test-results/**/TEST-*.xml'
 
       - name: Push Docker image
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         run: ./gradlew dockerPush
