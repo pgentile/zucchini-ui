@@ -30,7 +30,7 @@ jobs:
           echo "github.ref = ${{ github.ref  }}"
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Cypress cache
         uses: actions/cache@v4
