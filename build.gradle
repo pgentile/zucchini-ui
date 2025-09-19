@@ -77,7 +77,7 @@ allprojects {
                 testImplementation("org.junit.jupiter:junit-jupiter")
                 testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-                testImplementation 'org.assertj:assertj-core:3.27.4'
+                testImplementation 'org.assertj:assertj-core:3.27.5'
                 testImplementation 'org.mockito:mockito-core:5.19.0'
                 testImplementation 'org.mockito:mockito-junit-jupiter:5.19.0'
 
@@ -337,7 +337,7 @@ project("${rootProject.name}-example-features") {
 
         implementation 'info.cukes:cucumber-java:1.2.6'
         implementation 'org.slf4j:slf4j-api:2.0.17'
-        implementation 'org.assertj:assertj-core:3.27.4'
+        implementation 'org.assertj:assertj-core:3.27.5'
         implementation 'com.google.guava:guava:33.5.0-jre'
 
     }
