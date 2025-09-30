@@ -3936,10 +3936,10 @@ char-regex@^1.0.2:
   resolved "https://registry.yarnpkg.com/char-regex/-/char-regex-1.0.2.tgz#d744358226217f981ed58f479b1d6bcc29545dcf"
   integrity sha512-kWWXztvZ5SBQV+eRgKFeh8q5sLuZY2+8WUIzlxWVTg+oGwY14qylx1KbKzHd8P6ZYkAg0xyIDU9JMHhyJMZ1jw==
 
-chartist@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/chartist/-/chartist-1.4.0.tgz#738abf54235b25db7087cb13b1f6e99bc561cf42"
-  integrity sha512-8mFDq/BW3pynN0UqTn0SydjBbW3FQYvGAYeDr3wB/TcCeyD8TDtuMYe6/9EsB6KuzPD3qtIokM7quE07pF0t6g==
+chartist@1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/chartist/-/chartist-1.5.0.tgz#da8b4c257e8434ce178b997d14d4ccbefabd8359"
+  integrity sha512-mcCJuWHpNqkJucuWEeHxymQCQEeAOkamGypqCV5+C+uI2NF4I3BOn/tjIuZaowJVNAcrY9BG3janLaCWSNVPDw==
 
 chokidar@^3.6.0:
   version "3.6.0"
