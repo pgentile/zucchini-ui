@@ -30,7 +30,7 @@
     "babel-plugin-lodash": "3.3.4",
     "clean-webpack-plugin": "4.0.0",
     "css-loader": "7.1.2",
-    "css-minimizer-webpack-plugin": "7.0.3",
+    "css-minimizer-webpack-plugin": "7.0.4",
     "eslint": "8.57.1",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-jest": "29.2.1",
