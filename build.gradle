@@ -144,7 +144,7 @@ allprojects {
 
             // Replace commons logging by slf4j, if present
             dependencySubstitution {
-                substitute module('commons-logging:commons-logging') using module('org.slf4j:jcl-over-slf4j:2.0.17')
+                substitute module('commons-logging:commons-logging') using module('org.slf4j:jcl-over-slf4j:2.0.18')
             }
 
             // Override some dependency versions
