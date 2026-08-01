@@ -5339,10 +5339,10 @@ eslint-config-prettier@10.1.8:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-10.1.8.tgz#15734ce4af8c2778cc32f0b01b37b0b5cd1ecb97"
   integrity sha512-82GZUjRS0p/jganf6q1rEO25VSoHH0hKPCTrgillPjdI/3bgBhAE1QzHrHTizjpRvy6pGAvKjDJtk2pF9NDq8w==
 
-eslint-plugin-jest-dom@5.9.0:
-  version "5.9.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest-dom/-/eslint-plugin-jest-dom-5.9.0.tgz#74bad429579cd72b5edc1470e94228e4af13c796"
-  integrity sha512-pK7rmqrf2ptbouuG2QMrH+BnVfzyTR+/BSSpP6LPj851s1+4HbQqeDE7RCISR69T1iOJBDGnCJ4VxNou2RvtfQ==
+eslint-plugin-jest-dom@5.10.0:
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest-dom/-/eslint-plugin-jest-dom-5.10.0.tgz#8c0526249e15081a2811531b9eb3a56e814327fa"
+  integrity sha512-RhCzl36C3bqK4dtWVYx8HYF32gzpyFG0wdshc6jp3n8uHDt/02TdtWsbUuIzockflXuTR3X+5y7+Osbt/JZP2Q==
   dependencies:
     requireindex "^1.2.0"
 
