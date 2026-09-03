@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # check=error=true
 
-FROM eclipse-temurin:21
+FROM eclipse-temurin:25
 
 ARG ZUCCHINI_VERSION
 ENV ZUCCHINI_VERSION=${ZUCCHINI_VERSION}
