@@ -46,8 +46,8 @@ This installs the Node/Yarn dependencies used by the frontend and E2E test proje
 ./gradlew dockerBuild
 ```
 
-CI runs the equivalent of `./gradlew assemble`, then `./gradlew check`, and builds
-the Docker image.
+CI is implemented with GitHub Actions and runs the equivalent of `./gradlew assemble`,
+then `./gradlew check`, and builds the Docker image.
 
 ### Run the app locally
 
@@ -140,6 +140,7 @@ yarn lint
   variables can be referenced inside it.
 - Keep changes compatible with the Gradle + Yarn + Docker workflow rather than
   introducing ad hoc tooling.
+- Dependencies are updated automatically with Renovate.
 - Prefer editing the correct subproject instead of adding hidden cross-project logic.
 - Feature work usually has a clean boundary between backend Java code and frontend
   React code, but changes spanning both layers must be wired and validated across the
