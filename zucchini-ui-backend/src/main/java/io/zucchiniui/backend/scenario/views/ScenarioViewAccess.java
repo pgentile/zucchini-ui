@@ -154,7 +154,8 @@ public class ScenarioViewAccess {
                 final ScenarioStatus status = scenario.getStatus();
                 final boolean reviewed = scenario.isReviewed();
 
-                scenario.getAllTags().stream()
+                final Collection<String> scenarioTags = scenario.getAllTags();
+                (scenarioTags == null ? Collections.<String>emptySet() : scenarioTags).stream()
                     .filter(tagFilter)
                     .forEach(tag -> {
                         final ScenarioStats tagStats = statsByTag.computeIfAbsent(tag, key -> new ScenarioStats());
