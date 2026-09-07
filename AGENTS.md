@@ -149,6 +149,10 @@ pnpm lint
 - Keep changes compatible with the Gradle + PNPM + Docker workflow rather than
   introducing ad hoc tooling.
 - Dependencies are updated automatically with Renovate.
+- The `browserslist` database (used by the frontend and E2E test projects) is kept
+  up to date automatically by the `.github/workflows/browserslist.yml` GitHub Actions
+  workflow, which runs `.github/workflows/browserslist.sh` on a daily schedule and
+  opens a PR when the database changes; do not update it manually.
 - Prefer editing the correct subproject instead of adding hidden cross-project logic.
 - Feature work usually has a clean boundary between backend Java code and frontend
   React code, but changes spanning both layers must be wired and validated across the

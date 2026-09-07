@@ -11,8 +11,8 @@ function open_pr() {
 git branch -C browserslist
 git checkout browserslist
 
-(cd zucchini-ui-frontend && npx browserslist@latest --update-db)
-(cd zucchini-ui-e2e-tests && npx browserslist@latest --update-db)
+(cd zucchini-ui-frontend && pnpm dlx update-browserslist-db@latest)
+(cd zucchini-ui-e2e-tests && pnpm dlx update-browserslist-db@latest)
 
 git branch
 git status
