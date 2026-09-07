@@ -79,7 +79,7 @@ Cypress.Commands.add(
       .should((xhr) => {
         expect(xhr.isOkStatusCode).to.be.true;
       })
-      .end();
+      .then(() => cy.wrap(null));
   }
 );
 
