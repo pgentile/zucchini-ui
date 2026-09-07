@@ -1,7 +1,7 @@
 import com.github.spotbugs.snom.SpotBugsTask
 import io.zucchini.build.docker.DockerPlugin
 import io.zucchini.build.node.NodePlugin
-import io.zucchini.build.node.YarnTask
+import io.zucchini.build.node.PNPMTask
 
 buildscript {
 
@@ -219,13 +219,13 @@ project("${rootProject.name}-frontend") {
 
     project.sourceSets.main.resources.srcDir("$project.buildDir/ui-resources")
 
-    task webpack(type: YarnTask, description: 'Run Webpack') {
+    task webpack(type: PNPMTask, description: 'Run Webpack') {
         command = 'run'
         args = ['build']
 
         inputs.dir('src')
         inputs.file('package.json')
-        inputs.file('yarn.lock')
+        inputs.file('pnpm-lock.yaml')
         inputs.file('postcss.config.js')
         inputs.file('webpack.config.js')
         inputs.file('babel.config.js')
@@ -234,7 +234,7 @@ project("${rootProject.name}-frontend") {
         outputs.dir('build/dist')
     }
 
-    task jsTest(type: YarnTask, description: 'Test JavaScript') {
+    task jsTest(type: PNPMTask, description: 'Test JavaScript') {
         command = 'test'
 
         inputs.dir('src')
@@ -243,7 +243,7 @@ project("${rootProject.name}-frontend") {
 
     tasks.test.dependsOn jsTest
 
-    task lint(type: YarnTask, description: 'Lint') {
+    task lint(type: PNPMTask, description: 'Lint') {
         command = 'lint'
 
         inputs.dir('src')
@@ -419,11 +419,11 @@ project("${rootProject.name}-mongo") {
 
 project("${rootProject.name}-e2e-tests") {
 
-    task jsTest(type: YarnTask, description: 'Test E2E') {
+    task jsTest(type: PNPMTask, description: 'Test E2E') {
         command = 'test'
     }
 
-    task lint(type: YarnTask, description: 'Lint') {
+    task lint(type: PNPMTask, description: 'Lint') {
         command = 'lint'
 
         inputs.dir('cypress')

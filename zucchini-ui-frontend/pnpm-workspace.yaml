@@ -1,0 +1,7 @@
+allowBuilds:
+  '@fortawesome/fontawesome-common-types': true
+  '@fortawesome/fontawesome-svg-core': true
+  '@fortawesome/free-solid-svg-icons': true
+  '@parcel/watcher': true
+  core-js: true
+  unrs-resolver: true

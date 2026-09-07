@@ -14,6 +14,7 @@ name: "CodeQL"
 env:
   JAVA_VERSION: "21"
   NODE_VERSION: "22"
+  PNPM_VERSION: "12.3.4"
 
 on:
   push:
@@ -43,16 +44,21 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Get yarn cache
-        id: yarn-cache
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      - name: Yarn cache
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: echo "dir=$(pnpm store path)" >> $GITHUB_OUTPUT
+      - name: PNPM cache
         uses: actions/cache@v4
         with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ${{ steps.pnpm-cache.outputs.dir }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-pnpm-
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
@@ -78,7 +84,7 @@ jobs:
         uses: gradle/actions/wrapper-validation@v5
 
       - name: Install JS dependencies
-        run: ./gradlew yarnInstall
+        run: ./gradlew pnpmInstall
 
       - name: Assemble project
         run: ./gradlew assemble
