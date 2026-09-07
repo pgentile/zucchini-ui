@@ -14,7 +14,7 @@ public class StepBuilder {
 
     private String errorMessage;
 
-    private String[][] table;
+    private List<List<String>> table;
 
     private String comment;
 
@@ -37,7 +37,7 @@ public class StepBuilder {
         return this;
     }
 
-    public StepBuilder withTable(final String[][] table) {
+    public StepBuilder withTable(final List<List<String>> table) {
         this.table = table;
         return this;
     }
@@ -78,7 +78,7 @@ public class StepBuilder {
         return errorMessage;
     }
 
-    protected String[][] getTable() {
+    protected List<List<String>> getTable() {
         return table;
     }
 

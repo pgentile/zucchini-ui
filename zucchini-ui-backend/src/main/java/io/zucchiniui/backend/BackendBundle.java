@@ -12,7 +12,7 @@ import io.zucchiniui.backend.support.ddd.rest.ConcurrentEntityModificationExcept
 import io.zucchiniui.backend.support.ddd.rest.EntityNotFoundExceptionMapper;
 import io.zucchiniui.backend.support.spring.SpringBundle;
 import io.zucchiniui.backend.support.websocket.WebSocketEnablerBundle;
-import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.eclipse.jetty.ee10.servlets.CrossOriginFilter;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import jakarta.servlet.DispatcherType;
@@ -34,7 +34,7 @@ public class BackendBundle implements ConfiguredBundle<BackendConfiguration> {
         // Configure Jackson mapper
         bootstrap.getObjectMapper()
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-            .setSerializationInclusion(JsonInclude.Include.NON_NULL);
+            .setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL);
 
         // Enable WebSockets for Jetty
         bootstrap.addBundle(new WebSocketEnablerBundle());
@@ -45,6 +45,7 @@ public class BackendBundle implements ConfiguredBundle<BackendConfiguration> {
     }
 
     @Override
+    @SuppressWarnings("removal") // CrossOriginFilter is marked for removal in Jetty 12; no direct Dropwizard 5 replacement yet
     public void run(final BackendConfiguration configuration, final Environment environment) {
         final FilterRegistration.Dynamic crossOriginFilterRegistration = environment.servlets()
             .addFilter("cors-filter", CrossOriginFilter.class);

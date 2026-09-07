@@ -1,9 +1,11 @@
 package io.zucchiniui.backend.shared.domain;
 
 import com.google.common.base.MoreObjects;
+import dev.morphia.annotations.Entity;
 
 import java.util.Objects;
 
+@Entity
 public final class Argument {
 
     private int offset;

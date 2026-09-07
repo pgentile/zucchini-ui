@@ -1,21 +1,16 @@
 package io.zucchiniui.backend.support.morphia;
 
-import com.mongodb.DB;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
-import com.mongodb.MongoClientURI;
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import dev.morphia.Datastore;
+import dev.morphia.Morphia;
+import dev.morphia.config.MorphiaConfig;
 import io.dropwizard.core.setup.Environment;
 import io.zucchiniui.backend.support.autocloseable.AutoCloseableManagedAdapter;
-import xyz.morphia.Datastore;
-import xyz.morphia.Morphia;
-import xyz.morphia.logging.MorphiaLoggerFactory;
-import xyz.morphia.logging.slf4j.SLF4JLoggerImplFactory;
 
 public class MorphiaDatastoreBuilder {
-
-    static {
-        MorphiaLoggerFactory.registerLogger(SLF4JLoggerImplFactory.class);
-    }
 
     private final Environment environment;
 
@@ -35,29 +30,32 @@ public class MorphiaDatastoreBuilder {
             throw new IllegalStateException("URI is undefined");
         }
 
-        // Init client options
-        final MongoClientOptions.Builder optionBuilder = MongoClientOptions.builder().applicationName(applicationName);
-
-        // Create client
-        final MongoClientURI clientURI = new MongoClientURI(uri, optionBuilder);
-        final MongoClient mongoClient = new MongoClient(clientURI);
+        // Init client
+        final ConnectionString connectionString = new ConnectionString(uri);
+        final MongoClientSettings clientSettings = MongoClientSettings.builder()
+            .applyConnectionString(connectionString)
+            .applicationName(applicationName)
+            .build();
+        final MongoClient mongoClient = MongoClients.create(clientSettings);
         environment.lifecycle().manage(new AutoCloseableManagedAdapter(mongoClient));
 
         // Create datastore
-        final Morphia morphia = createMorphia();
-        final Datastore datastore = morphia.createDatastore(mongoClient, clientURI.getDatabase());
+        final String databaseName = connectionString.getDatabase();
+        if (databaseName == null) {
+            throw new IllegalStateException("Database name is undefined in Mongo URI");
+        }
+
+        final MorphiaConfig config = MorphiaConfig.load()
+            .database(databaseName)
+            .packages(java.util.List.of("io.zucchiniui.backend"))
+            .codecProvider(new DateTimeCodecProvider());
+
+        final Datastore datastore = Morphia.createDatastore(mongoClient, config);
 
         // Add healthcheck
-        final DB db = datastore.getDB();
-        environment.healthChecks().register(name, new MongoHealthCheck(db));
+        environment.healthChecks().register(name, new MongoHealthCheck(datastore.getDatabase()));
 
         return datastore;
-    }
-
-    private Morphia createMorphia() {
-        final Morphia morphia = new Morphia();
-        morphia.getMapper().getConverters().addConverter(ZonedDateTimeConverter.class);
-        return morphia;
     }
 
 }

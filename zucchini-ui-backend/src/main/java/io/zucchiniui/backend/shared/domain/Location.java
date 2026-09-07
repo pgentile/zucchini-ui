@@ -1,7 +1,10 @@
 package io.zucchiniui.backend.shared.domain;
 
+import dev.morphia.annotations.Entity;
+
 import java.util.Objects;
 
+@Entity
 public final class Location {
 
     private String filename;

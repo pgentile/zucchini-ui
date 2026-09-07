@@ -2,13 +2,12 @@
 
 ## Executive summary
 
-Zucchini UI is already partially modernized: it uses Java 21, Dropwizard 4, Spring 6, React 18, Webpack 5, TypeScript 5.9, Cypress 15, and Node 22 in CI. Renovate also automates a large part of dependency maintenance.
+Zucchini UI has completed its core backend platform modernization: it now runs on Java 25, Dropwizard 5 (Jetty 12 / Jakarta EE 10), Spring Framework 7, and a modern MongoDB persistence stack (`dev.morphia.morphia:morphia-core` 2.5.3 + `mongodb-driver-sync` 5.11.0), alongside React 18, Webpack 5, TypeScript 5.9, Cypress 15, and Node 22 in CI. Renovate also automates a large part of dependency maintenance.
 
-The highest risks are concentrated in the foundations rather than in the age of the React or Webpack versions:
+The highest remaining risks are concentrated in process and coverage rather than in the age of the frameworks:
 
-- The MongoDB persistence layer still relies on Morphia 1.4, the MongoDB Java driver 3.12, and legacy MongoDB APIs while the Docker image uses MongoDB 8.
 - PMD, SpotBugs, and some Cucumber tasks are configured not to fail the build.
-- Backend tests are primarily domain unit tests; visible integration coverage for Dropwizard, Jersey, MongoDB, WebSockets, and HTTP contracts is limited.
+- Backend tests are primarily domain unit tests; visible integration coverage for Dropwizard, Jersey, MongoDB, WebSockets, and HTTP contracts is limited (no automated integration-test suite was added as part of the Java/Dropwizard/Spring/Morphia migration; manual verification was performed instead — see note below).
 - Authentication and authorization are not visible in the application surface, CORS is globally enabled, and Docker Compose publishes MongoDB and the Dropwizard admin port.
 - The frontend remains mostly JavaScript/JSX, with only a small TypeScript/TSX portion and extensive use of `PropTypes` and legacy Redux container patterns.
 - The REST API has no visible formal contract or consistent pagination strategy for potentially large list responses.
@@ -19,19 +18,34 @@ The recommendations below are ordered by importance and dependency.
 
 ### P0 — Critical foundations
 
-#### 1. Secure and modernize MongoDB compatibility
+#### 1. Secure and modernize MongoDB compatibility — ✅ Done
 
-**Actions**
+**Actions taken**
 
-- Choose a supported persistence target: modern Morphia, the official MongoDB Java driver, or Spring Data MongoDB.
-- Replace legacy APIs in `MorphiaDatastoreBuilder`, `MongoHealthCheck`, and `MorphiaRawQuery`.
-- Verify the selected stack against MongoDB 8.
-- Replace the legacy `mongo` shell with `mongosh` in `migrate.sh`.
-- Add startup and migration tests against a real MongoDB instance.
+- Migrated from `xyz.morphia.morphia:core:1.4.0` / `mongo-java-driver:3.12` to `dev.morphia.morphia:morphia-core:2.5.3` / `org.mongodb:mongodb-driver-sync:5.11.0`.
+- Rewrote `MorphiaDatastoreBuilder`, `MongoHealthCheck`, `MorphiaRepository`, `MorphiaUtils`, `MorphiaPreparedQuery`, and all DAOs (`FeatureDAO`, `ScenarioDAO`, `TestRunDAO`, `CommentDAO`) against the modern `Filters`/`FindOptions`/`Sort` API.
+- Removed the deprecated raw-`DBObject` query helper (`MorphiaRawQuery`); stats/projection queries in `ScenarioViewAccess`/`FeatureViewAccess` now use typed, projected entity queries instead.
+- Annotated all embedded value types (`BasicInfo`, `Argument`, `Location`, `ItemReference`, `Step`, `Background`, `AroundAction`, `ScenarioChange` + subclasses, `Label`, `Attachment`) with `@Entity` so Morphia 2 can map and validate embedded paths (Morphia 2 requires `@Entity`/`@Embedded` on every mappable type, including embedded ones; `@Embedded` itself is deprecated in favor of plain `@Entity`).
+- Converted `Step.table` from `String[][]` to `List<List<String>>` to work around a Morphia 2 multi-dimensional array codec limitation.
+- Verified manually end to end against MongoDB 8 (local Docker container): all REST read endpoints (`/api/features`, `/api/scenarii`, `/api/scenarii/stats`, `/api/scenarii/tags`, `/api/scenarii/stepDefinitions`, `/api/testRuns`, feature/scenario history) and write endpoints (comment creation, scenario review-state patch with optimistic-locking `@Version` change tracking) returned correct results with existing production-shaped data.
+- Still open: replace the legacy `mongo` shell with `mongosh` in `migrate.sh`; add automated startup/migration/integration tests against a real MongoDB instance (only manual verification was done for this migration — see P1 item 4).
 
 **Expected outcome**
 
-Lower the risk of startup failures, incompatible behavior, and blocked future MongoDB upgrades.
+Lower the risk of startup failures, incompatible behavior, and blocked future MongoDB upgrades. *(Achieved for the driver/ORM layer; automated regression coverage is still the open follow-up.)*
+
+#### 1bis. Upgrade Java, Dropwizard, and Spring — ✅ Done
+
+**Actions taken**
+
+- Java: `options.release` raised from 21 to 25 across the Gradle build; CI (`JAVA_VERSION` in `build.yml`/`codeql-analysis.yml`) and the runtime Docker image (`zucchini-ui-app/Dockerfile`, `eclipse-temurin:25`) updated to match.
+- Dropwizard: upgraded from 4.0.16 to 5.0.2 (Jetty 12, Jakarta EE 10). Updated `server-config.yml` (`server.maxQueuedRequests` was removed from `DefaultServerFactory` and dropped from the config). Migrated Jetty imports to the `org.eclipse.jetty.ee10.*` packages (`CrossOriginFilter`, `ServletHolder`/`FilterHolder`, `JakartaWebSocketServletContainerInitializer`) and added the now-required explicit `jetty-ee10-servlets` and `jetty-ee10-websocket-jakarta-server` dependencies (12.1.9, the version Dropwizard 5.0.2 actually resolves).
+- Spring: upgraded `spring-context` from 6.2.19 to 7.0.9; `BackendSpringConfig`, `SpringBundle`, `SpringContextManaged`, and `SpringWebSocketConfig` required no API-level changes and continue to work unchanged with Dropwizard 5/Jetty 12.
+- Verified with a full `./gradlew build` (backend unit tests, SpotBugs/PMD non-blocking checks, frontend Jest tests, example-features) and a manual runtime smoke test (`./gradlew runBackend` against a live MongoDB 8 container) exercising REST reads/writes, health checks, and the WebSocket presence endpoint registration.
+
+**Expected outcome**
+
+Remove the Java 21/Dropwizard 4/Spring 6 foundation as a blocker for future dependency upgrades; keep the stack on actively supported major versions. *(Achieved.)*
 
 #### 2. Establish the application security model
 
@@ -98,7 +112,7 @@ Provide predictable API behavior, safer client compatibility, and controlled per
 
 - Audit production-like queries used by the main screens.
 - Replace full scans and unnecessary Java-side aggregation with projections, MongoDB aggregation, or pagination where appropriate.
-- Modernize the raw-query implementation currently based on deprecated Morphia APIs.
+- ~~Modernize the raw-query implementation currently based on deprecated Morphia APIs.~~ Done as part of the Morphia 2 migration: `MorphiaRawQuery` was removed and replaced with typed, projected entity queries.
 - Add performance tests using representative test-run and scenario volumes.
 
 **Expected outcome**
@@ -202,7 +216,7 @@ Reduce production diagnosis time and provide visibility into real-world performa
 ### Phase 1 — Stabilization and critical risks
 
 1. Freeze a known-good baseline that builds and passes the current tests.
-2. Validate MongoDB 8 compatibility with the selected persistence stack.
+2. ~~Validate MongoDB 8 compatibility with the selected persistence stack.~~ Done: migrated to Morphia 2 / `mongodb-driver-sync`, verified manually against MongoDB 8, alongside the Java 25 / Dropwizard 5 / Spring 7 upgrade.
 3. Update the migration tooling to use `mongosh`.
 4. Define authentication, authorization, CORS, and network-exposure requirements.
 5. Add the first backend integration tests.
@@ -227,7 +241,7 @@ Reduce production diagnosis time and provide visibility into real-world performa
 
 If resources are limited, prioritize these three initiatives:
 
-1. Make the MongoDB persistence stack officially compatible with MongoDB 8.
+1. ~~Make the MongoDB persistence stack officially compatible with MongoDB 8.~~ Done, alongside the Java 25 / Dropwizard 5 / Spring 7 upgrade.
 2. Establish application and network security controls.
 3. Add backend integration tests and make quality checks blocking.
 

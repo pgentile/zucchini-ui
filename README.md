@@ -15,13 +15,13 @@ Requirements
 
 ### Runtime
 
-* Java JRE 21
+* Java JRE 25
 * [Mongo](https://www.mongodb.com)
 
 
 ### Development
 
-* JDK 21
+* JDK 25
 * [Node](https://nodejs.org) 20
 * [PNPM](https://pnpm.io)
 

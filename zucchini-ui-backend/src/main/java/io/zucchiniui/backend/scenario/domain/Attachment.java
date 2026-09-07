@@ -1,13 +1,15 @@
 package io.zucchiniui.backend.scenario.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import xyz.morphia.annotations.Id;
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Id;
 
 import java.util.UUID;
 
 /**
  * Step attachment.
  */
+@Entity
 public class Attachment {
 
     @Id

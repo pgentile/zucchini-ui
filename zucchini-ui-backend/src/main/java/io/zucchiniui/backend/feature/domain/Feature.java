@@ -3,9 +3,9 @@ package io.zucchiniui.backend.feature.domain;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
 import io.zucchiniui.backend.shared.domain.Location;
 import io.zucchiniui.backend.support.ddd.BaseEntity;
-import xyz.morphia.annotations.Entity;
-import xyz.morphia.annotations.Id;
-import xyz.morphia.annotations.Version;
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Id;
+import dev.morphia.annotations.Version;
 
 import java.time.ZonedDateTime;
 import java.util.Collections;

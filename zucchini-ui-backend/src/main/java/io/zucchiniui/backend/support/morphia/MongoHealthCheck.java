@@ -1,25 +1,24 @@
 package io.zucchiniui.backend.support.morphia;
 
 import com.codahale.metrics.health.HealthCheck;
-import com.mongodb.BasicDBObject;
-import com.mongodb.CommandResult;
-import com.mongodb.DB;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
 
 class MongoHealthCheck extends HealthCheck {
 
-    private final DB db;
+    private final MongoDatabase db;
 
-    public MongoHealthCheck(final DB db) {
+    public MongoHealthCheck(final MongoDatabase db) {
         this.db = db;
     }
 
     @Override
     protected Result check() {
-        final BasicDBObject command = new BasicDBObject("buildInfo", 1);
-        final CommandResult commandResult = db.command(command);
+        final Document commandResult = db.runCommand(new Document("buildInfo", 1));
 
-        if (!commandResult.ok()) {
-            return Result.unhealthy(commandResult.getErrorMessage());
+        final Double ok = commandResult.getDouble("ok");
+        if (ok == null || ok != 1.0) {
+            return Result.unhealthy("Mongo buildInfo command failed: " + commandResult.toJson());
         }
 
         final String version = commandResult.getString("version");

@@ -1,12 +1,14 @@
 package io.zucchiniui.backend.scenario.domain;
 
 import com.google.common.base.MoreObjects;
+import dev.morphia.annotations.Entity;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class Step {
 
     private BasicInfo info;
@@ -15,7 +17,7 @@ public class Step {
 
     private String errorMessage;
 
-    private String[][] table;
+    private List<List<String>> table;
 
     private String comment;
 
@@ -55,7 +57,7 @@ public class Step {
         return errorMessage;
     }
 
-    public String[][] getTable() {
+    public List<List<String>> getTable() {
         return table;
     }
 

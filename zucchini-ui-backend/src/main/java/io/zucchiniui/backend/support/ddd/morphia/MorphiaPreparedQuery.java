@@ -1,9 +1,9 @@
 package io.zucchiniui.backend.support.ddd.morphia;
 
+import dev.morphia.DeleteOptions;
+import dev.morphia.query.Query;
 import io.zucchiniui.backend.support.ddd.EntityNotFoundException;
 import io.zucchiniui.backend.support.ddd.PreparedQuery;
-import xyz.morphia.dao.DAO;
-import xyz.morphia.query.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,18 +12,20 @@ import java.util.stream.Stream;
 
 class MorphiaPreparedQuery<T> implements PreparedQuery<T> {
 
-    private final DAO<T, ?> dao;
+    private final MorphiaDAO<T, ?> dao;
 
     private final Query<T> query;
 
-    public MorphiaPreparedQuery(final DAO<T, ?> dao, final Query<T> query) {
+    public MorphiaPreparedQuery(final MorphiaDAO<T, ?> dao, final Query<T> query) {
         this.dao = dao;
         this.query = query;
     }
 
     @Override
     public List<T> find() {
-        return query.asList();
+        try (Stream<T> s = stream()) {
+            return s.toList();
+        }
     }
 
     @Override
@@ -33,7 +35,7 @@ class MorphiaPreparedQuery<T> implements PreparedQuery<T> {
 
     @Override
     public T findOne() {
-        final T entity = query.get();
+        final T entity = query.first();
         if (entity == null) {
             throw new EntityNotFoundException(query.getEntityClass(), "Not found by query " + this);
         }
@@ -42,7 +44,7 @@ class MorphiaPreparedQuery<T> implements PreparedQuery<T> {
 
     @Override
     public Optional<T> tryToFindOne() {
-        final T entity = query.get();
+        final T entity = query.first();
         return Optional.ofNullable(entity);
     }
 
@@ -55,7 +57,7 @@ class MorphiaPreparedQuery<T> implements PreparedQuery<T> {
 
     @Override
     public void delete() {
-        dao.deleteByQuery(query);
+        query.delete(new DeleteOptions().multi(true));
     }
 
 }

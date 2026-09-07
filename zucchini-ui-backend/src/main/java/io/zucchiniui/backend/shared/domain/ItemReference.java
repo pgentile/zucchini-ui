@@ -2,12 +2,14 @@ package io.zucchiniui.backend.shared.domain;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
+import dev.morphia.annotations.Entity;
 
 import java.util.Objects;
 
 /**
  * Item reference.
  */
+@Entity
 public final class ItemReference {
 
     /**

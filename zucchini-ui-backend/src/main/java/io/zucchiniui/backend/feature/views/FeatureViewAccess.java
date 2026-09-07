@@ -11,7 +11,8 @@ import io.zucchiniui.backend.support.ddd.morphia.MorphiaUtils;
 import io.zucchiniui.backend.testrun.domain.TestRunQuery;
 import io.zucchiniui.backend.testrun.domain.TestRunRepository;
 import org.springframework.stereotype.Component;
-import xyz.morphia.query.Query;
+import dev.morphia.query.FindOptions;
+import dev.morphia.query.Query;
 
 import java.util.List;
 import java.util.Set;
@@ -56,11 +57,10 @@ public class FeatureViewAccess {
             queryWithFeatureIds = queryWithFeatureIds.withIdIn(featureIdsForTags);
         }
 
-        final Query<Feature> query = featureDAO.query(queryWithFeatureIds)
-            .project("testRunId", true)
-            .project("info", true)
-            .project("group", true)
-            .project("status", true);
+        final Query<Feature> query = featureDAO.query(
+            queryWithFeatureIds,
+            new FindOptions().projection().include("testRunId", "info", "group", "status")
+        );
 
         return MorphiaUtils.streamQuery(query)
             .map(feature -> {
@@ -82,9 +82,7 @@ public class FeatureViewAccess {
             .stream()
             .flatMap(testRun -> {
                 final FeatureQuery q = new FeatureQuery().withTestRunId(testRun.getId()).withFeatureKey(featureKey);
-                final Feature feature = featureDAO.query(q)
-                    .project("status", true)
-                    .get();
+                final Feature feature = featureDAO.query(q, new FindOptions().projection().include("status")).first();
 
                 if (feature == null) {
                     return Stream.empty();

@@ -3,9 +3,8 @@ package io.zucchiniui.backend.comment.domain;
 import com.google.common.collect.Sets;
 import io.zucchiniui.backend.shared.domain.ItemReference;
 import io.zucchiniui.backend.support.ddd.BaseEntity;
-import xyz.morphia.annotations.Embedded;
-import xyz.morphia.annotations.Entity;
-import xyz.morphia.annotations.Id;
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Id;
 
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -35,7 +34,6 @@ public class Comment extends BaseEntity<String> {
     /**
      * Comment references.
      */
-    @Embedded(concreteClass = HashSet.class)
     private Set<ItemReference> references;
 
     /**
