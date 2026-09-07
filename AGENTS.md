@@ -25,6 +25,14 @@ This repository is a Gradle multi-project build for a full-stack Cucumber report
 The repository is orchestrated from the root `build.gradle`. Do not treat the frontend
 and backend as independent apps when changing a feature that spans both layers.
 
+## Modernization plan
+
+The prioritized modernization recommendations, implementation phases, and minimum
+modernization scope are documented in
+[`docs/modernization-plan.md`](docs/modernization-plan.md). Consult this document
+when planning architectural, dependency, security, testing, CI/CD, or infrastructure
+changes.
+
 ## Build, test, and lint commands
 
 Use the Gradle wrapper at the repository root.
