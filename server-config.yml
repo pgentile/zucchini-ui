@@ -1,8 +1,7 @@
 server:
-  type: default-bounded
+  type: default
   minThreads:  12
   maxThreads: 48
-  maxQueuedRequests: 2048
   idleThreadTimeout: 10 seconds
   # Never change the following param!
   rootPath: /api

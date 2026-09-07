@@ -1,6 +1,5 @@
 server:
-  type: default-bounded
-  maxQueuedRequests: 2048
+  type: default
   # Never change the following param!
   rootPath: /api
 
