@@ -23,8 +23,8 @@ class DockerPlugin implements Plugin<Project> {
             initDockerTasks(project)
         }
 
-        // Add Docker Compose tasks if docker-compose.yml exists
-        File dockerComposeFile = project.file("docker-compose.yml")
+        // Add Docker Compose tasks if compose.yml exists
+        File dockerComposeFile = project.file("compose.yml")
         if (dockerComposeFile.isFile()) {
             project.logger.debug('Docker Compose detected in project {} at {}, adding Docker Compose tasks', project.name, dockerComposeFile)
             initDockerComposeTasks(project)

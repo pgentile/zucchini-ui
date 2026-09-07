@@ -1,14 +1,19 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Run Mongo database" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
+  <configuration default="false" name="compose.yml.mongo: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
     <deployment type="docker-compose.yml">
       <settings>
         <option name="envFilePath" value="" />
+        <option name="envFilePaths">
+          <list>
+            <option value="" />
+          </list>
+        </option>
         <option name="services">
           <list>
             <option value="mongo" />
           </list>
         </option>
-        <option name="sourceFilePath" value="docker-compose.yml" />
+        <option name="sourceFilePath" value="compose.yml" />
       </settings>
     </deployment>
     <method v="2" />
