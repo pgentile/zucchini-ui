@@ -18,8 +18,8 @@ class NodePlugin implements Plugin<Project> {
             initNPMTasks(project)
         }
 
-        if (project.file('yarn.lock').isFile()) {
-            initYarnTasks(project)
+        if (project.file('pnpm-lock.yaml').isFile()) {
+            initPNPMTasks(project)
         }
     }
 
@@ -33,13 +33,13 @@ class NodePlugin implements Plugin<Project> {
         }
     }
 
-    private void initYarnTasks(Project project) {
-        project.task('yarnInstall', type: YarnTask, group: TASK_GROUP, description: 'Install Node dependencies with Yarn') {
+    private void initPNPMTasks(Project project) {
+        project.task('pnpmInstall', type: PNPMTask, group: TASK_GROUP, description: 'Install Node dependencies with PNPM') {
             command = 'install'
         }
 
-        project.task('yarnUpgrade', type: YarnTask, group: TASK_GROUP, description: 'Update Node dependencies with Yarn') {
-            command = 'upgrade'
+        project.task('pnpmUpdate', type: PNPMTask, group: TASK_GROUP, description: 'Update Node dependencies with PNPM') {
+            command = 'update'
         }
     }
 

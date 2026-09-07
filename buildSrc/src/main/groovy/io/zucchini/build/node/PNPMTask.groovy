@@ -5,7 +5,7 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 
-class YarnTask extends DefaultTask {
+class PNPMTask extends DefaultTask {
 
     @Input
     @Optional
@@ -17,22 +17,22 @@ class YarnTask extends DefaultTask {
 
     @TaskAction
     void run() {
-        project.logger.info('Executing Yarn with command {} and arguments: {}', command, args)
+        project.logger.info('Executing PNPM with command {} and arguments: {}', command, args)
 
-        // Determine yarn command to lauch based on current OS
-        String yarnCmd = 'yarn'
+        // Determine pnpm command to lauch based on current OS
+        String pnpmCmd = 'pnpm'
         if (project.osdetector.os == 'windows') {
-            yarnCmd += '.cmd'
+            pnpmCmd += '.cmd'
         }
 
-        List<String> yarnArgs = [yarnCmd]
+        List<String> pnpmArgs = [pnpmCmd]
         if (command != null) {
-            yarnArgs << command
+            pnpmArgs << command
         }
-        yarnArgs += args
+        pnpmArgs += args
 
         project.exec {
-            commandLine yarnArgs
+            commandLine pnpmArgs
         }
     }
 

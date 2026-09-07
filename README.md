@@ -23,7 +23,7 @@ Requirements
 
 * JDK 21
 * [Node](https://nodejs.org) 20
-* [Yarn](https://yarnpkg.com)
+* [PNPM](https://pnpm.io)
 
 Zucchini is built with [Gradle](https://gradle.org/). The Gradle wrapper is provided, no extra download is required.
 
@@ -34,8 +34,7 @@ Build
 First time, install Javascript dependencies:
 
 ```
-npm install --global yarn
-./gradlew yarnInstall
+./gradlew pnpmInstall
 ```
 
 Build application with Gradle:
@@ -83,10 +82,10 @@ Start Java backend:
 Start frontend:
 
 ```
-(cd zucchini-ui-frontend && yarn start)
+(cd zucchini-ui-frontend && pnpm start)
 ```
 
-Open your browser to (although the `yarn start` should open Zucchini home page) :
+Open your browser to (although the `pnpm start` should open Zucchini home page) :
 
 ```
 http://localhost:9000
@@ -160,7 +159,7 @@ Cypress E2E tests
 You can launch some E2E Cypress tests:
 
 ```
-(cd zucchini-ui-e2e-tests && yarn cypress:open)
+(cd zucchini-ui-e2e-tests && pnpm start)
 ```
 
 This test suite is useful to validate basic Zucchini functionalities.

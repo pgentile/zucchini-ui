@@ -40,10 +40,10 @@ Use the Gradle wrapper at the repository root.
 ### First-time setup
 
 ```bash
-./gradlew yarnInstall
+./gradlew pnpmInstall
 ```
 
-This installs the Node/Yarn dependencies used by the frontend and E2E test projects.
+This installs the Node/PNPM dependencies used by the frontend and E2E test projects.
 
 ### Full validation
 
@@ -76,7 +76,7 @@ Start the frontend dev server:
 
 ```bash
 cd zucchini-ui-frontend
-yarn start
+pnpm start
 ```
 
 The UI is served on port `9000`; the backend API and admin ports are `8080` and `8081`.
@@ -106,7 +106,7 @@ Frontend Jest tests:
 
 ```bash
 cd zucchini-ui-frontend
-yarn test --runTestsByPath src/path/to/test-file.test.js
+pnpm test --runTestsByPath src/path/to/test-file.test.js
 ```
 
 Cypress E2E tests:
@@ -115,7 +115,7 @@ Cypress E2E tests:
 ./gradlew :zucchini-ui-e2e-tests:jsTest
 # or directly
 cd zucchini-ui-e2e-tests
-yarn test --spec 'cypress/e2e/path/to/spec.cy.js'
+pnpm test --spec 'cypress/e2e/path/to/spec.cy.js'
 ```
 
 For the Docker-based E2E flow, start all servers first:
@@ -129,9 +129,9 @@ For the Docker-based E2E flow, start all servers first:
 
 ```bash
 cd zucchini-ui-frontend
-yarn lint
+pnpm lint
 cd zucchini-ui-e2e-tests
-yarn lint
+pnpm lint
 ```
 
 ## Key conventions
@@ -146,7 +146,7 @@ yarn lint
   without running the migration script.
 - The app expects a Dropwizard YAML config file (`server-config.yml`); environment
   variables can be referenced inside it.
-- Keep changes compatible with the Gradle + Yarn + Docker workflow rather than
+- Keep changes compatible with the Gradle + PNPM + Docker workflow rather than
   introducing ad hoc tooling.
 - Dependencies are updated automatically with Renovate.
 - Prefer editing the correct subproject instead of adding hidden cross-project logic.
