@@ -11,6 +11,11 @@
   "platformAutomerge": true,
   "packageRules": [
     {
+      "groupName": "GitHub Actions",
+      "groupSlug": "github-actions",
+      "matchManagers": ["github-actions"]
+    },
+    {
       "groupName": "Dropwizard",
       "matchPackageNames": ["/^io.dropwizard:/"]
     },
