@@ -1,7 +1,10 @@
 package io.zucchiniui.backend.scenario.domain;
 
+import dev.morphia.annotations.Entity;
+
 import java.time.ZonedDateTime;
 
+@Entity
 public class ScenarioReviewedStateChange extends ScenarioChange<Boolean> {
 
     /**

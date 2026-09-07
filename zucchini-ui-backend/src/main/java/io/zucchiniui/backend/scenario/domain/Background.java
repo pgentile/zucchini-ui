@@ -1,5 +1,6 @@
 package io.zucchiniui.backend.scenario.domain;
 
+import dev.morphia.annotations.Entity;
 import io.zucchiniui.backend.shared.domain.BasicInfo;
 
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class Background {
 
     private BasicInfo info;

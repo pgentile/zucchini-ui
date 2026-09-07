@@ -12,7 +12,7 @@
 name: "CodeQL"
 
 env:
-  JAVA_VERSION: "21"
+  JAVA_VERSION: "25"
   NODE_VERSION: "22"
   PNPM_VERSION: "12.3.4"
 

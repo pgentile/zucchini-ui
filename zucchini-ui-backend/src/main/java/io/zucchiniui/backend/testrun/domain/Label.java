@@ -1,9 +1,11 @@
 package io.zucchiniui.backend.testrun.domain;
 
 import com.google.common.base.MoreObjects;
+import dev.morphia.annotations.Entity;
 
 import java.util.Objects;
 
+@Entity
 public final class Label {
 
     private String name;

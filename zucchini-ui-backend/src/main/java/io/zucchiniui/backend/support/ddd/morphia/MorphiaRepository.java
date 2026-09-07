@@ -1,17 +1,16 @@
 package io.zucchiniui.backend.support.ddd.morphia;
 
+import dev.morphia.query.Query;
 import io.zucchiniui.backend.support.ddd.ConcurrentEntityModificationException;
 import io.zucchiniui.backend.support.ddd.EntityNotFoundException;
 import io.zucchiniui.backend.support.ddd.Repository;
-import xyz.morphia.dao.BasicDAO;
-import xyz.morphia.query.Query;
 
 import java.util.ConcurrentModificationException;
 import java.util.function.Function;
 
-public class MorphiaRepository<T, I, D extends BasicDAO<T, I>> implements Repository<T, I> {
+public class MorphiaRepository<T, I, D extends MorphiaDAO<T, I>> implements Repository<T, I> {
 
-    private final D dao;
+    protected final D dao;
 
     public MorphiaRepository(final D dao) {
         this.dao = dao;

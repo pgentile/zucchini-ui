@@ -2,13 +2,12 @@
 
 ## Executive summary
 
-Zucchini UI is already partially modernized: it uses Java 21, Dropwizard 4, Spring 6, React 18, Webpack 5, TypeScript 5.9, Cypress 15, and Node 22 in CI. Renovate also automates a large part of dependency maintenance.
+Zucchini UI has completed its core backend platform modernization: it now runs on Java 25, Dropwizard 5 (Jetty 12 / Jakarta EE 10), Spring Framework 7, and a modern MongoDB persistence stack (`dev.morphia.morphia:morphia-core` 2.5.3 + `mongodb-driver-sync` 5.11.0), alongside React 18, Webpack 5, TypeScript 5.9, Cypress 15, and Node 22 in CI. Renovate also automates a large part of dependency maintenance.
 
-The highest risks are concentrated in the foundations rather than in the age of the React or Webpack versions:
+The highest remaining risks are concentrated in process and coverage rather than in the age of the frameworks:
 
-- The MongoDB persistence layer still relies on Morphia 1.4, the MongoDB Java driver 3.12, and legacy MongoDB APIs while the Docker image uses MongoDB 8.
 - PMD, SpotBugs, and some Cucumber tasks are configured not to fail the build.
-- Backend tests are primarily domain unit tests; visible integration coverage for Dropwizard, Jersey, MongoDB, WebSockets, and HTTP contracts is limited.
+- Backend tests are primarily domain unit tests; visible integration coverage for Dropwizard, Jersey, MongoDB, WebSockets, and HTTP contracts is limited (no automated integration-test suite was added as part of the Java/Dropwizard/Spring/Morphia migration; manual verification was performed instead — see note below).
 - Authentication and authorization are not visible in the application surface, CORS is globally enabled, and Docker Compose publishes MongoDB and the Dropwizard admin port.
 - The frontend remains mostly JavaScript/JSX, with only a small TypeScript/TSX portion and extensive use of `PropTypes` and legacy Redux container patterns.
 - The REST API has no visible formal contract or consistent pagination strategy for potentially large list responses.
@@ -19,21 +18,7 @@ The recommendations below are ordered by importance and dependency.
 
 ### P0 — Critical foundations
 
-#### 1. Secure and modernize MongoDB compatibility
-
-**Actions**
-
-- Choose a supported persistence target: modern Morphia, the official MongoDB Java driver, or Spring Data MongoDB.
-- Replace legacy APIs in `MorphiaDatastoreBuilder`, `MongoHealthCheck`, and `MorphiaRawQuery`.
-- Verify the selected stack against MongoDB 8.
-- Replace the legacy `mongo` shell with `mongosh` in `migrate.sh`.
-- Add startup and migration tests against a real MongoDB instance.
-
-**Expected outcome**
-
-Lower the risk of startup failures, incompatible behavior, and blocked future MongoDB upgrades.
-
-#### 2. Establish the application security model
+#### 1. Establish the application security model
 
 **Actions**
 
@@ -48,9 +33,7 @@ Lower the risk of startup failures, incompatible behavior, and blocked future Mo
 
 Make deployment security explicit instead of relying primarily on network isolation.
 
-The Yarn-to-PNPM migration is complete. PNPM is now the repository-wide package manager for local development, CI, and build automation.
-
-#### 3. Make quality checks blocking
+#### 2. Make quality checks blocking
 
 **Actions**
 
@@ -65,7 +48,7 @@ Prevent regressions from being merged or published while preserving a staged ado
 
 ### P1 — Reliability and contracts
 
-#### 4. Build a real backend integration-test strategy
+#### 3. Build a real backend integration-test strategy
 
 **Actions**
 
@@ -78,7 +61,7 @@ Prevent regressions from being merged or published while preserving a staged ado
 
 Validate backend contracts end to end and make dependency migrations safer.
 
-#### 5. Formalize and stabilize the API
+#### 4. Formalize and stabilize the API
 
 **Actions**
 
@@ -92,20 +75,19 @@ Validate backend contracts end to end and make dependency migrations safer.
 
 Provide predictable API behavior, safer client compatibility, and controlled performance as data volumes grow.
 
-#### 6. Review MongoDB query performance
+#### 5. Review MongoDB query performance
 
 **Actions**
 
 - Audit production-like queries used by the main screens.
 - Replace full scans and unnecessary Java-side aggregation with projections, MongoDB aggregation, or pagination where appropriate.
-- Modernize the raw-query implementation currently based on deprecated Morphia APIs.
 - Add performance tests using representative test-run and scenario volumes.
 
 **Expected outcome**
 
 Keep response times stable as the number of runs and scenarios increases.
 
-#### 7. Migrate the frontend progressively to TypeScript
+#### 6. Migrate the frontend progressively to TypeScript
 
 **Actions**
 
@@ -120,7 +102,7 @@ The repository currently contains roughly 177 JavaScript/JSX files and only a sm
 
 Reduce runtime regressions, make frontend contracts explicit, and simplify future refactoring.
 
-#### 8. Modernize state and network management
+#### 7. Modernize state and network management
 
 **Actions**
 
@@ -134,7 +116,7 @@ Reduce repetitive application code and improve consistency across network-driven
 
 ### P2 — Platform and user-facing modernization
 
-#### 9. Refresh the UI stack
+#### 8. Refresh the UI stack
 
 **Actions**
 
@@ -149,7 +131,7 @@ React 19 should not be the first modernization target; the immediate value of th
 
 Reduce UI dependency debt and improve browser compatibility and accessibility.
 
-#### 10. Harden container images and the software supply chain
+#### 9. Harden container images and the software supply chain
 
 **Actions**
 
@@ -164,7 +146,7 @@ Reduce UI dependency debt and improve browser compatibility and accessibility.
 
 Produce smaller, traceable, verifiable images with reliable rollback capability.
 
-#### 11. Improve CI/CD security and reproducibility
+#### 10. Improve CI/CD security and reproducibility
 
 **Actions**
 
@@ -180,7 +162,7 @@ Produce smaller, traceable, verifiable images with reliable rollback capability.
 
 Improve CI security, reduce fork-related failures, and make release behavior auditable.
 
-#### 12. Add standardized observability and operations
+#### 11. Add standardized observability and operations
 
 **Actions**
 
@@ -202,10 +184,9 @@ Reduce production diagnosis time and provide visibility into real-world performa
 ### Phase 1 — Stabilization and critical risks
 
 1. Freeze a known-good baseline that builds and passes the current tests.
-2. Validate MongoDB 8 compatibility with the selected persistence stack.
-3. Update the migration tooling to use `mongosh`.
-4. Define authentication, authorization, CORS, and network-exposure requirements.
-5. Add the first backend integration tests.
+2. Update the migration tooling to use `mongosh`.
+3. Define authentication, authorization, CORS, and network-exposure requirements.
+4. Add the first backend integration tests.
 
 ### Phase 2 — Reliability and contracts
 
@@ -227,8 +208,8 @@ Reduce production diagnosis time and provide visibility into real-world performa
 
 If resources are limited, prioritize these three initiatives:
 
-1. Make the MongoDB persistence stack officially compatible with MongoDB 8.
-2. Establish application and network security controls.
-3. Add backend integration tests and make quality checks blocking.
+1. Establish application and network security controls.
+2. Add backend integration tests and make quality checks blocking.
+3. Formalize the API and add pagination/request limits to endpoints returning large lists.
 
 These initiatives provide the largest reduction in operational risk before a frontend rewrite or visual redesign.

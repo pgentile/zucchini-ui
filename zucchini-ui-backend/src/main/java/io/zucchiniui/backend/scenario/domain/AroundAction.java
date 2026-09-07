@@ -1,7 +1,10 @@
 package io.zucchiniui.backend.scenario.domain;
 
+import dev.morphia.annotations.Entity;
+
 import java.util.Objects;
 
+@Entity
 public class AroundAction {
 
     private StepStatus status;

@@ -11,6 +11,7 @@ import io.zucchiniui.backend.shared.domain.BasicInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -91,7 +92,7 @@ class ReportScenarioConverter {
 
         final String stepComment = convertComment(reportStep.getComments());
 
-        final String[][] table = convertTable(reportStep.getTableRows());
+        final List<List<String>> table = convertTable(reportStep.getTableRows());
 
         final List<Attachment> attachments = convertEmbeddings(reportStep.getEmbeddings());
 
@@ -118,23 +119,14 @@ class ReportScenarioConverter {
             .withStatus(convertStepStatus(reportAroundAction.getResult().getStatus()));
     }
 
-    private static String[][] convertTable(final List<TableRow> source) {
+    private static List<List<String>> convertTable(final List<TableRow> source) {
         if (source == null || source.isEmpty()) {
             return null;
         }
 
-        final String[][] table = new String[source.size()][];
-
-        int i = 0;
+        final List<List<String>> table = new ArrayList<>(source.size());
         for (final TableRow sourceRow : source) {
-            final String[] targetRow = new String[sourceRow.getCells().size()];
-            int j = 0;
-            for (final String cell : sourceRow.getCells()) {
-                targetRow[j] = cell;
-                j++;
-            }
-            table[i] = targetRow;
-            i++;
+            table.add(new ArrayList<>(sourceRow.getCells()));
         }
 
         return table;

@@ -8,8 +8,8 @@ import io.dropwizard.servlets.assets.AssetServlet;
 import io.zucchiniui.backend.BackendBundle;
 import io.zucchiniui.backend.BackendConfiguration;
 import io.zucchiniui.backend.support.exceptionhandler.ExitExceptionHandler;
-import org.eclipse.jetty.servlet.FilterHolder;
-import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.ee10.servlet.FilterHolder;
+import org.eclipse.jetty.ee10.servlet.ServletHolder;
 
 import jakarta.servlet.DispatcherType;
 import java.nio.charset.StandardCharsets;

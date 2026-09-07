@@ -1,10 +1,13 @@
 package io.zucchiniui.backend.shared.domain;
 
+import dev.morphia.annotations.Entity;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 public final class BasicInfo {
 
     private String keyword;
@@ -26,7 +29,7 @@ public final class BasicInfo {
     public BasicInfo(final String keyword, final String name, final List<Argument> arguments) {
         this.keyword = Objects.requireNonNull(keyword);
         this.name = Objects.requireNonNull(name);
-        this.arguments = new ArrayList<>(arguments);
+        this.arguments = arguments != null ? new ArrayList<>(arguments) : new ArrayList<>();
     }
 
     public String getKeyword() {

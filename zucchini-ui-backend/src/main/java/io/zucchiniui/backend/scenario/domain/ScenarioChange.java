@@ -1,10 +1,12 @@
 package io.zucchiniui.backend.scenario.domain;
 
 import com.google.common.base.MoreObjects;
+import dev.morphia.annotations.Entity;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
+@Entity
 public abstract class ScenarioChange<T> {
 
     public enum ChangeType {
