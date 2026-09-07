@@ -7,7 +7,6 @@ Zucchini UI is already partially modernized: it uses Java 21, Dropwizard 4, Spri
 The highest risks are concentrated in the foundations rather than in the age of the React or Webpack versions:
 
 - The MongoDB persistence layer still relies on Morphia 1.4, the MongoDB Java driver 3.12, and legacy MongoDB APIs while the Docker image uses MongoDB 8.
-- The Yarn-to-PNPM migration is currently incomplete in the working tree, with build logic, lockfiles, and CI conventions not yet aligned.
 - PMD, SpotBugs, and some Cucumber tasks are configured not to fail the build.
 - Backend tests are primarily domain unit tests; visible integration coverage for Dropwizard, Jersey, MongoDB, WebSockets, and HTTP contracts is limited.
 - Authentication and authorization are not visible in the application surface, CORS is globally enabled, and Docker Compose publishes MongoDB and the Dropwizard admin port.
@@ -49,21 +48,9 @@ Lower the risk of startup failures, incompatible behavior, and blocked future Mo
 
 Make deployment security explicit instead of relying primarily on network isolation.
 
-#### 3. Complete the Yarn-to-PNPM migration
+The Yarn-to-PNPM migration is complete. PNPM is now the repository-wide package manager for local development, CI, and build automation.
 
-**Actions**
-
-- Select one package manager and use it consistently.
-- If PNPM is retained, version `pnpm-lock.yaml`, `pnpm-workspace.yaml`, and `PNPMTask.groovy`.
-- Remove remaining Yarn references from Gradle, CI, documentation, and developer workflows.
-- Enable Corepack and pin the PNPM version.
-- Make the migration atomic so the repository never references build classes or lockfiles that are not versioned together.
-
-**Expected outcome**
-
-Reproducible local and CI builds with deterministic dependency installation and lower installation times.
-
-#### 4. Make quality checks blocking
+#### 3. Make quality checks blocking
 
 **Actions**
 
@@ -78,7 +65,7 @@ Prevent regressions from being merged or published while preserving a staged ado
 
 ### P1 — Reliability and contracts
 
-#### 5. Build a real backend integration-test strategy
+#### 4. Build a real backend integration-test strategy
 
 **Actions**
 
@@ -91,7 +78,7 @@ Prevent regressions from being merged or published while preserving a staged ado
 
 Validate backend contracts end to end and make dependency migrations safer.
 
-#### 6. Formalize and stabilize the API
+#### 5. Formalize and stabilize the API
 
 **Actions**
 
@@ -105,7 +92,7 @@ Validate backend contracts end to end and make dependency migrations safer.
 
 Provide predictable API behavior, safer client compatibility, and controlled performance as data volumes grow.
 
-#### 7. Review MongoDB query performance
+#### 6. Review MongoDB query performance
 
 **Actions**
 
@@ -118,7 +105,7 @@ Provide predictable API behavior, safer client compatibility, and controlled per
 
 Keep response times stable as the number of runs and scenarios increases.
 
-#### 8. Migrate the frontend progressively to TypeScript
+#### 7. Migrate the frontend progressively to TypeScript
 
 **Actions**
 
@@ -133,7 +120,7 @@ The repository currently contains roughly 177 JavaScript/JSX files and only a sm
 
 Reduce runtime regressions, make frontend contracts explicit, and simplify future refactoring.
 
-#### 9. Modernize state and network management
+#### 8. Modernize state and network management
 
 **Actions**
 
@@ -147,7 +134,7 @@ Reduce repetitive application code and improve consistency across network-driven
 
 ### P2 — Platform and user-facing modernization
 
-#### 10. Refresh the UI stack
+#### 9. Refresh the UI stack
 
 **Actions**
 
@@ -162,7 +149,7 @@ React 19 should not be the first modernization target; the immediate value of th
 
 Reduce UI dependency debt and improve browser compatibility and accessibility.
 
-#### 11. Harden container images and the software supply chain
+#### 10. Harden container images and the software supply chain
 
 **Actions**
 
@@ -177,7 +164,7 @@ Reduce UI dependency debt and improve browser compatibility and accessibility.
 
 Produce smaller, traceable, verifiable images with reliable rollback capability.
 
-#### 12. Improve CI/CD security and reproducibility
+#### 11. Improve CI/CD security and reproducibility
 
 **Actions**
 
@@ -193,7 +180,7 @@ Produce smaller, traceable, verifiable images with reliable rollback capability.
 
 Improve CI security, reduce fork-related failures, and make release behavior auditable.
 
-#### 13. Add standardized observability and operations
+#### 12. Add standardized observability and operations
 
 **Actions**
 
@@ -215,11 +202,10 @@ Reduce production diagnosis time and provide visibility into real-world performa
 ### Phase 1 — Stabilization and critical risks
 
 1. Freeze a known-good baseline that builds and passes the current tests.
-2. Complete or cleanly revert the Yarn-to-PNPM migration.
-3. Validate MongoDB 8 compatibility with the selected persistence stack.
-4. Update the migration tooling to use `mongosh`.
-5. Define authentication, authorization, CORS, and network-exposure requirements.
-6. Add the first backend integration tests.
+2. Validate MongoDB 8 compatibility with the selected persistence stack.
+3. Update the migration tooling to use `mongosh`.
+4. Define authentication, authorization, CORS, and network-exposure requirements.
+5. Add the first backend integration tests.
 
 ### Phase 2 — Reliability and contracts
 
@@ -239,11 +225,10 @@ Reduce production diagnosis time and provide visibility into real-world performa
 
 ## Minimum viable modernization scope
 
-If resources are limited, prioritize these four initiatives:
+If resources are limited, prioritize these three initiatives:
 
 1. Make the MongoDB persistence stack officially compatible with MongoDB 8.
-2. Complete the PNPM migration or return to Yarn; do not keep a hybrid state.
-3. Establish application and network security controls.
-4. Add backend integration tests and make quality checks blocking.
+2. Establish application and network security controls.
+3. Add backend integration tests and make quality checks blocking.
 
 These initiatives provide the largest reduction in operational risk before a frontend rewrite or visual redesign.
