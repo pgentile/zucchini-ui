@@ -18,36 +18,7 @@ The recommendations below are ordered by importance and dependency.
 
 ### P0 — Critical foundations
 
-#### 1. Secure and modernize MongoDB compatibility — ✅ Done
-
-**Actions taken**
-
-- Migrated from `xyz.morphia.morphia:core:1.4.0` / `mongo-java-driver:3.12` to `dev.morphia.morphia:morphia-core:2.5.3` / `org.mongodb:mongodb-driver-sync:5.11.0`.
-- Rewrote `MorphiaDatastoreBuilder`, `MongoHealthCheck`, `MorphiaRepository`, `MorphiaUtils`, `MorphiaPreparedQuery`, and all DAOs (`FeatureDAO`, `ScenarioDAO`, `TestRunDAO`, `CommentDAO`) against the modern `Filters`/`FindOptions`/`Sort` API.
-- Removed the deprecated raw-`DBObject` query helper (`MorphiaRawQuery`); stats/projection queries in `ScenarioViewAccess`/`FeatureViewAccess` now use typed, projected entity queries instead.
-- Annotated all embedded value types (`BasicInfo`, `Argument`, `Location`, `ItemReference`, `Step`, `Background`, `AroundAction`, `ScenarioChange` + subclasses, `Label`, `Attachment`) with `@Entity` so Morphia 2 can map and validate embedded paths (Morphia 2 requires `@Entity`/`@Embedded` on every mappable type, including embedded ones; `@Embedded` itself is deprecated in favor of plain `@Entity`).
-- Converted `Step.table` from `String[][]` to `List<List<String>>` to work around a Morphia 2 multi-dimensional array codec limitation.
-- Verified manually end to end against MongoDB 8 (local Docker container): all REST read endpoints (`/api/features`, `/api/scenarii`, `/api/scenarii/stats`, `/api/scenarii/tags`, `/api/scenarii/stepDefinitions`, `/api/testRuns`, feature/scenario history) and write endpoints (comment creation, scenario review-state patch with optimistic-locking `@Version` change tracking) returned correct results with existing production-shaped data.
-- Still open: replace the legacy `mongo` shell with `mongosh` in `migrate.sh`; add automated startup/migration/integration tests against a real MongoDB instance (only manual verification was done for this migration — see P1 item 4).
-
-**Expected outcome**
-
-Lower the risk of startup failures, incompatible behavior, and blocked future MongoDB upgrades. *(Achieved for the driver/ORM layer; automated regression coverage is still the open follow-up.)*
-
-#### 1bis. Upgrade Java, Dropwizard, and Spring — ✅ Done
-
-**Actions taken**
-
-- Java: `options.release` raised from 21 to 25 across the Gradle build; CI (`JAVA_VERSION` in `build.yml`/`codeql-analysis.yml`) and the runtime Docker image (`zucchini-ui-app/Dockerfile`, `eclipse-temurin:25`) updated to match.
-- Dropwizard: upgraded from 4.0.16 to 5.0.2 (Jetty 12, Jakarta EE 10). Updated `server-config.yml` (`server.maxQueuedRequests` was removed from `DefaultServerFactory` and dropped from the config). Migrated Jetty imports to the `org.eclipse.jetty.ee10.*` packages (`CrossOriginFilter`, `ServletHolder`/`FilterHolder`, `JakartaWebSocketServletContainerInitializer`) and added the now-required explicit `jetty-ee10-servlets` and `jetty-ee10-websocket-jakarta-server` dependencies (12.1.9, the version Dropwizard 5.0.2 actually resolves).
-- Spring: upgraded `spring-context` from 6.2.19 to 7.0.9; `BackendSpringConfig`, `SpringBundle`, `SpringContextManaged`, and `SpringWebSocketConfig` required no API-level changes and continue to work unchanged with Dropwizard 5/Jetty 12.
-- Verified with a full `./gradlew build` (backend unit tests, SpotBugs/PMD non-blocking checks, frontend Jest tests, example-features) and a manual runtime smoke test (`./gradlew runBackend` against a live MongoDB 8 container) exercising REST reads/writes, health checks, and the WebSocket presence endpoint registration.
-
-**Expected outcome**
-
-Remove the Java 21/Dropwizard 4/Spring 6 foundation as a blocker for future dependency upgrades; keep the stack on actively supported major versions. *(Achieved.)*
-
-#### 2. Establish the application security model
+#### 1. Establish the application security model
 
 **Actions**
 
@@ -62,9 +33,7 @@ Remove the Java 21/Dropwizard 4/Spring 6 foundation as a blocker for future depe
 
 Make deployment security explicit instead of relying primarily on network isolation.
 
-The Yarn-to-PNPM migration is complete. PNPM is now the repository-wide package manager for local development, CI, and build automation.
-
-#### 3. Make quality checks blocking
+#### 2. Make quality checks blocking
 
 **Actions**
 
@@ -79,7 +48,7 @@ Prevent regressions from being merged or published while preserving a staged ado
 
 ### P1 — Reliability and contracts
 
-#### 4. Build a real backend integration-test strategy
+#### 3. Build a real backend integration-test strategy
 
 **Actions**
 
@@ -92,7 +61,7 @@ Prevent regressions from being merged or published while preserving a staged ado
 
 Validate backend contracts end to end and make dependency migrations safer.
 
-#### 5. Formalize and stabilize the API
+#### 4. Formalize and stabilize the API
 
 **Actions**
 
@@ -106,20 +75,19 @@ Validate backend contracts end to end and make dependency migrations safer.
 
 Provide predictable API behavior, safer client compatibility, and controlled performance as data volumes grow.
 
-#### 6. Review MongoDB query performance
+#### 5. Review MongoDB query performance
 
 **Actions**
 
 - Audit production-like queries used by the main screens.
 - Replace full scans and unnecessary Java-side aggregation with projections, MongoDB aggregation, or pagination where appropriate.
-- ~~Modernize the raw-query implementation currently based on deprecated Morphia APIs.~~ Done as part of the Morphia 2 migration: `MorphiaRawQuery` was removed and replaced with typed, projected entity queries.
 - Add performance tests using representative test-run and scenario volumes.
 
 **Expected outcome**
 
 Keep response times stable as the number of runs and scenarios increases.
 
-#### 7. Migrate the frontend progressively to TypeScript
+#### 6. Migrate the frontend progressively to TypeScript
 
 **Actions**
 
@@ -134,7 +102,7 @@ The repository currently contains roughly 177 JavaScript/JSX files and only a sm
 
 Reduce runtime regressions, make frontend contracts explicit, and simplify future refactoring.
 
-#### 8. Modernize state and network management
+#### 7. Modernize state and network management
 
 **Actions**
 
@@ -148,7 +116,7 @@ Reduce repetitive application code and improve consistency across network-driven
 
 ### P2 — Platform and user-facing modernization
 
-#### 9. Refresh the UI stack
+#### 8. Refresh the UI stack
 
 **Actions**
 
@@ -163,7 +131,7 @@ React 19 should not be the first modernization target; the immediate value of th
 
 Reduce UI dependency debt and improve browser compatibility and accessibility.
 
-#### 10. Harden container images and the software supply chain
+#### 9. Harden container images and the software supply chain
 
 **Actions**
 
@@ -178,7 +146,7 @@ Reduce UI dependency debt and improve browser compatibility and accessibility.
 
 Produce smaller, traceable, verifiable images with reliable rollback capability.
 
-#### 11. Improve CI/CD security and reproducibility
+#### 10. Improve CI/CD security and reproducibility
 
 **Actions**
 
@@ -194,7 +162,7 @@ Produce smaller, traceable, verifiable images with reliable rollback capability.
 
 Improve CI security, reduce fork-related failures, and make release behavior auditable.
 
-#### 12. Add standardized observability and operations
+#### 11. Add standardized observability and operations
 
 **Actions**
 
@@ -216,10 +184,9 @@ Reduce production diagnosis time and provide visibility into real-world performa
 ### Phase 1 — Stabilization and critical risks
 
 1. Freeze a known-good baseline that builds and passes the current tests.
-2. ~~Validate MongoDB 8 compatibility with the selected persistence stack.~~ Done: migrated to Morphia 2 / `mongodb-driver-sync`, verified manually against MongoDB 8, alongside the Java 25 / Dropwizard 5 / Spring 7 upgrade.
-3. Update the migration tooling to use `mongosh`.
-4. Define authentication, authorization, CORS, and network-exposure requirements.
-5. Add the first backend integration tests.
+2. Update the migration tooling to use `mongosh`.
+3. Define authentication, authorization, CORS, and network-exposure requirements.
+4. Add the first backend integration tests.
 
 ### Phase 2 — Reliability and contracts
 
@@ -241,8 +208,8 @@ Reduce production diagnosis time and provide visibility into real-world performa
 
 If resources are limited, prioritize these three initiatives:
 
-1. ~~Make the MongoDB persistence stack officially compatible with MongoDB 8.~~ Done, alongside the Java 25 / Dropwizard 5 / Spring 7 upgrade.
-2. Establish application and network security controls.
-3. Add backend integration tests and make quality checks blocking.
+1. Establish application and network security controls.
+2. Add backend integration tests and make quality checks blocking.
+3. Formalize the API and add pagination/request limits to endpoints returning large lists.
 
 These initiatives provide the largest reduction in operational risk before a frontend rewrite or visual redesign.
