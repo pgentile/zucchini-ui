@@ -7,6 +7,7 @@ on:
 
 env:
   NODE_VERSION: "22"
+  PNPM_VERSION: "12.3.4"
 
 concurrency:
   group: update-browserslist
@@ -20,11 +21,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
           check-latest: true
+          cache: pnpm
+          cache-dependency-path: '**/pnpm-lock.yaml'
 
       # See https://github.com/browserslist/browserslist#browsers-data-updating
       - name: Run browserslist update
