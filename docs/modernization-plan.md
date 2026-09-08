@@ -2,7 +2,7 @@
 
 ## Executive summary
 
-Zucchini UI has completed its core backend platform modernization: it now runs on Java 25, Dropwizard 5 (Jetty 12 / Jakarta EE 10), Spring Framework 7, and a modern MongoDB persistence stack (`dev.morphia.morphia:morphia-core` 2.5.3 + `mongodb-driver-sync` 5.11.0), alongside React 18, Webpack 5, TypeScript 5.9, Cypress 15, and Node 22 in CI. Renovate also automates a large part of dependency maintenance.
+Zucchini UI has completed its core backend platform modernization: it now runs on Java 25, Dropwizard 5 (Jetty 12 / Jakarta EE 10), Spring Framework 7, and a modern MongoDB persistence stack (`dev.morphia.morphia:morphia-core` 2.5.3 + `mongodb-driver-sync` 5.11.0), alongside React 18, Webpack 5, TypeScript 5.9, Cypress 15, and Node 24 in CI. Renovate also automates a large part of dependency maintenance.
 
 The highest remaining risks are concentrated in process and coverage rather than in the age of the frameworks:
 

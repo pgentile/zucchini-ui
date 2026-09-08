@@ -137,7 +137,7 @@ pnpm lint
 ## Key conventions
 
 - Use the repository's Gradle wrapper instead of a local Gradle installation.
-- Java is compiled with Java 21, UTF-8, `-parameters`, and `-Werror` in `build.gradle`;
+- Java is compiled with Java 25, UTF-8, `-parameters`, and `-Werror` in `build.gradle`;
   this is enforced project-wide.
 - Frontend assets are built with webpack and copied into backend resources during the
   Gradle build. Changes that affect UI rendering often require a full Gradle build to
@@ -157,5 +157,4 @@ pnpm lint
 - Feature work usually has a clean boundary between backend Java code and frontend
   React code, but changes spanning both layers must be wired and validated across the
   root build.
-- CI uses Node 22 and Java 21. Project documentation may mention Node 20, but the CI
-  pipeline is the current compatibility reference.
+- CI uses Node 24 and Java 25; the CI pipeline is the current compatibility reference.

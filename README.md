@@ -22,7 +22,7 @@ Requirements
 ### Development
 
 * JDK 25
-* [Node](https://nodejs.org) 20
+* [Node](https://nodejs.org) 24
 * [PNPM](https://pnpm.io)
 
 Zucchini is built with [Gradle](https://gradle.org/). The Gradle wrapper is provided, no extra download is required.
