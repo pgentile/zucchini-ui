@@ -1,4 +1,4 @@
-import { Fragment as StrictMode, lazy } from "react";
+import { Fragment, lazy } from "react";
 import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -89,11 +89,11 @@ const router = createBrowserRouter(
 export default function AppRouter() {
   return (
     <ErrorBarrier className="m-4" name="App router">
-      <StrictMode>
+      <Fragment>
         <Provider store={store}>
           <RouterProvider router={router} />
         </Provider>
-      </StrictMode>
+      </Fragment>
     </ErrorBarrier>
   );
 }
