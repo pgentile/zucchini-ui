@@ -1,6 +1,4 @@
-import { createStore, applyMiddleware, compose } from "redux";
-import promise from "redux-promise-middleware";
-import thunkMiddleware from "redux-thunk";
+import { configureStore } from "@reduxjs/toolkit";
 import freezeMiddleware from "redux-freeze";
 
 import reducer from "./reducer";
@@ -12,26 +10,39 @@ import stepFiltersStorage from "./filters/stepFiltersStorage";
 import { default as createStorageMiddleware } from "./browserStorage/createMiddleware";
 import { default as createWebSocketMiddleware } from "./websocket/createMiddleware";
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+declare const process: { env: { NODE_ENV?: string } };
 
-const middlewares = [
+const customMiddlewares = [
   createWebSocketMiddleware("PRESENCE"),
   createStorageMiddleware(featureFiltersStorage, (state) => state.featureFilters),
   createStorageMiddleware(statsDashboardFiltersStorage, (state) => state.statsDashboardFilters),
   createStorageMiddleware(historyFiltersStorage, (state) => state.historyFilters),
   createStorageMiddleware(scenarioFiltersStorage, (state) => state.scenarioFilters),
-  createStorageMiddleware(stepFiltersStorage, (state) => state.stepFilters),
-  thunkMiddleware,
-  promise
+  createStorageMiddleware(stepFiltersStorage, (state) => state.stepFilters)
 ];
 
-// eslint-disable-next-line no-undef
-if (process.env.NODE_ENV !== "production") {
+const useFreezeMiddleware = process.env.NODE_ENV !== "production";
+
+if (useFreezeMiddleware) {
   // eslint-disable-next-line no-console
   console.info("%c ❄️ Using the freeze middleware. Bad mutable store updates will be detected!", "font-weight: bold");
-  middlewares.push(freezeMiddleware);
 }
 
-const initialState = {};
+const store = configureStore({
+  reducer,
+  preloadedState: {},
+  devTools: useFreezeMiddleware,
+  middleware: (getDefaultMiddleware) => {
+    const middleware = getDefaultMiddleware({
+      immutableCheck: false,
+      serializableCheck: false
+    }).prepend(...customMiddlewares);
 
-export default createStore(reducer, initialState, composeEnhancers(applyMiddleware(...middlewares)));
+    return useFreezeMiddleware ? middleware.concat(freezeMiddleware) : middleware;
+  }
+});
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+export default store;

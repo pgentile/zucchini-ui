@@ -20,9 +20,7 @@ export default function CreateTestRunDialog({ show, currentSelectedType, onClose
   };
 
   const handleSubmit = async (values) => {
-    const result = await dispatch(createTestRun(values));
-
-    const createdTestRun = result.value;
+    const createdTestRun = await dispatch(createTestRun(values)).unwrap();
     navigate(`/test-runs/${createdTestRun.id}`);
   };
 

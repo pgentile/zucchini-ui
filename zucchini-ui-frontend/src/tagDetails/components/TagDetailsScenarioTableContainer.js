@@ -1,5 +1,5 @@
-import { connect } from "react-redux";
-import { createSelector, createStructuredSelector } from "reselect";
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
 import sortBy from "lodash/sortBy";
 
 import { selectScenarioFilterFunc } from "../../filters/selectors";
@@ -44,8 +44,7 @@ const selectScenarios = createSelector(
   }
 );
 
-const selectProps = createStructuredSelector({
-  scenarios: selectScenarios
-});
-
-export default connect(selectProps)(TagDetailsScenarioTable);
+export default function TagDetailsScenarioTableContainer() {
+  const scenarios = useSelector(selectScenarios);
+  return <TagDetailsScenarioTable scenarios={scenarios} />;
+}

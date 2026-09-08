@@ -13,7 +13,7 @@ function DeleteTestRunButton() {
   const navigate = useNavigate();
 
   const handleDelete = async () => {
-    await dispatch(deleteTestRun({ testRunId }));
+    await dispatch(deleteTestRun({ testRunId })).unwrap();
     navigate(`/`, { replace: true });
   };
 

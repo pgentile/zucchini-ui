@@ -29,13 +29,13 @@ export default function AddCommentForm({ onCommentAdded }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const result = await dispatch(
+    const newComment = await dispatch(
       addScenarioCommentAndReload({
         scenarioId,
         comment
       })
     );
-    const newCommentId = result.value.id;
+    const newCommentId = newComment.id;
 
     reset();
 

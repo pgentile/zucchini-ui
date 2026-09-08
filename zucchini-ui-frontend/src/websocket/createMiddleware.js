@@ -1,5 +1,5 @@
 import SimpleWebSocket from "./SimpleWebSocket";
-import { createAction } from "redux-actions";
+import { createAction } from "@reduxjs/toolkit";
 
 export default function createWebSocketMiddleware(prefix) {
   const openActionName = `${prefix}/WS_OPEN`;
@@ -10,7 +10,7 @@ export default function createWebSocketMiddleware(prefix) {
   const openedAction = createAction(`${prefix}/WS_OPENED`);
   const closedAction = createAction(`${prefix}/WS_CLOSED`);
   const messageAction = createAction(`${prefix}/WS_MESSAGE`);
-  const errorAction = createAction(`${prefix}/WS_ERROR`);
+  const errorAction = createAction(`${prefix}/WS_ERROR`, (error) => ({ payload: error, error: true }));
 
   return (store) => {
     const createWebSocket = ({ url, onKeepAlive }) => {

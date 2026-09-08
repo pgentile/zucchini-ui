@@ -1,5 +1,5 @@
-import { connect } from "react-redux";
-import { createSelector, createStructuredSelector } from "reselect";
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
 import { createZeroStatsNumbers } from "../../testRun/model.js";
 
 import ReportsTable from "./ReportsTable";
@@ -58,8 +58,7 @@ const selectGroups = createSelector(
   }
 );
 
-const selectProps = createStructuredSelector({
-  groups: selectGroups
-});
-
-export default connect(selectProps)(ReportsTable);
+export default function ReportsTableContainer() {
+  const groups = useSelector(selectGroups);
+  return <ReportsTable groups={groups} />;
+}

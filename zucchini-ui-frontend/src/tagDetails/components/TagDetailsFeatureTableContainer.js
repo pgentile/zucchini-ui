@@ -1,5 +1,5 @@
-import { connect } from "react-redux";
-import { createSelector, createStructuredSelector } from "reselect";
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
 
 import { selectFeatureFilterFunc } from "../../filters/selectors";
 import FeatureTable from "../../ui/components/FeatureTable";
@@ -14,8 +14,7 @@ const selectFeatures = createSelector(
   }
 );
 
-const selectProps = createStructuredSelector({
-  features: selectFeatures
-});
-
-export default connect(selectProps)(FeatureTable);
+export default function TagDetailsFeatureTableContainer() {
+  const features = useSelector(selectFeatures);
+  return <FeatureTable features={features} />;
+}

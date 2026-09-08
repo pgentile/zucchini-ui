@@ -70,7 +70,7 @@ export default function PurgeDialog({ show, currentSelectedType, purgeDelayInDay
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    await dispatch(purgeTestRuns({ testRunIds: selectedTestRunIds }));
+    await dispatch(purgeTestRuns({ testRunIds: selectedTestRunIds })).unwrap();
     onClose();
   };
 

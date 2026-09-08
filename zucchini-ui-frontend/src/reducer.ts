@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+import { combineReducers } from "@reduxjs/toolkit";
 
 import { featureFilters, statsDashboardFilters, historyFilters, scenarioFilters, stepFilters } from "./filters/redux";
 import { testRuns } from "./testRuns/redux";
