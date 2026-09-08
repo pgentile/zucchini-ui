@@ -17,7 +17,7 @@ export default function TagFilterForm() {
   const dispatch = useDispatch();
 
   const updateStoreFilter = useMemo(() => {
-    const dispatchFilterChange = (filter) => dispatch(setTagFilter({ filter }));
+    const dispatchFilterChange = (filter) => dispatch(setTagFilter(filter));
     return debounce(dispatchFilterChange, 200);
   }, [dispatch]);
 
