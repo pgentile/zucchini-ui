@@ -1,12 +1,8 @@
-import { connect } from "react-redux";
-import { createSelector, createStructuredSelector } from "reselect";
+import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
 
 import FeatureHistoryTable from "./FeatureHistoryTable";
-
-const selectFeatureId = createSelector(
-  (state, ownProps) => ownProps.featureId,
-  (featureId) => featureId
-);
 
 const selectHistory = createSelector(
   (state) => state.feature.history,
@@ -29,11 +25,11 @@ const selectHistory = createSelector(
   }
 );
 
-const selectProps = createStructuredSelector({
-  featureId: selectFeatureId,
-  history: selectHistory
-});
+export default function FeatureHistoryTableContainer({ featureId }) {
+  const history = useSelector(selectHistory);
+  return <FeatureHistoryTable featureId={featureId} history={history} />;
+}
 
-const FeatureHistoryTableContainer = connect(selectProps)(FeatureHistoryTable);
-
-export default FeatureHistoryTableContainer;
+FeatureHistoryTableContainer.propTypes = {
+  featureId: PropTypes.string.isRequired
+};

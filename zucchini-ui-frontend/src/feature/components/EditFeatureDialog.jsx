@@ -49,7 +49,7 @@ export default function EditFeatureDialog({ show, onClose }) {
         featureId: feature.id,
         group
       })
-    );
+    ).unwrap();
 
     onClose();
   };

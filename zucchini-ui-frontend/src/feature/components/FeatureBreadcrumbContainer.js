@@ -1,5 +1,5 @@
-import { connect } from "react-redux";
-import { createSelector, createStructuredSelector } from "reselect";
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
 import queryString from "query-string";
 
 import Breadcrumb from "../../ui/components/Breadcrumb";
@@ -28,10 +28,7 @@ const selectBreadcumbItems = createSelector(
   }
 );
 
-const selectProps = createStructuredSelector({
-  items: selectBreadcumbItems
-});
-
-const FeatureBreadcrumbContainer = connect(selectProps)(Breadcrumb);
-
-export default FeatureBreadcrumbContainer;
+export default function FeatureBreadcrumbContainer() {
+  const items = useSelector(selectBreadcumbItems);
+  return <Breadcrumb items={items} />;
+}

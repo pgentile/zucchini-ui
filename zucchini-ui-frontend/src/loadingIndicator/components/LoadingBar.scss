@@ -22,7 +22,9 @@
   }
 
   &-pending {
-    transition: width linear 10s, opacity linear 500ms;
+    transition:
+      width linear 10s,
+      opacity linear 500ms;
     width: 70%;
     opacity: 1;
   }

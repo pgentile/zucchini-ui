@@ -13,7 +13,7 @@ export default function DeleteFeatureButton() {
   const { testRunId, id: featureId } = feature;
 
   const handleDelete = async () => {
-    await dispatch(deleteFeature({ featureId }));
+    await dispatch(deleteFeature({ featureId })).unwrap();
     navigate(`/test-runs/${testRunId}`, { replace: true });
   };
 

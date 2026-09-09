@@ -4,7 +4,8 @@
     "lib": ["ES2015", "dom"],
     "jsx": "react-jsx",
     "module": "es2020",
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    "skipLibCheck": true
   },
   "include": ["**/*.ts", "**/*.tsx"]
 }

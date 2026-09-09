@@ -11,7 +11,7 @@ export default function DeleteScenarioButton() {
   const navigate = useNavigate();
 
   const handleDelete = async () => {
-    await dispatch(deleteScenario({ scenarioId }));
+    await dispatch(deleteScenario({ scenarioId })).unwrap();
     navigate(`/features/${featureId}`, { replace: true });
   };
 
