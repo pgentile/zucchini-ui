@@ -31,8 +31,8 @@ importers:
         specifier: 10.1.8
         version: 10.1.8(eslint@8.57.1(supports-color@8.1.1))
       eslint-plugin-cypress:
-        specifier: 4.3.0
-        version: 4.3.0(eslint@8.57.1(supports-color@8.1.1))
+        specifier: 7.0.2
+        version: 7.0.2(@typescript-eslint/parser@6.21.0(eslint@8.57.1(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3))(eslint@8.57.1(supports-color@8.1.1))
       eslint-plugin-prettier:
         specifier: 5.5.6
         version: 5.5.6(eslint-config-prettier@10.1.8(eslint@8.57.1(supports-color@8.1.1)))(eslint@8.57.1(supports-color@8.1.1))(prettier@3.9.6)
@@ -483,10 +483,14 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
 
-  eslint-plugin-cypress@4.3.0:
-    resolution: {integrity: sha512-CgS/S940MJlT8jtnWGKI0LvZQBGb/BB0QCpgBOxFMM/Z6znD+PZUwBhCTwHKN2GEr5AOny3xB92an0QfzBGooQ==}
+  eslint-plugin-cypress@7.0.2:
+    resolution: {integrity: sha512-bJ46P9NYdXpqiO5Tn7rB5qQJ4r0TwFq7r9ZsOhUTK7wqF8MwinrNj6gB9Tt0xkJdKQE5FI1w3KY8VmPShje3MA==}
     peerDependencies:
-      eslint: '>=9'
+      '@typescript-eslint/parser': '>=8'
+      eslint: '>=10'
+    peerDependenciesMeta:
+      '@typescript-eslint/parser':
+        optional: true
 
   eslint-plugin-prettier@5.5.6:
     resolution: {integrity: sha512-ifetmTcxWfz+4qRW3pH/ujdTq2jQIj59AxJMIN26K5avYgU8dxycUETQonWiW+wPrYXA0j3Try0l1CnwVQtDqQ==}
@@ -651,8 +655,8 @@ packages:
     resolution: {integrity: sha512-AhO5QUcj8llrbG09iWhPU2B204J1xnPeL8kQmVorSsy+Sjj1sk8gIyh6cUocGmH4L0UuhAJy+hJMRA4mgA4mFQ==}
     engines: {node: '>=8'}
 
-  globals@15.15.0:
-    resolution: {integrity: sha512-7ACyT3wmyp3I61S4fG682L0VA2RGD9otkqGJIwNUMF1SWUombIIk+af1unuDYgMm082aHYwD+mzJvv9Iu8dsgg==}
+  globals@17.12.0:
+    resolution: {integrity: sha512-cezEd/DTyyht9cvSSURyygXPfy04GtWO/5e6ZPvH7fCtjKz9PYOmuawphw1Ctd1f6C+5JypXfGD7ahNMXvevBA==}
     engines: {node: '>=18'}
 
   globby@11.1.0:
@@ -1770,10 +1774,12 @@ snapshots:
     dependencies:
       eslint: 8.57.1(supports-color@8.1.1)
 
-  eslint-plugin-cypress@4.3.0(eslint@8.57.1(supports-color@8.1.1)):
+  eslint-plugin-cypress@7.0.2(@typescript-eslint/parser@6.21.0(eslint@8.57.1(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3))(eslint@8.57.1(supports-color@8.1.1)):
     dependencies:
       eslint: 8.57.1(supports-color@8.1.1)
-      globals: 15.15.0
+      globals: 17.12.0
+    optionalDependencies:
+      '@typescript-eslint/parser': 6.21.0(eslint@8.57.1(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)
 
   eslint-plugin-prettier@5.5.6(eslint-config-prettier@10.1.8(eslint@8.57.1(supports-color@8.1.1)))(eslint@8.57.1(supports-color@8.1.1))(prettier@3.9.6):
     dependencies:
@@ -1991,7 +1997,7 @@ snapshots:
     dependencies:
       type-fest: 0.20.2
 
-  globals@15.15.0: {}
+  globals@17.12.0: {}
 
   globby@11.1.0:
     dependencies:
