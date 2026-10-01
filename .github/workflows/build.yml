@@ -92,7 +92,7 @@ jobs:
         run: ./gradlew dockerComposeUp
 
       - name: Run Cypress tests
-        uses: cypress-io/github-action@v7.4.5
+        uses: cypress-io/github-action@v7.4.6
         with:
           working-directory: ./zucchini-ui-e2e-tests
           # Already installed
