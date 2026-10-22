@@ -24,6 +24,6 @@
     "eslint-plugin-prettier": "5.5.7",
     "npm-run-all2": "9.0.3",
     "prettier": "3.9.10",
-    "typescript": "5.9.3"
+    "typescript": "7.0.2"
   }
 }
