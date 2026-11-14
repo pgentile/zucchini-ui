@@ -10,10 +10,10 @@ importers:
     dependencies:
       '@testing-library/cypress':
         specifier: 10.1.3
-        version: 10.1.3(cypress@16.2.1)
+        version: 10.1.3(cypress@16.3.0)
       cypress:
-        specifier: 16.2.1
-        version: 16.2.1
+        specifier: 16.3.0
+        version: 16.3.0
     devDependencies:
       '@tsconfig/recommended':
         specifier: 1.0.14
@@ -393,8 +393,8 @@ packages:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
 
-  cypress@16.2.1:
-    resolution: {integrity: sha512-3Vqf1Krr92hKww/Owob9JrDO7TgBCR2ct+OQrvBOFGSnoGsikL4YF5arqDrJb+SM8Fzi7xXIeVmCeaOqJKPhRA==}
+  cypress@16.3.0:
+    resolution: {integrity: sha512-h5qq6G9wgNEMWEUFejeBwj7fzwJljrO54n3wAa7yW2Q/8ORnkq4tQBqUhY4g9UM5uOazKmr4ay8YcKi+SJJ1ng==}
     engines: {node: ^22.0.0 || ^24.0.0 || >=26.0.0}
     hasBin: true
 
@@ -1167,8 +1167,8 @@ packages:
     resolution: {integrity: sha512-U+/AXT6LWsxnj2vz9HeUuPWBNgdWxjyIEjEPdbJARC9txmgPzo2VEdqnFo4hHaNyMPtycyVJrSaQYeQv/PoyyA==}
     engines: {node: ^14.18.0 || >=16.0.0}
 
-  systeminformation@5.33.8:
-    resolution: {integrity: sha512-v4F6OGYGh7wDvV68YmjOmZwGixV9A/GQ7d2b84t0UF4CaOy9jipNWIJDkHqYDYiTPuiojqlwVQd0hfUKOUN7tQ==}
+  systeminformation@5.33.20:
+    resolution: {integrity: sha512-8Cd5qcDjE8bHums5QhSbXo69qDC5sqKY9H6dZXq+nHIoN9cq9cjJrpasHRWq2vTp19acpgc7VlJP6gRoKvV+dA==}
     engines: {node: '>=10.0.0'}
     os: [darwin, linux, win32, freebsd, openbsd, netbsd, sunos, android]
     hasBin: true
@@ -1376,11 +1376,11 @@ snapshots:
 
   '@pkgr/core@0.3.6': {}
 
-  '@testing-library/cypress@10.1.3(cypress@16.2.1)':
+  '@testing-library/cypress@10.1.3(cypress@16.3.0)':
     dependencies:
       '@babel/runtime': 7.29.7
       '@testing-library/dom': 10.4.1
-      cypress: 16.2.1
+      cypress: 16.3.0
 
   '@testing-library/dom@10.4.1':
     dependencies:
@@ -1657,7 +1657,7 @@ snapshots:
       shebang-command: 2.0.0
       which: 2.0.2
 
-  cypress@16.2.1:
+  cypress@16.3.0:
     dependencies:
       '@cypress/request': 4.0.1
       '@cypress/xvfb': 1.2.4(supports-color@8.1.1)
@@ -1693,7 +1693,7 @@ snapshots:
       proxy-from-env: 1.0.0
       request-progress: 3.0.0
       supports-color: 8.1.1
-      systeminformation: 5.33.8
+      systeminformation: 5.33.20
       tmp: 0.2.7
       tree-kill: 1.2.2
       untildify: 4.0.0
@@ -2459,7 +2459,7 @@ snapshots:
       '@dual-bundle/import-meta-resolve': 4.2.1
       '@pkgr/core': 0.3.6
 
-  systeminformation@5.33.8: {}
+  systeminformation@5.33.20: {}
 
   text-table@0.2.0: {}
 
