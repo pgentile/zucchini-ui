@@ -139,8 +139,8 @@ importers:
         specifier: 29.17.0
         version: 29.17.0(@typescript-eslint/eslint-plugin@6.21.0(@typescript-eslint/parser@6.21.0(eslint@8.57.1(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3))(eslint@8.57.1(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3))(eslint@8.57.1(supports-color@8.1.1))(jest@30.0.5(@types/node@26.4.1)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)
       eslint-plugin-jest-dom:
-        specifier: 5.10.1
-        version: 5.10.1(@testing-library/dom@9.3.4)(eslint@8.57.1(supports-color@8.1.1))
+        specifier: 5.10.2
+        version: 5.10.2(@testing-library/dom@9.3.4)(eslint@8.57.1(supports-color@8.1.1))
       eslint-plugin-prettier:
         specifier: 5.5.7
         version: 5.5.7(@types/eslint@8.56.12)(eslint-config-prettier@10.1.8(eslint@8.57.1(supports-color@8.1.1)))(eslint@8.57.1(supports-color@8.1.1))(prettier@3.9.10)
@@ -2770,8 +2770,8 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
 
-  eslint-plugin-jest-dom@5.10.1:
-    resolution: {integrity: sha512-IIJdzbACbhJUJyMAqpA9E9gxp1Gv29TeQ3DtL+pepwP8Oq2WiqjOB2HbnEIs23h0ewdKIZRDI56yLro2eUO+DA==}
+  eslint-plugin-jest-dom@5.10.2:
+    resolution: {integrity: sha512-Ij9pCRrBNPEUKqg0oMUv8aMjGzPKdpayOarDW3zWmYdtQ2dt7lZ7myppA2KwJMUJhhHAtSWY5Pgg7iMjC6w6JA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0, npm: '>=6', yarn: '>=1'}
     peerDependencies:
       '@testing-library/dom': ^8.0.0 || ^9.0.0 || ^10.0.0
@@ -8540,7 +8540,7 @@ snapshots:
     dependencies:
       eslint: 8.57.1(supports-color@8.1.1)
 
-  eslint-plugin-jest-dom@5.10.1(@testing-library/dom@9.3.4)(eslint@8.57.1(supports-color@8.1.1)):
+  eslint-plugin-jest-dom@5.10.2(@testing-library/dom@9.3.4)(eslint@8.57.1(supports-color@8.1.1)):
     dependencies:
       eslint: 8.57.1(supports-color@8.1.1)
       requireindex: 1.2.0
