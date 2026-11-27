@@ -19,7 +19,7 @@
     "@typescript-eslint/eslint-plugin": "6.21.0",
     "@typescript-eslint/parser": "6.21.0",
     "eslint": "8.57.1",
-    "eslint-config-prettier": "10.1.8",
+    "eslint-config-prettier": "10.1.9",
     "eslint-plugin-cypress": "4.3.0",
     "eslint-plugin-prettier": "5.5.7",
     "npm-run-all2": "9.1.0",
