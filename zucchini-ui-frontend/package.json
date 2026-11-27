@@ -44,7 +44,7 @@
     "jest-environment-jsdom": "30.0.5",
     "jest-junit": "17.0.0",
     "mini-css-extract-plugin": "2.10.2",
-    "postcss": "8.5.33",
+    "postcss": "8.5.34",
     "postcss-loader": "8.2.2",
     "prettier": "3.10.1",
     "react-test-renderer": "18.3.1",
